@@ -99,9 +99,9 @@ Feature: Backup and Restore
     Then UI "Validate" Forensics With Name "Forensic backup restore"
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                             |
       | Criteria              | Event Criteria:Attack ID,Operator:Not Equals,Value:123; Event Criteria:Attack ID,Operator:Not Equals,Value:1234;                                                                                                                             |
-      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
+#      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
       | Format                | Select: HTML                                                                                                                                                                                                                                 |
-      | Share                 | FTP:checked, FTP.Location:my.ftp.server, FTP.Path:/backup, FTP.Username:user1, FTP.Password:1234                                                                                                                                             |
+#      | Share                 | FTP:checked, FTP.Location:my.ftp.server, FTP.Path:/backup, FTP.Username:user1, FTP.Password:1234                                                                                                                                             |
 
   @SID_16
   Scenario: Restore validation AMS forensic results
