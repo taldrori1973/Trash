@@ -1,12 +1,13 @@
 @TC113208
 Feature: AMS DefenseFlow Activations Dashboard
-
   @SID_1
   Scenario: revert DefenseFlow to snapshot
     Then Revert DefenseFlow to snapshot
     * CLI kill all simulator attacks on current vision
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Delete ES index "df-attack*"
+    * REST Delete ES index "df-activation*"
+    * REST Delete ES index "df-daily-activation*"
     * CLI Clear vision logs
 
 
@@ -341,20 +342,17 @@ Feature: AMS DefenseFlow Activations Dashboard
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Do Operation "Select" item "Global Time Filter"
-    And UI select time range from "-3d" to "-1m"
-
   @SID_18
   Scenario: Validate DDoS Peak Attack per Period (bits) - All POs
     Then UI Validate Line Chart data "DDoS Peak Attack per Period" with LabelTime
-      | value         | countOffset | time |
-      | 1231371200000 | 100         | -0d  |
+      | value         | count | offset |
+      | 1231371200000 | 1     | 100    |
 
   @SID_19
   Scenario: Validate DDos Attack Activations per Period - ALL of POs
     Then UI Validate Line Chart data "DDoS Attack Activations per Period" with LabelTime
-      | value | countOffset | time |
-      | 14    | 0           | -0d  |
+      | value | count | offset |
+      | 14    | 1     | 1      |
 
   @SID_20
   Scenario: Validate Top 10 Attacks by duration
@@ -447,22 +445,17 @@ Feature: AMS DefenseFlow Activations Dashboard
     Then UI Validate Text field "Top 10 maxPacketRatePps value" with params "9" EQUALS "5087.00"
 
 
-  @SID_23
-  Scenario: change Time range to -3d
-    Then UI Do Operation "Select" item "Global Time Filter"
-    And UI select time range from "-3d" to "-1m"
-
   @SID_24
   Scenario: Validate DDoS Peak Attack per Period (bits) - All POs
     Then UI Validate Line Chart data "DDoS Peak Attack per Period" with LabelTime
-      | value         | countOffset | time |
-      | 1231371200000 | 100         | -0d  |
+      | value         | count | offset |
+      | 1231371200000 | 1     | 100    |
 
   @SID_25
   Scenario: Validate DDos Attack Activations per Period - ALL of POs
     Then UI Validate Line Chart data "DDoS Attack Activations per Period" with LabelTime
-      | value | countOffset | time |
-      | 14    | 0           | -0d  |
+      | value | count | offset |
+      | 14    | 1     | 1      |
 
   @SID_26
   Scenario: Validate Top 10 Attacks by duration
@@ -518,20 +511,19 @@ Feature: AMS DefenseFlow Activations Dashboard
       | PO_104 |
       | PO_105 |
       | PO_106 |
-    Then UI Do Operation "Select" item "Global Time Filter"
-    And UI select time range from "-3d" to "-1m"
+
 
   @SID_30
   Scenario: Validate DDoS Peak Attack per Selected Period - 3 PO's
     Then UI Validate Line Chart data "DDoS Peak Attack per Period" with LabelTime
-      | value        | countOffset | time |
-      | 511371200000 | 100         | -0d  |
+      | value        | count | offset |
+      | 511371200000 | 1     | 100    |
 
   @SID_31
   Scenario: Validate DDoS Attack Activations per Selected Period - 3 PO's
     Then UI Validate Line Chart data "DDoS Attack Activations per Period" with LabelTime
-      | value | countOffset | time |
-      | 3     | 0           | -0d  |
+      | value | count | offset |
+      | 3     | 1     | 1   |
 
   @SID_32
   Scenario: Validate Top 10 Attacks by duration 3 PO's
