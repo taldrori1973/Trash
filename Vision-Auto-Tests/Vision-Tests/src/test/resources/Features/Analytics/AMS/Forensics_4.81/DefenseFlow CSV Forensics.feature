@@ -32,14 +32,10 @@ Feature: DefenseFlow CSV Forensics
       | "/home/radware/curl_DF_attacks-auto_PO_300.sh " |
       | #visionIP                                       |
       | " Terminated"                                   |
-
-
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
-
- 
   @SID_4
   Scenario: VRM - Login to VRM "Wizard" Test and enable emailing
     Given UI Login with user "sys_admin" and password "radware"
@@ -61,8 +57,8 @@ Feature: DefenseFlow CSV Forensics
     Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_5
-  Scenario: create new Forensics_DefenseFlow and validate
-    When UI "Create" Forensics With Name "Forensics_DefenseFlow"
+  Scenario: create new first Forensics_DefenseFlow_without_Schedule and validate
+    When UI "Create" Forensics With Name "Forensics_DefenseFlow_without_Schedule"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                                   |
       | Protected Objects     | All                                                                                                                                                                                                                                                                                                           |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
@@ -72,22 +68,22 @@ Feature: DefenseFlow CSV Forensics
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
 
   @SID_6
-  Scenario: Clear FTP server logs and generate the report
-    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow*.zip /home/radware/ftp/Forensics_DefenseFlow*.csv" on "GENERIC_LINUX_SERVER"
+  Scenario: Clear FTP server logs and generate the Forensics_DefenseFlow_without_Schedule
+    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow_without_Schedule*.zip /home/radware/ftp/Forensics_DefenseFlow_without_Schedule*.csv" on "GENERIC_LINUX_SERVER"
 
   @SID_7
-  Scenario: Validate delivery card and generate Forensics
-    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
+  Scenario: Validate delivery card and generate Forensics_DefenseFlow_without_Schedule
+    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow_without_Schedule"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow_without_Schedule"
     Then Sleep "35"
 
   @SID_8
-  Scenario: Validate Forensics.Table
-    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
+  Scenario: Validate The table in  Forensics_DefenseFlow_without_Schedule
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow_without_Schedule,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
 
   @SID_9
-  Scenario: Validate Threat Category
+  Scenario: Validate Threat Category Forensics_DefenseFlow_without_Schedule
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Threat Category" findBy cellValue "Behavioral DoS"
     And UI Click Button "Refine View"
     And UI Click Button "Refine by"
@@ -97,7 +93,7 @@ Feature: DefenseFlow CSV Forensics
     And UI Click Button "Clear Refine"
 
   @SID_10
-  Scenario: Validate Attack Name
+  Scenario: Validate Attack Name Forensics_DefenseFlow_without_Schedule
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "HTTP (recv.pps)"
     And UI Click Button "Refine View"
     And UI Click Button "Refine by"
@@ -170,7 +166,7 @@ Feature: DefenseFlow CSV Forensics
     And UI Click Button "Clear Refine"
 
   @SID_11
-  Scenario: Validate Action
+  Scenario: Validate Action Forensics_DefenseFlow_without_Schedule
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Action" findBy cellValue "Drop"
     And UI Click Button "Refine View"
     And UI Click Button "Refine by"
@@ -180,7 +176,7 @@ Feature: DefenseFlow CSV Forensics
     And UI Click Button "Clear Refine"
 
   @SID_12
-  Scenario: Validate Protocol
+  Scenario: Validate Protocol Forensics_DefenseFlow_without_Schedule
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "IP"
     And UI Click Button "Refine View"
     And UI Click Button "Refine by"
@@ -198,79 +194,79 @@ Feature: DefenseFlow CSV Forensics
 
 
   @SID_13
-  Scenario: Unzip CSV file
-    Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_DefenseFlow*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
+  Scenario: Unzip CSV file Forensics_DefenseFlow_without_Schedule
+    Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_DefenseFlow_without_Schedule*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
   @SID_14
-  Scenario: Validate the First line in Forensics_DefenseFlow_*.csv File
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "279"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "End Time"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Threat Category"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack Name"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $6}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Policy Name"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $7}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Action"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $8}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack ID"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $9}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $10}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $11}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $12}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $13}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Direction"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Protocol"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Radware ID"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Duration"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $17}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Packets"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Max PPS"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Mbits"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Max BPS"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $22}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $23}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Vlan tag"
+  Scenario: Validate the First line in Forensics_DefenseFlow_without_Schedule_*.csv File 
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "279"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "End Time"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Threat Category"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack Name"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $6}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Policy Name"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $7}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Action"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $8}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack ID"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $9}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $10}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $11}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $12}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $13}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Direction"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Protocol"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Radware ID"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Duration"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $17}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Packets"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Max PPS"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Mbits"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Max BPS"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $22}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $23}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Vlan tag"
 
   @SID_15
-  Scenario: Validate Threat Category
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $4}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  BehavioralDOS|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
+  Scenario: Validate Threat Category Forensics_DefenseFlow_without_Schedule
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv| awk -F "," '{print $4}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  BehavioralDOS|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
 
   @SID_16
-  Scenario: Validate Attack Name
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $5}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "11"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  'HTTP (recv.pps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "150"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  'HTTP (recv.bps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  'Total (recv.pps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "4"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  'Total (recv.bps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "19"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  'UDP Port 0 (recv.pps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "33"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  network\ flood\ IPv6\ UDP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "18"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  network\ flood\ IPv4\ UDP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "12"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  network\ flood\ IPv4\ TCP-SYN|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "8"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  HTTPS\ Flood\ Protection|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  External\ report|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  DOSS-NTP-monlist-flood|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "17"
+  Scenario: Validate Attack Name Forensics_DefenseFlow_without_Schedule
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv| awk -F "," '{print $5}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "11"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  'HTTP (recv.pps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "150"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  'HTTP (recv.bps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  'Total (recv.pps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "4"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  'Total (recv.bps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "19"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  'UDP Port 0 (recv.pps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "33"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  network\ flood\ IPv6\ UDP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "18"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  network\ flood\ IPv4\ UDP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "12"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  network\ flood\ IPv4\ TCP-SYN|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "8"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  HTTPS\ Flood\ Protection|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  External\ report|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  DOSS-NTP-monlist-flood|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "17"
 
   @SID_17
-  Scenario: Validate Action
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $7}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  Drop|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
+  Scenario: Validate Action Forensics_DefenseFlow_without_Schedule
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv| awk -F "," '{print $7}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |grep -w  Drop|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
 
   @SID_18
-  Scenario: Validate Protocol
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "5"
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep ICMP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep -w IP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep NonIP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "76"
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep TCP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "151"
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep UDP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "33"
+  Scenario: Validate Protocol Forensics_DefenseFlow_without_Schedule
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv| awk -F "," '{print $14}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "5"
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv| awk -F "," '{print $14}' | grep ICMP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv| awk -F "," '{print $14}' | grep -w IP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv| awk -F "," '{print $14}' | grep NonIP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "76"
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv| awk -F "," '{print $14}' | grep TCP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "151"
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv| awk -F "," '{print $14}' | grep UDP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "33"
 
   @SID_19
-  Scenario: Delete Forensics
-    Then UI Delete Forensics With Name "Forensics_DefenseFlow"
+  Scenario: Delete Forensics Forensics_DefenseFlow_without_Schedule
+    Then UI Delete Forensics With Name "Forensics_DefenseFlow_without_Schedule"
 
  
   @SID_20
-  Scenario: create new Forensics_DefenseFlow and validate
-    When UI "Create" Forensics With Name "Forensics_DefenseFlow"
+  Scenario: create new Forensics_DefenseFlow_with_Schedule and validate - 1
+    When UI "Create" Forensics With Name "Forensics_DefenseFlow_with_Schedule"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                                   |
       | Protected Objects     | All                                                                                                                                                                                                                                                                                                           |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
@@ -281,82 +277,82 @@ Feature: DefenseFlow CSV Forensics
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                   |
  
   @SID_21
-  Scenario: Clear FTP server logs and generate the report
+  Scenario: Clear FTP server logs and generate the Forensics_DefenseFlow_with_Schedule
     Then Sleep "100"
-#    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
-#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
+#    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow_with_Schedule"
+#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow_with_Schedule"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
-    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow*.zip /home/radware/ftp/Forensics_DefenseFlow*.csv" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow_with_Schedule*.zip /home/radware/ftp/Forensics_DefenseFlow_with_Schedule*.csv" on "GENERIC_LINUX_SERVER"
  
   @SID_22
-  Scenario: Validate Forensics.Table
+  Scenario: Validate The table in  Forensics_DefenseFlow_with_Schedule
     Then UI Click Button "My Forensics Tab"
-    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
-    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
+    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow_with_Schedule"
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow_with_Schedule,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
  
   @SID_23
-  Scenario: Unzip CSV file
-    Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_DefenseFlow*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
+  Scenario: Unzip CSV file Table
+    Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_DefenseFlow_with_Schedule*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
  
   @SID_24
-  Scenario: Validate the First line in Forensics_DefenseFlow_*.csv File
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "279"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "End Time"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Threat Category"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack Name"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $6}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Policy Name"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $7}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Action"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $8}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack ID"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $9}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $10}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $11}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $12}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $13}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Direction"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Protocol"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Radware ID"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Duration"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $17}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Packets"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Max PPS"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Mbits"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Max BPS"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $22}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $23}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Vlan tag"
+  Scenario: Validate the First line in Forensics_DefenseFlow_with_Schedule_*.csv File
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "279"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "End Time"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Threat Category"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack Name"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $6}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Policy Name"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $7}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Action"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $8}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack ID"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $9}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $10}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $11}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $12}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $13}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Direction"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Protocol"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Radware ID"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Duration"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $17}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Packets"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Max PPS"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Mbits"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Max BPS"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $22}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $23}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Vlan tag"
  
   @SID_25
-  Scenario: Validate Threat Category
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $4}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  BehavioralDOS|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
+  Scenario: Validate Threat Category Forensics_DefenseFlow_with_Schedule
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv| awk -F "," '{print $4}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv |grep -w  BehavioralDOS|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
  
   @SID_26
-  Scenario: Validate Attack Name
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $5}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "11"
+  Scenario: Validate Attack Name Forensics_DefenseFlow_with_Schedule
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv| awk -F "," '{print $5}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "11"
  
   @SID_27
-  Scenario: Validate Action
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $7}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  Drop|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
+  Scenario: Validate Action Forensics_DefenseFlow_with_Schedule
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv| awk -F "," '{print $7}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv |grep -w  Drop|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
  
   @SID_28
-  Scenario: Validate Protocol
-    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "5"
+  Scenario: Validate Protocol Forensics_DefenseFlow_with_Schedule
+    Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_with_Schedule_*.csv| awk -F "," '{print $14}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "5"
  
   @SID_29
-  Scenario: Delete Forensics
-    Then UI Delete Forensics With Name "Forensics_DefenseFlow"
+  Scenario: Delete Forensics Forensics_DefenseFlow_with_Schedule
+    Then UI Delete Forensics With Name "Forensics_DefenseFlow_with_Schedule"
  
   @SID_30
-  Scenario: Clear SMTP server log files
+  Scenario: Clear SMTP server log files Forensics before the create
     Given Clear email history for user "setup"
    
   @SID_31
-  Scenario: create new Forensics_DefenseFlow and validate
-    When UI "Create" Forensics With Name "Forensics_DefenseFlow"
+  Scenario: create new Forensics_DefenseFlow_with_Share_Email and validate - 2
+    When UI "Create" Forensics With Name "Forensics_DefenseFlow_with_Share_Email"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
       | Protected Objects     | All                                                                                                                                                                                                                                                                                               |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
@@ -366,14 +362,14 @@ Feature: DefenseFlow CSV Forensics
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                       |
   
   @SID_32
-  Scenario: Validate delivery card and generate Forensics
-    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
+  Scenario: Validate delivery card and generate Forensics - 2
+    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow_with_Share_Email"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow_with_Share_Email"
     Then Sleep "35"
 
   @SID_33
-  Scenario: Validate Forensics.Table
-    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
+  Scenario: Validate Forensics.Table - 2
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow_with_Share_Email,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
 
   @SID_34
@@ -388,12 +384,12 @@ Feature: DefenseFlow CSV Forensics
     Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "1"
     
   @SID_35
-  Scenario: Clear SMTP server log files
+  Scenario: Clear SMTP server log files Forensics after the create
     Given Clear email history for user "setup"
 
   @SID_36
-  Scenario: Delete Forensics
-    Then UI Delete Forensics With Name "Forensics_DefenseFlow"
+  Scenario: Delete Forensics - 3
+    Then UI Delete Forensics With Name "Forensics_DefenseFlow_with_Share_Email"
 
   @SID_37
   Scenario: Logout

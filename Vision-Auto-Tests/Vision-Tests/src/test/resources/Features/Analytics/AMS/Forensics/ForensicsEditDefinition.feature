@@ -60,7 +60,7 @@ Feature: Forensics Edit Definition
       | Criteria | Event Criteria:Protocol,Operator:Not Equals,Value:IP |
     Then UI Click Button "My Forensics" with value "Test Edit"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
-    Then Sleep "35"
+    Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Test Edit,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 

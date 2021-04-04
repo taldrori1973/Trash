@@ -244,12 +244,12 @@ Feature: EAAF
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "EAAF Hits Timeline3"
       | Template              | reportType:ERT Active Attackers Feed , Widgets:[{EAAF Hits Timeline:[Events]}],devices:[All] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                         |
       | Format                | Select: HTML                                                            |
     Then UI "Validate" Report With Name "EAAF Hits Timeline3"
       | Template              | reportType:ERT Active Attackers Feed , Widgets:[{EAAF Hits Timeline:[Events]}],devices:[All] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                         |
       | Format                | Select: HTML                                                            |
     Then UI Delete Report With Name "EAAF Hits Timeline3"
@@ -312,12 +312,12 @@ Feature: EAAF
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Totals in Selected Time Frame3"
       | Template              | reportType:ERT Active Attackers Feed , Widgets:[Totals in Selected Time Frame],devices:[All] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                         |
       | Format                | Select: HTML                                                            |
     Then UI "Validate" Report With Name "Totals in Selected Time Frame3"
       | Template              | reportType:ERT Active Attackers Feed , Widgets:[Totals in Selected Time Frame],devices:[All] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                         |
       | Format                | Select: HTML                                                            |
     Then UI Delete Report With Name "Totals in Selected Time Frame3"

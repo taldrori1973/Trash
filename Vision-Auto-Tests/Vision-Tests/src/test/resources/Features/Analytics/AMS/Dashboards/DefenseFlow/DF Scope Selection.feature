@@ -14,7 +14,7 @@ Feature: DF Scope Selection
   Scenario: Select All Validation
     Given UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "true"
     Then UI validate Checkbox by label "Device Selection.All Devices Selection" with extension "" if Selected "true"
-    Then UI Validate Text field "Checked Number" CONTAINS "203 / 203"
+    Then UI Validate Text field "Checked Number" CONTAINS "208 / 208"
     And UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "false"
 
   @SID_3

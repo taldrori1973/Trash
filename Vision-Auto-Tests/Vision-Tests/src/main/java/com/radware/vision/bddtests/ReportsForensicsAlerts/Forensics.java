@@ -356,7 +356,10 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     private void validateFTP(JSONObject deliveryJson, Map<String, String> map, StringBuilder errorMessage) {
         if (deliveryJson.isNull("ftp"))
+        {
             errorMessage.append("The Expected share type is ftp but Actual no FTP in the definition");
+            return;
+        }
         JSONObject ftpActualJSON = new JSONObject(new JSONArray(deliveryJson.get("ftp").toString()).get(0).toString());
         JSONObject ftpExpectedJSON = new JSONObject(map.get("Share"));
         if (!ftpActualJSON.getString("path").equals(ftpExpectedJSON.get("FTP.Path")))

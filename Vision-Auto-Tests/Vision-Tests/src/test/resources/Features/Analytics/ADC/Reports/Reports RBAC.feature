@@ -14,9 +14,9 @@ Feature: DPM - ADC Reports RBAC
     Given UI Login with user "radware" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
     Given UI "Create" Report With Name "App Report"
-      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_32326515:88] |
+      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[6:80] |
     Then UI "Validate" Report With Name "App Report"
-      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_32326515:88] |
+      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[6:80] |
 
 
 #    Then UI "Create" DPMReport With Name "All_apps"
