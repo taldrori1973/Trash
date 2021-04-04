@@ -28,7 +28,7 @@ Feature: IPv6 CLI - NTP test
   Scenario: Verify NTP server IPv6 is synchonized
     # verify NTP is sync
     #Then Sleep "60"
-    Then CLI Run linux Command "system ntp service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "*200a::1001:1001" in any line Retry 900 seconds
+    Then CLI Run linux Command "system ntp service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "200a::1001:1001" in any line Retry 900 seconds
     Then CLI Operations - Run Root Session command "pwd"
     Then CLI Run linux Command "ntpstat|tail -0;echo $?" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 600 seconds
 
