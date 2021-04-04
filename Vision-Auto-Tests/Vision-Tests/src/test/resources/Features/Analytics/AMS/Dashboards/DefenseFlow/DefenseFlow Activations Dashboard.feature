@@ -342,6 +342,8 @@ Feature: AMS DefenseFlow Activations Dashboard
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
+    Then UI Do Operation "Select" item "Global Time Filter"
+    And UI select time range from "-6m" to "-1m"
   @SID_18
   Scenario: Validate DDoS Peak Attack per Period (bits) - All POs
     Then UI Validate Line Chart data "DDoS Peak Attack per Period" with LabelTime
