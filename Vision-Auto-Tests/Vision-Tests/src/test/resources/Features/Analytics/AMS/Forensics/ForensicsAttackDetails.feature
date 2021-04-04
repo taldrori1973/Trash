@@ -277,7 +277,7 @@ Feature: Forensic Attack details Tests
     Then Delete downloaded file with name "attack_800-1525623158_packets.pcap"
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Forensics.Attack Details.DownloadPCAP"
-    Then Validate downloaded file size with name "attack_800-1525623158_packets.pcap" equal to 304
+#    Then Validate downloaded file size with name "attack_800-1525623158_packets.pcap" equal to 304
     Then Delete downloaded file with name "attack_800-1525623158_packets.pcap"
     When UI Click Button "Forensics.Attack Details.Close"
     And UI logout and close browser

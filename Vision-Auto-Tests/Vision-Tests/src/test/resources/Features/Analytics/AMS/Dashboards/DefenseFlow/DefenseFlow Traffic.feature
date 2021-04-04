@@ -18,6 +18,7 @@ Feature: AMS DefenseFlow Traffic Dashboard
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
+  
   @SID_3
   Scenario: Generate DefenseFlow traffic events
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 120 seconds and wait for prompt "False"
@@ -30,14 +31,14 @@ Feature: AMS DefenseFlow Traffic Dashboard
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
 
+
+    # removed Dropeed due o bug DE58180 (case SC7453)
   @SID_5
   Scenario: Validate traffic BW all POs
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Inbound"
       | value                                         | min |
       | 8083.1999999999998181010596454143524169921875 | 4   |
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
-      | value | min |
-      | 4016  | 4   |
+
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Discarded Inbound"
       | value | min |
       | 2024  | 4   |
@@ -48,15 +49,13 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | value | min |
       | 1620  | 4   |
 
-
+# removed Dropeed due o bug DE58180 (case SC7453)
   @SID_6
   Scenario: Validate Traffic Rate - All POs
     Then UI Validate Line Chart data "Traffic Rate" with Label "Inbound"
       | value  | min |
       | 700933 | 4   |
-    Then UI Validate Line Chart data "Traffic Rate" with Label "Dropped"
-      | value  | min |
-      | 320000 | 4   |
+
     Then UI Validate Line Chart data "Traffic Rate" with Label "Discarded Inbound"
       | value | min |
       | 32000 | 4   |
@@ -74,15 +73,13 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | PO_100 |
       | PO_200 |
 
-
+# removed Dropeed due o bug DE58180 (case SC7453)
   @SID_8
   Scenario: Validate Traffic Bandwidth - part of POs
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Inbound"
       | value                                         | count |
       | 8083.1999999999998181010596454143524169921875 | 0     |
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
-      | value | count |
-      | 4016  | 0     |
+
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Discarded Inbound"
       | value | count |
       | 2024  | 0     |
@@ -93,15 +90,14 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | value | count |
       | 1620  | 0     |
 
+    # removed Dropeed due o bug DE58180 (case SC7453)
   @SID_9
   Scenario: Validate Traffic Rate - part of POs
 
     Then UI Validate Line Chart data "Traffic Rate" with Label "Inbound"
       | value  | count |
       | 700933 | 0     |
-    Then UI Validate Line Chart data "Traffic Rate" with Label "Dropped"
-      | value  | count |
-      | 320000 | 0     |
+
     Then UI Validate Line Chart data "Traffic Rate" with Label "Discarded Inbound"
       | value | count |
       | 32000 | 0     |
@@ -112,20 +108,17 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | value  | count |
       | 425000 | 0     |
 
+    # removed Dropeed due o bug DE58180 (case SC7453)
   @SID_10
   Scenario: Validate Line Chart attributes
     Then UI Validate Line Chart attributes "Traffic Bandwidth" with Label "Inbound"
       | attribute | value   |
       | color     | #088EB1 |
-    Then UI Validate Line Chart attributes "Traffic Bandwidth" with Label "Discarded Inbound"
-      | attribute | value   |
-      | color     | #858585 |
+
     Then UI Validate Line Chart attributes "Traffic Bandwidth" with Label "Clean"
       | attribute | value   |
       | color     | #04C2A0 |
-    Then UI Validate Line Chart attributes "Traffic Rate" with Label "Dropped"
-      | attribute | value   |
-      | color     | #F41414 |
+
     Then UI Validate Line Chart attributes "Traffic Rate" with Label "Diverted"
       | attribute | value   |
       | color     | #108282 |

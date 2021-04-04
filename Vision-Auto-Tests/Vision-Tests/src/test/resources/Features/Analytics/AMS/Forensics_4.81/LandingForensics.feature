@@ -2,6 +2,7 @@
 
 Feature: Landing Forensics
 
+  
   @SID_1
   Scenario: Login and Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -9,13 +10,19 @@ Feature: Landing Forensics
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value  |
-      | httpPassword  | kavado |
-      | httpsPassword | kavado |
-      | httpsUsername | admin  |
-      | httpUsername  | admin  |
-      | visionMgtPort | G1     |
-    And Sleep "10"
+      | attribute     | value    |
+      | httpPassword  | 1qaz!QAZ |
+      | httpsPassword | 1qaz!QAZ |
+      | httpsUsername | user1    |
+      | httpUsername  | user1    |
+      | visionMgtPort | G1       |
+    And Sleep "5"
+    Given add 200 applications with prefix name "app" to appWall ip:"172.17.164.30" with timeout 300
+    Given add 200 applications with prefix name "my_app" to appWall ip:"172.17.164.30" with timeout 300
+    Given add 200 applications with prefix name "radware_app" to appWall ip:"172.17.164.30" with timeout 300
+    Given add 150 applications with prefix name "radware_application" to appWall ip:"172.17.164.30" with timeout 300
+    Given add 50 applications with prefix name "application" to appWall ip:"172.17.164.30" with timeout 300
+    And Sleep "45"
     * CLI Clear vision logs
     Then UI Navigate to "AMS Forensics" page via homepage
 
@@ -132,18 +139,19 @@ Feature: Landing Forensics
 
 
 #-------------------------- AppWall----------------------------------------
+  
   @SID_17
   Scenario: create new AppWall Forensics and validate
     Then UI Click Button "New Forensics Tab"
     When UI "Create" Forensics With Name "AppWall Forensics"
       | Product      | AppWall                                                                        |
-      | Applications | 172.17.167.177                                                                 |
+      | Applications | A1                                                                 |
       | Share        | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format       | Select: CSV                                                                    |
       | Output       | Action                                                                         |
     Given UI "Validate" Forensics With Name "AppWall Forensics"
       | Product           | AppWall                                                                        |
-      | Protected Objects | 172.17.167.177                                                                 |
+      | Protected Objects | A1                                                                 |
       | Share             | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format            | Select: CSV                                                                    |
       | Output            | Action                                                                         |

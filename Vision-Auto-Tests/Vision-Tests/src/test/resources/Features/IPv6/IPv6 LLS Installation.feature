@@ -70,7 +70,7 @@ Feature: IPv6 LLS-GEL Installation
   Scenario: verify lls service status is running after UAT install
     When CLI Operations - Run Radware Session command "system lls service status"
     Then CLI Operations - Verify that output contains regex ".*Local License Server is running.*"
-    Then CLI Operations - Verify that output contains regex ".*BackOfficeURL: https://flex1336-uat.flexnetoperations.com/flexnet/deviceservices*"
+    Then CLI Operations - Verify that output contains regex ".*BackOfficeURL: https://radware-uat.flexnetoperations.com/flexnet/deviceservices*"
 
   @SID_12
   Scenario: install lls offline mode

@@ -29,10 +29,10 @@ Feature: HTTPSGenerateReport
   @SID_5
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
     Given CLI simulate 1 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 15000 and wait 60 seconds
+    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
 
   @SID_6
   Scenario: Inbound Traffic - Real-Time Traffic
-    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
     Then Validate Line Chart data "Inbound Traffic-HTTPS Flood" with Label "Transitory Baseline" in report "HTTPSGenerateReport"
       | value | min |
       | 17200 | 50  |
