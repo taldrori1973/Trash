@@ -617,10 +617,11 @@ Feature: DP ANALYTICS
   @SID_44
   Scenario: NEGATIVE - Validate Chart data doesn't exist for policy without relevant data
     When UI Do Operation "Select" item "Device Selection"
-    Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
+    And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
-      | DefensePro_Set_1 |       | Policy15 |
+      | DefensePro_Set_1 | 1     | Policy15 |
     Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
+
 
 
   @SID_45
@@ -1392,8 +1393,8 @@ Feature: DP ANALYTICS
   Scenario: Sanity
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
-    * CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10
-    * CLI simulate 1 attacks of type "rest_intrusion" on "DefensePro" 10 and wait 30 seconds
+    * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1"
+    * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1" and wait 30 seconds
     * CLI Clear vision logs
     Given UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
