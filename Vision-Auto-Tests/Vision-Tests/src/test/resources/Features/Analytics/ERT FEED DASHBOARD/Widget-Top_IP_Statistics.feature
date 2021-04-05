@@ -299,7 +299,6 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "18.33%"
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%"
     Then UI Validate Element Existence By Label "Top IP Address bar" if Exists "false" with value "8"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5.33%"
 #    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5.33%"
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "MatchRegx" to "([0][1-9]|[1][1-9])%"
 
