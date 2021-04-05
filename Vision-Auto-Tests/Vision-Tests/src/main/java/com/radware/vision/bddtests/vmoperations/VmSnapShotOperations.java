@@ -8,6 +8,7 @@ import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
+import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.utils.RegexUtils;
 import com.radware.vision.vision_handlers.NewVmHandler;
@@ -16,8 +17,11 @@ import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
+import static com.radware.vision.vision_handlers.NewVmHandler.waitForServerConnection;
 
 
 public class VmSnapShotOperations extends BddUITestBase {
@@ -31,6 +35,13 @@ public class VmSnapShotOperations extends BddUITestBase {
     int defaultVMWareNumber = 1;
     String vmName = visionVMs.getVMNameByIndex(defaultVMWareNumber);
     EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
+    private static final Map<String, String> NEXT_VERSION = new HashMap<String, String>() {{
+        put("4.81.00", "4.82.00");
+        put("4.80.00", "4.81.00");
+        put("4.70.00", "4.80.00");
+        put("4.60.00", "4.70");
+        put("4.50.00", "4.60");
+    }};
 
     public enum Snapshot {
         CURRENT("Current"), CURRENT_1("Current-1"), CURRENT_2("Current-2"), CURRENT_3("Current-3");
@@ -135,7 +146,7 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     private void setupServerAfterRevert() throws Exception {
         int connectTimeOut = 10 * 60 * 1000;
-        NewVmHandler.waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
+        waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "chkconfig --level 345 rsyslog on", 2 * 60 * 1000);
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         resetPassword();
@@ -185,29 +196,37 @@ public class VmSnapShotOperations extends BddUITestBase {
         }
     }
 
-    public void upgradeAccordingToSnapshot(String upgradeToVersion, String build) throws Exception {
+    public void upgradeAccordingToSnapshot() throws Exception {
+
         boolean snapshotFromSut = true;
         if (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" "))
             snapshotFromSut = false;
         UpgradeSteps upgradeSteps = new UpgradeSteps();
-        if (upgradeToVersion == null || upgradeToVersion.isEmpty() || upgradeToVersion.equals(" "))
-            upgradeToVersion = calculateVersionAccordingToSnapshot();
-        if (build == null || build.isEmpty() || build.equals(" "))
-            build = ""; // latest build
+        VisionInfo visionInfo;
         assert setupMode != null;
         switch (setupMode.toLowerCase()) {
             case "upgrade":
                 revertVMWareSnapshot(defaultVMWareNumber, snapshotFromSut);
-                upgradeSteps.UpgradeVisionServer(upgradeToVersion, build);
+                if (!waitForServerConnection(2700000L, restTestBase.getRootServerCli())) {
+                    BaseTestUtils.report("Could not connect to device: " + restTestBase.getRootServerCli().getHost(), 1);
+                }
+
+                visionInfo = new VisionInfo(getVisionServerIp());
+                upgradeSteps.UpgradeVisionServerFromOldVersion(NEXT_VERSION.get(visionInfo.getVisionVersion()));
                 VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, "temporarySnapshot", "temporary");
                 VmSnapShotOperations.newInstance().takeSnapshotVMWare(defaultVMWareNumber, snapshotName, "withMemory");
                 VmSnapShotOperations.newInstance().deleteSnapshotVMWare("temporarySnapshot");
-                VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, snapshotName, "Automation, Version: " + upgradeToVersion);
+                VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, snapshotName, "Automation, Version: " + NEXT_VERSION.get(visionInfo.getVisionVersion()));
                 break;
 
             case "kvm_upgrade":
                 VmSnapShotOperations.newInstance().revertKvmSnapshot(snapshotName, visionRadwareFirstTime);
-                upgradeSteps.UpgradeVisionServer(upgradeToVersion, build);
+                revertVMWareSnapshot(defaultVMWareNumber, snapshotFromSut);
+                if (!waitForServerConnection(2700000L, restTestBase.getRootServerCli())) {
+                    BaseTestUtils.report("Could not connect to device: " + restTestBase.getRootServerCli().getHost(), 1);
+                }
+                visionInfo = new VisionInfo(getVisionServerIp());
+                upgradeSteps.UpgradeVisionServerFromOldVersion(NEXT_VERSION.get(visionInfo.getVisionVersion()));
                 VmSnapShotOperations.newInstance().deleteKvmSnapshot(snapshotName);
                 VmSnapShotOperations.newInstance().takeKVmSnapshot(snapshotName);
                 break;
