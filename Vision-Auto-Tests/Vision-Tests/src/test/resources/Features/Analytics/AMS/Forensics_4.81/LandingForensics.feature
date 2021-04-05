@@ -137,13 +137,13 @@ Feature: Landing Forensics
     Then UI Click Button "New Forensics Tab"
     When UI "Create" Forensics With Name "AppWall Forensics"
       | Product      | AppWall                                                                        |
-      | Applications | 172.17.167.177                                                                 |
+      | Applications | A1                                                                 |
       | Share        | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format       | Select: CSV                                                                    |
       | Output       | Action                                                                         |
     Given UI "Validate" Forensics With Name "AppWall Forensics"
       | Product           | AppWall                                                                        |
-      | Protected Objects | 172.17.167.177                                                                 |
+      | Protected Objects | A1                                                                 |
       | Share             | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format            | Select: CSV                                                                    |
       | Output            | Action                                                                         |
