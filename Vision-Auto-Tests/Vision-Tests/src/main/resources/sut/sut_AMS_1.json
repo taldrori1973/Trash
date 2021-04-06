@@ -1,16 +1,26 @@
 {
-  "setupFile": "Setup_AMS_1.json",
+  "setupFile": "fullSetup.json",
   "clientConfiguration": {
-    "hostIp": "172.19.104.153",
+    "hostIp": "172.19.221.5",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
-      "defaultPort": 80,
-      "defaultProtocol": "http"
+      "defaultPort": 443,
+      "defaultProtocol": "https"
     },
     "sqlDbConnection": {
       "defaultPort": 3306,
       "username": "root",
+      "password": "rad123"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
       "password": "radware"
     }
   }
