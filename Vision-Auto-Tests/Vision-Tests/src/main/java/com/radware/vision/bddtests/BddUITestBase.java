@@ -5,14 +5,14 @@ import com.radware.automation.tools.utils.PropertiesFilesUtils;
 import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.webdriver.WebUIDriver;
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 
 import java.io.IOException;
 
 /**
  * Created by AviH on 05-Dec-17.
  */
-public abstract class BddUITestBase extends WebUITestBase {
+public abstract class BddUITestBase extends VisionUITestBase {
     private static boolean initOnceDateDebugIds = false;
 
     public BddUITestBase() throws Exception{

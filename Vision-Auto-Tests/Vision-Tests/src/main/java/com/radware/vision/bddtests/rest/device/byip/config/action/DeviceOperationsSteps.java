@@ -4,16 +4,15 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.VisionRestClient;
 import com.radware.utils.DeviceUtils;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddRestTestBase;
+import com.radware.vision.automation.base.TestBase;
 import cucumber.api.java.en.When;
 
-public class DeviceOperationsSteps extends BddRestTestBase {
-    @When("^REST Apply Action on \"(.*)\" (\\d+)$")
-    public void applyAction(SUTDeviceType deviceType, int deviceIndex) {
+public class DeviceOperationsSteps extends TestBase {
+    @When("^REST Apply Action on \"(\\w+)\"$")
+    public void applyAction(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             visionRestClient.mgmtCommands.deviceOperationsCommands.applyCommand(deviceIp);
         } catch (Exception e) {
@@ -21,11 +20,11 @@ public class DeviceOperationsSteps extends BddRestTestBase {
         }
     }
 
-    @When("^REST Save Action on \"(.*)\" (\\d+)$")
-    public void saveAction(SUTDeviceType deviceType, int deviceIndex) {
+    @When("^REST Save Action on \"(\\w+)\"$")
+    public void saveAction(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             visionRestClient.mgmtCommands.deviceOperationsCommands.saveCommand(deviceIp);
         } catch (Exception e) {
@@ -33,11 +32,11 @@ public class DeviceOperationsSteps extends BddRestTestBase {
         }
     }
 
-    @When("^REST Revert Action on \"(.*)\" (\\d+)$")
-    public void revertAction(SUTDeviceType deviceType, int deviceIndex) {
+    @When("^REST Revert Action on \"(\\w+)\"$")
+    public void revertAction(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             visionRestClient.mgmtCommands.deviceOperationsCommands.revertCommand(deviceIp);
         } catch (Exception e) {
@@ -45,11 +44,11 @@ public class DeviceOperationsSteps extends BddRestTestBase {
         }
     }
 
-    @When("^REST RevertApply Action on \"(.*)\" (\\d+)$")
-    public void revertApplyAction(SUTDeviceType deviceType, int deviceIndex) {
+    @When("^REST RevertApply Action on \"(\\w+)\"$")
+    public void revertApplyAction(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             visionRestClient.mgmtCommands.deviceOperationsCommands.revertApplyCommand(deviceIp);
         } catch (Exception e) {
@@ -57,11 +56,11 @@ public class DeviceOperationsSteps extends BddRestTestBase {
         }
     }
 
-    @When("^REST Sync Action on \"(.*)\" (\\d+)$")
-    public void syncAction(SUTDeviceType deviceType, int deviceIndex) {
+    @When("^REST Sync Action on \"(\\w+)\"$")
+    public void syncAction(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             visionRestClient.mgmtCommands.deviceOperationsCommands.syncCommand(deviceIp);
         } catch (Exception e) {
@@ -69,11 +68,11 @@ public class DeviceOperationsSteps extends BddRestTestBase {
         }
     }
 
-    @When("^REST Synchronize Action on \"(.*)\" (\\d+)$")
-    public void synchronizeAction(SUTDeviceType deviceType, int deviceIndex) {
+    @When("^REST Synchronize Action on \"(\\w+)\"$")
+    public void synchronizeAction(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             visionRestClient.mgmtCommands.treeCommands.synchronizeDeviceWithVision(deviceIp);
         } catch (Exception e) {
@@ -81,11 +80,11 @@ public class DeviceOperationsSteps extends BddRestTestBase {
         }
     }
 
-    @When("^REST Lock Action on \"(.*)\" (\\d+)$")
-    public void lockAction(SUTDeviceType deviceType, int deviceIndex) {
+    @When("^REST Lock Action on \"(\\w+)\"$")
+    public void lockAction(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             DeviceUtils.lockCommand(visionRestClient, deviceIp);
         } catch (Exception e) {
@@ -93,11 +92,11 @@ public class DeviceOperationsSteps extends BddRestTestBase {
         }
     }
 
-    @When("^REST Unlock Action on \"(.*)\" (\\d+)$")
-    public void unlockAction(SUTDeviceType deviceType, int deviceIndex) {
+    @When("^REST Unlock Action on \"(\\w+)\"$")
+    public void unlockAction(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             DeviceUtils.unlockCommand(visionRestClient, deviceIp);
         } catch (Exception e) {
@@ -105,11 +104,11 @@ public class DeviceOperationsSteps extends BddRestTestBase {
         }
     }
 
-    @When("^REST Diff Action on \"(.*)\" (\\d+)$")
-    public void getDiff(SUTDeviceType deviceType, int deviceIndex) {
+    @When("^REST Diff Action on \"(\\w+)\"$")
+    public void getDiff(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             visionRestClient.mgmtCommands.deviceOperationsCommands.getDiffCommand(deviceIp);
         } catch (Exception e) {
@@ -117,17 +116,15 @@ public class DeviceOperationsSteps extends BddRestTestBase {
         }
     }
 
-    @When("^REST Diff Flash Action on \"(.*)\" (\\d+)$")
-    public void getDiffFlash(SUTDeviceType deviceType, int deviceIndex) {
+    @When("^REST Diff Flash Action on \"(\\w+)\"$")
+    public void getDiffFlash(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             VisionRestClient visionRestClient = restTestBase.getVisionRestClient();
             visionRestClient.mgmtCommands.deviceOperationsCommands.getDiffFlashCommand(deviceIp);
         } catch (Exception e) {
             BaseTestUtils.report("Device: " + deviceIp + " " + "getDiffFlash may not have been executed properly:" + e.getMessage(), Reporter.FAIL);
         }
     }
-
-
 }

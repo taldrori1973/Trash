@@ -1,22 +1,22 @@
 package com.radware.vision.bddtests.rest.topologytree;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.infra.testresthandlers.TopologyTreeRestHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
 import java.util.List;
 
-public class TopologyTreeRestSteps extends BddRestTestBase {
+public class TopologyTreeRestSteps extends TestBase {
 
 
-    @Given("^REST Delete \"(.*)\" device with index (\\d+) from topology tree$")
-    public void deleteDeviceByManagementIp(SUTDeviceType deviceType, int deviceIndex) {
+    @Given("^REST Delete device (\\w+) from topology tree$")
+    public void deleteDeviceByManagementIp(String deviceSetId) {
         String deviceIp = "";
         try {
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
             TopologyTreeRestHandler.deleteDeviceByManagementIp(restTestBase.getVisionRestClient(), deviceIp);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to Delete device: " + deviceIp, e);

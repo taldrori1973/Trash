@@ -16,7 +16,7 @@ import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.base.WebUITestSetup;
+import com.radware.vision.base.VisionUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
@@ -175,7 +175,7 @@ public class BasicOperationsSteps extends BddUITestBase {
      * @throws Exception - throws exception
      */
     public static void loginToServer(String username, String password) throws Exception {
-        WebUITestSetup webUITestSetup = new WebUITestSetup();
+        VisionUITestSetup webUITestSetup = new VisionUITestSetup();
         webUITestSetup.setup();
 //        WebUIUtils.getDriver().get("http://localhost:3003/"); // temporary
         BasicOperationsHandler.login(username, password);

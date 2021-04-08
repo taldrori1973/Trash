@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static com.radware.vision.base.WebUITestBase.restTestBase;
+import static com.radware.vision.base.VisionUITestBase.restTestBase;
 
 public class freshInstallThread extends Thread {
 

@@ -1,5 +1,6 @@
 {
   "setupFile": "fullSetup.json",
+  "environment": "KVM_220",
   "clientConfiguration": {
     "hostIp": "172.19.104.153",
     "userName": "radware",

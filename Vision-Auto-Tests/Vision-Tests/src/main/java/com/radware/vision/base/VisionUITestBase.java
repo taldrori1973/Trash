@@ -55,7 +55,7 @@ import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.*;
 
-public abstract class WebUITestBase extends TestBase {
+public abstract class VisionUITestBase extends TestBase {
     protected boolean doTheVisionLabRestart = false;
     public static String retrievedParamValue = "";
     public static RestTestBase restTestBase;
@@ -132,7 +132,7 @@ public abstract class WebUITestBase extends TestBase {
                 SerializeDeviceDriver.init(FileUtils.getAbsoluteProjectPath());
 
                 // Initialize the restTestBase
-                coreInit();
+//                coreInit();
 
                 UIUtils.visionModeForTable = true;
 
@@ -171,19 +171,19 @@ public abstract class WebUITestBase extends TestBase {
         setDeviceName(deviceName);
     }
 
-    public void coreInit() throws Exception{
-        if (!isRestInit) {
-
-            isRestInit = true;
+//    public void coreInit() throws Exception{
+//        if (!isRestInit) {
 //
-//            devicesManager = DevicesManager.getInstance("devices");
-            restTestBase = new RestManagement();
-            restTestBase.init();
-//            BaseHandler.restTestBase = restTestBase;
-//            BaseHandler.devicesManager = devicesManager;
-        }
-
-    }
+//            isRestInit = true;
+////
+////            devicesManager = DevicesManager.getInstance("devices");
+//            restTestBase = new RestManagement();
+//            restTestBase.init();
+////            BaseHandler.restTestBase = restTestBase;
+////            BaseHandler.devicesManager = devicesManager;
+//        }
+//
+//    }
 
 
     @After

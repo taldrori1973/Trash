@@ -8,7 +8,7 @@ import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.databases.mariaDB.GenericCRUD;
 import com.radware.vision.automation.databases.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.databases.mariaDB.client.VisionDBSchema;
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.utils.StepsParametersUtils;
 import cucumber.api.java.en.Then;
 
@@ -24,7 +24,7 @@ import java.util.Map;
  * Date: 6/10/2020
  * Time: 5:22 PM
  */
-public class MySQLSteps extends WebUITestBase {
+public class MySQLSteps extends VisionUITestBase {
 
 
     @Then("^MYSQL Validate Single Value by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" ([^\"]*) (.*)$")

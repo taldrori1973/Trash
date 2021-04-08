@@ -4,7 +4,7 @@ import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.restcore.VisionRestClient;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.utils.DeviceUtils;
-import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

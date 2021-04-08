@@ -10,7 +10,7 @@ import com.radware.vision.automation.systemManagement.visionConfigurations.Manag
 import com.radware.vision.vision_handlers.system.ConfigSync;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 
-import static com.radware.vision.base.WebUITestBase.restTestBase;
+import static com.radware.vision.base.VisionUITestBase.restTestBase;
 
 public class LLSHandler {
 

@@ -3,8 +3,7 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
-import com.radware.vision.base.WebUITestBase;
-import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.vision_handlers.NewVmHandler;
 
@@ -16,7 +15,7 @@ public class FreshInstallOVA extends Deploy {
     private FileType ovaType;
 
     public FreshInstallOVA(boolean isExtended, String build) {
-        super(isExtended, build, WebUITestBase.getVisionRestClient().getDeviceIp());
+        super(isExtended, build, VisionUITestBase.getVisionRestClient().getDeviceIp());
         this.initFileType();
         buildFileInfo(this.ovaType);
     }
@@ -55,7 +54,7 @@ public class FreshInstallOVA extends Deploy {
 
     @Override
     public void deploy() {
-        VisionVMs visionVMs = WebUITestBase.getRestTestBase().getVisionVMs();
+        VisionVMs visionVMs = VisionUITestBase.getRestTestBase().getVisionVMs();
         // init firstTimeWizardOva parameters
         String vmName = getVisionSetupAttributeFromSUT("vmPrefix");
         if (vmName == null) {

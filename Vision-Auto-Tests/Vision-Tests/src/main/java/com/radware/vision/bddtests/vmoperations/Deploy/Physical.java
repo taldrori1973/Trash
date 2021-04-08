@@ -2,21 +2,19 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 import com.radware.vision.vision_handlers.NewVmHandler;
 
-import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
-
 public class Physical extends Deploy {
     JFrogFileModel buildFileInfoISO;
     JFrogFileModel buildFileInfoTar;
 
     public Physical(boolean isExtended, String build) {
-        super(isExtended, build, WebUITestBase.getVisionRestClient().getDeviceIp());
+        super(isExtended, build, VisionUITestBase.getVisionRestClient().getDeviceIp());
         buildFileInfo();
     }
 

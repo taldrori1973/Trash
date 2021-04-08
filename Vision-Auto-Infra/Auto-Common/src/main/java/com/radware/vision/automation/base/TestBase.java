@@ -3,6 +3,9 @@ package com.radware.vision.automation.base;
 
  */
 
+import basejunit.RestTestBase;
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.CliConfigurationDto;
@@ -25,6 +28,7 @@ public abstract class TestBase {
     protected static ClientConfigurationDto clientConfigurations;
     protected static CliConfigurationDto cliConfigurations;
     protected static LocalDateTime testStartTime;
+    public static RestTestBase restTestBase;
 
     static {
         sutManager = SUTManagerImpl.getInstance();
@@ -36,6 +40,13 @@ public abstract class TestBase {
         clientConfigurations = getSutManager().getClientConfigurations();
         cliConfigurations = getSutManager().getCliConfigurations();
         testStartTime =LocalDateTime.now();
+        restTestBase = new RestManagement();
+        try {
+            restTestBase.init();
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+
     }
 
     public  static ServersManagement getServersManagement() {return serversManagement; }

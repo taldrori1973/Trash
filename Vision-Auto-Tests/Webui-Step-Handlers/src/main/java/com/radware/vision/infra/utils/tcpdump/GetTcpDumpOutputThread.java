@@ -1,7 +1,7 @@
 package com.radware.vision.infra.utils.tcpdump;
 
 import com.radware.automation.tools.utils.InvokeUtils;
-import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 
 import java.util.ArrayList;
 

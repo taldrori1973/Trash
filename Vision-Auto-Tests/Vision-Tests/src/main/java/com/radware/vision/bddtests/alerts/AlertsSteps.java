@@ -7,7 +7,7 @@ import com.radware.automation.webui.events.ReportWebDriverEventListener;
 import com.radware.automation.webui.webdriver.WebUIDriver;
 import com.radware.automation.webui.widgets.api.popups.PopupContent;
 import com.radware.automation.webui.widgets.api.table.Table;
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.enums.RaisedTimeUnits;
 import com.radware.vision.infra.testhandlers.alerts.AlertsHandler;
 import com.radware.vision.infra.testhandlers.alerts.AlertsNegativeHandler;
@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AlertsSteps extends WebUITestBase {
+public class AlertsSteps extends VisionUITestBase {
 
 
     @When("^UI Maximize Alerts Browser$")
