@@ -5,6 +5,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.Operators.Comparator;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.databases.mariaDB.GenericCRUD;
 import com.radware.vision.automation.databases.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.databases.mariaDB.client.VisionDBSchema;
@@ -24,7 +25,7 @@ import java.util.Map;
  * Date: 6/10/2020
  * Time: 5:22 PM
  */
-public class MySQLSteps extends VisionUITestBase {
+public class MySQLSteps extends TestBase {
 
 
     public MySQLSteps() throws Exception {
