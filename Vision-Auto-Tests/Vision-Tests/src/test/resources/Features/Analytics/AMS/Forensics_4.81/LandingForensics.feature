@@ -8,6 +8,15 @@ Feature: Landing Forensics
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
+    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
+      | attribute     | value  |
+      | httpPassword  | kavado |
+      | httpsPassword | kavado |
+      | httpsUsername | admin  |
+      | httpUsername  | admin  |
+      | visionMgtPort | G1     |
+    And Sleep "10"
+    * CLI Clear vision logs
     Then UI Navigate to "AMS Forensics" page via homepage
 
 #-------------------------- DefensePro----------------------------------------
@@ -128,13 +137,13 @@ Feature: Landing Forensics
     Then UI Click Button "New Forensics Tab"
     When UI "Create" Forensics With Name "AppWall Forensics"
       | Product      | AppWall                                                                        |
-      | Applications | 172.17.167.177                                                                 |
+      | Applications | A1                                                                 |
       | Share        | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format       | Select: CSV                                                                    |
       | Output       | Action                                                                         |
     Given UI "Validate" Forensics With Name "AppWall Forensics"
       | Product           | AppWall                                                                        |
-      | Protected Objects | 172.17.167.177                                                                 |
+      | Protected Objects | A1                                                                 |
       | Share             | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format            | Select: CSV                                                                    |
       | Output            | Action                                                                         |

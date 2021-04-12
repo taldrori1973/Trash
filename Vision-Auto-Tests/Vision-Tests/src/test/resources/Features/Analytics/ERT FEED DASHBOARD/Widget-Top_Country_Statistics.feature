@@ -29,9 +29,12 @@ Feature: EAAF Widget - Top Country Statistics
   Scenario: Validate Top Attacking Countries Widget - Events
 #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "2" is "EQUALS" to "52.60%"
-    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "3" is "EQUALS" to "50.00%"
-    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "5" is "EQUALS" to "11.46%"
+#    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "2" is "EQUALS" to "52.60%"
+    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "2" is "MatchRegx" to "([4][1-9]|[6][1-9])%"
+#    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "3" is "EQUALS" to "50.00%"
+    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "3" is "MatchRegx" to "([4][1-9]|[6][1-9])%"
+#    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "5" is "EQUALS" to "11.46%"
+    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "5" is "MatchRegx" to "([0][1-9]|[2][1-9])%"
   @SID_5
   Scenario: Validate Num of attacks per IP
 # Validate Num of attacks per IP

@@ -1,4 +1,5 @@
 @VRM_Report2 @TC106001
+
 Feature: Forensics Edit Definition
 
   @SID_1
@@ -12,20 +13,20 @@ Feature: Forensics Edit Definition
     * REST Delete ES index "forensics-*"
     * REST Delete ES index "dpforensics-*"
     * CLI Clear vision logs
-
+  
   @SID_2
   Scenario: Run DP simulator
     And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 10
     And CLI simulate 1 attacks of type "vrm_bdos" on "DefensePro" 11 and wait 80 seconds
 
-
+  
   @SID_3
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "AMS Forensics" page via homepage
 
-
+  
   @SID_4
   Scenario: forensics create basic report
     When UI "Create" Forensics With Name "Test Edit"
@@ -37,13 +38,13 @@ Feature: Forensics Edit Definition
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
     Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_0"
 
-
+  
   @SID_5
   Scenario: forensics definition edit forensic name
     When UI "Edit" Forensics With Name "Test Edit"
       | Basic Info | Description:,forensics name:Test Edit |
 
-
+  
   @SID_6
   Scenario: forensics definition edit all fields
     When UI "Edit" Forensics With Name "Test Edit"
@@ -51,16 +52,16 @@ Feature: Forensics Edit Definition
       | Time Definitions.Date | Quick:1M                                                           |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
       | Output                | Start Time,Action,Attack ID,Risk                                   |
-      | Schedule              | Run Every:Daily,On Time:+2m                                        |
+#      | Schedule              | Run Every:Daily,On Time:+2m                                        |
       | Delivery              | Email:[automation.vision1@radware.com],Subject:mySubject           |
-
+  
   @SID_7
   Scenario: Validate forensics definition edit criteria
     When UI "Edit" Forensics With Name "Test Edit"
       | Criteria | Event Criteria:Protocol,Operator:Not Equals,Value:IP |
     Then UI Click Button "My Forensics" with value "Test Edit"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
-    Then Sleep "35"
+    Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Test Edit,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 

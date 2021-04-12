@@ -24,7 +24,7 @@ Feature:  Report AMS analytics CSV Validations
   @SID_3
   Scenario: generate two attacks
     Given CLI simulate 2 attacks of type "rest_anomalies" on "DefensePro" 10 with attack ID
-    Given CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
+    Given CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10 and wait 60 seconds
 
 
   @SID_4
@@ -142,7 +142,7 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_17
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -1 |grep "country,address,Count,percent" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -1 |grep "country,address,count,percent" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_18
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION content
@@ -156,7 +156,7 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_20
   Scenario: VRM report validate CSV file TOP ATTACK SOURCES headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -1 |grep "country,address,Count,percent" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -1 |grep "country,address,count,percent" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_21
   Scenario: VRM report validate CSV file TOP ATTACK SOURCES content
@@ -252,7 +252,7 @@ Feature:  Report AMS analytics CSV Validations
 #
 #  @SID_36
 #  Scenario: VRM report validate CSV file Top\ Attacks BY BANDWIDTH headers
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks\ by\ Bandwidth.csv|head -1|grep "name,ruleName,endTime,packetBandwidth,packetCount" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks\ by\ Bandwidth.csv|head -1|grep "name,ruleName,endTime,packetBandwidth,packetcount" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 #
 #  @SID_37
 #  Scenario: VRM report validate CSV file Top\ Attacks BY BANDWIDTH content

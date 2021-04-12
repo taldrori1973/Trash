@@ -110,7 +110,7 @@ Feature: Basic tests for Forensics parameters
       | Format HTML Type                    |       | true  |
       | Format CSV Type                     |       | false |
       | Format CSV With Attack Details Type |       | false |
-    Then UI Text of "Forensics Format Type" with extension "html" equal to "HTML"
+    Then UI Text of "Format HTML Type" equal to "HTML"
 
     Then UI Click Button "Format CSV Type"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -118,7 +118,7 @@ Feature: Basic tests for Forensics parameters
       | Format HTML Type                    |       | false |
       | Format CSV Type                     |       | true  |
       | Format CSV With Attack Details Type |       | false |
-    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV"
+    Then UI Text of "Format CSV Type" equal to "CSV"
 
     Then UI Click Button "Format CSV With Attack Details Type"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -126,43 +126,43 @@ Feature: Basic tests for Forensics parameters
       | Format HTML Type                    |       | false |
       | Format CSV Type                     |       | false |
       | Format CSV With Attack Details Type |       | true  |
-#  data-debug-id
-#    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV W/Details"
+
+    Then UI Text of "Format CSV With Attack Details Type" with extension "csv" equal to "CSV with Attack Details"
 
 
   @SID_12
-  Scenario: Forensics DefensePro Format
+  Scenario: Forensics DefenseFlow Format
     Then UI Click Button "Product Tab" with value "DefenseFlow"
     Then UI Click Button "Format HTML Type"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label                               | param | value |
       | Format HTML Type                    |       | true  |
       | Format CSV Type                     |       | false |
-    Then UI Text of "Forensics Format Type" with extension "html" equal to "HTML"
+    Then UI Text of "Format HTML Type" equal to "HTML"
 
     Then UI Click Button "Format CSV Type"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label                               | param | value |
       | Format HTML Type                    |       | false |
       | Format CSV Type                     |       | true  |
-    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV"
+    Then UI Text of "Format CSV Type" equal to "CSV"
 
   @SID_13
-  Scenario: Forensics DefensePro Format
+  Scenario: Forensics AppWall Format
     Then UI Click Button "Product Tab" with value "AppWall"
     Then UI Click Button "Format HTML Type"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label                               | param | value |
       | Format HTML Type                    |       | true  |
       | Format CSV Type                     |       | false |
-    Then UI Text of "Forensics Format Type" with extension "html" equal to "HTML"
+    Then UI Text of "Format HTML Type" equal to "HTML"
 
     Then UI Click Button "Format CSV Type"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label                               | param | value |
       | Format HTML Type                    |       | false |
       | Format CSV Type                     |       | true  |
-    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV"
+    Then UI Text of "Format CSV Type" equal to "CSV"
 
   ##################### Name Section tests ###############################
 

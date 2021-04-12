@@ -232,7 +232,7 @@ Feature: RBAC Menu
       | AMS Alerts                                  | no       |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | yes      |
+      | EAAF Dashboard                              | no      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -283,7 +283,7 @@ Feature: RBAC Menu
       | AMS Alerts                                  | no       |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | yes      |
+      | EAAF Dashboard                              | no      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 

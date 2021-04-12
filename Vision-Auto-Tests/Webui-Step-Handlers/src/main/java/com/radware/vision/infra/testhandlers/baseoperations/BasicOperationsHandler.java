@@ -958,6 +958,13 @@ public class BasicOperationsHandler {
                     BaseTestUtils.report(errorMessage, Reporter.FAIL);
                 }
                 break;
+            case "MatchRegx":
+                if (element.getAttribute(attribute).matches(value)) {
+                    errorMessage.replaceFirst(" is not match to ", " is matched in ");
+                    if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
+                    BaseTestUtils.report(errorMessage, Reporter.FAIL);
+                }
+                break;
         }
     }
 

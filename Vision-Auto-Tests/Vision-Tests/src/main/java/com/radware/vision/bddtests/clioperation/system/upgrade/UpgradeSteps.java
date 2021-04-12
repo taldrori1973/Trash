@@ -9,6 +9,9 @@ import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 import com.radware.vision.enums.GlobalProperties;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
+import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
+import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
@@ -240,5 +243,19 @@ public class UpgradeSteps extends BddCliTestBase {
         BaseTestUtils.report(String.format("Going to upgrade from build %s to %s", buildUnderTest, nextBuild),
                 Reporter.PASS_NOR_FAIL);
         upgrade.deploy();
+    }
+
+    public void UpgradeVisionServerFromOldVersion(String version) {
+        try {
+            FileType upgradeType = isAPM() ? FileType.UPGRADE_APM : FileType.UPGRADE;
+            JFrogFileModel buildFileInfo = JFrogAPI.getBuildFromOldVersion(upgradeType, version);
+            String[] path = buildFileInfo.getPath().toString().split("/");
+            VisionServer.upgradeServerFile(restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli()
+                    , version, null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
+            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+        } catch (Exception e) {
+            BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 }
