@@ -9,7 +9,7 @@ import com.radware.automation.webui.webpages.WebUIBasePage;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.topologytree.DeviceProperties;
 import com.radware.vision.infra.base.pages.topologytree.StandardDeviceProperties;
 import com.radware.vision.infra.enums.ClusterAssociatedMgmtPorts;
@@ -33,7 +33,7 @@ import testhandlers.Tree;
 
 import java.util.*;
 
-public class TopologyTreeSteps extends BddUITestBase {
+public class TopologyTreeSteps extends VisionUITestBase {
 
     TopologyTree topologyTree = new TopologyTree();
 

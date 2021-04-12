@@ -9,12 +9,11 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.Given;
 
 import java.util.Optional;
 
-public class AttacksSteps extends BddCliTestBase {
+public class AttacksSteps extends TestBase {
 
 
     /**
@@ -50,33 +49,33 @@ public class AttacksSteps extends BddCliTestBase {
         }
     }
 
-    /**
-     * Kill all the attacks process from the device to the current vision
-     *
-     * @param deviceType  - SUTDeviceType enum
-     * @param deviceIndex - SUT index
-     */
-
-    @Given("^CLI kill simulator attack on \"(.*)\" (\\d+)")
-    public void KillAllAttackFromDevice(SUTDeviceType deviceType, int deviceIndex) {
-        try {
-
-            String fakeIpPrefix = "50.50";
-            String deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
-            String visionIP = clientConfigurations.getHostIp();
-            if (deviceIp.startsWith(fakeIpPrefix)) {
-                visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
-            }
-            String commandToExecute = "/home/radware/run-kill_all_DP_attacks.sh stop " + deviceIp + " " + visionIP;
-            Optional<LinuxFileServer> genericLinuxServerOpt = TestBase.serversManagement.getLinuxFileServer();
-            if (!genericLinuxServerOpt.isPresent()) {
-                throw new Exception("The genericLinuxServer Not found!");
-            }
-            InvokeUtils.invokeCommand(commandToExecute, genericLinuxServerOpt.get());
-        } catch (Exception e) {
-            BaseTestUtils.report("Failed to kill attack", Reporter.FAIL);
-        }
-    }
+//    /**
+//     * Kill all the attacks process from the device to the current vision
+//     *
+//     * @param deviceType  - SUTDeviceType enum
+//     * @param deviceIndex - SUT index
+//     */
+//
+//    @Given("^CLI kill simulator attack on \"(.*)\" (\\d+)")
+//    public void KillAllAttackFromDevice(SUTDeviceType deviceType, int deviceIndex) {
+//        try {
+//
+//            String fakeIpPrefix = "50.50";
+//            String deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+//            String visionIP = clientConfigurations.getHostIp();
+//            if (deviceIp.startsWith(fakeIpPrefix)) {
+//                visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
+//            }
+//            String commandToExecute = "/home/radware/run-kill_all_DP_attacks.sh stop " + deviceIp + " " + visionIP;
+//            Optional<LinuxFileServer> genericLinuxServerOpt = TestBase.serversManagement.getLinuxFileServer();
+//            if (!genericLinuxServerOpt.isPresent()) {
+//                throw new Exception("The genericLinuxServer Not found!");
+//            }
+//            InvokeUtils.invokeCommand(commandToExecute, genericLinuxServerOpt.get());
+//        } catch (Exception e) {
+//            BaseTestUtils.report("Failed to kill attack", Reporter.FAIL);
+//        }
+//    }
 
     /**
      * kills all the attacks process to the current vision

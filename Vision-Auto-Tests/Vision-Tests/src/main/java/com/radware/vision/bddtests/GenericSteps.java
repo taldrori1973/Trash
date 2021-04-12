@@ -12,7 +12,7 @@ import com.radware.automation.webui.widgets.api.TextField;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -39,7 +39,7 @@ import java.util.Objects;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
 
-public class GenericSteps extends BddUITestBase {
+public class GenericSteps extends VisionUITestBase {
 
     private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
     private TableHandler tableHandler = new TableHandler();
@@ -265,6 +265,7 @@ public class GenericSteps extends BddUITestBase {
                 try {
                     VRMHandler.scroll("Table_Attack Details");
                 } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
                 }
                 ReportsUtils.reportAndTakeScreenShot(String.join(" : ", label + "-" + params, "Actual is \"" + actualValue + "\" but is not equal to \"" + expectedValue + "\""), Reporter.FAIL);
             }
@@ -342,7 +343,7 @@ public class GenericSteps extends BddUITestBase {
 
         boolean isSelected = BasicOperationsHandler.isItemSelectedByClass(label, params);
         if (!ComparableUtils.equals(isSelected, expected)) {
-            String errorMessage = String.format("Item with name : %s Does not match the expected result : %s", String.join(".", label, params), String.valueOf(expected));
+            String errorMessage = String.format("Item with name : %s Does not match the expected result : %s", String.join(".", label, params), expected);
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
         }
     }
@@ -418,7 +419,7 @@ public class GenericSteps extends BddUITestBase {
 
     @Then("^UI Table Validate Value Existence in Table \"(.*)\" with Column Name \"(.*)\" and Value \"(.*)\" if Exists \"(true|false)\"$")
     public void uiValidateElementWithLabelIsNotExist(String label, String columnName, String value, String existence) throws Throwable {
-        tableHandler.validateValueExistenceAtTableByColumn(label, columnName, value, Boolean.valueOf(existence));
+        tableHandler.validateValueExistenceAtTableByColumn(label, columnName, value, Boolean.parseBoolean(existence));
     }
 
     @Then("^UI Click Button \"([^\"]*)\"(?: with value \"([^\"]*)\")? Under Parent \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
@@ -450,7 +451,7 @@ public class GenericSteps extends BddUITestBase {
     }
 
     @When("^UI set \"([^\"]*)\" switch button to \"([^\"]*)\"$")
-    public void clickOnSwitchButton(String label, String state) throws TargetWebElementNotFoundException {
+    public void clickOnSwitchButton(String label, String state) {
         ClickOperationsHandler.clickOnSwitchButton(label, null, state);
     }
 
@@ -466,7 +467,7 @@ public class GenericSteps extends BddUITestBase {
     }
 
 
-    private class ElementAttribute {
+    private static class ElementAttribute {
         String name;
         String value;
     }

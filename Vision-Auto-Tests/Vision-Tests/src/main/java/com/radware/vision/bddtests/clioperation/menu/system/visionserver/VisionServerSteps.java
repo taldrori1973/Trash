@@ -4,7 +4,7 @@ package com.radware.vision.bddtests.clioperation.menu.system.visionserver;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.infra.testhandlers.cli.highavailability.HAHandler;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
 import com.radware.vision.vision_handlers.system.VisionServer;
@@ -12,7 +12,7 @@ import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.api.java.en.When;
 import jsystem.extensions.analyzers.text.FindText;
 
-public class VisionServerSteps extends BddCliTestBase {
+public class VisionServerSteps extends TestBase {
 
     @When("^CLI wait to vision services up for (\\d+) seconds$")
     public void waitForVisionServerStarted(int visionServerStartTimeout) throws Exception {

@@ -1,7 +1,7 @@
 package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.vrm.AMSAlertsHandlers;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import cucumber.api.java.en.Given;
@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 
 import java.util.Map;
 
-public class AMSAlertsSteps extends BddUITestBase {
+public class AMSAlertsSteps extends VisionUITestBase {
     AMSAlertsHandlers alertsHandlers = new AMSAlertsHandlers();
 
     public AMSAlertsSteps() throws Exception {

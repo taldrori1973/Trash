@@ -1,6 +1,6 @@
 package com.radware.vision.bddtests.clioperation.menu.net.nat;
 
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.vision_handlers.net.Nat;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliNegativeTests;
@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class NetNatNegativeSteps extends BddCliTestBase {
+public class NetNatNegativeSteps extends TestBase {
 
     CliNegativeTests cliNegativeTests=new CliNegativeTests();
 

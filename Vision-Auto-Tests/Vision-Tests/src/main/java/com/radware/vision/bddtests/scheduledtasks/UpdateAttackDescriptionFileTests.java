@@ -4,7 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -15,7 +15,7 @@ import testhandlers.vision.system.generalSettings.enums.BasicParametersKeys;
 
 import java.time.LocalDateTime;
 
-public class UpdateAttackDescriptionFileTests extends BddUITestBase {
+public class UpdateAttackDescriptionFileTests extends VisionUITestBase {
 
     public UpdateAttackDescriptionFileTests() throws Exception {
     }

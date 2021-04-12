@@ -16,8 +16,8 @@ import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.base.VisionUITestSetup;
-import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
@@ -65,7 +65,7 @@ import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
  * Created by AviH on 30-Nov-17.
  */
 
-public class BasicOperationsSteps extends BddUITestBase {
+public class BasicOperationsSteps extends VisionUITestBase {
     private BasicOperationsByNameIdHandler basicOperationsByNameIdHandler = new BasicOperationsByNameIdHandler();
 
     public BasicOperationsSteps() throws Exception {

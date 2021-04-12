@@ -6,7 +6,8 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.basetest.RuntimePropertiesEnum;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
-import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
+import com.radware.vision.base.VisionCliTestBase;
 import com.radware.vision.enums.YesNo;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
@@ -16,57 +17,15 @@ import java.util.*;
 
 import static com.radware.automation.tools.basetest.BaseTestUtils.reporter;
 
-public class CliNegative extends BddCliTestBase {
+public class CliNegative extends VisionCliTestBase {
     protected Properties prop = new Properties();
 
 
     public void uiInit() throws Exception {
         prop.load(getClass().getClassLoader().getResourceAsStream("badInput.properties"));
-        super.uiInit();
+//        super.uiInit();
     }
 
-    public void afterMethod() throws IOException {
-        try {
-            // Clear any remaining commands on the output (In case of a 'Help text' command)
-            String clearString = "";
-            for (int i = 0; i < 60; i++) {
-                clearString += "\b";
-            }
-            InvokeUtils.invokeCommand(null, clearString, restTestBase.getRadwareServerCli(), 2 * 2000, true, true, true, null, true, true);
-            InvokeUtils.invokeCommand(null, clearString, restTestBase.getRootServerCli(), 2 * 2000, true, true, true, null, true, true);
-            CliTests.report.stopLevel();
-            CliTests.report.startLevel("Begining to Finish the test(After).");
-//			if(visionCli.numberOfTests > visionCli.maxNumberOfTests) {
-//				doTheVisionLabRestart = true;
-//			}
-
-            if (doTheVisionLabRestart) {
-                InvokeUtils.invokeCommand(null, "", restTestBase.getRadwareServerCli(), 6000, true);
-                if (restTestBase.getRadwareServerCli().getTestAgainstObject().toString().endsWith("$ ")) {
-                    InvokeUtils.invokeCommand(null, Menu.system().database().access().revoke().build() + " all", restTestBase.getRadwareServerCli());
-                    InvokeUtils.invokeCommand(null, "y", restTestBase.getRadwareServerCli());
-                }
-//                visionCli.close();
-                doTheVisionLabRestart = false;
-            }
-
-            if (BaseTestUtils.getBooleanRuntimeProperty(RuntimePropertiesEnum.ADD_AUTO_RESULT.name(), RuntimePropertiesEnum.ADD_AUTO_RESULT.getDefaultValue())) {
-//                ReportResultEntity report = new ReportResultEntity().withtestID("").withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
-//                resultsManager.addResult(report);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (restTestBase.getRadwareServerCli() != null) {
-                restTestBase.getRadwareServerCli().cleanCliBuffer();
-            }
-            if (restTestBase.getRootServerCli() != null) {
-                restTestBase.getRootServerCli().cleanCliBuffer();
-            }
-            CliTests.report.stopLevel();
-        }
-    }
 
     /**
      * The function returns true if the value found in the correct error list, else its returns false
@@ -113,12 +72,9 @@ public class CliNegative extends BddCliTestBase {
      * general export negative test
      */
     protected void exportNegativeTest(String command, String name, String destination) throws Exception {
-        Optional<ServerDto> linuxFileServer = TestBase.getSutManager().getServerById("linuxFileServer");
+        LinuxFileServer linuxFileServer = serversManagement.getLinuxFileServer().get();
         String password;
-        if (linuxFileServer.isPresent())
-            password = linuxFileServer.get().getPassword();
-        else
-            throw new Exception("Linux File Server was not found");
+        password = linuxFileServer.getPassword();
         exportNegativeTest(command, name, destination, password);
     }
 
@@ -148,13 +104,9 @@ public class CliNegative extends BddCliTestBase {
      * general import negative test
      */
     protected void importNegativeTest(String command, String location) throws Exception {
-        Optional<ServerDto> linuxFileServer = TestBase.getSutManager().getServerById("linuxFileServer");
+        LinuxFileServer linuxFileServer = serversManagement.getLinuxFileServer().get();
         String password;
-        if (linuxFileServer.isPresent())
-            password = linuxFileServer.get().getPassword();
-        else
-            throw new Exception("Linux File Server was not found");
-
+        password = linuxFileServer.getPassword();
         importNegativeTest(command, password, location);
     }
 

@@ -2,9 +2,9 @@ package com.radware.vision.bddtests.scheduledtasks;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
 import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.BaseTasksHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.DDosFeedTaskHandler;
 import cucumber.api.java.en.Given;
@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
-public class ScheduledTaskCommonTests extends BddUITestBase {
+public class ScheduledTaskCommonTests extends VisionUITestBase {
     public ScheduledTaskCommonTests() throws Exception {
     }
 

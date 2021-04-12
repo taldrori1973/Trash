@@ -2,12 +2,12 @@ package com.radware.vision.bddtests.highavailability;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.enums.ConfigSyncMode;
 import com.radware.vision.infra.testhandlers.cli.highavailability.HAHandler;
 import cucumber.api.java.en.When;
 
-public class UIHASteps extends BddUITestBase{
+public class UIHASteps extends VisionUITestBase {
     public UIHASteps() throws Exception {
     }
 

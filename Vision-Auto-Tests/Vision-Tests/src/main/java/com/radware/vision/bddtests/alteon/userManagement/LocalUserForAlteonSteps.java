@@ -11,6 +11,9 @@ import cucumber.api.java.en.Then;
 import java.io.IOException;
 
 public class LocalUserForAlteonSteps extends VisionUITestBase {
+    public LocalUserForAlteonSteps() throws Exception {
+    }
+
     @Then("^UI Verify User Existence with userId (\\d+) \"(.*)\" device with index (\\d+)( negative)?$")
     public void verifyUserExistence(int userId, String elementType, int index, String negative) throws IOException {
         try {

@@ -7,7 +7,7 @@ import com.radware.vision.automation.databases.mariaDB.GenericCRUD;
 import com.radware.vision.automation.databases.mariaDB.client.VisionDBSchema;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.defensepro.HAStatus;
 import com.radware.vision.infra.enums.DeviceState;
 import com.radware.vision.infra.enums.TopologyTreeTabs;
@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 import static com.radware.vision.infra.testhandlers.DefencePro.dpOperations.DPOperationsHandler.printYellowMessage;
 
-public class DPOperationsTests extends BddUITestBase {
+public class DPOperationsTests extends VisionUITestBase {
 
     public DPOperationsTests() throws Exception {
     }

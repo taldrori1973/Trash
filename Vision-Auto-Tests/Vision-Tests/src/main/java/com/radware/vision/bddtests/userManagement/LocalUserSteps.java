@@ -10,6 +10,9 @@ import java.util.Map;
 
 public class LocalUserSteps extends VisionUITestBase {
 
+    public LocalUserSteps() throws Exception {
+    }
+
     @Then("^UI Add Local user with userName \"([^\"]*)\"$")
     public void createUser(String userName, Map<String,String> userProperties) {
         try {

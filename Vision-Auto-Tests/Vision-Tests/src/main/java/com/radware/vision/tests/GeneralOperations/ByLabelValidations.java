@@ -20,6 +20,9 @@ public class ByLabelValidations extends VisionUITestBase {
 
     private BasicOperationsByNameIdHandler basicOperationsByNameIdHandler = new BasicOperationsByNameIdHandler();
 
+    public ByLabelValidations() throws Exception {
+    }
+
 
     public boolean validateTableRecord(String deviceDriverId, String fieldLabel, String rowKey, String rowValue) {
         int result = 0;

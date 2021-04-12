@@ -5,7 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.TORTaskHandler;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
@@ -13,7 +13,7 @@ import enums.SUTEntryType;
 import java.util.List;
 
 
-public class TORTests extends BddUITestBase {
+public class TORTests extends VisionUITestBase {
 
     public TORTests() throws Exception {
     }

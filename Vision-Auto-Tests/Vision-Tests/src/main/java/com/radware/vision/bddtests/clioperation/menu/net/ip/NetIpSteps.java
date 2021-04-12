@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.clioperation.menu.net.ip;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.utils.SutUtils;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
 import com.radware.vision.vision_handlers.net.Ip;
@@ -10,7 +10,7 @@ import com.radware.vision.vision_handlers.root.RootVerifications;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.api.java.en.When;
 
-public class NetIpSteps extends BddCliTestBase {
+public class NetIpSteps extends TestBase {
 
     /**
      * set new net port ip's and verify.

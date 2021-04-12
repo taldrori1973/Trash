@@ -24,6 +24,9 @@ import java.util.Map;
 public class AlertsSteps extends VisionUITestBase {
 
 
+    public AlertsSteps() throws Exception {
+    }
+
     @When("^UI Maximize Alerts Browser$")
     public void maximizeAlertsBrowser() {
 

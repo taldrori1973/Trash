@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.DPM.DPMReportHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import cucumber.api.java.en.Given;
@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 
-public class DPMReportSteps extends BddUITestBase {
+public class DPMReportSteps extends VisionUITestBase {
     DPMReportHandler dpmReportsHandler = new DPMReportHandler();
 
     public DPMReportSteps() throws Exception {

@@ -7,7 +7,7 @@ import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.utils.RegexUtils;
 import com.radware.vision.vision_handlers.system.VisionServer;
@@ -19,7 +19,7 @@ import static com.radware.vision.automation.Deploy.VisionServer.waitForServerCon
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
 
-public class VmSnapShotOperations extends BddUITestBase {
+public class VmSnapShotOperations extends VisionUITestBase {
 
     private String snapshotName = VMOperationsSteps.getVisionSetupAttributeFromSUT("snapshot");
     private final String setupMode = VMOperationsSteps.getVisionSetupAttributeFromSUT("setupMode");

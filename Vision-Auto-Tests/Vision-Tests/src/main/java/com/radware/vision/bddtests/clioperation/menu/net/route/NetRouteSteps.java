@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.clioperation.menu.net.route;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
 import com.radware.vision.vision_handlers.net.Ip;
 import com.radware.vision.vision_handlers.net.Route;
@@ -10,7 +10,7 @@ import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.api.java.en.When;
 
 
-public class NetRouteSteps extends BddCliTestBase {
+public class NetRouteSteps extends TestBase {
 
     /**
      * Run net route test for port G2 and G3

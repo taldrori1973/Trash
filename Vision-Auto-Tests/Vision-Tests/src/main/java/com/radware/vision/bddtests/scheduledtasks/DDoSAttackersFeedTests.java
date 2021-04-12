@@ -3,7 +3,7 @@ package com.radware.vision.bddtests.scheduledtasks;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.DDosFeedTaskHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.TaskRunIntervalType;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.TaskType;
@@ -15,7 +15,7 @@ import cucumber.api.java.en.When;
 import java.util.List;
 
 
-public class DDoSAttackersFeedTests extends BddUITestBase {
+public class DDoSAttackersFeedTests extends VisionUITestBase {
 
     TaskType taskType = TaskType.ERT_ACTIVE_ATTACKERS_FEED_For_DEFENSEPRO;
     String groupDestinations;

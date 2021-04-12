@@ -27,6 +27,9 @@ import java.util.Map;
 public class MySQLSteps extends VisionUITestBase {
 
 
+    public MySQLSteps() throws Exception {
+    }
+
     @Then("^MYSQL Validate Single Value by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" ([^\"]*) (.*)$")
     public void mysqlValidateSingleValueBySELECTColumnFROMSchemaAndTableWHEREEQUALS(String columnName, VisionDBSchema schema, String tableName, String whereCondition, OperatorsEnum operation, String value) {
         try {
