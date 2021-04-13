@@ -6,6 +6,7 @@ import com.radware.restcore.GenericRestClient;
 import com.radware.restcore.RestBasicConsts;
 import com.radware.restcore.VisionRestClient;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.infra.utils.ReportsUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,11 +18,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
 
-public class BasicRestOperationsHandler {
+public class BasicRestOperationsHandler extends TestBase {
 
     public static void genericRestApiRequest(String ip, Integer httpPort, HttpMethodEnum httpMethod, String fileName, String urlParams, String bodyParams, String expectedResult) {
 
@@ -64,7 +64,7 @@ public class BasicRestOperationsHandler {
      *  @param method - HttpMethodEnum
      * @param request - API property file
      * @param requestEntries - API fields (header, body params, result...)
-     * @return
+     * @return - Object
      */
     public static Object visionRestApiBuilder(HttpMethodEnum method, String request, List<RestRequestElements> requestEntries) {
         Object restResult = null;
@@ -130,7 +130,7 @@ public class BasicRestOperationsHandler {
             reportErrors();
         }
     }
-    public class ExistenceReport
+    public static class ExistenceReport
     {
         String reportName;
         Boolean isExist;
