@@ -99,14 +99,14 @@ Feature: DPGenerateReport
     Then UI Click Button "Log Preview" with value "DP Report_0"
     Then UI Validate generate report with name "DP Report" is exist
 
-  @SID_10
+  @SID_12
   Scenario: validate policy names in summary table's report
     Then UI Validate Table record values by columns with elementLabel "Summary Table" findBy index 0
       | columnName   | value  |
       | Policy Names | shlomi |
 
 
-  @SID_12
+  @SID_13
   Scenario: start IPTABLES
     Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
     Then UI logout and close browser
