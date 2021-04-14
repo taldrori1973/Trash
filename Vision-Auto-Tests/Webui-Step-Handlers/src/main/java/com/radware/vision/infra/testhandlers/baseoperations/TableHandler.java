@@ -165,7 +165,7 @@ public class TableHandler {
     private void constructTable(String tableSelector, ComponentLocator tableLocator, WebElement tableElement, boolean withReadAllTable) throws Exception {
         if (tableElement != null) {
             String classValue = WebUIUtils.fluentWaitAttribute(tableLocator.getBy(), WebUIUtils.MAX_RENDER_WAIT_TIME, true, "class", null);
-            if (classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table") || tableSelector.contains("table_sample-data-table"))
+            if (classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table") || tableSelector.contains("table_sample-data-table") || tableSelector.equals("summary-table"))
                 table = new BasicTable(tableLocator, withReadAllTable);
             else if (tableSelector.contains("table_attacksTable"))
                 table = new BasicTableWithPagination(tableLocator, withReadAllTable);

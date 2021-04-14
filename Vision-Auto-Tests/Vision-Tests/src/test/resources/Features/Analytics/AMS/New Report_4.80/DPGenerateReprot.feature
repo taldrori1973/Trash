@@ -91,11 +91,19 @@ Feature: DPGenerateReport
   Scenario: create new OWASP Top 10 1
     Given UI "Create" Report With Name "DP Report"
       | Template-1 | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All] |
+      | Template-2 | reportType:DefensePro Analytics , Widgets:[Top Attack Sources]  ,devices:[All], showTable:true              |
+      | Template-3 | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations]  ,devices:[All]                         |
     Then UI "Generate" Report With Name "DP Report"
       | timeOut | 60 |
 
     Then UI Click Button "Log Preview" with value "DP Report_0"
     Then UI Validate generate report with name "DP Report" is exist
+
+  @SID_10
+  Scenario: validate policy names in summary table's report
+    Then UI Validate Table record values by columns with elementLabel "Summary Table" findBy index 0
+      | columnName   | value  |
+      | Policy Names | shlomi |
 
 
   @SID_12
