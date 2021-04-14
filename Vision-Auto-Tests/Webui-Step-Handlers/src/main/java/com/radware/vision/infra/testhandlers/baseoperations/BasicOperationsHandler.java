@@ -10,7 +10,6 @@ import com.radware.automation.react.widgets.impl.enums.WebElementType;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.FileUtils;
-import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.tools.utils.PropertiesFilesUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
@@ -29,6 +28,11 @@ import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -44,9 +48,6 @@ import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
 import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.*;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.vision_project_cli.menu.Menu;
 import junit.framework.SystemTestCase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -726,13 +727,14 @@ public class BasicOperationsHandler {
 
     public static void appendMyCnfFile(RootServerCli rootServerCli, String varName, String varValue) throws
             Exception {
-        InvokeUtils.invokeCommand("sed -i '30i" + varName + "=" + varValue + "' " + "/etc/my.cnf", rootServerCli);
+        CliOperations.runCommand(rootServerCli, "sed -i '30i" + varName + "=" + varValue + "' " + "/etc/my.cnf");
     }
 
     public static void restartVisionServerServices(RadwareServerCli visionRestClient) throws Exception {
         visionRestClient.connect();
-        InvokeUtils.invokeCommand(null, Menu.system().visionServer().stop().build(), visionRestClient, 600000L);
-        InvokeUtils.invokeCommand(null, Menu.system().visionServer().start().build(), visionRestClient, 600000L, false, true);
+        CliOperations.runCommand(visionRestClient, Menu.system().visionServer().stop().build(), 600000);
+        CliOperations.runCommand(visionRestClient, Menu.system().visionServer().start().build(),
+                600000, false, true);
     }
 
     public static boolean verifyLogout() {
@@ -756,11 +758,6 @@ public class BasicOperationsHandler {
         } catch (InterruptedException ie) {
 //			Ignore
         }
-    }
-
-    public static void runVisionServerDebugMode(CliConnectionImpl cli) throws Exception {
-        cli.connect();
-        InvokeUtils.invokeCommand(null, "start_server_debug", cli, 3 * 60 * 1000);
     }
 
     public static String getVisionClientTime() {

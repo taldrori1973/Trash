@@ -2,10 +2,11 @@ package com.radware.vision.infra.utils.labeloperations;
 
 import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.utils.FileUtils;
-import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.infra.enums.GlobalConstants;
 import com.radware.vision.infra.enums.WebWidgetType;
-import com.radware.vision.vision_project_cli.RootServerCli;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class LabelOperationsUtils {
     private static final String WINDOWS_GREP_UTIL = "findstr";
     private static final String fileTypeExtension = "xml";
 
-    public static Set<String> findVisionFilesByLabelName(String label, WebWidgetType fieldType, CliConnectionImpl localServerCli) {
+    public static Set<String> findVisionFilesByLabelName(String label, WebWidgetType fieldType, ServerCliBase localServerCli) {
         StringBuilder command = new StringBuilder();
         String findStr = null;
         boolean isLinux = FileUtils.isLinux();
@@ -108,7 +109,7 @@ public class LabelOperationsUtils {
         String findStr = fieldType == WebWidgetType.RadioButton ? " \"value=\\\"" + label + "\\\"\" " : " \"label=\\\"" + label + "\\\"\" ";
         String remoteCommand = LINUX_GREP_UTIL + findStr + FileUtils.REMOTE_DEVICE_DRIVERS_REPOSITORY_PATH + deviceDriverId + "/client/*";
         try {
-            InvokeUtils.invokeCommand(remoteCommand, radwareServer);
+            CliOperations.runCommand(radwareServer, remoteCommand);
             List<String> outputResult = radwareServer.getCmdOutput();
             for (String line : outputResult) {
                 if (line.contains("Is a directory")) continue;
@@ -124,10 +125,10 @@ public class LabelOperationsUtils {
         return files;
     }
 
-    private static Set<String> invokeLinuxCommand(String command, CliConnectionImpl localServerCli) throws Exception {
+    private static Set<String> invokeLinuxCommand(String command, ServerCliBase localServerCli) throws Exception {
         Set<String> files = new HashSet<String>();
         localServerCli.setProtocol(CliConnectionImpl.EnumConnectionType.SSH.value());
-        InvokeUtils.invokeCommand(null, command, localServerCli, 10 * 1000, false, false, true, null, false);
+        CliOperations.runCommand(localServerCli,command, 10 * 1000, false, false, true, null, false);
         String result = localServerCli.getTestAgainstObject().toString();
         List<String> commandOutput = result != null ? Arrays.asList(result.split("\n")) : new ArrayList<String>();
         String file = "";

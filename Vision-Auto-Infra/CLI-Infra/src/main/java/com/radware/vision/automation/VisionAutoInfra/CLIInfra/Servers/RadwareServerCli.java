@@ -2,7 +2,7 @@ package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.RegexUtils;
 import jsystem.extensions.analyzers.text.GetTextCounter;
 import systemobject.terminal.Prompt;
@@ -303,7 +303,7 @@ public class RadwareServerCli extends ServerCliBase {
     }
 
     public void sendCommand(String command) throws Exception {
-        InvokeUtils.invokeCommand(null, command, this);
+        CliOperations.runCommand(this, command);
         BaseTestUtils.reporter.report(getTestAgainstObject().toString());
     }
 

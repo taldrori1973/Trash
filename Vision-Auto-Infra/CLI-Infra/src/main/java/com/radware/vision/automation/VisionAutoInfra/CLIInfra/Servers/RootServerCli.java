@@ -2,7 +2,7 @@ package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.utils.IPUtils;
-import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import jsystem.extensions.analyzers.text.GetTextCounter;
 import jsystem.framework.report.Summary;
@@ -52,7 +52,7 @@ public class RootServerCli extends ServerCliBase {
             while (((startTime + timeout) > System.currentTimeMillis())) {
                 try {
                     this.connect();
-                    InvokeUtils.invokeCommand(null, "ls  " + expectedFile, this, 2 * 1000, true, true, true);
+                    CliOperations.runCommand(this, "ls  " + expectedFile, 2 * 1000, true, true, true);
                     String consoleResult = getTestAgainstObject() == null ? "" : getTestAgainstObject().toString();
                     if (consoleResult.contains(expectedFile) && !consoleResult.contains("cannot")) {
                         return true;
@@ -88,12 +88,12 @@ public class RootServerCli extends ServerCliBase {
 
             if (buildNumber.isEmpty() || versionNumebr.isEmpty()) {
                 try {
-                    InvokeUtils.invokeCommand(null, "cat /opt/radware/mgt-server/build.properties", this); // Give write permissions to the file
+                    CliOperations.runCommand(this, "cat /opt/radware/mgt-server/build.properties"); // Give write permissions to the file
                     version.append(this.getStringCounter("buildMajorVersion"));
                     version.append(".").append(this.getStringCounter("buildMinorVersion"));
                     version.append(".").append(this.getStringCounter("buildRevisionVersion"));
                     build += this.getStringCounter("buildId");
-                    InvokeUtils.invokeCommand(null, "cd ~", this);
+                    CliOperations.runCommand(this, "cd ~");
                 } finally {
                     if (version.toString().isEmpty() == false) {
                         versionNumebr = version.toString();
@@ -127,8 +127,8 @@ public class RootServerCli extends ServerCliBase {
     }
 
     public void switchToRadware() throws Exception {
-        InvokeUtils.invokeCommand(null, "su radware", this);
-        InvokeUtils.invokeCommand(null, getPassword(), this);
+        CliOperations.runCommand(this, "su radware");
+        CliOperations.runCommand(this, getPassword());
         if (!getTestAgainstObject().toString().endsWith("$ ")) {
             throw new Exception("Failed switch to radware user");
         }
@@ -138,15 +138,15 @@ public class RootServerCli extends ServerCliBase {
      * Moving back to root user after switching to radware
      */
     public void exitRadware() throws Exception {
-        InvokeUtils.invokeCommand(null, "", this);
+        CliOperations.runCommand(this, "");
         if (!getTestAgainstObject().toString().endsWith("# ") && getTestAgainstObject().toString().endsWith("$ ")) {
-            InvokeUtils.invokeCommand(null, Menu.exit().build(), this);
+            CliOperations.runCommand(this, Menu.exit().build());
         }
     }
 
     public long getCurrentEpochTime() {
         try {
-            InvokeUtils.invokeCommand(null, "date +%s", this);
+            CliOperations.runCommand(this, "date +%s");
             String epochTime = this.getTestAgainstObject().toString();
             List<String> output = Arrays.asList(epochTime.split("\r\n"));
             if (output.size() >= 2) {
@@ -177,8 +177,8 @@ public class RootServerCli extends ServerCliBase {
 
     public void addDBPermissionsToConnectoToMySql(String sourceHost) throws Exception {
         String host = sourceHost == null ? IPUtils.getIpV4LocalAddress() : sourceHost;
-        InvokeUtils.invokeCommand(null, "mysql -uroot -prad123 -e \"grant all on *.* to 'root'@'" + host
-                + "' identified by 'rad123'\"", this);
+        CliOperations.runCommand(this, "mysql -uroot -prad123 -e \"grant all on *.* to 'root'@'" + host
+                + "' identified by 'rad123'\"");
     }
 
     @Override

@@ -150,7 +150,7 @@ public class AlertsSteps extends VisionUITestBase {
     @Then("^UI validate RaisedTimeFilter with raisedTimeUnit \"(HOURS|MINUTES)\" with raisedTimeValue \"(.*)\"$")
     public void validateRaisedTimeFilter(RaisedTimeUnits raisedTimeUnit, String raisedTimeValue) {
         try {
-            String result = (AlertsHandler.validateRaisedTimeFilter(raisedTimeUnit.getTimeUnits(), raisedTimeValue, getRestTestBase().getRootServerCli()));
+            String result = (AlertsHandler.validateRaisedTimeFilter(raisedTimeUnit.getTimeUnits(), raisedTimeValue, serversManagement.getRootServerCLI().get()));
             if (!result.isEmpty()) {
                 BaseTestUtils.report("Alert: " + result + "\n.", Reporter.FAIL);
             }

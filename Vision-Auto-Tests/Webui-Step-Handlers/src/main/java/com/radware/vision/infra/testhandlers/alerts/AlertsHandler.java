@@ -9,6 +9,7 @@ import com.radware.automation.webui.widgets.api.table.Table;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.infra.base.pages.alerts.AlertFilter;
 import com.radware.vision.infra.base.pages.alerts.Alerts;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
@@ -419,7 +420,7 @@ public class AlertsHandler {
         }
     }
 
-    public static String validateRaisedTimeFilter(String raisedTimeUnit, String raisedTimeValue, CliConnection cli) throws Exception {
+    public static String validateRaisedTimeFilter(String raisedTimeUnit, String raisedTimeValue, ServerCliBase cli) throws Exception {
         HashMap<String, String> filterProperties = new HashMap<String, String>();
         filterProperties.put("raisedTimeUnit", raisedTimeUnit);
         filterProperties.put("raisedTimeValue", raisedTimeValue);

@@ -33,9 +33,9 @@ public class ValidateTaskTests extends VisionUITestBase {
             deviceIp = deviceInfo.getDeviceIp();
             updateNavigationParser(deviceIp);
             if (filePathToDelete == null || filePathToDelete.isEmpty()) {
-                ValidateTasksHandler.removeDpSecurityFileRepeater(deviceIp, getRestTestBase().getRootServerCli(), "", "", defaultFileName, 5);
+                ValidateTasksHandler.removeDpSecurityFileRepeater(deviceIp, serversManagement.getRootServerCLI().get(), "", "", defaultFileName, 5);
             } else {
-                ValidateTasksHandler.removeDpSecurityFileRepeater(deviceIp, getRestTestBase().getRootServerCli(), "", "", filePathToDelete, 5);
+                ValidateTasksHandler.removeDpSecurityFileRepeater(deviceIp, serversManagement.getRootServerCLI().get(), "", "", filePathToDelete, 5);
 
             }
         } catch (Exception e) {

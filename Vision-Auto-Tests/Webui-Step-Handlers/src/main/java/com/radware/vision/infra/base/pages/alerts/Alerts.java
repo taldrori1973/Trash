@@ -1,14 +1,15 @@
 package com.radware.vision.infra.base.pages.alerts;
 
-import com.aqua.sysobj.conn.CliConnection;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.table.WebUIRow;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.infra.base.pages.dialogboxes.AreYouSureDialogBox;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.RaisedTimeUnits;
@@ -18,7 +19,6 @@ import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.WebUIStringsVision;
 import com.radware.vision.infra.validationutils.ValidateAlertsTable;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
@@ -326,9 +326,8 @@ public class Alerts extends WebUIVisionBasePage {
         usersTable.clickOnRow(rowNum);
     }
 
-    public String validateFilteredByRaisedTimeTable(String raisedTimeUnit, String raisedTimeValue, CliConnection cli) throws Exception {
-
-        InvokeUtils.invokeCommand("date +%s", (RootServerCli) cli);
+    public String validateFilteredByRaisedTimeTable(String raisedTimeUnit, String raisedTimeValue, ServerCliBase cli) throws Exception {
+        CliOperations.runCommand(cli, "date +%s");
         String serverTimeString = ((RootServerCli) cli).getTestAgainstObject().toString();
 
         long serverTime = Long.parseLong(serverTimeString.split("\\r\\n")[1]);
