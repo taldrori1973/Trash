@@ -31,6 +31,22 @@ public class SUTManagerImpl implements SUTManager {
         return instance;
     }
 
+
+    @Override
+    public String getServerName() {
+        return this.sutService.getVMName();
+    }
+
+    @Override
+    public String getpairIp() {
+        return this.sutService.getpairIp();
+    }
+
+//    @Override
+//    public String getpairEnv() {
+//        return this.sutService.getPairEnv();
+//    }
+
     @Override
     public String getSetupId() {
         return this.sutService.getSetupId();
