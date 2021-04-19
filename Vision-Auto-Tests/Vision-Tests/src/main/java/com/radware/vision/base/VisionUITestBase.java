@@ -281,36 +281,6 @@ public abstract class VisionUITestBase extends TestBase {
 //    }
 
 
-    public void updatePoratlVisionBuildAndVersion() {
-        try {
-//            restTestBase.getRootServerCli().setConnectOnInit(true);
-//            restTestBase.getRootServerCli().connect();
-//            restTestBase.getRootServerCli().getVersionAndBuildFromSever();
-//            restTestBase.initReporter();
-            FeatureRunner.update_version_build_mode(managementInfo.getVersion(),
-                    managementInfo.getBuild(),
-                    BddReporterManager.getRunMode());
-        } catch (Exception e) {
-            BaseTestUtils.report("publish BDD results Failure!!! ", Reporter.PASS_NOR_FAIL);
-        }
-    }
-
-    public void publishBddResults() {
-        String status = BddReporterManager.isResultPass() ? "Passed" : "Failed";
-
-        Integer testCaseId = BddReporterManager.getStepId();
-
-        if (testCaseId != null && IgnoreList.getInstance().getIgnoreList().containsKey(testCaseId.toString()))
-            status = "Failed";
-
-        if (BddReporterManager.getAutoStepId() != null) {
-            updatePoratlVisionBuildAndVersion();
-            RadAutoDB.getInstance().autoStepTbl.updateStepResult(BddReporterManager.getAutoStepId(), status);
-            if (status.equals("Failed"))
-                RadAutoDB.getInstance().autoStepFailReasonTbl.createStepFailReason(BddReporterManager.getAutoStepId(), "Error", BddReporterManager.getAllResult(), "", "", "");
-        }
-    }
-
     private boolean ignoredMessageIds(String msg) {
         for (String msgId : MessageIdsIgnore.ignoredMessageIds) {
             if (msg.contains(msgId)) return true;
