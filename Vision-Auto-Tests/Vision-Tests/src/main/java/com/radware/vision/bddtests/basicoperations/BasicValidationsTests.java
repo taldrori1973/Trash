@@ -12,7 +12,7 @@ import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.enums.PopupDialogBoxTexts;
@@ -40,7 +40,7 @@ import java.util.*;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.setTextField;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
-public class BasicValidationsTests extends BddUITestBase {
+public class BasicValidationsTests extends VisionUITestBase {
 
     BasicOperationsByNameIdHandler basicOperationsByNameIdHandler = new BasicOperationsByNameIdHandler();
     TableHandler tableHandler = new TableHandler();

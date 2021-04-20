@@ -8,7 +8,7 @@ import com.radware.automation.webui.webpages.WebUIBasePage;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
 import com.radware.vision.infra.enums.*;
 import com.radware.vision.infra.testhandlers.deviceoperations.DeviceOperationsHandler;
@@ -20,7 +20,7 @@ import org.openqa.selenium.support.How;
 
 import java.util.HashMap;
 
-public class DeviceOperationSteps extends BddUITestBase {
+public class DeviceOperationSteps extends VisionUITestBase {
     DeviceState deviceState = DeviceState.Lock;
 
     public DeviceOperationSteps() throws Exception {
@@ -80,7 +80,7 @@ public class DeviceOperationSteps extends BddUITestBase {
             properties.put("scalarNamesList", "");
             properties.put("scalarValuesToVerify", "");
 
-            DeviceOperationsHandler.exportAlteonOperation(properties, getVisionRestClient());
+            DeviceOperationsHandler.exportAlteonOperation(properties, restTestBase.getVisionRestClient());
         } catch (Exception e) {
             BaseTestUtils.report("export DeviceCfg operation has been executed incorrectly :", Reporter.FAIL);
         }

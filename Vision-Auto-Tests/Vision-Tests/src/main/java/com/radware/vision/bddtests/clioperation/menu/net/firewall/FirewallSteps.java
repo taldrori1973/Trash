@@ -1,11 +1,11 @@
 package com.radware.vision.bddtests.clioperation.menu.net.firewall;
 
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.vision_handlers.net.Firewall;
 import com.radware.vision.vision_tests.CliNegativeTests;
 import cucumber.api.java.en.Given;
 
-public class FirewallSteps extends BddCliTestBase {
+public class FirewallSteps extends TestBase {
 
     CliNegativeTests cliNegativeTests=new CliNegativeTests();
 

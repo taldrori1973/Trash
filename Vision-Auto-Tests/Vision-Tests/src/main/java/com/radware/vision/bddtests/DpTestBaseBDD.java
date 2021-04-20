@@ -1,10 +1,11 @@
 package com.radware.vision.bddtests;
 
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.utils.DpWebUIUtils;
 import org.junit.Before;
 import testhandlers.Device;
 
-public class DpTestBaseBDD extends BddUITestBase{
+public class DpTestBaseBDD extends VisionUITestBase {
     protected DpWebUIUtils dpUtils;
     String defenceProVersion = "Mandatory Parameter";
 
@@ -14,7 +15,7 @@ public class DpTestBaseBDD extends BddUITestBase{
     @Before
     public void uiInit() throws Exception {
         if (getDeviceName() != null) {
-            updateNavigationParser(Device.getDeviceIp(getVisionRestClient(), getDeviceName()));
+            updateNavigationParser(Device.getDeviceIp(restTestBase.getVisionRestClient(), getDeviceName()));
         }
         dpUtils = new DpWebUIUtils();
         dpUtils.setUp();

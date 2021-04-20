@@ -10,8 +10,9 @@ import com.radware.vision.infra.utils.DeviceVisionWebUIUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import org.openqa.selenium.Cookie;
 
-public class WebUITestSetup extends WebUITestBase {
-    public WebUITestSetup() {
+public class VisionUITestSetup extends VisionUITestBase {
+    public VisionUITestSetup() throws Exception {
+        super();
 
     }
 

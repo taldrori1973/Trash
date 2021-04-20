@@ -56,7 +56,7 @@ public class ConsoleOperation extends TestBase {
     @Then("^CLI Operations - Run Radware Session command \"([^\"]*)\"$")
     public void runRadwareCommand(String command) {
         try {
-            Optional<RadwareServerCli> radwareServerCliOpt = TestBase.serversManagement.getRadwareServerCli();
+            Optional<RadwareServerCli> radwareServerCliOpt = serversManagement.getRadwareServerCli();
             if (!radwareServerCliOpt.isPresent()) {
                 throw new Exception("Radware Server Not found!");
             }
@@ -69,7 +69,7 @@ public class ConsoleOperation extends TestBase {
     @When("^CLI Operations - Run Root Session command \"(.*)\"$")
     public void runRootCommand(String command) {
         try {
-            Optional<RootServerCli> rootServerCliOpt = TestBase.serversManagement.getRootServerCLI();
+            Optional<RootServerCli> rootServerCliOpt = serversManagement.getRootServerCLI();
             if (!rootServerCliOpt.isPresent()) {
                 throw new Exception("Root Server Not found!");
             }

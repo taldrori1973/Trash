@@ -1,10 +1,8 @@
 package com.radware.vision.infra.testhandlers.scheduledtasks.validateScheduledTasks;
 
-import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
-import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.tools.utils.LinuxServerCredential;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.webpages.WebUIBasePage;
@@ -18,6 +16,8 @@ import com.radware.restcore.VisionRestClient;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.scheduler.ScheduledTasksUtils;
 import com.radware.utils.scheduler.Utils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
 import com.radware.vision.infra.base.pages.VisionServerMenuPane;
 import com.radware.vision.infra.base.pages.system.deviceresources.devicebackups.DeviceBackups;
@@ -32,7 +32,6 @@ import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.utils.DeviceVisionWebUIUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import testhandlers.vision.config.itemlist.scheduler.tasks.enums.ScheduledTaskTypes;
@@ -282,18 +281,6 @@ public class ValidateTasksHandler extends BaseTasksHandler {
         return false;
     }
 
-    public static boolean validateUpdateSecuritySignatureFileTask(HashMap<String, String> testProperties, VisionRestClient visionRestClient) throws Exception {
-//        renameDefaultFile(testProperties.get("defaultFileName"), cli);
-        String ssVersion = getSignatureFileVersionFromSite();
-        String deviceName = testProperties.get("deviceName");
-        boolean serverValidation = wait4TaskFinished(testProperties.get("taskName"), visionRestClient);
-        WebUIBasePage.refreshBrowser();
-        BasicOperationsHandler.delay(5);
-        if (serverValidation && validateUpdateSecuritySignatureFiles(deviceName, ssVersion, UpdateFromSource.UPDATE_FROM_RADWARE.getSource())) {
-            return true;
-        } else return false;
-    }
-
     public static boolean validateUpdateSecuritySignatureFiles(String deviceName, String ssVersion, String updateType) {
         String signatureVersion = getSignatureVersionFromDp(deviceName);
         String errMsg = "";
@@ -363,18 +350,6 @@ public class ValidateTasksHandler extends BaseTasksHandler {
         BasicParameters basicParameters = openBasicParametersMenu();
 
         return basicParameters.getAttackDescriptionsFile().getAttackDescriptionsFileLastUpdate();
-    }
-
-    public static void renameDefaultFile(String defaultFileName, CliConnectionImpl cli) throws Exception {
-
-        try {
-            String baseCommand = "system file-system files rename";
-            String command = baseCommand.concat(" ").concat(defaultFileName).concat(" ").concat(defaultFileName.concat("Old"));
-            InvokeUtils.invokeCommand(command, cli);
-
-        } catch (Exception e) {
-            throw new Exception("renameFile operation has failed: " + e.getMessage());
-        }
     }
 
     public static long getDeviceDate(String deviceName) {
@@ -504,51 +479,6 @@ public class ValidateTasksHandler extends BaseTasksHandler {
         return menuPane.openSystemGeneralSettings().basicParametersMenu();
     }
 
-    /**
-     * if the file exists return true
-     *
-     * @param cli
-     * @param filePath
-     * @param fileName
-     * @return
-     * @throws Exception
-     */
-    public static boolean executeFileExistenceVerifyScript(CliConnectionImpl cli, String filePath, String fileName) throws Exception {
-        try {
-            String baseCommand = "ls -l ";
-            String command = baseCommand.concat(filePath).concat("/").concat(fileName).concat("*");
-            InvokeUtils.invokeCommand(command, cli);
-            return !InvokeUtils.isTextAppearInOutput(cli, "cannot access");
-
-        } catch (Exception e) {
-            throw new Exception("executeScript operation has failed: " + e.getMessage());
-        }
-    }
-
-//    public static void scpFileNameChange(String defaultFileName, String deviceIp, String userName, String password) {
-//        try {
-//            ch.ethz.ssh2.Connection conn = new ch.ethz.ssh2.Connection(deviceIp);
-//            conn.connect();
-//            conn.authenticateWithPassword(userName, password);
-//            SCPClient scpclient = conn.createSCPClient();
-//            scpclient.put(defaultFileName, "/root");
-//        } catch (Exception e) {
-//            throw new NullPointerException("copyFile operation has failed: " + e.getMessage());
-//        }
-//    }
-
-//    public static void sshFtpFileNameChange(String defaultFileName, String deviceIp, String userName, String password) {
-//        try {
-//            ch.ethz.ssh2.Connection conn = new ch.ethz.ssh2.Connection(deviceIp);
-//            conn.connect();
-//            conn.authenticateWithPassword(userName, password);
-//            SFTPClient scpclient = conn.;
-//            scpclient.put(defaultFileName, "/root");
-//        } catch (Exception e) {
-//            throw new NullPointerException("copyFile operation has failed: " + e.getMessage());
-//        }
-//    }
-
     public static boolean validateTaskRunByServer(long timeout) {
         try {
             String message = WebUIBasePage.waitForLastYellowMessage(timeout);
@@ -599,7 +529,7 @@ public class ValidateTasksHandler extends BaseTasksHandler {
         String rootServerCommand = "lftp sftp://" + username + ":" + password + "@" + deviceIp + " -e \"rm " + filePath + "\"";
         for (int i = 0; i < tryCount; i++) {
             try {
-                InvokeUtils.invokeCommand(rootServerCommand, rootServerCli);
+                CliOperations.runCommand(rootServerCli, rootServerCommand);
                 String result = (rootServerCli.getTestAgainstObject() != null) ? rootServerCli.getTestAgainstObject().toString() : "";
                 if (result.toLowerCase().contains("ok")) {
                     BaseTestUtils.report("File deleted", Reporter.PASS);

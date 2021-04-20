@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.CompareMethod;
 import com.radware.vision.infra.testhandlers.csv.CSVTestHandler;
 import com.radware.vision.infra.testhandlers.csv.model.CSVFile;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CSVReportSteps extends BddUITestBase {
+public class CSVReportSteps extends VisionUITestBase {
 
 
     public CSVReportSteps() throws Exception {

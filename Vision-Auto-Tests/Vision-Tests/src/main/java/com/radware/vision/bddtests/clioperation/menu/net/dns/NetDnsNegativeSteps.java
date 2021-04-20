@@ -1,6 +1,6 @@
 package com.radware.vision.bddtests.clioperation.menu.net.dns;
 
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.vision_handlers.net.Dns;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliNegativeTests;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class NetDnsNegativeSteps extends BddCliTestBase {
+public class NetDnsNegativeSteps extends TestBase {
 
     CliNegativeTests cliNegativeTests = new CliNegativeTests();
 

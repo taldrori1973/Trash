@@ -11,7 +11,7 @@ import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 
-import static com.radware.vision.base.WebUITestBase.restTestBase;
+import static com.radware.vision.base.VisionUITestBase.restTestBase;
 
 public class LLSSteps {
 

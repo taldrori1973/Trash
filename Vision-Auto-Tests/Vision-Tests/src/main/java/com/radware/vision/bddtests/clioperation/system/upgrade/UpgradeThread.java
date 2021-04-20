@@ -9,9 +9,8 @@ import com.radware.vision.automation.systemManagement.serversManagement.ServersM
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
-import enums.SUTEntryType;
 
-import static com.radware.vision.base.WebUITestBase.restTestBase;
+import static com.radware.vision.base.VisionUITestBase.restTestBase;
 
 public class UpgradeThread extends Thread {
     public String IP;

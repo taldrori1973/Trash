@@ -2,8 +2,8 @@ package com.radware.vision.bddtests.clioperation.connections;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
-import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.test_utils.DeployOva;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class NewVmSteps extends BddCliTestBase {
+public class NewVmSteps extends TestBase {
 
     /**
      * Power of all machines in a dataTable.

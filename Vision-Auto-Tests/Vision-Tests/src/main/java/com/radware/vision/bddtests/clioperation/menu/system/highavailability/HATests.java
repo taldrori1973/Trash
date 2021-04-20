@@ -2,11 +2,11 @@ package com.radware.vision.bddtests.clioperation.menu.system.highavailability;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.infra.testhandlers.cli.highavailability.HAHandler;
 import cucumber.api.java.en.When;
 
-public class HATests extends BddCliTestBase {
+public class HATests extends TestBase {
 
     @When("^CLI Set config sync interval to (\\d+)$")
     public void setConfigSyncInterval(int interval) {

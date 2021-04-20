@@ -4,7 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -15,7 +15,7 @@ import testhandlers.vision.system.generalSettings.enums.BasicParametersKeys;
 
 import java.time.LocalDateTime;
 
-public class UpdateAttackDescriptionFileTests extends BddUITestBase {
+public class UpdateAttackDescriptionFileTests extends VisionUITestBase {
 
     public UpdateAttackDescriptionFileTests() throws Exception {
     }
@@ -47,7 +47,7 @@ public class UpdateAttackDescriptionFileTests extends BddUITestBase {
             basicOperationsSteps.goToVision();
             disableProxy();
             //get previous update
-            String lastUpdate = BasicParametersHandler.getBasicParameterByKey(getVisionRestClient(), BasicParametersKeys.getBasicParametersKeysEnum("attackDescLastUpdate"));
+            String lastUpdate = BasicParametersHandler.getBasicParameterByKey(restTestBase.getVisionRestClient(), BasicParametersKeys.getBasicParametersKeysEnum("attackDescLastUpdate"));
             //click update
             basicOperationsSteps.clickWebElementWithId("gwt-debug-attackDescLastUpdate_ActionButton", null);
             // choose from radware
@@ -58,7 +58,7 @@ public class UpdateAttackDescriptionFileTests extends BddUITestBase {
             int timeoutMin = 7;
             LocalDateTime timeout = LocalDateTime.now().plusMinutes(timeoutMin);
             do {
-                String upToDate = BasicParametersHandler.getBasicParameterByKey(getVisionRestClient(), BasicParametersKeys.getBasicParametersKeysEnum("attackDescLastUpdate"));
+                String upToDate = BasicParametersHandler.getBasicParameterByKey(restTestBase.getVisionRestClient(), BasicParametersKeys.getBasicParametersKeysEnum("attackDescLastUpdate"));
                 if (!lastUpdate.equals(upToDate))
                     return;
                 Thread.sleep(5000);

@@ -6,7 +6,7 @@ import com.radware.automation.utils.AutoDBUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
@@ -31,7 +31,7 @@ import java.util.*;
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
 
-public class VMOperationsSteps extends BddUITestBase {
+public class VMOperationsSteps extends VisionUITestBase {
 
     public static VMOperationsSteps newInstance() throws Exception {
         return new VMOperationsSteps();

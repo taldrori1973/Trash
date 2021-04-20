@@ -2,12 +2,12 @@ package com.radware.vision.bddtests.clioperation.menu.system.snmp;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.vision_handlers.system.snmp.SnmpHandler;
 import cucumber.api.java.en.Then;
 
 
-public class SnmpSteps extends BddCliTestBase {
+public class SnmpSteps extends TestBase {
 
 
     @Then("^CLI System Snmp Community Add$")

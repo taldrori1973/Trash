@@ -3,13 +3,13 @@ package com.radware.vision.bddtests.rest.topologytree;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.ElasticSearchHandler;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.bddtests.remotessh.AttacksSteps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
-public class ElasticSearchSteps extends BddRestTestBase {
+public class ElasticSearchSteps extends TestBase {
     /**
      *
      * @param data - the data query you want to delete

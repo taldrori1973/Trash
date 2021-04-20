@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.visionsettings.dashboards.securitycontrolcen
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.BaseTasksHandler;
 import com.radware.vision.infra.testhandlers.visionsettings.dashboards.securitycontrolcenter.SecurityControlCenterHandler;
@@ -10,7 +10,7 @@ import com.radware.vision.infra.utils.ReportsUtils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
-public class SecurityControlCenterSteps extends BddUITestBase {
+public class SecurityControlCenterSteps extends VisionUITestBase {
 
     public SecurityControlCenterSteps() throws Exception {
     }

@@ -26,6 +26,9 @@ import java.util.stream.Collectors;
 
 public class SutService {
 
+    private  String serverNameDao;
+    private  String pairIpDao;
+//    private  String pairEnvDao;
     private ModelMapper modelMapper;
     private ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
     private DevicesDao devicesDao;
@@ -39,6 +42,9 @@ public class SutService {
         this.devicesDao = DevicesDao.get_instance();
         this.sutDao = SutDao.get_instance();
         this.setupDao = SetupDao.get_instance(sutDao.getSetupFileName());
+//        serverNameDao = sutDao.getServerName();
+//        pairIpDao = sutDao.getpairIp();
+//        pairEnvDao = sutDao.getpairEnv();
         this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
 //        this.environmentsDao = EnvironmentsDao.get_instance();
     }
@@ -47,6 +53,17 @@ public class SutService {
     public String getSetupId() {
         return setupDao.getSetupId();
     }
+
+//    public String  getVMName() {
+//        return this.sutDao.getServerName();
+//    }
+//    public String getpairIp() {
+//        return this.sutDao.getpairIp();
+//    }
+//    public String getPairEnv() {
+//        return this.sutDao.getpairEnv();
+//    }
+
 
     public ClientConfigurationDto getVisionConfigurations() {
         ClientConfiguration clientConfiguration = this.sutDao.findClientConfiguration();

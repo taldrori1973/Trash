@@ -1,10 +1,9 @@
 package com.radware.vision.bddtests.vmoperations.Deploy;
 
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.vision_handlers.NewVmHandler;
-
-import java.util.Locale;
 
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 
@@ -12,7 +11,7 @@ public class FreshInstallKVM extends Deploy {
     private boolean isAPM;
 
     public FreshInstallKVM(boolean isExtended, String build) {
-        super(isExtended, build, WebUITestBase.getVisionRestClient().getDeviceIp());
+        super(isExtended, build, TestBase.getSutManager().getClientConfigurations().getHostIp());
         initIsAPM();
         buildFileInfo(FileType.ISO_SERIAL);
     }

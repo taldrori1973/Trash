@@ -3,7 +3,7 @@ package com.radware.vision.bddtests.toolbox;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.enums.*;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
@@ -14,7 +14,7 @@ import com.radware.vision.infra.utils.ReportsUtils;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class ToolboxSteps extends BddUITestBase {
+public class ToolboxSteps extends VisionUITestBase {
 
     public ToolboxSteps() throws Exception {
     }

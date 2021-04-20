@@ -3,7 +3,7 @@ package com.radware.vision.bddtests.clioperation.menu.system.config_sync;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.enums.ConfigSyncMode;
 import com.radware.vision.enums.LastConfiguration;
 import com.radware.vision.enums.YesNo;
@@ -13,7 +13,7 @@ import com.radware.vision.vision_project_cli.HaManager;
 import com.radware.vision.vision_project_cli.VisionServerHA;
 import cucumber.api.java.en.Given;
 
-public class ConfigSyncSteps extends BddCliTestBase {
+public class ConfigSyncSteps extends TestBase {
 
     private String peer;
 
@@ -28,7 +28,7 @@ public class ConfigSyncSteps extends BddCliTestBase {
             } catch (IllegalArgumentException e) {
                 throw new Exception("there is no mode called: " + mode + " please enter active, standby or disabled mode!");
             }
-            getRestTestBase().getHaManager().setHost(configSyncMode);
+            restTestBase.getHaManager().setHost(configSyncMode);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

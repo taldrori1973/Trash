@@ -5,12 +5,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.databases.mariaDB.GenericCRUD;
 import com.radware.vision.automation.databases.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.databases.mariaDB.client.VisionDBSchema;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
-import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
@@ -22,7 +22,7 @@ import cucumber.api.java.en.Then;
 import java.sql.SQLException;
 import java.util.*;
 
-public class Demo extends BddRestTestBase {
+public class Demo extends TestBase {
     @Then("^Send request$")
     public void sendRequest() throws NoSuchFieldException {
 //        CurrentVisionRestAPI genericVisionRestAPI = new CurrentVisionRestAPI("Vision/SystemConfigItemList.json", "Get Local Users");

@@ -2,8 +2,8 @@ package com.radware.vision.bddtests.rest;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.databases.mariaDB.client.JDBCConnectionException;
-import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.automation.systemManagement.licenseManagement.LicenseManagement;
 import cucumber.api.java.en.Given;
@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class LicenseSteps extends BddRestTestBase {
+public class LicenseSteps extends TestBase {
     /**
      * @param licensePrefix - such as ->
      *                      vision-demo

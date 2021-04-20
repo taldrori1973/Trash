@@ -1,7 +1,7 @@
 package com.radware.vision.bddtests.VRM.HTTPS;
 
 import com.radware.restcore.utils.enums.HttpMethodEnum;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.GenericSteps;
 import com.radware.vision.bddtests.basicoperations.BasicValidationsTests;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
@@ -23,7 +23,7 @@ import testhandlers.VisionRestApiHandler;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class HTTPSScopeSelection extends BddUITestBase {
+public class HTTPSScopeSelection extends VisionUITestBase {
 
     //Data Debug ID Labels
     private String serverButtonLabel = "Servers Button";

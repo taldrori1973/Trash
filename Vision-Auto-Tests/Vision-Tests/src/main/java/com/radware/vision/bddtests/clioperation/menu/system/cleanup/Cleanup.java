@@ -2,12 +2,12 @@ package com.radware.vision.bddtests.clioperation.menu.system.cleanup;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.vision_handlers.system.CleanupHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 
-public class Cleanup extends BddCliTestBase {
+public class Cleanup extends TestBase {
 
     @When("^CLI Cleanup without server Ip the vision HA setup$")
     public void systemCleanupWithoutServerIp_HA() {

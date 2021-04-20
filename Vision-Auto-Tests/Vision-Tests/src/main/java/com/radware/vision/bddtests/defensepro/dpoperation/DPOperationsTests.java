@@ -7,7 +7,7 @@ import com.radware.vision.automation.databases.mariaDB.GenericCRUD;
 import com.radware.vision.automation.databases.mariaDB.client.VisionDBSchema;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.defensepro.HAStatus;
 import com.radware.vision.infra.enums.DeviceState;
 import com.radware.vision.infra.enums.TopologyTreeTabs;
@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 import static com.radware.vision.infra.testhandlers.DefencePro.dpOperations.DPOperationsHandler.printYellowMessage;
 
-public class DPOperationsTests extends BddUITestBase {
+public class DPOperationsTests extends VisionUITestBase {
 
     public DPOperationsTests() throws Exception {
     }
@@ -41,7 +41,7 @@ public class DPOperationsTests extends BddUITestBase {
             //////////////////////
             WebUIUtils.widgetsContainer = null;
             if (deviceInfoPrimary.getDeviceIp() == null) {
-                updateNavigationParser(Device.getDeviceIp(getVisionRestClient(), getDeviceName()));
+                updateNavigationParser(Device.getDeviceIp(restTestBase.getVisionRestClient(), getDeviceName()));
             } else {
                 updateNavigationParser(deviceInfoPrimary.getDeviceIp());
                 setDeviceName(deviceInfoPrimary.getDeviceIp());
@@ -57,7 +57,7 @@ public class DPOperationsTests extends BddUITestBase {
             testProperties.put("fileDownloadPath", "");//C:\Users\stanislava\Downloads\
             testProperties.put("fileName", "");
 
-            if (!DPOperationsHandler.updateSecuritySignatures(getVisionRestClient(), testProperties)) {
+            if (!DPOperationsHandler.updateSecuritySignatures(restTestBase.getVisionRestClient(), testProperties)) {
                 WebUIUtils.generateAndReportScreenshot();
                 BaseTestUtils.report("update Security Signatures operation may have been executed incorrectly :", Reporter.FAIL);
             }

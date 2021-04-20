@@ -1,6 +1,6 @@
 package com.radware.vision.bddtests.clioperation.menu.net.route;
 
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
 import com.radware.vision.vision_handlers.root.RootVerifications;
 import com.radware.vision.vision_project_cli.menu.Menu;
@@ -10,7 +10,7 @@ import cucumber.api.java.en.When;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class NetRouteNegativeSteps extends BddCliTestBase {
+public class NetRouteNegativeSteps extends TestBase {
 
     CliNegativeTests cliNegativeTests = new CliNegativeTests();
 

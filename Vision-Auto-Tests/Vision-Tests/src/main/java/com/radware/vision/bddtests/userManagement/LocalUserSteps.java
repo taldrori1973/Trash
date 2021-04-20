@@ -2,13 +2,16 @@ package com.radware.vision.bddtests.userManagement;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.system.usermanagement.localusers.LocalUsersHandler;
 import cucumber.api.java.en.Then;
 
 import java.util.Map;
 
-public class LocalUserSteps extends WebUITestBase {
+public class LocalUserSteps extends VisionUITestBase {
+
+    public LocalUserSteps() throws Exception {
+    }
 
     @Then("^UI Add Local user with userName \"([^\"]*)\"$")
     public void createUser(String userName, Map<String,String> userProperties) {

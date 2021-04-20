@@ -6,13 +6,10 @@ import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.bddtests.BddCliTestBase;
-import com.radware.vision.bddtests.clioperation.GeneralSteps;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.GlobalProperties;
-import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;
-import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -25,7 +22,7 @@ import static com.radware.vision.vision_handlers.system.VisionServer.waitForVisi
 import static com.radware.vision.vision_tests.CliTests.radwareServerCli;
 import static com.radware.vision.vision_tests.CliTests.rootServerCli;
 
-public class UpgradeSteps extends BddCliTestBase {
+public class UpgradeSteps extends TestBase {
 
 
     @When("^Upgrade vision to version \"(.*)\", build \"(.*)\"$")

@@ -9,7 +9,7 @@ import com.radware.automation.webui.webpages.WebUIBasePage;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.topologytree.DeviceProperties;
 import com.radware.vision.infra.base.pages.topologytree.StandardDeviceProperties;
 import com.radware.vision.infra.enums.ClusterAssociatedMgmtPorts;
@@ -33,7 +33,7 @@ import testhandlers.Tree;
 
 import java.util.*;
 
-public class TopologyTreeSteps extends BddUITestBase {
+public class TopologyTreeSteps extends VisionUITestBase {
 
     TopologyTree topologyTree = new TopologyTree();
 
@@ -41,7 +41,7 @@ public class TopologyTreeSteps extends BddUITestBase {
     }
 
     @When("^UI Add( physical)? \"(.*)\" with index (\\d+) on \"(.*)\" site( unregister)?(?: expected status \"(.*)\")?$")
-    public void addNewDevice(String treeTabType, String elementType, int index, String parent, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) throws Exception {
+    public void addNewDevice(String treeTabType, String elementType, int index, String parent, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) {
         try {
             boolean register = unregister == null;
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
@@ -59,7 +59,7 @@ public class TopologyTreeSteps extends BddUITestBase {
             if (expectedStatus == null) {
                 expectedStatus = ImConstants$DeviceStatusEnumPojo.OK;
             }
-            if (!Device.waitForDeviceStatus(getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
+            if (!Device.waitForDeviceStatus(restTestBase.getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
                 BaseTestUtils.report("Device Name :" + getDeviceName() + " Device Status is not equal to " + expectedStatus, Reporter.FAIL);
             }
             WebUIBasePage.closeAllYellowMessages();
@@ -89,7 +89,7 @@ public class TopologyTreeSteps extends BddUITestBase {
             if (expectedStatus == null) {
                 expectedStatus = ImConstants$DeviceStatusEnumPojo.OK;
             }
-            if (!Device.waitForDeviceStatus(getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
+            if (!Device.waitForDeviceStatus(restTestBase.getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
                 BaseTestUtils.report("Device Name :" + getDeviceName() + " Device Status is not equal to " + expectedStatus, Reporter.FAIL);
             }
             WebUIBasePage.closeAllYellowMessages();
@@ -116,7 +116,7 @@ public class TopologyTreeSteps extends BddUITestBase {
             SUTDeviceType sutDeviceType = SUTDeviceType.valueOf(elementType);
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, index);
             String visionServerIP = ("G1").concat(" (").concat(getVisionServerIp()).concat(")");
-            HashMap<String, String> deviceProperties = new HashMap<String, String>();
+            HashMap<String, String> deviceProperties = new HashMap<>();
             deviceProperties.put("snmpReadCommunity", "wrong");
             deviceProperties.put("snmpWriteCommunity", "wrong");
             deviceProperties.put("httpUserNameDefensePro", deviceInfo.getUsername());
@@ -163,7 +163,7 @@ public class TopologyTreeSteps extends BddUITestBase {
         try {
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
             String deviceName = deviceInfo.getDeviceName();
-            if (!Device.waitForDeviceStatus(getVisionRestClient(), deviceName, ImConstants$DeviceStatusEnumPojo.OK, 4 * 60 * 1000)) {
+            if (!Device.waitForDeviceStatus(restTestBase.getVisionRestClient(), deviceName, ImConstants$DeviceStatusEnumPojo.OK, 4 * 60 * 1000)) {
                 BaseTestUtils.report("Device Name :" + deviceName + " Device Status is not equal to " + ImConstants$DeviceStatusEnumPojo.OK, Reporter.FAIL);
             }
         } catch (Exception e) {
@@ -206,7 +206,7 @@ public class TopologyTreeSteps extends BddUITestBase {
 
     @When("^physical tab existence \"([^\"]*)\"$")
     public void physicalTabExistence(String existOrNot) {
-        RBACHandler.expectedResultRBAC = Boolean.valueOf(existOrNot);
+        RBACHandler.expectedResultRBAC = Boolean.parseBoolean(existOrNot);
         if (!RBACHandler.verifyPhysicalTabExistence()) {
             if (RBACHandler.expectedResultRBAC) {
                 ReportsUtils.reportAndTakeScreenShot("physical tab does not exist", Reporter.FAIL);
@@ -274,7 +274,7 @@ public class TopologyTreeSteps extends BddUITestBase {
     }
 
     @Then("^UI ExpandAll Sites And Clusters$")
-    public void expandAllSitesAndClusters() throws Exception {
+    public void expandAllSitesAndClusters() {
         try {
             TopologyTreeHandler.expandAllSitesClusters();
         } catch (Exception e) {
@@ -420,9 +420,9 @@ public class TopologyTreeSteps extends BddUITestBase {
                 String currentDeviceName = getDeviceName().concat(String.valueOf(i + 1));
                 deviceProperties.put("name", currentDeviceName);
                 if (elementType.equals(SUTDeviceType.Alteon))
-                    Device.addNewAlteonDevice(getVisionRestClient(), currentDeviceName, deviceProperties.get("Parent"), deviceProperties, visionMGTPort);
+                    Device.addNewAlteonDevice(restTestBase.getVisionRestClient(), currentDeviceName, deviceProperties.get("Parent"), deviceProperties, visionMGTPort);
                 else
-                    Device.addNewDefenceProDevice(getVisionRestClient(), String.valueOf(managementIP), deviceProperties.get("Parent"), deviceProperties, visionMGTPort);
+                    Device.addNewDefenceProDevice(restTestBase.getVisionRestClient(), String.valueOf(managementIP), deviceProperties.get("Parent"), deviceProperties, visionMGTPort);
             }
 
         } catch (Exception e) {
@@ -436,7 +436,7 @@ public class TopologyTreeSteps extends BddUITestBase {
     public void uiDeleteDevices(int amountOfDevices, String elementName) throws Throwable {
         try {
             for (int i = 1; i <= amountOfDevices; i++) {
-                Device.deleteDeviceByName(getVisionRestClient(), elementName + i);
+                Device.deleteDeviceByName(restTestBase.getVisionRestClient(), elementName + i);
             }
         } catch (Exception e) {
             BaseTestUtils.report("Device with Name: " + elementName + " " + "may not have been properly deleted, " + e.getMessage(), Reporter.FAIL);
@@ -448,7 +448,7 @@ public class TopologyTreeSteps extends BddUITestBase {
     public void uiDeleteSites(int amountOfSites, String elementName) throws Throwable {
         try {
             for (int i = 1; i <= amountOfSites; i++) {
-                Tree.deleteSiteByName(getVisionRestClient(), elementName + i);
+                Tree.deleteSiteByName(restTestBase.getVisionRestClient(), elementName + i);
             }
         } catch (Exception e) {
             BaseTestUtils.report("Device with Name: " + elementName + " " + "may not have been properly deleted, " + e.getMessage(), Reporter.FAIL);
@@ -531,7 +531,7 @@ public class TopologyTreeSteps extends BddUITestBase {
     public void uiEditDPDeviceWithIndexFromTopologyTree(int deviceIndex, ImConstants$DeviceStatusEnumPojo expectedStatus, Map<String, String> properties) throws Throwable {
         String visionServerIP = (String.valueOf(properties.get("visionMgtPort"))).concat(" (").concat(getVisionServerIp()).concat(")");
         SUTDeviceType deviceType = SUTDeviceType.DefensePro;
-        HashMap<String, String> deviceProperties = new HashMap<String, String>(properties);
+        HashMap<String, String> deviceProperties = new HashMap<>(properties);
         try {
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
             deviceProperties.put("visionServerIP", visionServerIP);
@@ -542,7 +542,7 @@ public class TopologyTreeSteps extends BddUITestBase {
             if (expectedStatus == null) {
                 expectedStatus = ImConstants$DeviceStatusEnumPojo.OK;
             }
-            if (!Device.waitForDeviceStatus(getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
+            if (!Device.waitForDeviceStatus(restTestBase.getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
                 BaseTestUtils.report("Device Name :" + getDeviceName() + " Device Status is not equal to " + expectedStatus, Reporter.FAIL);
             }
             WebUIBasePage.closeAllYellowMessages();
@@ -610,7 +610,7 @@ public class TopologyTreeSteps extends BddUITestBase {
     @Then("^UI Add( physical)? \"([^\"]*)\" Device To topology Tree with Name \"([^\"]*)\" and Management IP \"([^\"]*)\" into site \"([^\"]*)\"$")
     public void uiAddDeviceToTopologyTreeWithNameAndManagementIPIntoSite(String treeTabType, String type, String name, String ip, String site, Map<String, String> optionalValues) {
         try {
-            boolean register = (optionalValues.get("registerDeviceEvents") != null) ? Boolean.valueOf(optionalValues.get("registerDeviceEvents")) : false;
+            boolean register = (optionalValues.get("registerDeviceEvents") != null) ? Boolean.parseBoolean(optionalValues.get("registerDeviceEvents")) : false;
 
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
 
@@ -636,7 +636,7 @@ public class TopologyTreeSteps extends BddUITestBase {
 
             ImConstants$DeviceStatusEnumPojo expectedStatus = ImConstants$DeviceStatusEnumPojo.OK;
 
-            if (!Device.waitForDeviceStatus(getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
+            if (!Device.waitForDeviceStatus(restTestBase.getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
                 BaseTestUtils.report("Device Name :" + getDeviceName() + " Device Status is not equal to " + expectedStatus, Reporter.FAIL);
             }
             WebUIBasePage.closeAllYellowMessages();

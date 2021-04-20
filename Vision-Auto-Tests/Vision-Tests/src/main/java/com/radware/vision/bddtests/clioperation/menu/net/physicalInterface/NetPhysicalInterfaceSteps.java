@@ -2,7 +2,8 @@ package com.radware.vision.bddtests.clioperation.menu.net.physicalInterface;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.base.VisionCliTestBase;
 import com.radware.vision.test_parameters.Duplex;
 import com.radware.vision.test_parameters.OnOff;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
@@ -11,7 +12,7 @@ import com.radware.vision.vision_handlers.root.RootVerifications;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.api.java.en.When;
 
-public class NetPhysicalInterfaceSteps extends BddCliTestBase {
+public class NetPhysicalInterfaceSteps extends VisionCliTestBase {
 
     @When("^CLI Net Physical Interface Set$")
     public void netPhysicalInterfaceSet() throws Exception{
@@ -36,7 +37,7 @@ public class NetPhysicalInterfaceSteps extends BddCliTestBase {
         }catch(Exception e){
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        cliAfterMethodMain();
+        afterMethod();
     }
 
     @When("^CLI Net Physical Interface Sub Menu Test$")
@@ -57,7 +58,7 @@ public class NetPhysicalInterfaceSteps extends BddCliTestBase {
         }catch(Exception e){
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        cliAfterMethodMain();
+        afterMethod();
 
     }
 }

@@ -33,7 +33,7 @@ public class DefensePro extends DpTestBaseBDD {
             }
         }
         catch (Exception e) {
-            BaseTestUtils.report("Waiting for HA setup failed: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Waiting for HA setup failed: " + e.getMessage(), Reporter.FAIL);
         }
     }
 

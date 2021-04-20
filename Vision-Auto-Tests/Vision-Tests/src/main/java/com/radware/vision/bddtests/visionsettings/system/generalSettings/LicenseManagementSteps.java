@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.visionsettings.system.generalSettings;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.system.generalsettings.licensemanagement.LicenseManagementHandler;
 import com.radware.vision.infra.testresthandlers.visionLicense.AttackCapacityLicenseTestHandler;
 import com.radware.vision.infra.testresthandlers.visionLicense.VisionLicenseTestHandler;
@@ -14,7 +14,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.*;
 
-public class LicenseManagementSteps extends BddUITestBase {
+public class LicenseManagementSteps extends VisionUITestBase {
     public LicenseManagementSteps() throws Exception {
     }
 

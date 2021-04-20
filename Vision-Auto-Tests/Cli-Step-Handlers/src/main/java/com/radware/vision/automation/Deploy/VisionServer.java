@@ -7,6 +7,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.tools.utils.LinuxServerCredential;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.GlobalProperties;
@@ -34,22 +35,21 @@ public class VisionServer {
             int timeout = 90;
 
             downloadUpgradeFile(rootServerCli, url);
-
             if (!InvokeUtils.isConnectionOpen(radwareServerCli)) radwareServerCli.connect();
             upgradePassword = upgradePassword == null ? "" : upgradePassword;
             radwareServerCli.setUpgradePassword(upgradePassword);
-            long startUpgradeTimeOut = 20 * 60 * 1000;
+            int startUpgradeTimeOut = 20 * 60 * 1000;
             timeout = timeout * 60 * 1000;
             //Clear old file
-            InvokeUtils.invokeCommand(null, "mkdir /opt/radware/storage/maintenance/upgrade",
-                    rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
-            InvokeUtils.invokeCommand(null, "> " + UPGRADE_FILE_PATH, rootServerCli,
-                    GlobalProperties.THIRTY_SECONDS, false, false, true);
+            CliOperations.runCommand(rootServerCli, "mkdir /opt/radware/storage/maintenance/upgrade",
+                    CliOperations.DEFAULT_TIME_OUT, false, false, true);
+            CliOperations.runCommand(rootServerCli, "> " + UPGRADE_FILE_PATH, CliOperations.DEFAULT_TIME_OUT,
+                    false, false, true);
 
             // Run the system upgrade command
             radwareServerCli.connect(); // in-case connect on init is false.
-            InvokeUtils.invokeCommand(null, Menu.system().upgrade().full().build() + " " + file,
-                    radwareServerCli, startUpgradeTimeOut, false, false, true);
+            CliOperations.runCommand(radwareServerCli, Menu.system().upgrade().full().build() + " " + file,
+                    startUpgradeTimeOut, false,false, true);
             waitTillUpgradeComplete(rootServerCli, timeout);
             if (radwareServerCli.getTestAgainstObject().toString().contains(UPGRADE_FAILED_MESSAGE)) {
                 BaseTestUtils.report("Upgrade Failed with the following error:\n" +
@@ -70,12 +70,12 @@ public class VisionServer {
         if (!InvokeUtils.isConnectionOpen(rootServerCli)) rootServerCli.connect();
 
         //remove the validation - so no need for password
-        InvokeUtils.invokeCommand("rm -rf /opt/radware/box/bin/pw2_check", rootServerCli);
+        CliOperations.runCommand(rootServerCli, "rm -rf /opt/radware/box/bin/pw2_check");
         //Clear upload temp folder
-        InvokeUtils.invokeCommand(null, "rm -f /uploads/temp/*",
-                rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
+        CliOperations.runCommand(rootServerCli, "rm -f /uploads/temp/*", CliOperations.DEFAULT_TIME_OUT,
+                false, false, true);
         //Downloading the file to the target folder
-        InvokeUtils.invokeCommand("cd " + TARGET_UPGRADE_SERVER_FILE_FOLDER, rootServerCli);
+        CliOperations.runCommand(rootServerCli, "cd " + TARGET_UPGRADE_SERVER_FILE_FOLDER);
         BaseTestUtils.report("Starting download image from:" + visionServerUrl, Reporter.PASS_NOR_FAIL);
         InvokeUtils.invokeCommand(null, "wget" + " " + "\"" + visionServerUrl + "\"" + " " + ".",
                 rootServerCli, GlobalProperties.VISION_OPERATIONS_TIMEOUT);

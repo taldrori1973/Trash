@@ -3,9 +3,10 @@ package com.radware.vision.bddtests.scheduledtasks;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.TORTaskHandler;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
@@ -13,7 +14,7 @@ import enums.SUTEntryType;
 import java.util.List;
 
 
-public class TORTests extends BddUITestBase {
+public class TORTests extends VisionUITestBase {
 
     public TORTests() throws Exception {
     }
@@ -85,14 +86,13 @@ public class TORTests extends BddUITestBase {
     }
 
     @When("^Run TOR request simulation script \"(.*)\" at scriptPath \"(.*)\" on (GENERIC_LINUX_SERVER|ROOT_SERVER_CLI|LINUX_FILE_SERVER|RADWARE_SERVER_CLI) to current SUT for Alteon (\\d+)")
-    public void runTORRequestScript(String scriptName, String scriptPath, SUTEntryType sutEntryType, int alteonIndex) {
+    public void runTORRequestScript(String scriptName, String scriptPath, ServersManagement.ServerIds sutEntryType, int alteonIndex) {
         try {
             String visionIP = clientConfigurations.getHostIp();
         DeviceInfo deviceInfo = devicesManager.getDeviceInfo(SUTDeviceType.Alteon,alteonIndex);                 //getDeviceInfo(Alteon, alteonIndex);
         String mac_Address = deviceInfo.getMacAddress().replaceAll(":","");
         String commandToExecute = scriptPath + scriptName + " " + visionIP + " " + mac_Address;
-//       kVision
-//        CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute);
+        CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to run script: " + scriptPath + "/" + scriptName + "\n" + parseExceptionBody(e), Reporter.WARNING);
         }

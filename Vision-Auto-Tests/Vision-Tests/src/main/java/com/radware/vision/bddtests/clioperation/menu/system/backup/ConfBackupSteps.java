@@ -3,7 +3,7 @@ package com.radware.vision.bddtests.clioperation.menu.system.backup;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.test_parameters.ImportExport;
 import com.radware.vision.test_parameters.ImportExport.ImportExportType;
 import com.radware.vision.test_parameters.VisionServerConstants;
@@ -15,7 +15,7 @@ import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_tests.CliTests;
 import cucumber.api.java.en.When;
 
-public class ConfBackupSteps extends BddCliTestBase {
+public class ConfBackupSteps extends TestBase {
     private static String confB0 = "confB0" + CliTests.backupFileSufix;
     private static String confB1 = "confB1" + CliTests.backupFileSufix;
     private static String confB2 = "confB2" + CliTests.backupFileSufix;

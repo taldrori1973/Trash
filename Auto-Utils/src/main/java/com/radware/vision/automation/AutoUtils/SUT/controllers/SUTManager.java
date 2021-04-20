@@ -8,6 +8,12 @@ import java.util.Optional;
 
 public interface SUTManager {
 
+//    String getServerName();
+
+//    String getpairIp();
+
+//    String getpairEnv();
+
     String getSetupId();
 
     ClientConfigurationDto getClientConfigurations();

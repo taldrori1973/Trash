@@ -1,12 +1,12 @@
 package com.radware.vision.bddtests.clioperation.menu.system.backup;
 
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.test_parameters.ImportExport;
 import com.radware.vision.test_parameters.ImportExport.ImportExportType;
 import com.radware.vision.vision_handlers.system.Backup;
 import cucumber.api.java.en.When;
 
-public class fullBackupTests extends BddCliTestBase {
+public class fullBackupTests extends TestBase {
 
     @When("^CLI Create full backup with name \"(.*)\"$")
     public void createFullBackup(String backupName) {

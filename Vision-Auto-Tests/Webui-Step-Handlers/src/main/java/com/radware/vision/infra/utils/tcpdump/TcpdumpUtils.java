@@ -1,10 +1,10 @@
 package com.radware.vision.infra.utils.tcpdump;
 
-import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.restcore.VisionRestClient;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.utils.DeviceUtils;
-import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -20,7 +20,7 @@ public class TcpdumpUtils {
         long lastTime = 0;
         boolean atLeastTwoEventsToCompare = false;
         try {
-            InvokeUtils.invokeCommand(null, tcpdumpCommand, cli, 30 * 60 * 1000, true);
+            CliOperations.runCommand(cli, tcpdumpCommand, 30 * 60 * 1000, true);
             ArrayList<String> outputs = cli.getCmdOutput();
 
             for (String line : outputs) {
@@ -61,7 +61,7 @@ public class TcpdumpUtils {
     public static ArrayList<String> runTcpDumpCommand(String tcpdumpCommand, RootServerCli cli){
         ArrayList<String> outputs = new ArrayList<>();
         try {
-            InvokeUtils.invokeCommand(null, tcpdumpCommand, cli, 30 * 60 * 1000, true);
+            CliOperations.runCommand(cli, tcpdumpCommand, 30 * 60 * 1000, true);
             outputs = cli.getCmdOutput();
 
         }catch(Exception e){

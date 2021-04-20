@@ -1,6 +1,6 @@
 package com.radware.vision.bddtests.clioperation.menu.net.physicalInterface;
 
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.vision_handlers.net.Ip;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliNegativeTests;
@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class NetPhysicalInterfaceNegativeSteps extends BddCliTestBase {
+public class NetPhysicalInterfaceNegativeSteps extends TestBase {
 
     CliNegativeTests cliNegativeTests = new CliNegativeTests();
 

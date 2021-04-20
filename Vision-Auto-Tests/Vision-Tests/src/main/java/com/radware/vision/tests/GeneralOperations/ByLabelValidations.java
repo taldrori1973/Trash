@@ -4,7 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.enums.WebWidgetType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNameIdHandler;
@@ -15,10 +15,13 @@ import java.util.List;
  * Created by aviH on 8/9/2015.
  */
 
-public class ByLabelValidations extends WebUITestBase {
+public class ByLabelValidations extends VisionUITestBase {
 
 
     private BasicOperationsByNameIdHandler basicOperationsByNameIdHandler = new BasicOperationsByNameIdHandler();
+
+    public ByLabelValidations() throws Exception {
+    }
 
 
     public boolean validateTableRecord(String deviceDriverId, String fieldLabel, String rowKey, String rowValue) {

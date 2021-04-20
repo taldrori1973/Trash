@@ -7,7 +7,7 @@ import com.radware.automation.webui.events.ReportWebDriverEventListener;
 import com.radware.automation.webui.webdriver.WebUIDriver;
 import com.radware.automation.webui.widgets.api.popups.PopupContent;
 import com.radware.automation.webui.widgets.api.table.Table;
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.enums.RaisedTimeUnits;
 import com.radware.vision.infra.testhandlers.alerts.AlertsHandler;
 import com.radware.vision.infra.testhandlers.alerts.AlertsNegativeHandler;
@@ -21,8 +21,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AlertsSteps extends WebUITestBase {
+public class AlertsSteps extends VisionUITestBase {
 
+
+    public AlertsSteps() throws Exception {
+    }
 
     @When("^UI Maximize Alerts Browser$")
     public void maximizeAlertsBrowser() {
@@ -94,7 +97,7 @@ public class AlertsSteps extends WebUITestBase {
     public void filterAlerts(Map<String,String> properties) {
         try {
             HashMap<String, String> filterProperties = new HashMap<String, String>(properties);
-            AlertsHandler.validateAlertsFilter(getVisionRestClient(), filterProperties);
+            AlertsHandler.validateAlertsFilter(restTestBase.getVisionRestClient(), filterProperties);
         } catch (Exception e) {
             BaseTestUtils.report("filter Alerts:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
@@ -147,7 +150,7 @@ public class AlertsSteps extends WebUITestBase {
     @Then("^UI validate RaisedTimeFilter with raisedTimeUnit \"(HOURS|MINUTES)\" with raisedTimeValue \"(.*)\"$")
     public void validateRaisedTimeFilter(RaisedTimeUnits raisedTimeUnit, String raisedTimeValue) {
         try {
-            String result = (AlertsHandler.validateRaisedTimeFilter(raisedTimeUnit.getTimeUnits(), raisedTimeValue, getRestTestBase().getRootServerCli()));
+            String result = (AlertsHandler.validateRaisedTimeFilter(raisedTimeUnit.getTimeUnits(), raisedTimeValue, serversManagement.getRootServerCLI().get()));
             if (!result.isEmpty()) {
                 BaseTestUtils.report("Alert: " + result + "\n.", Reporter.FAIL);
             }

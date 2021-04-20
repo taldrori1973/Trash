@@ -2,9 +2,10 @@ package com.radware.vision.bddtests.scheduledtasks;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
-import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.BaseTasksHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.DDosFeedTaskHandler;
 import cucumber.api.java.en.Given;
@@ -17,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
-public class ScheduledTaskCommonTests extends BddUITestBase {
+public class ScheduledTaskCommonTests extends VisionUITestBase {
     public ScheduledTaskCommonTests() throws Exception {
     }
 
@@ -81,7 +82,7 @@ public class ScheduledTaskCommonTests extends BddUITestBase {
     public void runTask(String taskName) throws Exception {
 
         try {
-            BaseTasksHandler.runNowBaseTask("Name", taskName, new ArrayList<>(), getVisionRestClient());
+            BaseTasksHandler.runNowBaseTask("Name", taskName, new ArrayList<>(), restTestBase.getVisionRestClient());
         } catch (RuntimeException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -97,8 +98,7 @@ public class ScheduledTaskCommonTests extends BddUITestBase {
     public void validateTime(String command, int expectedTime) throws Exception {
         RootServerCli rootServerCli = new RootServerCli(restTestBase.getRootServerCli().getHost(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
         rootServerCli.init();
-        //kvision
-//        CliOperations.runCommand(rootServerCli, command);
+        CliOperations.runCommand(rootServerCli, command);
         String output = rootServerCli.getCmdOutput().get(1).split("\\.")[0];
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime outputDate = LocalDateTime.parse(output, inputFormatter);

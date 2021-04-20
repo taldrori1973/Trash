@@ -5,7 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ReportSteps extends BddUITestBase {
+public class ReportSteps extends VisionUITestBase {
     private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
 
     public ReportSteps() throws Exception {
