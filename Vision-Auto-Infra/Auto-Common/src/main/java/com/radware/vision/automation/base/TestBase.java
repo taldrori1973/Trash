@@ -90,10 +90,6 @@ public abstract class TestBase {
 
     public void updatePoratlVisionBuildAndVersion() {
         try {
-//            restTestBase.getRootServerCli().setConnectOnInit(true);
-//            restTestBase.getRootServerCli().connect();
-//            restTestBase.getRootServerCli().getVersionAndBuildFromSever();
-//            restTestBase.initReporter();
             FeatureRunner.update_version_build_mode(managementInfo.getVersion(),
                     managementInfo.getBuild(),
                     BddReporterManager.getRunMode());

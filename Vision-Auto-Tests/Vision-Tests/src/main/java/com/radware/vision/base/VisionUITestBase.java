@@ -5,15 +5,10 @@ package com.radware.vision.base;
 
 import basejunit.RestTestBase;
 import com.aas.vision.constants.AasVisionEnums;
-import com.aqua.sysobj.conn.CliConnectionImpl;
-import com.radware.automation.RadAutoDB;
-import com.radware.automation.bdd.filtering.IgnoreList;
 import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.bdd.reporter.JSystemReporter4Bdd;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.basetest.RuntimePropertiesEnum;
-import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.tools.reports.RallyTestReporter;
 import com.radware.automation.tools.utils.FileUtils;
 import com.radware.automation.tools.utils.PropertiesFilesUtils;
@@ -32,10 +27,11 @@ import com.radware.automation.webui.webpages.WebUIPage;
 import com.radware.automation.webui.widgets.api.popups.PopupContent;
 import com.radware.automation.webui.widgets.api.popups.PopupType;
 import com.radware.restcommands.RestCommands;
-import com.radware.restcore.VisionRestClient;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -43,7 +39,6 @@ import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import cucumber.runtime.junit.FeatureRunner;
-import enums.SUTEntryType;
 import models.RestResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -81,10 +76,6 @@ public abstract class VisionUITestBase extends TestBase {
 
     }
 
-    public static VisionRestClient getVisionRestClient() {
-        return restTestBase != null ? restTestBase.getVisionRestClient() : new VisionRestClient(null, null, null);
-    }
-
     public static RestTestBase getRestTestBase() {
         return restTestBase;
     }
@@ -98,8 +89,8 @@ public abstract class VisionUITestBase extends TestBase {
                 WebUIUtils.selectedDeviceDriverId = normalizeDeviceDriverName(deviceDriverName);
                 WebUIUtils.deviceVersion = getDeviceDriverVersion(deviceDriverName);
             } else {
-                Device.waitForDeviceStatus(getVisionRestClient(), deviceName, ImConstants$DeviceStatusEnumPojo.OK, 5 * 1000);
-                String deviceDriverName = TreeUtils.getDeviceDriverName(getVisionRestClient(), deviceName);
+                Device.waitForDeviceStatus(restTestBase.getVisionRestClient(), deviceName, ImConstants$DeviceStatusEnumPojo.OK, 5 * 1000);
+                String deviceDriverName = TreeUtils.getDeviceDriverName(restTestBase.getVisionRestClient(), deviceName);
                 if (deviceDriverName != null && !deviceDriverName.startsWith("Hud_Generic-BaseDriver")) {
                     deviceDriverNamesMap.put(deviceName, deviceDriverName);
                     WebUIUtils.selectedDeviceDriverId = normalizeDeviceDriverName(deviceDriverName);
@@ -137,9 +128,6 @@ public abstract class VisionUITestBase extends TestBase {
                 WebUIUtils.deviceDriversBaseDirectory_VisionServer = FileUtils.getAbsoluteClassesPath() + FileUtils.getDelimiter() + "clientdevicedrivers";
                 SerializeDeviceDriver.init(FileUtils.getAbsoluteProjectPath());
 
-                // Initialize the restTestBase
-//                coreInit();
-
                 UIUtils.visionModeForTable = true;
 
                 String fileSeparator = System.getProperty("file.separator");
@@ -154,10 +142,6 @@ public abstract class VisionUITestBase extends TestBase {
 
                 restOperationsUsername = clientConfigurations.getUserName();
                 restOperationsPassword = clientConfigurations.getPassword();
-//                kvision - is needed?
-//                getVisionRestClient().setSessionUsername(restOperationsUsername);
-//                getVisionRestClient().setSessionPassword(restOperationsPassword);
-//                getVisionRestClient().getHttpSession(1).setEnableAutomaticLogin(true);
                 setGenerateScreenshotAfterWebClickOperation();
                 setGenerateScreenshotAfterWebFindOperation();
                 String mode = BddReporterManager.getRunMode();
@@ -177,21 +161,6 @@ public abstract class VisionUITestBase extends TestBase {
 
         setDeviceName(deviceName);
     }
-
-//    public void coreInit() throws Exception{
-//        if (!isRestInit) {
-//
-//            isRestInit = true;
-////
-////            devicesManager = DevicesManager.getInstance("devices");
-//            restTestBase = new RestManagement();
-//            restTestBase.init();
-////            BaseHandler.restTestBase = restTestBase;
-////            BaseHandler.devicesManager = devicesManager;
-//        }
-//
-//    }
-
 
     @After
     public void testClosure() {
@@ -217,14 +186,6 @@ public abstract class VisionUITestBase extends TestBase {
                     // Try to close any left opened Device Properties Dialog
                 }
 
-                if (BaseTestUtils.getBooleanRuntimeProperty(RuntimePropertiesEnum.ADD_AUTO_RESULT.name(), RuntimePropertiesEnum.ADD_AUTO_RESULT.getDefaultValue())) {
-//                    ReportResultEntity report = new ReportResultEntity().withtestID(targetTestId).withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
-//                    resultsManager.addResult(report);
-//                    if (targetTestId != null) {
-//                        publishResults(Integer.parseInt(targetTestId));
-//                    }
-                }
-
 //                rallyTestReporter.updateTestResult(ScenarioHelpers.getRunnerTest(this), qcTestId, isPass(), getFailCause());
             } catch (Exception e) {
                 BaseTestUtils.report(" Test after method " + e.getMessage(), Reporter.FAIL);
@@ -239,46 +200,6 @@ public abstract class VisionUITestBase extends TestBase {
             }
         }
     }
-
-//    public void cliAfterMethodMain() throws IOException {
-//        try {
-//            // Clear any remaining commands on the output (In case of a 'Help text' command)
-//            StringBuilder clearString = new StringBuilder();
-//            for (int i = 0; i < 60; i++) {
-//                clearString.append("\b");
-//            }
-//            InvokeUtils.invokeCommand(null, clearString.toString(), restTestBase.getRadwareServerCli(), 2 * 2000, true, true, true, null, true, true);
-//            InvokeUtils.invokeCommand(null, clearString.toString(), restTestBase.getRootServerCli(), 2 * 2000, true, true, true, null, true, true);
-//            CliTests.report.stopLevel();
-//            CliTests.report.startLevel("Begining to Finish the test(After).");
-//
-//            if (doTheVisionLabRestart) {
-//                InvokeUtils.invokeCommand(null, "", restTestBase.getRadwareServerCli(), 6000, true);
-//                if (restTestBase.getRadwareServerCli().getTestAgainstObject().toString().endsWith("$ ")) {
-//                    InvokeUtils.invokeCommand(null, Menu.system().database().access().revoke().build() + " all", restTestBase.getRadwareServerCli());
-//                    InvokeUtils.invokeCommand(null, "y", restTestBase.getRadwareServerCli());
-//                }
-//                doTheVisionLabRestart = false;
-//            }
-//
-//            if (BaseTestUtils.getBooleanRuntimeProperty(RuntimePropertiesEnum.ADD_AUTO_RESULT.name(), RuntimePropertiesEnum.ADD_AUTO_RESULT.getDefaultValue())) {
-////                ReportResultEntity report = new ReportResultEntity().withtestID("").withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
-////                resultsManager.addResult(report);
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (restTestBase.getRadwareServerCli() != null) {
-//                restTestBase.getRadwareServerCli().cleanCliBuffer();
-//            }
-//            if (restTestBase.getRootServerCli() != null) {
-//                restTestBase.getRootServerCli().cleanCliBuffer();
-//            }
-//            CliTests.report.stopLevel();
-//        }
-//    }
-
 
     private boolean ignoredMessageIds(String msg) {
         for (String msgId : MessageIdsIgnore.ignoredMessageIds) {
@@ -355,11 +276,11 @@ public abstract class VisionUITestBase extends TestBase {
         if (BasicOperationsHandler.isLoggedIn) {
             this.deviceName = deviceName;
             if (deviceName != null && !deviceName.equals("")) {
-                if (DeviceUtils.isManagedByVision(getVisionRestClient(), deviceName)) {
+                if (DeviceUtils.isManagedByVision(restTestBase.getVisionRestClient(), deviceName)) {
                     isDeviceManagedByVision = true;
                     selectDeviceVersion(deviceName);
                     try {
-                        updateNavigationParser(Device.getDeviceIp(getVisionRestClient(), deviceName));
+                        updateNavigationParser(Device.getDeviceIp(restTestBase.getVisionRestClient(), deviceName));
                     } catch (IllegalStateException e) {
                         BaseTestUtils.report(e.getMessage(), Reporter.PASS);
                     }
@@ -447,40 +368,20 @@ public abstract class VisionUITestBase extends TestBase {
         }
     }
 
-
-    public CliConnectionImpl getSUTEntryType(SUTEntryType sutEntryType) {
-        CliConnectionImpl cli = null;
-        switch (sutEntryType) {
-            case GENERIC_LINUX_SERVER:
-                cli = restTestBase.getGenericLinuxServer();
-                break;
-            case LINUX_FILE_SERVER:
-                cli = restTestBase.getLinuxFileServer();
-                break;
-            case RADWARE_SERVER_CLI:
-                cli = restTestBase.getRadwareServerCli();
-                break;
-            case ROOT_SERVER_CLI:
-                cli = restTestBase.getRootServerCli();
-                break;
-        }
-        return cli;
-    }
-
-    public ServerCliBase getSUTEntryTypeByServerCliBase(SUTEntryType sutEntryType) {
+    public ServerCliBase getSUTEntryTypeByServerCliBase(ServersManagement.ServerIds sutEntryType) {
         ServerCliBase cli = null;
         switch (sutEntryType) {
-            case GENERIC_LINUX_SERVER:
-                cli = restTestBase.getGenericLinuxServer();
-                break;
             case LINUX_FILE_SERVER:
-                cli = restTestBase.getLinuxFileServer();
+                cli = serversManagement.getLinuxFileServer().get();
                 break;
             case RADWARE_SERVER_CLI:
-                cli = restTestBase.getRadwareServerCli();
+                cli = serversManagement.getRadwareServerCli().get();
                 break;
             case ROOT_SERVER_CLI:
-                cli = restTestBase.getRootServerCli();
+                cli = serversManagement.getRootServerCLI().get();
+                break;
+            default:
+                cli = serversManagement.getServerById(sutEntryType);
                 break;
         }
         return cli;
@@ -501,6 +402,4 @@ public abstract class VisionUITestBase extends TestBase {
             BaseTestUtils.report("Failed to uiInit data debug id's", e);
         }
     }
-
-
 }

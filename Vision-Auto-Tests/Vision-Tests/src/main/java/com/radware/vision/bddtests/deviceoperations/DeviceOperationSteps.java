@@ -80,7 +80,7 @@ public class DeviceOperationSteps extends VisionUITestBase {
             properties.put("scalarNamesList", "");
             properties.put("scalarValuesToVerify", "");
 
-            DeviceOperationsHandler.exportAlteonOperation(properties, getVisionRestClient());
+            DeviceOperationsHandler.exportAlteonOperation(properties, restTestBase.getVisionRestClient());
         } catch (Exception e) {
             BaseTestUtils.report("export DeviceCfg operation has been executed incorrectly :", Reporter.FAIL);
         }

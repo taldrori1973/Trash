@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
@@ -15,7 +16,7 @@ public class FreshInstallOVA extends Deploy {
     private FileType ovaType;
 
     public FreshInstallOVA(boolean isExtended, String build) {
-        super(isExtended, build, VisionUITestBase.getVisionRestClient().getDeviceIp());
+        super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp());
         this.initFileType();
         buildFileInfo(this.ovaType);
     }
