@@ -56,7 +56,6 @@ import java.util.*;
 
 public abstract class VisionUITestBase extends TestBase {
     public static String retrievedParamValue = "";
-    public static RestTestBase restTestBase;
     public static VisionWebUIUtils webUtils;
     public static String restOperationsUsername;
     public static String restOperationsPassword;

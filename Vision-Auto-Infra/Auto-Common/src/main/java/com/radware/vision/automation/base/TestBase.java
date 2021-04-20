@@ -93,7 +93,7 @@ public abstract class TestBase {
 //            restTestBase.getRootServerCli().setConnectOnInit(true);
 //            restTestBase.getRootServerCli().connect();
 //            restTestBase.getRootServerCli().getVersionAndBuildFromSever();
-            restTestBase.initReporter();
+//            restTestBase.initReporter();
             FeatureRunner.update_version_build_mode(managementInfo.getVersion(),
                     managementInfo.getBuild(),
                     BddReporterManager.getRunMode());
