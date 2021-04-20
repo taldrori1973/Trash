@@ -1,10 +1,7 @@
 package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.CliConfigurationDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
 import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
 
 import java.util.List;
@@ -66,6 +63,10 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getTreeDeviceManagementBySetId(setId);
     }
 
+    public Optional<EnvironmentDto> getEnviorement(String env){
+        return this.sutService.getEnviorement(env);
+    }
+
 
     @Override
     public Optional<ServerDto> getServerById(String serverId) {
@@ -75,4 +76,6 @@ public class SUTManagerImpl implements SUTManager {
     public Optional<JsonNode> getAddTreeDeviceRequestBodyAsJson(String deviceId) {
         return this.sutService.getAddTreeDeviceRequestBodyAsJson(deviceId);
     }
+
+
 }

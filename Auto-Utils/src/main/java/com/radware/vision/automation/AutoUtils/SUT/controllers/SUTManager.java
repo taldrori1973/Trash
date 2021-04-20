@@ -1,10 +1,7 @@
 package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.CliConfigurationDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +22,8 @@ public interface SUTManager {
     String getSiteParent(String siteName);
 
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
+
+    Optional<EnvironmentDto> getEnviorement(String env);
 
     /**
      * @param deviceId deviceId as on devices file
