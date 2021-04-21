@@ -6,7 +6,7 @@ Feature: EAAF Scope selection
     Given CLI Reset radware password
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
+    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Wait For Prompt 240 seconds
 
   @SID_2
   Scenario: Clear old reports on file-system
@@ -27,8 +27,8 @@ Feature: EAAF Scope selection
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
     # run EAAF attacks PCAP - this PCAP is the ONLY RELEVANT PCAP FOR THIS TEST FILE
     # run NON EAAF attacks PCAP - this made in order to check whether system distinguish between EAAF and NON EAAF attacks
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
-    * CLI simulate 2 attacks of type "IP_FEED_Modified" on "DefensePro" 11
+#    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
+#    * CLI simulate 2 attacks of type "IP_FEED_Modified" on "DefensePro" 11
     * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 100 seconds
 
 
@@ -51,6 +51,17 @@ Feature: EAAF Scope selection
     Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "(\d+.\d+|\d+) K"
 
   @SID_7
+  Scenario: run eaaf attacks
+    * REST Delete ES index "dp-*"
+    * CLI Clear vision logs
+    * CLI simulate 2 attacks of type "IP_FEED_Modified" on "DefensePro" 11 and wait 100 seconds
+
+  @SID_8
+  Scenario: Re-navigate
+    When UI Navigate to "AMS Reports" page via homePage
+    Then UI Navigate to "EAAF Dashboard" page via homePage
+
+  @SID_9
   Scenario: validate data with device 11
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
@@ -59,7 +70,7 @@ Feature: EAAF Scope selection
     Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "(\d+.\d+|\d+) K"
 
 
-  @SID_8
+  @SID_10
   Scenario: validate not available data
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
@@ -68,7 +79,7 @@ Feature: EAAF Scope selection
     Then UI Text of "noDataAvailable" with extension "" equal to "!No Data Available"
 
 
-  @SID_9
+  @SID_11
   Scenario: validate sanity scope selection
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter

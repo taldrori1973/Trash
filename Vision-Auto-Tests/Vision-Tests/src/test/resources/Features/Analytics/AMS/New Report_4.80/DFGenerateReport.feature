@@ -89,6 +89,19 @@ Feature: DFGenerateReport
       | UDP Port 0 (recv.pps)      | null  | ICMP       |
 
   @SID_8
+  Scenario: validate that generate report exist in UI
+  Scenario: create new OWASP Top 10 1
+    And UI Navigate to "AMS Reports" page via homePage
+    Given UI "Create" Report With Name "DF Report"
+      | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period],Protected Objects:[All], showTable:true |
+      | Time Definitions.Date | Quick:This Week                                                                                                       |
+    Then UI "Generate" Report With Name "DF Report"
+      | timeOut | 60 |
+
+    Then UI Click Button "Log Preview" with value "DF Report_0"
+    Then UI Validate generate report with name "DF Report" is exist
+
+  @SID_9
   Scenario: start IPTABLES
     Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
 

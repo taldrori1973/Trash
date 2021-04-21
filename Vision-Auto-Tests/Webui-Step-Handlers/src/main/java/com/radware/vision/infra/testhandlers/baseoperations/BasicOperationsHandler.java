@@ -373,6 +373,8 @@ public class BasicOperationsHandler {
         if (params == null) {
             textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(label);
         } else {
+            if (params != null)
+                VisionDebugIdsManager.setParams(params.split(","));
             String debugID = VisionDebugIdsManager.getDataDebugId();
             textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(debugID);
         }
@@ -862,7 +864,10 @@ public class BasicOperationsHandler {
 
     public static WebElement getDisplayedWebElement(String label, String params) {
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params);
+        if (params != null)
+            VisionDebugIdsManager.setParams(params.split(","));
+        else
+            VisionDebugIdsManager.setParams(params);
         ComponentLocator elementLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
         return WebUIUtils.fluentWaitDisplayedEnabled(elementLocator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
     }
@@ -944,6 +949,13 @@ public class BasicOperationsHandler {
             case "NOT CONTAINS":
                 if (element.getAttribute(attribute).contains(value)) {
                     errorMessage.replaceFirst(" is not equal to ", " is contained in ");
+                    if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
+                    BaseTestUtils.report(errorMessage, Reporter.FAIL);
+                }
+                break;
+            case "MatchRegx":
+                if (element.getAttribute(attribute).matches(value)) {
+                    errorMessage.replaceFirst(" is not match to ", " is matched in ");
                     if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
                     BaseTestUtils.report(errorMessage, Reporter.FAIL);
                 }

@@ -40,11 +40,11 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Fresh Install</setupMode>
-<!--                <serverType>ova_apm | ova | highscale</serverType>-->
-                <serverType>highscale</serverType>
+<!--                <serverType>ova_apm | ova | basic</serverType>-->
+                <serverType>basic</serverType>
                 <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
-                <vmPrefix>VisionAutoHiScale</vmPrefix>
+                <vmPrefix>VisionAutoBasic</vmPrefix>
             </visionSetup>
         </visionServer>
         <alteonServer>

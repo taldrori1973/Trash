@@ -40,12 +40,12 @@ public class FreshInstallOVA extends Deploy {
             case "apm":
                 this.ovaType = FileType.OVA_APM;
                 break;
-            case "highscale":
-                this.ovaType = FileType.OVA_HIGHSCALE;
+            case "basic":
+                this.ovaType = FileType.OVA_BASIC;
                 break;
             default:
                 this.ovaType = FileType.OVA;
-                BaseTestUtils.report(ovaType + " is invalid for fresh install ova. Suppose to be ova | apm | highscale. Installing with fileType ova", Reporter.PASS_NOR_FAIL);
+                BaseTestUtils.report(ovaType + " is invalid for fresh install ova. Suppose to be ova | apm | basic. Installing with fileType ova", Reporter.PASS_NOR_FAIL);
         }
     }
 

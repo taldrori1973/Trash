@@ -28,8 +28,7 @@ public class UpgradeSteps extends TestBase {
     @When("^Upgrade vision to version \"(.*)\", build \"(.*)\"$")
     public void UpgradeVisionServer(String version, String build) {
         try {
-            //kvision
-//            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+            validateVisionServerServicesUP(serversManagement.getRadwareServerCli().get());
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -39,8 +38,7 @@ public class UpgradeSteps extends TestBase {
     @When("^validate vision server services is UP$")
     public void validateVisionServerServicesUPStep() {
         try {
-            //kvision
-//            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+            validateVisionServerServicesUP(serversManagement.getRadwareServerCli().get());
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -96,8 +94,7 @@ public class UpgradeSteps extends TestBase {
     @When("^CLI validate Vision Services UP$")
     public void CliValidateVisionServerServicesUP() {
         try {
-            //kvision
-//            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+            validateVisionServerServicesUP(serversManagement.getRadwareServerCli().get());
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -109,8 +106,7 @@ public class UpgradeSteps extends TestBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //kvision
-//        CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
+        CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
         return !CliOperations.lastRow.equals("0");
     }
 
@@ -124,8 +120,7 @@ public class UpgradeSteps extends TestBase {
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         } finally {
-            //kvision
-//            RootServerCli rootServerCli = restTestBase.getRootServerCli();
+            RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
             if (!InvokeUtils.isConnectionOpen(rootServerCli)) rootServerCli.connect();
         }
     }
@@ -152,36 +147,32 @@ public class UpgradeSteps extends TestBase {
      * @param versionNumber - Desired vision version
      */
     private void upgradeToNonSupportedVersion(String versionNumber) {
-        //kvision
-//        Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
-//        String[] notSupportedVersion = upgrade.getNonSupportedVersion();
-//
-//        String[] path = upgrade.getBuildFileInfo().getPath().toString().split("/");
-//        String fileName = path[path.length - 1];
+        Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
+        String[] notSupportedVersion = upgrade.getNonSupportedVersion();
+
+        String[] path = upgrade.getBuildFileInfo().getPath().toString().split("/");
+        String fileName = path[path.length - 1];
 
         try {
             /* Change version to unsupported one */
             InvokeUtils.invokeCommand(null, "/bin/cp /opt/radware/mgt-server/build.properties /opt/radware/storage/",
                     rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
-//kvision
-//            String ChangeMajorVersion = String.format("sed -i 's/buildMajorVersion: .*$/buildMajorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[0]);
-//            InvokeUtils.invokeCommand(null, ChangeMajorVersion, rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
-//
-//            String changeMinorVersion = String.format("sed -i 's/buildMinorVersion: .*$/buildMinorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[1]);
-//            InvokeUtils.invokeCommand(null, changeMinorVersion, rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
-          //kvision
-//            BaseTestUtils.report("Setting Server property file to version: " + String.format("%s.%s.%s", notSupportedVersion[0], notSupportedVersion[1], notSupportedVersion[2]), Reporter.PASS_NOR_FAIL);
-           //kvision
-//            VisionServer.downloadUpgradeFile(rootServerCli, upgrade.getBuildFileInfo().getDownloadUri().toString());
+
+            String ChangeMajorVersion = String.format("sed -i 's/buildMajorVersion: .*$/buildMajorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[0]);
+            InvokeUtils.invokeCommand(null, ChangeMajorVersion, rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
+
+            String changeMinorVersion = String.format("sed -i 's/buildMinorVersion: .*$/buildMinorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[1]);
+            InvokeUtils.invokeCommand(null, changeMinorVersion, rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
+            BaseTestUtils.report("Setting Server property file to version: " + String.format("%s.%s.%s", notSupportedVersion[0], notSupportedVersion[1], notSupportedVersion[2]), Reporter.PASS_NOR_FAIL);
+            VisionServer.downloadUpgradeFile(rootServerCli, upgrade.getBuildFileInfo().getDownloadUri().toString());
             String upgradePassword = "";
             radwareServerCli.setUpgradePassword(upgradePassword);
             radwareServerCli.setBeginningTheAPSoluteVisionUpgradeProcessEndsCommand(false);
 
             long responseTimeOut = 10 * 60 * 1000;
             /* Run the system upgrade command */
-            //kvision
-//            InvokeUtils.invokeCommand(null, Menu.system().upgrade().full().build() + " " + fileName,
-//                    radwareServerCli, responseTimeOut, false, false, true);
+            InvokeUtils.invokeCommand(null, Menu.system().upgrade().full().build() + " " + fileName,
+                    radwareServerCli, responseTimeOut, false, false, true);
             ArrayList<String> output = radwareServerCli.getCmdOutput();
             String errorMessage = String.format("Upgrade from source version \\d+.\\d+.\\d+.\\d+ to version %s is not supported.", versionNumber);
             Pattern pattern = Pattern.compile(errorMessage);
@@ -226,26 +217,39 @@ public class UpgradeSteps extends TestBase {
     }
 
     private void upgradeToTheNextBuild(String build) {
-        //kvision
-//        RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
-//        RootServerCli rootServerCli = restTestBase.getRootServerCli();
-//        Upgrade upgrade = new Upgrade(true, build, radwareServerCli, rootServerCli);
-//        String buildUnderTest = upgrade.getBuild();
-//        if (upgrade.isSetupNeeded) {
-//            BaseTestUtils.report("Upgrading to latest build: " + buildUnderTest,
-//                    Reporter.PASS_NOR_FAIL);
-//            upgrade.deploy();
-//
-//            BaseTestUtils.report("Server is ready for future upgrade", Reporter.PASS_NOR_FAIL);
-//        }
-//        GeneralSteps.clearAllLogs();
-//        upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
-//        Force upgrade to make sure another upgrade will occur.
-//        upgrade.isSetupNeeded = true;
-//        String nextBuild = upgrade.getBuild();
+        RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
+        RootServerCli rootServerCli = restTestBase.getRootServerCli();
+        Upgrade upgrade = new Upgrade(true, build, radwareServerCli, rootServerCli);
+        String buildUnderTest = upgrade.getBuild();
+        if (upgrade.isSetupNeeded) {
+            BaseTestUtils.report("Upgrading to latest build: " + buildUnderTest,
+                    Reporter.PASS_NOR_FAIL);
+            upgrade.deploy();
 
-//        BaseTestUtils.report(String.format("Going to upgrade from build %s to %s", buildUnderTest, nextBuild),
-//                Reporter.PASS_NOR_FAIL);
-//        upgrade.deploy();
+            BaseTestUtils.report("Server is ready for future upgrade", Reporter.PASS_NOR_FAIL);
+        }
+        GeneralSteps.clearAllLogs();
+        upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
+        //Force upgrade to make sure another upgrade will occur.
+        upgrade.isSetupNeeded = true;
+        String nextBuild = upgrade.getBuild();
+
+        BaseTestUtils.report(String.format("Going to upgrade from build %s to %s", buildUnderTest, nextBuild),
+                Reporter.PASS_NOR_FAIL);
+        upgrade.deploy();
+    }
+
+    public void UpgradeVisionServerFromOldVersion(String version) {
+        try {
+            FileType upgradeType = isAPM() ? FileType.UPGRADE_APM : FileType.UPGRADE;
+            JFrogFileModel buildFileInfo = JFrogAPI.getBuildFromOldVersion(upgradeType, version);
+            String[] path = buildFileInfo.getPath().toString().split("/");
+            VisionServer.upgradeServerFile(restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli()
+                    , version, null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
+            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+        } catch (Exception e) {
+            BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 }

@@ -53,7 +53,7 @@ public class AlertsNegativeHandler {
     public static void moduleCheckWarning() {
         alertsNegativeBase();
         ModuleSetter setter = new ModuleSetter();
-        setter.checkModules(ModuleSetter.modulesAll);
+        //setter.checkModules(ModuleSetter.modulesAll);
         setter.uncheckModulesAll();
         try {
 

@@ -21,6 +21,7 @@ import com.radware.vision.infra.utils.WebUIStringsVision;
 import com.radware.vision.infra.validationutils.ValidateAlertsTable;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
+import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 
 import java.util.*;
 
@@ -49,26 +50,16 @@ public class Alerts extends WebUIVisionBasePage {
     }
 
     public void alertsMaximize() {
-        try {
-            TopologyTreeHandler.clickTreeNodeDefault();
-
-            //wait before next step done, otherwise it will not be performed well
-            BasicOperationsHandler.delay(1);
-            WebUIUtils.isAllowInexistenceMode = true;
-            ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsMaximizeButton());
-            WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        } finally {
-            WebUIUtils.isAllowInexistenceMode = false;
+        if(!isAlertsTableOpen()) {
+            ComponentLocator locator = ComponentLocatorFactory.getLocatorById("gwt-debug-AlertsMaximize");
+            WebUIUtils.fluentWait(locator.getBy()).click();
         }
     }
 
     public boolean isAlertsTableOpen() {
         ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsTab());
         WebElement element = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        if (element != null) {
-            return true;
-        }
-        return false;
+        return element != null;
     }
 
     public WebUITable retrieveAlertsTable() {
@@ -77,7 +68,8 @@ public class Alerts extends WebUIVisionBasePage {
     }
 
     public void alertsMinimize() {
-        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsMinimizeButton());
+        //ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsMinimizeButton());
+        ComponentLocator locator = ComponentLocatorFactory.getLocatorByClass("ant-modal-close", false);
         WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
     }
 
@@ -123,19 +115,6 @@ public class Alerts extends WebUIVisionBasePage {
             WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
         }
     }
-
-//    public void setPageTextBox(String pageNum) {
-//
-//        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getPageTextBox());
-//        WebUITextField textField = new WebUITextField();
-//        textField.setWebElement((new WebUIComponent(locator)).getWebElement());
-//        textField.type(pageNum);
-//        try {
-//            WebUIUtils.pressEnter();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void autoRefreshAlertsOff() {
         ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsAutoRefreshButton());

@@ -10,8 +10,10 @@ import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.support.How;
 
 import java.util.HashMap;
 import java.util.List;
@@ -92,7 +94,7 @@ public class ReportSteps extends VisionUITestBase {
             switch (type.toLowerCase())
             {
                 case "report": new Report().delete(reportName);break;
-    //            case "Forensics": new Forensics().delete(reportName);break;
+                case "forensics": new Forensics().delete(reportName);break;
     //            case "Alert": new Alert().delete(reportName);break;
             }
         } catch (Exception e) {
@@ -220,4 +222,10 @@ public class ReportSteps extends VisionUITestBase {
         new Report().expandReportParameters();
     }
 
+    @Then("^UI Validate generate report with name \"([^\"]*)\" is exist$")
+    public void validateGenerateReportWithNameIsExist(String reportName){
+        if (WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//div[@id='react-app']//*[text()='" + reportName + "']").getBy())== null)
+            BaseTestUtils.report("The generate report " + reportName + " isn't appearing in the UI!", Reporter.FAIL);
+
+    }
 }

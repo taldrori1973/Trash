@@ -14,7 +14,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
-
+  
   @SID_3 @Sanity
   Scenario: Run DF simulator
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -130,45 +130,45 @@ Feature: AMS DefenseFlow Attacks Dashboard
   Scenario: Validate TOP Attacks Bandwidth - All POs
     Then UI Validate StackBar data with widget "Top Attacks by Rate"
       | label  | value     | legendName                 |
-      | PO_100 | 46853020  | DOSS-NTP-monlist-flood     |
-      | PO_200 | 33339620  | DOSS-NTP-monlist-flood     |
-      | PO_300 | 33339620  | DOSS-NTP-monlist-flood     |
+      | PO_100 | 7205360  | DOSS-NTP-monlist-flood     |
+      | PO_200 | 7205360  | DOSS-NTP-monlist-flood     |
+      | PO_300 | 7205360  | DOSS-NTP-monlist-flood     |
 
       | PO_100 | 1530300   | HTTP (recv.bps)            |
       | PO_200 | null      | HTTP (recv.bps)            |
       | PO_300 | null      | HTTP (recv.bps)            |
 
-      | PO_100 | 14537383  | HTTP (recv.pps)            |
-      | PO_200 | 5125524   | HTTP (recv.pps)            |
-      | PO_300 | 5125524   | HTTP (recv.pps)            |
+      | PO_100 | 936362  | HTTP (recv.pps)            |
+      | PO_200 | 730978   | HTTP (recv.pps)            |
+      | PO_300 | 730978   | HTTP (recv.pps)            |
 
-      | PO_100 | 18537500  | HTTPS Flood Protection     |
-      | PO_200 | 18537500  | HTTPS Flood Protection     |
-      | PO_300 | 18537500  | HTTPS Flood Protection     |
+      | PO_100 | 6953000  | HTTPS Flood Protection     |
+      | PO_200 | 6953000  | HTTPS Flood Protection     |
+      | PO_300 | 6953000  | HTTPS Flood Protection     |
 
-      | PO_100 | 55436060  | network flood IPv4 TCP-SYN |
+      | PO_100 | 7531530  | network flood IPv4 TCP-SYN |
       | PO_200 | null      | network flood IPv4 TCP-SYN |
       | PO_300 | null      | network flood IPv4 TCP-SYN |
 
-      | PO_100 | 25544270  | network flood IPv4 UDP     |
-      | PO_200 | 25544270  | network flood IPv4 UDP     |
-      | PO_300 | 25544270  | network flood IPv4 UDP     |
+      | PO_100 | 7087430  | network flood IPv4 UDP     |
+      | PO_200 | 7087430  | network flood IPv4 UDP     |
+      | PO_300 | 7087430  | network flood IPv4 UDP     |
 
-      | PO_100 | 40302550  | network flood IPv6 UDP     |
-      | PO_200 | 40302550  | network flood IPv6 UDP     |
-      | PO_300 | 40302550  | network flood IPv6 UDP     |
+      | PO_100 | 7087430  | network flood IPv6 UDP     |
+      | PO_200 | 7087430  | network flood IPv6 UDP     |
+      | PO_300 | 7087430  | network flood IPv6 UDP     |
 
-      | PO_100 | 108915960 | Total (recv.bps)           |
+      | PO_100 | 7205360 | Total (recv.bps)           |
       | PO_200 | 7087430   | Total (recv.bps)           |
       | PO_300 | 7087430   | Total (recv.bps)           |
 
-      | PO_100 | 509966    | Total (recv.pps)           |
+      | PO_100 | 257195    | Total (recv.pps)           |
       | PO_200 | 257195    | Total (recv.pps)           |
       | PO_300 | 257195    | Total (recv.pps)           |
 
-      | PO_100 | 7199460   | UDP Port 0 (recv.pps)      |
-      | PO_200 | 2028828   | UDP Port 0 (recv.pps)      |
-      | PO_300 | 2028828   | UDP Port 0 (recv.pps)      |
+      | PO_100 | 487090   | UDP Port 0 (recv.pps)      |
+      | PO_200 | 487090   | UDP Port 0 (recv.pps)      |
+      | PO_300 | 487090   | UDP Port 0 (recv.pps)      |
 
 
   @SID_8
@@ -265,11 +265,11 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | 100.100.100.109 | 2    |
 
 
-  @SID_11
-  Scenario: Validate DDos Attack Activations per Day - All POs
+#  @SID_11
+#  Scenario: Validate DDos Attack Activations per Day - All POs
 
-  @SID_12
-  Scenario: Validate DDos Attack Volume per Day (Mbits) - All POs
+#  @SID_12
+#  Scenario: Validate DDos Attack Volume per Day (Mbits) - All POs
 
   @SID_13
   Scenario: select two POs
@@ -312,91 +312,92 @@ Feature: AMS DefenseFlow Attacks Dashboard
 
   @SID_15
   Scenario: Validate TOP ATTACKS BY Count - part of POs
-  | label  | value | legendName                 | exist|
-  | PO_100 | 86    | HTTP (recv.pps)            |true|
-  | PO_200 | 32    | HTTP (recv.pps)            |true|
-  | PO_300 | 32    | HTTP (recv.pps)            |false|
+    Then UI Validate StackBar data with widget "Top Attacks by Count"
+      | label  | value | legendName                 | exist|
+      | PO_100 | 86    | HTTP (recv.pps)            |true|
+      | PO_200 | 32    | HTTP (recv.pps)            |true|
+      | PO_300 | 32    | HTTP (recv.pps)            |false|
 
-  | PO_100 | 19    | UDP Port 0 (recv.pps)      |true|
-  | PO_200 | 7     | UDP Port 0 (recv.pps)      |true|
-  | PO_300 | 7     | UDP Port 0 (recv.pps)      |false|
+      | PO_100 | 19    | UDP Port 0 (recv.pps)      |true|
+      | PO_200 | 7     | UDP Port 0 (recv.pps)      |true|
+      | PO_300 | 7     | UDP Port 0 (recv.pps)      |false|
 
-  | PO_100 | 17    | Total (recv.bps)           |true|
-  | PO_200 | 1     | Total (recv.bps)           |true|
-  | PO_300 | 1     | Total (recv.bps)           |false|
+      | PO_100 | 17    | Total (recv.bps)           |true|
+      | PO_200 | 1     | Total (recv.bps)           |true|
+      | PO_300 | 1     | Total (recv.bps)           |false|
 
-  | PO_100 | 8     | network flood IPv4 TCP-SYN |true|
-  | PO_200 | null  | network flood IPv4 TCP-SYN |true|
-  | PO_300 | null  | network flood IPv4 TCP-SYN |false|
+      | PO_100 | 8     | network flood IPv4 TCP-SYN |true|
+      | PO_200 | null  | network flood IPv4 TCP-SYN |true|
+      | PO_300 | null  | network flood IPv4 TCP-SYN |false|
 
-  | PO_100 | 7     | DOSS-NTP-monlist-flood     |true|
-  | PO_200 | 5     | DOSS-NTP-monlist-flood     |true|
-  | PO_300 | 5     | DOSS-NTP-monlist-flood     |false|
+      | PO_100 | 7     | DOSS-NTP-monlist-flood     |true|
+      | PO_200 | 5     | DOSS-NTP-monlist-flood     |true|
+      | PO_300 | 5     | DOSS-NTP-monlist-flood     |false|
 
-  | PO_100 | 6     | network flood IPv6 UDP     |true|
-  | PO_200 | 6     | network flood IPv6 UDP     |true|
-  | PO_300 | 6     | network flood IPv6 UDP     |false|
+      | PO_100 | 6     | network flood IPv6 UDP     |true|
+      | PO_200 | 6     | network flood IPv6 UDP     |true|
+      | PO_300 | 6     | network flood IPv6 UDP     |false|
 
-  | PO_100 | 5     | External report            |true|
-  | PO_200 | 1     | External report            |true|
-  | PO_300 | 1     | External report            |false|
+      | PO_100 | 5     | External report            |true|
+      | PO_200 | 1     | External report            |true|
+      | PO_300 | 1     | External report            |false|
 
-  | PO_100 | 4     | network flood IPv4 UDP     |true|
-  | PO_200 | 4     | network flood IPv4 UDP     |true|
-  | PO_300 | 4     | network flood IPv4 UDP     |false|
+      | PO_100 | 4     | network flood IPv4 UDP     |true|
+      | PO_200 | 4     | network flood IPv4 UDP     |true|
+      | PO_300 | 4     | network flood IPv4 UDP     |false|
 
-  | PO_100 | 3     | HTTPS Flood Protection     |true|
-  | PO_200 | 3     | HTTPS Flood Protection     |true|
-  | PO_300 | 3     | HTTPS Flood Protection     |false|
+      | PO_100 | 3     | HTTPS Flood Protection     |true|
+      | PO_200 | 3     | HTTPS Flood Protection     |true|
+      | PO_300 | 3     | HTTPS Flood Protection     |false|
 
-  | PO_100 | 2     | Total (recv.pps)           |true|
-  | PO_200 | 1     | Total (recv.pps)           |true|
-  | PO_300 | 1     | Total (recv.pps)           |false|
+      | PO_100 | 2     | Total (recv.pps)           |true|
+      | PO_200 | 1     | Total (recv.pps)           |true|
+      | PO_300 | 1     | Total (recv.pps)           |false|
 
 
   @SID_16
   Scenario: Validate Attacks Bandwidth - part of POs
     Then UI Validate StackBar data with widget "Top Attacks by Rate"
       | label  | value     | legendName                 | exist |
-      | PO_100 | 46853020  | DOSS-NTP-monlist-flood     | true  |
-      | PO_200 | 33339620  | DOSS-NTP-monlist-flood     | true  |
-      | PO_300 | 33339620  | DOSS-NTP-monlist-flood     | false |
+      | PO_100 | 7205360    | DOSS-NTP-monlist-flood     | true  |
+      | PO_200 | 7205360    | DOSS-NTP-monlist-flood     | true  |
+      | PO_300 | 7205360    | DOSS-NTP-monlist-flood     | false |
 
       | PO_100 | 1530300   | HTTP (recv.bps)            | true  |
       | PO_200 | null      | HTTP (recv.bps)            | true  |
       | PO_300 | null      | HTTP (recv.bps)            | false |
 
-      | PO_100 | 14537383  | HTTP (recv.pps)            | true  |
-      | PO_200 | 5125524   | HTTP (recv.pps)            | true  |
-      | PO_300 | 5125524   | HTTP (recv.pps)            | false |
+      | PO_100 | 936362    | HTTP (recv.pps)            | true  |
+      | PO_200 | 730978   | HTTP (recv.pps)            | true  |
+      | PO_300 | 730978   | HTTP (recv.pps)            | false |
 
-      | PO_100 | 18537500  | HTTPS Flood Protection     | true  |
-      | PO_200 | 18537500  | HTTPS Flood Protection     | true  |
-      | PO_300 | 18537500  | HTTPS Flood Protection     | false |
+      | PO_100 | 6953000  | HTTPS Flood Protection     | true  |
+      | PO_200 | 6953000  | HTTPS Flood Protection     | true  |
+      | PO_300 | 6953000  | HTTPS Flood Protection     | false |
 
-      | PO_100 | 55436060  | network flood IPv4 TCP-SYN | true  |
+      | PO_100 | 7531530  | network flood IPv4 TCP-SYN | true  |
       | PO_200 | null      | network flood IPv4 TCP-SYN | true  |
       | PO_300 | null      | network flood IPv4 TCP-SYN | false |
 
-      | PO_100 | 25544270  | network flood IPv4 UDP     | true  |
-      | PO_200 | 25544270  | network flood IPv4 UDP     | true  |
-      | PO_300 | 25544270  | network flood IPv4 UDP     | false |
+      | PO_100 | 7087430  | network flood IPv4 UDP     | true  |
+      | PO_200 | 7087430  | network flood IPv4 UDP     | true  |
+      | PO_300 | 7087430  | network flood IPv4 UDP     | false |
 
-      | PO_100 | 40302550  | network flood IPv6 UDP     | true  |
-      | PO_200 | 40302550  | network flood IPv6 UDP     | true  |
-      | PO_300 | 40302550  | network flood IPv6 UDP     | false |
+      | PO_100 | 7087430  | network flood IPv6 UDP     | true  |
+      | PO_200 | 7087430  | network flood IPv6 UDP     | true  |
+      | PO_300 | 7087430  | network flood IPv6 UDP     | false |
 
-      | PO_100 | 108915960 | Total (recv.bps)           | true  |
+      | PO_100 | 7205360 | Total (recv.bps)           | true  |
       | PO_200 | 7087430   | Total (recv.bps)           | true  |
       | PO_300 | 7087430   | Total (recv.bps)           | false |
 
-      | PO_100 | 509966    | Total (recv.pps)           | true  |
+      | PO_100 | 257195    | Total (recv.pps)           | true  |
       | PO_200 | 257195    | Total (recv.pps)           | true  |
       | PO_300 | 257195    | Total (recv.pps)           | false |
 
-      | PO_100 | 7199460   | UDP Port 0 (recv.pps)      | true  |
-      | PO_200 | 2028828   | UDP Port 0 (recv.pps)      | true  |
-      | PO_300 | 2028828   | UDP Port 0 (recv.pps)      | false |
+      | PO_100 | 487090   | UDP Port 0 (recv.pps)      | true  |
+      | PO_200 | 487090   | UDP Port 0 (recv.pps)      | true  |
+      | PO_300 | 487090   | UDP Port 0 (recv.pps)      | false |
 
 
   @SID_17

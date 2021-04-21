@@ -872,6 +872,10 @@ public class VRMBaseUtilies {
     public void uiValidateMaxGenerateView(int maxValue) throws Exception {
         validateMaxGenerateView(maxValue);
     }
+    public void uiValidateMaxGenerateSanpshotView(int maxValue, int snapNum) throws Exception {
+        validateMaxGenerateViewWithoutCreate(maxValue,snapNum);
+    }
+
 
     protected void validateMaxGenerateView(int maxValue) throws Exception {
         try {
@@ -885,7 +889,7 @@ public class VRMBaseUtilies {
             case "new":
                 createVRMBaseNew("validateMaxViews", new HashMap<>());
         }
-        BasicOperationsHandler.clickButton("Views.Expand", "validateMaxViews");
+        BasicOperationsHandler.clickButton("Generate Snapshot Forensics Manually", "validateMaxViews");
         List<String> snapshotsName;
         snapshotsName = getViewsList(maxValue);
         List<WebElement> snapshots = getSnapshotElements();
@@ -899,6 +903,26 @@ public class VRMBaseUtilies {
             }
             i++;
         }
+
+
+        ReportsUtils.reportErrors();
+    }
+
+    protected void validateMaxGenerateViewWithoutCreate(int maxValue, int snapNum) throws Exception {
+        BasicOperationsHandler.clickButton("Generate Snapshot Forensics Manually", "validateMaxViews");
+        List<String> snapshotsName;
+        snapshotsName = getViewsList(snapNum);
+        List<WebElement> snapshots = getSnapshotElements();
+        if (snapshots.size() > maxValue) {
+            addErrorMessage("The Expected number of the snapshots is: " + maxValue + " but the Actual is: " + snapshots.size());
+        }
+//        int i = 0;
+//        for (WebElement snapshotElement : snapshots) {
+//            if (snapshotElement.getText().equalsIgnoreCase(snapshotsName.get(maxValue)) && i < maxValue) {
+//                addErrorMessage("The snapshot " + snapshotsName.get(maxValue) + " shouldn't be exist BUT it exist");
+//            }
+//            i++;
+//        }
 
 
         ReportsUtils.reportErrors();

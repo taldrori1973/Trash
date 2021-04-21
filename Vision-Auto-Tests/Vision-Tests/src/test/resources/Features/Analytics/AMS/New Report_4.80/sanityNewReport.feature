@@ -1,8 +1,11 @@
 @TC117968
 Feature: Basic tests for report parameters
+  
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 
@@ -91,6 +94,7 @@ Feature: Basic tests for report parameters
   Scenario: Validate report name
     Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
     Then UI Set Text Field "Report Name" To " "
+    Then Sleep "1"
     Then validate webUI CSS value "border-bottom-color" of label "Report Name" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Report Name" To "&"
     Then validate webUI CSS value "border-bottom-color" of label "Report Name" equals "rgb(244, 20, 20)"
@@ -284,10 +288,10 @@ Feature: Basic tests for report parameters
 #      Then UI Click Button "Schedule Report" with value "once"
 #      Then UI Select Time of label "Schedule Once Time" with value "2022-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
 #      Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(8, 142, 177)"
-
+  
   @SID_28
   Scenario: Validate Share send email To
-    Then UI Validate the attribute "placeholder" Of Label "Email" is "EQUALS" to "E-mail To"
+    Then UI Text of "Email Tab" equal to "E-mail To"
     Then UI Set Text Field "Email" To "example@example.com" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.com,valid"
     Then UI Set Text Field "Email" To "example" enter Key true
@@ -305,9 +309,10 @@ Feature: Basic tests for report parameters
     Then UI Set Text Field "Email" To "example@example. example" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. example,invalid"
 
+  
   @SID_29
   Scenario: Validate send email Subject
-    Then UI Validate the attribute "placeholder" Of Label "Subject" is "EQUALS" to "Subject"
+    Then UI Text of "Subject Label" equal to "Subject"
 
   @SID_30
   Scenario: Validate send email Type your message

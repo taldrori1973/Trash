@@ -64,21 +64,50 @@ Feature: DPGenerateReport
     Given CLI simulate 200 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
 
   @SID_8
+  Scenario: validate BDoS-TCP SYN
+    Then UI Validate StackBar Timedata with widget "BDoS-TCP SYN-DefensePro Behavioral Protections" in report "dpBehavioral IPV6 Report"
+      | value | min | label              |
+      | 480   | 10  | Total Traffic      |
+      | 96    | 10  | Legitimate Traffic |
+      | 322   | 10  | Normal Edge        |
+
+  @SID_9
   Scenario: validate BDoS-TCP SYN ACK
     Then UI Validate StackBar Timedata with widget "BDoS-TCP SYN ACK-DefensePro Behavioral Protections" in report "dpBehavioral"
       | value | min | label              |
       | 44000 | 10  | Legitimate Traffic |
       | 66680 | 10  | Total Traffic      |
 
-  @SID_9
+  @SID_10
   Scenario: validate BDoS-TCP FIN ACK
     Then UI Validate StackBar Timedata with widget "BDoS-TCP FIN ACK-DefensePro Behavioral Protections" in report "dpBehavioral"
       | value | min | label              |
       | 44160 | 10  | Legitimate Traffic |
       | 46000 | 10  | Total Traffic      |
 
+  @SID_11
+  Scenario: validate that generate report exist in UI
 
-  @SID_10
+  Scenario: create new OWASP Top 10 1
+    Given UI "Create" Report With Name "DP Report"
+      | Template-1 | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All] |
+      | Template-2 | reportType:DefensePro Analytics , Widgets:[Top Attack Sources]  ,devices:[All], showTable:true              |
+      | Template-3 | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations]  ,devices:[All]                         |
+    Then UI "Generate" Report With Name "DP Report"
+      | timeOut | 60 |
+
+    Then UI Click Button "Log Preview" with value "DP Report_0"
+    Then UI Validate generate report with name "DP Report" is exist
+
+  @SID_12
+  Scenario: validate policy names in summary table's report
+    Then UI Validate Table record values by columns with elementLabel "Summary Table" findBy index 0
+      | columnName   | value  |
+      | Policy Names | shlomi |
+
+
+  @SID_13
   Scenario: start IPTABLES
     Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+    Then UI logout and close browser
 

@@ -112,6 +112,11 @@ public class GeneralSteps extends TestBase {
         WebUiTools.check(label, params, selectOrUnselect.equalsIgnoreCase("select"));
     }
 
+    @Then("^UI Check and Select Report Menu Element with label \"([^\"]*)\"(?: and params \"([^\"]*)\")?$")
+    public void checkAndClickElementWithLabelAndParams(String label, String params) throws Exception {
+        WebUiTools.check(label, params, false);
+    }
+
     private enum ServerLogType {
         ALL(""),
         TOMCAT("/opt/radware/mgt-server/third-party/tomcat/logs/*.log"),

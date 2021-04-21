@@ -21,8 +21,8 @@ public class ForensicsSteps extends TestBase {
 
     /**
      * @param operationType or Create or Validate or Edit (Enum)
-     * @param reportName The name of the report (String)
-     * @param reportsEntry The values that the user want to added it like:
+     * @param forensicsName The name of the report (String)
+     * @param forensicsEntry The values that the user want to added it like:
      *  *- | Basic Info| Description:desc,forensics name:EDIT_1|
      *                     - The first widget name and description (here you type just the description because the name we take it from the title)
      *  *- | devices| index:10, ports:[1], policies:[pol_1]; ports: [1,3], index:11;|
@@ -74,12 +74,8 @@ public class ForensicsSteps extends TestBase {
      *
      * */
     @Given("^UI \"(Create|Validate|Edit|Generate|Isexist)\" Forensics With Name \"([^\"]*)\"( negative)?$")
-    public void uiReportWithName(vrmActions operationType, String reportName, String negative, Map<String,String> reportsEntry) throws Throwable {
-        Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
-        if (!rootServerCliOpt.isPresent()) {
-            throw new Exception("Root Server Not found!");
-        }
-        forensicsHandler.VRMForensicsOperation(operationType, reportName, reportsEntry, rootServerCliOpt.get());
+    public void uiReportWithName(vrmActions operationType, String forensicsName, String negative, Map<String,String> forensicsEntry) throws Throwable {
+       new Forensics().baseOperation(operationType, forensicsName, negative, forensicsEntry, serversManagement.getRootServerCLI().get());
     }
 
     @Then("^UI Validate max generate Forensics is (\\d+)$")
@@ -87,15 +83,16 @@ public class ForensicsSteps extends TestBase {
         forensicsHandler.uiValidateMaxGenerateView(maxValue);
     }
 
+    @Then("^UI Validate max generate snapshot in Forensics is (\\d+) when add (\\d+) snapshots$")
+    public void uiValidateMaxGenerateSnapshoutForensicsIs(int maxValue, int snapNum) throws Exception {
+        forensicsHandler.uiValidateMaxGenerateSanpshotView(maxValue,snapNum);
+    }
+
     @Then("^UI Generate (and Validate )?Forensics With Name \"([^\"]*)\" with Timeout of (\\d+) Seconds$")
     public void uiGenerateAndValidateReportWithNameWithTimeoutOfSeconds(String Validate,String reportName ,int timeout) throws Exception {
         Map<String,String> map=new HashMap<>();
         map.put("validation",Validate);
         map.put("timeout",String.valueOf(timeout));
-        Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
-        if (!rootServerCliOpt.isPresent()) {
-            throw new Exception("Root Server Not found!");
-        }
-        forensicsHandler.VRMForensicsOperation(vrmActions.GENERATE,reportName,map,rootServerCliOpt.get());
+        forensicsHandler.VRMForensicsOperation(vrmActions.GENERATE,reportName,map,serversManagement.getRootServerCLI().get());
     }
 }

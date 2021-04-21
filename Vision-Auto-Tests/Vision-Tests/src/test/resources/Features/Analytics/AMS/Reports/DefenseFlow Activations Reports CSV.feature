@@ -370,7 +370,7 @@ Feature: DefenseFlow Activations Reports CSV
   Scenario: Generate Report
     Then UI Click Button "My Report" with value "DFCSV"
     Then UI Click Button "Generate Report Manually" with value "DFCSV"
-    Then Sleep "35"
+    Then Sleep "65"
 
   @SID_23
   Scenario: VRM report unzip local CSV file

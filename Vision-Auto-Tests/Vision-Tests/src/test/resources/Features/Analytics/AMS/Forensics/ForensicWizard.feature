@@ -11,6 +11,7 @@ Feature: Forensic Wizard
 #    * REST Delete ES index "dp-https-rt-*"
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+    * REST Delete ES index "forensics-*"
 
     And REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
@@ -21,55 +22,67 @@ Feature: Forensic Wizard
   Scenario: Run DP simulator PCAPs for Top Attacks test
     Given CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 30 seconds
 
+  
   @SID_3 @Sanity
   Scenario: Login and navigate to forensic
     Given UI Login with user "sys_admin" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Navigate to "AMS Forensics" page via homePage
+   * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then UI Navigate to "AMS Forensics" page via homepage
+#    Then UI Click Button "New Forensics Tab"
 
+  
   @SID_4 @Sanity
   Scenario: create forensic definition Wizard_test
     Given UI "Create" Forensics With Name "Wizard_test"
-      | Output  | Action,Attack ID,Start Time,Threat Category,Radware ID,Device IP Address,Attack Name,Duration,Packets,Mbits,Policy Name,Risk |
+      | Output  | Action,Attack ID,Start Time,Threat Category,Radware ID,Device IP Address,Attack Name,Duration,Packet Type,Max bps,Policy Name,Risk |
 
   @SID_5 @Sanity
   Scenario: Forensic wizard test Validate ForensicsView
-    When UI Click Button "Views.Expand" with value "Wizard_test"
-    Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Wizard_test"
+    Then UI Click Button "My Forensics" with value "Wizard_test"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Wizard_test"
 
 
   @SID_6 @Sanity
   Scenario: Forensic wizard test Generate Now
-    When UI Click Button "Views.Generate Now" with value "Wizard_test"
-    And Sleep "30"
-    When UI Click Button "Views.report" with value "Wizard_test"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Wizard_test"
+    Then Sleep "35"
+
+    When UI Click Button "Views.Forensic" with value "Wizard_test,0"
 
   @SID_7
   Scenario: VRM - Forensic wizard test Validate Table
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Action     | Drop  |
-    Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
-    Then UI Text of "Report.Attack Details.Detail" with extension "Action" equal to "Drop"
-    Then UI Click Button "Report.Attack Details.Close"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy index 0
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
+    Then UI Click Button "Forensics.Attack Details.Close"
 
   @SID_8
   Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
-    When UI Delete "Wizard_test" and Cancel
-    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Wizard_test"
-    When UI Delete "Wizard_test" and Approve
-    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Wizard_test"
+    Then UI Click Button "Delete Forensics" with value "Wizard_test"
+    Then UI Click Button "Cancel Delete Forensics"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Wizard_test"
+    Then UI Delete Forensics With Name "Wizard_test"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Wizard_test"
 
    @SID_9
     Scenario: validate creation forensics with long name and description
      When UI "Create" Forensics With Name "Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongname"
       |Basic Info|Description:looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongDescreption|
 
+  
   @SID_10
   Scenario: VRM forensic validate max 10 generations in view
+    Given UI "Create" Forensics With Name "validateMaxViews"
+      | Output  | Action,Attack ID,Start Time,Threat Category,Radware ID,Device IP Address,Attack Name,Duration,Packet Type,Max bps,Policy Name,Risk |
+
+    Then UI Click Button "My Forensics" with value "validateMaxViews"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "validateMaxViews"
+
     Then CLI Connect Radware
-    Then UI Validate max generate Forensics is 10
+    
+    Then UI Validate max generate snapshot in Forensics is 10 when add 11 snapshots
 
   @SID_11 @Sanity
   Scenario: Logout
