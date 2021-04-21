@@ -39,7 +39,7 @@ public class EnvironmentsDao {
         return _instance;
     }
 
-    public List<Environment> finallEnvironments() {
+    public List<Environment> findAllEnvironments() {
         return this.allEnvironments;
     }
 }

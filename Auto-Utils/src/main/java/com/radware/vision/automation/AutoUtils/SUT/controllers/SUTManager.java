@@ -16,6 +16,8 @@ public interface SUTManager {
 
     String getSetupId();
 
+    String getEnvironmentName();
+
     ClientConfigurationDto getClientConfigurations();
 
     CliConfigurationDto getCliConfigurations();
@@ -29,7 +31,7 @@ public interface SUTManager {
 
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
 
-    Optional<EnvironmentDto> getEnviorement(String env);
+    Optional<EnvironmentDto> getEnviorement();
 
     /**
      * @param deviceId deviceId as on devices file
