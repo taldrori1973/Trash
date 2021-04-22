@@ -13,7 +13,7 @@ public class DpNTestBase extends VisionUITestBase {
         super();
         if (getDeviceName() != null) {
             try {
-                updateNavigationParser(Device.getDeviceIp(getVisionRestClient(), getDeviceName()));
+                updateNavigationParser(Device.getDeviceIp(restTestBase.getVisionRestClient(), getDeviceName()));
             }
             catch (Exception e){
 

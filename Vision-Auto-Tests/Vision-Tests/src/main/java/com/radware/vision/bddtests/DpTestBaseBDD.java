@@ -15,7 +15,7 @@ public class DpTestBaseBDD extends VisionUITestBase {
     @Before
     public void uiInit() throws Exception {
         if (getDeviceName() != null) {
-            updateNavigationParser(Device.getDeviceIp(getVisionRestClient(), getDeviceName()));
+            updateNavigationParser(Device.getDeviceIp(restTestBase.getVisionRestClient(), getDeviceName()));
         }
         dpUtils = new DpWebUIUtils();
         dpUtils.setUp();

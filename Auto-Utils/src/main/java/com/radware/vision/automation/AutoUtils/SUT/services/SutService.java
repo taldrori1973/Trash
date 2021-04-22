@@ -2,16 +2,11 @@ package com.radware.vision.automation.AutoUtils.SUT.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.CliConfigurationDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.ServersDao;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.*;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DeviceConfiguration;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.environments.Environment;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.servers.ServerPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
@@ -40,6 +35,7 @@ public class SutService {
     private SetupDao setupDao;
     private SutDao sutDao;
     private ServersDao externalServersDao;
+    private EnvironmentsDao environmentsDao;
 
     public SutService() {
         this.modelMapper = new ModelMapper();
@@ -50,6 +46,7 @@ public class SutService {
         pairIpDao = sutDao.getpairIp();
 //        pairEnvDao = sutDao.getpairEnv();
         this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
+        this.environmentsDao = EnvironmentsDao.get_instance();
     }
 
 
@@ -66,16 +63,21 @@ public class SutService {
 //    public String getPairEnv() {
 //        return this.sutDao.getpairEnv();
 //    }
+    public String getEnviorementName(){
+        return this.sutDao.getEnvironmentName();
+    }
 
 
     public ClientConfigurationDto getVisionConfigurations() {
         ClientConfiguration clientConfiguration = this.sutDao.findClientConfiguration();
         return modelMapper.map(clientConfiguration, ClientConfigurationDto.class);
     }
+
     public CliConfigurationDto getVisionCliConfigurations() {
         CliConfiguration cliConfiguration = this.sutDao.findCliConfiguration();
         return modelMapper.map(cliConfiguration, CliConfigurationDto.class);
     }
+
     public List<String> getVisionSetupTreeSites() {
         List<Site> allSites = this.setupDao.findAllSites();
         return allSites.stream().map(Site::getName).collect(Collectors.toList());
@@ -143,4 +145,14 @@ public class SutService {
         Optional<Site> siteByName = this.setupDao.findSiteByName(siteName);
         return siteByName.map(Site::getParentSite).orElse(null);
     }
+
+    public Optional<EnvironmentDto> getEnviorement(String env) {
+        ModelMapper modelMapper = new ModelMapper();
+//        List<EnvironmentDto> enviorments = environmentsDao.finallEnvironments();
+        List<EnvironmentDto> enviorments = modelMapper.map(environmentsDao.findAllEnvironments(), new TypeToken<List<EnvironmentDto>>() {
+        }.getType());
+        return enviorments.stream().filter(environmentDto -> environmentDto.getName().equals(env)).findAny();
+
+    }
+
 }

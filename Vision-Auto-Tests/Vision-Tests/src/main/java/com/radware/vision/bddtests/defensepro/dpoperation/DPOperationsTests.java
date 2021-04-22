@@ -41,7 +41,7 @@ public class DPOperationsTests extends VisionUITestBase {
             //////////////////////
             WebUIUtils.widgetsContainer = null;
             if (deviceInfoPrimary.getDeviceIp() == null) {
-                updateNavigationParser(Device.getDeviceIp(getVisionRestClient(), getDeviceName()));
+                updateNavigationParser(Device.getDeviceIp(restTestBase.getVisionRestClient(), getDeviceName()));
             } else {
                 updateNavigationParser(deviceInfoPrimary.getDeviceIp());
                 setDeviceName(deviceInfoPrimary.getDeviceIp());
@@ -57,7 +57,7 @@ public class DPOperationsTests extends VisionUITestBase {
             testProperties.put("fileDownloadPath", "");//C:\Users\stanislava\Downloads\
             testProperties.put("fileName", "");
 
-            if (!DPOperationsHandler.updateSecuritySignatures(getVisionRestClient(), testProperties)) {
+            if (!DPOperationsHandler.updateSecuritySignatures(restTestBase.getVisionRestClient(), testProperties)) {
                 WebUIUtils.generateAndReportScreenshot();
                 BaseTestUtils.report("update Security Signatures operation may have been executed incorrectly :", Reporter.FAIL);
             }

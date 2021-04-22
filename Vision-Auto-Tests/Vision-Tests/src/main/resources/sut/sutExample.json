@@ -1,11 +1,8 @@
 {
-  "serverName": "Äuto_xxx",
   "setupFile": "fullSetup.json",
-  "pair": {
-    "pairIp": "172.17.x.x"
-    },
+  "environment": "KVM-215",
   "clientConfiguration": {
-    "hostIp": "172.17.176.2",
+    "hostIp": "172.17.164.102",
     "userName": "radware",
     "password": "radware",
     "restConnection": {

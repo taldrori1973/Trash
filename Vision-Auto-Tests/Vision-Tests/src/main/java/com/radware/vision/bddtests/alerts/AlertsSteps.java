@@ -97,7 +97,7 @@ public class AlertsSteps extends VisionUITestBase {
     public void filterAlerts(Map<String,String> properties) {
         try {
             HashMap<String, String> filterProperties = new HashMap<String, String>(properties);
-            AlertsHandler.validateAlertsFilter(getVisionRestClient(), filterProperties);
+            AlertsHandler.validateAlertsFilter(restTestBase.getVisionRestClient(), filterProperties);
         } catch (Exception e) {
             BaseTestUtils.report("filter Alerts:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }

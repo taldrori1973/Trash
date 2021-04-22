@@ -88,4 +88,8 @@ public class SutDao {
     public CliConfiguration findCliConfiguration() {
         return this.sutPojo.getCliConfiguration();
     }
+
+    public String getEnvironmentName() {
+        return this.sutPojo.getEnvironment();
+    }
 }

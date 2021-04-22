@@ -109,7 +109,7 @@ public class ConfigSyncFailureSteps extends VisionUITestBase {
         try {
             String sutEntryType = "genericLinuxServer";
 //            172.17.164.10
-            LinuxFileServer rootGenericLinuxServerCli = new LinuxFileServer(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)).getHost(), "root", "radware");
+            LinuxFileServer rootGenericLinuxServerCli = new LinuxFileServer(sutManager.getClientConfigurations().getHostIp(), "root", "radware");
             rootGenericLinuxServerCli.init();
 //            delete cliuser file
             String delCliuser = "rm " + mailPath;

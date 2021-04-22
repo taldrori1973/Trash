@@ -47,7 +47,7 @@ public class UpdateAttackDescriptionFileTests extends VisionUITestBase {
             basicOperationsSteps.goToVision();
             disableProxy();
             //get previous update
-            String lastUpdate = BasicParametersHandler.getBasicParameterByKey(getVisionRestClient(), BasicParametersKeys.getBasicParametersKeysEnum("attackDescLastUpdate"));
+            String lastUpdate = BasicParametersHandler.getBasicParameterByKey(restTestBase.getVisionRestClient(), BasicParametersKeys.getBasicParametersKeysEnum("attackDescLastUpdate"));
             //click update
             basicOperationsSteps.clickWebElementWithId("gwt-debug-attackDescLastUpdate_ActionButton", null);
             // choose from radware
@@ -58,7 +58,7 @@ public class UpdateAttackDescriptionFileTests extends VisionUITestBase {
             int timeoutMin = 7;
             LocalDateTime timeout = LocalDateTime.now().plusMinutes(timeoutMin);
             do {
-                String upToDate = BasicParametersHandler.getBasicParameterByKey(getVisionRestClient(), BasicParametersKeys.getBasicParametersKeysEnum("attackDescLastUpdate"));
+                String upToDate = BasicParametersHandler.getBasicParameterByKey(restTestBase.getVisionRestClient(), BasicParametersKeys.getBasicParametersKeysEnum("attackDescLastUpdate"));
                 if (!lastUpdate.equals(upToDate))
                     return;
                 Thread.sleep(5000);
