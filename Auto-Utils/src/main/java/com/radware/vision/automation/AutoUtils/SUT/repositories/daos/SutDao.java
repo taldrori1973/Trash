@@ -66,13 +66,13 @@ public class SutDao {
         return this.sutPojo.getSetupFile();
     }
 
-//    public String getServerName() {
-//        return this.sutPojo.getServerName();
-//    }
-//
-//    public String getpairIp() {
-//        return this.sutPojo.getPair().getPairIp();
-//    }
+    public String getServerName() {
+        return this.sutPojo.getServerName();
+    }
+
+    public String getpairIp() {
+        return this.sutPojo.getPair().getPairIp();
+    }
 
 //    public String getpairEnv() {
 //        return this.sutPojo.getPair().getPairEnv();

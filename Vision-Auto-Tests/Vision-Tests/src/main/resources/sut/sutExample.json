@@ -1,5 +1,9 @@
 {
+  "serverName": "Äuto_xxx",
   "setupFile": "fullSetup.json",
+  "pair": {
+    "pairIp": "172.17.x.x"
+    },
   "clientConfiguration": {
     "hostIp": "172.17.176.2",
     "userName": "radware",
