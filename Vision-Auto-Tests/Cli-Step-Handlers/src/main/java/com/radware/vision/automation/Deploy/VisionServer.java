@@ -1,7 +1,6 @@
 package com.radware.vision.automation.Deploy;
 
 
-import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
@@ -21,7 +20,6 @@ import java.util.Arrays;
  */
 public class VisionServer {
 
-    public final static String JENKINS_URL = "http://cmjen04.il.corp.radware.com:8081/job/Vision_Master";
     private final static String TARGET_UPGRADE_SERVER_FILE_FOLDER = "/opt/radware/storage/sftphome/temp";
     private final static String UPGRADE_FAILED_MESSAGE = "The APSolute Vision upgrade process failed";
     private final static String GOING_TO_REBOOT = "Is reboot required: 0";
@@ -29,7 +27,7 @@ public class VisionServer {
     private final static String UPGRADE_FILE_PATH = "/opt/radware/storage/maintenance/upgrade/upgrade.log";
 
     public static void upgradeServerFile(RadwareServerCli radwareServerCli, RootServerCli rootServerCli,
-                                         String visionVersion, String upgradePassword,
+                                         String upgradePassword,
                                          String file, String url) throws Exception {
         try {
             BaseTestUtils.reporter.startLevel("system upgrade full - Started");
