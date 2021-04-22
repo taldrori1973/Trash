@@ -2,15 +2,17 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.base.VisionUITestBase;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.support.How;
@@ -82,7 +84,8 @@ public class ReportSteps extends VisionUITestBase {
     @Then("^UI \"(Create|Validate|Edit|Generate|Isexist|Delete)\" Report With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName,String negative, Map<String, String> reportsEntry) {
         try {
-            new Report().baseOperation(operationType, reportName, negative, reportsEntry, restTestBase.getRootServerCli());
+            RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+            new Report().baseOperation(operationType, reportName, negative, reportsEntry, rootServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
