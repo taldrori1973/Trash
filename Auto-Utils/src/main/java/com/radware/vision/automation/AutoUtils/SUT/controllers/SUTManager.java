@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface SUTManager {
 
-//    String getServerName();
+    String getServerName();
 
-//    String getpairIp();
+    String getpairIp();
 
 //    String getpairEnv();
 

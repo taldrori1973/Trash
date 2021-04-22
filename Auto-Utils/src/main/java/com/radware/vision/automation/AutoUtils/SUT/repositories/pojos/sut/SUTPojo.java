@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class SUTPojo {
-//    private String serverName;
-//    private Pair pair;
+    private String serverName;
+    private Pair pair;
     private String setupFile;
     private String environment;
     private ClientConfiguration clientConfiguration;

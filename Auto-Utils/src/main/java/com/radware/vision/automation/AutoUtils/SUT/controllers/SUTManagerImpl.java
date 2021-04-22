@@ -29,15 +29,15 @@ public class SUTManagerImpl implements SUTManager {
     }
 
 
-//    @Override
-//    public String getServerName() {
-//        return this.sutService.getVMName();
-//    }
+    @Override
+    public String getServerName() {
+        return this.sutService.getVMName();
+    }
 
-//    @Override
-//    public String getpairIp() {
-//        return this.sutService.getpairIp();
-//    }
+    @Override
+    public String getpairIp() {
+        return this.sutService.getpairIp();
+    }
 
 //    @Override
 //    public String getpairEnv() {
