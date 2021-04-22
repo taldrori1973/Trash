@@ -1,6 +1,7 @@
 package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
-import com.radware.vision.vision_project_cli.RootServerCli;
+
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 
 import java.util.Map;
 
