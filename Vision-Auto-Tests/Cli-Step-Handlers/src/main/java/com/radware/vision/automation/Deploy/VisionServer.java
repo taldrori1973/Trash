@@ -10,6 +10,7 @@ import com.radware.automation.tools.utils.LinuxServerCredential;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.GlobalProperties;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 
@@ -167,7 +168,7 @@ public class VisionServer {
         }
         return false;
     }
-    public static boolean waitForServerConnection(long timeout, CliConnectionImpl connection) throws InterruptedException {
+    public static boolean waitForServerConnection(long timeout, ServerCliBase connection) throws InterruptedException {
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() - startTime < timeout) {
             try {
