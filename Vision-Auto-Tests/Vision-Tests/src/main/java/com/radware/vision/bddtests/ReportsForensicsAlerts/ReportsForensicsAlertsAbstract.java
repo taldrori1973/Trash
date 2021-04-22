@@ -6,13 +6,13 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
