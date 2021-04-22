@@ -44,7 +44,7 @@
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Utils</artifactId>
-            <version>4.81.00-SNAPSHOT</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
