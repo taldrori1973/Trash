@@ -79,8 +79,8 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getTreeDeviceManagementBySetId(setId);
     }
 
-    public Optional<EnvironmentDto> getEnviorement(String env){
-        return this.sutService.getEnviorement(env);
+    public Optional<EnvironmentDto> getEnviorement() {
+        return this.sutService.getEnviorement(getEnvironmentName());
     }
 
 
@@ -91,6 +91,10 @@ public class SUTManagerImpl implements SUTManager {
 
     public Optional<JsonNode> getAddTreeDeviceRequestBodyAsJson(String deviceId) {
         return this.sutService.getAddTreeDeviceRequestBodyAsJson(deviceId);
+    }
+
+    public String getEnvironmentName() {
+        return this.sutService.getEnviorementName();
     }
 
 

@@ -46,7 +46,7 @@ public class SutService {
 //        pairIpDao = sutDao.getpairIp();
 //        pairEnvDao = sutDao.getpairEnv();
         this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
-//        this.environmentsDao = EnvironmentsDao.get_instance();
+        this.environmentsDao = EnvironmentsDao.get_instance();
     }
 
 
@@ -63,6 +63,9 @@ public class SutService {
 //    public String getPairEnv() {
 //        return this.sutDao.getpairEnv();
 //    }
+    public String getEnviorementName(){
+        return this.sutDao.getEnvironmentName();
+    }
 
 
     public ClientConfigurationDto getVisionConfigurations() {
@@ -146,7 +149,7 @@ public class SutService {
     public Optional<EnvironmentDto> getEnviorement(String env) {
         ModelMapper modelMapper = new ModelMapper();
 //        List<EnvironmentDto> enviorments = environmentsDao.finallEnvironments();
-        List<EnvironmentDto> enviorments = modelMapper.map(environmentsDao.finallEnvironments(), new TypeToken<List<Environment>>() {
+        List<EnvironmentDto> enviorments = modelMapper.map(environmentsDao.findAllEnvironments(), new TypeToken<List<EnvironmentDto>>() {
         }.getType());
         return enviorments.stream().filter(environmentDto -> environmentDto.getName().equals(env)).findAny();
 

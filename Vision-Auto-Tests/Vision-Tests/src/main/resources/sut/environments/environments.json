@@ -1,4 +1,4 @@
-[
+{"environments":[
   {
     "name": "KVM-215",
     "hostIp": "10.205.200.215",
@@ -9,5 +9,5 @@
     "gateWay": "172.17.1.1",
     "physicalManagement": "G1"
   }
-
 ]
+}
