@@ -253,7 +253,7 @@ public class UpgradeSteps extends TestBase {
             RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
             RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
             VisionServer.upgradeServerFile(radwareServerCli, rootServerCli
-                    , version, null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
+                    , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
             validateVisionServerServicesUP(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
