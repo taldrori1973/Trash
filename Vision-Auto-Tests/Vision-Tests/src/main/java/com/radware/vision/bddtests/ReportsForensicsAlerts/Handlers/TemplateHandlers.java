@@ -55,6 +55,10 @@ public class TemplateHandlers {
                 return new SystemAndNetworkScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
+//            case "SYSTEM, NETWORK AND LINKPROOF":
+//                return new SystemAndNetworkScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
+//            case "ANALYTICS ADC APPLICATION":
+//                return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "ERT ACTIVE ATTACKERS FEED":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
        //         return new EAAFScopeSelection(new JSONArray(), templateParam);
@@ -66,7 +70,7 @@ public class TemplateHandlers {
         }
     }
 
-    private static void addWidgets(JSONArray widgets, String reportType) {
+    private static void addWidgets(JSONArray widgets, String reportType) throws Exception {
         List<String> widgetsList = getWidgetsList(widgets);
         List<String> widgetsToRemove = new ArrayList<>();
         List<String> widgetsTextsToRemove = new ArrayList<>();
@@ -94,11 +98,55 @@ public class TemplateHandlers {
                 } else {
                     widgetsList.remove(widgetName);
                 }
+                if (widgetsList.contains("Instances"))
+                    widgetsList.remove("Instances");
             }
         }
         removeUnWantedWidgetsAll(widgetsToRemove, reportType);
         dragAndDropDesiredWidgets(widgetsList, reportType);
         selectOptions(widgets, getOccurrenceMap(widgets), reportType);
+        selectInstances(widgets,getInstanceMap(widgets),reportType);
+    }
+
+    private static void selectInstances(JSONArray widgets, Map<String, List<String>> instanceMap, String reportType) throws Exception {
+//        if (widgets == null || instanceMap == null) return;
+//            WebUiTools.check("Instance Expand", "0", true);
+//            List<String> expectedOutputs = new List<String>(instanceMap.get("Instances").toString()));
+//
+//            for (WebElement outputElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//li[contains(@data-debug-id,'forensics_output_') and not(contains(@data-debug-id,'Add All'))]").getBy())) {
+//                String outputText = outputElement.getText();
+//                if (expectedOutputs.contains(outputText)) {
+//                    WebUiTools.check("Output Value", outputText, true);
+//                    expectedOutputs.remove(outputText);
+//                } else WebUiTools.check("Output Value", outputText, false);
+//            }
+//
+//            if (expectedOutputs.size() > 0)
+//                throw new Exception("The outputs " + expectedOutputs + " don't exist in the outputs");
+
+    }
+
+    private static Map<String, List<String>> getInstanceMap(JSONArray widgets){
+        if (widgets == null) return null;
+        Map<String, List<String>> instancesMap = new HashMap<>();
+        String widgetName = "";
+        List<String> instancesList = null;
+        for (int i = 0; i < widgets.length(); i++) {
+            String widgetInstance;
+            List<Integer> list = new ArrayList<>();
+            if ((widgets.toList().get(i).getClass().getName().contains("HashMap")) && new JSONObject(widgets.get(i).toString()).toMap().containsKey("Instances")){
+                 Map<String, Object> widgetMap = new HashMap<String, Object>(((HashMap) widgets.toList().get(i)));
+                 instancesList = (List<String>) new HashMap<String, Object>(((HashMap) widgets.toList().get(i))).get("Instances");
+                 List<String> widgetList = widgetMap.keySet().stream().collect(Collectors.toList());
+                 widgetInstance = widgetList.get(0);
+                 widgetName=widgetList.get(1);
+            } else {
+                widgetInstance = widgets.getString(i).trim();
+                list.add(null);
+            }
+            if (!instancesMap.containsKey((widgetInstance+"_"+widgetName)))    instancesMap.put(widgetInstance+"_"+widgetName, instancesList);
+        }
+        return instancesMap;
     }
 
     private static void selectAllOptions(Map<String, Object> allMap, String reportType) {
@@ -139,17 +187,17 @@ public class TemplateHandlers {
             if (widgets.toList().get(i).getClass().getName().contains("HashMap")) {
                 Map<String, Object> widgetMap = new HashMap<String, Object>(((HashMap) widgets.toList().get(i)));
                 List<String> aList = widgetMap.keySet().stream().collect(Collectors.toList());
-                widgetName = aList.get(0);
+                widgetName = aList.size() > 1 ? aList.get(1) : aList.get(0);
 //                list.add(it.);
             } else {
                 widgetName = widgets.getString(i).trim();
                 list.add(null);
             }
-            if (!ocuurenceMap.containsKey(widgetName)) {
+            if (!ocuurenceMap.containsKey(widgetName) && !widgetName.equalsIgnoreCase("instances")) {
                 List<Integer> indexsList = new ArrayList<>();
                 indexsList.add(i);
                 ocuurenceMap.put(widgetName, indexsList);
-            } else {
+            } else if(!widgetName.equalsIgnoreCase("instances")) {
                 ocuurenceMap.get(widgetName).add(i);
             }
 
@@ -241,6 +289,9 @@ public class TemplateHandlers {
                         break;
                     case "all protected objects":
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Protected Objects')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                        break;
+                    case "usage":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Usage')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                         break;
                     case "All":
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Policies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
