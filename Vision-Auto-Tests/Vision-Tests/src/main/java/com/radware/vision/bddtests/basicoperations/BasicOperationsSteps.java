@@ -18,6 +18,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceIn
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.base.VisionUITestSetup;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;

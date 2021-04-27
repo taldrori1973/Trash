@@ -4,6 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -11,7 +12,6 @@ import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandl
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsChartsHandler;
 import com.radware.vision.restAPI.FormatterRestApi;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import models.RestResponse;
 import models.StatusCode;
 import org.json.JSONArray;

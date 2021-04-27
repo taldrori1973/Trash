@@ -3,6 +3,7 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.infra.testhandlers.vrm.ForensicsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import cucumber.api.java.en.Given;
