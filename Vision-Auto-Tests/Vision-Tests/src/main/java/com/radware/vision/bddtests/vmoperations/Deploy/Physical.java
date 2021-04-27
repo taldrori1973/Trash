@@ -2,13 +2,13 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.Deploy.NewVmHandler;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
-import com.radware.vision.vision_handlers.NewVmHandler;
 
 public class Physical extends Deploy {
     JFrogFileModel buildFileInfoISO;
@@ -25,7 +25,8 @@ public class Physical extends Deploy {
         try {
             String[] path = buildFileInfoTar.getPath().toString().split("/");
             NewVmHandler newVmHandler = new NewVmHandler();
-            newVmHandler.firstTimeWizardIso(version, build, buildFileInfoISO.getDownloadUri().getPath(), buildFileInfoTar.getDownloadUri().toString(), path[path.length - 1]);
+//            TODO Kvision
+//            newVmHandler.firstTimeWizardIso(version, build, buildFileInfoISO.getDownloadUri().getPath(), buildFileInfoTar.getDownloadUri().toString(), path[path.length - 1]);
             BasicRestOperationsSteps basicRestOperationsSteps = new BasicRestOperationsSteps();
             basicRestOperationsSteps.loginWithActivation("radware", "radware");
         } catch (Exception e) {
