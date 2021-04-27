@@ -12,3 +12,6 @@ Feature: Current
     Then UI Text of "LinkProofTab" equal to "LinkProof"
     Then UI Click Button "LinkProofTab"
 
+  @SID_3
+  Scenario: Validate the Current Header
+    Then UI Text of "Current Label" equal to "Current"
