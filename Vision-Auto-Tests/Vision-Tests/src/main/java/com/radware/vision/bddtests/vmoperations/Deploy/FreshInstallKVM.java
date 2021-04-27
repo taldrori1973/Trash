@@ -1,9 +1,8 @@
 package com.radware.vision.bddtests.vmoperations.Deploy;
-
+import com.radware.vision.automation.Deploy.NewVmHandler;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
-import com.radware.vision.vision_handlers.NewVmHandler;
 
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 

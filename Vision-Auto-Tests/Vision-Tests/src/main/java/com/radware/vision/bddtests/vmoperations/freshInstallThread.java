@@ -2,10 +2,9 @@ package com.radware.vision.bddtests.vmoperations;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.Deploy.NewVmHandler;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallOVA;
-import com.radware.vision.vision_handlers.NewVmHandler;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
