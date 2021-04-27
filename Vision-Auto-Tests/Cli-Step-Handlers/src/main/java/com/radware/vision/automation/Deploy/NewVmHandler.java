@@ -55,21 +55,6 @@ public class NewVmHandler extends CliTests {
 
     }
 
-//    public String getArtifactUrl(String buildNumber, String fileName, String VISION_VERISON) throws Exception {
-//        String ArtifactURL;
-//        if (!URLUtil.isReachableURL(http://10.175.95.151:8081/artifactory/vision-snapshot-local/ + VISION_VERISON + "/" + buildNumber + "/" + fileName)) {
-//            ArtifactURL = http://10.175.95.151:8081/artifactory/vision-release-local/ + VISION_VERISON + "/" + buildNumber + "/" + fileName;
-//        } else {
-//            if (URLUtil.isReachableURL(http://10.175.95.151:8081/artifactory/vision-release-local/ + VISION_VERISON + "/" + buildNumber + "/" + fileName)) {
-//                throw new IllegalStateException("Could not find a build with a valid file to deploy.");
-//            }
-//
-//            ArtifactURL = http://10.175.95.151:8081/artifactory/vision-release-local/ + VISION_VERISON + "/" + buildNumber + "/" + fileName;
-//        }
-//
-//        return ArtifactURL;
-//    }
-
     public void firstTimeWizardKVM(boolean isAPM, String version, String specificVisionBuild, String fileUrl) throws Exception {
         long timeOut = 3600000L;
         ArrayList<String> messages = new ArrayList();
@@ -249,7 +234,7 @@ public class NewVmHandler extends CliTests {
         }
 
     }
-//            TODO kvision - Phisical is not stable need to re-write
+//            TODO kvision - Physical is not stable need to re-write
 //    public void firstTimeWizardIso(String version, String build, String isoFilePath, String tarFilePath, String othersFilesFileName) throws Exception {
 //        String promptString = "vision.radware login: ";
 //        String promptCommand = "radware";
