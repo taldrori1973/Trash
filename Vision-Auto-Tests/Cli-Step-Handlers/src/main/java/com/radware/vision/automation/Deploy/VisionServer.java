@@ -1,6 +1,7 @@
 package com.radware.vision.automation.Deploy;
 
 
+import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
@@ -176,6 +177,27 @@ public class VisionServer {
                 Thread.sleep(10000);
             }
         }
+        return false;
+    }
+    public static boolean waitForVisionServerServicesToStartHA(CliConnectionImpl cliConnection, long timeout) throws Exception {
+        long startTime = System.currentTimeMillis();
+        do {
+
+            if (com.radware.vision.vision_handlers.system.VisionServer.isVisionServerRunningHA((com.radware.vision.vision_project_cli.RadwareServerCli) cliConnection))
+                return true;
+            Thread.sleep(15 * 1000);
+        }
+        while (System.currentTimeMillis() - startTime < timeout);
+        return false;
+    }
+    public static boolean waitForVisionServerServicesToStart(CliConnectionImpl cliConnection, long timeout) throws Exception {
+        long startTime = System.currentTimeMillis();
+        do {
+            if (com.radware.vision.vision_handlers.system.VisionServer.isVisionServerRunning(cliConnection))
+                return true;
+            Thread.sleep(15 * 1000);
+        }
+        while (System.currentTimeMillis() - startTime < timeout);
         return false;
     }
 

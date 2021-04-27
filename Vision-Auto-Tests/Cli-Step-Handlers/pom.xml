@@ -17,6 +17,12 @@
             <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.radware.vision.automation.cli</groupId>
+            <artifactId>vision-infra</artifactId>
+            <version>DEVELOPMENT-${revision}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <properties>
