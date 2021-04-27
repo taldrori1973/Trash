@@ -45,6 +45,21 @@ Feature: Current
   Scenario: Validate the Status Header
     Then UI Text of "Status Header" equal to "Status"
 
+  @SID_9
+  Scenario: Validate the Running
+    Then UI Text of "Status Label" with extension "Runnung" equal to "Runnung"
+    Then UI Text of "Status Value" with extension "Runnung" equal to "30"
+
+  @SID_10
+  Scenario: Validate the Down
+    Then UI Text of "Status Label" with extension "Down" equal to "Down"
+    Then UI Text of "Status Value" with extension "Down" equal to "10"
+
+  @SID_11
+  Scenario: Validate the Disabled
+    Then UI Text of "Status Label" with extension "Disabled" equal to "Disabled"
+    Then UI Text of "Status Value" with extension "Disabled" equal to "20"
+
 
 
 
