@@ -15,3 +15,7 @@ Feature: Current
   @SID_3
   Scenario: Validate the Current Header
     Then UI Text of "Current Label" equal to "Current"
+
+  @SID_4
+  Scenario: Validate the Status Header
+    Then UI Text of "Status Label" equal to "Status"
