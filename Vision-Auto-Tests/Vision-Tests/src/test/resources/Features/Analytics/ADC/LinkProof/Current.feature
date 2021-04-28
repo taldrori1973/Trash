@@ -26,17 +26,17 @@ Feature: Current
     Then UI Text of "Total Statistics Header" equal to "Total Statistics"
 
   @SID_5
-  Scenario: Validate the Upload Throuhput (bps)
-    Then UI Text of "Total Statistics Label" with extension "Upload Throuhput" equal to "Upload Throuput (bps)"
-    Then UI Text of "Total Statistics Value" with extension "Upload Throuhput" equal to "42.2 M"
+  Scenario: Validate the Upload Throughput (bps)
+    Then UI Text of "Total Statistics Label" with extension "Upload Throughput" equal to "Upload Throughput (bps)"
+    Then UI Text of "Total Statistics Value" with extension "Upload Throughput" equal to "42.2 M"
 
   @SID_6
-  Scenario: Validate the Download Throuhput (bps)
-    Then UI Text of "Total Statistics Label" with extension "Download Throuhput" equal to "Download (bps)"
-    Then UI Text of "Total Statistics Value" with extension "Download Throuhput" equal to "65.5 K"
+  Scenario: Validate the Download Throughput (bps)
+    Then UI Text of "Total Statistics Label" with extension "Download Throughput" equal to "Download (bps)"
+    Then UI Text of "Total Statistics Value" with extension "Download Throughput" equal to "65.5 K"
 
   @SID_7
-  Scenario: Validate the Download Throuhput (bps)
+  Scenario: Validate the Download Throughput (bps)
     Then UI Text of "Total Statistics Label" with extension "CEC" equal to "CEC"
     Then UI Text of "Total Statistics Value" with extension "CEC" equal to "513.3 K"
 
