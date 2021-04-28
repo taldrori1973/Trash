@@ -2,6 +2,7 @@ package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.Pair;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +11,7 @@ public interface SUTManager {
 
     String getServerName();
 
-    String getpairIp();
-
-//    String getpairEnv();
+    Pair getpair();
 
     String getSetupId();
 
@@ -32,6 +31,7 @@ public interface SUTManager {
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
 
     Optional<EnvironmentDto> getEnviorement();
+    Optional<EnvironmentDto> getPairEnviorement();
 
     /**
      * @param deviceId deviceId as on devices file

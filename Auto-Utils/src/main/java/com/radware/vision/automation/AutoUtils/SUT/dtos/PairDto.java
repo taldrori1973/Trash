@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class PairDto {
     private String pairIp;
-//    private String pairEnv;
+    private String environment;
 }

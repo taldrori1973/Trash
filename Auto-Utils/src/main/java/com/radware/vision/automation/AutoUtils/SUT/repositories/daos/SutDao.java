@@ -2,6 +2,7 @@ package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.CliConfiguration;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.ClientConfiguration;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.Pair;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
@@ -70,17 +71,6 @@ public class SutDao {
         return this.sutPojo.getServerName();
     }
 
-    public String getpairIp() {
-        return this.sutPojo.getPair().getPairIp();
-    }
-
-//    public String getpairEnv() {
-//        return this.sutPojo.getPair().getPairEnv();
-//    }
-
-//todo
-    //get host ip
-
     public ClientConfiguration findClientConfiguration() {
         return this.sutPojo.getClientConfiguration();
     }
@@ -91,5 +81,9 @@ public class SutDao {
 
     public String getEnvironmentName() {
         return this.sutPojo.getEnvironment();
+    }
+
+    public Pair getPair() {
+        return this.sutPojo.getPair();
     }
 }

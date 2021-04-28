@@ -12,6 +12,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.CliConfiguration;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.ClientConfiguration;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.Pair;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
@@ -27,8 +28,6 @@ import java.util.stream.Collectors;
 public class SutService {
 
     private  String serverNameDao;
-    private  String pairIpDao;
-//    private  String pairEnvDao;
     private ModelMapper modelMapper;
     private ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
     private DevicesDao devicesDao;
@@ -43,8 +42,6 @@ public class SutService {
         this.sutDao = SutDao.get_instance();
         this.setupDao = SetupDao.get_instance(sutDao.getSetupFileName());
         serverNameDao = sutDao.getServerName();
-        pairIpDao = sutDao.getpairIp();
-//        pairEnvDao = sutDao.getpairEnv();
         this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
         this.environmentsDao = EnvironmentsDao.get_instance();
     }
@@ -57,12 +54,10 @@ public class SutService {
     public String  getVMName() {
         return this.sutDao.getServerName();
     }
-    public String getpairIp() {
-        return this.sutDao.getpairIp();
+    public Pair getpair() {
+        return this.sutDao.getPair();
     }
-//    public String getPairEnv() {
-//        return this.sutDao.getpairEnv();
-//    }
+
     public String getEnviorementName(){
         return this.sutDao.getEnvironmentName();
     }

@@ -2,6 +2,7 @@ package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.Pair;
 import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
 
 import java.util.List;
@@ -34,15 +35,9 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getVMName();
     }
 
-    @Override
-    public String getpairIp() {
-        return this.sutService.getpairIp();
+    public Pair getpair() {
+        return this.sutService.getpair();
     }
-
-//    @Override
-//    public String getpairEnv() {
-//        return this.sutService.getPairEnv();
-//    }
 
     @Override
     public String getSetupId() {
@@ -97,5 +92,7 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getEnviorementName();
     }
 
-
+    public Optional<EnvironmentDto> getPairEnviorement() {
+        return this.sutService.getEnviorement(getpair().getEnvironment());
+    }
 }
