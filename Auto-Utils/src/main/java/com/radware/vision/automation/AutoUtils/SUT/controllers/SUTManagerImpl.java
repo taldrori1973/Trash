@@ -35,7 +35,7 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getVMName();
     }
 
-    public Pair getpair() {
+    public PairDto getpair() {
         return this.sutService.getpair();
     }
 

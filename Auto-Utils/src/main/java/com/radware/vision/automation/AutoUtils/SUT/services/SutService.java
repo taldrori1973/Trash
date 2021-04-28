@@ -54,8 +54,8 @@ public class SutService {
     public String  getVMName() {
         return this.sutDao.getServerName();
     }
-    public Pair getpair() {
-        return this.sutDao.getPair();
+    public PairDto getpair() {
+        return modelMapper.map(this.sutDao.getPair(), PairDto.class);
     }
 
     public String getEnviorementName(){

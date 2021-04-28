@@ -11,7 +11,7 @@ public interface SUTManager {
 
     String getServerName();
 
-    Pair getpair();
+    PairDto getpair();
 
     String getSetupId();
 
