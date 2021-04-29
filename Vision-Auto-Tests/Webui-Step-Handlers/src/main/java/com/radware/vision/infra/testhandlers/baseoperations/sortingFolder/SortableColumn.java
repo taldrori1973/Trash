@@ -58,6 +58,11 @@ public class SortableColumn {
                         ComparatorFactory.mapOfComparators.put(SYSTEM_STATUS, new SystemStatusComparator());
                         break;
                     }
+                    case WAN_LINK_STATUS: {
+                        ComparatorFactory.mapOfComparators.put(WAN_LINK_STATUS, new WANLinkStatusComparator());
+                        break;
+                    }
+
                     case IPORVERSIONS: {
                         ComparatorFactory.mapOfComparators.put(IPORVERSIONS, new IpOrVersionsComparator());
                         break;

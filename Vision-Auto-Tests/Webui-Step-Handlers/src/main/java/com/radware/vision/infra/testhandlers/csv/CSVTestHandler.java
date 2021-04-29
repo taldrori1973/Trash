@@ -100,6 +100,9 @@ public class CSVTestHandler {
             case SYSTEM_STATUS:
                 return new SystemStatusComparator();
 
+            case WAN_LINK_STATUS:
+                return new WANLinkStatusComparator();
+
             case IPORVERSIONS:
                 return new IpOrVersionsComparator();
 
