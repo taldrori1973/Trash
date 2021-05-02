@@ -7,8 +7,8 @@ public class WANLinkStatusComparator implements Comparator<String> {
     private String getValueOfSystemStatus(String health) throws Exception {
         switch (health)
         {
-            case "Running" :return "0";
-            case "Failed" : return "1";
+            case "Failed" : return "0";
+            case "Running" :return "1";
             case "Disabled" : return "2";
             default: throw new Exception("No status with name " + health);
         }
