@@ -120,23 +120,30 @@ public class MySQLSteps extends TestBase {
         }
     }
 
-    @Then("^MYSQL Validate Number of Records FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" Condition Applies ([^\"]*) (\\d+)$")
-    public void validateNumberOfRecords(String tableName, VisionDBSchema schema, String whereCondition, OperatorsEnum operation, Integer expectedNumberOfRecords) {
-        try {
-            JsonNode result;
-            if (whereCondition == null || whereCondition.isEmpty())
-                result = GenericCRUD.selectAllTable(schema, tableName);
-            else
-                result = GenericCRUD.selectTable(schema, tableName, whereCondition);
+    @Then("^MYSQL Validate Number of Records FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" Condition Applies ([^\"]*) (\\d+)(?: Retry (\\d+) seconds)?$")
+    public void validateNumberOfRecords(String tableName, VisionDBSchema schema, String whereCondition, OperatorsEnum operation, Integer expectedNumberOfRecords, Integer iRetryFor) {
+        iRetryFor = iRetryFor != null? iRetryFor * 1000 : 0;
+        long startTime = System.currentTimeMillis();
+        boolean compareResult;
+        do {
+            try {
+                JsonNode result;
+                if (whereCondition == null || whereCondition.isEmpty())
+                    result = GenericCRUD.selectAllTable(schema, tableName);
+                else
+                    result = GenericCRUD.selectTable(schema, tableName, whereCondition);
 
-            Integer tableSize = result.size();
+                Integer tableSize = result.size();
 
-            boolean compareResult = Comparator.compareResults(expectedNumberOfRecords.toString(), tableSize.toString(), operation, 0);
-            if (!compareResult) BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
+                compareResult = Comparator.compareResults(expectedNumberOfRecords.toString(), tableSize.toString(), operation, 0);
+                if(compareResult)
+                    return;
 
-        } catch (SQLException | JDBCConnectionException e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
+            } catch (SQLException | JDBCConnectionException e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+            }
+        } while (System.currentTimeMillis() - startTime < iRetryFor);
+        BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
     }
 
     @Then("^MYSQL Validate The Time by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" Close to (\\d+)$")
