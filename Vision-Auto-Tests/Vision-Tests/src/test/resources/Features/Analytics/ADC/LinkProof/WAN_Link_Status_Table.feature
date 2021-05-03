@@ -1,4 +1,4 @@
-@run
+
 Feature: WAN Link Status Table
 
   @SID_1
@@ -32,8 +32,7 @@ Feature: WAN Link Status Table
       | Status     | DESCENDING | WAN_LINK_STATUS |
 
 
-
-  @SID_4
+  @SID_5
   Scenario: Validate WAN1
     Then UI Validate Table record values by columns with elementLabel "WAN Link Status Table" findBy columnName "WAN Link ID" findBy cellValue "WAN1"
       | columnName  | value   |
@@ -43,38 +42,6 @@ Feature: WAN Link Status Table
     Then UI validate Vision Table row by keyValue with elementLabel "WAN Link Status Table" findBy columnName "Upload Throughput" findBy cellValue "150 Mbps / 384.8 Mbps 39%"
     Then UI validate Vision Table row by keyValue with elementLabel "WAN Link Status Table" findBy columnName "Download Throughput" findBy cellValue "167.8 Mbps / 209.7 Mbps 80%"
 
-
-
-##
-#  @SID_4
-#  Scenario: Validate WAN Link Status Table table by Status Sorting
-#    When UI Click Button "Sorted By" with value "status"
-#    When UI Click Button "Sorted By" with value "status"
-#    Then UI Validate Table "WAN Link Status Table" is Sorted by
-#      | columnName | order      | compareMethod |
-#      | Status     | DESCENDING | ALPHABETICAL  |
-#    When UI Click Button "Sorted By" with value "status"
-#    When UI Click Button "Sorted By" with value "status"
-#    Then UI Validate Table "WAN Link Status Table" is Sorted by
-#      | columnName | order      | compareMethod |
-#      | Status     | DESCENDING | ALPHABETICAL  |
-
-
-#    When UI Click Button "ThroughputSorting"
-#    When UI Click Button "ThroughputSorting"
-#    Then UI Validate Table "virts table" is Sorted by
-#      | columnName      | order      | compareMethod  |
-#      | Throughput(bps) | DESCENDING | BIT_BYTE_UNITS |
-#    When UI Click Button "CpsSorting"
-#    When UI Click Button "CpsSorting"
-#    Then UI Validate Table "virts table" is Sorted by
-#      | columnName            | order      | compareMethod |
-#      | Connectionsper Second | DESCENDING | NUMERICAL     |
-#    When UI Click Button "ConcurrentConnectionsSorting"
-#    When UI Click Button "ConcurrentConnectionsSorting"
-#    Then UI Validate Table "virts table" is Sorted by
-#      | columnName            | order      | compareMethod |
-#      | ConcurrentConnections | DESCENDING | NUMERICAL     |
 
   Scenario: Logout
     Then UI logout and close browser
