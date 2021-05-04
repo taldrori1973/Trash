@@ -215,7 +215,7 @@ public class RemoteSshCommandsTests extends TestBase {
         try {
             waitForPrompt = waitForPrompt != null ? waitForPrompt * 1000 : CliOperations.DEFAULT_TIME_OUT;
             boolean bTestSuccess;
-            int iInterval = 5;
+            int iInterval = 5; //in seconds
             if(iRetryFor==null)
                 iRetryFor=0;
             iRetryFor = iRetryFor * 1000;
@@ -234,6 +234,8 @@ public class RemoteSshCommandsTests extends TestBase {
 
                 if (bTestSuccess)
                     break;
+                else
+                    Thread.sleep(iInterval * 1000);
             } while (System.currentTimeMillis() - startTime < iRetryFor);
             if (!bTestSuccess)
                 BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
