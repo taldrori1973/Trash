@@ -49,18 +49,24 @@ Feature: Current
   Scenario: Validate the Running
     Then UI Text of "Status Label" with extension "Runnung" equal to "Runnung"
     Then UI Text of "Status Value" with extension "Runnung" equal to "30"
+    Then validate webUI CSS value "border-bottom-color" of label "Status Color" with params "Runnung" equals "#13d3b1"
 
   @SID_10
   Scenario: Validate the Down
-    Then UI Text of "Status Label" with extension "Down" equal to "Down"
-    Then UI Text of "Status Value" with extension "Down" equal to "10"
+    Then UI Text of "Status Label" with extension "Failed" equal to "Failed"
+    Then UI Text of "Status Value" with extension "Failed" equal to "10"
+    Then validate webUI CSS value "border-bottom-color" of label "Status Color" with params "Failed" equals "#ff4441"
 
   @SID_11
   Scenario: Validate the Disabled
     Then UI Text of "Status Label" with extension "Disabled" equal to "Disabled"
     Then UI Text of "Status Value" with extension "Disabled" equal to "20"
+    Then validate webUI CSS value "border-bottom-color" of label "Status Color" with params "Disabled" equals "#d4d4d4"
 
-
-
-
-
+  @SID_12
+  Scenario: Validate attributes of Current Status
+    Then UI Validate Pie Chart data "Status"
+      | label     | backgroundcolor           |
+      | Running   | rgba(4, 194, 160, 0.35)   |
+      | Failed    | rgba(255, 68, 65, 0.35)   |
+      | Disabled  | rgba(210, 210, 210, 0.35) |
