@@ -1,9 +1,7 @@
-
 Feature: WAN Link Status Table
 
   @SID_1
   Scenario: Login and Navigate to System and Network Dashboard page
-    Then Sleep "100"
     Then UI Login with user "radware" and password "radware"
     When UI Navigate to "System and Network Dashboard" page via homePage
 

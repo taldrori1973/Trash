@@ -29,6 +29,7 @@ import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
+import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -42,7 +43,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
+import java.util.*;
 
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
@@ -608,6 +609,41 @@ public class BasicOperationsSteps extends BddUITestBase {
     public void uiValidateTheAttributesOfAreTo(String attribute  , String compare, List<ParameterSelected> listParamters) {
         uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(listParamters,attribute, compare);
     }
+
+
+    @Then("^UI Select list of WAN Links in LinkProof \"([^\"]*)\"$")
+    public void uiSelectListOfWANLinks(String WANLinks) throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("WAN Links", WANLinks);
+        map = CustomizedJsonManager.fixJson(map);
+        uiSelectWANLinks(map);
+    }
+
+    private void uiSelectWANLinks(Map<String, String> map) throws Exception {
+        if(map.containsKey("WAN Links")) {
+            int WANLinkNumbers =0;
+            WebUiTools.check("Expand Scope WAN Links", "", true);
+            ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
+            if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase(""))
+                return ;
+
+            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "").getBy())) {
+                if (WANLinkNumbers < 6) {
+                    WANLinkNumbers ++;
+                    String instanceText = instanceElement.getText();
+                    if (expectedWANLinks.contains(instanceText)) {
+                        WebUiTools.check("WAN Link Value", instanceText, true);
+                        expectedWANLinks.remove(instanceText);
+                    } else WebUiTools.check("WAN Link Value", instanceText, false);
+                }
+            }
+
+
+            if (expectedWANLinks.size() > 0)
+                throw new Exception("The Instance " + expectedWANLinks + " don't exist in the  ");
+        }
+    }
+
 
     public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare)
     {
