@@ -2,7 +2,7 @@
   "setupFile": "fullSetup.json",
   "environment": "KVM-215",
   "pair": {
-    "pairIp": "",
+    "pairIp": "172.17.164.101",
     "environment": "KVM-217"
   },
   "clientConfiguration": {
