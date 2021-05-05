@@ -17,7 +17,7 @@ import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.vision_project_cli.VisionCli;
-import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

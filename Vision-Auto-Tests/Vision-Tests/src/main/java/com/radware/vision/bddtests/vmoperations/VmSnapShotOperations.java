@@ -12,7 +12,7 @@ import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.utils.RegexUtils;
 import com.radware.vision.vision_handlers.system.VisionServer;
-import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

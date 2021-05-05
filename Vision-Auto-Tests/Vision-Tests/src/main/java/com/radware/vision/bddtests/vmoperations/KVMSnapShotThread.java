@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.vmoperations;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 
 public class KVMSnapShotThread extends Thread {
     private String snapshotName;
