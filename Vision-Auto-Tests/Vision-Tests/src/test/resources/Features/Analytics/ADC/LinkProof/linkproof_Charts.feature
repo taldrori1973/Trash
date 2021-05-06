@@ -114,7 +114,7 @@ Feature: Link Proof Charts tests
     Then UI Select list of WAN Links in LinkProof ""
     Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
       | value | min |
-      | 11    | 10
+      | 11    | 10  |
 
   @SID_11
   Scenario: validate  Upload Throughput chart with 1 WAN Links
