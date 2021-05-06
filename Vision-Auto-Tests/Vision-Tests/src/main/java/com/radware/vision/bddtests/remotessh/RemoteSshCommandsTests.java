@@ -201,7 +201,7 @@ public class RemoteSshCommandsTests extends TestBase {
         FileSteps scp = new FileSteps();
         RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
-        scp.scp("/home/radware/fetch_num_of_real_alteons_apps.sh", ServersManagement.ServerIds.LINUX_FILE_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/root");
+        scp.scp("/home/radware/fetch_num_of_real_alteons_apps.sh", ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/root");
 
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "chmod +x /root/fetch_num_of_real_alteons_apps.sh");
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "/root/fetch_num_of_real_alteons_apps.sh");
@@ -371,7 +371,7 @@ public class RemoteSshCommandsTests extends TestBase {
 
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " +
-                    ServersManagement.ServerIds.LINUX_FILE_SERVER + "\n" + e.getMessage(), Reporter.FAIL);
+                    ServersManagement.ServerIds.GENERIC_LINUX_SERVER + "\n" + e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -448,7 +448,7 @@ public class RemoteSshCommandsTests extends TestBase {
             domain = getSetUpDomain();
         String commandToExecute = String.format("%s /var/spool/mail/%s |wc -l", expression, domain);
         try {
-            runCLICommandAndValidateBiggerOrEqualResult(commandToExecute, ServersManagement.ServerIds.LINUX_FILE_SERVER,
+            runCLICommandAndValidateBiggerOrEqualResult(commandToExecute, ServersManagement.ServerIds.GENERIC_LINUX_SERVER,
                     operatorsEnum, expectedResult, null, null, 200);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -460,7 +460,7 @@ public class RemoteSshCommandsTests extends TestBase {
         if (serversManagement.getRootServerCLI().get().isConnected()) {
             FileSteps f = new FileSteps();
             f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh",
-                    ServersManagement.ServerIds.LINUX_FILE_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/");
+                    ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/");
             CliOperations.runCommand(serversManagement.getRootServerCLI().get(),
                     "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
         }

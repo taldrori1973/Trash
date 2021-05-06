@@ -371,7 +371,7 @@ public abstract class VisionUITestBase extends TestBase {
     public ServerCliBase getSUTEntryTypeByServerCliBase(ServersManagement.ServerIds sutEntryType) {
         ServerCliBase cli = null;
         switch (sutEntryType) {
-            case LINUX_FILE_SERVER:
+            case GENERIC_LINUX_SERVER:
                 cli = serversManagement.getLinuxFileServer().get();
                 break;
             case RADWARE_SERVER_CLI:

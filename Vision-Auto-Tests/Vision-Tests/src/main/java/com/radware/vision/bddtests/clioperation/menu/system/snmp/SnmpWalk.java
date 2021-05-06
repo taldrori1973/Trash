@@ -142,7 +142,7 @@ public class SnmpWalk extends TestBase {
             CliOperations.runCommand(serversManagement.getLinuxFileServer().get(), commandToExecute);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " +
-                    ServersManagement.ServerIds.LINUX_FILE_SERVER + "\n" + e.getMessage(), Reporter.FAIL);
+                    ServersManagement.ServerIds.GENERIC_LINUX_SERVER + "\n" + e.getMessage(), Reporter.FAIL);
         }
     }
 
