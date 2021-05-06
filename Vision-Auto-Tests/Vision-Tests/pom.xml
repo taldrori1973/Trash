@@ -146,6 +146,13 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sapcnsl.api</groupId>
+            <artifactId>saprocommunication</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/sapirg/Desktop/java/saprocommunication.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
