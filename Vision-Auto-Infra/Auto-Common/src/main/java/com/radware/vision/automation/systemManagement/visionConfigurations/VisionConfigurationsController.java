@@ -26,7 +26,8 @@ public class VisionConfigurationsController {
             managementInfo.setHostname(body.get("hostname").asText());
             managementInfo.setMacAddress(body.get("macAddress").asText());
 
-            String[] versionAndBuild = body.get("serverSoftwareVersion").asText().split(" ");
+            String[] versionAndBuild = body.get("serverSoftwareVersion").asText().split("\\s+");
+//            String[] versionAndBuild = body.get("serverSoftwareVersion").asText().split(" ");
             if (versionAndBuild.length != 2) {
                 managementInfo.setVersion("0.00.00");
                 managementInfo.setBuild("0");
