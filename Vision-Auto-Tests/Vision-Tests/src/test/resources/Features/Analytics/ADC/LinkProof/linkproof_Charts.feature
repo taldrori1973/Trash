@@ -21,6 +21,8 @@ Feature: Link Proof Charts tests
     Then UI Text of "Instances Number" equal to "6/6"
     #defult 6 selected
 
+  #----------------!!!!!!!!!! v sign to check - write tests
+
   @SID_4
   Scenario: Validate NO instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof ""
@@ -126,8 +128,9 @@ Feature: Link Proof Charts tests
   @SID_12
   Scenario: validate  Upload Throughput chart with NO WAN Links checked
     Then UI Select list of WAN Links in LinkProof "WAN Link 1"
+    Then UI Click Button "CheckBox" with value "WAN Link 1"
     Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
       | value | min |
       | 11    | 10  |
-    Then UI Click Button "CheckBox" with value "WAN Link 1"
+
 
