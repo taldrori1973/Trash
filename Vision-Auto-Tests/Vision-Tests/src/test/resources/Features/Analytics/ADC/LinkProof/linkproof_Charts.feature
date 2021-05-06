@@ -93,19 +93,41 @@ Feature: Link Proof Charts tests
 
     #-------------------------------------------Upload Throughput------------------------------
   @SID_7
-  Scenario: Upload Throughput chart
+  Scenario: Upload Throughput chart Header
     Then UI Text of "Upload Throughput Header" equal to "Upload Throughput"
 
   @SID_8
-  Scenario: validate  Upload Throughput chart with ALL WAN Links
+  Scenario: validate Upload Throughput chart with ALL WAN Links
     Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
       | value | min |
       | 11    | 10  |
 
   @SID_9
-  Scenario: validate  Upload Throughput chart with part of WAN Links
+  Scenario: validate Upload Throughput chart with parts of WAN Links
     Then UI Click Button "CheckBox" with value "WAN Link 1"
     Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
       | value | min |
       | 11    | 10  |
+
+  @SID_10
+  Scenario: validate Upload Throughput chart with NO WAN Links
+    Then UI Select list of WAN Links in LinkProof ""
+    Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
+      | value | min |
+      | 11    | 10
+
+  @SID_11
+  Scenario: validate  Upload Throughput chart with 1 WAN Links
+    Then UI Select list of WAN Links in LinkProof "WAN Link 1"
+    Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
+      | value | min |
+      | 11    | 10  |
+
+  @SID_12
+  Scenario: validate  Upload Throughput chart with NO WAN Links checked
+    Then UI Select list of WAN Links in LinkProof "WAN Link 1"
+    Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
+      | value | min |
+      | 11    | 10  |
+    Then UI Click Button "CheckBox" with value "WAN Link 1"
 

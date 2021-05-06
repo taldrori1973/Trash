@@ -18,6 +18,7 @@ import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.ReportsForensicsAlertsAbstract;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
@@ -621,15 +622,15 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     private void uiSelectWANLinks(Map<String, String> map) throws Exception {
         if(map.containsKey("WAN Links")) {
-            int WANLinkNumbers =0;
+            int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks ;
             WebUiTools.check("Expand Scope WAN Links", "", true);
             ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
             if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase(""))
                 return ;
 
             for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "").getBy())) {
-                if (WANLinkNumbers < 6) {
-                    WANLinkNumbers ++;
+                if (WANLinkNumbers >0) {
+                    WANLinkNumbers --;
                     String instanceText = instanceElement.getText();
                     if (expectedWANLinks.contains(instanceText)) {
                         WebUiTools.check("WAN Link Value", instanceText, true);
@@ -637,8 +638,6 @@ public class BasicOperationsSteps extends BddUITestBase {
                     } else WebUiTools.check("WAN Link Value", instanceText, false);
                 }
             }
-
-
             if (expectedWANLinks.size() > 0)
                 throw new Exception("The Instance " + expectedWANLinks + " don't exist in the  ");
         }
