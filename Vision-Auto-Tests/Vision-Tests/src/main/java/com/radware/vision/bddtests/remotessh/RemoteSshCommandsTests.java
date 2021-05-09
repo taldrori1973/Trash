@@ -206,7 +206,7 @@ public class RemoteSshCommandsTests extends TestBase {
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "chmod +x /root/fetch_num_of_real_alteons_apps.sh");
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "/root/fetch_num_of_real_alteons_apps.sh");
         String numOfApps = CliOperations.lastRow;
-        runCLICommandAndValidateBiggerOrEqualResult("mysql -prad123 vision_ng -e \"select count(*) from dpm_virtual_services\" | grep -v + | tail -1", ServersManagement.ServerIds.ROOT_SERVER_CLI, OperatorsEnum.GTE, numOfApps, "", null, null);
+        runCLICommandAndValidateBiggerOrEqualResult("mysql -pradware vision_ng -e \"select count(*) from dpm_virtual_services\" | grep -v + | tail -1", ServersManagement.ServerIds.ROOT_SERVER_CLI, OperatorsEnum.GTE, numOfApps, "", null, null);
 
     }
 
