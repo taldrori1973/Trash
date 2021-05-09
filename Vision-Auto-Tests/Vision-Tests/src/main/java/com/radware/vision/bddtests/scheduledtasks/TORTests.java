@@ -85,7 +85,7 @@ public class TORTests extends VisionUITestBase {
 
     }
 
-    @When("^Run TOR request simulation script \"(.*)\" at scriptPath \"(.*)\" on (GENERIC_LINUX_SERVER|ROOT_SERVER_CLI|LINUX_FILE_SERVER|RADWARE_SERVER_CLI) to current SUT for Alteon (\\d+)")
+    @When("^Run TOR request simulation script \"(.*)\" at scriptPath \"(.*)\" on (GENERIC_LINUX_SERVER|ROOT_SERVER_CLI|GENERIC_LINUX_SERVER|RADWARE_SERVER_CLI) to current SUT for Alteon (\\d+)")
     public void runTORRequestScript(String scriptName, String scriptPath, ServersManagement.ServerIds sutEntryType, int alteonIndex) {
         try {
             String visionIP = clientConfigurations.getHostIp();

@@ -48,7 +48,7 @@ public class UpgradeThread extends Thread {
             BaseTestUtils.report("Waiting for services on server:" + rootServerCli.getHost(), Reporter.PASS_NOR_FAIL);
             com.radware.vision.vision_handlers.system.VisionServer.waitForVisionServerServicesToStartHA(radwareServerCli, 20 * 60 * 1000);
             FileSteps f = new FileSteps();
-            f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh", ServersManagement.ServerIds.LINUX_FILE_SERVER,
+            f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh", ServersManagement.ServerIds.GENERIC_LINUX_SERVER,
                     ServersManagement.ServerIds.ROOT_SERVER_CLI, "/");
             CliOperations.runCommand(rootServerCli, "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
             CliOperations.runCommand(rootServerCli, "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);

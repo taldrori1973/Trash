@@ -22,7 +22,7 @@ public class ServersManagement {
 
 
     public ServersManagement() {
-        this.linuxFileServer = this.createAndInitServer(ServerIds.LINUX_FILE_SERVER, LinuxFileServer.class);
+        this.linuxFileServer = this.createAndInitServer(ServerIds.GENERIC_LINUX_SERVER, LinuxFileServer.class);
         this.radwareServerCli = this.createAndInitServer(RadwareServerCli.class);
         this.rootServerCli = this.createAndInitServer(RootServerCli.class);
     }
@@ -75,7 +75,7 @@ public class ServersManagement {
     }
 
     public enum ServerIds {
-        LINUX_FILE_SERVER("linuxFileServer"),
+        GENERIC_LINUX_SERVER("linuxFileServer"),
         RADWARE_SERVER_CLI("radwareServerCli"),
         ROOT_SERVER_CLI("rootServerCli"),
         DEPLOYMENT_SERVER("deploymentServer");
@@ -98,7 +98,7 @@ public class ServersManagement {
     public ServerCliBase getServerById(ServerIds ServerId) {
         ServerCliBase serverCliBase = null;
         switch (ServerId) {
-            case LINUX_FILE_SERVER:
+            case GENERIC_LINUX_SERVER:
                 serverCliBase = this.linuxFileServer;
                 break;
             case RADWARE_SERVER_CLI:
