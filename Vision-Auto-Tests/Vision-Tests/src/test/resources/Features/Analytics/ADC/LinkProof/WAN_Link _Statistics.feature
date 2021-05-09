@@ -1,4 +1,4 @@
-Feature: Link Proof Charts tests
+Feature: LinkProof - WAN Link Statistics
 
   @SID_1
   Scenario: Login and Navigate to System and Network Dashboard page
@@ -134,3 +134,38 @@ Feature: Link Proof Charts tests
       | 11    | 10  |
 
 
+   ################################ Download Throughput #####################################################
+
+  @SID_13
+  Scenario: Download Throughput chart
+    Then UI Text of "Download Throughput Header" equal to "Download Throughput"
+
+  @SID_14
+  Scenario: validate bps Download Throughput chart with ALL WAN Links
+    When UI Click Button "bpsSwitch"
+    Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
+      | value | min |
+      | 11    | 10  |
+
+  @SID_15
+  Scenario: validate Usage Download Throughput chart with ALL WAN Links
+    When UI Click Button "usageSwitch"
+    Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
+      | value | min |
+      | 11    | 10  |
+
+  @SID_16
+  Scenario: validate bps Download Throughput chart with part of WAN Links
+    Then UI Click Button "CheckBox" with value "WAN Link 1"
+    When UI Click Button "bpsSwitch"
+    Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
+      | value | min |
+      | 11    | 10  |
+
+  @SID_17
+  Scenario: validate bps Download Throughput chart with part of WAN Links
+    Then UI Click Button "CheckBox" with value "WAN Link 1"
+    When UI Click Button "usageSwitch"
+    Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
+      | value | min |
+      | 11    | 10  |
