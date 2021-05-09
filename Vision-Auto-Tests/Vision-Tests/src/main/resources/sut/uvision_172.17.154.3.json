@@ -1,0 +1,32 @@
+{
+  "setupFile": "fullSetup.json",
+  "environment": "KVM-215",
+  "pair": {
+    "pairIp": "172.17.164.101",
+    "environment": "KVM-217"
+  },
+  "clientConfiguration": {
+    "hostIp": "172.17.154.3",
+    "userName": "radware",
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 443,
+      "defaultProtocol": "https"
+    },
+    "sqlDbConnection": {
+      "defaultPort": 3306,
+      "username": "root",
+      "password": "rad123"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
+      "password": "radware"
+    }
+  }
+}
