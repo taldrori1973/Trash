@@ -177,7 +177,7 @@ public class RootServerCli extends ServerCliBase {
 
     public void addDBPermissionsToConnectoToMySql(String sourceHost) throws Exception {
         String host = sourceHost == null ? IPUtils.getIpV4LocalAddress() : sourceHost;
-        CliOperations.runCommand(this, "mysql -uroot -prad123 -e \"grant all on *.* to 'root'@'" + host
+        CliOperations.runCommand(this, "mysql -uroot -pradware -e \"grant all on *.* to 'root'@'" + host
                 + "' identified by 'rad123'\"");
     }
 
