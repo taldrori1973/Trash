@@ -1,4 +1,4 @@
-@run
+
 
 Feature: WAN Link Status Table
 

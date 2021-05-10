@@ -1,17 +1,18 @@
+
 Feature: LinkProof - WAN Link Statistics
 
   @SID_1
   Scenario: Login and Navigate to System and Network Dashboard page
     Then UI Login with user "radware" and password "radware"
     When UI Navigate to "System and Network Dashboard" page via homePage
-
+  
   @SID_2
   Scenario: Go into Link Proof dashboard in second drill
     #click on linkProof device --- add the linkproof ip
     Given UI Click Button "Device Selection"
-    Then UI Select scope from dashboard and Save Filter device type "Alteon"
-      | Alteon_50.50.101.22 |
-    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
+    Then UI Select scope from dashboard and Save Filter device type "linkProof"
+      | linkProof |
+    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "linkProof"
     Then UI Click Button "LinkProofTab"
     Then UI Text of "WAN Link Statistics Header" equal to "WAN Link Statistics"
 
@@ -27,101 +28,108 @@ Feature: LinkProof - WAN Link Statistics
   Scenario: Validate NO instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof ""
     Then UI Text of "Instances Number" equal to "0/6"
+    Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param | value |
-      | WAN Link Value | 1     | false |
-      | WAN Link Value | 2     | false |
-      | WAN Link Value | 3     | false |
-      | WAN Link Value | 4     | false |
-      | WAN Link Value | 5     | false |
-      | WAN Link Value | 6     | false |
-      | WAN Link Value | 7     | false |
-      | WAN Link Value | 8     | false |
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "1"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "2"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "3"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "4"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "5"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "6"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "7"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "8"
+      | WAN Link Value | WAN1  | false |
+      | WAN Link Value | WAN2  | false |
+      | WAN Link Value | WAN3  | false |
+      | WAN Link Value | WAN4  | false |
+      | WAN Link Value | WAN5  | false |
+      | WAN Link Value | WAN6  | false |
+      | WAN Link Value | WAN7  | false |
+    Then UI Click Button "Expand Scope WAN Links"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "WAN1"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "WAN2"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "WAN3"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "WAN4"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "WAN5"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "WAN6"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "WAN7"
 
+    
   @SID_5
   Scenario: Validate ALL instances selected in Scope Instances
-    Then UI Select list of WAN Links in LinkProof "WAN Link 1, WAN Link 2, WAN Link 3, WAN Link 4, WAN Link 5, WAN Link 6"
+    Then UI Select list of WAN Links in LinkProof "WAN1,WAN2,WAN3,WAN4,WAN5,WAN6"
     Then UI Text of "Instances Number" equal to "6/6"
+    Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param | value |
-      | WAN Link Value | 1     | true  |
-      | WAN Link Value | 2     | true  |
-      | WAN Link Value | 3     | true  |
-      | WAN Link Value | 4     | true  |
-      | WAN Link Value | 5     | true  |
-      | WAN Link Value | 6     | true  |
-      | WAN Link Value | 7     | false |
-      | WAN Link Value | 8     | false |
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "1"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "2"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "3"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "4"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "5"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "6"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "7"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "8"
+      | WAN Link Value | WAN1  | true  |
+      | WAN Link Value | WAN2  | true  |
+      | WAN Link Value | WAN3  | true  |
+      | WAN Link Value | WAN4  | true  |
+      | WAN Link Value | WAN5  | true  |
+      | WAN Link Value | WAN6  | true  |
+      | WAN Link Value | WAN7  | false |
+    Then UI Click Button "Expand Scope WAN Links"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN1"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN2"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN3"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN4"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN5"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN6"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "WAN7"
 
 
   @SID_6
   Scenario: Validate more than the max instances selected in Scope Instances
-    Then UI Select list of WAN Links in LinkProof "WAN Link 1,WAN Link 2,WAN Link 3,WAN Link 4,WAN Link 5,WAN Link 6,WAN Link 7"
+    Then UI Select list of WAN Links in LinkProof "WAN1,WAN2,WAN3,WAN4,WAN5,WAN6,WAN7"
     Then UI Text of "Instances Number" equal to "6/6"
+    Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param | value |
-      | WAN Link Value | 1     | true  |
-      | WAN Link Value | 2     | true  |
-      | WAN Link Value | 3     | true  |
-      | WAN Link Value | 4     | true  |
-      | WAN Link Value | 5     | true  |
-      | WAN Link Value | 6     | true  |
-      | WAN Link Value | 7     | false |
-      | WAN Link Value | 8     | false |
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "1"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "2"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "3"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "4"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "5"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "true" with value "6"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "7"
-    Then UI Validate Element Existence By Label "WAN Link Value" if Exists "false" with value "8"
+      | WAN Link Value | WAN1  | true  |
+      | WAN Link Value | WAN2  | true  |
+      | WAN Link Value | WAN3  | true  |
+      | WAN Link Value | WAN4  | true  |
+      | WAN Link Value | WAN5  | true  |
+      | WAN Link Value | WAN6  | true  |
+      | WAN Link Value | WAN7  | false |
+    Then UI Click Button "Expand Scope WAN Links"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN1"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN2"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN3"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN4"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN5"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "WAN6"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "WAN7"
 
     #-------------------------------------------Upload Throughput------------------------------
   @SID_7
   Scenario: Upload Throughput chart Header
     Then UI Text of "Upload Throughput Header" equal to "Upload Throughput"
-
+  
   @SID_8
   Scenario: validate Upload Throughput chart with ALL WAN Links
-    Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
-      | value | min |
-      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "WAN1"
+      | attribute       | value   |
+      | backgroundColor | #9B97F4 |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "WAN1"
+      | attribute   | value   |
+      | borderColor | #9B97F4 |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "WAN1"
+      | attribute | value |
+      | fill      | false |
 
   @SID_9
   Scenario: validate Upload Throughput chart with parts of WAN Links
-    Then UI Click Button "CheckBox" with value "WAN Link 1"
-    Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
+    Then UI Click Button "CheckBox" with value "WAN1"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
       | value | min |
       | 11    | 10  |
 
   @SID_10
   Scenario: validate Upload Throughput chart with NO WAN Links
     Then UI Select list of WAN Links in LinkProof ""
-    Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
       | value | min |
       | 11    | 10  |
 
   @SID_11
   Scenario: validate  Upload Throughput chart with 1 WAN Links
     Then UI Select list of WAN Links in LinkProof "WAN Link 1"
-    Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
       | value | min |
       | 11    | 10  |
 
@@ -129,7 +137,7 @@ Feature: LinkProof - WAN Link Statistics
   Scenario: validate  Upload Throughput chart with NO WAN Links checked
     Then UI Select list of WAN Links in LinkProof "WAN Link 1"
     Then UI Click Button "CheckBox" with value "WAN Link 1"
-    Then UI Validate Line Chart attributes "Upload Throughput" with Label "Throughput"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
       | value | min |
       | 11    | 10  |
 

@@ -628,7 +628,7 @@ public class BasicOperationsSteps extends BddUITestBase {
             if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase(""))
                 return ;
 
-            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "").getBy())) {
+            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] " ).getBy())) {
                 if (WANLinkNumbers >0) {
                     WANLinkNumbers --;
                     String instanceText = instanceElement.getText();
