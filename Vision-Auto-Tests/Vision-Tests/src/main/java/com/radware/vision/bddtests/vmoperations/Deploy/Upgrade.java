@@ -2,10 +2,12 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.Deploy.VisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +52,8 @@ public class Upgrade extends Deploy {
         try {
             if (!isSetupNeeded) return;
             String[] path = buildFileInfo.getPath().toString().split("/");
+            VisionServer.upgradeServerFile(this.radwareServerCli, this.rootServerCli
+                    , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
             UpgradeSteps.validateVisionServerServicesUP(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
