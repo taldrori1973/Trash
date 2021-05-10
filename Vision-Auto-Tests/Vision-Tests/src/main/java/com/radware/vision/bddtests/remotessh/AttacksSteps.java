@@ -34,7 +34,7 @@ public class AttacksSteps extends TestBase {
             if (waitTimeout != null) {
                 wait = waitTimeout;
             }
-            String commandToExecute = getCommandToexecute(deviceSetId, numOfAttacks, loopDelay, fileName, withAttackId != null);
+            String commandToExecute = getCommandToExecute(deviceSetId, numOfAttacks, loopDelay, fileName, withAttackId != null);
             Optional<LinuxFileServer> genericLinuxServerOpt = TestBase.serversManagement.getLinuxFileServer();
             if (!genericLinuxServerOpt.isPresent()) {
                 throw new Exception("The genericLinuxServer Not found!");
@@ -96,13 +96,13 @@ public class AttacksSteps extends TestBase {
         }
     }
 
-    private String getCommandToexecute(String deviceSetId, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId) {
+    private String getCommandToExecute(String deviceSetId, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId) {
         String fakeIpPrefix = "50.50";
         String deviceIp;
         String visionIP = clientConfigurations.getHostIp();
+        boolean isNet_17 = visionIP.startsWith("172.17"); // Subnet 172.17.x.x doesn't need GW mac
         String interFace;
-        String macAdress = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
-//        String macAdress = "00:14:69:4c:70:42"; //172.17.1.1 GW mac- used only for kvision
+        String gwMacAdress = "00:14:69:4c:70:42"; //172.19.1.1 GW mac
         String commandToExecute = "";
         Optional<LinuxFileServer> genericLinuxServer = TestBase.serversManagement.getLinuxFileServer();
         SUTManager sutManager = TestBase.getSutManager();
@@ -138,16 +138,26 @@ public class AttacksSteps extends TestBase {
             genericLinuxServer.get().connect();
             CliOperations.runCommand(genericLinuxServer.get(), commandToExecute);
             interFace = CliOperations.lastRow;
-            if (withAttackId) {
-                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -ai 1 -f %s.pcap -dm %s &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, macAdress);
-            } else {
-                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -f %s.pcap -dm %s &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, macAdress);
-            }
+
+            commandToExecute = buildCommandToExecute(interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, gwMacAdress, isNet_17, withAttackId);
+            
             //for the next generations
             genericLinuxServer.get().connect();
         } catch (Exception e) {
             BaseTestUtils.report("Failed to simulate attack: " + fileName +  e.getMessage(), Reporter.FAIL);
         }
         return commandToExecute;
+    }
+
+    private String buildCommandToExecute(String interFace, String visionIP, String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, String gwMacAdress, boolean isNet_17, boolean withAttackId){
+        StringBuilder buildCommand = new StringBuilder();
+        buildCommand.append("sudo perl sendfile.pl ").append("-i ").append(interFace).append(" -d ").append(visionIP)
+                .append(" -si ").append(deviceIp).append(" -s ").append(numOfAttacks)
+                .append(" -ld ").append(loopDelay)
+                .append(withAttackId ? " -ai 1 " : "")
+                .append(" -f ").append(fileName).append(".pcap")
+                .append(isNet_17 ? "" : (" -dm " + gwMacAdress));
+
+        return buildCommand.toString();
     }
 }
