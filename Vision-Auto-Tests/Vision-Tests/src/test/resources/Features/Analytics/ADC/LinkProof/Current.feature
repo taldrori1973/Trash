@@ -1,4 +1,3 @@
-
 Feature: Current
 
   @SID_1
@@ -32,7 +31,7 @@ Feature: Current
 
   @SID_6
   Scenario: Validate the Download Throughput (bps)
-    Then UI Text of "Total Statistics Label" with extension "Download Throughput" equal to "Download (bps)"
+    Then UI Text of "Total Statistics Label" with extension "Download Throughput" equal to "Download Throughput (bps)"
     Then UI Text of "Total Statistics Value" with extension "Download Throughput" equal to "65.5 K"
 
   @SID_7
@@ -70,3 +69,7 @@ Feature: Current
       | Running   | rgba(4, 194, 160, 0.35)   |
       | Failed    | rgba(255, 68, 65, 0.35)   |
       | Disabled  | rgba(210, 210, 210, 0.35) |
+
+  @SID_13
+  Scenario: Logout
+    Then UI logout and close browser

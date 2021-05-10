@@ -1,3 +1,5 @@
+@run
+
 Feature: WAN Link Status Table
 
   @SID_1
@@ -23,11 +25,12 @@ Feature: WAN Link Status Table
   @SID_4
   Scenario: Validate WAN Link Status Table table by Status Sorting
     Then UI Validate Table "WAN Link Status Table" is Sorted by
-      | columnName | order     | compareMethod   |
-      | Status     | Ascending | WAN_LINK_STATUS |
-    Then UI Validate Table "WAN Link Status Table" is Sorted by
       | columnName | order      | compareMethod   |
       | Status     | DESCENDING | WAN_LINK_STATUS |
+    Then UI Validate Table "WAN Link Status Table" is Sorted by
+      | columnName | order     | compareMethod   |
+      | Status     | Ascending | WAN_LINK_STATUS |
+
 
 
   @SID_5
