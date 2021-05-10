@@ -71,6 +71,16 @@ public class SutDao {
         return this.sutPojo.getServerName();
     }
 
+    public String getSnapshotName()
+
+    {
+        return this.sutPojo.getSnapshot();
+    }
+
+    public String getSetupMode(){
+        return this.sutPojo.getSetupMode();
+    }
+
     public ClientConfiguration findClientConfiguration() {
         return this.sutPojo.getClientConfiguration();
     }

@@ -54,6 +54,13 @@ public class SutService {
     public String  getVMName() {
         return this.sutDao.getServerName();
     }
+    public String getSnapshotName(){
+        return this.sutDao.getSnapshotName();
+    }
+
+    public String getSetupMode(){
+        return this.sutDao.getSetupMode();
+    }
     public PairDto getpair() {
         return modelMapper.map(this.sutDao.getPair(), PairDto.class);
     }
