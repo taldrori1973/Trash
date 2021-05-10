@@ -147,7 +147,7 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
     private static void update_last_server_upgrade_time(LocalDateTime date) {
 
 //        %s=YYYY-MM-DD HH:mm:ss
-        String command = "result=$(mysql -prad123 vision_ng -e \"select count(*) from server_upgrade_status\" | grep -v + | grep -v count); mysql -prad123 vision_ng -e \"update server_upgrade_status set start_time_stamp='%s' where row_id=$result\\G\"\n";
+        String command = "result=$(mysql -pradware vision_ng -e \"select count(*) from server_upgrade_status\" | grep -v + | grep -v count); mysql -pradware vision_ng -e \"update server_upgrade_status set start_time_stamp='%s' where row_id=$result\\G\"\n";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         String dateStr = date.format(formatter);

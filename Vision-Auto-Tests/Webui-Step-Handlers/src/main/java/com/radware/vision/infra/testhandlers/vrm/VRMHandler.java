@@ -1088,7 +1088,7 @@ public class VRMHandler {
                 Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
                 RootServerCli rsc = rootServerCli.get();
 
-                CliOperations.runCommand(rsc, String.format("mysql -u root -prad123 vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
+                CliOperations.runCommand(rsc, String.format("mysql -u root -pradware vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
                 int totalDpPolicesNumber = Integer.valueOf(CliOperations.lastRow);
                 if (String.valueOf(actualPoliciesNumber).equals(totalDpPolicesNumber)) {
                     addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected \"All =\" [%s]", deviceIp, actualPoliciesNumber, totalDpPolicesNumber));
