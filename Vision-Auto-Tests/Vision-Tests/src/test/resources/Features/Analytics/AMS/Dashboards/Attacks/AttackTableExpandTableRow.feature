@@ -139,12 +139,12 @@ Feature: Attack Table - Expand Table Row
 
   ####################  Https attack tables ####################################################
 
-  
+
   @SID_12
   Scenario:  validate tables for Https
     Then UI search row table in searchLabel "tableSearch" with text "Https"
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy index 1 findBy columnName "Policy Name" findBy cellValue "pol1"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy index 0 findBy columnName "Policy Name" findBy cellValue "pol1"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
 
@@ -165,14 +165,14 @@ Feature: Attack Table - Expand Table Row
       | MPLS RD            | N/A     |
       | Source port        | 0       |
 
-  
+
   @SID_14
   Scenario Outline:  validate date of Characteristics table - Https
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
 
     Examples:
       | label                             | value                          |
-      | Detection Method                  | By Volume of HTTPS Requests      |
+      | Detection Method                  | By Rate of HTTPS Requests      |
       | Mitigation method                 | Rate Limit Suspected Attackers |
       | Auth. Method                      | 302 Redirect                   |
       | Total Suspect Sources             | 2,559,994,656                  |
@@ -265,7 +265,7 @@ Feature: Attack Table - Expand Table Row
       | Protected Host      | 198.18.252.1 |
 
 ####################  AntiScanning attack tables ####################################################
-
+  
   @SID_21
   Scenario:  validate tables for AntiScanning
     Then UI search row table in searchLabel "tableSearch" with text "AntiScanning"
@@ -318,48 +318,48 @@ Feature: Attack Table - Expand Table Row
       | parameter | 7     | Sequence Number |
       | value     | 7     | 123456          |
 
-  @SID_25
-  Scenario:  validate date of Scan Details table - AntiScanning
-    Then Validate Expand  "Scan Details" table
-      | Name            | index | value       |
-      | destinationIp   | 0     | 10.10.1.200 |
-      | destinationPort | 0     | 22261       |
-      | flag            | 0     | SYN         |
-      | destinationIp   | 1     | 10.10.1.200 |
-      | destinationPort | 1     | 35915       |
-      | flag            | 1     | SYN         |
-      | destinationIp   | 2     | 10.10.1.200 |
-      | destinationPort | 2     | 57620       |
-      | flag            | 2     | SYN         |
-      | destinationIp   | 3     | 10.10.1.200 |
-      | destinationPort | 3     | 61578       |
-      | flag            | 3     | SYN         |
-      | destinationIp   | 4     | 10.10.1.200 |
-      | destinationPort | 4     | 30789       |
-      | flag            | 4     | SYN         |
-      | destinationIp   | 5     | 10.10.1.200 |
-      | destinationPort | 5     | 6931        |
-      | flag            | 5     | SYN         |
-      | destinationIp   | 6     | 10.10.1.200 |
-      | destinationPort | 6     | 43704       |
-      | flag            | 6     | SYN         |
-      | destinationIp   | 7     | 10.10.1.200 |
-      | destinationPort | 7     | 54620       |
-      | flag            | 7     | SYN         |
-      | destinationIp   | 8     | 10.10.1.200 |
-      | destinationPort | 8     | 27310       |
-      | flag            | 8     | SYN         |
-      | destinationIp   | 9     | 10.10.1.200 |
-      | destinationPort | 9     | 46423       |
-      | flag            | 9     | SYN         |
-      | destinationIp   | 10    | 10.10.1.200 |
-      | destinationPort | 10    | 64922       |
-      | flag            | 10    | SYN         |
-      | destinationIp   | 11    | 10.10.1.200 |
-      | destinationPort | 11    | 32461       |
-      | flag            | 11    | SYN         |
+#  @SID_25
+#  Scenario:  validate date of Scan Details table - AntiScanning
+#    Then Validate Expand  "Scan Details" table
+#      | Name            | index | value       |
+#      | destinationIp   | 0     | 10.10.1.200 |
+#      | destinationPort | 0     | 22261       |
+#      | flag            | 0     | SYN         |
+#      | destinationIp   | 1     | 10.10.1.200 |
+#      | destinationPort | 1     | 35915       |
+#      | flag            | 1     | SYN         |
+#      | destinationIp   | 2     | 10.10.1.200 |
+#      | destinationPort | 2     | 57620       |
+#      | flag            | 2     | SYN         |
+#      | destinationIp   | 3     | 10.10.1.200 |
+#      | destinationPort | 3     | 61578       |
+#      | flag            | 3     | SYN         |
+#      | destinationIp   | 4     | 10.10.1.200 |
+#      | destinationPort | 4     | 30789       |
+#      | flag            | 4     | SYN         |
+#      | destinationIp   | 5     | 10.10.1.200 |
+#      | destinationPort | 5     | 6931        |
+#      | flag            | 5     | SYN         |
+#      | destinationIp   | 6     | 10.10.1.200 |
+#      | destinationPort | 6     | 43704       |
+#      | flag            | 6     | SYN         |
+#      | destinationIp   | 7     | 10.10.1.200 |
+#      | destinationPort | 7     | 54620       |
+#      | flag            | 7     | SYN         |
+#      | destinationIp   | 8     | 10.10.1.200 |
+#      | destinationPort | 8     | 27310       |
+#      | flag            | 8     | SYN         |
+#      | destinationIp   | 9     | 10.10.1.200 |
+#      | destinationPort | 9     | 46423       |
+#      | flag            | 9     | SYN         |
+#      | destinationIp   | 10    | 10.10.1.200 |
+#      | destinationPort | 10    | 64922       |
+#      | flag            | 10    | SYN         |
+#      | destinationIp   | 11    | 10.10.1.200 |
+#      | destinationPort | 11    | 32461       |
+#      | flag            | 11    | SYN         |
   ####################  Traffic Filter attack tables ####################################################
-
+  
   @SID_26
   Scenario:  validate tables for Traffic Filter
     Then UI search row table in searchLabel "tableSearch" with text "Traffic"
@@ -367,7 +367,7 @@ Feature: Attack Table - Expand Table Row
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Attack Category" findBy cellValue "Traffic Filters"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
-
+  
   @SID_27
   Scenario Outline:  validate date of Info table - Traffic Filter
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
@@ -385,6 +385,7 @@ Feature: Attack Table - Expand Table Row
       | MPLS RD            | N/A           |
       | Source port        | 1024          |
 
+  
   @SID_28
   Scenario Outline:  validate date of Characteristics table - Traffic Filter
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
