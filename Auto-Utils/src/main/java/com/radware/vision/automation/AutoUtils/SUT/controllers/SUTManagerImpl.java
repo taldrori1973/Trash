@@ -35,6 +35,13 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getVMName();
     }
 
+    public String getSnapshotName() {
+        return this.sutService.getSnapshotName();
+    }
+    public String getSetupMode(){
+        return this.sutService.getSetupMode();
+    }
+
     public PairDto getpair() {
         return this.sutService.getpair();
     }

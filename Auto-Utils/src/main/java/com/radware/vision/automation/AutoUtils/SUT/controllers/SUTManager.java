@@ -11,6 +11,10 @@ public interface SUTManager {
 
     String getServerName();
 
+    String getSnapshotName();
+
+    String getSetupMode();
+
     PairDto getpair();
 
     String getSetupId();
@@ -31,6 +35,7 @@ public interface SUTManager {
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
 
     Optional<EnvironmentDto> getEnviorement();
+
     Optional<EnvironmentDto> getPairEnviorement();
 
     /**
