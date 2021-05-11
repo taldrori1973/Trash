@@ -1394,7 +1394,7 @@ Feature: DP ANALYTICS
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1"
-    * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1" and wait 30 seconds
+    * CLI simulate 1 attacks of type "rest_intrusion" on SetId "DefensePro_Set_1" and wait 30 seconds
     * CLI Clear vision logs
     Given UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
