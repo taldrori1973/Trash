@@ -67,7 +67,7 @@ public abstract class VisionUITestBase extends TestBase {
     private static boolean isRestInit = false;
     private static boolean initOnceDateDebugIds = false;
 
-    public VisionUITestBase() throws Exception{
+    public VisionUITestBase() throws Exception {
         uiInit();
         initDataDebugIds();
         WebUIDriver.setListenerScreenshotAfterFind(false);
@@ -138,21 +138,23 @@ public abstract class VisionUITestBase extends TestBase {
 
                 // For Results Reporting
                 RallyTestReporter rallyTestReporter = new RallyTestReporter();
-                rallyTestReporter.init(managementInfo.getVersion(), "WebUI", managementInfo.getBuild());
+                if (connectOnInit()) {
 
+                    rallyTestReporter.init(managementInfo.getVersion(), "WebUI", managementInfo.getBuild());
+                    String mode = BddReporterManager.getRunMode();
+                    FeatureRunner.update_version_build_mode(managementInfo.getVersion(),
+                            managementInfo.getBuild(),
+                            mode);
+                }
                 restOperationsUsername = clientConfigurations.getUserName();
                 restOperationsPassword = clientConfigurations.getPassword();
                 setGenerateScreenshotAfterWebClickOperation();
                 setGenerateScreenshotAfterWebFindOperation();
-                String mode = BddReporterManager.getRunMode();
                 //send version , build and mode to FeatureRunner
                 /*
                 The code below used to send the version, build and mode to RunnerFeature class in order to create Before Feature and After Feature in cucumber
                 this code will run once , at the begin of the test .
                  */
-                FeatureRunner.update_version_build_mode(managementInfo.getVersion(),
-                        managementInfo.getBuild(),
-                        mode);
 
             }
         } catch (Exception e) {

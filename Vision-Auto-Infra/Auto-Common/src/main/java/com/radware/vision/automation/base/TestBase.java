@@ -39,14 +39,16 @@ public abstract class TestBase {
     static {
         try {
             sutManager = SUTManagerImpl.getInstance();
-            visionConfigurations = new VisionConfigurations();
-            LicenseGenerator.MAC_ADDRESS = visionConfigurations.getManagementInfo().getMacAddress();
-            serversManagement = new ServersManagement();
+            if (connectOnInit()) {
+                visionConfigurations = new VisionConfigurations();
+                LicenseGenerator.MAC_ADDRESS = visionConfigurations.getManagementInfo().getMacAddress();
+                managementInfo = getVisionConfigurations().getManagementInfo();
 
-            managementInfo = getVisionConfigurations().getManagementInfo();
+            }
+            serversManagement = new ServersManagement();
             clientConfigurations = getSutManager().getClientConfigurations();
             cliConfigurations = getSutManager().getCliConfigurations();
-            testStartTime =LocalDateTime.now();
+            testStartTime = LocalDateTime.now();
             restTestBase = new RestManagement();
             try {
                 restTestBase.init();
@@ -59,7 +61,9 @@ public abstract class TestBase {
 
     }
 
-    public  static ServersManagement getServersManagement() {return serversManagement; }
+    public static ServersManagement getServersManagement() {
+        return serversManagement;
+    }
 
     public static VisionConfigurations getVisionConfigurations() {
         return visionConfigurations;
@@ -69,7 +73,9 @@ public abstract class TestBase {
         return sutManager;
     }
 
-    public static LocalDateTime getTestStartTime(){return testStartTime;}
+    public static LocalDateTime getTestStartTime() {
+        return testStartTime;
+    }
 
 
     public void publishBddResults() {
@@ -96,6 +102,10 @@ public abstract class TestBase {
         } catch (Exception e) {
             BaseTestUtils.report("publish BDD results Failure!!! ", Reporter.PASS_NOR_FAIL);
         }
+    }
+
+    public static boolean connectOnInit() {
+        return sutManager.getSetupMode().toLowerCase().equals("fresh install") ? false : true;
     }
 
 }

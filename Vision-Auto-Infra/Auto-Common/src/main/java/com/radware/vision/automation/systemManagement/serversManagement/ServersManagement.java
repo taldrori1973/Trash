@@ -54,6 +54,7 @@ public class ServersManagement {
             } else {
                 server = constructor.newInstance(iP, CliConfigurationDto.getRootServerCliUserName(), CliConfigurationDto.getRootServerCliPassword());
             }
+            server.setConnectOnInit(TestBase.connectOnInit());
             server.init();
             return server;
         } catch (Exception e) {
@@ -112,5 +113,6 @@ public class ServersManagement {
         }
         return serverCliBase;
     }
+
 
 }
