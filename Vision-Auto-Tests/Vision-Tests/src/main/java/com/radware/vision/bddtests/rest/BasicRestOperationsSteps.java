@@ -48,8 +48,8 @@ public class BasicRestOperationsSteps extends TestBase {
     @When("^REST Login with user \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void restLoginWithUserAndPassword(String username, String password) {
         restTestBase.getVisionRestClient().login(username, password, "", 1);
-        if (restTestBase.getVisionRestClient().isLogged(username))
-            restTestBase.getVisionServer().setRestUsername(username);
+//        if (restTestBase.getVisionRestClient().isLogged(username))
+//            restTestBase.getVisionServer().setRestUsername(username);
     }
 
     /**
