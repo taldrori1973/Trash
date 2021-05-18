@@ -13,10 +13,10 @@ Feature: Attack Table - Expand Table Row
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
-    Then CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 11
-    Given CLI simulate 1 attacks of type "HTTPS" on "DefensePro" 11
-    Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
-    Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
+    Given CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_2"
+    Given CLI simulate 1 attacks of type "HTTPS" on SetId "DefensePro_Set_2"
+    Given CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_Set_2"
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" and wait 210 seconds
 
   
   @SID_3
