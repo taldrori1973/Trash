@@ -10,7 +10,7 @@ Feature: Attacks Dashboard Traffic Widget
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
-    Given CLI simulate 1 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" and wait 120 seconds
 
   @SID_3
   Scenario: change the date of traffic of 51 device
