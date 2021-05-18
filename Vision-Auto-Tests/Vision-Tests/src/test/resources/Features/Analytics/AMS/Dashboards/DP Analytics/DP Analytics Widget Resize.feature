@@ -3,14 +3,14 @@ Feature: DP ANALYTICS Look and Feel
 
   @SID_1
   Scenario: Login
-    * REST Login with user "sys_admin" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Given REST Login with user "sys_admin" and password "radware"
+    When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     When UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-#TODO - move all below scenarios to automated after R&D will define the widget location
+#TODO - kVision move all below scenarios to automated after R&D will define the widget location
 #  Scenario: TC101019 VRM - Validate Dashboards "Attacks by Mitigation Action" drag&drop and resize
 #    When UI VRM Clear All Widgets
 #    And UI VRM Select Widgets
