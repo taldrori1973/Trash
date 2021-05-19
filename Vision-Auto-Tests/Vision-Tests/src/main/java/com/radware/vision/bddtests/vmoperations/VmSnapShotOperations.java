@@ -40,6 +40,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
 
     int defaultVMWareNumber = 1;
     String vmName = visionVMs.getVMNameByIndex(defaultVMWareNumber);
+    //    TODO kvision
     EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
     private static final Map<String, String> NEXT_VERSION = new HashMap<String, String>() {{
         put("4.81.00", "4.82.00");
@@ -184,7 +185,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
 
     public void revertVMWareSnapshot(int vmNumber, boolean snapshotFromSut) throws Exception {
         try {
-            String snapshot = getSnapshotTypeBySetupMode(snapshotFromSut);
+            String snapshot = sutManager.getSnapshotName();
             if (!snapshotFromSut && (snapshot == null || snapshot.equals(""))) {
                 BaseTestUtils.report("Could not find snapshot in list ", Reporter.FAIL);
                 return;
@@ -193,7 +194,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
                 BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS_NOR_FAIL);
                 return;
             }
-            String vmName = visionVMs.getVMNameByIndex(vmNumber);
+            String vmName = vmNames[vmNumber];
             BaseTestUtils.report("Reverting to snapshot: " + snapshot, Reporter.PASS_NOR_FAIL);
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
             BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
