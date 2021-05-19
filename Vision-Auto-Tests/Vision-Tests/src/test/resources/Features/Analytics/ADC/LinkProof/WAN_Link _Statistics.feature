@@ -177,3 +177,74 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
       | value | min |
       | 11    | 10  |
+
+
+       ################################ CEC #####################################################
+
+  @SID_18
+  Scenario: Download CEC chart
+    Then UI Text of "CEC Header" equal to "CEC"
+
+  @SID_19
+  Scenario: validate CEC chart null data
+    Then UI Select list of WAN Links in LinkProof ""
+    #check null data
+
+  @SID_20
+  Scenario: validate CEC chart with part of WAN Links
+    Then UI Select list of WAN Links in LinkProof "w1,w2"
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w1"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
+      | value | min |
+      | 11    | 10  |
+
+  @SID_21
+  Scenario: validate CEC chart with part of WAN Links
+    Then UI Click Button "CheckBox" with value "w1"
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
+      | value | min |
+      | 11    | 10  |
+
+  @SID_22
+  Scenario: validate CEC chart with ALL WAN Links
+    Then UI Select list of WAN Links in LinkProof "w1,w2,w3,w4,w5,w6,w7"
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w1"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w3"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w4"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w5"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w6"
+      | value | min |
+      | 11    | 10  |
+
+  @SID_23
+  Scenario: validate CEC chart with part of WAN Links
+    Then UI Click Button "CheckBox" with value "w1,w2"
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w3"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w4"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w5"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w6"
+      | value | min |
+      | 11    | 10  |
+
+  @SID_24
+  Scenario: Logout
+    Then UI logout and close browser
