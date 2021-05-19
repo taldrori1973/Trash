@@ -2,14 +2,15 @@
   "setupFile": "fullSetup.json",
   "serverName": "aaa",
   "snapshot": "Current-1",
-  "setupMode": "upgrade",
+  "setupMode": "Fresh Install",
   "environment": "KVM-215",
   "pair": {
-    "pairIp": "172.17.164.101",
-    "environment": "KVM-217"
+    "pairIp": "172.17.55.55",
+    "environment": "KVM-217",
+    "serverName": "bbb"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.164.101",
+    "hostIp": "172.17.55.55",
     "userName": "radware",
     "password": "radware",
     "restConnection": {

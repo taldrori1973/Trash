@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 
 public abstract class TestBase {
 
-    protected static SUTManager sutManager;
+    public static SUTManager sutManager;
     protected static VisionConfigurations visionConfigurations;
     protected static ServersManagement serversManagement;
 
