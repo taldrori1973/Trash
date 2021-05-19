@@ -10,10 +10,10 @@ Feature: Attacks Table
 
   @SID_2
   Scenario: Run DP simulator
-    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000
-    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000
-    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11
-    And CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 230 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" with loopDelay 15000
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_1" with loopDelay 15000
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2"
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1" and wait 230 seconds
 
     When CLI Run remote linux Command "^C" on "ROOT_SERVER_CLI"
     Then Sleep "10"

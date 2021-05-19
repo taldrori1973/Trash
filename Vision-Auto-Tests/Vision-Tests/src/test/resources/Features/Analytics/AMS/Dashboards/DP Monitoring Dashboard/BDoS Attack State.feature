@@ -8,7 +8,8 @@ Feature: AMS BDoS Attack State
 
   @SID_2
   Scenario: generate BDoS attacks with all possible states
-    Given CLI simulate 20 attacks of type "Burst_States" on "DefensePro" 11 with loopDelay 15000 and wait 40 seconds
+    Given CLI simulate 20 attacks of type "Burst_States" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 40 seconds
+
   @SID_3
   Scenario: Login and enter attacks table
     Given UI Login with user "sys_admin" and password "radware"
