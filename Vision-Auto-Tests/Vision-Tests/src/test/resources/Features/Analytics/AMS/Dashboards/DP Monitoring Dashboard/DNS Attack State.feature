@@ -8,7 +8,7 @@ Feature: AMS DNS Attack State
 
   @SID_2
   Scenario: generate DNS attacks with all possible states
-    Given CLI simulate 20 attacks of type "DNS_States" on "DefensePro" 11 with loopDelay 15000 and wait 40 seconds
+    Given CLI simulate 20 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 40 seconds
 
 
   @SID_3
