@@ -2,6 +2,8 @@ package com.radware.vision.bddtests.vmoperations;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.PairDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
@@ -17,6 +19,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadw
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.radware.vision.automation.Deploy.VisionServer.waitForServerConnection;
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
@@ -25,13 +28,16 @@ import static com.radware.vision.vision_handlers.NewVmHandler.waitForServerConne
 
 public class VmSnapShotOperations extends VisionUITestBase {
 
-    private String snapshotName = VMOperationsSteps.getVisionSetupAttributeFromSUT("snapshot");
-    private final String setupMode = VMOperationsSteps.getVisionSetupAttributeFromSUT("setupMode");
+    private String snapshotName = sutManager.getSnapshotName();
+    private final String setupMode = sutManager.getSetupMode();
     int DEFAULT_KVM_CLI_TIMEOUT = 3000;
-//    TODO kvision
+    //    TODO kvision
 //    VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
 //    String kvmMachineName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
     VisionVMs visionVMs = restTestBase.getVisionVMs();
+    static EnvironmentDto[] environments;
+    static String[] vmNames;
+
     int defaultVMWareNumber = 1;
     String vmName = visionVMs.getVMNameByIndex(defaultVMWareNumber);
     EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
@@ -62,6 +68,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
     }
 
     public static VmSnapShotOperations newInstance() throws Exception {
+        getEnvironmentsFromSut();
         return new VmSnapShotOperations();
     }
 
@@ -291,5 +298,28 @@ public class VmSnapShotOperations extends VisionUITestBase {
             BaseTestUtils.report("Server state after timeout is: " + CliOperations.lastOutput, Reporter.FAIL);
         }
     }
+
+    public static void getEnvironmentsFromSut() {
+        environments = new EnvironmentDto[2];
+        Optional<EnvironmentDto> environmentDto = sutManager.getEnviorement();
+        if (!environmentDto.isPresent()) {
+            BaseTestUtils.report("Environment Not Found!.", Reporter.FAIL);
+        }
+        environments[0] = environmentDto.get();
+
+        Optional<EnvironmentDto> pairEnvironmentDto = sutManager.getPairEnviorement();
+        if (!pairEnvironmentDto.isPresent()) {
+            BaseTestUtils.report("Pair Environment Not Found!, continue without pair.", Reporter.PASS_NOR_FAIL);
+            environments[1]=null;
+        } else {
+            environments[2] = pairEnvironmentDto.get();
+        }
+        vmNames[0]=sutManager.getServerName();
+        if(sutManager.getpair()==null){
+            vmNames[1]=null;
+        }
+        vmNames[1]=sutManager.getpair().getServerName();
+    }
+
 
 }

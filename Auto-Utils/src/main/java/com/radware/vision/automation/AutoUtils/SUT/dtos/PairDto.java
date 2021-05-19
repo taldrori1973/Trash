@@ -6,4 +6,5 @@ import lombok.Data;
 public class PairDto {
     private String pairIp;
     private String environment;
+    private String serverName;
 }
