@@ -3,10 +3,10 @@
   "serverName": "aaa",
   "snapshot": "Current-1",
   "setupMode": "Fresh Install",
-  "environment": "KVM-215",
+  "environment": "OVA-220",
   "pair": {
     "pairIp": "172.17.55.55",
-    "environment": "KVM-217",
+    "environment": "OVA-220",
     "serverName": "bbb"
   },
   "clientConfiguration": {
