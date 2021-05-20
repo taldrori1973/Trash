@@ -12,6 +12,6 @@ public class EnvironmentDto {
     private String netMask;
     private String gateWay;
     private String physicalManagement;
-    private String vCenterURL;
-    private String resourcePool;
+//    private String vCenterURL;
+//    private String resourcePool;
 }
