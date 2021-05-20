@@ -1,44 +1,46 @@
-{"environments":[
-  {
-    "name": "KVM-215",
-    "hostIp": "10.205.200.215",
-    "user": "root",
-    "password": "radware",
-    "dnsServerIp": "10.221.1.47",
-    "netMask": "255.255.0.0",
-    "gateWay": "172.17.1.1",
-    "physicalManagement": "G1"
-  },
-  {
-    "name": "OVA-220",
-    "hostIp": "10.205.172.220",
-    "user": "root",
-    "password": "radware",
-    "dnsServerIp": "10.221.1.47",
-    "netMask": "255.255.0.0",
-    "gateWay": "172.17.1.1",
-    "physicalManagement": "G1"
-  },
-  {
-    "name": "KVM-210",
-    "hostIp": "10.205.200.210",
-    "user": "root",
-    "password": "radware",
-    "dnsServerIp": "10.221.1.47",
-    "netMask": "255.255.0.0",
-    "gateWay": "172.17.1.1",
-    "physicalManagement": "G1"
-  },
-  {
-    "name": "KVM-217",
-    "hostIp": "10.205.200.217",
-    "user": "root",
-    "password": "radware",
-    "dnsServerIp": "10.221.1.47",
-    "netMask": "255.255.0.0",
-    "gateWay": "172.17.1.1",
-    "physicalManagement": "G1"
-  }
-  
-]
+{
+  "environments": [
+    {
+      "name": "KVM-215",
+      "hostIp": "10.205.200.215",
+      "user": "root",
+      "password": "radware",
+      "dnsServerIp": "10.221.1.47",
+      "netMask": "255.255.0.0",
+      "gateWay": "172.17.1.1",
+      "physicalManagement": "G1"
+    },
+    {
+      "name": "OVA-220",
+      "hostIp": "10.205.172.220",
+      "user": "root",
+      "password": "radware",
+      "dnsServerIp": "10.221.1.47",
+      "netMask": "255.255.0.0",
+      "gateWay": "172.17.1.1",
+      "physicalManagement": "G1",
+      "resourcePool": "RP1",
+      "url": "https://10.205.172.220/sdk"
+    },
+    {
+      "name": "KVM-210",
+      "hostIp": "10.205.200.210",
+      "user": "root",
+      "password": "radware",
+      "dnsServerIp": "10.221.1.47",
+      "netMask": "255.255.0.0",
+      "gateWay": "172.17.1.1",
+      "physicalManagement": "G1"
+    },
+    {
+      "name": "KVM-217",
+      "hostIp": "10.205.200.217",
+      "user": "root",
+      "password": "radware",
+      "dnsServerIp": "10.221.1.47",
+      "netMask": "255.255.0.0",
+      "gateWay": "172.17.1.1",
+      "physicalManagement": "G1"
+    }
+  ]
 }
