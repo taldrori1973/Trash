@@ -107,7 +107,9 @@ public class SutService {
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpUsername(), TreeDeviceManagementDto::setHttpUsername)
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsPassword(), TreeDeviceManagementDto::setHttpsPassword)
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsUsername(), TreeDeviceManagementDto::setHttpsUsername)
-                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getManagementIp(), TreeDeviceManagementDto::setManagementIp);
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getManagementIp(), TreeDeviceManagementDto::setManagementIp)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV2ReadCommunity(), TreeDeviceManagementDto::setSnmpV2ReadCommunity)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV2WriteCommunity(), TreeDeviceManagementDto::setSnmpV2WriteCommunity);
 
         treeDeviceManagementDtos = modelMapper.map(setupDevices, listType);
 
