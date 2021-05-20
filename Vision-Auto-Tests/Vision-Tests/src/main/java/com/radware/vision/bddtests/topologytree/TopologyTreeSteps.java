@@ -7,6 +7,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.webpages.WebUIBasePage;
 import com.radware.automation.webui.widgets.ComponentLocator;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.VisionUITestBase;
@@ -40,21 +41,20 @@ public class TopologyTreeSteps extends VisionUITestBase {
     public TopologyTreeSteps() throws Exception {
     }
 
-    @When("^UI Add( physical)? \"(.*)\" with index (\\d+) on \"(.*)\" site( unregister)?(?: expected status \"(.*)\")?$")
-    public void addNewDevice(String treeTabType, String elementType, int index, String parent, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) {
+    @When("^UI Add( physical)? \"(.*)\" under \"(.*)\" site( unregister)?(?: expected status \"(.*)\")?$")
+    public void addNewDevice(String treeTabType, String deviceSetId, String parent, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) {
         try {
             boolean register = unregister == null;
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-            SUTDeviceType sutDeviceType = SUTDeviceType.valueOf(elementType);
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, index);
+            TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
             String visionServerIP = ("G1").concat(" (").concat(getVisionServerIp()).concat(")");
             HashMap<String, String> deviceProperties = new HashMap<String, String>();
-            deviceProperties.put("snmpReadCommunity", deviceInfo.getReadCommunity());
-            deviceProperties.put("snmpWriteCommunity", deviceInfo.getWriteCommunity());
-            deviceProperties.put("httpUserNameDefensePro", deviceInfo.getUsername());
-            deviceProperties.put("httpPasswordDefensePro", deviceInfo.getPassword());
-
-            TopologyTreeHandler.addNewDevice(sutDeviceType, deviceInfo.getDeviceName(), parent, deviceInfo.getDeviceIp(), visionServerIP, register, deviceProperties, topologyTreeTab);
+            deviceProperties.put("snmpReadCommunity", deviceInfo.getSnmpV2ReadCommunity());
+            deviceProperties.put("snmpWriteCommunity", deviceInfo.getSnmpV2WriteCommunity());
+            deviceProperties.put("httpUserNameDefensePro", deviceInfo.getHttpUsername());
+            deviceProperties.put("httpPasswordDefensePro", deviceInfo.getHttpPassword());
+            SUTDeviceType deviceType = SUTDeviceType.valueOf(deviceInfo.getDeviceType());
+            TopologyTreeHandler.addNewDevice(deviceType, deviceInfo.getDeviceName(), parent, deviceInfo.getManagementIp(), visionServerIP, register, deviceProperties, topologyTreeTab);
 
             if (expectedStatus == null) {
                 expectedStatus = ImConstants$DeviceStatusEnumPojo.OK;
