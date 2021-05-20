@@ -16,6 +16,7 @@ public class TreeDeviceManagementDto {
     private String httpsUsername;
     private String httpsPassword;
     private String managementIp;
-
+    private String snmpV2ReadCommunity;
+    private String snmpV2WriteCommunity;
 
 }
