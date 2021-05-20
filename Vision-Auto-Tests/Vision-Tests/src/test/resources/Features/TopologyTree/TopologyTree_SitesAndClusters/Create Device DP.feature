@@ -10,7 +10,7 @@ Feature: Create Device DP
 
   @SID_2 @Sanity
   Scenario: Add new DefensePro
-    Then UI Add "DefensePro" with index 2 on "Default" site
+    Then UI Add "DefensePro" on SetId "DefensePro_Set_3" under "Default" site
 
   @SID_3
   Scenario: verify DP status and lock DP
