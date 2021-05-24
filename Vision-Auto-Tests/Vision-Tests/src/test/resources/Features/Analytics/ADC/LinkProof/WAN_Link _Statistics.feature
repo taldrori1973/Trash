@@ -205,7 +205,7 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Click Button "CheckBox" with value "w1"
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
       | value | min |
-      | 11    | 10  |
+      | 12    | 10  |
 
   @SID_22
   Scenario: validate CEC chart with ALL WAN Links
