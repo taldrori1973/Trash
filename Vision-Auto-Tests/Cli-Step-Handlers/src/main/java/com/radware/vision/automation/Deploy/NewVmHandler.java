@@ -43,7 +43,9 @@ public class NewVmHandler extends TestBase {
             String physicalManagement = sutManager.getEnviorement().get().getPhysicalManagement();
             String vmName = sutManager.getEnviorement().get().getName();
             String ip = sutManager.getEnviorement().get().getHostIp();
-            this.visionRadwareFirstTime = new VisionRadwareFirstTime(netMask, gateway, primaryDns, physicalManagement, vmName, ip);
+            String user = sutManager.getEnviorement().get().getUser();
+            String password = sutManager.getEnviorement().get().getPassword();
+            this.visionRadwareFirstTime = new VisionRadwareFirstTime(user, password, netMask, gateway, primaryDns, physicalManagement, vmName, ip);
         } catch (Exception var2) {
             BaseTestUtils.report("Failed to read sut object " + var2.getMessage(), 1);
         }
@@ -57,8 +59,7 @@ public class NewVmHandler extends TestBase {
 //            TODO kvision
 //            this.visionRadwareFirstTime = (VisionRadwareFirstTime)this.system.getSystemObject(machine);
 //            this.visionCli = (VisionCli)this.system.getSystemObject(cli);
-        }
-        catch (Exception var4) {
+        } catch (Exception var4) {
             BaseTestUtils.report("Failed to read sut object " + var4.getMessage(), 1);
         }
 
@@ -73,9 +74,9 @@ public class NewVmHandler extends TestBase {
         String mysqlSocketProblem = "Can't connect to local MySQL server";
         messages.add(mysqlSocketProblem);
         String vmName = sutManager.getEnviorement().get().getName() + sutManager.getEnviorement().get().getHostIp();
-        CliOperations.runCommand(this.visionRadwareFirstTime,"rm -rf /var/lib/libvirt/images/" + vmName + ".iso");
-        CliOperations.runCommand(this.visionRadwareFirstTime,"cd /var/lib/libvirt/images/");
-        CliOperations.runCommand(this.visionRadwareFirstTime,"wget " + fileUrl + " -O " + vmName + ".iso",600000);
+        CliOperations.runCommand(this.visionRadwareFirstTime, "rm -rf /var/lib/libvirt/images/" + vmName + ".iso");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "cd /var/lib/libvirt/images/");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "wget " + fileUrl + " -O " + vmName + ".iso", 600000);
         StringJoiner installCommand = new StringJoiner(" ");
         installCommand.add("virt-install").add("--name " + vmName);
         String selectCommand;
@@ -87,15 +88,15 @@ public class NewVmHandler extends TestBase {
             selectCommand = "I";
         }
         this.visionRadwareFirstTime.changeCommandToSendForPrompt("vision.radware login: ", "radware");
-        CliOperations.runCommand(this.visionRadwareFirstTime, installCommand.toString(),30000, false, false, false);
+        CliOperations.runCommand(this.visionRadwareFirstTime, installCommand.toString(), 30000, false, false, false);
 
         Thread.sleep(15000L);
         boolean isShutoff;
         if (selectCommand.equals("A")) {
-            CliOperations.runCommand(this.visionRadwareFirstTime, selectCommand,60000, false, false, false,(String)null, true);
+            CliOperations.runCommand(this.visionRadwareFirstTime, selectCommand, 60000, false, false, false, (String) null, true);
             selectCommand = "\r";
             Thread.sleep(120000L);
-            CliOperations.runCommand(this.visionRadwareFirstTime, "yes",60000, false, false, false,(String)null, true);
+            CliOperations.runCommand(this.visionRadwareFirstTime, "yes", 60000, false, false, false, (String) null, true);
             Thread.sleep(660000L);
             long startTime = System.currentTimeMillis();
             long maxTimeOut = 7200000L;
@@ -104,31 +105,31 @@ public class NewVmHandler extends TestBase {
             long currentTime;
             do {
                 this.visionRadwareFirstTime.changeCommandToSendForPrompt("vision.radware login: ", "radware");
-                CliOperations.runCommand(this.visionRadwareFirstTime, "virsh start " + vmName,60000, false, false, false,(String)null, true);
-                CliOperations.runCommand(this.visionRadwareFirstTime,"virsh console " + vmName + " --force",60000, false, false, false,(String)null, true);
+                CliOperations.runCommand(this.visionRadwareFirstTime, "virsh start " + vmName, 60000, false, false, false, (String) null, true);
+                CliOperations.runCommand(this.visionRadwareFirstTime, "virsh console " + vmName + " --force", 60000, false, false, false, (String) null, true);
                 try {
-                    CliOperations.runCommand(this.visionRadwareFirstTime, selectCommand,(int) timeOut, true, false, true,(String)null, true, false);
+                    CliOperations.runCommand(this.visionRadwareFirstTime, selectCommand, (int) timeOut, true, false, true, (String) null, true, false);
                 } catch (Exception var23) {
                 }
                 this.isContained(messages, vmName, specificVisionBuild, version);
-                CliOperations.runCommand(this.visionRadwareFirstTime,"virsh list --all");
+                CliOperations.runCommand(this.visionRadwareFirstTime, "virsh list --all");
                 isShutoff = RegexUtils.isStringContainsThePattern(vmName + ".*shut off.*", CliOperations.lastOutput.trim());
-                CliOperations.runCommand(this.visionRadwareFirstTime,"ping -c 4 " + sutManager.getEnviorement().get().getHostIp(),180000, true, false, true, (String)null, true, false);
+                CliOperations.runCommand(this.visionRadwareFirstTime, "ping -c 4 " + sutManager.getEnviorement().get().getHostIp(), 180000, true, false, true, (String) null, true, false);
                 pingResult = RegexUtils.isStringContainsThePattern("100% packet loss", CliOperations.lastOutput.trim());
                 currentTime = System.currentTimeMillis();
-            } while((isShutoff || pingResult) & currentTime - startTime < maxTimeOut);
+            } while ((isShutoff || pingResult) & currentTime - startTime < maxTimeOut);
 
             if (pingResult && !isShutoff) {
                 this.visionRadwareFirstTime.connect();
-                CliOperations.runCommand(this.visionRadwareFirstTime,"virsh destroy " + vmName,180000);
-                CliOperations.runCommand(this.visionRadwareFirstTime,"virsh start " + vmName,180000);
-                CliOperations.runCommand(this.visionRadwareFirstTime,"virsh console " + vmName + " --force",60000, false, false, false, (String)null, true);
-                CliOperations.runCommand(this.visionRadwareFirstTime,selectCommand,(int)timeOut, true, false, true, (String)null, true, false);
+                CliOperations.runCommand(this.visionRadwareFirstTime, "virsh destroy " + vmName, 180000);
+                CliOperations.runCommand(this.visionRadwareFirstTime, "virsh start " + vmName, 180000);
+                CliOperations.runCommand(this.visionRadwareFirstTime, "virsh console " + vmName + " --force", 60000, false, false, false, (String) null, true);
+                CliOperations.runCommand(this.visionRadwareFirstTime, selectCommand, (int) timeOut, true, false, true, (String) null, true, false);
             }
         }
 
         try {
-            CliOperations.runCommand(this.visionRadwareFirstTime,selectCommand,(int)timeOut);
+            CliOperations.runCommand(this.visionRadwareFirstTime, selectCommand, (int) timeOut);
         } catch (Exception var22) {
             this.isContained(messages, vmName, specificVisionBuild, version);
             throw new Exception(var22.getMessage());
@@ -136,15 +137,15 @@ public class NewVmHandler extends TestBase {
 
         this.isContained(messages, vmName, specificVisionBuild, version);
         this.visionRadwareFirstTime.connect();
-        CliOperations.runCommand(this.visionRadwareFirstTime,"rm -rf /var/lib/libvirt/images/" + vmName + ".iso");
-        CliOperations.runCommand(this.visionRadwareFirstTime,"virsh list --all");
-        CliOperations.runCommand(this.visionRadwareFirstTime,"virsh list --all");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "rm -rf /var/lib/libvirt/images/" + vmName + ".iso");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "virsh list --all");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "virsh list --all");
         isShutoff = RegexUtils.isStringContainsThePattern(vmName + ".*running.*", CliOperations.lastOutput.trim());
         if (!isShutoff) {
             this.deleteKvm(vmName);
             BaseTestUtils.report(" The vm : '" + vmName + "' is not exist! failed to be created successfully ", 1);
         }
-         RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+        RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
         if (VisionServer.waitForVisionServerServicesToStartHA(radwareServerCli, 2700000L)) {
             BaseTestUtils.reporter.report("All services up");
         } else {
@@ -156,10 +157,10 @@ public class NewVmHandler extends TestBase {
     private void isContained(ArrayList<String> list, String vmName, String specificVisionBuild, String fullNameVersion) throws Exception {
         Iterator var5 = list.iterator();
 
-        while(var5.hasNext()) {
-            String message = (String)var5.next();
+        while (var5.hasNext()) {
+            String message = (String) var5.next();
             if (RegexUtils.isStringContainsThePattern(message, this.visionRadwareFirstTime.getTestAgainstObject().toString())) {
-                CliOperations.runCommand(this.visionRadwareFirstTime,"rm -rf /var/lib/libvirt/images/APSoluteVision-Serial_console-" + fullNameVersion + "*");
+                CliOperations.runCommand(this.visionRadwareFirstTime, "rm -rf /var/lib/libvirt/images/APSoluteVision-Serial_console-" + fullNameVersion + "*");
                 this.deleteKvm(vmName);
                 BaseTestUtils.report(" No " + vmName + " created , we have a problem with a build : '" + specificVisionBuild + "',we get problem stuck on : " + message + " ", 1);
             }
@@ -168,10 +169,10 @@ public class NewVmHandler extends TestBase {
     }
 
     public void deleteKvm(String vmName) throws Exception {
-            CliOperations.runCommand(this.visionRadwareFirstTime,"virsh destroy " + vmName);
-            CliOperations.runCommand(this.visionRadwareFirstTime,"virsh undefine " + vmName);
-            CliOperations.runCommand(this.visionRadwareFirstTime,"virsh vol-delete /var/lib/libvirt/images/" + vmName + ".img");
-            CliOperations.runCommand(this.visionRadwareFirstTime,"virsh vol-delete /var/lib/libvirt/images/" + vmName + "_APM.img");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "virsh destroy " + vmName);
+        CliOperations.runCommand(this.visionRadwareFirstTime, "virsh undefine " + vmName);
+        CliOperations.runCommand(this.visionRadwareFirstTime, "virsh vol-delete /var/lib/libvirt/images/" + vmName + ".img");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "virsh vol-delete /var/lib/libvirt/images/" + vmName + "_APM.img");
     }
 
     public void firstTimeWizardOva(String ovaUrl, boolean isAPM, String vCenterURL, String userName, String password, String hostip, String specificVisionBuild, String newVmName, String containedDVS, String networkName, String resourcePool, String destFolder, String dataStores) {
@@ -204,7 +205,7 @@ public class NewVmHandler extends TestBase {
             try {
                 this.visionRadwareFirstTime.setHost(ip);
                 this.visionRadwareFirstTime.connect();
-                CliOperations.runCommand(this.visionRadwareFirstTime,"y", 1200000, true, false, false);
+                CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
                 Thread.sleep(240000L);
                 this.visionRadwareFirstTime.close();
             } catch (Exception var23) {
@@ -320,12 +321,12 @@ public class NewVmHandler extends TestBase {
             String[] array = error.split("\\|\\|");
 
             try {
-                CliOperations.runCommand(this.visionRadwareFirstTime,command, (int)timeout, false, false, prompt, (String)null, enter);
+                CliOperations.runCommand(this.visionRadwareFirstTime, command, (int) timeout, false, false, prompt, (String) null, enter);
             } catch (Exception var16) {
                 String[] var10 = array;
                 int var11 = array.length;
 
-                for(int var12 = 0; var12 < var11; ++var12) {
+                for (int var12 = 0; var12 < var11; ++var12) {
                     String errors = var10[var12];
                     boolean isContained = RegexUtils.isStringContainsThePattern(errors, this.visionRadwareFirstTime.getTestAgainstObject().toString());
                     if (isContained) {
@@ -335,7 +336,7 @@ public class NewVmHandler extends TestBase {
             }
         } else {
             try {
-                CliOperations.runCommand(this.visionRadwareFirstTime,command, (int)timeout, false, false, prompt, (String)null, enter);
+                CliOperations.runCommand(this.visionRadwareFirstTime, command, (int) timeout, false, false, prompt, (String) null, enter);
             } catch (Exception var15) {
             }
         }
@@ -345,7 +346,7 @@ public class NewVmHandler extends TestBase {
     public static boolean waitForServerConnection(long timeout, CliConnectionImpl connection) throws InterruptedException {
         long startTime = System.currentTimeMillis();
 
-        while(System.currentTimeMillis() - startTime < timeout) {
+        while (System.currentTimeMillis() - startTime < timeout) {
             try {
                 connection.connect();
                 return true;
@@ -363,7 +364,7 @@ public class NewVmHandler extends TestBase {
             VisionRestClient visionRestClient = new VisionRestClient(this.visionRadwareFirstTime.getIp(), licenseKey, RestBasicConsts.RestProtocol.HTTPS);
             long startTime = System.currentTimeMillis();
 
-            while(System.currentTimeMillis() - startTime < timeout) {
+            while (System.currentTimeMillis() - startTime < timeout) {
                 try {
                     visionRestClient.login(this.visionRadwareFirstTime.getUser(), this.visionRadwareFirstTime.getPassword(), licenseKey, 1);
                     return;
