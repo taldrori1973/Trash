@@ -1,16 +1,16 @@
 {
   "setupFile": "fullSetup.json",
-  "serverName": "aaa",
-  "snapshot": "Current-1",
-  "setupMode": "Fresh Install",
-  "environment": "OVA-220",
+  "serverName": "vision_auto_172.17.164.128",
+  "snapshot": "Current-3",
+  "setupMode": "kvm_upgrade",
+  "environment": "KVM-215",
   "pair": {
     "pairIp": "172.17.55.55",
     "environment": "OVA-220",
     "serverName": "bbb"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.55.55",
+    "hostIp": "172.17.164.128",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
