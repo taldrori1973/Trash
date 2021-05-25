@@ -201,5 +201,85 @@ public class VisionServer {
         return false;
     }
 
+    public static boolean waitForVisionServerReadinessForUpgrade(CliConnectionImpl cliConnection, long timeout) throws Exception {
+        long startTime = System.currentTimeMillis();
+        do {
+
+            if (isVisionReadyForUpgrade(cliConnection))
+                return true;
+            Thread.sleep(15 * 1000);
+        }
+        while (System.currentTimeMillis() - startTime < timeout);
+        return false;
+    }
+
+    public static boolean isVisionReadyForUpgrade(CliConnectionImpl serverCli){
+        try {
+            serverCli.connect();
+            InvokeUtils.invokeCommand(null,Menu.system().visionServer().status().build(), serverCli, 2 * 60 * 1000, true);
+            String status = serverCli.getTestAgainstObject().toString();
+            if (status == null) {
+                return false;
+            }
+
+            boolean APSoluteVisionReporterStarted = status.contains(String.format("%s %s",
+                    VisionServices.COLLECTOR.getValue(),ServiceStatus.RUNNING.getStatus()));
+            boolean ConfigurationServerStarted = status.contains(String.format("%s %s",
+                    VisionServices.CONFIGURATION.getValue(),ServiceStatus.RUNNING.getStatus()));
+            return APSoluteVisionReporterStarted &&
+                    ConfigurationServerStarted;
+            //&& TedAgentIsRunning;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public enum VisionServices {
+        REPORTER("APSolute Vision Reporter"),
+        AMQP("AMQP service"),
+        DPM("DPM"),
+        CONFIGURATION("Configuration server"),
+        COLLECTOR("Collector service"),
+        NEW_REPORTER("New Reporter service"),
+        ALERTS("Alerts service"),
+        SCHEDULER("Scheduler service"),
+        CONFIGURATION_SYNC("Configuration Synchronization service"),
+        TOR("Tor feed service"),
+        VDIRECT("Radware vDirect"),
+        VRM_COLLECTOR("VRM SSL Inspection collector service"),
+        VRM_VISUALIZATION("VRM SSL Inspection visualization service"),
+        VRM_REPORTING("VRM reporting engine is"),
+        HEALTH("Vision health engine"),
+        TD("td-agent"),
+        LLS("Local License Server");
+
+        private final String _visionService;
+
+        VisionServices(String visionService) {
+            this._visionService = visionService;
+        }
+
+        private String getValue() {
+            return _visionService;
+        }
+    }
+
+    public enum ServiceStatus {
+        STOPPED("is stopped"),
+        NOT_RUNNING("is not running"),
+        RUNNING("is running");
+
+        private final String status;
+
+        ServiceStatus(String status) {
+            this.status = status;
+        }
+
+        private String getStatus() {
+            return this.status;
+        }
+    }
+
 }
 
