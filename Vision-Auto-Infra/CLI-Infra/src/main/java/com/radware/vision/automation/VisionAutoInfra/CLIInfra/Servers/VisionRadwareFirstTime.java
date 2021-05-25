@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Hadar Elbaz
  */
 
-public class VisionRadwareFirstTime extends ServerCliBase{
+public class VisionRadwareFirstTime extends ServerCliBase {
 
     String netMask;
     String gateway;
@@ -24,12 +24,13 @@ public class VisionRadwareFirstTime extends ServerCliBase{
 
     ServerCliBase vm;
 
-    public VisionRadwareFirstTime(String netMask,
+    public VisionRadwareFirstTime(String user, String password, String netMask,
                                   String gateway,
                                   String primaryDns,
                                   String physicalManagement,
                                   String vmName,
                                   String ip) {
+        super(ip, user, password);
         this.netMask = netMask;
         this.gateway = gateway;
         this.primaryDns = primaryDns;
@@ -37,6 +38,7 @@ public class VisionRadwareFirstTime extends ServerCliBase{
         this.vmName = vmName;
         this.ip = ip;
         this.vm = this;
+
     }
 
 //    @Override
