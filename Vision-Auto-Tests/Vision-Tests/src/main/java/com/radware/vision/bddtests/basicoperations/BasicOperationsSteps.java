@@ -182,6 +182,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
         BasicOperationsHandler.login(username, password);
         VisionWebUIUtils.loggedinUser = username;
         RestClientsSteps.thatCurrentVisionIsLoggedIn(null, username, password, null);
+        restTestBase.getVisionRestClient().login();
     }
 
     /**
