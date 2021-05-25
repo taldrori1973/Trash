@@ -41,6 +41,16 @@
       "netMask": "255.255.0.0",
       "gateWay": "172.17.1.1",
       "physicalManagement": "G1"
+    },
+    {
+      "name": "KVM-215",
+      "hostIp": "10.205.200.215",
+      "user": "root",
+      "password": "radware",
+      "dnsServerIp": "10.221.1.47",
+      "netMask": "255.255.0.0",
+      "gateWay": "172.17.1.1",
+      "physicalManagement": "G1"
     }
   ]
 }
