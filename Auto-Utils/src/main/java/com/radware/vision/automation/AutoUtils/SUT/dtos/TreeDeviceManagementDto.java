@@ -16,7 +16,14 @@ public class TreeDeviceManagementDto {
     private String httpsUsername;
     private String httpsPassword;
     private String managementIp;
+    private String snmpV1ReadCommunity;
+    private String snmpV1WriteCommunity;
     private String snmpV2ReadCommunity;
     private String snmpV2WriteCommunity;
-
+    private String snmpV3AuthenticationProtocol;
+    private String snmpV3PrivacyProtocol;
+    private String snmpVersion;
+    private String verifyHttpCredentials;
+    private String verifyHttpsCredentials;
+    private String visionMgtPort;
 }

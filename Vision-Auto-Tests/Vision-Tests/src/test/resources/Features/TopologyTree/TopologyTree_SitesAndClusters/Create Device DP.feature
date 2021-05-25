@@ -10,7 +10,7 @@ Feature: Create Device DP
 
   @SID_2 @Sanity
   Scenario: Add new DefensePro
-    Then UI Add "DefensePro" on SetId "DefensePro_Set_3" under "Default" site
+    Then UI Add "DefensePro" on SetId "DefensePro_Set_6" under "Default" site
 
   @SID_3
   Scenario: verify DP status and lock DP
@@ -20,7 +20,7 @@ Feature: Create Device DP
 
   @SID_4 @Sanity
   Scenario: Delete DefensePro
-    Then UI Delete "DefensePro" device with index 2 from topology tree
+    Then UI Delete "DefensePro_Set_6" from topology tree
 
   @SID_5 @Sanity
   Scenario: Logout
