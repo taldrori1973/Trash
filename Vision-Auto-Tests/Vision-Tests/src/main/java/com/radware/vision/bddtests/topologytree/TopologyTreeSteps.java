@@ -41,16 +41,33 @@ public class TopologyTreeSteps extends VisionUITestBase {
     public TopologyTreeSteps() throws Exception {
     }
 
-    @When("^UI Add( physical)? \"(.*)\" under \"(.*)\" site( unregister)?(?: expected status \"(.*)\")?$")
-    public void addNewDevice(String treeTabType, String deviceSetId, String parent, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) {
+    @When("^UI Add( physical)? \"(.*)\" under \"(.*)\" site(?: SNMP Version (V[123]))?( unregister)?(?: expected status \"(.*)\")?$")
+    public void addNewDevice(String treeTabType, String deviceSetId, String parent, String snmpVersion, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) {
         try {
+            String snmpV = snmpVersion == null? "V2" : snmpVersion;
             boolean register = unregister == null;
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
             TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
-            String visionServerIP = ("G1").concat(" (").concat(getVisionServerIp()).concat(")");
-            HashMap<String, String> deviceProperties = new HashMap<String, String>();
-            deviceProperties.put("snmpReadCommunity", deviceInfo.getSnmpV2ReadCommunity());
-            deviceProperties.put("snmpWriteCommunity", deviceInfo.getSnmpV2WriteCommunity());
+            String port = deviceInfo.getVisionMgtPort();
+            String visionServerIP = port.concat(" (").concat(getVisionServerIp()).concat(")");
+            HashMap<String, String> deviceProperties = new HashMap<>();
+            switch (snmpV){
+                case "V1":
+                    deviceProperties.put("snmpReadCommunity", deviceInfo.getSnmpV1ReadCommunity());
+                    deviceProperties.put("snmpWriteCommunity", deviceInfo.getSnmpV1WriteCommunity());
+                    break;
+                case "V2":
+                    deviceProperties.put("snmpReadCommunity", deviceInfo.getSnmpV2ReadCommunity());
+                    deviceProperties.put("snmpWriteCommunity", deviceInfo.getSnmpV2WriteCommunity());
+                    break;
+                case "V3":
+                    //TODO kVision need a device with v3 to implement
+                    //TODO kVision should we add SNMP user, authentication password and privacy password?
+                    deviceProperties.put("snmpReadCommunity", deviceInfo.getSnmpV3AuthenticationProtocol());
+                    deviceProperties.put("snmpWriteCommunity", deviceInfo.getSnmpV3PrivacyProtocol());
+                    break;
+
+            }
             deviceProperties.put("httpUserNameDefensePro", deviceInfo.getHttpUsername());
             deviceProperties.put("httpPasswordDefensePro", deviceInfo.getHttpPassword());
             SUTDeviceType deviceType = SUTDeviceType.valueOf(deviceInfo.getDeviceType());
@@ -70,7 +87,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     @When("^UI Add( physical)? \"(.*)\" with index (\\d+) on \"(.*)\" site with params( unregister)?(?: expected status \"(.*)\")?$")
-    public void addNewDevice(String treeTabType, String elementType, int index, String parent, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus, Map<String, String> map) throws Exception {
+    public void addNewDevice(String treeTabType, String elementType, int index, String parent, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus, Map<String, String> map) {
         try {
             boolean register = unregister == null;
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
@@ -78,7 +95,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, index);
             String mgtPort = map.get("mgtPort") != null ? map.get("mgtPort") : "G1";
             String visionServerIP = mgtPort.concat(" (").concat(getVisionServerIp()).concat(")");
-            HashMap<String, String> deviceProperties = new HashMap<String, String>();
+            HashMap<String, String> deviceProperties = new HashMap<>();
             String val = map.get("snmpReadCommunity") != null ? deviceProperties.put("snmpReadCommunity", map.get("snmpReadCommunity")) : deviceProperties.put("snmpReadCommunity", deviceInfo.getReadCommunity());
             val = map.get("snmpWriteCommunity") != null ? deviceProperties.put("snmpWriteCommunity", map.get("snmpWriteCommunity")) : deviceProperties.put("snmpWriteCommunity", deviceInfo.getWriteCommunity());
             val = map.get("httpUserNameDefensePro") != null ? deviceProperties.put("httpUserNameDefensePro", map.get("httpUserNameDefensePro")) : deviceProperties.put("httpUserNameDefensePro", deviceInfo.getUsername());
@@ -110,7 +127,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     @When("^UI Add( physical)? \"(.*)\" with index (\\d+) on \"(.*)\" site nowait$")
-    public void addNewDeviceDontWaitForStatus(String treeTabType, String elementType, int index, String parent) throws Exception {
+    public void addNewDeviceDontWaitForStatus(String treeTabType, String elementType, int index, String parent) {
         try {
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
             SUTDeviceType sutDeviceType = SUTDeviceType.valueOf(elementType);
@@ -171,12 +188,12 @@ public class TopologyTreeSteps extends VisionUITestBase {
         }
     }
 
-    @When("^UI Delete( physical)? \"(.*)\" device with index (\\d+) from topology tree$")
-    public void deleteDevice(String treeTabType, SUTDeviceType deviceType, int deviceIndex) {
+    @When("^UI Delete( physical)? \"(.*)\" from topology tree$")
+    public void deleteDevice(String treeTabType, String deviceSetId) {
         String elementName = "";
         try {
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
+            TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
             elementName = deviceInfo.getDeviceName();
             TopologyTreeHandler.deleteDevice(elementName, topologyTreeTab);
         } catch (NullPointerException e) {
@@ -221,7 +238,8 @@ public class TopologyTreeSteps extends VisionUITestBase {
     public void performTopologyTreeOperation(String topologyTreeButtonString) {
         TopologyTreeButtons topologyTreeButton = TopologyTreeButtons.getTopologyTreeButtonsEnum(topologyTreeButtonString);
         try {
-            if (!topologyTreeButton.getTreeButton().equals("") && topologyTreeButton != null) {
+            assert topologyTreeButton != null;
+            if (!topologyTreeButton.getTreeButton().equals("")) {
                 WebUIUtils.isTriggerPopupSearchEvent4FreeTest = false;
                 if (topologyTreeButton.equals(TopologyTreeButtons.ADD)) {
                     DeviceProperties deviceProperties = new StandardDeviceProperties();
@@ -231,10 +249,10 @@ public class TopologyTreeSteps extends VisionUITestBase {
                     WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                 }
             } else {
-                BaseTestUtils.report("Failed to click on the specified button : " + topologyTreeButton.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Failed to click on the specified button : " + topologyTreeButton, Reporter.FAIL);
             }
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to click on the specified button : " + topologyTreeButton.toString(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified button : " + topologyTreeButton, Reporter.FAIL);
         } finally {
             WebUIUtils.isTriggerPopupSearchEvent4FreeTest = true;
         }
@@ -283,12 +301,11 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     /**
-     * @param elementName
-     * @param topologyTreeTab
-     * @throws Exception
+     * @param elementName Label name
+     * @param topologyTreeTab In tree location
      */
     @Then("^UI Delete TopologyTree Element \"([^\"]*)\" by topologyTree Tab \"([^\"]*)\"$")
-    public void deleteTopologyTreeElement(String elementName, String topologyTreeTab) throws Exception {
+    public void deleteTopologyTreeElement(String elementName, String topologyTreeTab) {
         try {
             TopologyTreeHandler.deleteDevice(elementName, TopologyTreeTabs.getEnum(topologyTreeTab));
         } catch (Exception e) {
@@ -301,7 +318,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
     public void editDevice(int deviceIndex, Map<String, String> properties) {
         String visionServerIP = (String.valueOf(properties.get("visionMgtPort"))).concat(" (").concat(getVisionServerIp()).concat(")");
         SUTDeviceType deviceType = SUTDeviceType.Alteon;
-        HashMap<String, String> deviceProperties = new HashMap<String, String>(properties);
+        HashMap<String, String> deviceProperties = new HashMap<>(properties);
         try {
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
             deviceProperties.put("visionServerIP", visionServerIP);
@@ -317,21 +334,21 @@ public class TopologyTreeSteps extends VisionUITestBase {
 
     @Then("^UI manage All vADC with index (\\d+) from topology tree$")
     public void manageAllVADC(int deviceIndex, Map<String, String> properties) throws Exception {
-        HashMap<String, String> deviceProperties = new HashMap<String, String>(properties);
+        HashMap<String, String> deviceProperties = new HashMap<>(properties);
         String visionServerIP = (String.valueOf(properties.get("visionMgtPort"))).concat(" (").concat(getVisionServerIp()).concat(")");
         DeviceInfo deviceInfo = devicesManager.getDeviceInfo(SUTDeviceType.Alteon, deviceIndex);
         try {
             deviceProperties.put("deviceName", deviceInfo.getDeviceName());
             deviceProperties.put("visionServerIP", visionServerIP);
-            List<String> deviceNames = new ArrayList<String>(Arrays.asList(properties.get("manageDeviceNames").split(",")));
-            List<String> deviceIPs = new ArrayList<String>(Arrays.asList(properties.get("deviceIPs").split(",")));
+            List<String> deviceNames = new ArrayList<>(Arrays.asList(properties.get("manageDeviceNames").split(",")));
+            List<String> deviceIPs = new ArrayList<>(Arrays.asList(properties.get("deviceIPs").split(",")));
             if (deviceNames.size() == 1) {
 
                 throw new Exception("This test can't work with single device name");
             }
             TopologyTreeHandler.manageAllVADC(deviceProperties, deviceIPs);
             BasicOperationsHandler.delay(15);
-            String existingVadcs = topologyTree.checkVadcDevices(new ArrayList<String>(deviceNames));
+            String existingVadcs = topologyTree.checkVadcDevices(new ArrayList<>(deviceNames));
 
             if (!existingVadcs.equals("")) {
                 BaseTestUtils.report("Failed with the following errors: " + existingVadcs, Reporter.FAIL);
@@ -343,14 +360,14 @@ public class TopologyTreeSteps extends VisionUITestBase {
 
     @Then("^UI manage single vADC with index (\\d+) from topology tree$")
     public void manageVADC(int deviceIndex, Map<String, String> properties) throws Exception {
-        HashMap<String, String> deviceProperties = new HashMap<String, String>(properties);
+        HashMap<String, String> deviceProperties = new HashMap<>(properties);
         String visionServerIP = (String.valueOf(properties.get("visionMgtPort"))).concat(" (").concat(getVisionServerIp()).concat(")");
         DeviceInfo deviceInfo = devicesManager.getDeviceInfo(SUTDeviceType.Alteon, deviceIndex);
         try {
             deviceProperties.put("visionServerIP", visionServerIP);
             TopologyTreeHandler.manageVADC(deviceProperties);
             BasicOperationsHandler.delay(15);
-            String existingVadcs = topologyTree.checkVadcDevices(new ArrayList<String>(Arrays.asList(properties.get("manageDeviceNames"))));
+            String existingVadcs = topologyTree.checkVadcDevices(new ArrayList<>(Arrays.asList(properties.get("manageDeviceNames"))));
             if (!existingVadcs.equals("")) {
                 BaseTestUtils.report("Device: " + getDeviceName() + " was not created correctly. ", Reporter.FAIL);
             }
@@ -376,20 +393,20 @@ public class TopologyTreeSteps extends VisionUITestBase {
 
 
     @Then("^UI Edit AppWall with DeviceType \"([^\"]*)\" with index (\\d+) Mgt port \"([^\"]*)\"$")
-    public void uiEditAppWallWithDeviceTypeWithIndex(SUTDeviceType deviceType, int index, String visionMgtPort) throws Throwable {
+    public void uiEditAppWallWithDeviceTypeWithIndex(SUTDeviceType deviceType, int index, String visionMgtPort) {
         // Write code here that turns the phrase above into concrete actions
         try {
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, index);
             ///////////////////////////// code for jsystem
-            HashMap<String, String> deviceProperties = new HashMap<String, String>(40);
+            HashMap<String, String> deviceProperties = new HashMap<>(40);
             String visionServerIP = (String.valueOf(visionMgtPort)).concat(" (").concat(getVisionServerIp()).concat(")");
             deviceProperties.put("deviceName", deviceInfo.getDeviceName());
             deviceProperties.put("httpUserName", deviceInfo.getUsername());
             deviceProperties.put("httpPassword", deviceInfo.getPassword());
             deviceProperties.put("httpsPort", String.valueOf(deviceInfo.getHttpsPort()));
-            deviceProperties.put("registerVisionServer", String.valueOf("true"));
+            deviceProperties.put("registerVisionServer", "true");
             deviceProperties.put("visionServerIP", visionServerIP);
-            deviceProperties.put("removeTargets", String.valueOf("false"));
+            deviceProperties.put("removeTargets", "false");
 
             TopologyTreeHandler.editAppWall(deviceProperties);
 
@@ -403,8 +420,8 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     @Then("^UI Add (\\d+) multiple \"([^\"]*)\" Devices$")
-    public void uiAddMultipleDevices(int amountOfDevices, SUTDeviceType elementType, Map<String, String> properties) throws Throwable {
-        HashMap<String, String> deviceProperties = new HashMap<String, String>(properties);
+    public void uiAddMultipleDevices(int amountOfDevices, SUTDeviceType elementType, Map<String, String> properties) {
+        HashMap<String, String> deviceProperties = new HashMap<>(properties);
 
         try {
             String managementIP;
@@ -422,7 +439,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
                 if (elementType.equals(SUTDeviceType.Alteon))
                     Device.addNewAlteonDevice(restTestBase.getVisionRestClient(), currentDeviceName, deviceProperties.get("Parent"), deviceProperties, visionMGTPort);
                 else
-                    Device.addNewDefenceProDevice(restTestBase.getVisionRestClient(), String.valueOf(managementIP), deviceProperties.get("Parent"), deviceProperties, visionMGTPort);
+                    Device.addNewDefenceProDevice(restTestBase.getVisionRestClient(), managementIP, deviceProperties.get("Parent"), deviceProperties, visionMGTPort);
             }
 
         } catch (Exception e) {
@@ -433,7 +450,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
 
 
     @Then("^UI delete (\\d+) \"([^\"]*)\" Devices$")
-    public void uiDeleteDevices(int amountOfDevices, String elementName) throws Throwable {
+    public void uiDeleteDevices(int amountOfDevices, String elementName) {
         try {
             for (int i = 1; i <= amountOfDevices; i++) {
                 Device.deleteDeviceByName(restTestBase.getVisionRestClient(), elementName + i);
@@ -445,7 +462,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     @Then("^UI delete (\\d+) \"([^\"]*)\" Sites$")
-    public void uiDeleteSites(int amountOfSites, String elementName) throws Throwable {
+    public void uiDeleteSites(int amountOfSites, String elementName) {
         try {
             for (int i = 1; i <= amountOfSites; i++) {
                 Tree.deleteSiteByName(restTestBase.getVisionRestClient(), elementName + i);
@@ -493,10 +510,9 @@ public class TopologyTreeSteps extends VisionUITestBase {
             visionMgtIp = "50.50.".concat(ipTokens[2]).concat(".").concat(ipTokens[3]);
         }
         String visionServerIP = visionMgtPort.concat(" (").concat(visionMgtIp).concat(")");
-        SUTDeviceType deviceType = SUTDeviceType.Alteon;
 
 
-        HashMap<String, String> deviceProperties = new HashMap<String, String>(properties);
+        HashMap<String, String> deviceProperties = new HashMap<>(properties);
         try {
             deviceProperties.put("visionServerIP", visionServerIP);
             deviceProperties.put("deviceName", deviceName);
@@ -510,10 +526,10 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     @Then("^UI Edit Alteon device with index (\\d+) from topology tree$")
-    public void uiEditAlteonDeviceWithIndexFromTopologyTree(int deviceIndex, Map<String, String> properties) throws Throwable {
+    public void uiEditAlteonDeviceWithIndexFromTopologyTree(int deviceIndex, Map<String, String> properties) {
         String visionServerIP = (String.valueOf(properties.get("visionMgtPort"))).concat(" (").concat(getVisionServerIp()).concat(")");
         SUTDeviceType deviceType = SUTDeviceType.Alteon;
-        HashMap<String, String> deviceProperties = new HashMap<String, String>(properties);
+        HashMap<String, String> deviceProperties = new HashMap<>(properties);
         try {
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
             deviceProperties.put("visionServerIP", visionServerIP);
@@ -528,7 +544,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     @Then("^UI Edit DP device with index (\\d+) from topology tree ?(?: expected status \\\"(.*)\\\")?$")
-    public void uiEditDPDeviceWithIndexFromTopologyTree(int deviceIndex, ImConstants$DeviceStatusEnumPojo expectedStatus, Map<String, String> properties) throws Throwable {
+    public void uiEditDPDeviceWithIndexFromTopologyTree(int deviceIndex, ImConstants$DeviceStatusEnumPojo expectedStatus, Map<String, String> properties) {
         String visionServerIP = (String.valueOf(properties.get("visionMgtPort"))).concat(" (").concat(getVisionServerIp()).concat(")");
         SUTDeviceType deviceType = SUTDeviceType.DefensePro;
         HashMap<String, String> deviceProperties = new HashMap<>(properties);
@@ -555,7 +571,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     @Then("^UI Delete Multiple Devices - By device Names \"(.*)\"$")
-    public void deleteMultipleDevicesByNames(String deletiondeviceNames) throws Exception {
+    public void deleteMultipleDevicesByNames(String deletiondeviceNames) {
         try {
             List<String> deviceNames = Arrays.asList(deletiondeviceNames.split(","));
             for (String currentDevice : deviceNames) {
@@ -571,7 +587,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     @Then("^UI click Tree Element - By device Names \"(.*)\"$")
-    public void clickTreeElement(String deviceName) throws Exception {
+    public void clickTreeElement(String deviceName) {
         try {
             setDeviceName(deviceName);
             TopologyTreeHandler.findTreeElement(getDeviceName());
@@ -581,7 +597,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
     @Then("^UI is Tree Node Exists - By device Names \"(.*)\"( negative)?$")
-    public void isTreeNodeExists(String deviceName, String negative) throws Exception {
+    public void isTreeNodeExists(String deviceName, String negative) {
         try {
             WebElement node = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, WebUIStrings.getDeviceTreeNode(deviceName)).getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
             if (node != null) {
@@ -597,8 +613,8 @@ public class TopologyTreeSteps extends VisionUITestBase {
     /**
      * @param treeTabType    if the device physical
      * @param type           Alteon|DefensePro|AppWall|Linkproof
-     * @param name
-     * @param ip
+     * @param name           Device name
+     * @param ip             Device IP address
      * @param site           where to add the device
      * @param optionalValues registerDeviceEvents: [true|false]
      *                       User Name   : support by defensePro Only
@@ -626,7 +642,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
             }
             String visionServerIP = visionMgtPort.concat(" (").concat(visionMgtIp).concat(")");
 
-            HashMap<String, String> deviceProperties = new HashMap<String, String>();
+            HashMap<String, String> deviceProperties = new HashMap<>();
             deviceProperties.put("snmpReadCommunity", deviceInfo.getReadCommunity());
             deviceProperties.put("snmpWriteCommunity", deviceInfo.getWriteCommunity());
             deviceProperties.put("httpUserNameDefensePro", deviceInfo.getUsername());
@@ -649,9 +665,9 @@ public class TopologyTreeSteps extends VisionUITestBase {
 
     /**
      *
-     * @param by
-     * @param byLabel
-     * @param deviceName
+     * @param by id or class
+     * @param byLabel label name
+     * @param deviceName device name
      * @param tab:
      *           Sites and Clusters:  "SitesAndClusters" or "Sites And Devices" or null or "null"
      *           Physical Containers: "Physical Containers" or "PhysicalContainers"
