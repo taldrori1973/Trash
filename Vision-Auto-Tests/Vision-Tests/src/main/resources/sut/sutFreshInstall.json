@@ -1,0 +1,35 @@
+{
+  "serverName": "israelExa",
+  "setupFile": "fullSetup.json",
+  "snapshot": "Current-1",
+  "setupMode": "fresh install",
+  "environment": "OVA-220",
+  "pair": {
+    "pairIp": "172.17.164.105",
+    "environment": "OVA-220"
+  },
+  "clientConfiguration": {
+    "hostIp": "172.17.164.15",
+    "userName": "radware",
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 443,
+      "defaultProtocol": "https"
+    },
+    "sqlDbConnection": {
+      "defaultPort": 3306,
+      "username": "root",
+      "password": "radware"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
+      "password": "radware"
+    }
+  }
+}
