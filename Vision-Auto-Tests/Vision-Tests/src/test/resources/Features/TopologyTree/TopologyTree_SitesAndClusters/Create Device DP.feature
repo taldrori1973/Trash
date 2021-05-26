@@ -14,8 +14,8 @@ Feature: Create Device DP
 
   @SID_3
   Scenario: verify DP status and lock DP
-    Then UI Lock Device with type "DefensePro" and Index 2 by Tree Tab "Sites And Devices"
-    Then UI verify Device Status with deviceType "defensePro" with index 2 if Expected device Status "Up or Maintenance"
+    Then UI Lock Device "DefensePro_Set_6" by Tree Tab "Sites And Devices"
+    Then UI verify Device Status "DefensePro_Set_6" if Expected device Status "Up or Maintenance"
     Then UI open Topology Tree view "SitesAndClusters" site
 
   @SID_4 @Sanity

@@ -6,6 +6,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.webpages.WebUIBasePage;
 import com.radware.automation.webui.widgets.ComponentLocator;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.VisionUITestBase;
@@ -26,9 +27,9 @@ public class DeviceOperationSteps extends VisionUITestBase {
     public DeviceOperationSteps() throws Exception {
     }
 
-    @When("^UI Lock Device with type \"([^\"]*)\" and Index (\\d+) by Tree Tab \"([^\"]*)\"$")
-    public void lockDevice(SUTDeviceType devicetype, int deviceIndex, String parentTree) throws Exception { ;
-        DeviceInfo deviceInfo = devicesManager.getDeviceInfo(devicetype, deviceIndex);
+    @When("^UI Lock Device \"([^\"]*)\" by Tree Tab \"([^\"]*)\"$")
+    public void lockDevice(String deviceSetId, String parentTree) throws Exception { ;
+        TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
         DeviceOperationsHandler.lockUnlockDevice(deviceInfo.getDeviceName(), parentTree, DeviceState.Lock.getDeviceState(), false);
     }
 
@@ -86,10 +87,10 @@ public class DeviceOperationSteps extends VisionUITestBase {
         }
     }
 
-    @When("^UI verify Device Status( physical)? with deviceType \"(.*)\" with index (\\d+) if Expected device Status \"(.*)\"$")
-    public void verifyDeviceStatusSites(String treeTab, SUTDeviceType elementType, int index, String expectedDeviceStatus) throws Exception {
+    @When("^UI verify Device Status( physical)? \"(.*)\" if Expected device Status \"(.*)\"$")
+    public void verifyDeviceStatusSites(String treeTab, String deviceSetId, String expectedDeviceStatus) throws Exception {
         try {
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(elementType, index);
+            TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
             String deviceStatus = (treeTab != null) ? TopologyTreeHandler.getDeviceStatusPhysical(deviceInfo.getDeviceName()) : TopologyTreeHandler.getDeviceStatusSites(deviceInfo.getDeviceName());
             if (DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus) == DeviceStatusEnum.UP_OR_MAINTENANCE) {
                 if (!((deviceStatus.equals(DeviceStatusEnum.UP.getStatus())) || (deviceStatus.equals(DeviceStatusEnum.MAINTENANCE.getStatus())))) {
