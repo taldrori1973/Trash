@@ -66,7 +66,7 @@ public class FreshInstallOVA extends Deploy {
         String vCenterUser = getSutManager().getEnviorement().get().getUser();
         String vCenterPassword = getSutManager().getEnviorement().get().getPassword();
         String hostIp = getSutManager().getEnviorement().get().getHostIp();
-        String vCenterURL = String.format("https://%s/sdk",hostIp);
+        String vCenterURL = getSutManager().getEnviorement().get().getUrl();
         String networkName = getSutManager().getEnviorement().get().getNetworkName();
         String resourcePool = getSutManager().getEnviorement().get().getResourcePool();
         String dataStores = getSutManager().getEnviorement().get().getDataStores();

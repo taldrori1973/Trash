@@ -213,7 +213,7 @@ public class VMOperationsSteps extends VisionUITestBase {
     public void upgradeOrFreshInstallVision() {
         try {
 //            String setupMode = getVisionSetupAttributeFromSUT("setupMode");
-            String setupMode = "fresh install";
+            String setupMode = getSutManager().getSetupMode();
             if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
 
             switch (setupMode.toLowerCase()) {
@@ -238,17 +238,13 @@ public class VMOperationsSteps extends VisionUITestBase {
                     FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, null);
                     freshInstallKVM.deploy();
                     break;
-                case "fresh install_inparallel":
-                    freshInstallInParallel();
-                    break;
+//                case "fresh install_inparallel":
+//                    freshInstallInParallel();
+//                    break;
                 case "fresh install":
                     FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
                     freshInstallOVA.deploy();
                     break;
-//                case "physical":
-//                    Physical physical = new Physical(true, null);
-//                    physical.deploy();
-//                    break;
                 default: {
                     BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
                 }
