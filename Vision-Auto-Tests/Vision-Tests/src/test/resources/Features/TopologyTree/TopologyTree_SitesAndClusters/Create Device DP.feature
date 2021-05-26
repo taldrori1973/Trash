@@ -1,4 +1,4 @@
-@TopologyTree @TC106076
+@Debug @TopologyTree @TC106076
 Feature: Create Device DP
 
   @SID_1 @Sanity
@@ -10,7 +10,7 @@ Feature: Create Device DP
 
   @SID_2 @Sanity
   Scenario: Add new DefensePro
-    Then UI Add "DefensePro" on SetId "DefensePro_Set_6" under "Default" site
+    Then UI Add "DefensePro_Set_6" under "Default" site
 
   @SID_3
   Scenario: verify DP status and lock DP
