@@ -13,6 +13,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
+import com.radware.vision.setup.SetupImpl;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
@@ -197,5 +198,19 @@ public class Demo extends TestBase {
         }
 
 
+    }
+
+    @Then("^setup Test$")
+    public void setupTest() throws Exception {
+
+        SetupImpl setup=new SetupImpl();
+        setup.addDevice("Alteon_Set_1");
+    }
+
+    @Then("^snapshot Test$")
+    public void snapshot() throws Exception {
+
+        SetupImpl setup=new SetupImpl();
+        setup.restoreSetup();
     }
 }

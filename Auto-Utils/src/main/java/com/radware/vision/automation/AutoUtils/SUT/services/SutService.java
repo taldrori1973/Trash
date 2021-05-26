@@ -108,8 +108,16 @@ public class SutService {
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsPassword(), TreeDeviceManagementDto::setHttpsPassword)
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsUsername(), TreeDeviceManagementDto::setHttpsUsername)
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getManagementIp(), TreeDeviceManagementDto::setManagementIp)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV1ReadCommunity(), TreeDeviceManagementDto::setSnmpV1ReadCommunity)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV1WriteCommunity(), TreeDeviceManagementDto::setSnmpV1WriteCommunity)
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV2ReadCommunity(), TreeDeviceManagementDto::setSnmpV2ReadCommunity)
-                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV2WriteCommunity(), TreeDeviceManagementDto::setSnmpV2WriteCommunity);
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV2WriteCommunity(), TreeDeviceManagementDto::setSnmpV2WriteCommunity)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV3AuthenticationProtocol(), TreeDeviceManagementDto::setSnmpV3AuthenticationProtocol)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV3PrivacyProtocol(), TreeDeviceManagementDto::setSnmpV3PrivacyProtocol)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpVersion(), TreeDeviceManagementDto::setSnmpVersion)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVerifyHttpCredentials(), TreeDeviceManagementDto::setVerifyHttpCredentials)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVerifyHttpsCredentials(), TreeDeviceManagementDto::setVerifyHttpsCredentials)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVisionMgtPort(), TreeDeviceManagementDto::setVisionMgtPort);
 
         treeDeviceManagementDtos = modelMapper.map(setupDevices, listType);
 

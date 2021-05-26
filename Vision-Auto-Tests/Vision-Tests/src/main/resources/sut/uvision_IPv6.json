@@ -9,7 +9,7 @@
     "environment": "KVM-217"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.164.113",
+    "hostIp": "ipv6.uVision.automation",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
