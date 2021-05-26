@@ -33,16 +33,16 @@ Feature: IPv6 Manage Alteon
     Then UI Add new Site "Alteons-IPv6" under Parent "Default"
   @SID_4
   Scenario: Add new Alteon to site
-    Then UI Add "Alteon" with index 40 on "Alteons-IPv6" site
+    Then UI Add "Alteon_IPv6_Set_1" under "Alteons-IPv6" site
   @SID_5
   Scenario: Lock and verify Alteon status
     Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 40 with timeout 600
-    Then UI verify Device Status with deviceType "Alteon" with index 40 if Expected device Status "Up or Maintenance"
-    Then UI Lock Device with type "Alteon" and Index 40 by Tree Tab "Sites And Devices"
+    Then UI verify Device Status "Alteon_IPv6_Set_1" if Expected device Status "Up or Maintenance"
+    Then UI Lock Device "Alteon_IPv6_Set_1" under "Sites And Devices"
   @SID_6
   Scenario: Delete Alteon devices from tree
     Then UI open Topology Tree view "SitesAndClusters" site
-    Then UI Delete "Alteon" device with index 40 from topology tree
+    Then UI Delete "Alteon_IPv6_Set_1" from topology tree
   @SID_7
   Scenario: Delete Alteon site
     Then UI Delete TopologyTree Element "Alteons-IPv6" by topologyTree Tab "SitesAndClusters"

@@ -27,7 +27,7 @@ public class DeviceOperationSteps extends VisionUITestBase {
     public DeviceOperationSteps() throws Exception {
     }
 
-    @When("^UI Lock Device \"([^\"]*)\" by Tree Tab \"([^\"]*)\"$")
+    @When("^UI Lock Device \"([^\"]*)\" under \"([^\"]*)\"$")
     public void lockDevice(String deviceSetId, String parentTree) throws Exception { ;
         TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
         DeviceOperationsHandler.lockUnlockDevice(deviceInfo.getDeviceName(), parentTree, DeviceState.Lock.getDeviceState(), false);

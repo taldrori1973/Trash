@@ -11,7 +11,7 @@ Feature: Edit Register and Remove all targets Physically Functionality
 
   @SID_2
   Scenario: Edit Register and Remove all targets
-    Then UI Add physical "Alteon" with index 6 on "Default (Physical)" site
+    Then UI Add physical "Alteon_Set_4" under "Default (Physical)" site
     Then UI Edit Alteon VX device with index 6 from topology tree
       | sshUserName                  | ""         |
       | sshPassword                  | ""         |
@@ -35,8 +35,8 @@ Feature: Edit Register and Remove all targets Physically Functionality
       | removeTargets                | false      |
       | visionMgtPort                | G1         |
 
-    Then UI Lock Device with type "Alteon" and Index 6 by Tree Tab "Physical Containers"
-    Then UI verify Device Status physical with deviceType "Alteon" with index 6 if Expected device Status "Up or Maintenance"
+    Then UI Lock Device "Alteon_Set_4" under "Physical Containers"
+    Then UI verify Device Status physical "Alteon_Set_4" if Expected device Status "Up or Maintenance"
 #    Then UI Delete physical "Alteon" device with index 6 from topology tree
 
     Then UI Logout

@@ -44,9 +44,9 @@ Feature: Manage vADC device Physical Functionality
       | deviceIPs                    | 172.16.160.2 |
 
     Then UI open Topology Tree view "SitesAndClusters" site
-    Then UI Lock Device with type "Alteon" and Index 7 by Tree Tab "Sites And Devices"
+    Then UI Lock Device "Alteon_Set_5" under "Sites And Devices"
     Then UI Timeout in seconds "30"
-    Then UI verify Device Status with deviceType "Alteon" with index 7 if Expected device Status "Up or Maintenance"
+    Then UI verify Device Status "Alteon_Set_5" if Expected device Status "Up or Maintenance"
 
   @SID_4
   Scenario: Delete vADC from organization tree

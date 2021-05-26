@@ -11,14 +11,14 @@ Feature: Add Edit Delete Device DP
 
   @SID_2
   Scenario: Add Device DP with wrong credentials
-    Then UI Add "DefensePro" with index 1 on "Default" site with params expected status "FAILED"
+    Then UI Add "DefensePro_Set_3" under "Default" site expected status "FAILED"
       | snmpReadCommunity    | somethingDoesNotExist |
       | snmpWriteCommunity   | somethingDoesNotExist |
       | registerVisionServer | false                 |
 
   @SID_3
   Scenario: Edit Device DP connection parameters
-    Then UI Edit DP device with index 1 from topology tree expected status "OK"
+    Then UI Edit DP device with index 12 from topology tree expected status "OK"
       | sshPort                      | 22         |
       | snmpV3Username               | ""         |
       | useSnmpV3Authentication      | false      |
@@ -39,7 +39,7 @@ Feature: Add Edit Delete Device DP
     # | removeTargets                | false      |
     # | visionMgtPort                | G1         |
 
-    Then UI verify Device Status with deviceType "DefensePro" with index 1 if Expected device Status "Up or Maintenance"
+    Then UI verify Device Status "DefensePro_Set_3" if Expected device Status "Up or Maintenance"
 
   @SID_4
   Scenario: Delete DP device from tree

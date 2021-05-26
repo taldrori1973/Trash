@@ -12,7 +12,7 @@ Feature: Manage all vADC devices Physical Functionality
 
   @SID_2
   Scenario: Add Alteon VX
-    Then UI Add physical "Alteon" with index 6 on "Default (Physical)" site
+    Then UI Add physical "Alteon_Set_4" under "Default (Physical)" site
     Then UI open Topology Tree view "SitesAndClusters" site
     Then UI open Topology Tree view "PhysicalContainers" site
     Then UI Wait For Device To Show Up In The Topology Tree physical "Alteon" device with index 6 with timeout 180
@@ -46,8 +46,8 @@ Feature: Manage all vADC devices Physical Functionality
 
     Then UI open Topology Tree view "SitesAndClusters" site
     Then UI open Topology Tree view "PhysicalContainers" site
-    Then UI Lock Device with type "Alteon" and Index 6 by Tree Tab "Physical Containers"
-    Then UI verify Device Status physical with deviceType "Alteon" with index 6 if Expected device Status "Up or Maintenance"
+    Then UI Lock Device "Alteon_Set_4" under "Physical Containers"
+    Then UI verify Device Status physical "Alteon_Set_4" if Expected device Status "Up or Maintenance"
 #    Then UI verify Device Status with deviceType "Alteon" with index 7 if Expected device Status "Up or Maintenance"
 
   @SID_4

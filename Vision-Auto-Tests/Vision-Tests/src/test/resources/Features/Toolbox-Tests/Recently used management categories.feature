@@ -146,7 +146,7 @@ Feature: Toolbox tests Look and Feel
     Then UI Go To Vision
     Then UI Verify Task Existence with taskName "OTBTest"
     Then UI Timeout in seconds "60"
-    Then UI Lock Device with type "Alteon" and Index 3 by Tree Tab "Sites And Devices"
+    Then UI Lock Device "Alteon_Set_3" under "Sites And Devices"
     Then UI Verify User Existence with userId 11 "Alteon" device with index 3
     Then UI Delete task with name "OTBTest"
 

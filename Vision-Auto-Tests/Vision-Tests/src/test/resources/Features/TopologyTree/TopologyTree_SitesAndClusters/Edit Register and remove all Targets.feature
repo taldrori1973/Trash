@@ -10,7 +10,7 @@ Feature: Edit Register and remove all Targets.
 
   @SID_2
   Scenario: Add Alteon to tree
-    Then UI Add "Alteon" with index 2 on "Default" site
+    Then UI Add "Alteon_Set_5" under "Default" site
   @SID_3
   Scenario: Edit Register and remove all Targets
     Then UI Edit Alteon device with index 2 from topology tree
@@ -38,8 +38,8 @@ Feature: Edit Register and remove all Targets.
 
   @SID_4
   Scenario: Lock and verify device status
-    Then UI Lock Device with type "Alteon" and Index 2 by Tree Tab "Sites And Devices"
-    Then UI verify Device Status with deviceType "Alteon" with index 2 if Expected device Status "Up or Maintenance"
+    Then UI Lock Device "Alteon_Set_5" under "Sites And Devices"
+    Then UI verify Device Status "Alteon_Set_5" if Expected device Status "Up or Maintenance"
 
   @SID_5
   Scenario: Delete device from tree
