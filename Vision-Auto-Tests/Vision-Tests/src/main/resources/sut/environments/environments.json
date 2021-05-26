@@ -20,7 +20,9 @@
       "gateWay": "172.17.1.1",
       "physicalManagement": "G1",
       "resourcePool": "RP1",
-      "url": "https://10.205.172.220/sdk"
+      "url": "https://10.205.172.220/sdk",
+      "networkName": "Management 172.17",
+      "dataStores": "Automation Main Datastore"
     },
     {
       "name": "KVM-210",
@@ -35,6 +37,16 @@
     {
       "name": "KVM-217",
       "hostIp": "10.205.200.217",
+      "user": "root",
+      "password": "radware",
+      "dnsServerIp": "10.221.1.47",
+      "netMask": "255.255.0.0",
+      "gateWay": "172.17.1.1",
+      "physicalManagement": "G1"
+    },
+    {
+      "name": "KVM-215",
+      "hostIp": "10.205.200.215",
       "user": "root",
       "password": "radware",
       "dnsServerIp": "10.221.1.47",

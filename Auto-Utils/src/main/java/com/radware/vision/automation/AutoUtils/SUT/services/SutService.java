@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 public class SutService {
 
-    private  String serverNameDao;
+    private String serverNameDao;
     private ModelMapper modelMapper;
     private ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
     private DevicesDao devicesDao;

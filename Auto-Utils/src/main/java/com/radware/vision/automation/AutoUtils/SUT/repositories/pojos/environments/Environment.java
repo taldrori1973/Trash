@@ -14,4 +14,6 @@ public class Environment {
     private String physicalManagement;
     private String resourcePool;
     private String url;
+    private String networkName;
+    private String dataStores;
 }

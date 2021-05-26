@@ -80,7 +80,12 @@ public class SutDao {
     public String getSetupMode(){
         return this.sutPojo.getSetupMode();
     }
-
+//    public String getSetupMode() {
+//        return this.sutPojo.getSetupMode();
+//    }
+//    public String getSnapshot() {
+//        return this.sutPojo.getSnapshot();
+//    }
     public ClientConfiguration findClientConfiguration() {
         return this.sutPojo.getClientConfiguration();
     }
