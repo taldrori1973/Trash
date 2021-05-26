@@ -16,7 +16,7 @@ import com.radware.vision.bddtests.vmoperations.Deploy.Physical;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
-import com.radware.vision.vision_project_cli.VisionCli;
+//import com.radware.vision.vision_project_cli.VisionCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
@@ -212,7 +212,8 @@ public class VMOperationsSteps extends VisionUITestBase {
     @Then("^Upgrade or Fresh Install Vision$")
     public void upgradeOrFreshInstallVision() {
         try {
-            String setupMode = getVisionSetupAttributeFromSUT("setupMode");
+//            String setupMode = getVisionSetupAttributeFromSUT("setupMode");
+            String setupMode = getSutManager().getSetupMode();
             if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
 
             switch (setupMode.toLowerCase()) {
@@ -237,16 +238,12 @@ public class VMOperationsSteps extends VisionUITestBase {
                     FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, null);
                     freshInstallKVM.deploy();
                     break;
-                case "fresh install_inparallel":
-                    freshInstallInParallel();
-                    break;
+//                case "fresh install_inparallel":
+//                    freshInstallInParallel();
+//                    break;
                 case "fresh install":
                     FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
                     freshInstallOVA.deploy();
-                    break;
-                case "physical":
-                    Physical physical = new Physical(true, null);
-                    physical.deploy();
                     break;
                 default: {
                     BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
@@ -262,26 +259,26 @@ public class VMOperationsSteps extends VisionUITestBase {
     }
 
     public static String getVisionSetupAttributeFromSUT(String attribute) {
-        VisionCli visionCli = null;
-        try {
-            visionCli = (VisionCli) SystemManagerImpl.getInstance().getSystemObject("visionCli");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (visionCli == null) throw new NullPointerException("Can't find \"visionCli\" at SUT File");
+//        VisionCli visionCli = null;
+//        try {
+//            visionCli = (VisionCli) SystemManagerImpl.getInstance().getSystemObject("visionCli");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        if (visionCli == null) throw new NullPointerException("Can't find \"visionCli\" at SUT File");
 
         switch (attribute) {
             case "setupMode":
-                return visionCli.visionServer.visionSetup.getSetupMode();
+                return getSutManager().getSetupMode();
             case "snapshot":
-                return visionCli.visionServer.visionSetup.getSnapshot();
+                return getSutManager().getSnapshotName();
             case "vmPrefix":
-                return visionCli.visionServer.visionSetup.getVmPrefix();
-            case "FileNamePrefix":
-                return visionCli.visionServer.visionSetup.getFileNamePrefix();
-            case "serverType":
-                return visionCli.visionServer.visionSetup.getServerType();
+                return getSutManager().getServerName();
+//            case "FileNamePrefix":
+//                return visionCli.visionServer.visionSetup.getFileNamePrefix();
+//            case "serverType":
+//                return visionCli.visionServer.visionSetup.getServerType();
         }
         return null;
     }

@@ -13,6 +13,7 @@ public class EnvironmentDto {
     private String gateWay;
     private String physicalManagement;
     private String resourcePool;
+    private String networkName;
+    private String dataStores;
     private String url;
-
 }

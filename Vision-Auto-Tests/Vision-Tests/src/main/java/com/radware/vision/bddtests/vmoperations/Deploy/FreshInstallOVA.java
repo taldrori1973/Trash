@@ -10,6 +10,7 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 
 import java.util.Arrays;
 
+import static com.radware.vision.automation.base.TestBase.getSutManager;
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 
 public class FreshInstallOVA extends Deploy {
@@ -55,20 +56,20 @@ public class FreshInstallOVA extends Deploy {
 
     @Override
     public void deploy() {
-        VisionVMs visionVMs = VisionUITestBase.getRestTestBase().getVisionVMs();
+//        VisionVMs visionVMs = VisionUITestBase.getRestTestBase().getVisionVMs();
         // init firstTimeWizardOva parameters
-        String vmName = getVisionSetupAttributeFromSUT("vmPrefix");
+        String vmName = getSutManager().getServerName();
         if (vmName == null) {
             BaseTestUtils.report("Can't find \"vmPrefix\" at SUT File", Reporter.FAIL);
         }
         boolean isAPM = this.ovaType.isContained("APM");
-        String vCenterUser = visionVMs.getUserName();
-        String vCenterPassword = visionVMs.getPassword();
-        String vCenterURL = visionVMs.getvCenterURL();
-        String hostIp = visionVMs.getvCenterIP();
-        String networkName = visionVMs.getNetworkName();
-        String resourcePool = visionVMs.getResourcePool();
-        String dataStores = visionVMs.getDataStores();
+        String vCenterUser = getSutManager().getEnviorement().get().getUser();
+        String vCenterPassword = getSutManager().getEnviorement().get().getPassword();
+        String hostIp = getSutManager().getEnviorement().get().getHostIp();
+        String vCenterURL = getSutManager().getEnviorement().get().getUrl();
+        String networkName = getSutManager().getEnviorement().get().getNetworkName();
+        String resourcePool = getSutManager().getEnviorement().get().getResourcePool();
+        String dataStores = getSutManager().getEnviorement().get().getDataStores();
         NewVmHandler vmHandler = new NewVmHandler();
         try {
             vmHandler.firstTimeWizardOva(super.getBuildFileInfo().getDownloadUri().toString(), isAPM, vCenterURL, vCenterUser, vCenterPassword, hostIp,

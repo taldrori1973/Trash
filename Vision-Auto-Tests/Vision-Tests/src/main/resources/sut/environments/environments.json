@@ -20,7 +20,9 @@
       "gateWay": "172.17.1.1",
       "physicalManagement": "G1",
       "resourcePool": "RP1",
-      "url": "https://10.205.172.220/sdk"
+      "url": "https://10.205.172.220/sdk",
+      "networkName": "Management 172.17",
+      "dataStores": "Automation Main Datastore"
     },
     {
       "name": "KVM-210",

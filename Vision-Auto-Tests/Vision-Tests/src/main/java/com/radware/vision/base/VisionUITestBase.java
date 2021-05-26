@@ -68,7 +68,7 @@ public abstract class VisionUITestBase extends TestBase {
     private static boolean initOnceDateDebugIds = false;
 
     public VisionUITestBase() throws Exception {
-        uiInit();
+//        uiInit();
         initDataDebugIds();
         WebUIDriver.setListenerScreenshotAfterFind(false);
         WebUIDriver.setListenerScreenshotAfterClick(false);
