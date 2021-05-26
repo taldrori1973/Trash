@@ -9,7 +9,7 @@
     "environment": "OVA-220"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.154.5",
+    "hostIp": "172.17.164.15",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
