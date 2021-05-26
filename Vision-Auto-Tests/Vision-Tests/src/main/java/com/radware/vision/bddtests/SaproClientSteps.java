@@ -1,6 +1,7 @@
 package com.radware.vision.bddtests;
 
 import com.radware.vision.thirdPartyAPIs.SaproCommunication.SaproCommunicationHandler;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class SaproClientSteps {
     private final SaproCommunicationHandler sc = new SaproCommunicationHandler();
 
-    @Then("^Start map \"([^\"]*)\"$")
+    @Given("^Start map \"([^\"]*)\"$")
     public void startMap(String mapName) {
         sc.startMap(mapName);
     }
@@ -19,20 +20,24 @@ public class SaproClientSteps {
         sc.stopMap(mapName);
     }
 
-    @Then("^Start all devices from map \"([^\"]*)\"$")
-    public void startAllDevFromMap(String mapName) {
-        sc.startAllDevFromMap(mapName);
+    @Given("^Start all devices from map \"([^\"]*)\"$")
+    public void startAllDevicesFromMap(String mapName) {
+        sc.startAllDevicesFromMap(mapName);
     }
 
-
-    @Then("^From map \"([^\"]*)\" start device(s)?$")
-    public void fromMapStartMultiDevices(String mapName, String devices, List<String> devsNames) {
-        sc.startDevFromMap(mapName, devsNames);
+    @Then("^Stop all devices from map \"([^\"]*)\"$")
+    public void stopAllDevicesFromMap(String mapName) {
+        sc.stopAllDevicesFromMap(mapName);
     }
 
-    @Then("^From map \"([^\"]*)\" stop device(s)?$")
-    public void fromMapStopMultiDevices(String mapName, String devices, List<String> devsNames) {
-        sc.stopDevFromMap(mapName, devsNames);
+    @Given("^From map \"([^\"]*)\" start device(?:s)?$")
+    public void fromMapStartMultiDevices(String mapName, List<String> devsNames) {
+        sc.startDevicesFromMap(mapName, devsNames);
+    }
+
+    @Then("^From map \"([^\"]*)\" stop device(?:s)?$")
+    public void fromMapStopMultiDevices(String mapName, List<String> devsNames) {
+        sc.stopDevicesFromMap(mapName, devsNames);
     }
 
 }
