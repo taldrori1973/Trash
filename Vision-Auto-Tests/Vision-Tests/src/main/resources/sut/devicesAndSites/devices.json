@@ -633,34 +633,6 @@
             }
           }
         }
-      },
-      {
-        "deviceId": "AppWall_172.17.178.21",
-        "deviceSetId": "AppWall_Set_2",
-        "configurations": {
-          "name": "AppWall_172.17.178.21",
-          "parentOrmID": null,
-          "type": "AppWall",
-          "deviceSetup": {
-            "deviceAccess": {
-              "exclusivelyReceiveDeviceEvents": false,
-              "httpPassword": "radware",
-              "httpsPassword": "radware",
-              "httpsUsername": "admin",
-              "httpUsername": "admin",
-              "managementIp": "172.17.178.21",
-              "registerDeviceEvents": true,
-              "snmpV2ReadCommunity": "public",
-              "snmpV2WriteCommunity": "private",
-              "snmpV3AuthenticationProtocol": "SHA",
-              "snmpV3PrivacyProtocol": "DES",
-              "snmpVersion": "SNMP_V2",
-              "verifyHttpCredentials": true,
-              "verifyHttpsCredentials": true,
-              "visionMgtPort": "G1"
-            }
-          }
-        }
       }
     ]
   },
