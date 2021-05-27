@@ -115,7 +115,7 @@ Feature: VRM Real Time Status Bar Inbound Traffic
   Scenario: Inbound Traffic High Volume
 
     Given CLI kill all simulator attacks on current vision
-    Given CLI simulate 30 attacks of type "rest_traffic_high_volume" on "DefensePro" 10 with loopDelay 15000 and wait 90 seconds
+    Given CLI simulate 30 attacks of type "rest_traffic_high_volume" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 90 seconds
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "1.66 T"
