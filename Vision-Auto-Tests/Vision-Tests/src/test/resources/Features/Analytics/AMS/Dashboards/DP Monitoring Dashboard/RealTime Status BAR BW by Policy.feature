@@ -17,11 +17,11 @@ Feature: VRM Real Time Status Bar BW by Policy
 #    * REST Delete ES index "dp-https-rt-*"
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
-    When CLI simulate 2 attacks of type "rest_traffic" on "DefensePro" 10 with loopDelay 15000
-    When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 20 with loopDelay 15000
-    When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000
-    When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 130 seconds
-    When Sleep "30"
+    Given CLI simulate 2 attacks of type "rest_traffic" on SetId "DefensePro_Set_1" with loopDelay 15000
+    Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_4" with loopDelay 15000
+    Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" with loopDelay 15000
+    Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 130 seconds
+    Then Sleep "30"
 
 
   @SID_2
