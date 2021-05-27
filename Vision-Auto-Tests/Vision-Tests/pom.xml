@@ -14,10 +14,12 @@
 
     <properties>
     </properties>
-
     <repositories>
-
-
+        <repository>
+            <id>simple-agent-pro</id>
+            <name>simple-agent-pro-repo</name>
+            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS/Simplesoft/SimpleAgentPro/v22.5.1</url>
+        </repository>
     </repositories>
 
     <distributionManagement>
@@ -146,13 +148,13 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.sapcnsl.api</groupId>
-            <artifactId>saprocommunication</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/sapirg/Desktop/java/saprocommunication.jar</systemPath>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.sapcnsl.api</groupId>-->
+<!--            <artifactId>saprocommunication</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>C:/Users/sapirg/Desktop/saprocommunication.jar</systemPath>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
