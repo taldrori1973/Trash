@@ -213,4 +213,14 @@ public class Demo extends TestBase {
         SetupImpl setup=new SetupImpl();
         setup.restoreSetup();
     }
+
+
+    @Then("^build setup test$")
+    public void buildSetupTest() throws Exception {
+
+        SetupImpl setup=new SetupImpl();
+        setup.buildSetup();
+    }
+
+
 }
