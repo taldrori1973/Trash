@@ -16,7 +16,7 @@ Feature: ERTFeed Attack validation
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
   @SID_2
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
-    When CLI simulate 1 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 10 and wait 20 seconds
+    When CLI simulate 1 attacks of type "ErtFeed_GeoFeed" on SetId "DefensePro_Set_1" and wait 20 seconds
     Then CLI copy "/home/radware/Scripts/EAAF_attacksTimeSpreadingScript.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     # copy script that keeps the attacks times in relation to system current time
     Then CLI copy "/home/radware/Scripts/EAAF_KeepAttacksTimesUpToDate.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
