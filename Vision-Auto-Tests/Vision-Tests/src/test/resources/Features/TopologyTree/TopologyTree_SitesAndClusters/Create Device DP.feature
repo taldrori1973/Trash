@@ -1,4 +1,4 @@
-@Debug @TopologyTree @TC106076
+@TopologyTree @TC106076
 Feature: Create Device DP
 
   @SID_1 @Sanity

@@ -968,8 +968,9 @@ public class VRMHandler {
             });
             //Save Filter
             if (saveFilter != null) {
-                VisionDebugIdsManager.setLabel("Device Selection.Save Filter");
-                WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("Device Selection.Save Filter").click();
+                String saveBtnLabel = "Device Selection.Save Filter";
+                VisionDebugIdsManager.setLabel(saveBtnLabel);
+                WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
             }
 
         } catch (
