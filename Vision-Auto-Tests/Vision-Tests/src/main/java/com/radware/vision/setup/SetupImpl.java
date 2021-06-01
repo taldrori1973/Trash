@@ -5,6 +5,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
@@ -13,9 +14,11 @@ import com.radware.vision.setup.snapshot.Snapshot;
 import com.radware.vision.setup.snapshot.SnapshotKVM;
 import com.radware.vision.setup.snapshot.SnapshotOVA;
 import models.RestResponse;
+import models.StatusCode;
 import org.json.simple.parser.ParseException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SetupImpl extends TestBase implements Setup {
@@ -39,8 +42,16 @@ public class SetupImpl extends TestBase implements Setup {
             pathParams.put("name", name);
             restAPI.getRestRequestSpecification().setPathParams(pathParams);
             restResponse = restAPI.sendRequest();
+            if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+                BaseTestUtils.report(String.format("Failed to delete device/site: %s", name), Reporter.FAIL);
+            }
             numberOfChildrens--;
         }
+
+        List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
+        visionSetupTreeDevices.forEach(device -> {
+            addDevice(device.getDeviceSetId());
+        });
     }
 
     public void validateSetupIsReady() {
