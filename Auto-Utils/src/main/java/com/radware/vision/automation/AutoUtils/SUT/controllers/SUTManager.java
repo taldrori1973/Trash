@@ -33,6 +33,7 @@ public interface SUTManager {
     String getSiteParent(String siteName);
 
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
+    List<TreeDeviceManagementDto> getVisionSetupTreeDevices();
 
     Optional<EnvironmentDto> getEnviorement();
 

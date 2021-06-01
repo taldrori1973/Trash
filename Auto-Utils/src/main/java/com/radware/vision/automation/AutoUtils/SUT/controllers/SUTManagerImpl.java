@@ -102,4 +102,8 @@ public class SUTManagerImpl implements SUTManager {
     public Optional<EnvironmentDto> getPairEnviorement() {
         return this.sutService.getEnviorement(getpair().getEnvironment());
     }
+
+   public List<TreeDeviceManagementDto> getVisionSetupTreeDevices(){
+        return sutService.getVisionSetupTreeDevices();
+    }
 }
