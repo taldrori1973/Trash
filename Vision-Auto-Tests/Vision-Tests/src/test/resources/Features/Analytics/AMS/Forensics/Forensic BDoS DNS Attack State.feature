@@ -1,5 +1,5 @@
 
-@TC108793
+@Debug @TC108793
 Feature: AMS forensic BDoS and DNS Attack State
 
   @SID_1
@@ -15,8 +15,8 @@ Feature: AMS forensic BDoS and DNS Attack State
 
   @SID_2
   Scenario: generate BDoS attacks with all possible states
-    Given CLI simulate 1 attacks of type "DNS_States" on "DefensePro" 10
-    Given CLI simulate 1 attacks of type "Burst_States" on "DefensePro" 11
+    Given CLI simulate 1 attacks of type "DNS_States" on SetId "DefensePro_Set_2"
+    Given CLI simulate 1 attacks of type "Burst_States" on SetId "DefensePro_Set_2"
 
   
   @SID_3
