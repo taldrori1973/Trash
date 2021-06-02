@@ -119,7 +119,7 @@ public class VMOperationsSteps extends VisionUITestBase {
             if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
             snapshot = getVisionSetupAttributeFromSUT("snapshot");
             if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
-                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
+                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS_NOR_FAIL);
                 return;
             }
             /* Fresh section */
