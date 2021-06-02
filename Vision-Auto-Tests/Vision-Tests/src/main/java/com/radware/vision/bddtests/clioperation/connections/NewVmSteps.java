@@ -23,13 +23,18 @@ public class NewVmSteps extends TestBase {
     @Then("^Stop VM Machine$")
     public void StopMachine(DataTable dataTable) {
         List<Map<String, String>> listOfData = dataTable.asMaps(String.class, String.class);
-        VisionVMs visionVMs = restTestBase.getVisionVMs();
+        String vCenterUser = getSutManager().getEnviorement().get().getUser();
+        String vCenterPassword = getSutManager().getEnviorement().get().getPassword();
+        String hostIp = getSutManager().getEnviorement().get().getHostIp();
+        String vCenterURL = getSutManager().getEnviorement().get().getUrl();
+        String resourcePool = getSutManager().getEnviorement().get().getResourcePool();
+
         for (Map<String, String> data : listOfData) {
             try {
-                DeployOva.stopStartVmMachines(restTestBase.getRadwareServerCli(), visionVMs.getvCenterURL(),
-                        visionVMs.getvCenterIP(), visionVMs.getResourcePool(),
-                        data.getOrDefault("userName", restTestBase.getRootServerCli().getUser()),
-                        data.getOrDefault("password", restTestBase.getRootServerCli().getPassword()), data.get("VmMachinePrefix"), true);
+                DeployOva.stopStartVmMachines(restTestBase.getRadwareServerCli(), vCenterURL,
+                        hostIp, resourcePool,
+                        data.getOrDefault("userName", vCenterUser),
+                        data.getOrDefault("password", vCenterPassword), data.get("VmMachinePrefix"), true);
             } catch (Exception e) {
                 BaseTestUtils.report("Stopping VM with prefix: " + data.get("VmMachinePrefix") + " failed with the following error: \n" +
                         "Message: " + e.getMessage() + "\n" +
