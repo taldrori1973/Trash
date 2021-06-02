@@ -1,5 +1,6 @@
 package com.radware.vision.setup;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
@@ -15,7 +16,7 @@ import com.radware.vision.setup.snapshot.SnapshotKVM;
 import com.radware.vision.setup.snapshot.SnapshotOVA;
 import models.RestResponse;
 import models.StatusCode;
-import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,33 +26,12 @@ public class SetupImpl extends TestBase implements Setup {
 
 //    private static String REQUESTS_FILE_PATH = "/Vision/SystemConfigTree.json";
 
-    public void buildSetup() throws NoSuchFieldException, ParseException {
+    public void buildSetup() throws Exception {
         GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "GET Device Tree");
         RestResponse restResponse = restAPI.sendRequest();
-        DocumentContext jsonContext = JsonPath.parse(restResponse.getBody().getBodyAsString());
-        int numberOfChildrens = restResponse.getBody().getBodyAsJsonNode().get().get("children").size();
-        while (numberOfChildrens > 0) {
-
-            String jsonPath = String.format("$..children[%s].meIdentifier.managedElementClass", numberOfChildrens - 1);
-            String name = jsonContext.read(String.format("$..children[%s].name", numberOfChildrens - 1)).toString();
-            name = name.substring(2, name.length() - 2);
-            String type = jsonContext.read(jsonPath).toString().contains("Device") ? "device" : "site";
-            restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Delete Site/device by Name");
-            Map<String, String> pathParams = new HashMap<>();
-            pathParams.put("type", type);
-            pathParams.put("name", name);
-            restAPI.getRestRequestSpecification().setPathParams(pathParams);
-            restResponse = restAPI.sendRequest();
-            if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
-                BaseTestUtils.report(String.format("Failed to delete device/site: %s", name), Reporter.FAIL);
-            }
-            numberOfChildrens--;
-        }
-
+        deleteDevices(restResponse.getBody().getBodyAsJsonNode().get());
         List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
-        visionSetupTreeDevices.forEach(device -> {
-            addDevice(device.getDeviceSetId());
-        });
+        visionSetupTreeDevices.forEach(device -> addDevice(device.getDeviceSetId()));
     }
 
     public void validateSetupIsReady() {
@@ -68,6 +48,38 @@ public class SetupImpl extends TestBase implements Setup {
             snapshot = getSnapshot(VMType.KVM, snapshotName);
         else snapshot = getSnapshot(VMType.OVA, snapshotName);
         snapshot.revertToSnapshot();
+    }
+
+    /**
+     * recursive function that delete all the tree elements
+     * get tree root
+     *
+     * @param root:tree root
+     */
+    public void deleteDevices(JsonNode root) throws Exception {
+        DocumentContext jsonContext = JsonPath.parse(root.toString());
+        int numberOfChildrens = root.get("children").size();
+        while (numberOfChildrens > 0) {
+            if (root.get("children").get(numberOfChildrens - 1).get("children").size() > 0) {
+                deleteDevices(root.get("children").get(numberOfChildrens - 1));
+            }
+            String jsonPath = String.format("$..children[%s].meIdentifier.managedElementClass", numberOfChildrens - 1);
+            String name = jsonContext.read(String.format("$..children[%s].name", numberOfChildrens - 1), JSONArray.class).get(0).toString();
+            String type = jsonContext.read(jsonPath, JSONArray.class).get(0).toString().contains("Device") ? "device" : "site";
+            GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Delete Site/device by Name");
+            Map<String, String> pathParams = new HashMap<>();
+            pathParams.put("type", type);
+            pathParams.put("name", name);
+            restAPI.getRestRequestSpecification().setPathParams(pathParams);
+            RestResponse restResponse = restAPI.sendRequest();
+            if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+                BaseTestUtils.report(String.format("Failed to delete device/site: %s", name), Reporter.FAIL);
+            } else {
+                Thread.sleep(15 * 1000);
+            }
+
+            numberOfChildrens--;
+        }
     }
 
     public void addDevice(String setId) {

@@ -1,9 +1,7 @@
 package com.radware.vision.setup;
 
-import org.json.simple.parser.ParseException;
-
 public interface Setup {
-    public void buildSetup() throws NoSuchFieldException, ParseException;
+    public void buildSetup() throws Exception;
 
     public void validateSetupIsReady();
 
