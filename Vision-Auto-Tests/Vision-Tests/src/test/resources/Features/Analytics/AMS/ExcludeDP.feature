@@ -70,10 +70,10 @@ Feature: EAAF Attacks Exclusion
   @SID_9
   Scenario:  Validate data after check Exclude Malicious IP Addresses
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses" is "EQUALS" to "false"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 625
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 627
     Then UI Click Button "Exclude Malicious IP Addresses"
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses" is "EQUALS" to "true"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 0
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 1
 
 
   @SID_10
@@ -89,10 +89,10 @@ Feature: EAAF Attacks Exclusion
   @SID_12
   Scenario:  Validate data after check Exclude Malicious IP Addresses and only HTTPS appears
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses" is "EQUALS" to "false"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 627
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 629
     Then UI Click Button "Exclude Malicious IP Addresses"
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses" is "EQUALS" to "true"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 2
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 3
     Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 0
       | columnName      | value       |
       | Attack Category | HTTPS Flood |
