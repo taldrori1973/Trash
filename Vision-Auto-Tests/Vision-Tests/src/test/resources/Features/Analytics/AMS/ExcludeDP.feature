@@ -1,4 +1,4 @@
-@Test12
+@TC121692
 Feature: EAAF Attacks Exclusion
 
   ## clear data
@@ -100,3 +100,10 @@ Feature: EAAF Attacks Exclusion
     Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 1
       | columnName      | value       |
       | Attack Category | HTTPS Flood |
+
+
+
+  @SID_13
+  Scenario: Logout and close browser
+    Given UI logout and close browser
+    Given UI Logout
