@@ -173,7 +173,7 @@ public class TableHandler {
                 table = new ReactGridTable(tableLocator, withReadAllTable);
             else if (tableSelector.equals("default-eventtable"))
                 table = new TrafficLogTable(tableSelector, withReadAllTable);
-            else if (tableSelector.startsWith("tedTopAnalyticsSummary"))
+            else if (tableSelector.startsWith("tedTopAnalyticsSummary") ||tableSelector.contains("table_WanLinkStatus"))
                 table = new BasicTable(tableLocator, withReadAllTable);
         } else {
             if (tableSelector.contains(REACT_GRID)) {

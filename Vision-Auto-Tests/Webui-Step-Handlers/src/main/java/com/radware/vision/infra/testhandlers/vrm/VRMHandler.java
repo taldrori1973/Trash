@@ -758,6 +758,7 @@ public class VRMHandler {
                             case "defenseflow":
                             case "appwall":
                             case "alteon":
+                            case "linkproof":
                                 VisionDebugIdsManager.setLabel("Filter");
                                 TextField textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(VisionDebugIdsManager.getDataDebugId());
                                 BasicOperationsHandler.setTextField("Filter", "");

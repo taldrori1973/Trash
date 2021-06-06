@@ -35,6 +35,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     private static Map<String, LocalDateTime> schedulingDates = new HashMap<>();
     private static Map<String, JSONObject> timeAbsoluteDates = new HashMap<>();
     protected static Map<String, Map<String, String>> templates = new HashMap<>();
+    public static int maxWANLinks = 6;
 
     private String name;
     public static final Map<String, Integer> widgets;
@@ -47,7 +48,9 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         templateWidgets.put("AppWall", 7);
         templateWidgets.put("ERT Active Attackers Feed", 5);
         templateWidgets.put("System and Network", 1);
+//        templateWidgets.put("System, Network And LinkProof", 5);
         templateWidgets.put("Application", 6);
+//        templateWidgets.put("Analytics ADC Application", 6);
         widgets = Collections.unmodifiableMap(templateWidgets);
     }
 
