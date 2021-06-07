@@ -4,7 +4,7 @@ Feature: LinkProof - WAN Link Statistics
   @SID_1
   Scenario: Login and Navigate to System and Network Dashboard page
     Then UI Login with user "radware" and password "radware"
-    Then REST Vision Install License Request "vision-reporting-module-ADC"
+    Then REST Vision Install License Request "vision-reporting-module-ADC"
     When UI Navigate to "System and Network Dashboard" page via homePage
 
   @SID_2
