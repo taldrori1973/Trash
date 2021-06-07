@@ -129,5 +129,6 @@ Feature: WAN Link Status Table
     Then UI validate Vision Table row by keyValue with elementLabel "WAN Link Status Table" findBy columnName "Upload Throughput" findBy cellValue "233.5 Kbps"
     Then UI validate Vision Table row by keyValue with elementLabel "WAN Link Status Table" findBy columnName "Download Throughput" findBy cellValue "3.7 Mbps"
 
+  @SID_14
   Scenario: Logout
     Then UI logout and close browser
