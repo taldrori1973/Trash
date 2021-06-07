@@ -48,13 +48,13 @@ Feature: Current
   @SID_9
   Scenario: Validate the Running
     Then UI Text of "Status Label" with extension "Running" equal to "Running"
-    Then UI Text of "Status Value" with extension "Running" equal to "2"
+    Then UI Text of "Status Value" with extension "Running" equal to "6"
     Then validate webUI CSS value "background-color" of label "Status Color" with params "Running" equals "rgb(19, 211, 177)"
 
   @SID_10
   Scenario: Validate the Down
     Then UI Text of "Status Label" with extension "failed" equal to "Failed"
-    Then UI Text of "Status Value" with extension "failed" equal to "7"
+    Then UI Text of "Status Value" with extension "failed" equal to "3"
     Then validate webUI CSS value "background-color" of label "Status Color" with params "failed" equals "rgb(255, 68, 65)"
 
   @SID_11
@@ -67,8 +67,8 @@ Feature: Current
   Scenario: Validate attributes of Current Status
     Then UI Validate Pie Chart data "linkProofDoughnutChart"
       | label    | backgroundcolor | data |
-      | Running  | #13d3b1         | 2    |
-      | Failed   | #ff4441         | 7    |
+      | Running  | #13d3b1         | 6    |
+      | Failed   | #ff4441         | 3    |
       | Disabled | #d4d4d4         | 0    |
 
   @SID_13
