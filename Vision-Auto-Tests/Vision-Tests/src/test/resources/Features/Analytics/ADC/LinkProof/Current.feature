@@ -1,3 +1,4 @@
+@TC121703
 Feature: Current
 
   @SID_1
@@ -10,8 +11,8 @@ Feature: Current
     #click on linkProof device --- add the linkproof ip
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
-      | LinkProof 172.19.88.5 |
-    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "LinkProof 172.19.88.5"
+      | Simulator-50.50.101.101 |
+    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Simulator-50.50.101.101"
     Then UI Text of "LinkProofTab" equal to "LinkProof"
     Then UI Click Button "LinkProofTab"
 

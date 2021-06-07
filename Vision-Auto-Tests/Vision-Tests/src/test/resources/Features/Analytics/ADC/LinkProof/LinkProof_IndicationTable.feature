@@ -1,4 +1,4 @@
-@Test12
+@TC121704
 Feature: LinkProof Indication in Table
 
   @SID_1

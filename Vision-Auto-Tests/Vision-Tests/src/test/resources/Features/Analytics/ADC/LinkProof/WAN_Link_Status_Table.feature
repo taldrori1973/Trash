@@ -1,5 +1,4 @@
-
-
+@TC121706
 Feature: WAN Link Status Table
 
   @SID_1
@@ -12,8 +11,8 @@ Feature: WAN Link Status Table
     #click on linkProof device --- add the linkproof ip
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
-      | Alteon_50.50.101.22 |
-    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
+      | Simulator-50.50.101.101 |
+    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Simulator-50.50.101.101"
     Then UI Text of "LinkProofTab" equal to "LinkProof"
     Then UI Click Button "LinkProofTab"
     Then UI Text of "WAN Link Status Header" equal to "WAN Link Status"
@@ -30,7 +29,6 @@ Feature: WAN Link Status Table
     Then UI Validate Table "WAN Link Status Table" is Sorted by
       | columnName | order     | compareMethod   |
       | Status     | Ascending | WAN_LINK_STATUS |
-
 
 
   @SID_5

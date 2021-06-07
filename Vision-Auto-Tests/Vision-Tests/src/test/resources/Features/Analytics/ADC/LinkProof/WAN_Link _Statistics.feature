@@ -1,4 +1,4 @@
-
+@TC121705
 Feature: LinkProof - WAN Link Statistics
 
   @SID_1
@@ -10,9 +10,9 @@ Feature: LinkProof - WAN Link Statistics
   Scenario: Go into Link Proof dashboard in second drill
     #click on linkProof device --- add the linkproof ip
     Given UI Click Button "Device Selection"
-    Then UI Select scope from dashboard and Save Filter device type "linkProof"
-      | linkProof |
-    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "linkProof"
+    Then UI Select scope from dashboard and Save Filter device type "Alteon"
+      | Simulator-50.50.101.101|
+    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Simulator-50.50.101.101"
     Then UI Click Button "LinkProofTab"
     Then UI Text of "WAN Link Statistics Header" equal to "WAN Link Statistics"
 
