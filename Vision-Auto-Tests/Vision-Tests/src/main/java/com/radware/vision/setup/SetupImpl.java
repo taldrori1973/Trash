@@ -10,6 +10,7 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
+import com.radware.vision.infra.base.pages.system.generalsettings.monitoring.Monitoring;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.setup.snapshot.Snapshot;
 import com.radware.vision.setup.snapshot.SnapshotKVM;
@@ -34,14 +35,46 @@ public class SetupImpl extends TestBase implements Setup {
         visionSetupTreeDevices.forEach(device -> addDevice(device.getDeviceSetId()));
     }
 
-    public void validateSetupIsReady()throws Exception {
+    public void validateSetupIsReady() throws Exception {
         List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
+        long timeout = 6 * 60 * 1000;
         visionSetupTreeDevices.forEach(device -> validateDeviceInTheTree(device.getManagementIp()));
         visionSetupTreeDevices.forEach(device -> validateDeviceIsUp(device.getManagementIp()));
+        HashMap<String, Boolean> devicesStatus = new HashMap<String, Boolean>();
+        visionSetupTreeDevices.forEach(device -> devicesStatus.put(device.getManagementIp(), false));
+        long startTime = System.currentTimeMillis();
+
+        while (System.currentTimeMillis() - startTime < timeout && !allDevicesIsUp(devicesStatus)) {
+            for (Map.Entry<String, Boolean> deviceStatus : devicesStatus.entrySet()) {
+                if (!deviceStatus.getValue())
+                    deviceStatus.setValue(validateDeviceIsUp(deviceStatus.getKey()));
+            }
+            Thread.sleep(10000L);
+        }
+        for (Map.Entry<String, Boolean> deviceStatus : devicesStatus.entrySet()) {
+            if (!deviceStatus.getValue())
+                BaseTestUtils.report(String.format("Failed The device: %s is not UP", deviceStatus.getValue()), Reporter.FAIL);
+        }
+
+    }
+    public void validateAllDevicesIsUpWithTimeout(Long timeout){
 
     }
 
-    public void validateDeviceIsUp(String ip)  {
+    public boolean allDevicesIsUp(HashMap<String, Boolean> devicesStatus) {
+        for (Map.Entry<String, Boolean> deviceStatus : devicesStatus.entrySet()) {
+            if (!deviceStatus.getValue()) return false;
+        }
+        return true;
+    }
+
+    /**
+     * return true if device status is ok
+     *
+     * @param ip
+     * @return :true if device status is ok
+     */
+    public boolean validateDeviceIsUp(String ip) {
         GenericVisionRestAPI restAPI = null;
         try {
             restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Get Device Data");
@@ -55,10 +88,11 @@ public class SetupImpl extends TestBase implements Setup {
         if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
             BaseTestUtils.report(String.format("Failed to get data to device: %s", ip), Reporter.FAIL);
         } else {
-            DocumentContext jsonContext = JsonPath.parse(restResponse.getBody().getBodyAsJsonNode());
-//            String name = jsonContext.read(String.format("$..children[%s].name", numberOfChildrens - 1), JSONArray.class).get(0).toString();
-            //Todo
+            DocumentContext jsonContext = JsonPath.parse(restResponse.getBody().getBodyAsString());
+            String status = jsonContext.read("$..deviceStatus.status").toString();
+            return status.toLowerCase().contains("ok");
         }
+        return false;
     }
 
     public void validateDeviceInTheTree(String ip) {
@@ -69,7 +103,7 @@ public class SetupImpl extends TestBase implements Setup {
             e.printStackTrace();
         }
         RestResponse restResponse = restAPI.sendRequest();
-        if(!restResponse.getBody().getBodyAsString().contains(ip)){
+        if (!restResponse.getBody().getBodyAsString().contains(ip)) {
             BaseTestUtils.report(String.format("The device: %s does not exist in Vision tree", ip), Reporter.FAIL);
         }
     }
