@@ -137,22 +137,22 @@ Feature: LinkProof - WAN Link Statistics
 
   @SID_8
   Scenario: validate Upload Throughput chart with ALL WAN Links
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "WAN1"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
       | attribute       | value   |
       | backgroundColor | #9B97F4 |
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "WAN1"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
       | attribute   | value   |
       | borderColor | #9B97F4 |
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "WAN1"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
       | attribute | value |
       | fill      | false |
 
   @SID_9
   Scenario: validate Upload Throughput chart with parts of WAN Links
-    Then UI Click Button "CheckBox" with value "WAN1"
+    Then UI Click Button "CheckBox" with value "w1"
     Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
-      | value | min |
-      | 11    | 10  |
+      | value     | min |
+      | 201.5k    | 15  |
 
   @SID_10
   Scenario: validate Upload Throughput chart with NO WAN Links
@@ -163,18 +163,18 @@ Feature: LinkProof - WAN Link Statistics
 
   @SID_11
   Scenario: validate  Upload Throughput chart with 1 WAN Links
-    Then UI Select list of WAN Links in LinkProof "WAN Link 1"
+    Then UI Select list of WAN Links in LinkProof "w2"
     Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
-      | value | min |
-      | 11    | 10  |
+      | value     | min |
+      | 233.5k    | 15  |
 
   @SID_12
   Scenario: validate  Upload Throughput chart with NO WAN Links checked
-    Then UI Select list of WAN Links in LinkProof "WAN Link 1"
-    Then UI Click Button "CheckBox" with value "WAN Link 1"
+    Then UI Select list of WAN Links in LinkProof "Radware1"
+    Then UI Click Button "CheckBox" with value "w2"
     Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
       | value | min |
-      | 11    | 10  |
+      | 6M    | 15  |
 
 
    ################################ Download Throughput #####################################################
@@ -188,22 +188,22 @@ Feature: LinkProof - WAN Link Statistics
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
       | value | min |
-      | 11    | 10  |
+      | 1K    | 15  |
 
   @SID_15
   Scenario: validate Usage Download Throughput chart with ALL WAN Links
     When UI Click Button "usageSwitch"
     Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
-      | value | min |
-      | 11    | 10  |
+      | value  | min |
+      | 30%    | 15  |
 
   @SID_16
   Scenario: validate bps Download Throughput chart with part of WAN Links
-    Then UI Click Button "CheckBox" with value "WAN Link 1"
+    Then UI Click Button "CheckBox" with value "Mansour_1"
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
       | value | min |
-      | 11    | 10  |
+      | 0     | 15  |
 
   @SID_17
   Scenario: validate bps Download Throughput chart with part of WAN Links
@@ -211,7 +211,7 @@ Feature: LinkProof - WAN Link Statistics
     When UI Click Button "usageSwitch"
     Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
       | value | min |
-      | 11    | 10  |
+      | 0%    | 15  |
 
 
        ################################ CEC #####################################################
@@ -230,55 +230,55 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Select list of WAN Links in LinkProof "w1,w2"
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w1"
       | value | min |
-      | 11    | 10  |
+      | 2     | 15  |
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
       | value | min |
-      | 11    | 10  |
+      | 1     | 15  |
 
   @SID_21
   Scenario: validate CEC chart with part of WAN Links
     Then UI Click Button "CheckBox" with value "w1"
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
       | value | min |
-      | 12    | 10  |
+      | 1     | 15  |
 
   @SID_22
   Scenario: validate CEC chart with ALL WAN Links
-    Then UI Select list of WAN Links in LinkProof "w1,w2,w3,w4,w5,w6,w7"
+    Then UI Select list of WAN Links in LinkProof "Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks,Ahlam_WAN"
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "Giora123"
+      | value | min |
+      | 0     | 15  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "mansour_1"
+      | value | min |
+      | 0     | 15  |
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w1"
       | value | min |
-      | 11    | 10  |
+      | 2     | 15  |
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
       | value | min |
-      | 11    | 10  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w3"
+      | 1     | 15  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "Radware1"
       | value | min |
-      | 11    | 10  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w4"
+      | 4     | 15  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "EdiWanLinks"
       | value | min |
-      | 11    | 10  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w5"
-      | value | min |
-      | 11    | 10  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w6"
-      | value | min |
-      | 11    | 10  |
+      | 5     | 15  |
 
   @SID_23
   Scenario: validate CEC chart with part of WAN Links
     Then UI Click Button "CheckBox" with value "w1,w2"
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w3"
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "Giora123"
       | value | min |
-      | 11    | 10  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w4"
+      | 0     | 15  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "mansour_1"
       | value | min |
-      | 11    | 10  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w5"
+      | 0     | 15  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "Radware1"
       | value | min |
-      | 11    | 10  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w6"
+      | 4     | 15  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "EdiWanLinks"
       | value | min |
-      | 11    | 10  |
+      | 5     | 15  |
 
   @SID_24
   Scenario: Logout
