@@ -1,14 +1,14 @@
-
+@TC121727
 Feature: LinkProof RBAC
 
-
+  @SID_1
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
 
 
-  @SID_14
+  @SID_2
   Scenario Outline: Create users and verify
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
@@ -31,7 +31,7 @@ Feature: LinkProof RBAC
       | system_user           | System User                   | [ALL] | Radware1234!@#$ |
 
 
-  @SID_15
+  @SID_3
   Scenario Outline: Scope "All" is required for User Definition
     When Scope Is "<enabled or disabled>" For Role "<Role>"
     Examples:
@@ -53,7 +53,7 @@ Feature: LinkProof RBAC
       | disabled            | System User                   |
 
 
-  @SID_16
+  @SID_4
   Scenario: Edit User Management Settings
     Then UI Navigate to page "System->User Management->Authentication Mode"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
@@ -61,23 +61,19 @@ Feature: LinkProof RBAC
     Then UI Logout
 
 
-  @SID_17
+  @SID_5
   Scenario: Validate DF not appears for adc_admin_certificate
     Given UI Login with user "adc_admin_certificate" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | ANALYTICS ADC                               | yes       |
 
-  @SID_2
-  Scenario: Go into system dashboard and validate device have LinkProof
+  @SID_6
+  Scenario: Go into system dashboard and validate device have LinkProof tab for adc_admin_certificate user
     When UI Navigate to "System and Network Dashboard" page via homePage
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | All |
-
-    Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 3
-      | columnName | value |
-      | LinkProof  | true  |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "LP_simulator_101"
     Then UI Validate Element Existence By Label "LinkProofTab" if Exists "true" with value "LinkProof"
     Then UI Validate the attribute "data-debug-checked" Of Label "LinkProofTab" is "EQUALS" to "false"
@@ -87,23 +83,19 @@ Feature: LinkProof RBAC
     ## add scenario to Add Report
 
 
-  @SID_18
+  @SID_7
   Scenario: Validate DF not appears for adc_admin
     Given UI Login with user "adc_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | ANALYTICS ADC                               | yes       |
 
-  @SID_2
-  Scenario: Go into system dashboard and validate device have LinkProof
+  @SID_8
+  Scenario: Go into system dashboard and validate device have LinkProof tab for adc_admin user
     When UI Navigate to "System and Network Dashboard" page via homePage
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | All |
-
-    Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 3
-      | columnName | value |
-      | LinkProof  | true  |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "LP_simulator_101"
     Then UI Validate Element Existence By Label "LinkProofTab" if Exists "true" with value "LinkProof"
     Then UI Validate the attribute "data-debug-checked" Of Label "LinkProofTab" is "EQUALS" to "false"
@@ -112,23 +104,19 @@ Feature: LinkProof RBAC
 
     ## add scenario to Add Report
 
-  @SID_19
+  @SID_9
   Scenario: Validate DF not appears for adc_operator
     Given UI Login with user "adc_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | ANALYTICS ADC                               | yes       |
 
-  @SID_2
-  Scenario: Go into system dashboard and validate device have LinkProof
+  @SID_10
+  Scenario: Go into system dashboard and validate device have LinkProof tab for adc_operator user
     When UI Navigate to "System and Network Dashboard" page via homePage
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | All |
-
-    Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 3
-      | columnName | value |
-      | LinkProof  | true  |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "LP_simulator_101"
     Then UI Validate Element Existence By Label "LinkProofTab" if Exists "true" with value "LinkProof"
     Then UI Validate the attribute "data-debug-checked" Of Label "LinkProofTab" is "EQUALS" to "false"
@@ -137,7 +125,7 @@ Feature: LinkProof RBAC
     ## add scenario to Add Report
 
 
-  @SID_20
+  @SID_11
   Scenario: Validate DF not appears for certificate_admin
     Given UI Login with user "certificate_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -148,23 +136,19 @@ Feature: LinkProof RBAC
 
 
 
-  @SID_21
+  @SID_12
   Scenario: Validate DF not appears for device_admin
     Given UI Login with user "device_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | ANALYTICS ADC                               | yes       |
 
-  @SID_2
-  Scenario: Go into system dashboard and validate device have LinkProof
+  @SID_13
+  Scenario: Go into system dashboard and validate device have LinkProof tab for device_admin user
     When UI Navigate to "System and Network Dashboard" page via homePage
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | All |
-
-    Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 3
-      | columnName | value |
-      | LinkProof  | true  |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "LP_simulator_101"
     Then UI Validate Element Existence By Label "LinkProofTab" if Exists "true" with value "LinkProof"
     Then UI Validate the attribute "data-debug-checked" Of Label "LinkProofTab" is "EQUALS" to "false"
@@ -173,23 +157,19 @@ Feature: LinkProof RBAC
 
     ## add scenario to Add Report
 
-  @SID_22
+  @SID_14
   Scenario: Validate DF not appears for device_configurator
     Given UI Login with user "device_configurator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | ANALYTICS ADC                               | yes       |
 
-  @SID_2
-  Scenario: Go into system dashboard and validate device have LinkProof
+  @SID_15
+  Scenario: Go into system dashboard and validate device have LinkProof tab for device_configuration user
     When UI Navigate to "System and Network Dashboard" page via homePage
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | All |
-
-    Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 3
-      | columnName | value |
-      | LinkProof  | true  |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "LP_simulator_101"
     Then UI Validate Element Existence By Label "LinkProofTab" if Exists "true" with value "LinkProof"
     Then UI Validate the attribute "data-debug-checked" Of Label "LinkProofTab" is "EQUALS" to "false"
@@ -198,23 +178,19 @@ Feature: LinkProof RBAC
 
     ## add scenario to Add Report
 
-  @SID_23
+  @SID_16
   Scenario: Validate DF not appears for device_operator
     Given UI Login with user "device_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | ANALYTICS ADC                               | yes       |
 
-  @SID_2
-  Scenario: Go into system dashboard and validate device have LinkProof
+  @SID_17
+  Scenario: Go into system dashboard and validate device have LinkProof tab for device_operator user
     When UI Navigate to "System and Network Dashboard" page via homePage
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | All |
-
-    Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 3
-      | columnName | value |
-      | LinkProof  | true  |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "LP_simulator_101"
     Then UI Validate Element Existence By Label "LinkProofTab" if Exists "true" with value "LinkProof"
     Then UI Validate the attribute "data-debug-checked" Of Label "LinkProofTab" is "EQUALS" to "false"
@@ -223,23 +199,19 @@ Feature: LinkProof RBAC
 
     ## add scenario to Add Report
 
-  @SID_24
+  @SID_18
   Scenario: Validate DF not appears for device_viewer
     Given UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | ANALYTICS ADC                               | yes       |
 
-  @SID_2
-  Scenario: Go into system dashboard and validate device have LinkProof
+  @SID_19
+  Scenario: Go into system dashboard and validate device have LinkProof tab for device_viewer user
     When UI Navigate to "System and Network Dashboard" page via homePage
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | All |
-
-    Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 3
-      | columnName | value |
-      | LinkProof  | true  |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "LP_simulator_101"
     Then UI Validate Element Existence By Label "LinkProofTab" if Exists "true" with value "LinkProof"
     Then UI Validate the attribute "data-debug-checked" Of Label "LinkProofTab" is "EQUALS" to "false"
@@ -248,7 +220,7 @@ Feature: LinkProof RBAC
     ## add scenario to Add Report
 
 
-  @SID_25
+  @SID_20
   Scenario: Validate DF not appears for real_server_operator
     Given UI Login with user "real_server_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -257,7 +229,7 @@ Feature: LinkProof RBAC
 
     ## add scenario to Add Report
 
-  @SID_26
+  @SID_21
   Scenario: Validate DF not appears for security_admin
     Given UI Login with user "security_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -266,7 +238,7 @@ Feature: LinkProof RBAC
 
     ## add scenario to Add Report
 
-  @SID_27
+  @SID_22
   Scenario: Validate DF not appears for security_monitor
     Given UI Login with user "security_monitor" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -275,7 +247,7 @@ Feature: LinkProof RBAC
 
     ## add scenario to Add Report
 
-  @SID_28
+  @SID_23
   Scenario: Validate DF not appears for user_admin
     Given UI Login with user "user_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -284,28 +256,28 @@ Feature: LinkProof RBAC
 
     ## add scenario to Add Report
 
-  @SID_29
+  @SID_24
   Scenario: Validate DF not appears for vision_admin
     Given UI Login with user "vision_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | ANALYTICS ADC                               | no       |
+      | ANALYTICS ADC                               | yes       |
 
     ## add scenario to Add Report
 
-  @SID_30
+  @SID_25
   Scenario: Validate DF not appears for vision_reporter
     Given UI Login with user "vision_reporter" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | ANALYTICS ADC                               | no       |
+      | ANALYTICS ADC                               | yes       |
 
     ## add scenario to Add Report
 
 
 
-  @SID_31
-  Scenario: Login And Go to Vision
+  @SID_26
+  Scenario: Login And Go to Vision to change Authentication Mode
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Then UI Navigate to page "System->User Management->Authentication Mode"
@@ -313,7 +285,7 @@ Feature: LinkProof RBAC
     Then UI Click Button "Submit"
 
 
-  @SID_12
+  @SID_27
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains
