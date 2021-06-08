@@ -34,7 +34,44 @@ public class SetupImpl extends TestBase implements Setup {
         visionSetupTreeDevices.forEach(device -> addDevice(device.getDeviceSetId()));
     }
 
-    public void validateSetupIsReady() {
+    public void validateSetupIsReady()throws Exception {
+        List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
+        visionSetupTreeDevices.forEach(device -> validateDeviceInTheTree(device.getManagementIp()));
+        visionSetupTreeDevices.forEach(device -> validateDeviceIsUp(device.getManagementIp()));
+
+    }
+
+    public void validateDeviceIsUp(String ip)  {
+        GenericVisionRestAPI restAPI = null;
+        try {
+            restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Get Device Data");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> pathParams = new HashMap<>();
+        pathParams.put("ip", ip);
+        restAPI.getRestRequestSpecification().setPathParams(pathParams);
+        RestResponse restResponse = restAPI.sendRequest();
+        if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+            BaseTestUtils.report(String.format("Failed to get data to device: %s", ip), Reporter.FAIL);
+        } else {
+            DocumentContext jsonContext = JsonPath.parse(restResponse.getBody().getBodyAsJsonNode());
+//            String name = jsonContext.read(String.format("$..children[%s].name", numberOfChildrens - 1), JSONArray.class).get(0).toString();
+            //Todo
+        }
+    }
+
+    public void validateDeviceInTheTree(String ip) {
+        GenericVisionRestAPI restAPI = null;
+        try {
+            restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "GET Device Tree");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        RestResponse restResponse = restAPI.sendRequest();
+        if(!restResponse.getBody().getBodyAsString().contains(ip)){
+            BaseTestUtils.report(String.format("The device: %s does not exist in Vision tree", ip), Reporter.FAIL);
+        }
     }
 
     public void restoreSetup() throws Exception {
