@@ -10,7 +10,6 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
-import com.radware.vision.infra.base.pages.system.generalsettings.monitoring.Monitoring;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.setup.snapshot.Snapshot;
 import com.radware.vision.setup.snapshot.SnapshotKVM;
@@ -25,8 +24,6 @@ import java.util.Map;
 
 public class SetupImpl extends TestBase implements Setup {
 
-//    private static String REQUESTS_FILE_PATH = "/Vision/SystemConfigTree.json";
-
     public void buildSetup() throws Exception {
         GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "GET Device Tree");
         RestResponse restResponse = restAPI.sendRequest();
@@ -39,7 +36,10 @@ public class SetupImpl extends TestBase implements Setup {
         List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
         long timeout = 6 * 60 * 1000;
         visionSetupTreeDevices.forEach(device -> validateDeviceInTheTree(device.getManagementIp()));
-        visionSetupTreeDevices.forEach(device -> validateDeviceIsUp(device.getManagementIp()));
+        validateAllDevicesIsUpWithTimeout(timeout,visionSetupTreeDevices);
+
+    }
+    public void validateAllDevicesIsUpWithTimeout(Long timeout,List<TreeDeviceManagementDto> visionSetupTreeDevices)throws Exception{
         HashMap<String, Boolean> devicesStatus = new HashMap<String, Boolean>();
         visionSetupTreeDevices.forEach(device -> devicesStatus.put(device.getManagementIp(), false));
         long startTime = System.currentTimeMillis();
@@ -53,11 +53,8 @@ public class SetupImpl extends TestBase implements Setup {
         }
         for (Map.Entry<String, Boolean> deviceStatus : devicesStatus.entrySet()) {
             if (!deviceStatus.getValue())
-                BaseTestUtils.report(String.format("Failed The device: %s is not UP", deviceStatus.getValue()), Reporter.FAIL);
+                BaseTestUtils.report(String.format("Failed The device: %s is not UP", deviceStatus.getKey()), Reporter.FAIL);
         }
-
-    }
-    public void validateAllDevicesIsUpWithTimeout(Long timeout){
 
     }
 
