@@ -22,8 +22,8 @@ Feature: LinkProof - WAN Link Statistics
 
   @SID_3
   Scenario: Validate Scope Instances
-    Then UI Text of "Scope Instances Label" equal to "Select up to 6 WAN Link to view"
-    Then UI Text of "Instances Number" equal to "6/9"
+#    Then UI Text of "Scope Instances Label" equal to "Select up to 6 WAN Link to view"
+#    Then UI Text of "Instances Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -31,7 +31,7 @@ Feature: LinkProof - WAN Link Statistics
       | WAN Link Value | mansour_1                      | true  |
       | WAN Link Value | Prometheus_is_no_team_to_be_in | true  |
       | WAN Link Value | Ahlam_WAN                      | true  |
-      | WAN Link Value | Edi_Call_Lior                  | true  |
+      | WAN Link Value | Maha_Wan                       | true  |
       | WAN Link Value | EdiWanLinks                    | true  |
       | WAN Link Value | Radware1                       | false |
       | WAN Link Value | w1                             | false |
@@ -41,7 +41,7 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "mansour_1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Prometheus_is_no_team_to_be_in"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Ahlam_WAN"
-    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Edi_Call_Lior"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Maha_Wan"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "EdiWanLinks"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Radware1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "w1"
@@ -50,7 +50,7 @@ Feature: LinkProof - WAN Link Statistics
   @SID_4
   Scenario: Validate NO instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof ""
-    Then UI Text of "Instances Number" equal to "0/9"
+#    Then UI Text of "Instances Number" equal to "0/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -58,7 +58,7 @@ Feature: LinkProof - WAN Link Statistics
       | WAN Link Value | mansour_1                      | false |
       | WAN Link Value | Prometheus_is_no_team_to_be_in | false |
       | WAN Link Value | Ahlam_WAN                      | false |
-      | WAN Link Value | Edi_Call_Lior                  | false |
+      | WAN Link Value | Maha_Wan                       | false |
       | WAN Link Value | EdiWanLinks                    | false |
       | WAN Link Value | Radware1                       | false |
       | WAN Link Value | w1                             | false |
@@ -68,7 +68,7 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "mansour_1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Prometheus_is_no_team_to_be_in"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Ahlam_WAN"
-    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Edi_Call_Lior"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Maha_Wan"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "EdiWanLinks"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Radware1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "w1"
@@ -78,7 +78,7 @@ Feature: LinkProof - WAN Link Statistics
   @SID_5
   Scenario: Validate ALL instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof "Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks"
-    Then UI Text of "Instances Number" equal to "6/9"
+#    Then UI Text of "Instances Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -86,7 +86,7 @@ Feature: LinkProof - WAN Link Statistics
       | WAN Link Value | mansour_1                      | true  |
       | WAN Link Value | Prometheus_is_no_team_to_be_in | false |
       | WAN Link Value | Ahlam_WAN                      | false |
-      | WAN Link Value | Edi_Call_Lior                  | false |
+      | WAN Link Value | Maha_Wan                       | false |
       | WAN Link Value | EdiWanLinks                    | true  |
       | WAN Link Value | Radware1                       | true  |
       | WAN Link Value | w1                             | true  |
@@ -96,7 +96,7 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "mansour_1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Prometheus_is_no_team_to_be_in"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Ahlam_WAN"
-    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Edi_Call_Lior"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Maha_Wan"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "EdiWanLinks"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Radware1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "w1"
@@ -106,7 +106,7 @@ Feature: LinkProof - WAN Link Statistics
   @SID_6
   Scenario: Validate more than the max instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof "Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks,Ahlam_WAN"
-    Then UI Text of "Instances Number" equal to "6/9"
+#    Then UI Text of "Instances Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -114,7 +114,7 @@ Feature: LinkProof - WAN Link Statistics
       | WAN Link Value | mansour_1                      | true  |
       | WAN Link Value | Prometheus_is_no_team_to_be_in | false |
       | WAN Link Value | Ahlam_WAN                      | false |
-      | WAN Link Value | Edi_Call_Lior                  | false |
+      | WAN Link Value | Maha_Wan                       | false |
       | WAN Link Value | EdiWanLinks                    | true  |
       | WAN Link Value | Radware1                       | true  |
       | WAN Link Value | w1                             | true  |
@@ -124,7 +124,7 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "mansour_1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Prometheus_is_no_team_to_be_in"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Ahlam_WAN"
-    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Edi_Call_Lior"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Maha_Wan"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "EdiWanLinks"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Radware1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "w1"
@@ -137,20 +137,81 @@ Feature: LinkProof - WAN Link Statistics
 
   @SID_8
   Scenario: validate Upload Throughput chart with ALL WAN Links
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "WAN1"
+    Then UI Select list of WAN Links in LinkProof "w1,w2,Radware1,Ahlam_WAN"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
       | attribute       | value   |
       | backgroundColor | #9B97F4 |
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "WAN1"
-      | attribute   | value   |
-      | borderColor | #9B97F4 |
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "WAN1"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
       | attribute | value |
       | fill      | false |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
+      | value | min |
+      | 11    | 10  |
+
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w2"
+      | attribute       | value   |
+      | backgroundColor | #9B97F4 |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w2"
+      | attribute | value |
+      | fill      | false |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w2"
+      | value | min |
+      | 11    | 10  |
+
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Radware1"
+      | attribute       | value   |
+      | backgroundColor | #9B97F4 |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Radware1"
+      | attribute | value |
+      | fill      | false |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Radware1"
+      | value | min |
+      | 11    | 10  |
+
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Ahlam_WAN"
+      | attribute       | value   |
+      | backgroundColor | #9B97F4 |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Ahlam_WAN"
+      | attribute | value |
+      | fill      | false |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Ahlam_WAN"
+      | value | min |
+      | 11    | 10  |
 
   @SID_9
   Scenario: validate Upload Throughput chart with parts of WAN Links
-    Then UI Click Button "CheckBox" with value "WAN1"
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
+    Then UI Click Button "CheckBox" with value "w1"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Ahlam_WAN"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Radware1"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "w1"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "w2"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w2"
+      | attribute       | value   |
+      | backgroundColor | #9B97F4 |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w2"
+      | attribute | value |
+      | fill      | false |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w2"
+      | value | min |
+      | 11    | 10  |
+
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Radware1"
+      | attribute       | value   |
+      | backgroundColor | #9B97F4 |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Radware1"
+      | attribute | value |
+      | fill      | false |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Radware1"
+      | value | min |
+      | 11    | 10  |
+
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Ahlam_WAN"
+      | attribute       | value   |
+      | backgroundColor | #9B97F4 |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Ahlam_WAN"
+      | attribute | value |
+      | fill      | false |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Ahlam_WAN"
       | value | min |
       | 11    | 10  |
 

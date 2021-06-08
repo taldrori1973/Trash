@@ -79,8 +79,8 @@ Feature: WAN Link Status Table
     Then UI validate Vision Table row by keyValue with elementLabel "WAN Link Status Table" findBy columnName "Download Throughput" findBy cellValue "3.4 Mbps / 3.1 Mbps 12%"
 
   @SID_9
-  Scenario: Validate WAN5 equal to Edi_Call_Lior
-    Then UI Validate Table record values by columns with elementLabel "WAN Link Status Table" findBy columnName "WAN Link ID" findBy cellValue "Edi_Call_Lior"
+  Scenario: Validate WAN5 equal to Maha_Wan
+    Then UI Validate Table record values by columns with elementLabel "WAN Link Status Table" findBy columnName "WAN Link ID" findBy cellValue "Maha_Wan"
       | columnName  | value   |
       | Status      | Running |
       | WAN Link IP | 3.3.3.3 |
