@@ -448,7 +448,7 @@ Feature: Alert browser
     Then Validate That Response Body Contains
       | jsonPath | value |
       | $.status | "ok"  |
-    Then Sleep "120"
+    Then Sleep "240"
     Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "User radware added account cucumber."
       | columnName   | value          |
       | Severity     | Info           |
