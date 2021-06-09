@@ -212,8 +212,7 @@ public class VMOperationsSteps extends VisionUITestBase {
     @Then("^Upgrade or Fresh Install Vision$")
     public void upgradeOrFreshInstallVision() {
         try {
-//            String setupMode = getVisionSetupAttributeFromSUT("setupMode");
-            String setupMode = getSutManager().getSetupMode();
+            String setupMode = getSutManager().getDeployConfigurations().getSetupMode();
             if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
 
             switch (setupMode.toLowerCase()) {
@@ -270,9 +269,9 @@ public class VMOperationsSteps extends VisionUITestBase {
 
         switch (attribute) {
             case "setupMode":
-                return getSutManager().getSetupMode();
+                return getSutManager().getDeployConfigurations().getSetupMode();
             case "snapshot":
-                return getSutManager().getSnapshotName();
+                return getSutManager().getDeployConfigurations().getSnapshot();
             case "vmPrefix":
                 return getSutManager().getServerName();
 //            case "FileNamePrefix":

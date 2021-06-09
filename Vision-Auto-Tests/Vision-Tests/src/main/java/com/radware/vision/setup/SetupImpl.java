@@ -36,11 +36,12 @@ public class SetupImpl extends TestBase implements Setup {
         List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
         long timeout = 6 * 60 * 1000;
         visionSetupTreeDevices.forEach(device -> validateDeviceInTheTree(device.getManagementIp()));
-        validateAllDevicesIsUpWithTimeout(timeout,visionSetupTreeDevices);
+        validateAllDevicesIsUpWithTimeout(timeout, visionSetupTreeDevices);
 
     }
-    public void validateAllDevicesIsUpWithTimeout(Long timeout,List<TreeDeviceManagementDto> visionSetupTreeDevices)throws Exception{
-        HashMap<String, Boolean> devicesStatus = new HashMap<String, Boolean>();
+
+    private void validateAllDevicesIsUpWithTimeout(Long timeout, List<TreeDeviceManagementDto> visionSetupTreeDevices) throws Exception {
+        HashMap<String, Boolean> devicesStatus = new HashMap<>();
         visionSetupTreeDevices.forEach(device -> devicesStatus.put(device.getManagementIp(), false));
         long startTime = System.currentTimeMillis();
 
@@ -58,7 +59,7 @@ public class SetupImpl extends TestBase implements Setup {
 
     }
 
-    public boolean allDevicesIsUp(HashMap<String, Boolean> devicesStatus) {
+    private boolean allDevicesIsUp(HashMap<String, Boolean> devicesStatus) {
         for (Map.Entry<String, Boolean> deviceStatus : devicesStatus.entrySet()) {
             if (!deviceStatus.getValue()) return false;
         }
@@ -68,16 +69,11 @@ public class SetupImpl extends TestBase implements Setup {
     /**
      * return true if device status is ok
      *
-     * @param ip
+     * @param ip : device ip
      * @return :true if device status is ok
      */
-    public boolean validateDeviceIsUp(String ip) {
-        GenericVisionRestAPI restAPI = null;
-        try {
-            restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Get Device Data");
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
+    private boolean validateDeviceIsUp(String ip) throws Exception {
+        GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Get Device Data");
         Map<String, String> pathParams = new HashMap<>();
         pathParams.put("ip", ip);
         restAPI.getRestRequestSpecification().setPathParams(pathParams);
@@ -92,7 +88,8 @@ public class SetupImpl extends TestBase implements Setup {
         return false;
     }
 
-    public void validateDeviceInTheTree(String ip) {
+    private void validateDeviceInTheTree(String ip) {
+
         GenericVisionRestAPI restAPI = null;
         try {
             restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "GET Device Tree");
@@ -106,13 +103,13 @@ public class SetupImpl extends TestBase implements Setup {
     }
 
     public void restoreSetup() throws Exception {
-        String snapshotName = sutManager.getSnapshotName();
+        String snapshotName = sutManager.getDeployConfigurations().getSnapshot();
         Snapshot snapshot;
         if (snapshotName == null || snapshotName.equals("")) {
             BaseTestUtils.report("Could not find snapshotName in the SUT file.", Reporter.PASS);
             return;
         }
-        if (sutManager.getSetupMode().toLowerCase().contains("kvm"))
+        if (sutManager.getDeployConfigurations().getSetupMode().toLowerCase().contains("kvm"))
             snapshot = getSnapshot(VMType.KVM, snapshotName);
         else snapshot = getSnapshot(VMType.OVA, snapshotName);
         snapshot.revertToSnapshot();
@@ -124,7 +121,7 @@ public class SetupImpl extends TestBase implements Setup {
      *
      * @param root:tree root
      */
-    public void deleteDevices(JsonNode root) throws Exception {
+    private void deleteDevices(JsonNode root) throws Exception {
         DocumentContext jsonContext = JsonPath.parse(root.toString());
         int numberOfChildrens = root.get("children").size();
         while (numberOfChildrens > 0) {
@@ -157,7 +154,7 @@ public class SetupImpl extends TestBase implements Setup {
             BaseTestUtils.report(String.format("Failed to add device with setId: %s", setId), Reporter.FAIL);
     }
 
-    public static Snapshot getSnapshot(VMType type, String snapshotName) {
+    private static Snapshot getSnapshot(VMType type, String snapshotName) {
         if (type == VMType.OVA) {
             return new SnapshotOVA();
         } else if (type == VMType.KVM) {

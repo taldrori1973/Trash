@@ -2,7 +2,6 @@ package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.Pair;
 import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
 
 import java.util.List;
@@ -35,12 +34,6 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getVMName();
     }
 
-    public String getSnapshotName() {
-        return this.sutService.getSnapshotName();
-    }
-    public String getSetupMode(){
-        return this.sutService.getSetupMode();
-    }
 
     public PairDto getpair() {
         return this.sutService.getpair();
@@ -59,6 +52,11 @@ public class SUTManagerImpl implements SUTManager {
     @Override
     public CliConfigurationDto getCliConfigurations() {
         return this.sutService.getVisionCliConfigurations();
+    }
+
+    public DeployConfigurationsDto getDeployConfigurations() {
+
+        return this.sutService.getDeployConfigurations();
     }
 
     @Override
@@ -82,7 +80,7 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     public Optional<EnvironmentDto> getEnviorement() {
-        return this.sutService.getEnviorement(getEnvironmentName());
+        return this.sutService.getEnviorement(getDeployConfigurations().getEnvironment());
     }
 
 
@@ -95,15 +93,11 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getAddTreeDeviceRequestBodyAsJson(deviceId);
     }
 
-    public String getEnvironmentName() {
-        return this.sutService.getEnviorementName();
-    }
-
     public Optional<EnvironmentDto> getPairEnviorement() {
         return this.sutService.getEnviorement(getpair().getEnvironment());
     }
 
-   public List<TreeDeviceManagementDto> getVisionSetupTreeDevices(){
+    public List<TreeDeviceManagementDto> getVisionSetupTreeDevices() {
         return sutService.getVisionSetupTreeDevices();
     }
 }

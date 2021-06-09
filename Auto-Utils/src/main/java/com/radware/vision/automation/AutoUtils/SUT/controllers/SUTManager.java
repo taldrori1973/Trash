@@ -2,7 +2,6 @@ package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.Pair;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,19 +10,16 @@ public interface SUTManager {
 
     String getServerName();
 
-    String getSnapshotName();
-
-    String getSetupMode();
-
     PairDto getpair();
 
     String getSetupId();
 
-    String getEnvironmentName();
 
     ClientConfigurationDto getClientConfigurations();
 
     CliConfigurationDto getCliConfigurations();
+
+    DeployConfigurationsDto getDeployConfigurations();
 
     List<String> getVisionSetupTreeSites();
 
@@ -33,6 +29,7 @@ public interface SUTManager {
     String getSiteParent(String siteName);
 
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
+
     List<TreeDeviceManagementDto> getVisionSetupTreeDevices();
 
     Optional<EnvironmentDto> getEnviorement();
