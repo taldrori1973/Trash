@@ -1,5 +1,5 @@
 
-@Debug @TC108793
+@TC108793
 Feature: AMS forensic BDoS and DNS Attack State
 
   @SID_1
