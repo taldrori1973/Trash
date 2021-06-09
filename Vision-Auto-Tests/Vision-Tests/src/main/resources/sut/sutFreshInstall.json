@@ -1,9 +1,11 @@
 {
   "serverName": "israelExa",
   "setupFile": "fullSetup.json",
-  "snapshot": "Current-1",
-  "setupMode": "fresh install",
-  "environment": "OVA-220",
+  "deployConfigurations": {
+    "snapshot": "Current-1",
+    "setupMode": "fresh install",
+    "environment": "OVA-220"
+  },
   "clientConfiguration": {
     "hostIp": "172.17.164.15",
     "userName": "radware",
@@ -28,4 +30,4 @@
       "password": "radware"
     }
   }
-}
+},
