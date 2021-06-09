@@ -132,10 +132,10 @@ public class VMOperationsSteps extends VisionUITestBase {
                 case "kvm_fresh install":
                     deleteKvm();
                     return;
-
-                case "physical":
-                    return;
-                /* Upgrade section */
+//
+//                case "physical":
+//                    return;
+//                /* Upgrade section */
                 case "kvm_upgrade_inparallel":
                     //Kvision
 //                    revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
