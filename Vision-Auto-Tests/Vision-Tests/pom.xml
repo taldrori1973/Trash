@@ -18,7 +18,8 @@
         <repository>
             <id>DEVTOOLS_MAVEN</id>
             <name>DEVTOOLS_MAVEN</name>
-            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN/saprocommunication/saprocommunication</url>
+            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS/Simplesoft/SimpleAgentPro/v22.5.1</url>
+<!--            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN/saprocommunication/saprocommunication</url>-->
         </repository>
     </repositories>
 
