@@ -1,9 +1,6 @@
 package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.CliConfiguration;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.ClientConfiguration;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.Pair;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.*;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
@@ -61,7 +58,6 @@ public class SutDao {
 
     }
 
-
     //    DAO
     public String getSetupFileName() {
         return this.sutPojo.getSetupFile();
@@ -71,31 +67,17 @@ public class SutDao {
         return this.sutPojo.getServerName();
     }
 
-    public String getSnapshotName()
 
-    {
-        return this.sutPojo.getSnapshot();
-    }
-
-    public String getSetupMode(){
-        return this.sutPojo.getSetupMode();
-    }
-//    public String getSetupMode() {
-//        return this.sutPojo.getSetupMode();
-//    }
-//    public String getSnapshot() {
-//        return this.sutPojo.getSnapshot();
-//    }
     public ClientConfiguration findClientConfiguration() {
         return this.sutPojo.getClientConfiguration();
     }
 
-    public CliConfiguration findCliConfiguration() {
-        return this.sutPojo.getCliConfiguration();
+    public DeployConfigurations findDeployConfigurations() {
+        return this.sutPojo.getDeployConfigurations();
     }
 
-    public String getEnvironmentName() {
-        return this.sutPojo.getEnvironment();
+    public CliConfiguration findCliConfiguration() {
+        return this.sutPojo.getCliConfiguration();
     }
 
     public Pair getPair() {

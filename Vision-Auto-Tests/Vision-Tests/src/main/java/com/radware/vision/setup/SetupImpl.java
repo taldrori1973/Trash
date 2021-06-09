@@ -103,13 +103,13 @@ public class SetupImpl extends TestBase implements Setup {
     }
 
     public void restoreSetup() throws Exception {
-        String snapshotName = sutManager.getSnapshotName();
+        String snapshotName = sutManager.getDeployConfigurations().getSnapshot();
         Snapshot snapshot;
         if (snapshotName == null || snapshotName.equals("")) {
             BaseTestUtils.report("Could not find snapshotName in the SUT file.", Reporter.PASS);
             return;
         }
-        if (sutManager.getSetupMode().toLowerCase().contains("kvm"))
+        if (sutManager.getDeployConfigurations().getSetupMode().toLowerCase().contains("kvm"))
             snapshot = getSnapshot(VMType.KVM, snapshotName);
         else snapshot = getSnapshot(VMType.OVA, snapshotName);
         snapshot.revertToSnapshot();

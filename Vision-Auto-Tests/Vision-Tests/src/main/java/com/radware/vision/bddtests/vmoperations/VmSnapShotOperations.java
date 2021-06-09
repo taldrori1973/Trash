@@ -28,9 +28,9 @@ import static com.radware.vision.vision_handlers.NewVmHandler.waitForServerConne
 
 public class VmSnapShotOperations extends VisionUITestBase {
 
-    private String snapshotName = sutManager.getSnapshotName();
-    private final String setupMode = sutManager.getSetupMode();
-    static EnvironmentDto[] environments= new EnvironmentDto[2];
+    private String snapshotName = sutManager.getDeployConfigurations().getSnapshot();
+    private final String setupMode = sutManager.getDeployConfigurations().getSetupMode();
+    static EnvironmentDto[] environments = new EnvironmentDto[2];
     static String[] vmNames = new String[2];
     int DEFAULT_KVM_CLI_TIMEOUT = 3000;
 
@@ -183,7 +183,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
 
     public void revertVMWareSnapshot(int vmNumber, boolean snapshotFromSut) throws Exception {
         try {
-            String snapshot = sutManager.getSnapshotName();
+            String snapshot = sutManager.getDeployConfigurations().getSnapshot();
             if (!snapshotFromSut && (snapshot == null || snapshot.equals(""))) {
                 BaseTestUtils.report("Could not find snapshot in list ", Reporter.FAIL);
                 return;
@@ -192,7 +192,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
                 BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS_NOR_FAIL);
                 return;
             }
-            String vmName = vmNames[vmNumber-1];
+            String vmName = vmNames[vmNumber - 1];
             EsxiInfo esxiInfo = new EsxiInfo(environments[vmNumber - 1].getUrl(), environments[vmNumber - 1].getUser(), environments[vmNumber - 1].getPassword(), environments[vmNumber - 1].getResourcePool());
             BaseTestUtils.report("Reverting to snapshot: " + snapshot, Reporter.PASS_NOR_FAIL);
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);

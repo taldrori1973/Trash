@@ -6,13 +6,12 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.*;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DeviceConfiguration;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.environments.Environment;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.servers.ServerPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.CliConfiguration;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.ClientConfiguration;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.Pair;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.DeployConfigurations;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
@@ -51,24 +50,13 @@ public class SutService {
         return setupDao.getSetupId();
     }
 
-    public String  getVMName() {
+    public String getVMName() {
         return this.sutDao.getServerName();
     }
-    public String getSnapshotName(){
-        return this.sutDao.getSnapshotName();
-    }
 
-    public String getSetupMode(){
-        return this.sutDao.getSetupMode();
-    }
     public PairDto getpair() {
         return modelMapper.map(this.sutDao.getPair(), PairDto.class);
     }
-
-    public String getEnviorementName(){
-        return this.sutDao.getEnvironmentName();
-    }
-
 
     public ClientConfigurationDto getVisionConfigurations() {
         ClientConfiguration clientConfiguration = this.sutDao.findClientConfiguration();
@@ -78,6 +66,11 @@ public class SutService {
     public CliConfigurationDto getVisionCliConfigurations() {
         CliConfiguration cliConfiguration = this.sutDao.findCliConfiguration();
         return modelMapper.map(cliConfiguration, CliConfigurationDto.class);
+    }
+
+    public DeployConfigurationsDto getDeployConfigurations() {
+        DeployConfigurations deployConfigurations = this.sutDao.findDeployConfigurations();
+        return modelMapper.map(deployConfigurations, DeployConfigurationsDto.class);
     }
 
     public List<String> getVisionSetupTreeSites() {
