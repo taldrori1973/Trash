@@ -1,7 +1,7 @@
 @TC121704
 Feature: LinkProof Indication in Table
 
-  
+
   @SID_1
   Scenario: Login and update drivers
 #    Given CLI Reset radware password
@@ -13,7 +13,7 @@ Feature: LinkProof Indication in Table
     Then UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
 
-  
+
   @SID_2
   Scenario: Go into system dashboard and validate device have LinkProof
     When UI Navigate to "System and Network Dashboard" page via homePage
@@ -40,7 +40,7 @@ Feature: LinkProof Indication in Table
 
     Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 1
       | columnName | value |
-      | LinkProof  | false  |
+      | LinkProof  |       |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Validate Element Existence By Label "LinkProofTab" if Exists "false" with value "LinkProof"
 
