@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.radware.vision.vision_handlers.system.VisionServer.waitForVisionServerServicesToStartHA;
+import static com.radware.vision.automation.Deploy.VisionServer.waitForVisionServerServicesToStartHA;
+
 
 public class UpgradeSteps extends TestBase {
 

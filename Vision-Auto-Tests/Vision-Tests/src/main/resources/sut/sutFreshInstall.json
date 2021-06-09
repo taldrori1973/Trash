@@ -4,10 +4,6 @@
   "snapshot": "Current-1",
   "setupMode": "fresh install",
   "environment": "OVA-220",
-  "pair": {
-    "pairIp": "172.17.164.105",
-    "environment": "OVA-220"
-  },
   "clientConfiguration": {
     "hostIp": "172.17.164.15",
     "userName": "radware",
