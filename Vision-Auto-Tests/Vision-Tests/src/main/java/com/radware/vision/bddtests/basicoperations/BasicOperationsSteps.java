@@ -625,9 +625,10 @@ public class BasicOperationsSteps extends BddUITestBase {
             int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks ;
             WebUiTools.check("Expand Scope WAN Links", "", true);
             ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
-            if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase(""))
-                return ;
-
+            if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase("")) {
+               unselectAllWanLinks();
+               return;
+            }
             for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] " ).getBy())) {
                 if (WANLinkNumbers >0) {
                     WANLinkNumbers --;
@@ -638,8 +639,15 @@ public class BasicOperationsSteps extends BddUITestBase {
                     } else WebUiTools.check("WAN Link Value", instanceText, false);
                 }
             }
-            if (expectedWANLinks.size() > 0)
-                throw new Exception("The Instance " + expectedWANLinks + " don't exist in the  ");
+//            if (expectedWANLinks.size() > 0)
+//                throw new Exception("The Instance " + expectedWANLinks + " don't exist in the  ");
+        }
+    }
+
+    private void unselectAllWanLinks() throws Exception {
+        for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] ").getBy())) {
+            String instanceText = instanceElement.getText();
+            WebUiTools.check("WAN Link Value", instanceText, false);
         }
     }
 

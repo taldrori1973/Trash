@@ -1,5 +1,4 @@
 @TC121706
-
 Feature: WAN Link Status Table
 
   @SID_1

@@ -9,7 +9,6 @@ Feature: Current
 
   @SID_2
   Scenario: Go into Link Proof dashboard in second drill
-    #click on linkProof device --- add the linkproof ip
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | LP_simulator_101 |

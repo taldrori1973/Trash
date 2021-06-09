@@ -6,7 +6,7 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     When UI Navigate to "System and Network Dashboard" page via homePage
-
+  
   @SID_2
   Scenario: Go into Link Proof dashboard in second drill
     #click on linkProof device --- add the linkproof ip
@@ -22,8 +22,8 @@ Feature: LinkProof - WAN Link Statistics
 
   @SID_3
   Scenario: Validate Scope Instances
-    Then UI Text of "Scope Instances Label" equal to "Select up to 6 WAN Link to view"
-    Then UI Text of "Instances Number" equal to "6/9"
+#    Then UI Text of "Scope Instances Label" equal to "Select up to 6 WAN Link to view"
+#    Then UI Text of "Instances Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -31,7 +31,7 @@ Feature: LinkProof - WAN Link Statistics
       | WAN Link Value | mansour_1                      | true  |
       | WAN Link Value | Prometheus_is_no_team_to_be_in | true  |
       | WAN Link Value | Ahlam_WAN                      | true  |
-      | WAN Link Value | Edi_Call_Lior                  | true  |
+      | WAN Link Value | Maha_Wan                       | true  |
       | WAN Link Value | EdiWanLinks                    | true  |
       | WAN Link Value | Radware1                       | false |
       | WAN Link Value | w1                             | false |
@@ -41,16 +41,17 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "mansour_1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Prometheus_is_no_team_to_be_in"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Ahlam_WAN"
-    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Edi_Call_Lior"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Maha_Wan"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "EdiWanLinks"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Radware1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "w1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "w2"
 
+
   @SID_4
   Scenario: Validate NO instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof ""
-    Then UI Text of "Instances Number" equal to "0/9"
+#    Then UI Text of "Instances Number" equal to "0/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -58,7 +59,7 @@ Feature: LinkProof - WAN Link Statistics
       | WAN Link Value | mansour_1                      | false |
       | WAN Link Value | Prometheus_is_no_team_to_be_in | false |
       | WAN Link Value | Ahlam_WAN                      | false |
-      | WAN Link Value | Edi_Call_Lior                  | false |
+      | WAN Link Value | Maha_Wan                       | false |
       | WAN Link Value | EdiWanLinks                    | false |
       | WAN Link Value | Radware1                       | false |
       | WAN Link Value | w1                             | false |
@@ -68,7 +69,7 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "mansour_1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Prometheus_is_no_team_to_be_in"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Ahlam_WAN"
-    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Edi_Call_Lior"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Maha_Wan"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "EdiWanLinks"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Radware1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "w1"
@@ -78,7 +79,7 @@ Feature: LinkProof - WAN Link Statistics
   @SID_5
   Scenario: Validate ALL instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof "Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks"
-    Then UI Text of "Instances Number" equal to "6/9"
+#    Then UI Text of "Instances Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -86,7 +87,7 @@ Feature: LinkProof - WAN Link Statistics
       | WAN Link Value | mansour_1                      | true  |
       | WAN Link Value | Prometheus_is_no_team_to_be_in | false |
       | WAN Link Value | Ahlam_WAN                      | false |
-      | WAN Link Value | Edi_Call_Lior                  | false |
+      | WAN Link Value | Maha_Wan                       | false |
       | WAN Link Value | EdiWanLinks                    | true  |
       | WAN Link Value | Radware1                       | true  |
       | WAN Link Value | w1                             | true  |
@@ -96,7 +97,7 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "mansour_1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Prometheus_is_no_team_to_be_in"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Ahlam_WAN"
-    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Edi_Call_Lior"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Maha_Wan"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "EdiWanLinks"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Radware1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "w1"
@@ -106,7 +107,7 @@ Feature: LinkProof - WAN Link Statistics
   @SID_6
   Scenario: Validate more than the max instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof "Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks,Ahlam_WAN"
-    Then UI Text of "Instances Number" equal to "6/9"
+#    Then UI Text of "Instances Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -114,7 +115,7 @@ Feature: LinkProof - WAN Link Statistics
       | WAN Link Value | mansour_1                      | true  |
       | WAN Link Value | Prometheus_is_no_team_to_be_in | false |
       | WAN Link Value | Ahlam_WAN                      | false |
-      | WAN Link Value | Edi_Call_Lior                  | false |
+      | WAN Link Value | Maha_Wan                       | false |
       | WAN Link Value | EdiWanLinks                    | true  |
       | WAN Link Value | Radware1                       | true  |
       | WAN Link Value | w1                             | true  |
@@ -124,7 +125,7 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "mansour_1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Prometheus_is_no_team_to_be_in"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Ahlam_WAN"
-    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Edi_Call_Lior"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "Maha_Wan"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "EdiWanLinks"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Radware1"
     Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "w1"
@@ -135,46 +136,107 @@ Feature: LinkProof - WAN Link Statistics
   Scenario: Upload Throughput chart Header
     Then UI Text of "Upload Throughput Header" equal to "Upload Throughput"
 
+  
   @SID_8
   Scenario: validate Upload Throughput chart with ALL WAN Links
+#    Then UI Select list of WAN Links in LinkProof "w1,w2,Radware1,Ahlam_WAN"
+    Then Sleep "10"
     Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
       | attribute       | value   |
-      | backgroundColor | #9B97F4 |
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
-      | attribute   | value   |
-      | borderColor | #9B97F4 |
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
-      | attribute | value |
-      | fill      | false |
+      | backgroundColor | #807BE0 |
+      | fill            | false   |
+      | borderWidth     | 1       |
+      | lineTension     | 0.1     |
+      | pointHitRadius  | 3       |
+      | pointRadius     | 0       |
+      | pointStyle      | circle  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w2"
+      | attribute       | value   |
+      | backgroundColor | #13D3B1 |
+      | fill            | false   |
+      | borderWidth     | 1       |
+      | lineTension     | 0.1     |
+      | pointHitRadius  | 3       |
+      | pointRadius     | 0       |
+      | pointStyle      | circle  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Radware1"
+      | attribute       | value   |
+      | backgroundColor | #FF8F00 |
+      | fill            | false   |
+      | borderWidth     | 1       |
+      | lineTension     | 0.1     |
+      | pointHitRadius  | 3       |
+      | pointRadius     | 0       |
+      | pointStyle      | circle  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Ahlam_WAN"
+      | attribute       | value   |
+      | backgroundColor | #0184A6 |
+      | fill            | false   |
+      | borderWidth     | 1       |
+      | lineTension     | 0.1     |
+      | pointHitRadius  | 3       |
+      | pointRadius     | 0       |
+      | pointStyle      | circle  |
 
   @SID_9
   Scenario: validate Upload Throughput chart with parts of WAN Links
     Then UI Click Button "CheckBox" with value "w1"
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
-      | value     | min |
-      | 201.5k    | 15  |
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Ahlam_WAN"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "Radware1"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "false" with value "w1"
+    Then UI Validate Element Existence By Label "WAN Link checkbox" if Exists "true" with value "w2"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w2"
+      | attribute       | value   |
+      | backgroundColor | #13D3B1 |
+      | fill            | false   |
+      | borderWidth     | 1       |
+      | lineTension     | 0.1     |
+      | pointHitRadius  | 3       |
+      | pointRadius     | 0       |
+      | pointStyle      | circle  |
+
+
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Radware1"
+      | attribute       | value   |
+      | backgroundColor | #FF8F00 |
+      | fill            | false   |
+      | borderWidth     | 1       |
+      | lineTension     | 0.1     |
+      | pointHitRadius  | 3       |
+      | pointRadius     | 0       |
+      | pointStyle      | circle  |
+
+ 
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Ahlam_WAN"
+      | attribute       | value   |
+      | backgroundColor | #0184A6 |
+      | fill            | false   |
+      | borderWidth     | 1       |
+      | lineTension     | 0.1     |
+      | pointHitRadius  | 3       |
+      | pointRadius     | 0       |
+      | pointStyle      | circle  |
 
   @SID_10
   Scenario: validate Upload Throughput chart with NO WAN Links
     Then UI Select list of WAN Links in LinkProof ""
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
-      | value | min |
-      | 11    | 10  |
 
   @SID_11
   Scenario: validate  Upload Throughput chart with 1 WAN Links
-    Then UI Select list of WAN Links in LinkProof "w2"
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
-      | value     | min |
-      | 233.5k    | 15  |
-
+    Then UI Select list of WAN Links in LinkProof "w1"
+    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
+      | attribute       | value   |
+      | backgroundColor | #807BE0 |
+      | fill            | false   |
+      | borderWidth     | 1       |
+      | lineTension     | 0.1     |
+      | pointHitRadius  | 3       |
+      | pointRadius     | 0       |
+      | pointStyle      | circle  |
   @SID_12
   Scenario: validate  Upload Throughput chart with NO WAN Links checked
-    Then UI Select list of WAN Links in LinkProof "Radware1"
-    Then UI Click Button "CheckBox" with value "w2"
-    Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "Throughput"
-      | value | min |
-      | 6M    | 15  |
+    Then UI Select list of WAN Links in LinkProof "w1"
+    Then UI Click Button "CheckBox" with value "w1"
 
 
    ################################ Download Throughput #####################################################
@@ -188,22 +250,22 @@ Feature: LinkProof - WAN Link Statistics
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
       | value | min |
-      | 1K    | 15  |
+      | 11    | 10  |
 
   @SID_15
   Scenario: validate Usage Download Throughput chart with ALL WAN Links
     When UI Click Button "usageSwitch"
     Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
-      | value  | min |
-      | 30%    | 15  |
+      | value | min |
+      | 11    | 10  |
 
   @SID_16
   Scenario: validate bps Download Throughput chart with part of WAN Links
-    Then UI Click Button "CheckBox" with value "Mansour_1"
+    Then UI Click Button "CheckBox" with value "WAN Link 1"
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
       | value | min |
-      | 0     | 15  |
+      | 11    | 10  |
 
   @SID_17
   Scenario: validate bps Download Throughput chart with part of WAN Links
@@ -211,7 +273,7 @@ Feature: LinkProof - WAN Link Statistics
     When UI Click Button "usageSwitch"
     Then UI Validate Line Chart attributes "Download Throughput" with Label "Throughput"
       | value | min |
-      | 0%    | 15  |
+      | 11    | 10  |
 
 
        ################################ CEC #####################################################
@@ -230,55 +292,55 @@ Feature: LinkProof - WAN Link Statistics
     Then UI Select list of WAN Links in LinkProof "w1,w2"
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w1"
       | value | min |
-      | 2     | 15  |
+      | 11    | 10  |
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
       | value | min |
-      | 1     | 15  |
+      | 11    | 10  |
 
   @SID_21
   Scenario: validate CEC chart with part of WAN Links
     Then UI Click Button "CheckBox" with value "w1"
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
       | value | min |
-      | 1     | 15  |
+      | 12    | 10  |
 
   @SID_22
   Scenario: validate CEC chart with ALL WAN Links
-    Then UI Select list of WAN Links in LinkProof "Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks,Ahlam_WAN"
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "Giora123"
-      | value | min |
-      | 0     | 15  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "mansour_1"
-      | value | min |
-      | 0     | 15  |
+    Then UI Select list of WAN Links in LinkProof "w1,w2,w3,w4,w5,w6,w7"
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w1"
       | value | min |
-      | 2     | 15  |
+      | 11    | 10  |
     Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w2"
       | value | min |
-      | 1     | 15  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "Radware1"
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w3"
       | value | min |
-      | 4     | 15  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "EdiWanLinks"
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w4"
       | value | min |
-      | 5     | 15  |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w5"
+      | value | min |
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w6"
+      | value | min |
+      | 11    | 10  |
 
   @SID_23
   Scenario: validate CEC chart with part of WAN Links
     Then UI Click Button "CheckBox" with value "w1,w2"
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "Giora123"
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w3"
       | value | min |
-      | 0     | 15  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "mansour_1"
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w4"
       | value | min |
-      | 0     | 15  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "Radware1"
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w5"
       | value | min |
-      | 4     | 15  |
-    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "EdiWanLinks"
+      | 11    | 10  |
+    Then UI Validate Line Chart attributes "LinkProofLineChartCEC" with Label "w6"
       | value | min |
-      | 5     | 15  |
+      | 11    | 10  |
 
   @SID_24
   Scenario: Logout
