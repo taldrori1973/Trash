@@ -18,7 +18,9 @@
         <repository>
             <id>DEVTOOLS_MAVEN</id>
             <name>DEVTOOLS_MAVEN</name>
-            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS/Simplesoft/SimpleAgentPro/v22.5.1</url>
+<!--            <url>http://3rdpkgartifactory:8081/artifactory/list/DEVTOOLS</url>-->
+            <url>http://3rdpkgartifactory:8081/artifactory/list/DEVTOOLS_MAVEN</url>
+<!--            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS/Simplesoft/SimpleAgentPro/v22.5.1</url>-->
 <!--            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN/saprocommunication/saprocommunication</url>-->
         </repository>
     </repositories>
@@ -137,11 +139,11 @@
             <artifactId>radwareGeneric</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.radware.vision.automation.openstack</groupId>-->
-        <!--            <artifactId>openstack-tests</artifactId>-->
-        <!--            <version>${VISION_VERSION}-SNAPSHOT</version>-->
-        <!--        </dependency>-->
+<!--                <dependency>-->
+<!--                    <groupId>com.radware.vision.automation.openstack</groupId>-->
+<!--                    <artifactId>openstack-tests</artifactId>-->
+<!--                    <version>${VISION_VERSION}-SNAPSHOT</version>-->
+<!--                </dependency>-->
         <dependency>
 
             <groupId>org.projectlombok</groupId>
@@ -154,7 +156,25 @@
 <!--            <artifactId>saprocommunication</artifactId>-->
 <!--            <version>1.0</version>-->
 <!--            <scope>system</scope>-->
-<!--            <systemPath>C:/Users/sapirg/Desktop/saprocommunication.jar</systemPath>-->
+<!--            <systemPath>C:/Users/sapirg/Desktop/java/saprocommunication.jar</systemPath>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>Simplesoft.SimpleAgentPro</groupId>-->
+<!--            <artifactId>SimpleAgentPro</artifactId>-->
+<!--            <version>v22.5.1</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>jsystemCommon.jsystemCommon</groupId>-->
+<!--            <artifactId>jsystemCommon7.0</artifactId>-->
+<!--            <version>${jsystem.version}</version>-->
+<!--        </dependency>-->
+
+
+
+<!--        <dependency>-->
+<!--            <groupId>saprocommunication.saprocommunication.saprocommunication</groupId>-->
+<!--            <artifactId>saprocommunication</artifactId>-->
+<!--            <version>saprocommunication</version>-->
 <!--        </dependency>-->
     </dependencies>
 
