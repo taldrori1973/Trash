@@ -22,8 +22,8 @@ Feature: LinkProof - WAN Link Statistics
 
   @SID_3
   Scenario: Validate Scope Instances
-#    Then UI Text of "Scope Instances Label" equal to "Select up to 6 WAN Link to view"
-#    Then UI Text of "Instances Number" equal to "6/9"
+    Then UI Text of "Scope WAN Link Label" equal to "Select up to 6 WAN Link to view"
+    Then UI Text of "WAN Link Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -51,7 +51,7 @@ Feature: LinkProof - WAN Link Statistics
   @SID_4
   Scenario: Validate NO instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof ""
-#    Then UI Text of "Instances Number" equal to "0/9"
+    Then UI Text of "WAN Link Number" equal to "0/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -79,7 +79,7 @@ Feature: LinkProof - WAN Link Statistics
   @SID_5
   Scenario: Validate ALL instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof "Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks"
-#    Then UI Text of "Instances Number" equal to "6/9"
+    Then UI Text of "WAN Link Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -107,7 +107,7 @@ Feature: LinkProof - WAN Link Statistics
   @SID_6
   Scenario: Validate more than the max instances selected in Scope Instances
     Then UI Select list of WAN Links in LinkProof "Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks,Ahlam_WAN"
-#    Then UI Text of "Instances Number" equal to "6/9"
+    Then UI Text of "WAN Link Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param                          | value |
@@ -139,7 +139,7 @@ Feature: LinkProof - WAN Link Statistics
   
   @SID_8
   Scenario: validate Upload Throughput chart with ALL WAN Links
-#    Then UI Select list of WAN Links in LinkProof "w1,w2,Radware1,Ahlam_WAN"
+    Then UI Select list of WAN Links in LinkProof "w1,w2,Radware1,Ahlam_WAN"
     Then Sleep "10"
     Then UI Validate Line Chart attributes "LinkProofLineChartUpload" with Label "w1"
       | attribute       | value   |
