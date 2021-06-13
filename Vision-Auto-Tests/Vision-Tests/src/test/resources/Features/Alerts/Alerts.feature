@@ -448,7 +448,7 @@ Feature: Alert browser
     Then Validate That Response Body Contains
       | jsonPath | value |
       | $.status | "ok"  |
-    Then Sleep "240"
+#    Then Sleep "240"
     Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "User radware added account cucumber."
       | columnName   | value          |
       | Severity     | Info           |
@@ -456,17 +456,17 @@ Feature: Alert browser
       | Product Name | Vision         |
       | User Name    | radware        |
 
-#  @SID_30
-#  Scenario: Delete Local User
-#    Given That Current Vision is Logged In
-#    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
-#      | ormID | $[?(@.name=='cucumber')].ormID |
-#    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
-#    And The Request Path Parameters Are
-#      | item | user     |
-#      | id   | ${ormID} |
-#    When Send Request with the Given Specification
-#    Then UI logout and close browser
+  @SID_30
+  Scenario: Delete Local User
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='cucumber')].ormID |
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+    When Send Request with the Given Specification
+    Then UI logout and close browser
 
 
 
