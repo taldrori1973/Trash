@@ -18,8 +18,7 @@
         <repository>
             <id>DEVTOOLS_MAVEN</id>
             <name>DEVTOOLS_MAVEN</name>
-            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS/Simplesoft/SimpleAgentPro/v22.5.1</url>
-<!--            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN/saprocommunication/saprocommunication</url>-->
+            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN</url>
         </repository>
     </repositories>
 
@@ -149,13 +148,11 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.sapcnsl.api</groupId>-->
-<!--            <artifactId>saprocommunication</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>C:/Users/sapirg/Desktop/saprocommunication.jar</systemPath>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>SaproCommunication</groupId>
+            <artifactId>saprocommunication</artifactId>
+            <version>V190</version>
+        </dependency>
     </dependencies>
 
     <build>
