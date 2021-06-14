@@ -38,6 +38,7 @@ public class TemplateHandlers {
         String currentTemplateName = getCurrentTemplateName(reportType);
         addWidgets(new JSONArray(templateJsonObject.has("Widgets") ? templateJsonObject.get("Widgets").toString() : "[ALL]"), currentTemplateName);
         setSummaryTable(templateJsonObject, currentTemplateName);
+        setExcludeMaliciousIPAddresses(templateJsonObject, currentTemplateName);
         getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
     }
@@ -688,6 +689,7 @@ public class TemplateHandlers {
             validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
             validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), widgets, errorMessage);
             validateTemplateSummaryTableDefinition(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), widgets, expectedTemplateTitle, errorMessage);
+            validateTemplateExcludeMaliciousIPAddresses(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), widgets, expectedTemplateTitle, errorMessage);
         } else
             errorMessage.append("There is no equal template on actual templates that equal to " + expectedSingleTemplate);
     }
@@ -713,12 +715,30 @@ public class TemplateHandlers {
         }
     }
 
+    private static void validateTemplateExcludeMaliciousIPAddresses(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, String reportType, Map<String, Integer> widgets, String expectedTemplateTitle, StringBuilder errorMessage) {
+        switch (expectedTemplateTitle) {
+            case "DefensePro Analytics":
+                validateTemplateContainsExcludeMaliciousIPAddresses(singleActualTemplate, expectedSingleTemplate, errorMessage);
+            default:
+                break;
+        }
+    }
+
     private static void validateTemplateContainsSummaryTable(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
         if (expectedSingleTemplate.toMap().containsKey("showTable")) {
             if (!singleActualTemplate.get("summaryTable").toString().equals(expectedSingleTemplate.get("showTable").toString()))
                 errorMessage.append("summaryTable on actual template = " + singleActualTemplate.get("summaryTable").toString() + " and not equal to " + expectedSingleTemplate.get("showTable").toString());
         } else if (!singleActualTemplate.get("summaryTable").toString().equals("false"))
             errorMessage.append("summaryTable on actual template = " + singleActualTemplate.get("summaryTable").toString() + " and not equal to false");
+    }
+
+    private static void validateTemplateContainsExcludeMaliciousIPAddresses(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
+        JSONObject ExcludeMaliciousIPAddresses = (JSONObject) singleActualTemplate.get("uiReflectionParams");
+        if (expectedSingleTemplate.toMap().containsKey("ExcludeMaliciousIPAddresses")) {
+            if (!ExcludeMaliciousIPAddresses.get("isExcludeMaliciousAddresses").toString().equals(expectedSingleTemplate.get("ExcludeMaliciousIPAddresses").toString()))
+                errorMessage.append("isExcludeMaliciousAddresses on actual template = " + ExcludeMaliciousIPAddresses.get("isExcludeMaliciousAddresses").toString() + " and not equal to " + expectedSingleTemplate.get("ExcludeMaliciousIPAddresses").toString());
+        } else if (!ExcludeMaliciousIPAddresses.get("isExcludeMaliciousAddresses").toString().equals("false"))
+            errorMessage.append("isExcludeMaliciousAddresses on actual template = " + ExcludeMaliciousIPAddresses.get("isExcludeMaliciousAddresses").toString() + " and not equal to false");
     }
 
     private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle, StringBuilder errorMessage) throws TargetWebElementNotFoundException {
@@ -879,6 +899,26 @@ public class TemplateHandlers {
             return;
         boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
         switch (templateJsonObject.get("showTable").toString().toLowerCase()) {
+            case "true":
+                if (!isChecked) {
+                    checkbox.click();
+                }
+                break;
+            case "false":
+                if (isChecked) {
+                    checkbox.click();
+                }
+                break;
+        }
+    }
+
+    private static void setExcludeMaliciousIPAddresses(JSONObject templateJsonObject, String templateName) {
+        if (!templateJsonObject.has("ExcludeMaliciousIPAddresses")) return;
+        WebElement checkbox = WebUiTools.getWebElement("Exclude Malicious IP Addresses", templateName);
+        if (checkbox == null)
+            return;
+        boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
+        switch (templateJsonObject.get("ExcludeMaliciousIPAddresses").toString().toLowerCase()) {
             case "true":
                 if (!isChecked) {
                     checkbox.click();
