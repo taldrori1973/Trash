@@ -22,8 +22,8 @@ Feature: Report With Customized Options
     Then UI Generate and Validate Report With Name "New Report with Logo" with Timeout of 300 Seconds
     And UI Click Button "Log Preview" with value "New Report with Logo"
     Then UI Validate Element Existence By Label "Logo Exist" if Exists "true" with value "reportLogoPNG"
-    Then UI Validate Element Existence By Label "Table Exist" if Exists "true"
-    Then UI Validate Number Of Elements Label "Table Exist" With Params "" If Equal to 12
+    Then UI Validate Element Existence By Label "Summary Table" if Exists "true"
+    Then UI Validate Number Of Elements Label "Summary Table" With Params "" If Equal to 12
 
   @SID_4
   Scenario: Validate message with invalid size logo

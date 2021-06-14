@@ -1,7 +1,7 @@
 @TC107643 
 Feature: HTTPS Server Dashboard
 
-  
+
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -11,7 +11,8 @@ Feature: HTTPS Server Dashboard
 #    * REST Delete ES index "dp-https-rt-*"
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
-  
+
+
   @SID_2
   Scenario: Update Policies
     Given REST Login with user "radware" and password "radware"
@@ -20,7 +21,7 @@ Feature: HTTPS Server Dashboard
   
   @SID_3
   Scenario:Login and Navigate to HTTPS Server Dashboard
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist

@@ -75,7 +75,7 @@ Feature: IPv6 Alert Browser SNMP
     Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "iso.3.6.1.4.1.89.35.10.1.3"|tail -5'" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "iso.3.6.1.4.1.89.35.10.1.3 = STRING: "wrong_name"" in any line
     Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "iso.3.6.1.4.1.89.35.10.1.4"|tail -1'" on "GENERIC_LINUX_SERVER" and validate result EQUALS "iso.3.6.1.4.1.89.35.10.1.4 = STRING: "INFO""
     Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "iso.3.6.1.4.1.89.35.10.1.5"|tail -1'" on "GENERIC_LINUX_SERVER" and validate result EQUALS "iso.3.6.1.4.1.89.35.10.1.5 = STRING: "INSITE_GENERAL""
-    Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "Agent Hostname: UDP/IPv6: "|tail -1'" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "[200a::172:17:164:111]"
+    Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "Agent Hostname: UDP/IPv6: "|tail -1'" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "[200a::172:17:164:111]" Retry 120 seconds
     Then CLI Run remote linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log > /tmp/trapfile.txt'" on "GENERIC_LINUX_SERVER"
 
   @SID_9

@@ -52,7 +52,9 @@ public class NewVmSteps extends BddCliTestBase {
         List<Map<String, String>> listOfData = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> data : listOfData) {
             try {
-                DeployOva.deleteVmMachines(vCenterURL, hostIp, resourcePool, userName, password, data.get("VmMachinePrefix"), deleteMinutes);
+                BaseTestUtils.report("removing server: " + data.get("VmMachinePrefix"), Reporter.PASS_NOR_FAIL);
+                DeployOva.deleteVmMachines(vCenterURL, hostIp, resourcePool, userName, password,
+                        data.get("VmMachinePrefix"), deleteMinutes);
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }

@@ -14,10 +14,12 @@
 
     <properties>
     </properties>
-
     <repositories>
-
-
+        <repository>
+            <id>DEVTOOLS_MAVEN</id>
+            <name>DEVTOOLS_MAVEN</name>
+            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN</url>
+        </repository>
     </repositories>
 
     <distributionManagement>
@@ -134,11 +136,11 @@
             <artifactId>radwareGeneric</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.radware.vision.automation.openstack</groupId>-->
-        <!--            <artifactId>openstack-tests</artifactId>-->
-        <!--            <version>${VISION_VERSION}-SNAPSHOT</version>-->
-        <!--        </dependency>-->
+<!--                <dependency>-->
+<!--                    <groupId>com.radware.vision.automation.openstack</groupId>-->
+<!--                    <artifactId>openstack-tests</artifactId>-->
+<!--                    <version>${VISION_VERSION}-SNAPSHOT</version>-->
+<!--                </dependency>-->
         <dependency>
 
             <groupId>org.projectlombok</groupId>
@@ -146,6 +148,11 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>SaproCommunication</groupId>-->
+<!--            <artifactId>saprocommunication</artifactId>-->
+<!--            <version>V190</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

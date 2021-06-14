@@ -67,6 +67,10 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     @Override
     public void create(String name, String negative, Map<String, String> map) throws Exception {
+//        if(negative == null){
+//            try{delete(name);}catch (Exception ignored){}
+//        }
+
         try
         {
             closeView(false);

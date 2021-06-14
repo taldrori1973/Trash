@@ -18,6 +18,7 @@ import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.ReportsForensicsAlertsAbstract;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
@@ -29,6 +30,7 @@ import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
+import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -42,7 +44,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
+import java.util.*;
 
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
@@ -450,7 +452,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 //    public void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String compare, String value, String expectedErrorMessage) {
 //        BasicOperationsHandler.uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(attribute, label, params, compare, value, expectedErrorMessage);
 //    }
-    @Then("^UI Validate the attribute \"([^\"]*)\" Of Label \"([^\"]*)\"(?: With Params \"([^\"]*)\")?(?: with errorMessage \"([^\"]*)\")? is \"(EQUALS|CONTAINS|NOT CONTAINS)\" to \"(.*)\"$")
+    @Then("^UI Validate the attribute \"([^\"]*)\" Of Label \"([^\"]*)\"(?: With Params \"([^\"]*)\")?(?: with errorMessage \"([^\"]*)\")? is \"(EQUALS|CONTAINS|NOT CONTAINS|MatchRegx)\" to \"(.*)\"$")
     public void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String expectedErrorMessage, String compare, String value) {
         BasicOperationsHandler.uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(attribute, label, params, compare, value, expectedErrorMessage);
     }
@@ -608,6 +610,47 @@ public class BasicOperationsSteps extends BddUITestBase {
     public void uiValidateTheAttributesOfAreTo(String attribute  , String compare, List<ParameterSelected> listParamters) {
         uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(listParamters,attribute, compare);
     }
+
+
+    @Then("^UI Select list of WAN Links in LinkProof \"([^\"]*)\"$")
+    public void uiSelectListOfWANLinks(String WANLinks) throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("WAN Links", WANLinks);
+        map = CustomizedJsonManager.fixJson(map);
+        uiSelectWANLinks(map);
+    }
+
+    public static void uiSelectWANLinks(Map<String, String> map) throws Exception {
+        if(map.containsKey("WAN Links")) {
+            int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks ;
+            WebUiTools.check("Expand Scope WAN Links", "", true);
+            ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
+            if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase("")) {
+               unselectAllWanLinks();
+               return;
+            }
+            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] " ).getBy())) {
+                if (WANLinkNumbers >0) {
+                    WANLinkNumbers --;
+                    String instanceText = instanceElement.getText();
+                    if (expectedWANLinks.contains(instanceText)) {
+                        WebUiTools.check("WAN Link Value", instanceText, true);
+                        expectedWANLinks.remove(instanceText);
+                    } else WebUiTools.check("WAN Link Value", instanceText, false);
+                }
+            }
+//            if (expectedWANLinks.size() > 0)
+//                throw new Exception("The Instance " + expectedWANLinks + " don't exist in the  ");
+        }
+    }
+
+    private static void unselectAllWanLinks() throws Exception {
+        for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] ").getBy())) {
+            String instanceText = instanceElement.getText();
+            WebUiTools.check("WAN Link Value", instanceText, false);
+        }
+    }
+
 
     public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare)
     {

@@ -6,6 +6,7 @@ public enum CompareMethod {
     NUMERICAL("NUMERICAL"),
     HEALTH_SCORE("HEALTH_SCORE"),
     SYSTEM_STATUS("SYSTEM_STATUS"),
+    WAN_LINK_STATUS("WAN_LINK_STATUS"),
     IPORVERSIONS("IPORVERSIONS"),
     DATE("DATE");
 
@@ -27,6 +28,7 @@ public enum CompareMethod {
             case "NUMERICAL": return NUMERICAL;
             case "HEALTH_SCORE": return HEALTH_SCORE;
             case "SYSTEM_STATUS": return SYSTEM_STATUS;
+            case  "WAN_LINK_STATUS": return WAN_LINK_STATUS;
             case "IPORVERSIONS": return IPORVERSIONS;
             case "DATE": return DATE;
         }

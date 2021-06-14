@@ -51,15 +51,20 @@ Feature: Attacks Table
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
-    Then UI Validate "Attacks Table" Table rows count GTE to 12
-    Then UI Validate "Attacks Table" Table rows count LTE to 13
+#    Then UI Validate "Attacks Table" Table rows count GTE to 12
+#    Then UI Validate "Attacks Table" Table rows count LTE to 13
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 0
 
+    Then UI Do Operation "Select" item "Device Selection"
+    Then UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies |
+      | 11    |       |          |
     Then UI Validate search in table "Attacks Table" in searchLabel "tableSearch" with text "ACL"
       | columnName  | Value               |
       | Attack Name | Black List          |
       | Attack Name | TCP Mid Flow packet |
     Then UI Validate "Attacks Table" Table rows count GTE to 6
-    Then UI Validate "Attacks Table" Table rows count LTE to 7
+    Then UI Validate "Attacks Table" Table rows count LTE to 8
 
   @SID_6
   Scenario: validate all the data

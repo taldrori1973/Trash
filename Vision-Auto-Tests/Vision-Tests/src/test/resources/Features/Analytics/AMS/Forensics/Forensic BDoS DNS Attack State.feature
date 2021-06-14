@@ -18,6 +18,7 @@ Feature: AMS forensic BDoS and DNS Attack State
     Given CLI simulate 1 attacks of type "DNS_States" on "DefensePro" 10
     Given CLI simulate 1 attacks of type "Burst_States" on "DefensePro" 11
 
+  
   @SID_3
   Scenario: Login and enter forensic tab
     Given UI Login with user "sys_admin" and password "radware"
@@ -147,6 +148,7 @@ Feature: AMS forensic BDoS and DNS Attack State
     Then UI Text of "Forensics.Attack Details.Detail" with extension "State" equal to "Collective Rate Limit"
     When UI Click Button "Forensics.Attack Details.Close"
 
+    
   @SID_24
   Scenario: Clear ES for new attacks
     Given CLI kill all simulator attacks on current vision
