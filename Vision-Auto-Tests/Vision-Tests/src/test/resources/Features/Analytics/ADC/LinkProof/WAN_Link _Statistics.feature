@@ -26,7 +26,7 @@ Feature: LinkProof - WAN Link Statistics
 
   @SID_3
   Scenario: Validate Scope Instances
-    Then UI Text of "Scope WAN Link Label" equal to "Select up to 6 WAN Link to view"
+    Then UI Text of "Scope WAN Link Label" equal to "Select up to 6 WAN Links to view"
     Then UI Text of "WAN Link Number" equal to "6/9"
     Then UI Click Button "Expand Scope WAN Links"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to

@@ -1,4 +1,4 @@
-@run
+
 @TC121703
 Feature: Current
 
