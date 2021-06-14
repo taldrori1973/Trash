@@ -12,10 +12,6 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy Clean system data before test
     When CLI kill all simulator attacks on current vision
     When CLI Clear vision logs
-#    * REST Delete ES index "dp-traffic-*"
-#    * REST Delete ES index "dp-https-stats-*"
-#    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     Given CLI simulate 2 attacks of type "rest_traffic" on SetId "DefensePro_Set_1" with loopDelay 15000
     Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_4" with loopDelay 15000
@@ -28,7 +24,7 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy basic
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
-      | DefensePro_Set_1  | 0      |
+      | 10   | 0      |
   # DE38477 will-never-fix
 #    The Offset is 10% of th expected value
     Then UI Validate Pie Chart data "Bandwidth per Policy"
@@ -49,8 +45,8 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy filter by device
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | setId | ports | policies |
-      | DefensePro_Set_1   |       |          |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       |          |
     And Sleep "5"
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
@@ -73,8 +69,8 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy filter by policy in
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | setId | ports | policies |
-      | DefensePro_Set_1   |       | Policy14 |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | Policy14 |
     And Sleep "3"
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
@@ -87,8 +83,8 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy filter by policy out
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | setId | ports | policies |
-      | DefensePro_Set_1   |       | Policy15 |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | Policy15 |
     And Sleep "3"
 #Then UI Total Pie Chart data "Bandwidth per Policy"
 #| size | offset |
@@ -147,7 +143,7 @@ Feature: VRM Real Time Status Bar BW by Policy
   @SID_8
   Scenario: BW by policy clean and new
     And CLI kill all simulator attacks on current vision
-    Given CLI simulate 14 attacks of type "Maxim31_30" on "DefensePro" 10 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 14 attacks of type "Maxim31_30" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 120 seconds
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Total Pie Chart data "Bandwidth per Policy"
