@@ -23,9 +23,9 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       |          |
+    And UI VRM Select device from dashboard and Save Filter
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       |          |
     And Sleep "2"
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "729.74 M"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "5.58 M"
@@ -46,9 +46,9 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     Given UI Login with user "sec_mon_Policy14" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | Policy14 |
+    And UI VRM Select device from dashboard and Save Filter
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | Policy14 |
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "3.09 M"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "3.12 K"
     Then UI Validate Text field "Inbound Traffic CPS" EQUALS "422.00"
@@ -59,26 +59,26 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    | 1,3,7 |          |
+    And UI VRM Select device from dashboard and Save Filter
+      | setId            | ports | policies |
+      | DefensePro_Set_1 | 1,3,7 |          |
     And Sleep "2"
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
     When UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    | 4     |          |
+    And UI VRM Select device from dashboard and Save Filter
+      | setId            | ports | policies |
+      | DefensePro_Set_1 | 4     |          |
     And Sleep "2"
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
 
     Then UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    | 6     |          |
+    And UI VRM Select device from dashboard and Save Filter
+      | setId            | ports | policies |
+      | DefensePro_Set_1 | 6     |          |
     And Sleep "2"
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "729.74 M"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "5.58 M"
@@ -90,9 +90,9 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | Policy14 |
+    And UI VRM Select device from dashboard and Save Filter
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | Policy14 |
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "3.09 M"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "3.12 K"
     Then UI Validate Text field "Inbound Traffic CPS" EQUALS "422.00"
@@ -104,8 +104,8 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | Policy15 |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | Policy15 |
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"

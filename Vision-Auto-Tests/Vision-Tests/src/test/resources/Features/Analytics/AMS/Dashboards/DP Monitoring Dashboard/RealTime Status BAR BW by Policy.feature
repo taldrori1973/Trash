@@ -28,7 +28,7 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy basic
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
-      | 10   | 0      |
+      | DefensePro_Set_1  | 0      |
   # DE38477 will-never-fix
 #    The Offset is 10% of th expected value
     Then UI Validate Pie Chart data "Bandwidth per Policy"
@@ -49,8 +49,8 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy filter by device
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       |          |
+      | setId | ports | policies |
+      | DefensePro_Set_1   |       |          |
     And Sleep "5"
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
@@ -73,8 +73,8 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy filter by policy in
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | Policy14 |
+      | setId | ports | policies |
+      | DefensePro_Set_1   |       | Policy14 |
     And Sleep "3"
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
@@ -87,8 +87,8 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy filter by policy out
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | Policy15 |
+      | setId | ports | policies |
+      | DefensePro_Set_1   |       | Policy15 |
     And Sleep "3"
 #Then UI Total Pie Chart data "Bandwidth per Policy"
 #| size | offset |
