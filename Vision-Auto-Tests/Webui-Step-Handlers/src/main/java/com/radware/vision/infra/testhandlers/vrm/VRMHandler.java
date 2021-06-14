@@ -40,7 +40,6 @@ import com.radware.vision.automation.systemManagement.serversManagement.ServersM
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
@@ -159,7 +158,7 @@ public class VRMHandler {
                     }
                     //Value does not have offset or offset is "0"
                 } else if (!actualData.equals(entry.value)) {
-                    addErrorMessage("There is no match found in --> the EXPECTED data is " + entry.toString() + " and the ACTUAL value is " + actualData);
+                    addErrorMessage("There is no match found in --> the EXPECTED data is " + entry + " and the ACTUAL value is " + actualData);
                     scrollAndTakeScreenshot(chart);
                 }
 
@@ -180,16 +179,14 @@ public class VRMHandler {
         entry.legendNameExist = entry.legendNameExist == null || entry.legendNameExist;
         JSONArray legends = getLabelsFromData(chart);
         if (!((legends.toList().contains(entry.legendName) && entry.legendNameExist) || (!legends.toList().contains(entry.legendName) && !entry.legendNameExist))) {
-//            addErrorMessage("The existence of " + entry.legendName + " is " + entry.legendNameExist + " but ACTUAL is " + legends.toList().contains(entry.legendName));
             addErrorMessage("The Legend Name of '" + entry.legendName + "'" + (entry.label != null ? " of label '" + entry.label + "'" : "") + " is Not as expected, Expected result is: " + (entry.legendNameExist.equals(true) ? "'exist'" : "'doesn't exist'") + " But Actual result is: " + (legends.toList().contains(entry.legendName) ? "'exist'" : "'doesn't exist'"));
         }
         return returnValue;
     }
 
     protected boolean isLabanAndEntryExists(String chart, StackBarData entry) {
-        entry.exist = entry.exist == null ? true : entry.exist;
+        entry.exist = entry.exist == null || entry.exist;
         if (!(isLabelExist(chart, entry.label)) && entry.exist || (isLabelExist(chart, entry.label)) && !entry.exist) {
-//            addErrorMessage("The existence of " + entry.label + " is " + entry.exist + " but ACTUAL is " + isLabelExist(chart, entry.label));
             addErrorMessage("The Label Name of '" + entry.label + "' is Not as expected, Expected result is: " + (entry.exist.equals(true) ? "'exist'" : "'doesn't exist'") + " But Actual result is: " + (isLabelExist(chart, entry.label) ? "'exist'" : "'doesn't exist'"));
             scrollAndTakeScreenshot(chart);
             return true;
@@ -252,7 +249,7 @@ public class VRMHandler {
                     }
                     //Value does not have offset or offset is "0"
                 } else if (!actualData.equals(entry.value)) {
-                    addErrorMessage("There is no match found in --> the EXPECTED data is " + entry.toString() + " and the ACTUAL value is " + actualData);
+                    addErrorMessage("There is no match found in --> the EXPECTED data is " + entry + " and the ACTUAL value is " + actualData);
                     scrollAndTakeScreenshot(chart);
                 }
             });
@@ -677,7 +674,7 @@ public class VRMHandler {
                 Double dataFromArray = Double.parseDouble(dataArray.get(labelIndex).toString());
                 if (entry.offset == 0 && entry.offsetPercentage == null) {
                     if (!dataFromArray.equals(entryData)) {
-                        addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray.toString() + " The EXPECTED is " + entryData);
+                        addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray + " The EXPECTED is " + entryData);
                         scrollAndTakeScreenshot(chart);
                     }
                 } else {
@@ -812,6 +809,10 @@ public class VRMHandler {
             VisionDebugIdsManager.setLabel("Widget Selection.Add Selected Widgets");
             WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
         }
+//        Change focus to close
+        VisionDebugIdsManager.setLabel("Widget Selection");
+        WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
+
     }
 
     void uiVRMDragAndDropWidgets(List<String> entries) throws TargetWebElementNotFoundException { /// change to drag and drop
@@ -1091,8 +1092,8 @@ public class VRMHandler {
                 RootServerCli rsc = rootServerCli.get();
 
                 CliOperations.runCommand(rsc, String.format("mysql -u root -pradware vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
-                int totalDpPolicesNumber = Integer.valueOf(CliOperations.lastRow);
-                if (String.valueOf(actualPoliciesNumber).equals(totalDpPolicesNumber)) {
+                int totalDpPolicesNumber = Integer.parseInt(CliOperations.lastRow);
+                if (actualPoliciesNumber == totalDpPolicesNumber) {
                     addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected \"All =\" [%s]", deviceIp, actualPoliciesNumber, totalDpPolicesNumber));
                     WebUIUtils.generateAndReportScreenshot();
                 }
@@ -1174,10 +1175,10 @@ public class VRMHandler {
         String amountType = interval.split("\\d+")[1].trim();
         switch (amountType) {
             case "s":
-                sleep(Integer.parseInt(amount) * 1000);
+                sleep(Integer.parseInt(amount) * 1000L);
                 break;
             case "m":
-                sleep(Integer.valueOf(amount) * 1000 * 60);
+                sleep((long) Integer.parseInt(amount) * 1000 * 60);
                 break;
         }
         LocalDateTime firstTimeAfterRefresh = LocalDateTime.parse((CharSequence) legends.get(0), inputFormatter);
@@ -1214,7 +1215,8 @@ public class VRMHandler {
                 break;
             }
             case "M": {
-                if (!(((Long.parseLong(amount)) >= Period.between(firstTime.toLocalDate().plusMonths(offset), lastTime.toLocalDate()).toTotalMonths()) && (Long.valueOf(amount)) <= Period.between(firstTime.toLocalDate().minusMonths(offset), lastTime.toLocalDate()).toTotalMonths()))
+                if (!(((Long.parseLong(amount)) >= Period.between(firstTime.toLocalDate().plusMonths(offset),
+                        lastTime.toLocalDate()).toTotalMonths()) && (Long.parseLong(amount)) <= Period.between(firstTime.toLocalDate().minusMonths(offset), lastTime.toLocalDate()).toTotalMonths()))
                     BaseTestUtils.report("The Expected max interval in " + chart + " is " + maxIntervalTime + " but the Actual " + Period.between(firstTime.toLocalDate(), lastTime.toLocalDate()).toTotalMonths() + " Months, with offset " + offset, Reporter.FAIL);
                 break;
             }
@@ -1257,7 +1259,7 @@ public class VRMHandler {
                     scrollAndTakeScreenshot(chart);
                     addErrorMessage("No label with date " + expectedTime.format(inputFormatter));
                 } else {
-                    if (!((entry.value >= (Double.parseDouble(data.get(index).toString())) - entry.offset) && (entry.value <= (Double.valueOf(data.get(index).toString())) + entry.offset))) {
+                    if (!((entry.value >= (Double.parseDouble(data.get(index).toString())) - entry.offset) && (entry.value <= (Double.parseDouble(data.get(index).toString())) + entry.offset))) {
                         addErrorMessage("In the label " + expectedTime + " The EXPECTED value is " + entry.value + " but the ACTUAL is " + data.get(index) + " with offset " + entry.offset);
                         scrollAndTakeScreenshot(chart);
                     }
@@ -1445,7 +1447,7 @@ public class VRMHandler {
      * @param fromIndex - is an index of label in the session storage.
      * @param toIndex   - is an index of label in the sesison storage
      * @param chart     - chart name
-     * @parm timeFormat
+     * @parm timeFormat - time format for example yyyy-MM-dd'T'HH:mm:ssXXX
      */
     public void selectTimeFromTo(int fromIndex, int toIndex, String chart, String timeFormat) {
         try {
@@ -1508,9 +1510,6 @@ public class VRMHandler {
         CliOperations.runCommand(rsc, "yum install stress", 3 * 60 * 1000, true);
         CliOperations.runCommand(rsc, "sudo yum install -y epel-release", 3 * 60 * 1000, true);
         CliOperations.runCommand(rsc, "sudo yum install -y stress", 3 * 60 * 1000, true);
-//        InvokeUtils.invokeCommand(null, "yum install stress", rootServerCli, 3 * 60 * 1000, true);
-//        InvokeUtils.invokeCommand(null, "sudo yum install -y epel-release", rootServerCli, 3 * 60 * 1000, true);
-//        InvokeUtils.invokeCommand(null, "sudo yum install -y stress", rootServerCli, 3 * 60 * 1000, true);
 
         CliOperations.runCommand(rsc, "free");
         int number;
