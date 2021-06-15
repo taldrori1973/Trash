@@ -733,7 +733,7 @@ public class TemplateHandlers {
 
     private static void validateDefaultWanLinks(JSONObject singleActualTemplate, StringBuilder errorMessage) {
         JSONArray wanLinksJsonOArrayActual = new JSONArray(singleActualTemplate.get("wanLinks").toString());
-        for(int i=1;i< ReportsForensicsAlertsAbstract.maxWANLinks ;i++ ){
+        for(int i=0;i< ReportsForensicsAlertsAbstract.maxWANLinks ;i++ ){
         if(new JSONObject(wanLinksJsonOArrayActual.get(i).toString()).get("selected").toString().equals("false"))
             errorMessage.append("This Wan Link " + new JSONObject(wanLinksJsonOArrayActual.get(i).toString()).get("is").toString()+ "Does not selected !!");
         }
