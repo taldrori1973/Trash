@@ -148,11 +148,11 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>SaproCommunication</groupId>-->
-<!--            <artifactId>saprocommunication</artifactId>-->
-<!--            <version>V190</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>SaproCommunication</groupId>
+            <artifactId>saprocommunication</artifactId>
+            <version>V190</version>
+        </dependency>
     </dependencies>
 
     <build>
