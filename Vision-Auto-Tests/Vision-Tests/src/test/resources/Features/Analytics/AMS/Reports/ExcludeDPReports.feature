@@ -255,8 +255,8 @@ Feature: Exclude DP Reports
   @SID_37
   Scenario: Delete Added Reports
     Then UI Navigate to "AMS REPORTS" page via homepage
-    Then UI Delete Report With Name "Not Exclude DP Attacks"
-    Then UI Delete Report With Name "Exclude DP Attacks"
+    Then UI Delete Report With Name "Exclude DP Attacks1"
+
 
 
 
