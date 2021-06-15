@@ -10,11 +10,13 @@ import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.ReportsForensicsAlertsAbstract;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.Keys;
@@ -49,12 +51,22 @@ public class TemplateHandlers {
     private static void getWANLinksScopeSelection(JSONObject templateJsonObject) throws Exception {
         if(templateJsonObject.has("WANLinks")){
             Map<String, String> map = new HashMap<>();
-            map.put("WAN Links",templateJsonObject.get("WANLinks").toString());
+            String WANLinks = StringWANLinks(new JSONArray(templateJsonObject.get("WANLinks").toString()));
+            map.put("WAN Links",WANLinks);
             map = CustomizedJsonManager.fixJson(map);
             BasicOperationsSteps.uiSelectWANLinks(map);
         }
     }
 
+    private static String StringWANLinks(JSONArray wanLinks) {
+        String WANLinks="";
+        for(Object wanLink : wanLinks) {
+            WANLinks += wanLink.toString();
+            WANLinks += ",";
+        }
+        WANLinks = StringUtils.chop(WANLinks); //remove the last ","
+        return  WANLinks;
+    }
 
     private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
         switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
@@ -69,10 +81,9 @@ public class TemplateHandlers {
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
                 case "LINKPROOF":
-                return new LinkProofScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
+                return new LinkProofScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "ERT ACTIVE ATTACKERS FEED":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
-       //         return new EAAFScopeSelection(new JSONArray(), templateParam);
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
                 return new DPBehavioralScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "DEFENSEPRO ANALYTICS":
@@ -666,29 +677,12 @@ public class TemplateHandlers {
         }
     }
 
-    public static class AnalyticsADCApplication extends ScopeSelection {
-
-        AnalyticsADCApplication(JSONArray deviceJSONArray, String templateParam) {
-            super(deviceJSONArray, templateParam);
-            this.type = "Analytics ADC Application";
-            this.saveButtonText = "AnalyticsADCApplicationSaveButton";
-        }
-    }
 
     public static class SystemAndNetworkScopeSelection extends ScopeSelection {
 
         SystemAndNetworkScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             this.type = "System and Network";
-            this.saveButtonText = "SystemAndNetworkSaveButton";
-        }
-    }
-
-    public static class SystemNetworkAndLinkProofScopeSelection extends ScopeSelection {
-
-        SystemNetworkAndLinkProofScopeSelection(JSONArray deviceJSONArray, String templateParam) {
-            super(deviceJSONArray, templateParam);
-            this.type = "System,Network And LinkProof";
             this.saveButtonText = "SystemAndNetworkSaveButton";
         }
     }
@@ -717,20 +711,32 @@ public class TemplateHandlers {
     private static void validateTemplateWANLinksDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, String reportType,StringBuilder errorMessage) {
       if(reportType.equalsIgnoreCase("LinkProof")) {
           if (!expectedSingleTemplate.has("WANLinks"))
-              validateDefaultWanLinks(singleActualTemplate, expectedSingleTemplate, errorMessage);
+              validateDefaultWanLinks( new JSONObject(singleActualTemplate.get("uiReflectionParams").toString()), errorMessage);
           else {
               JSONArray expectedWanLinksJSONArray = new JSONArray(expectedSingleTemplate.get("WANLinks").toString());
               for (Object expectedWanLinkObject : expectedWanLinksJSONArray) {
-                  validateWANLinksArray(new JSONObject(expectedWanLinkObject).toString(), new JSONArray(new JSONObject(expectedSingleTemplate.get("uiReflectionParams").toString())), errorMessage);
+                  validateWANLinksArray(expectedWanLinkObject.toString(), new JSONObject(singleActualTemplate.get("uiReflectionParams").toString()), errorMessage);
               }
           }
       }
     }
 
-    private static void validateWANLinksArray(String toString, JSONArray uiReflectionParams, StringBuilder errorMessage) {
+    private static void validateWANLinksArray(String expectWanLink, JSONObject uiReflectionParams, StringBuilder errorMessage) {
+        JSONArray wanLinksJsonOArrayActual = new JSONArray(uiReflectionParams.get("wanLinks").toString());
+        for(Object wanLink : wanLinksJsonOArrayActual){
+            if(new JSONObject(wanLink.toString()).get("id").equals(expectWanLink) && new JSONObject(wanLink.toString()).get("selected").toString().equals("false")){
+                errorMessage.append("This Wan Link " + expectWanLink+ "Does not selected !!");
+                return;
+            }
+        }
     }
 
-    private static void validateDefaultWanLinks(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
+    private static void validateDefaultWanLinks(JSONObject singleActualTemplate, StringBuilder errorMessage) {
+        JSONArray wanLinksJsonOArrayActual = new JSONArray(singleActualTemplate.get("wanLinks").toString());
+        for(int i=1;i< ReportsForensicsAlertsAbstract.maxWANLinks ;i++ ){
+        if(new JSONObject(wanLinksJsonOArrayActual.get(i).toString()).get("selected").toString().equals("false"))
+            errorMessage.append("This Wan Link " + new JSONObject(wanLinksJsonOArrayActual.get(i).toString()).get("is").toString()+ "Does not selected !!");
+        }
     }
 
     public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map, Map<String, Map<String, String>> templates, Map<String, Integer> widgets, String reportName) throws Exception {
