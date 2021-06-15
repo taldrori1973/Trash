@@ -164,6 +164,27 @@ Feature: EAAF Attacks Exclusion
     Then UI "Generate" Report With Name "Exclude DP Attacks"
       | timeOut | 60 |
 
+  @SID_53
+  Scenario: Clear old reports on file-system
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
+
+
+  @SID_54
+  Scenario: Create and Generate New Report with Exclude Malicious IP Addresses
+    Then UI Navigate to "AMS REPORTS" page via homepage
+    Given UI "Create" Report With Name "Exclude DP Attacks1"
+      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true, ExcludeMaliciousIPAddresses:true |
+      | Format   | Select: CSV                                                                                                                                                       |
+
+    Then UI "Validate" Report With Name "Exclude DP Attacks1"
+      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true, ExcludeMaliciousIPAddresses:true |
+      | Format   | Select: CSV                                                                                                                                                       |
+
+    Then UI "Generate" Report With Name "Exclude DP Attacks1"
+      | timeOut | 60 |
+
+
   @SID_20
   Scenario: VRM report unzip local CSV file
     Then Sleep "10"
