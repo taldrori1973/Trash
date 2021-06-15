@@ -10,9 +10,11 @@ import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
+import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.Keys;
@@ -40,7 +42,17 @@ public class TemplateHandlers {
         setSummaryTable(templateJsonObject, currentTemplateName);
         setExcludeMaliciousIPAddresses(templateJsonObject, currentTemplateName);
         getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
+        getWANLinksScopeSelection(templateJsonObject);
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
+    }
+
+    private static void getWANLinksScopeSelection(JSONObject templateJsonObject) throws Exception {
+        if(templateJsonObject.has("WANLinks")){
+            Map<String, String> map = new HashMap<>();
+            map.put("WAN Links",templateJsonObject.get("WANLinks").toString());
+            map = CustomizedJsonManager.fixJson(map);
+            BasicOperationsSteps.uiSelectWANLinks(map);
+        }
     }
 
 
@@ -56,10 +68,8 @@ public class TemplateHandlers {
                 return new SystemAndNetworkScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
-//            case "SYSTEM, NETWORK AND LINKPROOF":
-//                return new SystemNetworkAndLinkProofScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
-//            case "ANALYTICS ADC APPLICATION":
-//                return new AnalyticsADCApplication(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
+                case "LINKPROOF":
+                return new LinkProofScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "ERT ACTIVE ATTACKERS FEED":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
        //         return new EAAFScopeSelection(new JSONArray(), templateParam);
@@ -647,6 +657,15 @@ public class TemplateHandlers {
         }
     }
 
+    public static class LinkProofScopeSelection extends ScopeSelection {
+
+        LinkProofScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+            super(deviceJSONArray, templateParam);
+            this.type = "LinkProof";
+            this.saveButtonText = "LinkProofSaveButton";
+        }
+    }
+
     public static class AnalyticsADCApplication extends ScopeSelection {
 
         AnalyticsADCApplication(JSONArray deviceJSONArray, String templateParam) {
@@ -687,11 +706,31 @@ public class TemplateHandlers {
         JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate, expectedTemplateTitle, errorMessage);
         if (singleActualTemplate != null) {
             validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
+            validateTemplateWANLinksDefinition(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), errorMessage);
             validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), widgets, errorMessage);
             validateTemplateSummaryTableDefinition(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), widgets, expectedTemplateTitle, errorMessage);
             validateTemplateExcludeMaliciousIPAddresses(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), widgets, expectedTemplateTitle, errorMessage);
         } else
             errorMessage.append("There is no equal template on actual templates that equal to " + expectedSingleTemplate);
+    }
+
+    private static void validateTemplateWANLinksDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, String reportType,StringBuilder errorMessage) {
+      if(reportType.equalsIgnoreCase("LinkProof")) {
+          if (!expectedSingleTemplate.has("WANLinks"))
+              validateDefaultWanLinks(singleActualTemplate, expectedSingleTemplate, errorMessage);
+          else {
+              JSONArray expectedWanLinksJSONArray = new JSONArray(expectedSingleTemplate.get("WANLinks").toString());
+              for (Object expectedWanLinkObject : expectedWanLinksJSONArray) {
+                  validateWANLinksArray(new JSONObject(expectedWanLinkObject).toString(), new JSONArray(new JSONObject(expectedSingleTemplate.get("uiReflectionParams").toString())), errorMessage);
+              }
+          }
+      }
+    }
+
+    private static void validateWANLinksArray(String toString, JSONArray uiReflectionParams, StringBuilder errorMessage) {
+    }
+
+    private static void validateDefaultWanLinks(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
     }
 
     public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map, Map<String, Map<String, String>> templates, Map<String, Integer> widgets, String reportName) throws Exception {
@@ -946,6 +985,7 @@ public class TemplateHandlers {
         editTemplateWidgets(templateJsonObject, currentTemplateName);
         if (templateJsonObject.has("devices") || templateJsonObject.has("Servers") || templateJsonObject.has("Applications") || templateJsonObject.has("Protected Objects")) {
             getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
+            getWANLinksScopeSelection(templateJsonObject);
         }
     }
 

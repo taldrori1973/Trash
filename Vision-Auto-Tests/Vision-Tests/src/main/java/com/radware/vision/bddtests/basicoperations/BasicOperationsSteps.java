@@ -620,7 +620,7 @@ public class BasicOperationsSteps extends BddUITestBase {
         uiSelectWANLinks(map);
     }
 
-    public static void uiSelectWANLinks(Map<String, String> map) throws Exception {
+    public static void  uiSelectWANLinks(Map<String, String> map) throws Exception {
         if(map.containsKey("WAN Links")) {
             int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks ;
             WebUiTools.check("Expand Scope WAN Links", "", true);
