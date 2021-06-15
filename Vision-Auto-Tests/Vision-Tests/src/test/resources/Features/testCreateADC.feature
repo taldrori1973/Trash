@@ -1,5 +1,3 @@
-
-@run
 Feature: test
 
   @SID_1
