@@ -620,7 +620,7 @@ public class BasicOperationsSteps extends BddUITestBase {
         uiSelectWANLinks(map);
     }
 
-    public static void uiSelectWANLinks(Map<String, String> map) throws Exception {
+    public static void  uiSelectWANLinks(Map<String, String> map) throws Exception {
         if(map.containsKey("WAN Links")) {
             int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks ;
             WebUiTools.check("Expand Scope WAN Links", "", true);
@@ -631,11 +631,11 @@ public class BasicOperationsSteps extends BddUITestBase {
             }
             for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] " ).getBy())) {
                 if (WANLinkNumbers >0) {
-                    WANLinkNumbers --;
                     String instanceText = instanceElement.getText();
                     if (expectedWANLinks.contains(instanceText)) {
                         WebUiTools.check("WAN Link Value", instanceText, true);
                         expectedWANLinks.remove(instanceText);
+                        WANLinkNumbers --;
                     } else WebUiTools.check("WAN Link Value", instanceText, false);
                 }
             }

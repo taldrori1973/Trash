@@ -129,7 +129,7 @@ Feature: Vision Install ODS-VL2 SA
 
   @SID_15
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.1-1"
 
   @SID_16
   Scenario: Validate Radware MAC addresses
