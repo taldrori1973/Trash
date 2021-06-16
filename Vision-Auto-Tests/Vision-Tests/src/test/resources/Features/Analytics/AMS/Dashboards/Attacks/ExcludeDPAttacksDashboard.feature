@@ -66,7 +66,7 @@ Feature: Exclude DP Attacks Dashboard
   @SID_10
   Scenario:  Validate data after check Exclude Malicious IP Addresses
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses Checkbox" is "EQUALS" to "false"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 627
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 627 with offset 2
     Then UI Click Button "Exclude Malicious IP Addresses Checkbox"
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses Checkbox" is "EQUALS" to "true"
     Then UI Validate "Attacks Table" Table rows count EQUALS to 1
@@ -84,10 +84,10 @@ Feature: Exclude DP Attacks Dashboard
   @SID_13
   Scenario:  Validate data after check Exclude Malicious IP Addresses and only HTTPS appears
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses Checkbox" is "EQUALS" to "false"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 629
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 629 with offset 2
     Then UI Click Button "Exclude Malicious IP Addresses Checkbox"
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses Checkbox" is "EQUALS" to "true"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 3
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 3 with offset 1
     Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 0
       | columnName      | value       |
       | Attack Category | HTTPS Flood |
