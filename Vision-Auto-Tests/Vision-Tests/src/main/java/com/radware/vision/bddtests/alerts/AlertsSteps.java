@@ -69,11 +69,12 @@ public class AlertsSteps extends VisionUITestBase {
 
     @Then("^UI Validate Alert record Content by KeyValue with columnName \"(.*)\" with content \"(.*)\"( closeAlertsModule)?$")
     public void verifyAlertContentByKeyValue(String key, String value, String closeAlertsModule, List<Table.TableDataSets> tableData) {
-        int times = 3;
+        int times = 10;
         try {
             boolean closeAlertsTable = closeAlertsModule != null;
             while (!(AlertsHandler.validateAlertContentByKeyValue(key, value, closeAlertsTable, tableData))) {
                 if(times > 0) {
+                    Thread.sleep(10000);
                     times--;
                 } else {
                     BaseTestUtils.report("Verify Alert record Content by KeyValue: " + value + "\n.", Reporter.FAIL);
