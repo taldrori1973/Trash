@@ -31,7 +31,7 @@ Feature: Exclude DP Reports
   Scenario:  login to vision
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then Sleep "2"
+    Then Sleep "10"
 
 
   @SID_42
@@ -72,11 +72,11 @@ Feature: Exclude DP Reports
   Scenario: Create and Generate New Report with Exclude Malicious IP Addresses
     Then UI Navigate to "AMS REPORTS" page via homepage
     Given UI "Create" Report With Name "Exclude DP Attacks1"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true, ExcludeMaliciousIPAddresses:true |
+      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], ExcludeMaliciousIPAddresses:true |
       | Format   | Select: CSV                                                                                                                                                       |
 
     Then UI "Validate" Report With Name "Exclude DP Attacks1"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true, ExcludeMaliciousIPAddresses:true |
+      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], ExcludeMaliciousIPAddresses:true |
       | Format   | Select: CSV                                                                                                                                                       |
 
     Then UI "Generate" Report With Name "Exclude DP Attacks1"
