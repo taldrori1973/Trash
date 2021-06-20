@@ -1,4 +1,4 @@
-@TC121782 @Test12
+@TC121782
 Feature: Exclude DP Reports
 
 
@@ -146,11 +146,11 @@ Feature: Exclude DP Reports
     ##attached bug DE66060
   @SID_16
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION content
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Destinations-DefensePro Analytics.csv"|head -3 |tail -1|grep -oP "--,2000::0002,1,50.0000"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Destinations-DefensePro Analytics.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "--"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Destinations-DefensePro Analytics.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2000::0002"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Destinations-DefensePro Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Destinations-DefensePro Analytics.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "50.0000"
+#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Destinations-DefensePro Analytics.csv"|head -3 |tail -1|grep -oP "--,2000::0002,1,50.0000"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "--"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2000::0002"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "50.0000"
 
 
     ############################################       TOP ATTACK SOURCES       ###############################################################################
@@ -164,10 +164,10 @@ Feature: Exclude DP Reports
 
   @SID_19
   Scenario: VRM report validate CSV file TOP ATTACK SOURCES content
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Sources-DefensePro Analytics.csv"|head -2 |tail -1|grep -oP "Multiple,Multiple,2,100.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Sources-DefensePro Analytics.csv"|head -2 |tail -1|grep -oP "Multiple,Multiple,1,100.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Multiple"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Multiple"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "100.0000"
 
     ############################################       ATTACK CATEGORIES BY BANDWIDTH       ###################################################################
@@ -182,10 +182,10 @@ Feature: Exclude DP Reports
 
   @SID_22
   Scenario: VRM report validate CSV file ATTACK CATEGORIES BY BANDWIDTH content
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attack Categories by Bandwidth-DefensePro Analytics.csv"|head -3 |tail -1|grep -oP "GeoFeed,policy1,633339"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attack Categories by Bandwidth-DefensePro Analytics.csv"|head -3 |tail -1|grep -oP "GeoFeed,policy1,995247"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attack\ Categories\ by\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "GeoFeed"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attack\ Categories\ by\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "policy1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attack\ Categories\ by\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "633339"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attack\ Categories\ by\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "995247"
 
 ############################################       ATTACK BY MITIGATION ACTION       ####################################################################
 
