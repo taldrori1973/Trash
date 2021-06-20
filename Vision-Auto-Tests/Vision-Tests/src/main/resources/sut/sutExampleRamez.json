@@ -1,17 +1,36 @@
 {
+  "serverName": "israelExa",
   "setupFile": "fullSetup.json",
-  "environment": "KVM_220",
+  "pair": {
+    "pairIp": "172.17.164.102",
+    "environment": "OVA-220"
+  },
+  "deployConfigurations": {
+    "setupMode": "fresh install",
+    "snapshot": "Current-1",
+    "environment": "OVA-220"
+  },
   "clientConfiguration": {
-    "hostIp": "172.19.108.130",
+    "hostIp": "172.17.164.102",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
-      "defaultPort": 80,
-      "defaultProtocol": "http"
+      "defaultPort": 443,
+      "defaultProtocol": "https"
     },
     "sqlDbConnection": {
       "defaultPort": 3306,
       "username": "root",
+      "password": "radware"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
       "password": "radware"
     }
   }
