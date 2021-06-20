@@ -378,6 +378,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     @Override
     public void delete(String Name) throws Exception {
         WebUiTools.check("My " + getType() + " Tab", "", true);
+        BasicOperationsHandler.setTextField("Search "+getType(), Name);
         BasicOperationsHandler.clickButton("Delete " + getType(), Name);
         confirmDeleteReport("confirm Delete " + getType(), Name);
         clearSavedReportInMap(Name);
