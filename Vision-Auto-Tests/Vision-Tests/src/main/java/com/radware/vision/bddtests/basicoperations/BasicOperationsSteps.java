@@ -20,6 +20,7 @@ import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.base.VisionUITestSetup;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.ReportsForensicsAlertsAbstract;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
@@ -31,6 +32,7 @@ import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
+import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.restBddTests.RestClientsSteps;
 import cucumber.api.java.en.Given;
@@ -51,8 +53,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
@@ -651,7 +652,40 @@ public class BasicOperationsSteps extends VisionUITestBase {
         uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(listParamters, attribute, compare);
     }
 
-    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare) {
+    @Then("^UI Select list of WAN Links in LinkProof \"([^\"]*)\"$")
+    public void uiSelectListOfWANLinks(String WANLinks) throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("WAN Links", WANLinks);
+        map = CustomizedJsonManager.fixJson(map);
+        uiSelectWANLinks(map);
+    }
+
+    private void uiSelectWANLinks(Map<String, String> map) throws Exception {
+        if(map.containsKey("WAN Links")) {
+            int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks ;
+            WebUiTools.check("Expand Scope WAN Links", "", true);
+            ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
+            if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase(""))
+                return ;
+
+            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] " ).getBy())) {
+                if (WANLinkNumbers >0) {
+                    WANLinkNumbers --;
+                    String instanceText = instanceElement.getText();
+                    if (expectedWANLinks.contains(instanceText)) {
+                        WebUiTools.check("WAN Link Value", instanceText, true);
+                        expectedWANLinks.remove(instanceText);
+                    } else WebUiTools.check("WAN Link Value", instanceText, false);
+                }
+            }
+            if (expectedWANLinks.size() > 0)
+                throw new Exception("The Instance " + expectedWANLinks + " don't exist in the  ");
+        }
+    }
+
+
+    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare)
+    {
         for (ParameterSelected parameter : listParamters) { //all the parameters that selected to compare with values
             VisionDebugIdsManager.setLabel(parameter.label);
             VisionDebugIdsManager.setParams(parameter.param);

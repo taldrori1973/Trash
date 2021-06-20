@@ -1,9 +1,11 @@
 package com.radware.vision.automation.VisionAutoInfra.CLIInfra;
 
 
+import ch.ethz.ssh2.log.Logger;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.RegexUtils;
 
@@ -44,7 +46,6 @@ public final class CliOperations {
         }
     }
 
-
     public static void runCommand(ServerCliBase serverCliBase, String command, int timeout, boolean ignoreErrors, boolean silent) {
         try {
             InvokeUtils.invokeCommand(null, command, serverCliBase, timeout, ignoreErrors, silent);
@@ -72,7 +73,6 @@ public final class CliOperations {
         }
     }
 
-
     public static void runCommand(ServerCliBase serverCliBase, String command, int timeout, boolean ignoreErrors, boolean silent, boolean waitForPrompt, String error, boolean addEnter) {
         try {
             InvokeUtils.invokeCommand(null, command, serverCliBase, timeout, ignoreErrors, silent, waitForPrompt, error, addEnter);
@@ -82,7 +82,6 @@ public final class CliOperations {
         }
     }
 
-
     public static void runCommand(ServerCliBase serverCliBase, String command, int timeout, boolean ignoreErrors, boolean silent, boolean waitForPrompt, String error, boolean addEnter, boolean suppressEcho) {
         try {
             InvokeUtils.invokeCommand(null, command, serverCliBase, timeout, ignoreErrors, silent, waitForPrompt, error, addEnter, suppressEcho);
@@ -91,7 +90,6 @@ public final class CliOperations {
             BaseTestUtils.report("Failed to run the command: " + command + " With the following exception: " + e.getMessage(), Reporter.FAIL);
         }
     }
-
 
     public static void verifyLinesNumber(int num) {
         int linesNum = CliOperations.resultLines.size();
@@ -148,12 +146,38 @@ public final class CliOperations {
         }
     }
 
-
     private static void updateLastOutput(ServerCliBase cliBase) {
         CliOperations.lastOutput = cliBase.getTestAgainstObject() != null ? cliBase.getTestAgainstObject().toString() : "";
         CliOperations.resultLines = cliBase.getCmdOutput();
         CliOperations.lastRow = cliBase.getLastRow();
 
+
+    }
+
+    public static void checkSubMenu(RadwareServerCli radwareCliConnection, String radwareCmd, String expectedSubMenu) throws Exception {
+        checkSubMenu(radwareCliConnection, radwareCmd, expectedSubMenu, true);
+    }
+
+    public static void checkSubMenu(RadwareServerCli radwareCliConnection, String radwareCmd, String expectedSubMenu, boolean sendEnter) throws Exception {
+        try {
+            BaseTestUtils.reporter.startLevel("check cmd Sub Menu");
+            BaseTestUtils.reporter.report(expectedSubMenu);
+            String[] expectedSubMenuArray = expectedSubMenu.split("[\\r\\n]+");
+            if (sendEnter) {
+                runCommand(radwareCliConnection, radwareCmd);
+            } else {
+                runCommand(radwareCliConnection, radwareCmd, 10000, true, false, true, (String)null, sendEnter);
+            }
+
+            new ArrayList();
+            ArrayList<String> cmdOutputArray = radwareCliConnection.getCmdOutput();
+            if (!cmdOutputArray.containsAll(Arrays.asList(expectedSubMenuArray))) {
+                BaseTestUtils.reporter.report("Found sub-commands list: " + Arrays.asList(cmdOutputArray));
+                throw new Exception(" Sub menu of cmd - " + radwareCmd + " - isn't equal to the length of the following: " + expectedSubMenu);
+            }
+        } finally {
+            BaseTestUtils.reporter.stopLevel();
+        }
 
     }
 

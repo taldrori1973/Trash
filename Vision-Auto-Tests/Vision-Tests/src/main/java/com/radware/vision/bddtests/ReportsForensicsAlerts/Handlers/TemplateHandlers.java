@@ -55,6 +55,10 @@ public class TemplateHandlers {
                 return new SystemAndNetworkScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
+//            case "SYSTEM, NETWORK AND LINKPROOF":
+//                return new SystemNetworkAndLinkProofScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
+//            case "ANALYTICS ADC APPLICATION":
+//                return new AnalyticsADCApplication(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "ERT ACTIVE ATTACKERS FEED":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
        //         return new EAAFScopeSelection(new JSONArray(), templateParam);
@@ -66,7 +70,7 @@ public class TemplateHandlers {
         }
     }
 
-    private static void addWidgets(JSONArray widgets, String reportType) {
+    private static void addWidgets(JSONArray widgets, String reportType) throws Exception {
         List<String> widgetsList = getWidgetsList(widgets);
         List<String> widgetsToRemove = new ArrayList<>();
         List<String> widgetsTextsToRemove = new ArrayList<>();
@@ -94,12 +98,15 @@ public class TemplateHandlers {
                 } else {
                     widgetsList.remove(widgetName);
                 }
+                if (widgetsList.contains("Instances"))
+                    widgetsList.remove("Instances");
             }
         }
         removeUnWantedWidgetsAll(widgetsToRemove, reportType);
         dragAndDropDesiredWidgets(widgetsList, reportType);
         selectOptions(widgets, getOccurrenceMap(widgets), reportType);
     }
+
 
     private static void selectAllOptions(Map<String, Object> allMap, String reportType) {
         List<Map<String, Object>> widgetsLst = new ArrayList<>((List) allMap.get("ALL")); /// get all the widgets with options
@@ -139,8 +146,9 @@ public class TemplateHandlers {
             if (widgets.toList().get(i).getClass().getName().contains("HashMap")) {
                 Map<String, Object> widgetMap = new HashMap<String, Object>(((HashMap) widgets.toList().get(i)));
                 List<String> aList = widgetMap.keySet().stream().collect(Collectors.toList());
+//                widgetName = aList.size() > 1 ? aList.get(1) : aList.get(0);
                 widgetName = aList.get(0);
-//                list.add(it.);
+//                list.add(it.);6
             } else {
                 widgetName = widgets.getString(i).trim();
                 list.add(null);
@@ -202,9 +210,9 @@ public class TemplateHandlers {
         VisionDebugIdsManager.setLabel("selected widget");
         VisionDebugIdsManager.setParams(reportType, widgetName);
         List<WebElement> options = null;
-        for (String option : lst) {
+        for (Object option : lst) {
             try {
-                switch (option.toLowerCase()) {
+                switch (option.toString().toLowerCase()) {
                     case "pps":
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_pps')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                         break;
@@ -242,21 +250,43 @@ public class TemplateHandlers {
                     case "all protected objects":
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Protected Objects')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                         break;
+                    case "usage":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Usage')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                        break;
                     case "All":
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Policies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                        break;
+                    default:
+                        if(option.toString().toLowerCase().contains("instances"))
+                            selectInstances(option);
+                        break;
                 }
-                if (options != null) options.get(index).click();
-                if (isNumber(option)) {
-                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_CustomPolicies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-                    options.get(index).click();
-                    options.get(index).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
-                    options.get(index).sendKeys(option);
-                }
+                   if (options != null) options.get(index).click();
+                   if (isNumber(option.toString())) {
+                       options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_CustomPolicies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                       options.get(index).click();
+                       options.get(index).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+                       options.get(index).sendKeys(option.toString());
+                   }
             } catch (Exception e) {
                 BaseTestUtils.report(String.format("Failed to select option: %s in widget: %s", option, widgetName), Reporter.FAIL);
             }
         }
 
+    }
+
+    private static void selectInstances(Object option) throws Exception {
+        WebUiTools.check("Instance Expand", "", true);
+        ArrayList expectedInstances = new ArrayList<>((List)((HashMap) option).get("Instances"));
+//            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "").getBy())) {
+//                String instanceText = instanceElement.getText();
+//                if (expectedInstances.contains(instanceText)) {
+//                    WebUiTools.check("Instance Value", instanceText, true);
+//                    expectedOutputs.remove(instanceText);
+//                } else WebUiTools.check("Instance Value", instanceText, false);
+//            }
+//            if (expectedInstances.size() > 0)
+//                throw new Exception("The instances " + expectedInstances + " don't exist in the instances");
     }
 
     private static String getCurrentTemplateName(String reportType) {
@@ -616,11 +646,29 @@ public class TemplateHandlers {
         }
     }
 
+    public static class AnalyticsADCApplication extends ScopeSelection {
+
+        AnalyticsADCApplication(JSONArray deviceJSONArray, String templateParam) {
+            super(deviceJSONArray, templateParam);
+            this.type = "Analytics ADC Application";
+            this.saveButtonText = "AnalyticsADCApplicationSaveButton";
+        }
+    }
+
     public static class SystemAndNetworkScopeSelection extends ScopeSelection {
 
         SystemAndNetworkScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             this.type = "System and Network";
+            this.saveButtonText = "SystemAndNetworkSaveButton";
+        }
+    }
+
+    public static class SystemNetworkAndLinkProofScopeSelection extends ScopeSelection {
+
+        SystemNetworkAndLinkProofScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+            super(deviceJSONArray, templateParam);
+            this.type = "System,Network And LinkProof";
             this.saveButtonText = "SystemAndNetworkSaveButton";
         }
     }

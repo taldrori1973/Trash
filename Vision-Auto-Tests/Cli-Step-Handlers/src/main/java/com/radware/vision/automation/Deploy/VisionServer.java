@@ -13,8 +13,10 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServer
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.GlobalProperties;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
+import com.radware.vision.enums.ConfigSyncMode;
+import com.radware.vision.system.ConfigSync;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Created by stanislava on 6/25/2015.
@@ -87,6 +89,7 @@ public class VisionServer {
      * @param rootServerCli RootServerCli object
      * @return - true if upgrade terminated successfully
      */
+
     private static boolean didUpgradeFinish(RootServerCli rootServerCli) {
         LinuxServerCredential rootCredentials = new LinuxServerCredential(rootServerCli.getHost(),
                 rootServerCli.getUser(), rootServerCli.getPassword());
@@ -167,6 +170,7 @@ public class VisionServer {
         }
         return false;
     }
+
     public static boolean waitForServerConnection(long timeout, ServerCliBase connection) throws InterruptedException {
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() - startTime < timeout) {
@@ -179,17 +183,19 @@ public class VisionServer {
         }
         return false;
     }
-    public static boolean waitForVisionServerServicesToStartHA(CliConnectionImpl cliConnection, long timeout) throws Exception {
+
+    public static boolean waitForVisionServerServicesToStartHA(RadwareServerCli radwareServerCli, long timeout) throws Exception {
         long startTime = System.currentTimeMillis();
         do {
 
-            if (com.radware.vision.vision_handlers.system.VisionServer.isVisionServerRunningHA((com.radware.vision.vision_project_cli.RadwareServerCli) cliConnection))
+            if (isVisionServerRunningHA(radwareServerCli))
                 return true;
             Thread.sleep(15 * 1000);
         }
         while (System.currentTimeMillis() - startTime < timeout);
         return false;
     }
+
     public static boolean waitForVisionServerServicesToStart(CliConnectionImpl cliConnection, long timeout) throws Exception {
         long startTime = System.currentTimeMillis();
         do {
@@ -233,6 +239,87 @@ public class VisionServer {
             return false;
         }
 
+    }
+
+    public static boolean isVisionServerRunningHA(RadwareServerCli serverCli) throws Exception {
+
+        //if true -->all relevant services up
+        boolean flag = false;
+        //all service that are stopped or not running will be add the this list
+        List<String> stoppedServices = new ArrayList<>();
+        if (!serverCli.isConnected()) {
+            serverCli.connect();
+        }
+
+        BaseTestUtils.reporter.startLevel("Checking vision server status");
+        //Get the mode of the vision
+        String currentMode = ConfigSync.getMode(serverCli);
+
+        CliOperations.runCommand(serverCli, Menu.system().visionServer().status().build(), 120 * 1000);
+        ArrayList<String> response = serverCli.getCmdOutput();
+
+        validateNumberOfServices(response);
+
+        for (String s : response) {
+            if ((s.contains(ServiceStatus.STOPPED.getStatus()) || s.contains(ServiceStatus.NOT_RUNNING.getStatus()) /*|| s.contains("FAILED")*/) &&
+                    (!s.contains(VisionServices.VRM_VISUALIZATION.getValue()) &&
+                            !s.contains(VisionServices.VRM_COLLECTOR.getValue()) &&
+                            !s.contains(VisionServices.LLS.getValue()) &&
+                            !s.contains(VisionServices.HEALTH.getValue()) && //TODO remove after service will work as expected
+                            !s.contains(VisionServices.TD.getValue()))) {
+                if (!s.contains(VisionServices.DPM.getValue())) {
+                    if (currentMode.equals(ConfigSyncMode.ACTIVE.getMode()) || currentMode.equals(ConfigSyncMode.DISABLED.getMode())) {
+                        stoppedServices.add(s);
+                    } else if (currentMode.equals(ConfigSyncMode.STANDBY.getMode())) {
+                        if (!(s.contains(VisionServices.CONFIGURATION.getValue()) ||
+                                s.contains(VisionServices.SCHEDULER.getValue()))) {
+                            stoppedServices.add(s);
+                        }
+                    } else {
+                        /* Unknown configuration-synchronization */
+                        BaseTestUtils.reportInfoMessage("Can't tell server's current synchronization mode: " + currentMode);
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+        if (stoppedServices.size() == 0) {
+            flag = true;
+            BaseTestUtils.reportInfoMessage("All relevant services to mode " + currentMode + " are up");
+        } else {
+            BaseTestUtils.reportInfoMessage("Stopped services are: " + stoppedServices);
+        }
+        BaseTestUtils.reporter.stopLevel();
+
+
+        return flag;
+    }
+
+    private static void validateNumberOfServices(ArrayList<String> lService) {
+        Map<String, String> servicesMap = new HashMap<>();
+        for (VisionServices service : VisionServices.values()) {
+            servicesMap.put(service.name(), service.getValue());
+        }
+        ArrayList<String> lAddedServices = new ArrayList<>(lService);
+        Map<String, String> lRemovedServices = new HashMap<>(servicesMap);
+        for (String line : lService) {
+            for (Map.Entry<String, String> service : servicesMap.entrySet()) {
+                if (line.contains(service.getValue())) {
+                    lAddedServices.remove(line);
+                    lRemovedServices.remove(service.getKey());
+                    break;
+                }
+            }
+        }
+
+        String errorMessage = "";
+        if(!lAddedServices.isEmpty() || !lRemovedServices.isEmpty())
+            errorMessage = String.format("Service list was changed:\nNew line/s found: %s\nMissing service/s found: %s",
+                    lAddedServices.toString(),lRemovedServices.toString());
+        if (!errorMessage.isEmpty())
+            BaseTestUtils.report(errorMessage, Reporter.FAIL);
     }
 
     public enum VisionServices {
