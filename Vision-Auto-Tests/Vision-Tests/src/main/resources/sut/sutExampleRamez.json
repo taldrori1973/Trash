@@ -21,7 +21,7 @@
     "sqlDbConnection": {
       "defaultPort": 3306,
       "username": "root",
-      "password": "radware"
+      "password": "rad123"
     }
   },
   "cliConfiguration": {
