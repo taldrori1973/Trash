@@ -1,4 +1,4 @@
-@run
+@TC121809
 Feature: E2E LinkProof Report
 
   @SID_1
