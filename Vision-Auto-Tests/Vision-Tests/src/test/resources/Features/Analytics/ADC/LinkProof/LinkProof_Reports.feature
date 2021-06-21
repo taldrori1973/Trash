@@ -4,7 +4,7 @@ Feature: LinkProof_Reports
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "AMS REPORTS" page via homepage
+    And UI Navigate to "ADC Reports" page via homePage
     Then UI Click Button "New Report Tab"
 
 
