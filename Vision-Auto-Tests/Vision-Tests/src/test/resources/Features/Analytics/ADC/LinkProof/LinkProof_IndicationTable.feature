@@ -19,7 +19,7 @@ Feature: LinkProof Indication in Table
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | All |
 
-    Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 3
+    Then UI Validate Table record values by columns with elementLabel "Devices table" findBy index 6
       | columnName | value |
       | LinkProof  | true  |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "LP_simulator_101"
