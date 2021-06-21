@@ -1,7 +1,7 @@
 @TC108105
-
 Feature: EAAF Widget - Top IP Statistics
-@SID_1
+  @SID_1
+  
   Scenario: Clean system attacks,database and logs
     * CLI kill all simulator attacks on current vision
     # wait until collector cache clean up
@@ -15,11 +15,16 @@ Feature: EAAF Widget - Top IP Statistics
     * CLI Clear vision logs
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
+  
   @SID_2
-  Scenario: Run DP simulator PCAPs for EAAF widgets
-    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 150 seconds
+  
 
+  Scenario: Run DP simulator PCAPs for EAAF widgets
+    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11 and wait 150 seconds
+  
   @SID_3
+  
+
   Scenario: Login and navigate to EAAF dashboard
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     * CLI Run remote linux Command "mysql -u root -prad123 vision_ng -e "update user_mgt set password='0R5nzwnMaxkeLEWhI+QahPWxssDjLbGH', password_expiration_date='2030-1-1' where name='radware';"" on "ROOT_SERVER_CLI"
@@ -40,6 +45,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "MatchRegx" to "([2][1-9]|[4][1-9])%"
 #    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "25.00%"
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "MatchRegx" to "([1][1-9]|[3][1-9])%"
+
 
   @SID_5
   Scenario: Validate Num of attacks per IP
@@ -82,14 +88,15 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5.82%"
 
   @SID_10
+  
   Scenario: Validate Num of packets per IP
 # Validate Num of packets per IP
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([1][1-3]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" MatchRegex "([1][1-3]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" MatchRegex "([1][1-3]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" MatchRegex "([1-1]) K"
     Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "989"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688"
 
@@ -129,12 +136,12 @@ Feature: EAAF Widget - Top IP Statistics
   @SID_14
   Scenario: Validate Volume amount per IP
 # Validate Volume amount per IP
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" MatchRegex "([1-2]) M"
     Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "989 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688 K"
 
@@ -151,6 +158,7 @@ Feature: EAAF Widget - Top IP Statistics
 # validate values ordering
     Then UI Validate elements "TOTAL IP Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
   @SID_16
+  
   Scenario: validate max amount of 10 IP's exists in Top Malicious IP Addresses Widget
     Then UI Click Button "Events" with value "Top-Malicious-IP-Addresses"
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "10"
@@ -182,14 +190,15 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "MatchRegx" to "([0][1-9]|[2][1-9])%"
 
   @SID_18
+  
   Scenario: Validate IP filtering data correctness check values
 # check values
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" MatchRegex "([1-2]) M"
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "8"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
 
@@ -227,14 +236,15 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "MatchRegx" to "([0][1-9]|[1][1-9])%"
 
   @SID_21
+  
   Scenario: Check values
 # check values
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([1][1-3]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" MatchRegex "([1][1-3]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" MatchRegex "([1][1-3]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" MatchRegex "([1-2]) K"
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "8"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
 
@@ -305,12 +315,12 @@ Feature: EAAF Widget - Top IP Statistics
   @SID_27
   Scenario: check values
 # check values
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.37"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" MatchRegex "([1-2]) M"
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "8"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
 
@@ -339,12 +349,12 @@ Feature: EAAF Widget - Top IP Statistics
   @SID_30
   Scenario: Validate Volume amount per IP
 # Validate Volume amount per IP
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" MatchRegex "([7-8]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" MatchRegex "([1-2]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" MatchRegex "([1-2]) M"
     Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "989 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688 K"
 

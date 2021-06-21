@@ -2,6 +2,7 @@
 Feature: EAAF Widget - Top Country Statistics
   
 @SID_1
+
   Scenario: Clean system attacks,database and logs
     * CLI kill all simulator attacks on current vision
     # wait until collector cache clean up
@@ -15,9 +16,11 @@ Feature: EAAF Widget - Top Country Statistics
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
   @SID_2
+
   Scenario: Run DP simulator PCAPs for EAAF widgets
-    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 150 seconds
+    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11 and wait 150 seconds
   @SID_3
+
   Scenario: Login and navigate to EAAF dashboard
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -65,12 +68,13 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "4" is "EQUALS" to "28.07%"
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "5" is "EQUALS" to "4.83%"
   @SID_8
+
   Scenario: Validate Num of packets per IP
 # Validate Num of packets per IP
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "47.16 K"
-    Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "23.73 K"
-    Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "13.24 K"
-    Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "2.28 K"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "([4][6-8]) K"
+    Then UI Validate Text field "TOTAL Country Events value" with params "2" MatchRegex "([2][2-4]) K"
+    Then UI Validate Text field "TOTAL Country Events value" with params "4" MatchRegex "([1][2-4]) K"
+    Then UI Validate Text field "TOTAL Country Events value" with params "5" MatchRegex "([1-3]) K"
   @SID_9
   Scenario: Validate IP addresses correctness
 #    Validate IP addresses correctness
@@ -97,12 +101,12 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_11
   Scenario: Validate Volume amount per IP
 # Validate Volume amount per IP
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "38.03 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "1" On Regex "(\d+.\d+) M" GTE "19.85"
-    Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "19.16 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "3" EQUALS "18.95 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "8.68 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "2.28 M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "([3][7-9]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "1" MatchRegex "([1][8-9]|[2][0]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "2" MatchRegex "([1][8-9]|[2][0]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "3" MatchRegex "([1][8-9]|[2][0]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "4" MatchRegex "([7-9]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "5" MatchRegex "([1-3]) M"
   @SID_12
   Scenario: Validate IP addresses correctness
 #    Validate IP addresses correctness
@@ -204,12 +208,12 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_26
   Scenario: Validate Volume amount per IP on Top Attacking Countries Widget
 # Validate Volume amount per IP
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "38.03 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "1" On Regex "(\d+.\d+) M" GTE "19.85"
-    Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "19.16 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "3" EQUALS "18.95 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "8.68 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "2.28 M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "([3][7-9]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "1" MatchRegex "([1][8-9]|[2][0]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "2" MatchRegex "([1][8-9]|[2][0]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "3" MatchRegex "([1][8-9]|[2][0]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "4" MatchRegex "([7-9]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "5" MatchRegex "([1-3]) M"
   @SID_27
   Scenario: Validate Volume amount per IP on Top Attacking Countries Widget -Validate IP addresses correctness
 #    Validate IP addresses correctness

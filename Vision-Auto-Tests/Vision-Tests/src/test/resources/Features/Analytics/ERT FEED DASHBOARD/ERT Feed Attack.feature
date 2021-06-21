@@ -16,7 +16,7 @@ Feature: ERTFeed Attack validation
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
   @SID_2
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
-    When CLI simulate 1 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 10 and wait 20 seconds
+    When CLI simulate 1 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 11 and wait 20 seconds
     Then CLI copy "/home/radware/Scripts/EAAF_attacksTimeSpreadingScript.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     # copy script that keeps the attacks times in relation to system current time
     Then CLI copy "/home/radware/Scripts/EAAF_KeepAttacksTimesUpToDate.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
@@ -35,7 +35,7 @@ Feature: ERTFeed Attack validation
   @SID_4
   Scenario: Validate Top Attacking Geolocations Widget - Packets
     Then UI Click Button "Packets" with value "Top-Attacking-Geolocations"
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "73.88 K"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "([7][3-5]) K"
 
   @SID_5
   Scenario: Validate Top Attacking Geolocations Widget - Events
@@ -45,12 +45,12 @@ Feature: ERTFeed Attack validation
   @SID_6
   Scenario: Validate Top Attacking Geolocations Widget - Volume
     Then UI Click Button "Volume" with value "Top-Attacking-Geolocations"
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "34.63 M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "([3][4-6]) M"
 
   @SID_7
   Scenario: Validate Top Malicious IP Addresses Widget - Packets
     Then UI Click Button "Packets" with value "Top-Malicious-IP-Addresses"
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "73.88 K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([7][3-5]) K"
 
   @SID_8
   Scenario: Validate Top Malicious IP Addresses Widget - Events
@@ -60,7 +60,7 @@ Feature: ERTFeed Attack validation
   @SID_9
   Scenario: Validate Top Malicious IP Addresses Widget - Volume
     Then UI Click Button "Volume" with value "Top-Malicious-IP-Addresses"
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "34.63 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([3][4-6]) M"
 
   @SID_10
   Scenario: Logout
