@@ -454,7 +454,7 @@ public class BasicRestOperationsSteps extends TestBase {
     public void validateDPQueryRateMaxQPS(String IP, String profile, String queryRate, String maxQPS) {
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
         restTestBase.getVisionRestClient().login("radware", "radware", "", 1);
-        Object result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
+        Object result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
                 "DefensePro->DNS Rules Table", IP + "|" + profile, null, null);
         try {
             JSONParser parser = new JSONParser();
