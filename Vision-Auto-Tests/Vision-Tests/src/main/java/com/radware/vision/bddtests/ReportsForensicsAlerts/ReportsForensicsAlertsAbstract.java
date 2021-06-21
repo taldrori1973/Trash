@@ -48,9 +48,8 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         templateWidgets.put("AppWall", 7);
         templateWidgets.put("ERT Active Attackers Feed", 5);
         templateWidgets.put("System and Network", 1);
-//        templateWidgets.put("System, Network And LinkProof", 5);
         templateWidgets.put("Application", 6);
-//        templateWidgets.put("Analytics ADC Application", 6);
+        templateWidgets.put("LinkProof", 3);
         widgets = Collections.unmodifiableMap(templateWidgets);
     }
 
@@ -378,6 +377,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     @Override
     public void delete(String Name) throws Exception {
         WebUiTools.check("My " + getType() + " Tab", "", true);
+        BasicOperationsHandler.setTextField("Search "+getType(), Name);
         BasicOperationsHandler.clickButton("Delete " + getType(), Name);
         confirmDeleteReport("confirm Delete " + getType(), Name);
         clearSavedReportInMap(Name);

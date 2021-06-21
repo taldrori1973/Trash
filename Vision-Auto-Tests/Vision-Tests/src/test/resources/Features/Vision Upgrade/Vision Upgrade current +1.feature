@@ -185,7 +185,7 @@ Feature: Vision Upgrade current +1
 
   @SID_19
   Scenario: Validate fluentd configuration
-    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk '{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400"
+    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk '{print $NF}'" on "ROOT_SERVER_CLI" and validate result CONTAINS "51400" in any line
 
   @SID_20
   Scenario: Validate TED status
@@ -235,7 +235,7 @@ Feature: Vision Upgrade current +1
 
   @SID_27
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.1-1"
 
   @SID_28
   Scenario: Validate IPv6 Hostname in /etc/hosts
