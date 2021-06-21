@@ -59,6 +59,7 @@ Feature: Exclude DP Reports
     Then UI "Validate" Report With Name "Exclude DP Attacks"
       | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true, ExcludeMaliciousIPAddresses:true |
       | Format   | Select: CSV                                                                                                                                                       |
+
     Then UI Click Button "My Report" with value "Exclude DP Attacks"
     Then UI Click Button "Generate Report Manually" with value "Exclude DP Attacks"
     Then Sleep "35"
@@ -81,8 +82,9 @@ Feature: Exclude DP Reports
       | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], ExcludeMaliciousIPAddresses:true |
       | Format   | Select: CSV                                                                                                                                                       |
 
-    Then UI "Generate" Report With Name "Exclude DP Attacks1"
-      | timeOut | 60 |
+    Then UI Click Button "My Report" with value "Exclude DP Attacks1"
+    Then UI Click Button "Generate Report Manually" with value "Exclude DP Attacks1"
+    Then Sleep "35"
 
 
   @SID_7
