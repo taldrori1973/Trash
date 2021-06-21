@@ -181,7 +181,7 @@ Feature: Vision Upgrade current -1
 
   @SID_18
   Scenario: Validate fluentd configuration
-    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk '{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400" in any line
+    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk '{print $NF}'" on "ROOT_SERVER_CLI" and validate result CONTAINS "51400" in any line
 
   @SID_19
   Scenario: Validate TED status
