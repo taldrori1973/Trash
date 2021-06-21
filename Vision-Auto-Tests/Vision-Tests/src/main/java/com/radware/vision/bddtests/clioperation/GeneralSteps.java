@@ -36,8 +36,8 @@ public class GeneralSteps extends TestBase {
                 "/var/log/td-agent/td-agent.log " +
                 "/opt/radware/storage/maintenance/logs/lls/lls_install_display.log " +
                 "/opt/radware/storage/maintenance/logs/jboss_watchdog.log";
-        //kvision
-//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), clearAllLogs);
+        CliOperations.runCommand(serversManagement.getRootServerCLI().get(), clearAllLogs);
+
     }
 
     /**
@@ -48,7 +48,7 @@ public class GeneralSteps extends TestBase {
     @Then("^CLI Check if logs contains$")
     public void checkIfLogsContains(List<SearchLog> selections) {
         String command = "grep -Ei";
-        String commandToSkip =" |grep -v ";
+        String commandToSkip = " |grep -v ";
 
         if (!selections.get(0).logType.toString().equalsIgnoreCase("ALL")) {
             List<SearchLog> ignoreList = getIgnoreList(selections);
@@ -61,7 +61,7 @@ public class GeneralSteps extends TestBase {
                         o.logType.equals(selection.logType)).collect(Collectors.toList());
 
                 for (SearchLog ignore : myIgnored)
-                    checkForErrors = checkForErrors.concat(String.format("%s \"%s\"",commandToSkip,ignore.expression));
+                    checkForErrors = checkForErrors.concat(String.format("%s \"%s\"", commandToSkip, ignore.expression));
 
                 searchExpressionInLog(selection, checkForErrors);
             });
@@ -102,9 +102,9 @@ public class GeneralSteps extends TestBase {
     }
 
     @Then("^Service Vision (restart|stop|start) and Wait (\\d+) Minute|Minutes$")
-    public void serviceVisionRestartStopStart(String operation,int waitTime) {
+    public void serviceVisionRestartStopStart(String operation, int waitTime) {
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "service vision " + operation, 90 * 1000);
-        BasicOperationsHandler.delay(60*waitTime);
+        BasicOperationsHandler.delay(60 * waitTime);
     }
 
     @Then("^UI (UnSelect|Select) Element with label \"([^\"]*)\" and params \"([^\"]*)\"$")
@@ -147,6 +147,7 @@ public class GeneralSteps extends TestBase {
         ServerLogType logType;
         String expression;
         MessageAction isExpected;
+
         public void setLogType(ServerLogType logType) {
             this.logType = logType;
         }
@@ -169,7 +170,7 @@ public class GeneralSteps extends TestBase {
         }
     }
 
-    private List<SearchLog> getIgnoreList(List<SearchLog> selections){
+    private List<SearchLog> getIgnoreList(List<SearchLog> selections) {
         return selections.stream().filter(o ->
                 o.isExpected.equals(MessageAction.IGNORE)).collect(Collectors.toList());
     }
