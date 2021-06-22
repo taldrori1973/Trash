@@ -25,11 +25,11 @@ Feature: E2E LinkProof Report
   @SID_5
   Scenario: Create and validate ADC LinkProof Report1 with w1 and w2 wanlinks
     Given UI "Create" Report With Name "ADC LinkProof Report1"
-      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Simulator-50.50.101.101] ,WANLinks:[w1,w2] |
+      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
       | Time Definitions.Date | Quick:1H                                                                                                                        |
       | Format                | Select:  CSV                                                                                                                    |
     Then UI "Validate" Report With Name "ADC LinkProof Report1"
-      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Simulator-50.50.101.101] ,WANLinks:[w1,w2] |
+      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
       | Time Definitions.Date | Quick:1H                                                                                                                        |
       | Format                | Select: CSV                                                                                                                     |
 
@@ -68,11 +68,11 @@ Feature: E2E LinkProof Report
   @SID_10
   Scenario: Create and validate ADC LinkProof Report2 with Prometheus_is_no_team_to_be_in wanlinks
     Given UI "Create" Report With Name "ADC LinkProof Report2"
-      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Simulator-50.50.101.101] ,WANLinks:[Prometheus_is_no_team_to_be_in] |
+      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[LP_simulator_101] ,WANLinks:[Prometheus_is_no_team_to_be_in] |
       | Time Definitions.Date | Quick:1H                                                                                                                                                 |
       | Format                | Select:  CSV                                                                                                                                             |
     Then UI "Validate" Report With Name "ADC LinkProof Report2"
-      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Simulator-50.50.101.101] ,WANLinks:[Prometheus_is_no_team_to_be_in] |
+      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[LP_simulator_101] ,WANLinks:[Prometheus_is_no_team_to_be_in] |
       | Time Definitions.Date | Quick:1H                                                                                                                                                 |
       | Format                | Select: CSV                                                                                                                                              |
 
