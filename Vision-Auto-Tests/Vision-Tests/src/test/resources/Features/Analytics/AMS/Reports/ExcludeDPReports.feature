@@ -1,19 +1,20 @@
 @TC121782
 Feature: Exclude DP Reports
 
-
+  
   @SID_1
   Scenario: Clean data System
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-
+  
   @SID_2
   Scenario: Run DP simulator for ErtFeed_GeoFeed
     Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "30"
 
+  
   @SID_3
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
@@ -21,7 +22,7 @@ Feature: Exclude DP Reports
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
     Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
 
-
+  
   @SID_4
   Scenario: Clear old reports on file-system
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
@@ -33,36 +34,7 @@ Feature: Exclude DP Reports
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "10"
-
-
-  @SID_42
-  Scenario: Create and Generate New Report without Exclude Malicious IP Addresses
-    Then UI Navigate to "AMS REPORTS" page via homepage
-    Given UI "Create" Report With Name "Not Exclude DP Attacks"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true |
-      | Format   | Select: CSV                                                                                                                     |
-
-    Then UI "Validate" Report With Name "Not Exclude DP Attacks"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true, |
-      | Format   | Select: CSV                                                                                                                      |
-
-
-
-
-  @SID_40
-  Scenario: Create and Generate New Report with Exclude Malicious IP Addresses
-    Then UI Navigate to "AMS REPORTS" page via homepage
-    Given UI "Create" Report With Name "Exclude DP Attacks"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true, ExcludeMaliciousIPAddresses:true |
-      | Format   | Select: CSV                                                                                                                                                       |
-
-    Then UI "Validate" Report With Name "Exclude DP Attacks"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true, ExcludeMaliciousIPAddresses:true |
-      | Format   | Select: CSV                                                                                                                                                       |
-
-    Then UI Click Button "My Report" with value "Exclude DP Attacks"
-    Then UI Click Button "Generate Report Manually" with value "Exclude DP Attacks"
-    Then Sleep "35"
+    
 
 
   @SID_41
@@ -70,12 +42,21 @@ Feature: Exclude DP Reports
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
 
-
+  
   @SID_6
   Scenario: Create and Generate New Report with Exclude Malicious IP Addresses
     Then UI Navigate to "AMS REPORTS" page via homepage
     Given UI "Create" Report With Name "Exclude DP Attacks1"
       | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], ExcludeMaliciousIPAddresses:true |
+
+    Then UI "Validate" Report With Name "Exclude DP Attacks1"
+      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], ExcludeMaliciousIPAddresses:true |
+
+    Then UI Click Button "My Report" with value "Exclude DP Attacks1"
+    Then UI Click Button "Generate Report Manually" with value "Exclude DP Attacks1"
+    Then Sleep "35"
+
+    Given UI "Edit" Report With Name "Exclude DP Attacks1"
       | Format   | Select: CSV                                                                                                                                                       |
 
     Then UI "Validate" Report With Name "Exclude DP Attacks1"
@@ -300,7 +281,7 @@ Feature: Exclude DP Reports
   Scenario: Delete Added Reports
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Delete Report With Name "Exclude DP Attacks1"
-    Then UI Delete Report With Name "Not Exclude DP Attacks"
+
 
   @SID_39
   Scenario: Logout and close browser
