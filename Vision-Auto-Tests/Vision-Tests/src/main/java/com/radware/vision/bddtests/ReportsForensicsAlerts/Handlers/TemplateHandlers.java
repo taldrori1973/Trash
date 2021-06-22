@@ -856,8 +856,20 @@ public class TemplateHandlers {
             case "ERT Active Attackers Feed":
                 validateOptionsWidgetOnEAAF(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
                 break;
+            case "LinkProof":
+                validateOptionsWidgetOnADCLinkproof(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
+                break;
             default:
                 errorMessage.append("The template title is wrong : " + widgetTitle);
+        }
+    }
+
+    private static void validateOptionsWidgetOnADCLinkproof(String templateTitle, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject, StringBuilder errorMessage) {
+        JSONArray togglesData = new JSONArray(actualWidgetJSONObject.get("togglesData").toString());
+        JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(templateTitle).toString());
+        for (Object toggleData : togglesData) {
+            if (new JSONObject(toggleData.toString()).get("field").equals("tab") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue unit is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
         }
     }
 
