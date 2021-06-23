@@ -100,16 +100,17 @@
     <visionRadwareFirstTime>
         <class>com.radware.vision.vision_project_cli.VisionRadwareFirstTime
         </class>
-        <user>radware</user>
+        <user>root</user>
         <password>radware</password>
         <connectOnInit>false</connectOnInit>
-        <host>172.17.164.101</host>
+        <host>10.205.200.215</host>
         <dnsServerIp>10.221.1.47</dnsServerIp>
         <ip>172.17.164.101</ip>
         <netMask>255.255.0.0</netMask>
         <gateway>172.17.1.1</gateway>
         <primaryDns>10.221.1.47</primaryDns>
         <physicalManagement>G1</physicalManagement>
+        <vmName>vision_auto_</vmName>
     </visionRadwareFirstTime>
 
     <devices>
