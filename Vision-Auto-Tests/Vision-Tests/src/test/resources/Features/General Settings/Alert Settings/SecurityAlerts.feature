@@ -33,7 +33,7 @@ Feature: Alert Settings - Security Alerts Functionality
 
   @SID_4
   Scenario: generate single attack
-    * CLI simulate 1 attacks of type "start_dos_0" on "DefensePro" 10 and wait 100 seconds
+    Given CLI simulate 1 attacks of type "start_dos_0" on SetId "DefensePro_Set_1" and wait 100 seconds
 
   @SID_5
   Scenario: validate alert message content no fields
@@ -58,7 +58,7 @@ Feature: Alert Settings - Security Alerts Functionality
 
   @SID_8
   Scenario: generate single attack
-    * CLI simulate 1 attacks of type "start_dos_1" on "DefensePro" 10 and wait 85 seconds
+    Given CLI simulate 1 attacks of type "start_dos_1" on SetId "DefensePro_Set_1" and wait 85 seconds
 
   @SID_9
   Scenario: validate alert message content one field
@@ -83,7 +83,7 @@ Feature: Alert Settings - Security Alerts Functionality
 
   @SID_12
   Scenario: generate single attack
-    * CLI simulate 1 attacks of type "start_dos_2" on "DefensePro" 10 and wait 85 seconds
+    Given CLI simulate 1 attacks of type "start_dos_2" on SetId "DefensePro_Set_1" and wait 85 seconds
 
   @SID_13
   Scenario: validate alert message content two fields
@@ -108,7 +108,7 @@ Feature: Alert Settings - Security Alerts Functionality
 
   @SID_16
   Scenario: generate single attack
-    * CLI simulate 1 attacks of type "start_dos_3" on "DefensePro" 10 and wait 85 seconds
+    Given CLI simulate 1 attacks of type "start_dos_3" on SetId "DefensePro_Set_1" and wait 85 seconds
 
   @SID_17
   Scenario: validate alert message content three fields
@@ -133,7 +133,7 @@ Feature: Alert Settings - Security Alerts Functionality
 
   @SID_20
   Scenario: generate single attack
-    * CLI simulate 1 attacks of type "start_dos_4" on "DefensePro" 10 and wait 85 seconds
+    Given CLI simulate 1 attacks of type "start_dos_4" on SetId "DefensePro_Set_1" and wait 85 seconds
 
   @SID_21
   Scenario: validate alert message content four field
@@ -158,7 +158,7 @@ Feature: Alert Settings - Security Alerts Functionality
 
   @SID_24
   Scenario: generate single attack
-    * CLI simulate 1 attacks of type "start_dos_5" on "DefensePro" 10 and wait 85 seconds
+    Given CLI simulate 1 attacks of type "start_dos_5" on SetId "DefensePro_Set_1" and wait 85 seconds
 
   @SID_25
   Scenario: validate alert message content five field
@@ -183,7 +183,7 @@ Feature: Alert Settings - Security Alerts Functionality
 
   @SID_28
   Scenario: generate single attack
-    * CLI simulate 1 attacks of type "start_dos_6" on "DefensePro" 10 and wait 85 seconds
+    Given CLI simulate 1 attacks of type "start_dos_6" on SetId "DefensePro_Set_1" and wait 85 seconds
 
   @SID_29
   Scenario: validate alert message content six field

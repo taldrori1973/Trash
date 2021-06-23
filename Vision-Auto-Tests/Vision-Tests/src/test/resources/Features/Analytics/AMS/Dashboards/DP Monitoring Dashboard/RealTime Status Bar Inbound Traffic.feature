@@ -132,11 +132,10 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
-    And UI Logout
+    And UI logout and close browser
 
   @SID_10
   Scenario: Inbound Traffic check logs
-    * UI logout and close browser
     * CLI Check if logs contains
       | logType     | expression                                          | isExpected   |
       | ES          | fatal\|error                                        | NOT_EXPECTED |

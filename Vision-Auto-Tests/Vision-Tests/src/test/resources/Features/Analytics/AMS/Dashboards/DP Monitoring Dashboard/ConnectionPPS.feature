@@ -5,17 +5,14 @@ Feature: ConnectionPPS
   @SID_1
   Scenario: Clean system attacks,database and logs
     * CLI kill all simulator attacks on current vision
-#    * REST Delete ES index "dp-traffic-*"
-#    * REST Delete ES index "dp-https-stats-*"
-#    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
 
   @SID_2
   Scenario: Run DF simulator
-    And CLI simulate 1000 attacks of type "/home/radware/onlyPPSOngoing" on "DefensePro" 10 and wait 40 seconds
+    And CLI simulate 1000 attacks of type "/home/radware/onlyPPSOngoing" on SetId "DefensePro_Set_1" and wait 40 seconds
+
 
 
   @SID_3
@@ -58,10 +55,6 @@ Feature: ConnectionPPS
   @SID_7
   Scenario: clear
     * CLI kill all simulator attacks on current vision
-#    * REST Delete ES index "dp-traffic-*"
-#    * REST Delete ES index "dp-https-stats-*"
-#    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
