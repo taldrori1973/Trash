@@ -106,17 +106,11 @@ Feature: E2E LinkProof Report
     Then Validate Line Chart data "undefined" with Label "w1" in report "ADC LinkProof Report"
       | value | min |
       | null  | 1   |
-      | 1.0   | 20  |
       | 2.0   | 30  |
-      | 3.0   | 30  |
-      | 4.0   | 6   |
     Then Validate Line Chart data "undefined" with Label "w2" in report "ADC LinkProof Report"
       | value | min |
       | null  | 1   |
       | 1.0   | 20  |
-      | 2.0   | 30  |
-      | 3.0   | 30  |
-      | 4.0   | 6   |
 
   @SID_16
   Scenario: start IPTABLES
