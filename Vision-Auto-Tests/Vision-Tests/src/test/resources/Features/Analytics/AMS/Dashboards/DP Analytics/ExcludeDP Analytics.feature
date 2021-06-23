@@ -1,4 +1,4 @@
-@TC121810
+@TC121810 
 Feature: Exclude DP Analytics Dashboard
 
   @SID_1
@@ -12,6 +12,7 @@ Feature: Exclude DP Analytics Dashboard
   Scenario: Run DP simulator for ErtFeed_GeoFeed
     Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "30"
+
 
   @SID_3
   Scenario: Login and add widgets
@@ -103,6 +104,8 @@ Feature: Exclude DP Analytics Dashboard
   Scenario:  Click on  Exclude Malicious IP Addresses
     Then UI Click Button "Exclude Malicious IP Addresses Checkbox"
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses Checkbox" is "EQUALS" to "true"
+    And UI Do Operation "Select" item "Global Time Filter"
+    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "30m"
 
 
 
@@ -173,7 +176,7 @@ Feature: Exclude DP Analytics Dashboard
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data for all DP machines after Exclude Malicious IP Addresses
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
       | label   | value  | legendName             | offset |
-      | policy1 | 723816 | GeoFeed                | 150000 |
+      | policy1 | 452385 | GeoFeed                | 150000 |
 
     Then UI Total "Attack Categories by Bandwidth" legends equal to 1
 
