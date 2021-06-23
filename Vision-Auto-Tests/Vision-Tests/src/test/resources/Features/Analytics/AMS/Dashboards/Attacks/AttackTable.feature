@@ -1,4 +1,4 @@
-@TC114832 
+@TC114832
 Feature: Attacks Table
 
   @SID_1
@@ -49,16 +49,16 @@ Feature: Attacks Table
   Scenario: validate scope selection with table
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       |          |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       |          |
 #    Then UI Validate "Attacks Table" Table rows count GTE to 12
 #    Then UI Validate "Attacks Table" Table rows count LTE to 13
     Then UI Validate "Attacks Table" Table rows count EQUALS to 0
 
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 11    |       |          |
+      | setId            | ports | policies |
+      | DefensePro_Set_2 |       |          |
     Then UI Validate search in table "Attacks Table" in searchLabel "tableSearch" with text "ACL"
       | columnName  | Value               |
       | Attack Name | Black List          |
@@ -72,7 +72,7 @@ Feature: Attacks Table
     And UI Navigate to "DefensePro Attacks" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
+      | setId | ports | policies |
 
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
