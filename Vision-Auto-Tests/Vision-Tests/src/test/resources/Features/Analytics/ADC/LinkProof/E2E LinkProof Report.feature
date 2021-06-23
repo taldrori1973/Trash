@@ -96,17 +96,33 @@ Feature: E2E LinkProof Report
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -2|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "-1"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -2|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "0"
 
-
   @SID_14
   Scenario: Delete reports
     Then UI Delete Report With Name "ADC LinkProof Report1"
     Then UI Delete Report With Name "ADC LinkProof Report2"
 
-  @SID_10
+  @SID_15
+  Scenario: validate PDF and HTML Linkproof Report
+    Then Validate Line Chart data "undefined" with Label "w1" in report "ADC LinkProof Report"
+      | value | min |
+      | null  | 1   |
+      | 1.0   | 20  |
+      | 2.0   | 30  |
+      | 3.0   | 30  |
+      | 4.0   | 6   |
+    Then Validate Line Chart data "undefined" with Label "w2" in report "ADC LinkProof Report"
+      | value | min |
+      | null  | 1   |
+      | 1.0   | 20  |
+      | 2.0   | 30  |
+      | 3.0   | 30  |
+      | 4.0   | 6   |
+
+  @SID_16
   Scenario: start IPTABLES
     Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
 
-  @SID_11
+  @SID_17
   Scenario: Logout
     Then UI logout and close browser
 
