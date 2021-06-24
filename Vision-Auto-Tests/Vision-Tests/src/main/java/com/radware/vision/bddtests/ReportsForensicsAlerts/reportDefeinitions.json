@@ -1,6 +1,122 @@
 [
   {
     "version": 1,
+    "id": "AXo4an_lW65Y1cIaB2im",
+    "state": "disabled",
+    "templates": [
+      {
+        "templateType": "linkProof",
+        "templateId": "44a56706-dccd-427a-9b96-15efe0b58054",
+        "widgets": [
+          {
+            "id": "fe5037b0-9415-4b94-a849-a79f76814b71",
+            "scopeId": "systemDevicesScope",
+            "templateId": "linkProof",
+            "component": "WanLinkStatistics",
+            "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+          },
+          {
+            "id": "0da265cf-da7d-422c-a707-0c3f6bb701af",
+            "scopeId": "systemDevicesScope",
+            "templateId": "linkProof",
+            "component": "WanLinkStatistics",
+            "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+          },
+          {
+            "id": "6fd1c5a6-976c-4664-b4e0-30a17ed963b8",
+            "scopeId": "systemDevicesScope",
+            "templateId": "linkProof",
+            "component": "WanLinkStatistics",
+            "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+          }
+        ],
+        "scope": [
+          "{\\\"deviceName\\\":\\\"LP_simulator_101\\\",\\\"deviceIP\\\":\\\"50.50.101.101\\\",\\\"deviceID\\\":\\\"2c91240879ea9d730179eaa486540024\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326565\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"LP_simulator_101\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"RnDLP_172.19.88.5\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c91240879ea9d730179eaa53841002c\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLP_172.19.88.5\\\",\\\"selected\\\":false,\\\"enabled\\\":true}"
+        ],
+        "summaryTable": false,
+        "printScopePreview": true,
+        "templateTitle": "LinkProof",
+        "uiReflectionParams": {
+          "wanLinks": [
+            {
+              "id": "Ahlam_WAN",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "Maha_Wan",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "EdiWanLinks",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "Giora123",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "mansour_1",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "Prometheus_is_no_team_to_be_in",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "Radware1",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "w1",
+              "selected": true,
+              "disabled": false
+            },
+            {
+              "id": "w2",
+              "selected": true,
+              "disabled": false
+            }
+          ],
+          "isExcludeMaliciousAddresses": false
+        }
+      }
+    ],
+    "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180,\\\"fromDate\\\":1624440508836,\\\"toDate\\\":1624444108836,\\\"fiveMinutePrecisionHours\\\":1,\\\"amsRawDataHoursDiff\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
+    "reportName": "ADC LinkProof Report",
+    "scheduling": null,
+    "exportFormat": {
+      "type": "pdf"
+    },
+    "logo": {
+      "file": null,
+      "fileName": null
+    },
+    "deliveryMethod": {
+      "email": {
+        "recipients": [],
+        "subject": "",
+        "message": ""
+      },
+      "ftp": null
+    },
+    "tags": [
+      "adc"
+    ],
+    "userName": "radware",
+    "userRoles": [
+      "SYS_ADMIN"
+    ]
+  },
+  {
+    "version": 1,
     "id": "d5bfdb19-7849-4d32-9d50",
     "templates": [
       {
@@ -3201,122 +3317,6 @@
       "userRoles": [
         "SYS_ADMIN"
       ]
-    },{
-    "version": 1,
-    "id": "AXouFdh4M-lAaDfx2lPZ",
-    "state": "disabled",
-    "templates": [
-      {
-        "templateType": "linkProof",
-        "templateId": "265151a2-53bf-48af-b30c-cc4e75c33423",
-        "widgets": [
-          {
-            "id": "c1923978-5fa8-43fc-a482-1bcf75809c10",
-            "scopeId": "systemDevicesScope",
-            "templateId": "linkProof",
-            "component": "WanLinkStatistics",
-            "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
-          },
-          {
-            "id": "4c33da9a-1502-4d7b-b35a-04dfd21eeb90",
-            "scopeId": "systemDevicesScope",
-            "templateId": "linkProof",
-            "component": "WanLinkStatistics",
-            "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
-          },
-          {
-            "id": "ce21a6ce-2bf7-4cbd-baef-6aa4968000bb",
-            "scopeId": "systemDevicesScope",
-            "templateId": "linkProof",
-            "component": "WanLinkStatistics",
-            "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
-          }
-        ],
-        "scope": [
-          "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}"
-        ],
-        "summaryTable": false,
-        "printScopePreview": true,
-        "templateTitle": "LinkProof",
-        "uiReflectionParams": {
-          "wanLinks": [
-            {
-              "id": "Ahlam_WAN",
-              "selected": false,
-              "disabled": false
-            },
-            {
-              "id": "Edi_Call_Lior",
-              "selected": false,
-              "disabled": false
-            },
-            {
-              "id": "EdiWanLinks",
-              "selected": false,
-              "disabled": false
-            },
-            {
-              "id": "Giora123",
-              "selected": false,
-              "disabled": false
-            },
-            {
-              "id": "mansour_1",
-              "selected": false,
-              "disabled": false
-            },
-            {
-              "id": "Prometheus_is_no_team_to_be_in",
-              "selected": false,
-              "disabled": false
-            },
-            {
-              "id": "Radware1",
-              "selected": false,
-              "disabled": false
-            },
-            {
-              "id": "w1",
-              "selected": true,
-              "disabled": false
-            },
-            {
-              "id": "w2",
-              "selected": true,
-              "disabled": false
-            }
-          ],
-          "isExcludeMaliciousAddresses": false
-        }
-      }
-    ],
-    "timeFrame": "{\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeValue\\\":1,\\\"generatedTimeFrame\\\":{\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":5,\\\"dateTimeFormat\\\":\\\"HH:mm\\\",\\\"value\\\":60,\\\"baseUnitDisplaySkip\\\":2,\\\"dataPoints\\\":61,\\\"fromDate\\\":1624267312309,\\\"toDate\\\":1624270912309,\\\"type\\\":\\\"timeFrame\\\",\\\"amsRawDataHoursDiff\\\":1,\\\"fiveMinutePrecisionHours\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180}}",
-    "reportName": "ADC LinkProof Report",
-    "scheduling": null,
-    "exportFormat": {
-      "type": "csv"
-    },
-    "logo": {
-      "file": null,
-      "fileName": null
-    },
-    "deliveryMethod": {
-      "email": {
-        "recipients": [],
-        "subject": "",
-        "message": ""
-      },
-      "ftp": null
-    },
-    "tags": [
-      "adc"
-    ],
-    "userName": "radware",
-    "userRoles": [
-      "SYS_ADMIN"
-    ]
-  }
+    }
   ]
 ]
