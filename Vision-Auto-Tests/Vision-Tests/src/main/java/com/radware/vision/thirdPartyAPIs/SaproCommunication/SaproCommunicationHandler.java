@@ -9,9 +9,11 @@ import com.sapcnsl.exception.SaproException;
 import com.sapcnsl.api.returntypes.MapListInfo;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class SaproCommunicationHandler {
     private final String mapDirectoryName;
+    private final String xmlFullPath;
     private final SaproCommunication saproObj;
     private final String inetAddress;
     private final int port;
@@ -22,6 +24,7 @@ public class SaproCommunicationHandler {
         this.inetAddress = "172.17.166.8";
         this.port = 2100;
         mapDirectoryName = "/opt/sapro/map/";
+        xmlFullPath = "/opt/sapro/xml/";
     }
 
 
@@ -60,11 +63,11 @@ public class SaproCommunicationHandler {
      *                 if dev is already on - nothing will change
      *                 if dev is off - start dev and also start (if necessary) the map which dev belongs to
      */
-    public void startDevicesFromMap(String mapName, List<String> devNames) {
+    public void startDevicesFromMap(String mapName, String... devNames) {
         try {
             this.initConnect();
             mapName = this.getFullMapName(mapName);
-            List<MapListInfo> l = saproObj.getMapListFromServer();
+//            List<MapListInfo> l = saproObj.getMapListFromServer();
             for (String devName : devNames) {
                 BaseTestUtils.report("Starting device " + devName + " from " + mapName, Reporter.PASS_NOR_FAIL);
                 CommandMessage start = saproObj.sendStartCmdToDevice(mapName, devName);
@@ -78,10 +81,10 @@ public class SaproCommunicationHandler {
 
     /**
      * @param mapName  - the name of the map (not full name)
-     * @param devNames - list of all devices that need to be started
-     *                 if dev is already off - nothing will change, if dev is on - stop dev from given map
+     * @param devNames - array of all devices that need to be started
      */
-    public void stopDevicesFromMap(String mapName, List<String> devNames) {
+//    public void stopDevicesFromMap(String mapName, List<String> devNames) {
+    public void stopDevicesFromMap(String mapName, String... devNames) {
         try {
             this.initConnect();
             mapName = this.getFullMapName(mapName);
@@ -142,6 +145,27 @@ public class SaproCommunicationHandler {
         this.startMap(mapName);
         this.stopMap(mapName);
     }
+
+    /**
+     * @param mapName    - the name of the map (not full name)
+     * @param deviceName - the name of the device
+     * @param newXmlFile - the full path of new xml modeling file we want to reload
+     *                   Using tcl command 'SA_reload_xmlmodfile' to reload the new xml file
+     *                   The new file is playing only during runtime
+     */
+    public void reloadXmlFile(String mapName, String deviceName, String newXmlFile) {
+        try {
+            // making sure the device is on:
+            //this.startDevicesFromMap(mapName, deviceName);
+            this.initConnect();
+            CommandMessage reload = saproObj.sendTclCmdToDevice(this.getFullMapName(mapName), deviceName, "SA_reload_xmlmodfile " + this.xmlFullPath + newXmlFile);
+            BaseTestUtils.report(reload.getMessage(), Reporter.PASS);
+            this.closeConnect();
+        } catch (SaproException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
 
     /**
      * @param mapName gets all files from mapDirectoryName and use mapName as filter
