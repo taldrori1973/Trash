@@ -61,7 +61,6 @@ Feature: JBOSS WATCHDOG
       | logType  | expression                     | isExpected   |
       | JBOSS_WD | Number of threads .*           | EXPECTED     |
       | JBOSS_WD | start jboss_watchdog_execution | EXPECTED     |
-      | JBOSS_WD | Health check successful        | EXPECTED     |
       | JBOSS_WD | Jboss server is up             | NOT_EXPECTED |
       | JBOSS_WD | Restarting jboss               | NOT_EXPECTED |
 
@@ -72,9 +71,9 @@ Feature: JBOSS WATCHDOG
     When CLI Run remote linux Command "/opt/radware/mgt-server/bin/watchdogs/jboss_watchdog.sh" on "ROOT_SERVER_CLI"
     Then CLI Check if logs contains
       | logType  | expression                               | isExpected   |
+      | JBOSS_WD | start jboss_watchdog_execution           | EXPECTED     |
       | JBOSS_WD | Number of threads .*                     | EXPECTED     |
       | JBOSS_WD | Cancellation file was found with value 2 | EXPECTED     |
-      | JBOSS_WD | start jboss_watchdog_execution           | EXPECTED     |
       | JBOSS_WD | Jboss server is up                       | NOT_EXPECTED |
       | JBOSS_WD | Restarting jboss                         | NOT_EXPECTED |
 
