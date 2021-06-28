@@ -31,7 +31,7 @@ Feature: JBOSS WATCHDOG
   @SID_3
   Scenario: Start service
     Given CLI Run remote linux Command "service vision start" on "ROOT_SERVER_CLI" with timeOut 120
-    Given CLI Run linux Command "service vision status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Application Server is running." Retry 600 seconds
+    Given CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running." Wait For Prompt 250 seconds Retry 600 seconds
     When CLI Run linux Command "/opt/radware/mgt-server/bin/watchdogs/jboss_watchdog.sh | sed -n 's/Number of threads //p'" on "ROOT_SERVER_CLI" and validate result GT "200" Wait For Prompt 250 seconds Retry 900 seconds
     Then CLI Check if logs contains
       | logType  | expression                     | isExpected   |
