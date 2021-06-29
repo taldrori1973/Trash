@@ -4,7 +4,6 @@ package com.radware.vision.restBddTests;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
-import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.restBddTests.utils.SutUtils;
 import com.radware.vision.restBddTests.utils.UriUtils;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
@@ -36,13 +35,13 @@ public class RestClientsSteps extends BddRestTestBase {
         if (isNull(username) ^ isNull(password))
             report("Username and Password both should be given or no one of them.", FAIL);
         try {
+            if (isNull(isHA)) {
+                radwareServerCli = getRestTestBase().getRadwareServerCli();
+            } else {
+                radwareServerCli = (RadwareServerCli) getRestTestBase().getRadwareServerCli().clone();
+                radwareServerCli.setHost(SutUtils.getCurrentVisionHAIp());
+            }
             if (!isNull(activation))
-                if (isNull(isHA)) {
-                    radwareServerCli = getRestTestBase().getRadwareServerCli();
-                } else {
-                    radwareServerCli = (RadwareServerCli) getRestTestBase().getRadwareServerCli().clone();
-                    radwareServerCli.setHost(SutUtils.getCurrentVisionHAIp());
-                }
             licenseKey = LicenseManagementHandler.generateLicense(radwareServerCli, LicenseKeys.VISION_ACTIVATION.getLicenseKeys());
         } catch (Exception e) {
             e.printStackTrace();
