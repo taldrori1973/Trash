@@ -8,7 +8,7 @@ Feature: JBOSS WATCHDOG
     Given CLI Run remote linux Command "sed -i 's/#\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/g' /var/spool/cron/root" on "ROOT_SERVER_CLI" with timeOut 10
     #stop JBOSS cron schedule
     Given CLI Run remote linux Command "sed -i 's/\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/#\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/g' /var/spool/cron/root" on "ROOT_SERVER_CLI" with timeOut 10
-    Given That Current Vision is Logged In With Username "radware" and Password "radware"
+    Given That Current Vision is Logged In
     And New Request Specification from File "Vision/Monitoring/Monitoring Settings" with label "Set Monitoring Settings"
     And The Request Body is the following Object
       | jsonPath                   | value |
@@ -54,7 +54,8 @@ Feature: JBOSS WATCHDOG
 
   @SID_5
   Scenario: Return to Normal
-    Given CLI Run remote linux Command "iptables -D RH-Firewall-1-INPUT -p tcp --dport 8080 -d 127.0.0.1 -j DROP" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "service vision start" on "ROOT_SERVER_CLI" with timeOut 120
+    Given CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running." in any line Wait For Prompt 120 seconds Retry 600 seconds
     When CLI Clear vision logs
     When CLI Run remote linux Command "/opt/radware/mgt-server/bin/watchdogs/jboss_watchdog.sh" on "ROOT_SERVER_CLI" with timeOut 120
     Then CLI Check if logs contains
