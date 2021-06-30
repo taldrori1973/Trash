@@ -7,7 +7,6 @@ Feature: LinkProof_Reports
     And UI Navigate to "ADC Reports" page via homePage
     Then UI Click Button "New Report Tab"
 
-
   @SID_2
   Scenario: create new CEC1
     Given UI "Create" Report With Name "CEC1"
@@ -330,6 +329,7 @@ Feature: LinkProof_Reports
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                       |
       | Format                | Select: CSV                                                                                                |
     Then UI Delete Report With Name "Upload Throughput Usage1"
+  
 
   @SID_21
   Scenario: create new Upload Throughput Usage2
@@ -346,6 +346,7 @@ Feature: LinkProof_Reports
       | Format                | Select: PDF                                                                                                |
     Then UI Delete Report With Name "Upload Throughput Usage2"
 
+  
 
   @SID_22
   Scenario: create new Upload Throughput Usage3
@@ -365,6 +366,7 @@ Feature: LinkProof_Reports
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                       |
       | Format                | Select: HTML                                                                                               |
     Then UI Delete Report With Name "Upload Throughput Usage3"
+  
 
   @SID_23
   Scenario: create new Upload Throughput Usage4
@@ -380,6 +382,7 @@ Feature: LinkProof_Reports
       | Time Definitions.Date | Relative:[Months,2]                                                                                                                                |
       | Format                | Select: CSV                                                                                                                                        |
     Then UI Delete Report With Name "Upload Throughput Usage4"
+  
 
   @SID_24
   Scenario: create new CEC Download Throughput bps
@@ -399,6 +402,7 @@ Feature: LinkProof_Reports
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                           |
     Then UI Delete Report With Name "CEC Download Throughput bps"
 
+  
 
   @SID_25
   Scenario: create new CEC Download Throughput Usage

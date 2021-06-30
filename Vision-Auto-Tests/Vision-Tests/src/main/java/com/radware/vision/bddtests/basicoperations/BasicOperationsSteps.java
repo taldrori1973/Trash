@@ -622,6 +622,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     public static void  uiSelectWANLinks(Map<String, String> map) throws Exception {
         if(map.containsKey("WAN Links")) {
+            BasicOperationsHandler.delay(5);
             int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks ;
             WebUiTools.check("Expand Scope WAN Links", "", true);
             ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
