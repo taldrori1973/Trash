@@ -186,7 +186,7 @@ Feature: LinkProof_Reports
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
       | Format                | Select: CSV                                                                                                  |
     Then UI "Validate" Report With Name "Download Throughput Usage1"
-      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
+      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
       | Logo                  | reportLogoPNG.png                                                                                            |
       | Time Definitions.Date | Quick:1D                                                                                                     |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                 |
@@ -203,7 +203,7 @@ Feature: LinkProof_Reports
       | Schedule              | Run Every:Once, On Time:+6H                                                                                  |
       | Format                | Select: PDF                                                                                                  |
     Then UI "Validate" Report With Name "Download Throughput Usage2"
-      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
+      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
       | Time Definitions.Date | Quick:1W                                                                                                     |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                  |
       | Format                | Select: PDF                                                                                                  |
@@ -221,7 +221,7 @@ Feature: LinkProof_Reports
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
       | Format                | Select: HTML                                                                                                 |
     Then UI "Validate" Report With Name "Download Throughput Usage3"
-      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
+      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
       | Logo                  | reportLogoPNG.png                                                                                            |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                              |
@@ -238,7 +238,7 @@ Feature: LinkProof_Reports
       | Time Definitions.Date | Relative:[Months,2]                                                                                                                                  |
       | Format                | Select: CSV                                                                                                                                          |
     Then UI "Validate" Report With Name "Download Throughput Usage4"
-      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks] |
+      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks] |
       | Logo                  | reportLogoPNG.png                                                                                                                                    |
       | Time Definitions.Date | Relative:[Months,2]                                                                                                                                  |
       | Format                | Select: CSV                                                                                                                                          |
@@ -410,7 +410,7 @@ Feature: LinkProof_Reports
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                          |
       | Format                | Select: HTML                                                                                                  |
     Then UI "Validate" Report With Name "CEC Download Throughput Usage"
-      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[usage]},CEC] , devices:[LP_simulator_101] ,WANLinks:[w1] |
+      | Template              | reportType:LinkProof ,Widgets:[{Download Throughput:[Usage]},CEC] , devices:[LP_simulator_101] ,WANLinks:[w1] |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                  |
       | Time Definitions.Date | Quick:3M                                                                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                          |
@@ -455,7 +455,7 @@ Feature: LinkProof_Reports
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                                                             |
       | Format                | Select: HTML                                                                                                                                                                     |
     Then UI "Validate" Report With Name "Download Throughput Usage Upload Throughput Usage1"
-      | Template              | reportType:LinkProof ,Widgets:[{Upload Throughput:[Usage]},{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks] |
+      | Template              | reportType:LinkProof ,Widgets:[{Upload Throughput:[Usage]},{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks] |
       | Time Definitions.Date | Quick:1D                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                                                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                                                             |
@@ -472,7 +472,7 @@ Feature: LinkProof_Reports
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                     |
       | Format                | Select: CSV                                                                                                                                                                      |
     Then UI "Validate" Report With Name "Download Throughput Usage Upload Throughput Usage2"
-      | Template              | reportType:LinkProof ,Widgets:[{Upload Throughput:[Usage]},{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks] |
+      | Template              | reportType:LinkProof ,Widgets:[{Upload Throughput:[Usage]},{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks] |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                     |
       | Format                | Select: CSV                                                                                                                                                                      |
@@ -489,7 +489,7 @@ Feature: LinkProof_Reports
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                   |
       | Format                | Select: CSV                                                                                                                            |
     Then UI "Validate" Report With Name "Download Throughput bps Upload Throughput Usage1"
-      | Template              | reportType:LinkProof ,Widgets:[{Upload Throughput:[bps]},{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
+      | Template              | reportType:LinkProof ,Widgets:[{Upload Throughput:[bps]},{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
       | Logo                  | reportLogoPNG.png                                                                                                                      |
       | Time Definitions.Date | Quick:1D                                                                                                                               |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                                           |
@@ -506,7 +506,7 @@ Feature: LinkProof_Reports
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                            |
       | Format                | Select: PDF                                                                                                                            |
     Then UI "Validate" Report With Name "Download Throughput Usage Upload Throughput bps2"
-      | Template              | reportType:LinkProof ,Widgets:[{Upload Throughput:[bps]},{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
+      | Template              | reportType:LinkProof ,Widgets:[{Upload Throughput:[bps]},{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
       | Time Definitions.Date | Quick:1W                                                                                                                               |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                            |
       | Format                | Select: PDF                                                                                                                            |
@@ -593,7 +593,7 @@ Feature: LinkProof_Reports
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                         |
       | Format                | Select: HTML                                                                                                                                 |
     Then UI "Validate" Report With Name "CEC Download Throughput Usage Upload Throughput Usage1"
-      | Template              | reportType:LinkProof ,Widgets:[CEC,{Upload Throughput:[Usage]},{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
+      | Template              | reportType:LinkProof ,Widgets:[CEC,{Upload Throughput:[Usage]},{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[w1,w2] |
       | Logo                  | reportLogoPNG.png                                                                                                                            |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                              |
@@ -610,7 +610,7 @@ Feature: LinkProof_Reports
       | Time Definitions.Date | Relative:[Months,2]                                                                                                                                                                  |
       | Format                | Select: CSV                                                                                                                                                                          |
     Then UI "Validate" Report With Name "CEC Download Throughput Usage Upload Throughput Usage2"
-      | Template              | reportType:LinkProof ,Widgets:[CEC,{Upload Throughput:[Usage]},{Download Throughput:[usage]}] , devices:[LP_simulator_101] ,WANLinks:[Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks] |
+      | Template              | reportType:LinkProof ,Widgets:[CEC,{Upload Throughput:[Usage]},{Download Throughput:[Usage]}] , devices:[LP_simulator_101] ,WANLinks:[Giora123,mansour_1,w1,w2,Radware1,EdiWanLinks] |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                    |
       | Time Definitions.Date | Relative:[Months,2]                                                                                                                                                                  |
       | Format                | Select: CSV                                                                                                                                                                          |
