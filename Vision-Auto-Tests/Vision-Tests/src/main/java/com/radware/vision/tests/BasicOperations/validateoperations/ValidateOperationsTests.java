@@ -32,7 +32,7 @@ public class ValidateOperationsTests extends WebUITestBase {
     boolean isWebElementStatusEnabled = true;
     OperatorsEnum validationType = OperatorsEnum.EQUALS;
     int cutCharsNumber = 0;
-
+    String offset = null;
     int expectedRecordsNumber;
     String columnKey;
     String columnValue;
@@ -43,7 +43,7 @@ public class ValidateOperationsTests extends WebUITestBase {
     @Test
     @TestProperties(name = "validate Text Field Element", paramsInclude = {"elementId", "expectedText", "validationType", "cutCharsNumber"})
     public void validateTextFieldElement() {
-        ClickOperationsHandler.validateTextFieldElementById(elementId, expectedText, validationType, cutCharsNumber);
+        ClickOperationsHandler.validateTextFieldElementById(elementId, expectedText, validationType, cutCharsNumber,offset);
     }
 
     @Test

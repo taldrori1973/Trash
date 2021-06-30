@@ -95,11 +95,11 @@ public class BasicValidationsTests extends BddUITestBase {
      * @param cutCharsNumber - will be cut from the right side of the String
      */
 
-    @Then("^UI Validate Text field \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: On Regex \"([^\"]*)\")? (EQUALS|CONTAINS|MatchRegex|GT|GTE|LT|LTE) \"(.*)\"(?: cut Characters Number (\\S+))?$")
-    public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber) {
+    @Then("^UI Validate Text field \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: On Regex \"([^\"]*)\")? (EQUALS|CONTAINS|MatchRegex|GT|GTE|LT|LTE) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
+    public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;//this parameter can be used for equals or contains of String from char 0 until char cutCharsNumber
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, regex, operatorsEnum, Integer.parseInt(cutCharsNumber));
+        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, regex, operatorsEnum, Integer.parseInt(cutCharsNumber),offset);
     }
 
 
@@ -110,10 +110,10 @@ public class BasicValidationsTests extends BddUITestBase {
     }
 
     @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?$")
-    public void validateTextFieldElementbyId(String selectorValue, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber) {
+    public void validateTextFieldElementbyId(String selectorValue, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, operatorsEnum, Integer.valueOf(cutCharsNumber));
+        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, operatorsEnum, Integer.valueOf(cutCharsNumber),offset);
     }
 
     /**
