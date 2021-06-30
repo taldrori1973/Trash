@@ -258,6 +258,9 @@ public class BasicOperationsSteps extends VisionUITestBase {
             BaseTestUtils.report("failed to logout" + e.getMessage(), Reporter.FAIL);
         } finally {
             BasicOperationsHandler.delay(1);
+            //todo
+            //temproray until bug resolve (remove closeBrower)
+            WebUIUtils.closeBrowser();
         }
     }
 
@@ -661,16 +664,16 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     private void uiSelectWANLinks(Map<String, String> map) throws Exception {
-        if(map.containsKey("WAN Links")) {
-            int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks ;
+        if (map.containsKey("WAN Links")) {
+            int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks;
             WebUiTools.check("Expand Scope WAN Links", "", true);
             ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
             if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase(""))
-                return ;
+                return;
 
-            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] " ).getBy())) {
-                if (WANLinkNumbers >0) {
-                    WANLinkNumbers --;
+            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] ").getBy())) {
+                if (WANLinkNumbers > 0) {
+                    WANLinkNumbers--;
                     String instanceText = instanceElement.getText();
                     if (expectedWANLinks.contains(instanceText)) {
                         WebUiTools.check("WAN Link Value", instanceText, true);
@@ -684,8 +687,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
 
-    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare)
-    {
+    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare) {
         for (ParameterSelected parameter : listParamters) { //all the parameters that selected to compare with values
             VisionDebugIdsManager.setLabel(parameter.label);
             VisionDebugIdsManager.setParams(parameter.param);
