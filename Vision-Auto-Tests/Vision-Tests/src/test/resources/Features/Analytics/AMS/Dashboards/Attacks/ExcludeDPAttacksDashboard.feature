@@ -69,7 +69,7 @@ Feature: Exclude DP Attacks Dashboard
     Then UI Validate "Attacks Table" Table rows count EQUALS to 627 with offset 2
     Then UI Click Button "Exclude Malicious IP Addresses Checkbox"
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses Checkbox" is "EQUALS" to "true"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 1
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 1 with offset 1
 
   @SID_11
   Scenario: Run DP simulator - HTTPS

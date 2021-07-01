@@ -1,4 +1,4 @@
-@TC114854
+@TC114854 @Test12
 Feature: Attack Table - Expand Table Row
 
   
@@ -418,7 +418,7 @@ Feature: Attack Table - Expand Table Row
       | Action Type        | Drop     |
       | Attack ID          | 4109-103 |
       | Physical Port      | T-1      |
-      | Total Packet Count | 128      |
+      | Total Packet Count | 17      |
       | VLAN               | N/A      |
       | MPLS RD            | N/A      |
       | Source port        | 0        |
