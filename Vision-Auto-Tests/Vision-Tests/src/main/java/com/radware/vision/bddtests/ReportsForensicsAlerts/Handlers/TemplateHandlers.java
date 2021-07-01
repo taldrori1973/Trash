@@ -273,10 +273,7 @@ public class TemplateHandlers {
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Protected Objects')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                         break;
                     case "usage":
-                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Usage')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-                        break;
-                    case "Usage":
-                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Usage')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Usage')  or contains(@data-debug-id, '_usage')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                         break;
                     case "All":
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Policies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);

@@ -40,7 +40,7 @@
             <visionSetup>
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
-                <setupMode>Upgrade</setupMode>
+                <setupMode>KVM_Upgrade</setupMode>
                 <snapshot>Current-3</snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
@@ -52,20 +52,6 @@
             <user>admin</user>
             <password>admin</password>
         </alteonServer>
-        <visionRadwareFirstTime>
-            <class>com.radware.vision.vision_project_cli.VisionRadwareFirstTime
-            </class>
-            <user>radware</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-            <host>172.17.164.101</host>
-            <dnsServerIp>10.221.1.47</dnsServerIp>
-            <ip>172.17.164.101</ip>
-            <netMask>255.255.0.0</netMask>
-            <gateway>172.17.1.1</gateway>
-            <primaryDns>10.221.1.47</primaryDns>
-            <physicalManagement>G1</physicalManagement>
-        </visionRadwareFirstTime>
     </visionCli>
     <visionLab>
         <class>systemobjects.VisionLab</class>

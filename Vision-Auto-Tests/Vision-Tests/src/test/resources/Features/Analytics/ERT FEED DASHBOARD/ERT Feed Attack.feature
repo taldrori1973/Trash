@@ -35,7 +35,7 @@ Feature: ERTFeed Attack validation
   @SID_4
   Scenario: Validate Top Attacking Geolocations Widget - Packets
     Then UI Click Button "Packets" with value "Top-Attacking-Geolocations"
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "([7][3-5]) K"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "74 K" with offset 2
 
   @SID_5
   Scenario: Validate Top Attacking Geolocations Widget - Events
@@ -45,12 +45,12 @@ Feature: ERTFeed Attack validation
   @SID_6
   Scenario: Validate Top Attacking Geolocations Widget - Volume
     Then UI Click Button "Volume" with value "Top-Attacking-Geolocations"
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "([3][4-6]) M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "35 M" with offset 2
 
   @SID_7
   Scenario: Validate Top Malicious IP Addresses Widget - Packets
     Then UI Click Button "Packets" with value "Top-Malicious-IP-Addresses"
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([7][3-5]) K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "74 K" with offset 2
 
   @SID_8
   Scenario: Validate Top Malicious IP Addresses Widget - Events
@@ -60,7 +60,7 @@ Feature: ERTFeed Attack validation
   @SID_9
   Scenario: Validate Top Malicious IP Addresses Widget - Volume
     Then UI Click Button "Volume" with value "Top-Malicious-IP-Addresses"
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "([3][4-6]) M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "35 M" with offset 2
 
   @SID_10
   Scenario: Logout

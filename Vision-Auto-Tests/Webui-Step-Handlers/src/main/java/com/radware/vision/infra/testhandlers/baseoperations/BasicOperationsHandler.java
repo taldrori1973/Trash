@@ -393,9 +393,9 @@ public class BasicOperationsHandler {
         VisionDebugIdsManager.setParams(param);
         String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
         if (actualValue.contains(expectedValue)) {
-            BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue , Reporter.PASS);
+            BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue, Reporter.PASS);
         } else {
-            BaseTestUtils.report("Failed to validate element value: " + label +  " ,Expected result is: " + expectedValue +" but Actual value is: " + actualValue, Reporter.FAIL);
+            BaseTestUtils.report("Failed to validate element value: " + label + " ,Expected result is: " + expectedValue + " but Actual value is: " + actualValue, Reporter.FAIL);
         }
     }
 
@@ -406,8 +406,6 @@ public class BasicOperationsHandler {
      * @param params    for id's that only will be known at test run time
      * @return
      */
-
-
 
 
     public static boolean isItemSelected(String LabelName, String... params) {
@@ -665,11 +663,12 @@ public class BasicOperationsHandler {
     public static void settings() {
         navigateFromHomePage("VISION SETTINGS");
         WebUIBasePage.closeAllYellowMessages();
-    try
-    {
-        HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
-        WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
-    }catch (Exception ignore){}
+        try
+        {
+            HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
+            WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
+        } catch (Exception ignore) {
+        }
         //Verify the click
         if (!new VisionServerInfoPane().getDeviceName().equals("APSolute Vision")) {
             ReportsUtils.reportAndTakeScreenShot("Failed To Go To Vision ", Reporter.FAIL);
@@ -917,7 +916,7 @@ public class BasicOperationsHandler {
         }
     }
 
-    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String compare, String value, String expectedErrorMessage) {
+    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String compare, String value, String expectedErrorMessage, String offset) {
         if (params == null) params = "";
         VisionDebugIdsManager.setLabel(label);
         if (params != null)
@@ -939,10 +938,22 @@ public class BasicOperationsHandler {
         switch (compare) {
             case "EQUAL":
             case "EQUALS":
-                if (!element.getAttribute(attribute).equalsIgnoreCase(value)) {
+                float maxVal;
+                float minVal;
+                if (offset != null && offset.matches("[0-9]+")) {
+                    String floatValue = value.replaceAll("[^\\d.]", "");
+                    String floatAttribute = element.getAttribute(attribute).replaceAll("[^\\d.]", "");
+                    maxVal = Float.parseFloat(floatValue) + Integer.parseInt(offset);
+                    minVal = Float.parseFloat(floatValue) - Integer.parseInt(offset);
+                    if (Float.parseFloat(floatAttribute) > maxVal || Float.parseFloat(floatAttribute) < minVal) {
+                        if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
+                        BaseTestUtils.report(errorMessage, Reporter.FAIL);
+                    }
+                } else if (!element.getAttribute(attribute).equalsIgnoreCase(value)) {
                     if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
                     BaseTestUtils.report(errorMessage, Reporter.FAIL);
                 }
+
                 break;
             case "CONTAINS":
                 if (!element.getAttribute(attribute).contains(value)) {
@@ -959,7 +970,7 @@ public class BasicOperationsHandler {
                 }
                 break;
             case "MatchRegx":
-                if (element.getAttribute(attribute).matches(value)) {
+                if (!element.getAttribute(attribute).matches(value)) {
                     errorMessage.replaceFirst(" is not match to ", " is matched in ");
                     if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
                     BaseTestUtils.report(errorMessage, Reporter.FAIL);
@@ -974,21 +985,19 @@ public class BasicOperationsHandler {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams("");
 
-        List<WebElement> checkedItems = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//*[contains(@data-debug-id,'" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@" + attribute + ",'" + value + "')]").getBy());
+        List<WebElement> checkedItems = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@" + attribute + ",'" + value + "')]").getBy());
 
-        if(checkedItems != null){
-            for (int i=0; i<entries.size(); i++)
-            {
+        if (checkedItems != null) {
+            for (int i = 0; i < entries.size(); i++) {
                 if (!checkedItems.get(entries.get(i).index).getText().equals(entries.get(i).name))
                     BaseTestUtils.report("The Expected value in index " + entries.get(i).index + " is: " +
                             "" + entries.get(i).name + " But Actual Value is: " + checkedItems.get(entries.get(i).index).getText(), Reporter.FAIL);
             }
 
-        }else{
+        } else {
 
             BaseTestUtils.report("There are no selected Items found ", Reporter.FAIL);
         }
-
 
 
     }
@@ -1032,18 +1041,17 @@ public class BasicOperationsHandler {
         Properties properties = new Properties();        //function to upload file from project
 //        properties.load(new FileInputStream("jsystem.properties"));
 //        String basePath = properties.getProperty("resources.src");
-        String basePath = FileUtils.getAbsoluteProjectPath()+ "src" + File.separator + "main" + File.separator + "resources" + File.separator;
-        String uploadFilePath = basePath  + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows")? "\\":"/") + name;
+        String basePath = FileUtils.getAbsoluteProjectPath() + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
+        String uploadFilePath = basePath + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows") ? "\\" : "/") + name;
         BaseTestUtils.report("Path of Uploaded file is: " + uploadFilePath, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.report("The label is: " + label, Reporter.PASS_NOR_FAIL);
-        if(label!= null){
+        if (label != null) {
             VisionDebugIdsManager.setLabel(label);
             VisionDebugIdsManager.setParams(param);
             String debugId = VisionDebugIdsManager.getDataDebugId();
             BaseTestUtils.report("The debug id is: " + debugId, Reporter.PASS_NOR_FAIL);
-            elem = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH,"//*[contains(@data-debug-id,'" + debugId +"')]/..//input[@type='file']").getBy(),WebUIUtils.SHORT_WAIT_TIME, false);
-        }
-        else {
+            elem = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'" + debugId + "')]/..//input[@type='file']").getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
+        } else {
             elem = WebUIDriver.getDriver().findElement(By.xpath("//input[@type='file']"));
         }
         elem.sendKeys(uploadFilePath);
@@ -1053,22 +1061,22 @@ public class BasicOperationsHandler {
 
     public static void openDeviceList(String label) throws Exception {
 
-        switch(label){
+        switch (label) {
             case "Devices":
-                label="Device Selection";
+                label = "Device Selection";
                 BasicOperationsHandler.clickButton(label, "");
                 break;
             case "Reports":
-             //   openTab(label);
+                //   openTab(label);
                 clickButton("Add New", "");
-                clickButton("Template","");
+                clickButton("Template", "");
                 BasicOperationsHandler.clickButton("DefensePro Behavioral Protections Template", "");
                 clickButton("Widget Apply");
                 VRMBaseUtilies.expandViews(true);
                 break;
             case "Forensics":
             case "Alerts":
-               // openTab(label);
+                // openTab(label);
                 clickButton("Add New", "");
                 VRMBaseUtilies.expandViews(true);
                 break;
@@ -1088,10 +1096,10 @@ public class BasicOperationsHandler {
     private static void closeAllPopups() {
         ComponentLocator locator = ComponentLocatorFactory.getLocatorByClass("ant-modal-close");
         if ((WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME)) != null && WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME).isDisplayed())
-            try
-            {
-                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME,  false).click();
-            }catch (ElementNotInteractableException ignore){}
+            try {
+                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false).click();
+            } catch (ElementNotInteractableException ignore) {
+            }
 
     }
 
