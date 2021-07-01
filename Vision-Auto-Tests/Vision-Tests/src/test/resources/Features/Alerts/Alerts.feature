@@ -382,6 +382,7 @@ Feature: Alert browser
 #    Then UI clear Alerts by listOfRowIndexes "4"
 #    Then UI Logout
 
+
   @SID_26
   Scenario: Clear All Alerts Button
     When UI Login with user "radware" and password "radware"
@@ -406,6 +407,7 @@ Feature: Alert browser
     Then REST Delete Device By IP "1.1.1.1"
     Then REST Delete Device By IP "2.2.2.2"
 
+  @TRY
   @SID_28
   Scenario: Preparations - clear all alerts and delete local user
     Given UI Login with user "radware" and password "radware"
@@ -420,6 +422,7 @@ Feature: Alert browser
     When Send Request with the Given Specification
 
 
+  @TRY
   @SID_29
   Scenario: Create Local User and Validate alert
     Given That Current Vision is Logged In

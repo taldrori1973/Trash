@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 public class SaproClientSteps {
     private final SaproCommunicationHandler sc = new SaproCommunicationHandler();
 
+
+
     @Given("^Start map \"([^\"]*)\"$")
     public void startMap(String mapName) {
         sc.startMap(mapName);
@@ -58,6 +60,11 @@ public class SaproClientSteps {
         } catch (InterruptedException e) {
             BaseTestUtils.report("Interrupted while Sleeping: " + e.getMessage(), Reporter.FAIL);
         }
+    }
+
+    @Given("^Test Test$")
+    public void testTest() {
+        sc.test();
     }
 }
 

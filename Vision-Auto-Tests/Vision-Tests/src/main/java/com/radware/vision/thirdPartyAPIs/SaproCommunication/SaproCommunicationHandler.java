@@ -27,6 +27,16 @@ public class SaproCommunicationHandler {
         xmlFullPath = "/opt/sapro/xml/";
     }
 
+    public void test() {
+        try {
+            this.initConnect();
+            saproObj.sendAddDevCmdToMap("/opt/sapro/map/map0.map","/opt/sapro/map/devlist.map");
+            this.closeConnect();
+        } catch (SaproException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
 
     /**
      * Connection to the SimpleAgentPro Server
