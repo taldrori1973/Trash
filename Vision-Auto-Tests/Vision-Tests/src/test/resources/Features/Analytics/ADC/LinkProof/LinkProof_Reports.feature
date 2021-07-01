@@ -432,7 +432,7 @@ Feature: LinkProof_Reports
       | Template              | reportType:LinkProof ,Widgets:[{Upload Throughput:[bps]},CEC] , devices:[LP_simulator_101] ,WANLinks:[w1,Ahlam_WAN] |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                    |
       | Format                | Select: CSV                                                                                                         |
-    Then UI Delete Report With Name "CEC Upload Throughput bpa"
+    Then UI Delete Report With Name "CEC Upload Throughput bps"
 
   @SID_27
   Scenario: create new CEC Upload Throughput Usage
