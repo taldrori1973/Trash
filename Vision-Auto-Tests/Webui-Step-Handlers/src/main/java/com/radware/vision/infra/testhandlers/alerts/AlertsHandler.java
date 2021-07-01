@@ -295,19 +295,14 @@ public class AlertsHandler {
         return true;
     }
 
-    public static boolean validateAlertContentByKeyValue(String key, String value, boolean closeAlertsTable, List<Table.TableDataSets> keyValueList) {
+    public static boolean validateAlertContentByKeyValue(String key, String value, List<Table.TableDataSets> keyValueList) {
         WebUITable table = setupAlertTable();
         int rowToValidateIndex = table.getRowIndex(key, value, true);
         if (rowToValidateIndex == -1) {
             BaseTestUtils.report("Relevant Alert was not found by key: " + key + " value: " + value, BaseTestUtils.PASS_NOR_FAIL);
             return false;
         }
-        boolean result = table.validateTableRowContent(keyValueList, rowToValidateIndex);
-        Alerts alerts = new Alerts();
-        if (closeAlertsTable) {
-            alerts.alertsMinimize();
-        }
-        return result;
+        return table.validateTableRowContent(keyValueList, rowToValidateIndex);
     }
 
     public static WebUITable setupAlertTable() {
