@@ -74,8 +74,10 @@ public class AlertsSteps extends VisionUITestBase {
             boolean closeAlertsTable = closeAlertsModule != null;
             while (!(AlertsHandler.validateAlertContentByKeyValue(key, value, closeAlertsTable, tableData))) {
                 if(times > 0) {
+                    AlertsHandler.minimizeAlertsBrowser();
                     Thread.sleep(10000);
                     times--;
+                    AlertsHandler.maximizeAlertsBrowser();
                 } else {
                     BaseTestUtils.report("Verify Alert record Content by KeyValue: " + value + "\n.", Reporter.FAIL);
                 }
