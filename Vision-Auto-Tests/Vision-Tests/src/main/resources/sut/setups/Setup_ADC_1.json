@@ -1,0 +1,54 @@
+{
+  "setupId": "ADC_1",
+  "tree": {
+    "sites": [
+      {
+        "parentSite": "Default",
+        "name": "Alteon_for_DPM"
+      },
+      {
+        "parentSite": "Default",
+        "name": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "parentSite": "Default",
+        "name": "VA_Alteons_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "vADC_Alteon_site"
+      }
+    ],
+    "devices": [
+      {
+        "deviceId": "Alteon_172.17.164.17",
+        "parentSite": "Alteon_for_DPM"
+      },
+      {
+        "deviceId": "Alteon_172.17.164.18",
+        "parentSite": "Alteon_for_DPM"
+      },
+      {
+        "deviceId": "Alteon_50.50.101.11",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_50.50.101.21",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_50.50.101.22",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_172.17.154.19",
+        "parentSite": "VA_Alteons_site"
+      },
+      {
+        "deviceId": "Alteon_172.17.154.215",
+        "parentSite": "vADC_Alteon_site"
+      }
+    ]
+  },
+  "defenseFlowId": null
+}
