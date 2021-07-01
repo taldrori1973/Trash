@@ -8,13 +8,14 @@ Feature: GET Alert API
     Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     # copy current vision management IP to the generic linux VM
     Then CLI Run remote linux Command "ip -f inet -o addr |grep -oP "172.17.1(\d{0,2}).(\d{1,3})" > /tmp/myip" on "ROOT_SERVER_CLI"
-    Then CLI copy "/tmp/myip" from "ROOT_SERVER_CLI" to "GENERIC_LINUX_SERVER" "/tmp"
+#    Then CLI copy "/tmp/myip" from "ROOT_SERVER_CLI" to "GENERIC_LINUX_SERVER" "/tmp"
 
   @SID_2
   Scenario:  Generate alert of type lock device
     Then REST Login with user "sys_admin" and password "radware"
-    Then REST Unlock Action on "DefensePro" 10
-    Then REST Lock Action on "DefensePro" 10
+    Then REST Unlock Action on "DefensePro_Set_1"
+    Then REST Lock Action on "DefensePro_Set_1"
+
 
   @SID_3
   Scenario:  Verify correct result for filter MODULE,SEVERITY,DEVICE TYPE
@@ -31,9 +32,9 @@ Feature: GET Alert API
   @SID_4
   Scenario:  Verify correct result for filter NUMBER OF RESULTS
     When REST Delete ES index "alert"
-    Then REST Unlock Action on "DefensePro" 10
+    Then REST Unlock Action on "DefensePro_Set_1"
     Then Sleep "2"
-    Then REST Lock Action on "DefensePro" 10
+    Then REST Lock Action on "DefensePro_Set_1"
     Then CLI Run linux Command "/home/radware/Scripts/GET_alert_API.sh "" "DEVICE_GENERAL" "INFO" "" "DEFENSE_PRO" "1" "2019-01-01" "" |grep -o "locked by"|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2" Retry 200 seconds
     Then CLI Run linux Command "/home/radware/Scripts/GET_alert_API.sh "" "DEVICE_GENERAL" "INFO" "" "DEFENSE_PRO" "20" "2019-01-01" "" |grep -o "locked by"|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "4"
 
