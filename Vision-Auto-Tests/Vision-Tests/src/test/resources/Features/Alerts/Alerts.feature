@@ -188,12 +188,6 @@ Feature: Alert browser
       | restoreDefaults    | true               |
     Then UI Logout
 
-
-#  @SID_13
-#  Scenario: Uncheck Module
-#    Then UI module Check Negative
-#    Then UI Logout
-
   @SID_13
   Scenario: Vision Configuration
     When UI Login with user "radware" and password "radware"
@@ -236,21 +230,6 @@ Feature: Alert browser
       | groupsList         |                |
       | ackUnackStatusList |                |
       | restoreDefaults    | true           |
-
-#  @SID_16
-#  Scenario: Raised Time
-#    Then UI validate Alerts Filter by KeyValue
-#      | devicesList        |        |
-#      | selectAllDevices   | false  |
-#      | raisedTimeUnit     | Hour/s |
-#      | raisedTimeValue    | 1      |
-#      | severityList       |        |
-#      | modulesList        |        |
-#      | devicesTypeList    |        |
-#      | groupsList         |        |
-#      | ackUnackStatusList |        |
-#      | restoreDefaults    | true   |
-#    Then UI validate RaisedTimeFilter with raisedTimeUnit "HOURS" with raisedTimeValue "1"
 
   @SID_16
   Scenario: Restore Defaults
@@ -375,13 +354,6 @@ Feature: Alert browser
     Then UI Auto Refresh Alerts OnOFF "OFF"
     Then UI Logout
 
-#  @SID_28
-#  Scenario: Clear Selected Alert
-#    When UI Login with user "radware" and password "radware"
-#    Then UI clear Alerts by listOfRowIndexes "4"
-#    Then UI clear Alerts by listOfRowIndexes "4"
-#    Then UI Logout
-
   @SID_26
   Scenario: Clear All Alerts Button
     When UI Login with user "radware" and password "radware"
@@ -448,8 +420,7 @@ Feature: Alert browser
     Then Validate That Response Body Contains
       | jsonPath | value |
       | $.status | "ok"  |
-#    Then Sleep "240"
-    Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "User radware added account cucumber."
+    Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "User radware added account cucumber." with timeout 120 seconds
       | columnName   | value          |
       | Severity     | Info           |
       | Module       | Vision General |

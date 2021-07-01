@@ -20,6 +20,11 @@ import cucumber.api.java.en.When;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.concurrent.TimeUnit;
+
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class AlertsSteps extends VisionUITestBase {
 
@@ -67,30 +72,31 @@ public class AlertsSteps extends VisionUITestBase {
         }
     }
 
-    @Then("^UI Validate Alert record Content by KeyValue with columnName \"(.*)\" with content \"(.*)\"( closeAlertsModule)?$")
-    public void verifyAlertContentByKeyValue(String key, String value, String closeAlertsModule, List<Table.TableDataSets> tableData) {
-        int times = 10;
+    @Then("^UI Validate Alert record Content by KeyValue with columnName \"(.*)\" with content \"(.*)\"(?: with timeout (\\d+) seconds)?$")
+    public void verifyAlertContentByKeyValue(String key, String value, Integer timeOut, List<Table.TableDataSets> tableData) {
+        int intervalTimeInSec = 10;
+        boolean succeed;
+        Duration interval;
+        timeOut = timeOut == null ? 0 : timeOut;
         try {
-            boolean closeAlertsTable = closeAlertsModule != null;
-            while (!(AlertsHandler.validateAlertContentByKeyValue(key, value, closeAlertsTable, tableData))) {
-                if(times > 0) {
-                    Thread.sleep(10000);
-                    times--;
-                } else {
-                    BaseTestUtils.report("Verify Alert record Content by KeyValue: " + value + "\n.", Reporter.FAIL);
-                }
+            do {
+                Instant start = Instant.now();
+                // due lack of refresh feature in alerts, we close and open the alert window instead:
+                AlertsHandler.minimizeAlertsBrowser();
+                TimeUnit.SECONDS.sleep(intervalTimeInSec);
+                AlertsHandler.maximizeAlertsBrowser();
+                succeed = AlertsHandler.validateAlertContentByKeyValue(key, value, tableData);
+                Instant end = Instant.now();
+                interval = Duration.between(start, end);
+            } while (!succeed && interval.getSeconds() < timeOut);
+            if (succeed) {
+                BaseTestUtils.report("succeed to verify Alert record Content by KeyValue: " + value + "\n.", Reporter.PASS);
+            } else {
+                BaseTestUtils.report("failed to verify Alert record Content by KeyValue: " + value + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
             BaseTestUtils.report("Verify Alert record Content by KeyValue: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
-//        try {
-//            boolean closeAlertsTable = closeAlertsModule != null;
-//            if (!(AlertsHandler.validateAlertContentByKeyValue(key, value, closeAlertsTable, tableData))) {
-//                BaseTestUtils.report("Verify Alert record Content by KeyValue: " + value + "\n.", Reporter.FAIL);
-//            }
-//        } catch (Exception e) {
-//            BaseTestUtils.report("Verify Alert record Content by KeyValue: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
-//        }
     }
 
     @Then("^UI clear All Alerts(?: with TimeOut (\\S+))?$")
@@ -108,7 +114,7 @@ public class AlertsSteps extends VisionUITestBase {
     }
 
     @Then("^UI validate Alerts Filter by KeyValue$")
-    public void filterAlerts(Map<String,String> properties) {
+    public void filterAlerts(Map<String, String> properties) {
         try {
             HashMap<String, String> filterProperties = new HashMap<String, String>(properties);
             AlertsHandler.validateAlertsFilter(restTestBase.getVisionRestClient(), filterProperties);
