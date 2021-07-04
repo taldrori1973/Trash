@@ -1,17 +1,16 @@
+@run
 Feature: test
 
   @SID_1
   Scenario: Login and Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "ADC REPORTS" page via homepage
-    Then UI Click Button "New Report Tab"
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-  @SID_2
-  Scenario: create new BDoS-TCP SYN1
-    Given UI "Create" Report With Name "Lp Report"
-      | Template | reportType:LinkProof ,Widgets:[CEC] , devices:[RnDLinkproof] ,WANLinks:[w1,w2] |
+  @SID_8
+  Scenario: create new Download Throughput bps1
 
-  @SID_3
-  Scenario: create new BDoS-TCP SYN1
-    Given UI "Validate" Report With Name "Lp Report"
-      | Template | reportType:LinkProof,Widgets:[CEC],devices:[RnDLinkproof],WANLinks:[w1,w2] |
+    Then UI "Select" Scope Polices "BDOS,policy1,Policy14" in Device "DefensePro_172.16.22.50"
+
+    Then UI "Validate" Scope Polices "BDOS,policy1,Policy14" in Device "DefensePro_172.16.22.50"
+
+

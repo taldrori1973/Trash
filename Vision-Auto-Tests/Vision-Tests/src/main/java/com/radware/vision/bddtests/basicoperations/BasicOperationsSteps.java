@@ -7,7 +7,9 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.automation.webui.widgets.api.TextField;
 import com.radware.automation.webui.widgets.api.Widget;
+import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
@@ -17,6 +19,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.ReportsForensicsAlertsAbstract;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
@@ -31,6 +34,7 @@ import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -46,11 +50,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
-import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
-
+import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
+import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.*;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
+
 /**
  * Created by AviH on 30-Nov-17.
  */
@@ -291,7 +295,7 @@ public class BasicOperationsSteps extends BddUITestBase {
             default:
                 operatorsEnum = OperatorsEnum.EQUALS;
         }
-        ClickOperationsHandler.validateTextFieldElementByClass(elementClass, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber),offset);
+        ClickOperationsHandler.validateTextFieldElementByClass(elementClass, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber), offset);
     }
 
     /**
@@ -607,8 +611,8 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     @Then("^UI Validate the attribute of \"([^\"]*)\" are \"(EQUAL|CONTAINS|NOT CONTAINS)\" to$")
-    public void uiValidateTheAttributesOfAreTo(String attribute  , String compare, List<ParameterSelected> listParamters) {
-        uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(listParamters,attribute, compare);
+    public void uiValidateTheAttributesOfAreTo(String attribute, String compare, List<ParameterSelected> listParamters) {
+        uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(listParamters, attribute, compare);
     }
 
 
@@ -620,23 +624,23 @@ public class BasicOperationsSteps extends BddUITestBase {
         uiSelectWANLinks(map);
     }
 
-    public static void  uiSelectWANLinks(Map<String, String> map) throws Exception {
-        if(map.containsKey("WAN Links")) {
+    public static void uiSelectWANLinks(Map<String, String> map) throws Exception {
+        if (map.containsKey("WAN Links")) {
             BasicOperationsHandler.delay(5);
-            int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks ;
+            int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks;
             WebUiTools.check("Expand Scope WAN Links", "", true);
             ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
             if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase("")) {
-               unselectAllWanLinks();
-               return;
+                unselectAllWanLinks();
+                return;
             }
-            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] " ).getBy())) {
-                if (WANLinkNumbers >0) {
+            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] ").getBy())) {
+                if (WANLinkNumbers > 0) {
                     String instanceText = instanceElement.getText();
                     if (expectedWANLinks.contains(instanceText)) {
                         WebUiTools.check("WAN Link Value", instanceText, true);
                         expectedWANLinks.remove(instanceText);
-                        WANLinkNumbers --;
+                        WANLinkNumbers--;
                     } else WebUiTools.check("WAN Link Value", instanceText, false);
                 }
             }
@@ -653,8 +657,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
 
-    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare)
-    {
+    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare) {
         for (ParameterSelected parameter : listParamters) { //all the parameters that selected to compare with values
             VisionDebugIdsManager.setLabel(parameter.label);
             VisionDebugIdsManager.setParams(parameter.param);
@@ -662,8 +665,7 @@ public class BasicOperationsSteps extends BddUITestBase {
             WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
             if (element == null) {
                 addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
-            }
-            else{
+            } else {
                 String actualStatus = element.getAttribute(attribute);
                 String errorMessage = "The EXPECTED value of : '" + parameter.label + "' with params: '" + parameter.param + "' is not equal to '" + actualStatus + "' ";
                 switch (compare) {
@@ -692,15 +694,15 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     @Then("^validate webUI CSS value \"([^\"]*)\" of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? equals \"([^\"]*)\"$")
-    public void validateWebUICSSOfLabelWithParams(String cssKey, String label, String param,String cssValue) {
-       VisionDebugIdsManager.setLabel(label);
-       VisionDebugIdsManager.setParams(param);
+    public void validateWebUICSSOfLabelWithParams(String cssKey, String label, String param, String cssValue) {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(param);
         WebUIUtils.sleep(3);
         WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
-        if(element==null)
-           BaseTestUtils.report("This element with label : "+label+" and params: "+param+ " is not exist", Reporter.FAIL);
-       else if(!element.getCssValue(cssKey).equals(cssValue))
-           BaseTestUtils.report("This element with cssKey : "+cssKey+" and cssValue: "+cssValue+ " not equal to "+element.getCssValue(cssKey), Reporter.FAIL);
+        if (element == null)
+            BaseTestUtils.report("This element with label : " + label + " and params: " + param + " is not exist", Reporter.FAIL);
+        else if (!element.getCssValue(cssKey).equals(cssValue))
+            BaseTestUtils.report("This element with cssKey : " + cssKey + " and cssValue: " + cssValue + " not equal to " + element.getCssValue(cssKey), Reporter.FAIL);
     }
 
     @Then("^UI Select Time of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? with value \"([^\"]*)\" and pattern \"([^\"]*)\"$")
@@ -726,42 +728,76 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     private static void selectHoursOrMinutes(String label, String params, String HoursOrMinutes, LocalDateTime scheduleTime) {
-        int differenceValue = Integer.valueOf(WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCount'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]")).getText()) - (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?scheduleTime.getHour():scheduleTime.getMinute());
-        for(int i=0; i<Math.abs(differenceValue); i++)
-            WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCounter'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]//span[.='" + (differenceValue>0?"▼":"▲") + "']")).click();
+        int differenceValue = Integer.valueOf(WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCount'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? "1" : "2") + "]")).getText()) - (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? scheduleTime.getHour() : scheduleTime.getMinute());
+        for (int i = 0; i < Math.abs(differenceValue); i++)
+            WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCounter'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? "1" : "2") + "]//span[.='" + (differenceValue > 0 ? "▼" : "▲") + "']")).click();
     }
+
     private static void selectDate(String label, String params, LocalDateTime scheduleTime) {
         LocalDate actualLocalDate = LocalDate.parse("01 " + WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdtSwitch']")).getText(), DateTimeFormatter.ofPattern("dd MMMM yyyy"));
         int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
-        while(monthsDifference != 0)
-        {
-            WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdt" + (monthsDifference>0?"Next":"Prev") + "']")).click();
-            monthsDifference = monthsDifference>0?monthsDifference-1:monthsDifference+1;
+        while (monthsDifference != 0) {
+            WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdt" + (monthsDifference > 0 ? "Next" : "Prev") + "']")).click();
+            monthsDifference = monthsDifference > 0 ? monthsDifference - 1 : monthsDifference + 1;
         }
         WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//td[@data-value='" + scheduleTime.getDayOfMonth() + "'][not(contains(@class,'rdtOld'))]")).click();
     }
 
     @Then("^UI Validate Deletion of (Report|Forensics|Alert) instance \"([^\"]*)\" with value \"([^\"]*)\"$")
-    public void uiValidateDeletionOfReportInstanceWithValue(String type ,String label, String params) {
+    public void uiValidateDeletionOfReportInstanceWithValue(String type, String label, String params) {
         try {
-            switch (type.toLowerCase())
-            {
+            switch (type.toLowerCase()) {
                 case "report":
-                    new Report().deletionReportInstance(label,params);
+                    new Report().deletionReportInstance(label, params);
                     break;
                 case "forensics":
-                    new Forensics().deletionReportInstance(label,params);
+                    new Forensics().deletionReportInstance(label, params);
                     break;
-    //            case "Alert": new Alert().deletionReportInstance(label,params);break;
+                //            case "Alert": new Alert().deletionReportInstance(label,params);break;
             }
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
+    @Then("^UI \"(Select|Validate)\" Scope Polices \"([^\"]*)\" in Device \"([^\"]*)\"$")
+    public void uiScopePolicesInDevice(String operationType, String polices, String device) throws Exception {
+        switch (operationType) {
+            case "Select":
+                uiSelectScopePolicesInDevice(operationType, polices, device);
+                break;
+            case "Validate":
+                uiValidateScopePolicesInDevice(operationType, polices, device);
+                break;
+        }
+    }
+
+    private void uiSelectScopePolicesInDevice(String operationType, String policies, String device) throws Exception {
+        ArrayList<String> policesList = new ArrayList<>(Arrays.asList(policies.split(",")));
+        clickButton("Device Selection", "");
+        WebUiTools.check("All Devices Selection", "", false);
+        setTextField("Filter", device);
+        clickButton("Device Selection Check Box", device);
+        clickButton("Device Selection.Available Device change", device);
+        for (WebElement policeElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_"+device+"_policiesLabel_')]").getBy())) {
+            String policyText = policeElement.getText();
+            doOperation("hover","Policy Value",  "");
+            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_\"+device+\"_policiesLabel_')]"), WebUiTools.getComponentLocator("Policy Value",  device+","+policyText), true);
+            if (policesList.contains(policyText)) {
+                WebUiTools.check("Policy Value",  new String[]{device,  policyText}, true);
+                policesList.remove(policyText);
+            } else WebUiTools.check("Policy Value",  new String[]{device, policyText}, false);
+        }
+        clickButton("Device Selection.Save Filter");
+    }
+
+
+    private void uiValidateScopePolicesInDevice(String operationType, String polices, String device) {
+    }
+
     public static class ParameterSelected {
         String label;
-        String param ;
+        String param;
         String value;
     }
 
@@ -810,7 +846,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
 
-// .... Maha test ....
+    // .... Maha test ....
     @Then("^MahaTest click on \"([^\"]*)\"$")
     public void mahatestClickOn(String buttonName) {
         // Write code here that turns the phrase above into concrete actions
@@ -822,7 +858,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
 
     @Then("^UI Unclick all the attributes \"([^\"]*)\" is \"(EQUALS|CONTAINS)\" to \"([^\"]*)\"$")
-    public void uiUnclickAllTheAttributesOf(String attribute ,String compare, String value, List<ParameterSelected> listParameters ) {
+    public void uiUnclickAllTheAttributesOf(String attribute, String compare, String value, List<ParameterSelected> listParameters) {
         try {
             for (ParameterSelected parameter : listParameters) {
                 VisionDebugIdsManager.setLabel(parameter.label);
@@ -830,8 +866,7 @@ public class BasicOperationsSteps extends BddUITestBase {
                 WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
                 if (element == null) {
                     addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
-                }
-                else {
+                } else {
                     String actualStatus = element.getAttribute(attribute);
                     switch (compare) {
                         case "EQUALS":
@@ -853,11 +888,10 @@ public class BasicOperationsSteps extends BddUITestBase {
         }
     }
 
-        public static class ClickParameter{
+    public static class ClickParameter {
         String label;
-        String param ;
-        }
-
+        String param;
+    }
 
 
 //checkbox_select-all_Label
