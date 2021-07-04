@@ -11,7 +11,6 @@ import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.utils.RegexUtils;
-import com.radware.vision.vision_handlers.NewVmHandler;
 import com.radware.vision.vision_handlers.system.VisionServer;
 import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
 
@@ -38,8 +37,11 @@ public class VmSnapShotOperations extends BddUITestBase {
     private static final Map<String, String> NEXT_VERSION = new HashMap<String, String>() {{
         put("4.82.00", "4.83.00");
         put("4.81.00", "4.82.00");
-        put("4.80.00", "4.81.00");
-        put("4.70.00", "4.80.00");
+        put("4.81.01", "4.82.00");
+        put("4.80.00", "4.81.01");
+        put("4.80.01", "4.81.01");
+        put("4.80.02", "4.81.01");
+        put("4.70.00", "4.80.02");
         put("4.60.00", "4.70");
         put("4.50.00", "4.60");
     }};
@@ -123,6 +125,8 @@ public class VmSnapShotOperations extends BddUITestBase {
     }
 
     public void revertKvmSnapshot(String snapshotName, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
+        if (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" "))
+            snapshotName = "Current-1";
         CliOperations.runCommand(visionRadwareFirstTime, "virsh list --all");
         String kvmMachineName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
         boolean isContained = RegexUtils.isStringContainsThePattern(kvmMachineName, CliOperations.lastOutput);
@@ -199,14 +203,12 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     public void upgradeAccordingToSnapshot() throws Exception {
 
-        boolean snapshotFromSut = true;
-        if (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" "))
-            snapshotFromSut = false;
         UpgradeSteps upgradeSteps = new UpgradeSteps();
         VisionInfo visionInfo;
         assert setupMode != null;
         switch (setupMode.toLowerCase()) {
             case "upgrade":
+                boolean snapshotFromSut = snapshotName != null && !snapshotName.isEmpty() && !snapshotName.equals(" ");
                 revertVMWareSnapshot(defaultVMWareNumber, snapshotFromSut);
                 if (!waitForServerConnection(2700000L, restTestBase.getRootServerCli())) {
                     BaseTestUtils.report("Could not connect to device: " + restTestBase.getRootServerCli().getHost(), 1);
@@ -221,8 +223,7 @@ public class VmSnapShotOperations extends BddUITestBase {
                 break;
 
             case "kvm_upgrade":
-                VmSnapShotOperations.newInstance().revertKvmSnapshot(snapshotName, visionRadwareFirstTime);
-                revertVMWareSnapshot(defaultVMWareNumber, snapshotFromSut);
+                revertKvmSnapshot(snapshotName, visionRadwareFirstTime);
                 if (!waitForServerConnection(2700000L, restTestBase.getRootServerCli())) {
                     BaseTestUtils.report("Could not connect to device: " + restTestBase.getRootServerCli().getHost(), 1);
                 }
@@ -234,17 +235,17 @@ public class VmSnapShotOperations extends BddUITestBase {
         }
     }
 
-    private String calculateVersionAccordingToSnapshot() throws Exception {
-        if (setupMode.equalsIgnoreCase("upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
-            snapshotName = getSnapshotNameOfEnumFromListForVMWare();
-        if (setupMode.equalsIgnoreCase("kvm_upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
-            snapshotName = getSnapshotNameOfEnumFromListForKVM();
-        String currentVersion = VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[0] + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[1];
-        assert snapshotName != null;
-        String number = (snapshotName.equalsIgnoreCase("current")) ? "0" : snapshotName.split("-")[1].trim();
-        String numberToSubtract = "0." + number;
-        return new BigDecimal(currentVersion).subtract(new BigDecimal(numberToSubtract)) + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[2];
-    }
+//    private String calculateVersionAccordingToSnapshot() throws Exception {
+//        if (setupMode.equalsIgnoreCase("upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
+//            snapshotName = getSnapshotNameOfEnumFromListForVMWare();
+//        if (setupMode.equalsIgnoreCase("kvm_upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
+//            snapshotName = getSnapshotNameOfEnumFromListForKVM();
+//        String currentVersion = VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[0] + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[1];
+//        assert snapshotName != null;
+//        String number = (snapshotName.equalsIgnoreCase("current")) ? "0" : snapshotName.split("-")[1].trim();
+//        String numberToSubtract = "0." + number;
+//        return new BigDecimal(currentVersion).subtract(new BigDecimal(numberToSubtract)) + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[2];
+//    }
 
     public String getSnapshotNameOfEnumFromListForVMWare() throws Exception {
         String snapshotName;
