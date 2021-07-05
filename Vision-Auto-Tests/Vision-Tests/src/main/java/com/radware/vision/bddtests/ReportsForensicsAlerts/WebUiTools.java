@@ -36,7 +36,7 @@ public class WebUiTools {
     public static ComponentLocator getComponentLocator(String label, String param)
     {
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(param);
+        VisionDebugIdsManager.setParams(param.split(","));
         return ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId());
     }
 
