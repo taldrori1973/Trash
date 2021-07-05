@@ -36,7 +36,7 @@ public class UpgradeSteps extends BddCliTestBase {
         try {
             validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
         } catch (Exception e) {
-            BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
+            BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -254,7 +254,7 @@ public class UpgradeSteps extends BddCliTestBase {
                     , version, null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
             validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
         } catch (Exception e) {
-            BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
+            BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }

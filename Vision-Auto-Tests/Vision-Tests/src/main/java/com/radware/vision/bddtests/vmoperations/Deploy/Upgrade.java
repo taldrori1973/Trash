@@ -58,7 +58,7 @@ public class Upgrade extends Deploy {
                     , version, null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
             UpgradeSteps.validateVisionServerServicesUP(WebUITestBase.getRestTestBase().getRadwareServerCli());
         } catch (Exception e) {
-            BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
+            BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }

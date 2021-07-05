@@ -74,7 +74,7 @@ public class FreshInstallOVA extends Deploy {
             vmHandler.firstTimeWizardOva(super.getBuildFileInfo().getDownloadUri().toString(), isAPM, vCenterURL, vCenterUser, vCenterPassword, hostIp,
                     super.getBuild(), vmName, null, networkName, resourcePool, null, dataStores);
         } catch (Exception e) {
-            BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
+            BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report("Failed to Create NewVm: " + vmName + " failed with the following error: \n" +
                     "Message: " + e.getMessage() + "\n" +
                     "Cause: " + e.getCause() + "\n" +
