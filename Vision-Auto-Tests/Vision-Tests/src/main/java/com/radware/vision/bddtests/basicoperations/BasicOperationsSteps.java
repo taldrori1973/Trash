@@ -787,7 +787,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     private void uiUnSelectScopePoliciesInDevice( Map<String, String> map) throws Exception {
-        String str= devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
+        String deviceIP= devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
 
     }
 
