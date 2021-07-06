@@ -115,13 +115,12 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         }
     }
 
-    private void fixSelectionToArray(String selectionType, Map<String, String> map) {
+    public static void fixSelectionToArray(String selectionType, Map<String, String> map) {
         try {
             new JSONArray(map.get(selectionType));
         } catch (Exception e) {
             map.put(selectionType, new JSONArray().put(0, map.get(selectionType)).toString());
         }
-
     }
 
     private void createForensicsParam(String name, Map<String, String> map) throws Exception {

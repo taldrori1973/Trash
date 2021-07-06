@@ -31,6 +31,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
@@ -39,6 +40,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import jsystem.framework.RunProperties;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.How;
@@ -761,69 +763,70 @@ public class BasicOperationsSteps extends BddUITestBase {
         }
     }
 
-    @Then("^UI \"(Select|Validate)\" Scope Polices \"([^\"]*)\" in Device \"([^\"]*)\"$")
-    public void uiScopePolicesInDevice(String operationType, String polices, String device) throws Exception {
+    @Then("^UI \"(Select|UnSelect|Validate)\" Scope Polices$")
+    public void uiScopePolicesInDevice(String operationType, Map<String, String> devicePolices) throws Exception {
+        Map<String, String> map = null;
+        map = CustomizedJsonManager.fixJson(devicePolices);
+        ReportsForensicsAlertsAbstract.fixTemplateMap(map);
         switch (operationType) {
             case "Select":
-                uiSelectScopePolicesInDevice(polices, device);
+               uiSelectScopePoliciesInDevice(map);
+                break;
+            case "UnSelect":
+                uiUnSelectScopePoliciesInDevice(map);
                 break;
             case "Validate":
-                uiValidateScopePolicesInDevice(polices, device);
+                uiValidateScopePoliciesInDevice(map);
                 break;
         }
     }
 
-    private void uiSelectScopePolicesInDevice(String policies, String device) throws Exception {
-        ArrayList<String> expectedPolicesList = new ArrayList<>(Arrays.asList(policies.split(",")));
-        expandScopePolicies(device);
-        clickButton("Device Selection Check Box", device);
-        String policiesNumber =WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_"+device+"_policiesCount']/div").getBy()).get(0).getText();
-        if(!policiesNumber.equalsIgnoreCase("all"))
-            uiUnSelectAllPolices(device);
-        else {
-            for (String expectedPolicy : expectedPolicesList) {
-                setTextField("Filter Policies", device, expectedPolicy,true);
-                String firstPolicesElement =WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_"+device+"_policiesLabel_')]").getBy()).get(0).getText();
-                new VRMHandler().scrollUntilElementDisplayed(WebUiTools.getComponentLocator("Policy Value",  device+","+firstPolicesElement), WebUiTools.getComponentLocator("Policy Value",  device+","+expectedPolicy), true);
-                WebUiTools.check("Policy Value", new String[]{device, expectedPolicy}, true);
-
-            }
-        }
-        clickButton("Device Selection.Save Filter");
+    private void uiSelectScopePoliciesInDevice( Map<String, String> map) throws Exception {
+        Forensics.fixSelectionToArray("devices", map);
+        new TemplateHandlers.DPScopeSelection(new JSONArray(map.get("devices")), "", "DefensePro Analytics").create();
     }
 
-    private void uiUnSelectAllPolices(String device)throws Exception{
+    private void uiUnSelectScopePoliciesInDevice( Map<String, String> map) throws Exception {
+        String str= devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
 
-        List<WebElement> listPolicesElement =WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_"+device+"_policiesLabel_')]").getBy());
+    }
+
+
+    private String policiesNumbersInDevice(String device) throws Exception {
+        WebUiTools.check("Policy Value", new String[]{device, WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_" + device + "_policiesLabel_')]").getBy()).get(0).getText()}, true);
+        String policiesNumber = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_" + device + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1];
+        WebUiTools.check("Policy Value", new String[]{device, WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_" + device + "_policiesLabel_')]").getBy()).get(0).getText()}, false);
+        return policiesNumber;
+    }
+
+    private void uiUnSelectAllPolices(String device) throws Exception {
+
+        List<WebElement> listPolicesElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_" + device + "_policiesLabel_')]").getBy());
         WebElement firstPoliceElement = listPolicesElement.get(0);
-        WebElement lastPolicesElement = listPolicesElement.get(listPolicesElement.size()-1);
-        new VRMHandler().scrollUntilElementDisplayed(WebUiTools.getComponentLocator("Policy Value",  device+","+firstPoliceElement.getText()), WebUiTools.getComponentLocator("Policy Value",  device+","+lastPolicesElement.getText()), true);
+        WebElement lastPolicesElement = listPolicesElement.get(listPolicesElement.size() - 1);
+        new VRMHandler().scrollUntilElementDisplayed(WebUiTools.getComponentLocator("Policy Value", device + "," + firstPoliceElement.getText()), WebUiTools.getComponentLocator("Policy Value", device + "," + lastPolicesElement.getText()), true);
 
-        for (WebElement policeElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_"+device+"_policiesLabel_')]").getBy())) {
+        for (WebElement policeElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_" + device + "_policiesLabel_')]").getBy())) {
             String policyText = policeElement.getText();
 
-            WebUiTools.check("Policy Value",  new String[]{device, policyText}, false);
+            WebUiTools.check("Policy Value", new String[]{device, policyText}, false);
         }
     }
 
-    private void uiValidateScopePolicesInDevice(String policies, String device)throws Exception {
-        ArrayList<String> policesList = new ArrayList<>(Arrays.asList(policies.split(",")));
-        for(int i=0 ; i<policesList.size() ;i++){
+    private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
+        String errorMessage="";
+        String str= devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, map.get("devices").matches("\\d+") ? Integer.valueOf(map.get("devices")) : -1).getDeviceIp();
 
-        }
-//        for(Object wanLink : wanLinksJsonOArrayActual){
-//            if(new JSONObject(wanLink.toString()).get("id").equals(expectWanLink) && new JSONObject(wanLink.toString()).get("selected").toString().equals("false")){
-//                errorMessage.append("This Wan Link " + expectWanLink+ "Does not selected !!");
-//                return;
-//            }
-//        }
-        expandScopePolicies(device);
+//        expandScopePolicies()
+//        errorMessage.append(Forensics.validateScopeSelection(basicRestResult, map));
+        BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
+
     }
 
     private void expandScopePolicies(String device) throws Exception {
         clickButton("Device Selection", "");
-        WebUiTools.check("All Devices Selection", "", false);
-        setTextField("Filter", device);
+        WebUiTools.check("AllScopeSelection", "", false);
+        setTextField("ScopeSelectionFilter", device);
         clickButton("Device Selection.Available Device change", device);
     }
 
