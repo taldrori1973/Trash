@@ -1,4 +1,3 @@
-@run
 Feature: test
 
   @SID_1
@@ -10,22 +9,29 @@ Feature: test
   @SID_8
   Scenario: create new Download Throughput bps1
     Then UI "Select" Scope Polices
-      | devices | index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
 
 
     Then UI "Validate" Scope Polices
-      | devices | index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
 
 
     Then UI "UnSelect" Scope Polices
-      | devices | index:10,policies:[BDOS] |
+      | devices | type:DefensePro Analytics,index:10,policies:[BDOS] |
+
+
+
+
+
+
+
 
     Then UI "Validate" Scope Polices
-      | devices | index:10,policies:[pol1,SSL] |
+      | devices | type:DefensePro Analytics,index:10,policies:[pol1,SSL] |
 
 
     Then UI "Select" Scope Polices
-      | devices | index:10,policies:[SSL2] |
+      | devices | type:DefensePro Behavioral Protections,index:10,policies:[SSL2] |
 
 
 
