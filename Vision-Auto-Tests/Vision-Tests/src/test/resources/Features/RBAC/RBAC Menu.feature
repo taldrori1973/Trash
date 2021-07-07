@@ -1,15 +1,13 @@
 @Functional @TC114371
 Feature: RBAC Menu
 
-
   @SID_1
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
 
-
-  @SID_2
+    @SID_2
   Scenario Outline: Create users and verify
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
@@ -31,8 +29,7 @@ Feature: RBAC Menu
       | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$ |
       | system_user           | System User                   | [ALL] | Radware1234!@#$ |
 
-
-  @SID_3
+    @SID_3
   Scenario Outline: Scope "All" is required for User Definition
     When Scope Is "<enabled or disabled>" For Role "<Role>"
     Examples:
@@ -55,10 +52,11 @@ Feature: RBAC Menu
 
   @SID_4
   Scenario: Edit User Management Settings
-    Then UI Navigate to page "System->User Management->Authentication Mode"
-    Then UI Select "Local" from Vision dropdown "Authentication Mode"
-    Then UI Click Button "Submit"
-    Then UI Logout
+    Given That Current Vision is Logged In With Username "radware" and Password "radware"
+    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value   |
+      | $.authenticationMode | "Local" |
+
 
   @SID_5
   Scenario: ADC+Certificate Administrator
@@ -232,7 +230,7 @@ Feature: RBAC Menu
       | AMS Alerts                                  | no       |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | no      |
+      | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -283,7 +281,7 @@ Feature: RBAC Menu
       | AMS Alerts                                  | no       |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | no      |
+      | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -439,8 +437,7 @@ Feature: RBAC Menu
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
-
-  @SID_20
+    @SID_20
   Scenario Outline: Delete All Users
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
@@ -466,9 +463,8 @@ Feature: RBAC Menu
 
   @SID_21
   Scenario: Login And Go to Vision
-    Given UI Login with user "radware" and password "radware"
-    Given UI Go To Vision
-    Then UI Navigate to page "System->User Management->Authentication Mode"
-    Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
-    Then UI Click Button "Submit"
-    Then UI logout and close browser
+    Given That Current Vision is Logged In With Username "radware" and Password "radware"
+    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value    |
+      | $.authenticationMode | "TACACS" |
+
