@@ -783,7 +783,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     private void uiSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
         Forensics.fixSelectionToArray("devices", map);
-        new TemplateHandlers.DPScopeSelection(new JSONArray(map.get("devices")), "", "DefensePro Analytics").create();
+        new TemplateHandlers.DPScopeSelection(new JSONArray(map.get("devices")), "", new JSONObject(map.get("devices")).get("type").toString()).create();
     }
 
     private void uiUnSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
