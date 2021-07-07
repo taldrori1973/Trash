@@ -770,7 +770,7 @@ public class BasicOperationsSteps extends BddUITestBase {
         ReportsForensicsAlertsAbstract.fixTemplateMap(map);
         switch (operationType) {
             case "Select":
-               uiSelectScopePoliciesInDevice(map);
+                uiSelectScopePoliciesInDevice(map);
                 break;
             case "UnSelect":
                 uiUnSelectScopePoliciesInDevice(map);
@@ -781,53 +781,61 @@ public class BasicOperationsSteps extends BddUITestBase {
         }
     }
 
-    private void uiSelectScopePoliciesInDevice( Map<String, String> map) throws Exception {
+    private void uiSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
         Forensics.fixSelectionToArray("devices", map);
         new TemplateHandlers.DPScopeSelection(new JSONArray(map.get("devices")), "", "DefensePro Analytics").create();
     }
 
-    private void uiUnSelectScopePoliciesInDevice( Map<String, String> map) throws Exception {
-        String deviceIP= devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
-
-    }
-
-
-    private String policiesNumbersInDevice(String device) throws Exception {
-        WebUiTools.check("Policy Value", new String[]{device, WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_" + device + "_policiesLabel_')]").getBy()).get(0).getText()}, true);
-        String policiesNumber = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_" + device + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1];
-        WebUiTools.check("Policy Value", new String[]{device, WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_" + device + "_policiesLabel_')]").getBy()).get(0).getText()}, false);
-        return policiesNumber;
-    }
-
-    private void uiUnSelectAllPolices(String device) throws Exception {
-
-        List<WebElement> listPolicesElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_" + device + "_policiesLabel_')]").getBy());
-        WebElement firstPoliceElement = listPolicesElement.get(0);
-        WebElement lastPolicesElement = listPolicesElement.get(listPolicesElement.size() - 1);
-        new VRMHandler().scrollUntilElementDisplayed(WebUiTools.getComponentLocator("Policy Value", device + "," + firstPoliceElement.getText()), WebUiTools.getComponentLocator("Policy Value", device + "," + lastPolicesElement.getText()), true);
-
-        for (WebElement policeElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_" + device + "_policiesLabel_')]").getBy())) {
-            String policyText = policeElement.getText();
-
-            WebUiTools.check("Policy Value", new String[]{device, policyText}, false);
+    private void uiUnSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
+        String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
+        expandScopePolicies(deviceIP);
+        for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())) {
+            WebUiTools.check("DPPolicyCheck", new String[]{deviceIP, policy.toString()}, false);
         }
+        saveScopeSelection(deviceIP);
     }
 
     private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
-        String errorMessage="";
-        String str= devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, map.get("devices").matches("\\d+") ? Integer.valueOf(map.get("devices")) : -1).getDeviceIp();
+        StringBuilder errorMessage = new StringBuilder();
+        String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
+        expandScopePolicies(deviceIP);
+        if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
+            errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
+        if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPScopeSelectionChange", deviceIP)))
+            errorMessage.append("This device DefensePro_" + deviceIP + " with index " + new JSONObject(map.get("devices")).get("index").toString() + " is not selected !!");
+        for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()))
+            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceIP, policy.toString()})))
+                errorMessage.append("This Policy " + policy.toString() + " is not selected !!");
+        if(!isSortedPolices(deviceIP,new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() ,new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())))
+            errorMessage.append("This Policies is not sorted !! ");
+        saveScopeSelection(deviceIP);
+        if (errorMessage.length() != 0)
+            BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
+    }
 
-//        expandScopePolicies()
-//        errorMessage.append(Forensics.validateScopeSelection(basicRestResult, map));
-        BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
+    private boolean isSortedPolices(String deviceIP, int policesNumber , JSONArray polices) {
+        ArrayList<String> policesArray =(ArrayList)polices.toList();
+        policesArray.replaceAll(String::toLowerCase);
+        Collections.sort(policesArray);
+        List<WebElement> policyElements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_DefensePro_" + deviceIP + "_policiesLabel_')]").getBy());
+        for(int i=0; i<policesNumber;i++){
+            if(!policyElements.get(i).getText().toLowerCase().equals(policesArray.get(i)))
+                return false;
+        }
+        return true ;
+    }
 
+    private void saveScopeSelection(String deviceIP) throws TargetWebElementNotFoundException {
+        BasicOperationsHandler.clickButton("DPScopeSelectionChange", deviceIP);
+        BasicOperationsHandler.clickButton("SaveDPScopeSelection", "");
+        if (WebUiTools.getWebElement("close scope selection") != null)
+            BasicOperationsHandler.clickButton("close scope selection");
     }
 
     private void expandScopePolicies(String device) throws Exception {
         clickButton("Device Selection", "");
-        WebUiTools.check("AllScopeSelection", "", false);
         setTextField("ScopeSelectionFilter", device);
-        clickButton("Device Selection.Available Device change", device);
+        clickButton("DPScopeSelectionChange", device);
     }
 
     public static class ParameterSelected {

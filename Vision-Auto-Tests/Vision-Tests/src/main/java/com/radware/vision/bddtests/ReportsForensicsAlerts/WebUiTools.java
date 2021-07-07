@@ -23,7 +23,8 @@ public class WebUiTools {
         return WebUIUtils.fluentWait(getComponentLocator(label, params).getBy());
     }
     public static WebElement getWebElement(String label, String []params) {
-        return WebUIUtils.fluentWait(getComponentLocator(label, params).getBy());
+//        return WebUIUtils.fluentWait(getComponentLocator(label, params).getBy());
+        return WebUIUtils.fluentWait(getComponentLocatorgetByEqualsXpathLocator(label, params).getBy());
     }
 
     public static ComponentLocator getComponentLocator(String label, String [] param)
@@ -33,17 +34,24 @@ public class WebUiTools {
         return ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId());
     }
 
-    public static ComponentLocator getComponentLocator(String label, String param)
+    public static ComponentLocator getComponentLocatorgetByEqualsXpathLocator(String label, String [] param)
     {
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(param.split(","));
-        return ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId());
+        VisionDebugIdsManager.setParams(param);
+        return ComponentLocatorFactory.getEqualsXpathLocator(VisionDebugIdsManager.getDataDebugId());
     }
 
     public static List<WebElement> getWebElements(String label, String ... params) {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(params);
         return WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+    }
+
+    public static ComponentLocator getComponentLocator(String label, String param)
+    {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(param.split(","));
+        return ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId());
     }
 
     public static boolean webElementHasAttribute(WebElement webElement, String attribute) {
@@ -67,6 +75,7 @@ public class WebUiTools {
             checkWebElement(getWebElement(label, param.toString()), isToBeChecked);
     }
     public static void check(String label, String [] param, boolean isToCheck) throws Exception {
+//        WebElement checkElement = getClickabledWebElement(getWebElement(label, param));
         WebElement checkElement = getClickabledWebElement(getWebElement(label, param));
         WebUIUtils.scrollIntoView(checkElement, true);
         if (checkElement == null)
@@ -98,7 +107,8 @@ public class WebUiTools {
             webElement.click();
         }catch (Exception e)
         {
-            webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+//            webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualsXpathLocator(VisionDebugIdsManager.getDataDebugId()).getBy());
             try
             {
                 WebUIUtils.scrollIntoView(webElement);
@@ -112,7 +122,8 @@ public class WebUiTools {
     }
 
     protected static WebElement getClickabledWebElement(WebElement webElement) {
-        List<WebElement> webElements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+    //    List<WebElement> webElements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        List<WebElement> webElements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getEqualsXpathLocator(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (webElements.size()>1)
         {
             int i;
@@ -120,15 +131,19 @@ public class WebUiTools {
             {
                 try
                 {
-                    WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i).click();
-                    WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i).click();
+//                    WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i).click();
+//                    WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i).click();
+                    WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getEqualsXpathLocator(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i).click();
+                    WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getEqualsXpathLocator(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i).click();
                     break;
                 }catch (Exception e)
                 {
 
                 }
             }
-            return WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i);
+//            return WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i);
+            return  WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getEqualsXpathLocator(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i);
+
         }
         return webElement;
     }

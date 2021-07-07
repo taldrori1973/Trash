@@ -512,7 +512,8 @@ public class TemplateHandlers {
 
             private void selectPortsOrPolicies(ArrayList devicePoliciesOrPorts, String dpPolicyCheck, String portOrPolicyFileter) throws Exception {
                 if (devicePoliciesOrPorts != null) {
-                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocator(portOrPolicyFileter, getDeviceIp()));
+//                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocator(portOrPolicyFileter, getDeviceIp()));
+                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator(portOrPolicyFileter, new String[]{getDeviceIp()}));
                     for (Object policyOrPort : devicePoliciesOrPorts) {
                         policyOrPortText.type(policyOrPort.toString().trim());
                         checkSpecificPortOrPolicy(dpPolicyCheck, policyOrPort);
