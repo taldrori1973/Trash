@@ -788,7 +788,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     private void uiUnSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
         String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
-        expandScopePolicies(deviceIP);
+        expandScopePolicies(deviceIP,map);
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())) {
             WebUiTools.check("DPPolicyCheck", new String[]{deviceIP, policy.toString()}, false);
         }
@@ -798,7 +798,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
-        expandScopePolicies(deviceIP);
+        expandScopePolicies(deviceIP,map);
         if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
             errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
         if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPScopeSelectionChange", deviceIP)))
@@ -832,10 +832,16 @@ public class BasicOperationsSteps extends BddUITestBase {
             BasicOperationsHandler.clickButton("close scope selection");
     }
 
-    private void expandScopePolicies(String device) throws Exception {
-        clickButton("Device Selection", "");
-        setTextField("ScopeSelectionFilter", device);
-        clickButton("DPScopeSelectionChange", device);
+    private void expandScopePolicies(String device,Map<String, String> map) throws Exception {
+        try{
+            clickButton("Device Selection", "");
+        }catch(Exception e){
+            clickButton("Open Scope Selection", new JSONObject(map.get("devices")).get("type").toString());
+        }finally {
+            setTextField("ScopeSelectionFilter", device);
+            clickButton("DPScopeSelectionChange", device);
+        }
+
     }
 
     public static class ParameterSelected {
