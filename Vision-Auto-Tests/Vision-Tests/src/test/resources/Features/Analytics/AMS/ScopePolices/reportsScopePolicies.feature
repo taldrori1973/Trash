@@ -78,7 +78,7 @@ Feature: ScopePolicies in Reports
     Then UI Click Button "save"
 
   @SID_10
-  Scenario: Edit DefensePro Analytics Report and unselect one policy
+  Scenario: Edit DefensePro Analytics Report and cancel the unselect
     Then UI Click Button "My Report Tab"
     Then UI Click Button "Edit Report" with value "DefensePro Analytics Report"
     Then UI "Select" Scope Polices
@@ -93,7 +93,7 @@ Feature: ScopePolicies in Reports
     Then UI Click Button "No"
 
   @SID_11
-  Scenario: Validate scope policies after unselect one policy
+  Scenario: Validate scope policies after cancel unselect
     Then UI Click Button "My Report Tab"
     Then UI Click Button "Edit Report" with value "DefensePro Analytics Report"
     Then UI "Validate" Scope Polices
