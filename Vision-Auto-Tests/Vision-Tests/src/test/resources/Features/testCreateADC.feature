@@ -1,3 +1,4 @@
+
 Feature: test
 
   @SID_1
@@ -6,28 +7,28 @@ Feature: test
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
-  @SID_8
-  Scenario: create new Download Throughput bps1
-    Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
+#  @SID_8
+#  Scenario: create new Download Throughput bps1
+#    Then UI "Select" Scope Polices
+#      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
 
-
-    Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
-
-
-    Then UI "UnSelect" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[BDOS] |
-
-
-
-
-
-
-
-
-    Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,SSL] |
+#
+#    Then UI "Validate" Scope Polices
+#      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
+#
+#
+#    Then UI "UnSelect" Scope Polices
+#      | devices | type:DefensePro Analytics,index:10,policies:[BDOS] |
+#
+#
+#
+#
+#
+#
+#
+#
+#    Then UI "Validate" Scope Polices
+#      | devices | type:DefensePro Analytics,index:10,policies:[pol1,SSL] |
 
 
     Then UI "Select" Scope Polices
