@@ -1,5 +1,4 @@
 @TC122012
-
 Feature: Dashboards Selected Policies
   ###################### DP monitoring dashboard #################################
   @SID_1
@@ -43,7 +42,7 @@ Feature: Dashboards Selected Policies
     And UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "false"
     Then UI Click Button "DefensePro Analytics_RationScopeSelection" with value "172.16.22.50"
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
-    Then UI Set Text field with id "DPPoliciesFilter" with "T_Server"
+    Then UI Set Text Field "Filter Policies" and params "DefensePro_172.16.22.50" To "T_Server"
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
     Then UI "Validate" Scope Polices
@@ -88,6 +87,7 @@ Feature: Dashboards Selected Policies
     And UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "false"
     Then UI Click Button "DefensePro Analytics_RationScopeSelection" with value "172.16.22.50"
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
+    Then UI Set Text Field "Filter Policies" and params "DefensePro_172.16.22.50" To "T_Server"
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
     Then UI "Validate" Scope Polices
@@ -127,6 +127,7 @@ Feature: Dashboards Selected Policies
     And UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "false"
     Then UI Click Button "DefensePro Analytics_RationScopeSelection" with value "172.16.22.50"
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
+    Then UI Set Text Field "Filter Policies" and params "DefensePro_172.16.22.50" To "T_Server"
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
     Then UI "Validate" Scope Polices
