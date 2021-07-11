@@ -841,7 +841,6 @@ public class BasicOperationsSteps extends BddUITestBase {
             setTextField("ScopeSelectionFilter", device);
             clickButton("DPScopeSelectionChange", device);
         }
-
     }
 
     public static class ParameterSelected {

@@ -1,3 +1,4 @@
+@TC122036
 Feature: ScopePolicies in Reports
 
   @SID_1
