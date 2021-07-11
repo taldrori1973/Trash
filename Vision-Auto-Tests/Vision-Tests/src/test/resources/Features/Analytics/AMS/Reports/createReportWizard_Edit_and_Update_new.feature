@@ -1,7 +1,6 @@
 @VRM_Report2 @TC106010
 Feature: Report Wizard edit and update - new form
 
-  
   @SID_1
   Scenario: Login and navigate to the Reports Wizard
     Given UI Login with user "sys_admin" and password "radware"
@@ -10,15 +9,14 @@ Feature: Report Wizard edit and update - new form
     Then Sleep "5"
     And UI Navigate to "AMS Reports" page via homePage
 
-  
   @SID_2
   Scenario: VRM Reports - new Report VRM_Edit_and_Update
     # defualt New report
     Given UI "Create" Report With Name "Edit_and_Update_Test_report"
-      | reportType            | DefensePro Analytics     |
-      | devices               | index:10,ports:[1],policies:[BDOS] |
-      | Time Definitions.Date | Quick:Today                        |
-      | Schedule              | Run Every:Monthly,On Time:+2m      |
+      | reportType            | DefensePro Analytics                             |
+      | devices               | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS] |
+      | Time Definitions.Date | Quick:Today                                      |
+      | Schedule              | Run Every:Monthly,On Time:+2m                    |
 
     Given UI "Edit" Report With Name "Edit_and_Update_Test_report"
       | share  | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody |
@@ -34,12 +32,12 @@ Feature: Report Wizard edit and update - new form
 #   # Then UI Click Button "Summary Card" with value "initial"
 #    Then UI Click Button "Submit" with value "Submit"
 
-  
+
   @SID_3
   Scenario: VRM validate report details
     Then UI "Validate" Report With Name "Edit_and_Update_Test_report"
-      | reportType            | DefensePro Analytics                                       |
-      | devices               | index:10,ports:[1],policies:[BDOS]                                   |
+      | reportType            | DefensePro Analytics                                                 |
+      | devices               | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS]                     |
       | Time Definitions.Date | Quick:Today                                                          |
       | Schedule              | Run Every:Monthly,On Time:+2m                                        |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody |
@@ -55,14 +53,14 @@ Feature: Report Wizard edit and update - new form
     ################################################
     #           Devices Test Edit/Update           #
     ################################################
-  
+
   @SID_4
   Scenario: VRM Reports - Two devices Devices Test Edit/Update
     Given UI "Edit" Report With Name "Edit_and_Update_Test_report"
-      | devices | index:11,ports:[1],policies:[BDOS] |
+      | devices | SetId:DefensePro_Set_2,ports:[1],policies:[BDOS] |
 
     Then UI "Validate" Report With Name "Edit_and_Update_Test_report"
-      | devices | index:11,ports:[1],policies:[BDOS] |
+      | devices | SetId:DefensePro_Set_2,ports:[1],policies:[BDOS] |
 
 
   @SID_5
@@ -71,7 +69,7 @@ Feature: Report Wizard edit and update - new form
       | devices |  |
 
     Then UI "Validate" Report With Name "Edit_and_Update_Test_report"
-      | devices | index:11,ports:[1],policies:[BDOS] |
+      | devices | SetId:DefensePro_Set_2,ports:[1],policies:[BDOS] |
 
 
   @SID_6
