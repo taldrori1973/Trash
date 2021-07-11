@@ -7,6 +7,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
@@ -24,13 +25,12 @@ import org.openqa.selenium.support.How;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
+import static com.radware.vision.automation.base.TestBase.sutManager;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static org.apache.commons.lang.math.NumberUtils.isNumber;
 
 
 public class TemplateHandlers {
-
 
     public static void addTemplate(JSONObject templateJsonObject, String reportName) throws Exception {
         String reportType = templateJsonObject.get("reportType").toString();
@@ -61,7 +61,7 @@ public class TemplateHandlers {
 //                return new AnalyticsADCApplication(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "ERT ACTIVE ATTACKERS FEED":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
-       //         return new EAAFScopeSelection(new JSONArray(), templateParam);
+            //         return new EAAFScopeSelection(new JSONArray(), templateParam);
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
                 return new DPBehavioralScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "DEFENSEPRO ANALYTICS":
@@ -257,17 +257,17 @@ public class TemplateHandlers {
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Policies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                         break;
                     default:
-                        if(option.toString().toLowerCase().contains("instances"))
+                        if (option.toString().toLowerCase().contains("instances"))
                             selectInstances(option);
                         break;
                 }
-                   if (options != null) options.get(index).click();
-                   if (isNumber(option.toString())) {
-                       options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_CustomPolicies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-                       options.get(index).click();
-                       options.get(index).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
-                       options.get(index).sendKeys(option.toString());
-                   }
+                if (options != null) options.get(index).click();
+                if (isNumber(option.toString())) {
+                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_CustomPolicies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                    options.get(index).click();
+                    options.get(index).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+                    options.get(index).sendKeys(option.toString());
+                }
             } catch (Exception e) {
                 BaseTestUtils.report(String.format("Failed to select option: %s in widget: %s", option, widgetName), Reporter.FAIL);
             }
@@ -277,7 +277,7 @@ public class TemplateHandlers {
 
     private static void selectInstances(Object option) throws Exception {
         WebUiTools.check("Instance Expand", "", true);
-        ArrayList expectedInstances = new ArrayList<>((List)((HashMap) option).get("Instances"));
+        ArrayList expectedInstances = new ArrayList<>((List) ((HashMap) option).get("Instances"));
 //            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "").getBy())) {
 //                String instanceText = instanceElement.getText();
 //                if (expectedInstances.contains(instanceText)) {
@@ -424,12 +424,12 @@ public class TemplateHandlers {
 
     public static class DPScopeSelection extends ScopeSelection {
 
-        public DPScopeSelection(JSONArray deviceJSON, String templateParam, String type)
-        {
+        public DPScopeSelection(JSONArray deviceJSON, String templateParam, String type) {
             super(deviceJSON, templateParam);
             this.type = type;
             saveButtonText = "SaveDPScopeSelection";
         }
+
         public DPScopeSelection(JSONArray deviceJSON, String templateParam) {
             super(deviceJSON, templateParam);
             type = "DefensePro Analytics";
@@ -467,20 +467,26 @@ public class TemplateHandlers {
 
         private class DPSingleDPScopeSelection {
 
-            private String deviceIndex;
+            private String deviceSetId;
             private ArrayList devicePorts;
             private ArrayList devicePolicies;
 
             DPSingleDPScopeSelection(JSONObject deviceJSON) {
                 if (deviceJSON.keySet().size() != 0) {
-                    deviceIndex = deviceJSON.toMap().getOrDefault("deviceIndex", deviceJSON.toMap().get("index")).toString();
+                    deviceSetId = deviceJSON.toMap().getOrDefault("deviceSetId", deviceJSON.toMap().get("SetId")).toString();
                     devicePorts = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePorts", deviceJSON.toMap().getOrDefault("ports", null)));
                     devicePolicies = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePolicies", deviceJSON.toMap().getOrDefault("policies", null)));
                 }
             }
 
             private String getDeviceIp() throws Exception {
-                return devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, deviceIndex.matches("\\d+") ? Integer.valueOf(deviceIndex) : -1).getDeviceIp();
+                Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagement(deviceSetId);
+
+                if (!deviceOpt.isPresent()) {
+                    throw new Exception(String.format("No Device with \"%s\" Set ID was found in this setup", deviceSetId));
+                }
+
+                return deviceOpt.get().getManagementIp();
             }
 
             private void selectPortsOrPolicies(ArrayList devicePoliciesOrPorts, String dpPolicyCheck, String portOrPolicyFileter) throws Exception {
@@ -558,7 +564,7 @@ public class TemplateHandlers {
 
     public static class DPBehavioralScopeSelection extends DPScopeSelection {
 
-         DPBehavioralScopeSelection(JSONArray deviceJSON, String templateParam) {
+        DPBehavioralScopeSelection(JSONArray deviceJSON, String templateParam) {
             super(deviceJSON, templateParam);
         }
 
