@@ -134,6 +134,7 @@ Feature: Dashboards Selected Policies
       | devices | type:DefensePro Analytics,index:10,policies:[] |
 
 
+
   @SID_19
   Scenario: Log out
     Then UI Logout
