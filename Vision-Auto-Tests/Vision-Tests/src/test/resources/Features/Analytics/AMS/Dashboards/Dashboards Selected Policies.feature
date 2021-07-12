@@ -45,8 +45,8 @@ Feature: Dashboards Selected Policies
     Then UI Set Text Field "Filter Policies" and params "DefensePro_172.16.22.50" To "T_Server"
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
-    Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[] |
+#    Then UI "Validate" Scope Polices
+#      | devices | type:DefensePro Analytics,index:10,policies:[] |
 
 
 ################################## DefensePro Analytics Dashboard ########################################################################
@@ -90,8 +90,8 @@ Feature: Dashboards Selected Policies
     Then UI Set Text Field "Filter Policies" and params "DefensePro_172.16.22.50" To "T_Server"
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
-    Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[] |
+#    Then UI "Validate" Scope Polices
+#      | devices | type:DefensePro Analytics,index:10,policies:[] |
 
 
 #################################### DefensePro Behavioral Protections Dashboard ########################################
@@ -130,8 +130,8 @@ Feature: Dashboards Selected Policies
     Then UI Set Text Field "Filter Policies" and params "DefensePro_172.16.22.50" To "T_Server"
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
-    Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[] |
+#    Then UI "Validate" Scope Polices
+#      | devices | type:DefensePro Analytics,index:10,policies:[] |
 
 
 
