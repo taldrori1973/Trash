@@ -42,12 +42,12 @@ Feature: AMS Report Schedule Wizard
   @SID_4
   Scenario: Add new Report Scheduling Week
     Given UI "Create" Report With Name "WeekScheduleReport"
-      | Template-1 | reportType:DefensePro Analytics ,devices:[{deviceIndex:10}, {deviceIndex:11,  devicePorts:[1], devicePolicies:[BDOS]}] |
+      | Template-1 | reportType:DefensePro Analytics ,devices:[{SetId:DefensePro_Set_1}, {SetId:DefensePro_Set_2,  devicePorts:[1], devicePolicies:[BDOS]}] |
       | Time Definitions.Date | Quick:30m   |
       | Schedule              | Run Every:Weekly,On Time:+3m                 |
 
     Then UI "Validate" Report With Name "WeekScheduleReport"
-      | Template-1 | reportType:DefensePro Analytics ,devices:[{deviceIndex:10}, {deviceIndex:11,  devicePorts:[1], devicePolicies:[BDOS]}] |
+      | Template-1 | reportType:DefensePro Analytics ,devices:[{SetId:DefensePro_Set_1}, {SetId:DefensePro_Set_2,  devicePorts:[1], devicePolicies:[BDOS]}] |
       | Time Definitions.Date | Quick:30m      |
       | Schedule              | Run Every:Weekly,On Time:+3m                 |
   # "Scheduling Once"
@@ -72,13 +72,13 @@ Feature: AMS Report Schedule Wizard
   @SID_7
   Scenario: TC102002 - Add new Report Scheduling Hour
     Given UI "Create" Report With Name "day2ScheduleReport"
-      | Template-1 | reportType:DefensePro Analytics ,devices:[{deviceIndex:10}, {deviceIndex:11,  devicePorts:[1], devicePolicies:[BDOS]}] |
+      | Template-1 | reportType:DefensePro Analytics ,devices:[{SetId:DefensePro_Set_1}, {SetId:DefensePro_Set_2,  devicePorts:[1], devicePolicies:[BDOS]}] |
       | Time Definitions.Date | Quick:30m                                                                                        |
       | Schedule              | Run Every:Daily,On Time:+5m                  |
 
 
     Then UI "Validate" Report With Name "day2ScheduleReport"
-      | Template-1 | reportType:DefensePro Analytics ,devices:[{deviceIndex:10}, {deviceIndex:11,  devicePorts:[1], devicePolicies:[BDOS]}] |
+      | Template-1 | reportType:DefensePro Analytics ,devices:[{SetId:DefensePro_Set_1}, {SetId:DefensePro_Set_2,  devicePorts:[1], devicePolicies:[BDOS]}] |
       | Time Definitions.Date | Quick:30m                                                                                        |
       | Schedule              | Run Every:Daily,On Time:+5m                  |
 
