@@ -39,56 +39,56 @@ Feature: ScopePolicies in Forensics
       | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
     Then UI Click Button "save"
 
-#  @SID_5
-#  Scenario: Validate scope policies after Edit DefensePro Forensics
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
-#    Then UI "Validate" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
-#    Then UI Click Button "save"
-#
-#  @SID_6
-#  Scenario: Edit DefensePro Forensics and unselect one policy
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
-#    Then UI "UnSelect" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[BDOS] |
-#    Then UI Click Button "save"
-#
-#  @SID_7
-#  Scenario: Validate scope policies after unselect one policy
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
-#    Then UI "Validate" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[SSL2,T_Server] |
-#    Then UI Click Button "save"
-#
-#  @SID_8
-#  Scenario: Edit DefensePro Forensics and cancel the unselect
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
-#    Then UI "Select" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
-#    Then UI Click Button "save"
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
-#    Then UI "UnSelect" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[T_Server,BDOS] |
-#    Then UI Click Button "cancel"
-#    Then UI Text of "Save Change Message" contains "Do you want to save "Dp Analytics and DF Analytics and HTTPS Flood Report"?"
-#    Then UI Click Button "No"
-#
-#  @SID_9
-#  Scenario: Validate scope policies after cancel unselect
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
-#    Then UI "Validate" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
-#    Then UI Click Button "save"
-#    Then UI Delete Forensics With Name "DefensePro Forensics"
-#
-#  @SID_10
-#  Scenario: Logout
-#    Then UI logout and close browser
-#
-#
+  @SID_5
+  Scenario: Validate scope policies after Edit DefensePro Forensics
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
+    Then UI "Validate" Scope Polices
+      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
+    Then UI Click Button "save"
+
+  @SID_6
+  Scenario: Edit DefensePro Forensics and unselect one policy
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
+    Then UI "UnSelect" Scope Polices
+      | devices | type:DEVICES,index:10,policies:[BDOS] |
+    Then UI Click Button "save"
+
+  @SID_7
+  Scenario: Validate scope policies after unselect one policy
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
+    Then UI "Validate" Scope Polices
+      | devices | type:DEVICES,index:10,policies:[SSL2,T_Server] |
+    Then UI Click Button "save"
+
+  @SID_8
+  Scenario: Edit DefensePro Forensics and cancel the unselect
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
+    Then UI "Select" Scope Polices
+      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
+    Then UI Click Button "save"
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
+    Then UI "UnSelect" Scope Polices
+      | devices | type:DEVICES,index:10,policies:[T_Server,BDOS] |
+    Then UI Click Button "cancel"
+    Then UI Text of "Save Change Message" contains "Do you want to save "Dp Analytics and DF Analytics and HTTPS Flood Report"?"
+    Then UI Click Button "No"
+
+  @SID_9
+  Scenario: Validate scope policies after cancel unselect
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
+    Then UI "Validate" Scope Polices
+      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
+    Then UI Click Button "save"
+    Then UI Delete Forensics With Name "DefensePro Forensics"
+
+  @SID_10
+  Scenario: Logout
+    Then UI logout and close browser
+
+
