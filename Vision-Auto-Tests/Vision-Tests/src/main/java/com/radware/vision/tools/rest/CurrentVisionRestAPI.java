@@ -1,6 +1,7 @@
 package com.radware.vision.tools.rest;
 
 import com.radware.vision.restAPI.GenericVisionRestAPI;
+import com.radware.vision.utils.SutUtils;
 import com.radware.vision.utils.UriUtils;
 import lombok.Getter;
 import models.RestRequestSpecification;
@@ -16,7 +17,7 @@ public class CurrentVisionRestAPI {
 
     public CurrentVisionRestAPI(String requestFilePath, String requestLabel) throws NoSuchFieldException {
         String baseUri = UriUtils.buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp());
-        Integer port = null;
+        Integer port = SutUtils.getCurrentVisionRestPort();
         String username = getCurrentVisionRestUserName();
         String password = getCurrentVisionRestUserPassword();
         String licenseKey = null;
