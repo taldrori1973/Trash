@@ -140,7 +140,6 @@ Feature: Dashboards Selected Policies
   #################################### DefensePro Attacks Dashboard ########################################
   @SID_19
   Scenario: Navigate to "DefensePro Behavioral Protections Dashboard" page and select policies
-    Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Attacks" page via homePage
     Then Sleep "1"
     Then UI "Select" Scope Polices
