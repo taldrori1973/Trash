@@ -1,3 +1,4 @@
+@run
 @TC122035
 Feature: ScopePolicies in Forensics
 
@@ -9,19 +10,11 @@ Feature: ScopePolicies in Forensics
   @SID_2
   Scenario: create new DefensePro Forensics
     Given UI "Create" Forensics With Name "DefensePro Forensics"
-      | Product  | DefensePro                                                                     |
-      | Output   | Device IP Address                                                              |
-      | Criteria | condition.All:true                                                             |
-      | devices  | index:10,policies:[BDOS,SSL]                                                   |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: CSV With Attack Details                                                |
+      | Product | DefensePro                   |
+      | devices | index:10,policies:[BDOS,SSL] |
     Then UI "Validate" Forensics With Name "DefensePro Forensics"
-      | Product  | DefensePro                                                                     |
-      | Output   | Device IP Address                                                              |
-      | Criteria | condition.All:true                                                             |
-      | devices  | index:10,policies:[BDOS,SSL]                                                   |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: CSV With Attack Details                                                |
+      | Product | DefensePro                   |
+      | devices | index:10,policies:[BDOS,SSL] |
 
   @SID_3
   Scenario: Validate scope policies for DefensePro Forensics
@@ -75,7 +68,6 @@ Feature: ScopePolicies in Forensics
     Then UI "UnSelect" Scope Polices
       | devices | type:DEVICES,index:10,policies:[T_Server,BDOS] |
     Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "DefensePro Forensics"?"
     Then UI Click Button "No"
 
   @SID_9
