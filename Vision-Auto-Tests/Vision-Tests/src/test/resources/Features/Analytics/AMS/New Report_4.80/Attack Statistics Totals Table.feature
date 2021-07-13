@@ -1,3 +1,4 @@
+@run312
 Feature: Attack Statistics Totals Table
 
   @SID_1
@@ -30,10 +31,81 @@ Feature: Attack Statistics Totals Table
     Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total dropped bandwidth"
     Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "3,843,206 Mbit"
 
+  @SID_5
+  Scenario: Update and Generate report DefensePro Analytics Report
+    Given UI "Edit" Report With Name "DefensePro Analytics Report"
+      | Format | Select: PDF |
+      | Time Definitions.Date | Quick:This Week   |
+      | Share | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+    Then UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Format | Select: PDF |
+      | Time Definitions.Date | Quick:This Week   |
+      | Share | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+
+    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
+    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
+    Then Sleep "35"
+
+  @SID_6
+  Scenario: Show report DefensePro DefensePro Analytics Report
+    Then UI Click Button "Log Preview" with value "DefensePro Analytics Report_0"
+    Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of event"
+    Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "3,539,553"
+    Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of dropped packets"
+    Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "5,671,952,000"
+    Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total dropped bandwidth"
+    Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "3,843,206 Mbit"
 
 
+  @SID_7
+  Scenario: create new DefensePro DefensePro Analytics Report
+    Given UI "Create" Report With Name "DefensePro Analytics Report"
+      | Template | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[{deviceIndex:10, devicePolicies:[BDOS,SSL]}],showTable:true |
+      | Format   | Select: PDF                                                                                                                           |
+    Then UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Template | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[{deviceIndex:10, devicePolicies:[BDOS,SSL]}],showTable:true |
+      | Format   | Select: PDF                                                                                                                           |
 
+  @SID_8
+  Scenario: Generate report DefensePro DefensePro Analytics Report
+    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
+    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
+    Then Sleep "35"
 
+  @SID_9
+  Scenario: Show report DefensePro DefensePro Analytics Report
+    Then UI Click Button "Log Preview" with value "DefensePro Analytics Report_0"
+    Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of event"
+    Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "3,539,553"
+    Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of dropped packets"
+    Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "5,671,952,000"
+    Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total dropped bandwidth"
+    Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "3,843,206 Mbit"
+
+  @SID_10
+  Scenario: Update and Generate report DefensePro Analytics Report
+    Given UI "Edit" Report With Name "DefensePro Analytics Report"
+      | Format | Select: HTML |
+      | Time Definitions.Date | Quick:This Week   |
+      | Share | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+    Then UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Format | Select: HTML |
+      | Time Definitions.Date | Quick:This Week   |
+      | Share | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+
+    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
+    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
+    Then Sleep "35"
+
+  @SID_11
+  Scenario: Show report DefensePro DefensePro Analytics Report
+    Then UI Click Button "Log Preview" with value "DefensePro Analytics Report_0"
+    Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of event"
+    Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "3,539,553"
+    Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of dropped packets"
+    Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "5,671,952,000"
+    Then UI Text of " Attack Statistics Totals Label" with extension "Total number of event" equal to "Total dropped bandwidth"
+    Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "3,843,206 Mbit"
 
 
 
