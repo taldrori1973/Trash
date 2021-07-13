@@ -75,7 +75,7 @@ Feature: ScopePolicies in Forensics
     Then UI "UnSelect" Scope Polices
       | devices | type:DEVICES,index:10,policies:[T_Server,BDOS] |
     Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "Dp Analytics and DF Analytics and HTTPS Flood Report"?"
+    Then UI Text of "Save Change Message" contains "Do you want to save "DefensePro Forensics"?"
     Then UI Click Button "No"
 
   @SID_9
