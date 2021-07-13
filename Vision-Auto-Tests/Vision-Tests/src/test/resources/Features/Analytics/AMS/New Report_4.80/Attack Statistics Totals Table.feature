@@ -32,7 +32,7 @@ Feature: Attack Statistics Totals Table
     Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "3,843,206 Mbit"
 
   @SID_5
-  Scenario: Update and Generate report DefensePro Analytics Report
+  Scenario: Edit and Generate report DefensePro Analytics Report
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
       | Format | Select: PDF |
       | Time Definitions.Date | Quick:This Week   |
@@ -83,7 +83,7 @@ Feature: Attack Statistics Totals Table
     Then UI Text of " Attack Statistics Totals Value" with extension "Total number of event" equal to "3,843,206 Mbit"
 
   @SID_10
-  Scenario: Update and Generate report DefensePro Analytics Report
+  Scenario: Edit and Generate report DefensePro Analytics Report
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
       | Format | Select: HTML |
       | Time Definitions.Date | Quick:This Week   |
