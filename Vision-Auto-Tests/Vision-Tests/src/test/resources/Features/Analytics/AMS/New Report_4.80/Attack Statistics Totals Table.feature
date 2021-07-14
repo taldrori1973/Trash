@@ -1,3 +1,4 @@
+@TC122170
 Feature: Attack Statistics Totals Table
 
   @SID_1
