@@ -90,7 +90,7 @@ Feature: ScopePolicies in Reports
     Then UI "UnSelect" Scope Polices
       | devices | type:DefensePro Analytics,index:10,policies:[T_Server,BDOS] |
     Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "Dp Analytics and DF Analytics and HTTPS Flood Report"?"
+    Then UI Text of "Save Change Message" contains "Do you want to save "DefensePro Analytics Report"?"
     Then UI Click Button "No"
 
   @SID_11

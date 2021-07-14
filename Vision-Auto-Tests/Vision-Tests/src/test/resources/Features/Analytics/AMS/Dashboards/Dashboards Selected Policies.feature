@@ -135,6 +135,48 @@ Feature: Dashboards Selected Policies
 
 
 
+
+
+  #################################### DefensePro Attacks Dashboard ########################################
   @SID_19
+  Scenario: Navigate to "DefensePro Behavioral Protections Dashboard" page and select policies
+    Then UI Navigate to "DefensePro Attacks" page via homePage
+    Then Sleep "1"
+    Then UI "Select" Scope Polices
+      | devices | type:DefensePro Attacks, index:10,policies:[pol1,BDOS,SSL] |
+
+    Then UI "Validate" Scope Polices
+      | devices | type:DefensePro Attacks, index:10,policies:[pol1,BDOS,SSL] |
+
+  @SID_20
+  Scenario: Unselect one policy in DefensePro Behavioral Protections Dashboard
+    Then UI "UnSelect" Scope Polices
+      | devices | type:DefensePro Attacks,index:10,policies:[BDOS] |
+
+    Then UI "Validate" Scope Polices
+      | devices | type:DefensePro Attacks,index:10,policies:[pol1,SSL] |
+
+
+  @SID_21
+  Scenario: Select one more policy and Validate that only one policy is selected in DefensePro Behavioral Protections Dashboard
+    Then UI "Select" Scope Polices
+      | devices | type:DefensePro Attacks,index:10,policies:[SSL2] |
+    Then UI "Validate" Scope Polices
+      | devices | type:DefensePro Attacks,index:10,policies:[SSL2] |
+
+  @SID_22
+  Scenario: select and cancel with out saving in DefensePro Behavioral Protections Dashboard
+    Then UI Click Button "Device Selection"
+    And UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "false"
+    Then UI Click Button "DefensePro Attacks_RationScopeSelection" with value "172.16.22.50"
+    Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
+    Then UI Set Text Field "Filter Policies" and params "DefensePro_172.16.22.50" To "T_Server"
+    Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
+    Then UI Click Button "Device Selection.Cancel"
+#    Then UI "Validate" Scope Polices
+#      | devices | type:DefensePro Analytics,index:10,policies:[] |
+
+
+  @SID_23
   Scenario: Log out
     Then UI Logout
