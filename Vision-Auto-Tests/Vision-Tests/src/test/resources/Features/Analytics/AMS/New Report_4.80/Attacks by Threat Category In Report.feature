@@ -25,6 +25,7 @@ Feature: Attacks by Threat Category In Report
 
   @SID_5
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
+    Given UI Login with user "radware" and password "radware"
     Given Setup email server
 #    Then UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -50,7 +51,7 @@ Feature: Attacks by Threat Category In Report
 
   @SID_7
   Scenario: Navigate
-    Given UI Login with user "radware" and password "radware"
+    Then UI Navigate to "AMS REPORTS" page via homepage
 
   @SID_8
   Scenario: create new Attacks by Threat Category Report with Summary Table
