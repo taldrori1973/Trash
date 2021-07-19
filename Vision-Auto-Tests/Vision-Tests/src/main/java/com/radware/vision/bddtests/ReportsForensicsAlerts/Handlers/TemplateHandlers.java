@@ -25,6 +25,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.How;
 
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,7 +69,7 @@ public class TemplateHandlers {
         return  WANLinks;
     }
 
-    private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
+    private static ScopeSelection  getScopeSelection(JSONObject templateJsonObject, String templateParam) {
         switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
             case "HTTPS FLOOD":
                 return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), templateParam);
@@ -366,7 +367,7 @@ public class TemplateHandlers {
             return type;
         }
 
-        ScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+         ScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             this.devicesJSON = deviceJSONArray;
             this.templateParam = templateParam;
         }
@@ -376,7 +377,11 @@ public class TemplateHandlers {
         }
 
         protected void openScopeSelection() throws TargetWebElementNotFoundException {
-            BasicOperationsHandler.clickButton("Open Scope Selection", getType() + templateParam);
+           try {
+               BasicOperationsHandler.clickButton("Open Scope Selection", getType() + templateParam);
+           }catch (TargetWebElementNotFoundException e){
+               BasicOperationsHandler.clickButton("Open Scope Selection In Dashboard", "");
+           }
         }
 
         public void create() throws Exception {
@@ -507,7 +512,8 @@ public class TemplateHandlers {
 
             private void selectPortsOrPolicies(ArrayList devicePoliciesOrPorts, String dpPolicyCheck, String portOrPolicyFileter) throws Exception {
                 if (devicePoliciesOrPorts != null) {
-                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocator(portOrPolicyFileter, getDeviceIp()));
+//                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocator(portOrPolicyFileter, getDeviceIp()));
+                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator(portOrPolicyFileter, new String[]{getDeviceIp()}));
                     for (Object policyOrPort : devicePoliciesOrPorts) {
                         policyOrPortText.type(policyOrPort.toString().trim());
                         checkSpecificPortOrPolicy(dpPolicyCheck, policyOrPort);

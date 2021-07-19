@@ -332,11 +332,11 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         }
     }
 
-    private void fixTemplateMap(Map<String, String> map) {
+    public static void fixTemplateMap(Map<String, String> map) {
         fixNewTemplate(map);
     }
 
-    private void fixNewTemplate(Map<String, String> map) {
+    private static void fixNewTemplate(Map<String, String> map) {
         ArrayList templateKeys = new ArrayList();
         map.keySet().forEach(key ->
         {
