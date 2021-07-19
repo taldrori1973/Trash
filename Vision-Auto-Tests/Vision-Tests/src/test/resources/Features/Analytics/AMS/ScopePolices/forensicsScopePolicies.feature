@@ -1,4 +1,3 @@
-@run
 @TC122035
 Feature: ScopePolicies in Forensics
 
