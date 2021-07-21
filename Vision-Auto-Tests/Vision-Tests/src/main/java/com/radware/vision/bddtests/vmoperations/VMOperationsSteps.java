@@ -218,15 +218,9 @@ public class VMOperationsSteps extends VisionUITestBase {
             switch (setupMode.toLowerCase()) {
                 case "kvm_upgrade":
                 case "upgrade":
-                    Optional<RadwareServerCli> radwareServerCliOpt = TestBase.getServersManagement().getRadwareServerCli();
-                    if (!radwareServerCliOpt.isPresent()) {
-                        throw new Exception("Radware Server Not found!");
-                    }
-                    Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
-                    if (!rootServerCliOpt.isPresent()) {
-                        throw new Exception("Root Server Not found!");
-                    }
-                    Upgrade upgrade = new Upgrade(true, null, radwareServerCliOpt.get(), rootServerCliOpt.get());
+                    RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+                    RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+                    Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
                     upgrade.deploy();
                     break;
                 case "upgrade_inparallel":
