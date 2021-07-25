@@ -1,4 +1,4 @@
-@Debug @TC108784
+@TC108784
 Feature: IPv6 CLI - NTP test
 
   @SID_1
