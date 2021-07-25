@@ -1,4 +1,4 @@
-@TC108784
+@Debug @TC108784
 Feature: IPv6 CLI - NTP test
 
   @SID_1
@@ -41,6 +41,6 @@ Feature: IPv6 CLI - NTP test
   @SID_7
   Scenario: Verify NTP service stopped when all servers are deleted
     Then CLI Run linux Command "system ntp service status" on "RADWARE_SERVER_CLI" and validate result EQUALS "NTP service is stopped"
-    Then CLI Run linux Command "service ntpd status" on "ROOT_SERVER_CLI" and validate result EQUALS "ntpd is stopped"
+    Then CLI Run linux Command "systemctl status ntp | grep Active:" on "ROOT_SERVER_CLI" and validate result CONTAINS "inactive"
 
 
