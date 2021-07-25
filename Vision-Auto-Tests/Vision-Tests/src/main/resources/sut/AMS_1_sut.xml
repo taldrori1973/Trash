@@ -89,7 +89,7 @@
         <user>root</user>
         <password>radware</password>
         <connectOnInit>false</connectOnInit>
-        <host>10.205.200.215</host>
+        <host>10.205.200.210</host>
         <dnsServerIp>10.221.1.47</dnsServerIp>
         <ip>172.17.164.101</ip>
         <netMask>255.255.0.0</netMask>
