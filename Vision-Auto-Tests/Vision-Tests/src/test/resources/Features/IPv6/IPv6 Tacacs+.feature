@@ -10,16 +10,16 @@ Feature: IPv6 TACACS+ Functionality
 
   @SID_2
   Scenario: TACACS+ setting - set Parameters
-    Then UI Set Text Field "IP Address" To "200a:0000:0000:0000:172:17:164:52" enter Key true
-    Then UI Set Text Field "Shared Secret" To "radware" enter Key true
-    Then UI Set Text field with id "gwt-debug-primarySharedSecret_DuplicatePasswordField" with "radware"
+    When UI Set Text Field "IP Address" To "200a:0000:0000:0000:172:17:164:52" enter Key true
+    When UI Set Text Field "Shared Secret" To "radware" enter Key true
+    When UI Set Text field with id "gwt-debug-primarySharedSecret_DuplicatePasswordField" with "radware"
     When UI Do Operation "select" item "Shared Parameters"
-    Then UI Set Text Field "Minimal Required Privilege Level" To "1" enter Key true
-    Then UI Set Text Field "Service Name" To "connection" enter Key true
-    Then UI Click Button "Submit"
+    When UI Set Text Field "Minimal Required Privilege Level" To "1" enter Key true
+    When UI Set Text Field "Service Name" To "connection" enter Key true
+    When UI Click Button "Submit"
 
     Then REST get TacacsSettings Parameters "primaryTacacsIP" Expected result "200a:0000:0000:0000:172:17:164:52"
-    Then UI Validate Text field "IP Address" EQUALS ""
+    Then UI Validate Text field "IP Address" EQUALS "200a:0000:0000:0000:172:17:164:52"
 
   @SID_3
   Scenario: TACACS+ setting - set and validate Authentication Mode
