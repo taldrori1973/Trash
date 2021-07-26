@@ -1,5 +1,4 @@
 @TC122311
-@run
 Feature: Attacks by Threat Category
 
   @SID_1
@@ -33,49 +32,31 @@ Feature: Attacks by Threat Category
       | Anti-Scanning  | 2    |
       | Anomalies      | 1    |
 
-
-#    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "223890"
-
-
-
   @SID_5
   Scenario: Validate Attacks by Threat Category Labels and Value
     Then UI Text of "Attacks by Threat Category Label" with extension "Intrusions" equal to "Intrusions"
-    Then UI Text of "Attacks by Threat Category Value" with extension "Intrusions" equal to "26.47% (9)"
-    Then UI Validate Text field "Attacks by Threat Category Value" with params "Intrusions" On Regex "(\d+,\d+)% (9)" GTE "25"
-
+    Then UI Text of "Attacks by Threat Category Value" with extension "Intrusions" GTE to "25% (9)" with offset "2"
 
     Then UI Text of "Attacks by Threat Category Label" with extension "TrafficFilters" equal to "TrafficFilters"
-    Then UI Text of "Attacks by Threat Category Value" with extension "TrafficFilters" equal to "17.65% (6)"
+    Then UI Text of "Attacks by Threat Category Value" with extension "TrafficFilters" GTE to "17% (9)" with offset "2"
 
     Then UI Text of "Attacks by Threat Category Label" with extension "DNS" equal to "DNS"
-    Then UI Text of "Attacks by Threat Category Value" with extension "DNS" equal to "17.65% (6)"
+    Then UI Text of "Attacks by Threat Category Value" with extension "TrafficFilters" GTE to "17% (9)" with offset "2"
 
     Then UI Text of "Attacks by Threat Category Label" with extension "BehavioralDOS" equal to "BehavioralDOS"
-    Then UI Text of "Attacks by Threat Category Value" with extension "BehavioralDOS" equal to "17.14% (6)"
+    Then UI Text of "Attacks by Threat Category Value" with extension "BehavioralDOS" GTE to "10% (9)" with offset "2"
 
-    Then UI Text of "Attacks by Threat Category Label" with extension "DOSShield" equal to "DOSShield"
-    Then UI Text of "Attacks by Threat Category Value" with extension "DOSShield" equal to "4.62% (8)"
+#    Then UI Text of "Attacks by Threat Category Label" with extension "DOSShield" equal to "DOSShield"
+#    Then UI Text of "Attacks by Threat Category Value" with extension "DOSShield" GTE to "4% (9)" with offset "5"
+#
+#    Then UI Text of "Attacks by Threat Category Label" with extension "Anti-Scanning" equal to "Anti-Scanning"
+#    Then UI Text of "Attacks by Threat Category Value" with extension "Anti-Scanning" GTE to "1% (9)" with offset "5"
+#
+#    Then UI Text of "Attacks by Threat Category Label" with extension "Anomalies" equal to "Anomalies"
+#    Then UI Text of "Attacks by Threat Category Value" with extension "Anomalies" GTE to "17% (9)" with offset "5"
 
-    Then UI Text of "Attacks by Threat Category Label" with extension "Anti-Scanning" equal to "Anti-Scanning"
-    Then UI Text of "Attacks by Threat Category Value" with extension "Anti-Scanning" equal to "1.16% (2)"
 
-    Then UI Text of "Attacks by Threat Category Label" with extension "Anomalies" equal to "Anomalies"
-    Then UI Text of "Attacks by Threat Category Value" with extension "Anomalies" equal to "0.58% (1)"
 
   @SID_6
-  Scenario: Unselect Intrusions checkbox and Validate Attacks by Threat Category Pie Chart data
-    Then UI Click Button "Attacks by Threat Category checkbox" with value "Intrusions"
-    Then UI Validate Pie Chart data "Attacks by Threat Category"
-      | label          | data | shapeType  |
-      | Intrusions     | 44   | plus       |
-      | TrafficFilters | 41   | cross      |
-      | DNS            | 8    | dash       |
-      | BehavioralDOS  | 6    | cross-dash |
-      | DOSShield      | 6    | dot        |
-      | Anti-Scanning  | 2    | dots       |
-      | Anomalies      | 1    | disc       |
-
-  @SID_7
   Scenario: Logout and close browser
     Given UI logout and close browser
