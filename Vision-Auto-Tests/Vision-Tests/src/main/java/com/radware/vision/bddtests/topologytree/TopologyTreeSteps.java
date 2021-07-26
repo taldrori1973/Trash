@@ -272,7 +272,6 @@ public class TopologyTreeSteps extends VisionUITestBase {
         }
     }
 
-
     @Then("^UI Add new Site \"([^\"]*)\" under Parent \"([^\"]*)\"$")
     public void addNewSite(String siteName, String parent) {
         try {
@@ -377,10 +376,10 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
 
-    @When("^UI Wait For Device To Show Up In The Topology Tree( physical)? \"(.*)\" device with index (\\d+) with timeout (\\d+)$")
-    public void waitForDeviceToShowUp(String treeTabType, SUTDeviceType deviceType, int deviceIndex, String timeout) {
+    @When("^UI Wait For Device To Show Up In The Topology Tree( physical)? \"(.*)\" with timeout (\\d+)$")
+    public void waitForDeviceToShowUp(String treeTabType, String deviceSetId, String timeout) {
         try {
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
+            TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
             TopologyTreeHandler.waitForDeviceToShowUp(topologyTreeTab, deviceInfo.getDeviceName(), Integer.parseInt(timeout));
         } catch (Exception e) {
@@ -390,7 +389,6 @@ public class TopologyTreeSteps extends VisionUITestBase {
 
         }
     }
-
 
     @Then("^UI Edit AppWall with DeviceType \"([^\"]*)\" with index (\\d+) Mgt port \"([^\"]*)\"$")
     public void uiEditAppWallWithDeviceTypeWithIndex(SUTDeviceType deviceType, int index, String visionMgtPort) {

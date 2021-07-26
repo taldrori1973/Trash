@@ -36,7 +36,7 @@ Feature: IPv6 Manage Alteon
     Then UI Add "Alteon_IPv6_Set_1" under "Alteons-IPv6" site
   @SID_5
   Scenario: Lock and verify Alteon status
-    Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 40 with timeout 600
+    When UI Wait For Device To Show Up In The Topology Tree "Alteon_IPv6_Set_1" with timeout 600
     Then UI verify Device Status "Alteon_IPv6_Set_1" if Expected device Status "Up or Maintenance"
     Then UI Lock Device "Alteon_IPv6_Set_1" under "Sites And Devices"
   @SID_6
