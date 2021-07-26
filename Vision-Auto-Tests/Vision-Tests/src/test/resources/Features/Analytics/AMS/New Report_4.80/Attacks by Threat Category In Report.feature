@@ -28,7 +28,6 @@ Feature: Attacks by Threat Category In Report
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
     Given UI Login with user "radware" and password "radware"
     Given Setup email server
-#    Then UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
@@ -56,7 +55,6 @@ Feature: Attacks by Threat Category In Report
 
   @SID_8
   Scenario: create new Attacks by Threat Category Report with Summary Table
-    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Threat Category Report with Summary Table"
       | Template | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[All],showTable:true |
       | Format   | Select: PDF                                                                                       |
@@ -68,16 +66,15 @@ Feature: Attacks by Threat Category In Report
   Scenario: Validate delivery card and generate report: Attacks by Threat Category Report with Summary Table
     Then UI Click Button "My Report" with value "Attacks by Threat Category Report with Summary Table"
     Then UI Click Button "Generate Report Manually" with value "Attacks by Threat Category Report with Summary Table"
-    Then Sleep "35"
+    Then Sleep "180"
 
   @SID_10
   Scenario: Show Attacks by Threat Category Report with Summary Table after the create
     Then UI Click Button "Log Preview" with value "Attacks by Threat Category Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all categories): 23"
+    Then UI Text of "Total Summary Table" equal to "Total (for all categories): 32"
 
   @SID_11
   Scenario: Edit share email in  Attacks by Threat Category Report with Summary Table
-    Then UI Click Button "New Report Tab"
     Given UI "Edit" Report With Name "Attacks by Threat Category Report with Summary Table"
       | Share | Email:[maha],Subject:Validate Email,Body:Email Body |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report with Summary Table"
@@ -85,14 +82,14 @@ Feature: Attacks by Threat Category In Report
 
   @SID_12
   Scenario: Validate delivery card and generate report after edit share email
-    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
-    Then Sleep "35"
+    Then UI Click Button "My Report" with value "Attacks by Threat Category Report with Summary Table"
+    Then UI Click Button "Generate Report Manually" with value "Attacks by Threat Category Report with Summary Table"
+    Then Sleep "180"
 
   @SID_13
   Scenario: Show Attacks by Threat Category Report with Summary Table after edit share email
     Then UI Click Button "Log Preview" with value "Attacks by Threat Category Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all categories): 23"
+    Then UI Text of "Total Summary Table" equal to "Total (for all categories): 32"
 
   @SID_14
   Scenario: Validate Report Email received content after edit share email
@@ -113,7 +110,6 @@ Feature: Attacks by Threat Category In Report
 
   @SID_16
   Scenario: Edit format Attacks by Threat Category  Report with Summary Table
-    Then UI Click Button "New Report Tab"
     Given UI "Edit" Report With Name "Attacks by Threat Category Report with Summary Table"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report with Summary Table"
@@ -123,16 +119,15 @@ Feature: Attacks by Threat Category In Report
   Scenario: Validate delivery card and generate report: Attacks by Threat Category Report with Summary Table after edit format
     Then UI Click Button "My Report" with value "Attacks by Threat Category Report with Summary Table"
     Then UI Click Button "Generate Report Manually" with value "Attacks by Threat Category Report with Summary Table"
-    Then Sleep "35"
+    Then Sleep "180"
 
   @SID_18
   Scenario: Show Attacks by Threat Category Report with Summary Table after edit format
     Then UI Click Button "Log Preview" with value "Attacks by Threat Category Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all categories): 23"
+    Then UI Text of "Total Summary Table" equal to "Total (for all categories): 32"
 
   @SID_19
   Scenario: Edit share email to html format Attacks by Threat Category
-    Then UI Click Button "New Report Tab"
     Given UI "Edit" Report With Name "Attacks by Threat Category Report with Summary Table"
       | Share | Email:[maha],Subject:Validate Email,Body:Email Body |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report with Summary Table"
@@ -140,14 +135,14 @@ Feature: Attacks by Threat Category In Report
 
   @SID_20
   Scenario: Validate delivery card and generate report  after edit format and share
-    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
-    Then Sleep "35"
+    Then UI Click Button "My Report" with value "Attacks by Threat Category Report with Summary Table"
+    Then UI Click Button "Generate Report Manually" with value "Attacks by Threat Category Report with Summary Table"
+    Then Sleep "180"
 
   @SID_21
   Scenario: Show Attacks by Threat Category Report with Summary Table  after edit format and share
     Then UI Click Button "Log Preview" with value "Attacks by Threat Category Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all categories): 23"
+    Then UI Text of "Total Summary Table" equal to "Total (for all categories): 32"
 
   @SID_22
   Scenario: Validate Report Email received content  after edit format and share
@@ -172,7 +167,6 @@ Feature: Attacks by Threat Category In Report
 
   @SID_25
   Scenario: create new Attacks by Threat Category without summary table
-    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Threat Category Report without Summary Table"
       | Template | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[All],showTable:false|
       | Format   | Select: PDF                                                                                       |
@@ -184,7 +178,7 @@ Feature: Attacks by Threat Category In Report
   Scenario: Validate delivery card and generate report: Attacks by Threat Category Report without Summary Table
     Then UI Click Button "My Report" with value "Attacks by Threat Category Report without Summary Table"
     Then UI Click Button "Generate Report Manually" with value "Attacks by Threat Category Report without Summary Table"
-    Then Sleep "35"
+    Then Sleep "180"
 
   @SID_27
   Scenario: Show Attacks by Threat Category Report without Summary Table
@@ -193,7 +187,6 @@ Feature: Attacks by Threat Category In Report
 
   @SID_28
   Scenario: Edit format to html in Attacks by Threat Category without summary table
-    Then UI Click Button "New Report Tab"
     Given UI "Edit" Report With Name "Attacks by Threat Category Report without Summary Table"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report without Summary Table"
@@ -203,7 +196,7 @@ Feature: Attacks by Threat Category In Report
   Scenario: Validate delivery card and generate report: Attacks by Threat Category Report without Summary Table after edit html format
     Then UI Click Button "My Report" with value "Attacks by Threat Category Report without Summary Table"
     Then UI Click Button "Generate Report Manually" with value "Attacks by Threat Category Report without Summary Table"
-    Then Sleep "35"
+    Then Sleep "180"
 
   @SID_30
   Scenario: Show Attacks by Threat Category Report without Summary Table after edit html format
@@ -212,7 +205,7 @@ Feature: Attacks by Threat Category In Report
 
   @SID_31
   Scenario: Delete report Attacks by Threat Category Report without Summary Table
-    Then UI Delete Report With Name "Attacks by Threat Category Report with Summary Table"
+    Then UI Delete Report With Name "Attacks by Threat Category Report without Summary Table"
 
   @SID_32
   Scenario: Logout and close browser
