@@ -326,7 +326,7 @@
               "snmpVersion": "SNMP_V2",
               "verifyHttpCredentials": true,
               "verifyHttpsCredentials": true,
-              "visionMgtPort": "G2"
+              "visionMgtPort": "G1"
             }
           }
         }

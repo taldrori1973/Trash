@@ -24,6 +24,10 @@
       },
       {
         "parentSite": "Default",
+        "name": "Alteons-IPv6"
+      },
+      {
+        "parentSite": "Default",
         "name": "VA_LP_site"
       }
     ],
@@ -43,6 +47,10 @@
       {
         "deviceId": "Alteon_50.50.101.21",
         "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_200a::172:17:164:19",
+        "parentSite": "Alteons-IPv6"
       },
       {
         "deviceId": "LinkProof NG_172.17.154.190",
