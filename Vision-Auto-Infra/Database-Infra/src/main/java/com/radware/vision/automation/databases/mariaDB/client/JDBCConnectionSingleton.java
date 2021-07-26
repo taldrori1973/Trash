@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class JDBCConnectionSingleton {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static String DB_URL_PATTERN = "jdbc:mysql://localhost:%s/%s";
+    private static String DB_URL_PATTERN = "jdbc:mysql://%s:%s/%s";
 
     private int localPort;
     private Session session;
@@ -89,13 +89,13 @@ public class JDBCConnectionSingleton {
         session.setPassword(serverPassword);
         session.setConfig(properties);
         session.connect();
-        localPort = session.setPortForwardingL(0, host, Integer.parseInt(SUTManagerImpl.getInstance().getClientConfigurations().getSqlDbConnectionDefaultPort()));
+        localPort = Integer.parseInt(SUTManagerImpl.getInstance().getClientConfigurations().getSqlDbConnectionDefaultPort());
     }
 
     private Connection createSchemaConnection(VisionDBSchema schema) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         Connection connection = null;
         Class.forName(JDBC_DRIVER).newInstance();
-        String url = String.format(DB_URL_PATTERN, localPort, schema.toString().toLowerCase());
+        String url = String.format(DB_URL_PATTERN, host, localPort, schema.toString().toLowerCase());
         connection = DriverManager.getConnection(url, dbUserNme, dbPassword);
         return connection;
     }
