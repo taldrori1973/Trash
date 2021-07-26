@@ -1,4 +1,5 @@
 @TC122311
+@run
 Feature: Attacks by Threat Category
 
   @SID_1
@@ -23,28 +24,35 @@ Feature: Attacks by Threat Category
   @SID_4
   Scenario: Validate Attacks by Threat Category Pie Chart data
     Then UI Validate Pie Chart data "Attacks by Threat Category"
-      | label          | data | backgroundColor | shapeType  |
-      | Intrusions     | 79   | #04C2A0         | plus       |
-      | TrafficFilters | 69   | #4388C8         | cross      |
-      | DNS            | 8    | #FFC107         | dash       |
-      | BehavioralDOS  | 8    | #108282         | cross-dash |
-      | DOSShield      | 6    | #088EB1         | dot        |
-      | Anti-Scanning  | 2    | #6CB9FF         | dots       |
-      | Anomalies      | 1    | #00BDEE         | disc       |
+      | label          | data |
+      | Intrusions     | 9    |
+      | TrafficFilters | 7    |
+      | DNS            | 7    |
+      | BehavioralDOS  | 6    |
+      | DOSShield      | 3    |
+      | Anti-Scanning  | 2    |
+      | Anomalies      | 1    |
 
-  @SID_4
+
+#    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "223890"
+
+
+
+  @SID_5
   Scenario: Validate Attacks by Threat Category Labels and Value
     Then UI Text of "Attacks by Threat Category Label" with extension "Intrusions" equal to "Intrusions"
-    Then UI Text of "Attacks by Threat Category Value" with extension "Intrusions" equal to "45.66% (79)"
+    Then UI Text of "Attacks by Threat Category Value" with extension "Intrusions" equal to "26.47% (9)"
+    Then UI Validate Text field "Attacks by Threat Category Value" with params "Intrusions" On Regex "(\d+,\d+)% (9)" GTE "25"
+
 
     Then UI Text of "Attacks by Threat Category Label" with extension "TrafficFilters" equal to "TrafficFilters"
-    Then UI Text of "Attacks by Threat Category Value" with extension "TrafficFilters" equal to "39.88% (69)"
+    Then UI Text of "Attacks by Threat Category Value" with extension "TrafficFilters" equal to "17.65% (6)"
 
     Then UI Text of "Attacks by Threat Category Label" with extension "DNS" equal to "DNS"
-    Then UI Text of "Attacks by Threat Category Value" with extension "DNS" equal to "4.62% (8)"
+    Then UI Text of "Attacks by Threat Category Value" with extension "DNS" equal to "17.65% (6)"
 
     Then UI Text of "Attacks by Threat Category Label" with extension "BehavioralDOS" equal to "BehavioralDOS"
-    Then UI Text of "Attacks by Threat Category Value" with extension "BehavioralDOS" equal to "3.47% (6)"
+    Then UI Text of "Attacks by Threat Category Value" with extension "BehavioralDOS" equal to "17.14% (6)"
 
     Then UI Text of "Attacks by Threat Category Label" with extension "DOSShield" equal to "DOSShield"
     Then UI Text of "Attacks by Threat Category Value" with extension "DOSShield" equal to "4.62% (8)"
@@ -55,23 +63,19 @@ Feature: Attacks by Threat Category
     Then UI Text of "Attacks by Threat Category Label" with extension "Anomalies" equal to "Anomalies"
     Then UI Text of "Attacks by Threat Category Value" with extension "Anomalies" equal to "0.58% (1)"
 
-  @SID_4
+  @SID_6
   Scenario: Unselect Intrusions checkbox and Validate Attacks by Threat Category Pie Chart data
     Then UI Click Button "Attacks by Threat Category checkbox" with value "Intrusions"
     Then UI Validate Pie Chart data "Attacks by Threat Category"
-      | label          | data | backgroundColor | shapeType  |
-      | Intrusions     | 44   | #04C2A0         | plus       |
-      | TrafficFilters | 41   | #4388C8         | cross      |
-      | DNS            | 8    | #FFC107         | dash       |
-      | BehavioralDOS  | 6    | #108282         | cross-dash |
-      | DOSShield      | 6    | #088EB1         | dot        |
-      | Anti-Scanning  | 2    | #6CB9FF         | dots       |
-      | Anomalies      | 1    | #00BDEE         | disc       |
+      | label          | data | shapeType  |
+      | Intrusions     | 44   | plus       |
+      | TrafficFilters | 41   | cross      |
+      | DNS            | 8    | dash       |
+      | BehavioralDOS  | 6    | cross-dash |
+      | DOSShield      | 6    | dot        |
+      | Anti-Scanning  | 2    | dots       |
+      | Anomalies      | 1    | disc       |
 
-
-
-
-
-  @SID_23
+  @SID_7
   Scenario: Logout and close browser
     Given UI logout and close browser

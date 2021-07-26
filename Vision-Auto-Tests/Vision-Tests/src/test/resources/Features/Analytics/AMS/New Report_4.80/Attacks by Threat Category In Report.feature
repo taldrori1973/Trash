@@ -128,6 +128,7 @@ Feature: Attacks by Threat Category In Report
 
   @SID_19
   Scenario: Edit share email to html format Attacks by Threat Category
+    Given Clear email history for user "setup"
     Given UI "Edit" Report With Name "Attacks by Threat Category Report with Summary Table"
       | Share | Email:[maha],Subject:Validate Email,Body:Email Body |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report with Summary Table"
