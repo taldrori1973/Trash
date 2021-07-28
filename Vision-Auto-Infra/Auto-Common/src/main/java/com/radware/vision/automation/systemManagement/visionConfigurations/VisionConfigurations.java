@@ -1,5 +1,7 @@
 package com.radware.vision.automation.systemManagement.visionConfigurations;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.systemManagement.licenseManagement.LicenseGenerator;
 import models.RestResponse;
@@ -58,7 +60,7 @@ public class VisionConfigurations {
                 throw new RuntimeException(String.format("the Login Fails because of the following error: %s", loginResult.getBody().getBodyAsString()));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
