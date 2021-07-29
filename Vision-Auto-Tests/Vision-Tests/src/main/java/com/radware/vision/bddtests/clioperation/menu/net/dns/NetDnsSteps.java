@@ -19,75 +19,79 @@ public class NetDnsSteps extends TestBase {
     /**
      * Test ' net dns set ' cmd sub menu
      *
-     * @throws Exception
      * @author izikp
      */
-
     @Given("^CLI dns set sub menu$")
-    public void dnsSetSubMenuTest() throws Exception {
+    public void dnsSetSubMenuTest() {
         Dns.dnsSetSubMenuCheck(radwareServerCli);
     }
 
     /**
      * Test ' net dns ' cmd sub menu
      *
-     * @throws Exception
      * @author izikp
      */
     @Given("^CLI dns sub menu$")
-    public void dnsSubMenuTest() throws Exception {
+    public void dnsSubMenuTest() {
         Dns.dnsSubMenuCheck(radwareServerCli);
     }
 
     /**
      * Test ' net dns set primary ' cmd
      *
-     * @throws Exception
      * @author izikp
      */
-
     @When("^CLI net dns primary Set$")
-    public void netDnsPrimarySetTest() throws Exception {
+    public void netDnsPrimarySetTest() {
         String dnsIpPrimary = "11.11.11.11";
-        Dns.setDnsPrimary(radwareServerCli, dnsIpPrimary);
-        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsIpPrimary);
-        afterMethod();
-
+        try {
+            Dns.setDnsPrimary(radwareServerCli, dnsIpPrimary);
+            Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsIpPrimary);
+            afterMethod();
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     /**
      * Test  ' net dns set secondary ' cmd
      *
-     * @throws Exception
      * @author izikp
      */
     @When("^CLI net dns seconderay set$")
-    public void netDnsSeconderaySetTest() throws Exception {
+    public void netDnsSeconderaySetTest() {
         String dnsPrimaryIp = "21.21.21.21";
         String dnsSecondaryIP = "22.22.22.22";
-        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
-        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
-        afterMethod();
+        try {
+            Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+            Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+            Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+            afterMethod();
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     /**
      * qcTestId = 7039
      * Test ' net dns set Tertiary ' cmd
      *
-     * @throws Exception
      * @author izikp
      */
     @When("^CLI net dns tertiary set$")
-    public void netDnsTertiarySetTest() throws Exception {
+    public void netDnsTertiarySetTest() {
         String dnsPrimaryIp = "31.31.31.31";
         String dnsSecondaryIP = "32.32.32.32";
         String dnsTertiaryIP = "33.33.33.33";
-        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
-        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
-        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
-        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
-        afterMethod();
+        try {
+            Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+            Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+            Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+            Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+            afterMethod();
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
 
@@ -96,25 +100,28 @@ public class NetDnsSteps extends TestBase {
      * 2) Delete the Primary DNS, and Verifying it was deleted, Doesn't appear via root and radware.
      * 3) Verify the Secondary and the Tertiary DNSs were shifting up in one place to Primary and Secondary.
      *
-     * @throws Exception
      * @author izikp
      */
     @When("^CLI net dns delete primary$")
-    public void netDnsDeletePrimaryTest() throws Exception {
+    public void netDnsDeletePrimaryTest() {
         String dnsPrimaryIp = "41.41.41.41";
         String dnsSecondaryIP = "42.42.42.42";
         String dnsTertiaryIP = "43.43.43.43";
-        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
-        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
-        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
-        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
-        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
-        Dns.deleteDns(radwareServerCli, Dns.DnsType.PRIMARY);
-        Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsPrimaryIp);
-        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
-        afterMethod();
+        try {
+            Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+            Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+            Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+            Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+            Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+            Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+            Dns.deleteDns(radwareServerCli, Dns.DnsType.PRIMARY);
+            Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsPrimaryIp);
+            Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+            Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+            afterMethod();
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
 
     }
 
@@ -123,26 +130,28 @@ public class NetDnsSteps extends TestBase {
      * 2) Delete the Secondary DNS, and Verifying it was deleted, Doesn't appear via root and radware.
      * 3) Verify the Tertiary DNS was shifting up in one place to Secondary place and Primary remain the same.
      *
-     * @throws Exception
      * @author izikp
      */
-
     @When("^CLI net dns delete secondary$")
-    public void netDnsDeleteSecondaryTest() throws Exception {
+    public void netDnsDeleteSecondaryTest() {
         String dnsPrimaryIp = "51.51.51.51";
         String dnsSecondaryIP = "52.52.52.52";
         String dnsTertiaryIP = "53.53.53.53";
-        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
-        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
-        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
-        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
-        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
-        Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDERAY);
-        Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsSecondaryIP);
-        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
-        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
-        afterMethod();
+        try {
+            Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+            Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+            Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+            Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+            Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+            Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+            Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDERAY);
+            Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsSecondaryIP);
+            Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+            Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+            afterMethod();
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
 
     }
 
@@ -153,25 +162,28 @@ public class NetDnsSteps extends TestBase {
      * root and radware. 3) Verify the Primary and Secondary DNS remain the same
      * place.
      *
-     * @throws Exception
      * @author izikp
      */
     @When("^CLI net dns delete tertiary$")
-    public void netDnsDeleteTertiaryTest() throws Exception {
+    public void netDnsDeleteTertiaryTest() {
         String dnsPrimaryIp = "61.61.61.61";
         String dnsSecondaryIP = "62.62.62.62";
         String dnsTertiaryIP = "63.63.63.63";
-        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
-        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
-        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
-        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
-        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
-        Dns.deleteDns(radwareServerCli, Dns.DnsType.TERTIARY);
-        Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsTertiaryIP);
-        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
-        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
-        afterMethod();
+        try {
+            Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+            Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+            Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+            Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+            Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+            Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+            Dns.deleteDns(radwareServerCli, Dns.DnsType.TERTIARY);
+            Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsTertiaryIP);
+            Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+            Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+            afterMethod();
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
 
     }
 
@@ -180,32 +192,31 @@ public class NetDnsSteps extends TestBase {
      * 2) Delete the Secondary DNS, and Verifying it was deleted, Doesn't appear via root and radware.
      * 3) Verify the Tertiary DNS was shifting up in one place to Secondary place and Primary remain the same.
      *
-     * @throws Exception
      * @author izikp
      */
-
     @Then("^CLI net dns get$")
-    public void netDnsGetTest() throws Exception {
+    public void netDnsGetTest() {
         String dnsPrimaryIp = "71.71.71.71";
         String dnsSecondaryIP = "72.72.72.72";
         String dnsTertiaryIP = "73.73.73.73";
-        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
-        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
-        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
-        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
-        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
-        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
-        Dns.VerifyGetDnsEqualToRoot(radwareServerCli, rootServerCli);
-        afterMethod();
+        try {
+            Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+            Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+            Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+            Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+            Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+            Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+            Dns.VerifyGetDnsEqualToRoot(radwareServerCli, rootServerCli);
+            afterMethod();
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
 
     }
 
     /**
      * After - Deletes all DNS configuration, and reconfigure the Primary DNS
      * from SUT file.
-     *
-     *
-     *
      */
     private void afterMethod() {
 
@@ -218,7 +229,5 @@ public class NetDnsSteps extends TestBase {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
-
-
 }
 
