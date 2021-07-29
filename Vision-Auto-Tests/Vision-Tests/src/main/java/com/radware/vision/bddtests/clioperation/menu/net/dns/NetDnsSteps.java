@@ -2,14 +2,19 @@ package com.radware.vision.bddtests.clioperation.menu.net.dns;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.vision_handlers.net.Dns;
+import com.radware.vision.net.Dns;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 
 public class NetDnsSteps extends TestBase {
+
+    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+    private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
     /**
      * Test ' net dns set ' cmd sub menu
@@ -20,7 +25,7 @@ public class NetDnsSteps extends TestBase {
 
     @Given("^CLI dns set sub menu$")
     public void dnsSetSubMenuTest() throws Exception {
-        Dns.dnsSetSubMenuCheck(restTestBase.getRadwareServerCli());
+        Dns.dnsSetSubMenuCheck(radwareServerCli);
     }
 
     /**
@@ -31,7 +36,7 @@ public class NetDnsSteps extends TestBase {
      */
     @Given("^CLI dns sub menu$")
     public void dnsSubMenuTest() throws Exception {
-        Dns.dnsSubMenuCheck(restTestBase.getRadwareServerCli());
+        Dns.dnsSubMenuCheck(radwareServerCli);
     }
 
     /**
@@ -44,8 +49,8 @@ public class NetDnsSteps extends TestBase {
     @When("^CLI net dns primary Set$")
     public void netDnsPrimarySetTest() throws Exception {
         String dnsIpPrimary = "11.11.11.11";
-        Dns.setDnsPrimary(restTestBase.getRadwareServerCli(), dnsIpPrimary);
-        Dns.verifyPrimaryDnsViaRoot(restTestBase.getRootServerCli(), dnsIpPrimary);
+        Dns.setDnsPrimary(radwareServerCli, dnsIpPrimary);
+        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsIpPrimary);
         afterMethod();
 
     }
@@ -60,9 +65,9 @@ public class NetDnsSteps extends TestBase {
     public void netDnsSeconderaySetTest() throws Exception {
         String dnsPrimaryIp = "21.21.21.21";
         String dnsSecondaryIP = "22.22.22.22";
-        Dns.setDnsPrimary(restTestBase.getRadwareServerCli(), dnsPrimaryIp);
-        Dns.setDnsSecondary(restTestBase.getRadwareServerCli(), dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(restTestBase.getRootServerCli(), dnsSecondaryIP);
+        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
         afterMethod();
     }
 
@@ -78,10 +83,10 @@ public class NetDnsSteps extends TestBase {
         String dnsPrimaryIp = "31.31.31.31";
         String dnsSecondaryIP = "32.32.32.32";
         String dnsTertiaryIP = "33.33.33.33";
-        Dns.setDnsPrimary(restTestBase.getRadwareServerCli(), dnsPrimaryIp);
-        Dns.setDnsSecondary(restTestBase.getRadwareServerCli(), dnsSecondaryIP);
-        Dns.setDnsTertiary(restTestBase.getRadwareServerCli(), dnsTertiaryIP);
-        Dns.verifyTertiaryDnsViaRoot(restTestBase.getRootServerCli(), dnsTertiaryIP);
+        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
         afterMethod();
     }
 
@@ -99,16 +104,16 @@ public class NetDnsSteps extends TestBase {
         String dnsPrimaryIp = "41.41.41.41";
         String dnsSecondaryIP = "42.42.42.42";
         String dnsTertiaryIP = "43.43.43.43";
-        Dns.setDnsPrimary(restTestBase.getRadwareServerCli(), dnsPrimaryIp);
-        Dns.verifyPrimaryDnsViaRoot(restTestBase.getRootServerCli(), dnsPrimaryIp);
-        Dns.setDnsSecondary(restTestBase.getRadwareServerCli(), dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(restTestBase.getRootServerCli(), dnsSecondaryIP);
-        Dns.setDnsTertiary(restTestBase.getRadwareServerCli(), dnsTertiaryIP);
-        Dns.verifyTertiaryDnsViaRoot(restTestBase.getRootServerCli(), dnsTertiaryIP);
-        Dns.deleteDns(restTestBase.getRadwareServerCli(), Dns.DnsType.PRIMARY);
-        Dns.verifyDnsIpIsDeleted(restTestBase.getRootServerCli(), restTestBase.getRadwareServerCli(), dnsPrimaryIp);
-        Dns.verifyPrimaryDnsViaRoot(restTestBase.getRootServerCli(), dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(restTestBase.getRootServerCli(), dnsTertiaryIP);
+        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+        Dns.deleteDns(radwareServerCli, Dns.DnsType.PRIMARY);
+        Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsPrimaryIp);
+        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
         afterMethod();
 
     }
@@ -127,16 +132,16 @@ public class NetDnsSteps extends TestBase {
         String dnsPrimaryIp = "51.51.51.51";
         String dnsSecondaryIP = "52.52.52.52";
         String dnsTertiaryIP = "53.53.53.53";
-        Dns.setDnsPrimary(restTestBase.getRadwareServerCli(), dnsPrimaryIp);
-        Dns.verifyPrimaryDnsViaRoot(restTestBase.getRootServerCli(), dnsPrimaryIp);
-        Dns.setDnsSecondary(restTestBase.getRadwareServerCli(), dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(restTestBase.getRootServerCli(), dnsSecondaryIP);
-        Dns.setDnsTertiary(restTestBase.getRadwareServerCli(), dnsTertiaryIP);
-        Dns.verifyTertiaryDnsViaRoot(restTestBase.getRootServerCli(), dnsTertiaryIP);
-        Dns.deleteDns(restTestBase.getRadwareServerCli(), Dns.DnsType.SECONDERAY);
-        Dns.verifyDnsIpIsDeleted(restTestBase.getRootServerCli(), restTestBase.getRadwareServerCli(), dnsSecondaryIP);
-        Dns.verifyPrimaryDnsViaRoot(restTestBase.getRootServerCli(), dnsPrimaryIp);
-        Dns.verifySecondaryDnsViaRoot(restTestBase.getRootServerCli(), dnsTertiaryIP);
+        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+        Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDERAY);
+        Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsSecondaryIP);
+        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
         afterMethod();
 
     }
@@ -156,16 +161,16 @@ public class NetDnsSteps extends TestBase {
         String dnsPrimaryIp = "61.61.61.61";
         String dnsSecondaryIP = "62.62.62.62";
         String dnsTertiaryIP = "63.63.63.63";
-        Dns.setDnsPrimary(restTestBase.getRadwareServerCli(), dnsPrimaryIp);
-        Dns.verifyPrimaryDnsViaRoot(restTestBase.getRootServerCli(), dnsPrimaryIp);
-        Dns.setDnsSecondary(restTestBase.getRadwareServerCli(), dnsSecondaryIP);
-        Dns.verifySecondaryDnsViaRoot(restTestBase.getRootServerCli(), dnsSecondaryIP);
-        Dns.setDnsTertiary(restTestBase.getRadwareServerCli(), dnsTertiaryIP);
-        Dns.verifyTertiaryDnsViaRoot(restTestBase.getRootServerCli(), dnsTertiaryIP);
-        Dns.deleteDns(restTestBase.getRadwareServerCli(), Dns.DnsType.TERTIARY);
-        Dns.verifyDnsIpIsDeleted(restTestBase.getRootServerCli(), restTestBase.getRadwareServerCli(), dnsTertiaryIP);
-        Dns.verifyPrimaryDnsViaRoot(restTestBase.getRootServerCli(), dnsPrimaryIp);
-        Dns.verifySecondaryDnsViaRoot(restTestBase.getRootServerCli(), dnsSecondaryIP);
+        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+        Dns.deleteDns(radwareServerCli, Dns.DnsType.TERTIARY);
+        Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsTertiaryIP);
+        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
         afterMethod();
 
     }
@@ -184,13 +189,13 @@ public class NetDnsSteps extends TestBase {
         String dnsPrimaryIp = "71.71.71.71";
         String dnsSecondaryIP = "72.72.72.72";
         String dnsTertiaryIP = "73.73.73.73";
-        Dns.setDnsPrimary(restTestBase.getRadwareServerCli(), dnsPrimaryIp);
-        Dns.setDnsSecondary(restTestBase.getRadwareServerCli(), dnsSecondaryIP);
-        Dns.setDnsTertiary(restTestBase.getRadwareServerCli(), dnsTertiaryIP);
-        Dns.verifyPrimaryDnsViaRoot(restTestBase.getRootServerCli(), dnsPrimaryIp);
-        Dns.verifySecondaryDnsViaRoot(restTestBase.getRootServerCli(), dnsSecondaryIP);
-        Dns.verifyTertiaryDnsViaRoot(restTestBase.getRootServerCli(), dnsTertiaryIP);
-        Dns.VerifyGetDnsEqualToRoot(restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
+        Dns.setDnsPrimary(radwareServerCli, dnsPrimaryIp);
+        Dns.setDnsSecondary(radwareServerCli, dnsSecondaryIP);
+        Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
+        Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
+        Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
+        Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
+        Dns.VerifyGetDnsEqualToRoot(radwareServerCli, rootServerCli);
         afterMethod();
 
     }
@@ -205,10 +210,10 @@ public class NetDnsSteps extends TestBase {
     private void afterMethod() {
 
         try {
-            Dns.deleteDns(restTestBase.getRadwareServerCli(), Dns.DnsType.TERTIARY);
-            Dns.deleteDns(restTestBase.getRadwareServerCli(), Dns.DnsType.SECONDERAY);
-            Dns.deleteDns(restTestBase.getRadwareServerCli(), Dns.DnsType.PRIMARY);
-            Dns.setDnsPrimaryFromSut(restTestBase.getRadwareServerCli());
+            Dns.deleteDns(radwareServerCli, Dns.DnsType.TERTIARY);
+            Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDERAY);
+            Dns.deleteDns(radwareServerCli, Dns.DnsType.PRIMARY);
+            Dns.setDnsPrimaryFromSut(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
