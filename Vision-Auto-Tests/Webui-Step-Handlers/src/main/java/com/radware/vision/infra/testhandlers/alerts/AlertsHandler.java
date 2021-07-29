@@ -1,6 +1,5 @@
 package com.radware.vision.infra.testhandlers.alerts;
 
-import com.aqua.sysobj.conn.CliConnection;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
@@ -44,7 +43,7 @@ public class AlertsHandler {
 
     public static boolean clearAlert(String rowIndexes) {
         try {
-            HashMap<String, String> filterProperties = new HashMap<String, String>();
+            HashMap<String, String> filterProperties = new HashMap<>();
             filterProperties.put("selectAllDevices", "true");
             filterProperties.put("raisedTimeUnit", RaisedTimeUnits.HOURS.getTimeUnits());
             filterProperties.put("raisedTimeValue", "24");
@@ -80,7 +79,7 @@ public class AlertsHandler {
     }
 
     public static boolean ackAllAlerts() {
-        HashMap<String, String> filterProperties = new HashMap<String, String>();
+        HashMap<String, String> filterProperties = new HashMap<>();
         filterProperties.put("selectAllDevices", "true");
         filterProperties.put("raisedTimeUnit", RaisedTimeUnits.HOURS.getTimeUnits());
         filterProperties.put("raisedTimeValue", "2");
@@ -99,7 +98,7 @@ public class AlertsHandler {
     }
 
     public static boolean ackAlert(String rowIndexes) {
-        HashMap<String, String> filterProperties = new HashMap<String, String>();
+        HashMap<String, String> filterProperties = new HashMap<>();
         filterProperties.put("selectAllDevices", "true");
         filterProperties.put("raisedTimeUnit", RaisedTimeUnits.HOURS.getTimeUnits());
         filterProperties.put("raisedTimeValue", "1");
@@ -122,7 +121,7 @@ public class AlertsHandler {
     }
 
     public static boolean unackAlert(String rowIndexes) {
-        HashMap<String, String> filterProperties = new HashMap<String, String>();
+        HashMap<String, String> filterProperties = new HashMap<>();
         filterProperties.put("selectAllDevices", "true");
         filterProperties.put("raisedTimeUnit", RaisedTimeUnits.HOURS.getTimeUnits());
         filterProperties.put("raisedTimeValue", "1");
@@ -232,7 +231,7 @@ public class AlertsHandler {
 
             visionRestClient = visionReSTClient;
             filterAlerts(filterProperties);
-            HashMap<String, List<String>> expectedData = new HashMap<String, List<String>>();
+            HashMap<String, List<String>> expectedData = new HashMap<>();
             if (filterProperties.get("raisedTimeUnit") != null && !filterProperties.get("raisedTimeUnit").equals("") && filterProperties.get("raisedTimeValue") != null && !filterProperties.get("raisedTimeValue").equals(""))
                 expectedData.put(AlertsTableColumns.TimeAndData.toString(), Arrays.asList(new String[]{filterProperties.get("raisedTimeUnit"), filterProperties.get("raisedTimeValue")}));
             if (filterProperties.get("ackUnackStatusList") != null && !filterProperties.get("ackUnackStatusList").equals(""))
@@ -241,7 +240,7 @@ public class AlertsHandler {
                 String severityList = filterProperties.get("severityList").replaceAll("info", "Info");
                 expectedData.put(AlertsTableColumns.Severity.toString(), Arrays.asList(severityList.split(",")));
             }
-            if (filterProperties.get("devicesList") != null && !filterProperties.get("devicesList").equals("") && !Boolean.valueOf(filterProperties.get("selectAllDevices"))) {
+            if (filterProperties.get("devicesList") != null && !filterProperties.get("devicesList").equals("") && !Boolean.parseBoolean(filterProperties.get("selectAllDevices"))) {
                 expectedData.put(AlertsTableColumns.DeviceName.toString(), Arrays.asList(filterProperties.get("devicesList").split(",")));
             }
             if (filterProperties.get("modulesList") != null && !filterProperties.get("modulesList").equals("")) {
@@ -289,10 +288,7 @@ public class AlertsHandler {
         WebUITable table = alerts.retrieveAlertsTable();
         int rowIndex = table.getRowIndex(columnName, columnValue, true);
         alerts.alertsMinimize();
-        if (rowIndex == (-1)) {
-            return false;
-        }
-        return true;
+        return rowIndex != (-1);
     }
 
     public static boolean validateAlertContentByKeyValue(String key, String value, List<Table.TableDataSets> keyValueList) {
@@ -344,21 +340,22 @@ public class AlertsHandler {
     private static void setFilter(HashMap<String, String> filterProperties) {
         AlertFilter filter = new AlertFilter();
         try {
-            List<String> deviceNames = new ArrayList<String>();
-            List<String> severityList = new ArrayList<String>();
-            List<String> modulesList = new ArrayList<String>();
-            List<String> devicesTypeList = new ArrayList<String>();
-            List<String> ackStatusList = new ArrayList<String>();
+            List<String> deviceNames;
+            List<String> severityList;
+            List<String> modulesList;
+            List<String> devicesTypeList;
+            List<String> ackStatusList = new ArrayList<>();
             boolean forceChange = true;
 
 
             if (filterProperties.get("raisedTimeUnit") != null && !filterProperties.get("raisedTimeUnit").equals("")) {
                 filter.setRaisedTime(filterProperties.get("raisedTimeUnit"), filterProperties.get("raisedTimeValue"));
             }
-            filter.setRestoreDefaultFilter(Boolean.valueOf(filterProperties.get("restoreDefaults")));
+            filter.setRestoreDefaultFilter(Boolean.parseBoolean(filterProperties.get("restoreDefaults")));
 
-            filter.selectAllDevices(Boolean.valueOf(filterProperties.get("selectAllDevices")));
-            if (filterProperties.get("devicesList") != null && !filterProperties.get("devicesList").equals("") && !Boolean.valueOf(filterProperties.get("selectAllDevices"))) {
+            filter.selectAllDevices(Boolean.parseBoolean(filterProperties.get("selectAllDevices")));
+            if (filterProperties.get("devicesList") != null && !filterProperties.get("devicesList").equals("") &&
+                    !Boolean.parseBoolean(filterProperties.get("selectAllDevices"))) {
                 forceChange = false;
                 deviceNames = Arrays.asList(filterProperties.get("devicesList").split(","));
                 filter.moveAllDevicesLeft(DualListTypeEnum.ALERT_FILTER_DEVICES);
@@ -414,7 +411,7 @@ public class AlertsHandler {
     }
 
     public static String validateRaisedTimeFilter(String raisedTimeUnit, String raisedTimeValue, ServerCliBase cli) throws Exception {
-        HashMap<String, String> filterProperties = new HashMap<String, String>();
+        HashMap<String, String> filterProperties = new HashMap<>();
         filterProperties.put("raisedTimeUnit", raisedTimeUnit);
         filterProperties.put("raisedTimeValue", raisedTimeValue);
         AlertsHandler.filterAlerts(filterProperties);
