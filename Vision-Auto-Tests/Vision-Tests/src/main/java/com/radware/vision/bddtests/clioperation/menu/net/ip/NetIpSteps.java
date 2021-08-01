@@ -2,16 +2,21 @@ package com.radware.vision.bddtests.clioperation.menu.net.ip;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.net.Ip;
+import com.radware.vision.root.RootVerifications;
 import com.radware.vision.utils.SutUtils;
-import com.radware.vision.vision_handlers.common.InvokeCommon;
-import com.radware.vision.vision_handlers.net.Ip;
-import com.radware.vision.vision_handlers.root.RootVerifications;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.api.java.en.When;
 
 public class NetIpSteps extends TestBase {
 
+    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+    private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+    
     /**
      * set new net port ip's and verify.
      * replace management ports
@@ -22,15 +27,15 @@ public class NetIpSteps extends TestBase {
     public void netIpTest() {
         afterMethod();
         try {
-            Ip.setNetIp("77.77.77.77", "255.255.255.0", "G3", restTestBase.getRadwareServerCli());
-            Ip.getNetIp("77.77.77.77", "255.255.255.0", "G3", false, restTestBase.getRadwareServerCli());
-            Ip.setNetIp("88.88.88.77", "255.255.0.0", "G2", restTestBase.getRadwareServerCli());
-            Ip.getNetIp("88.88.88.77", "255.255.0.0", "G2", false, restTestBase.getRadwareServerCli());
-            Ip.managementSet("G3", restTestBase.getRadwareServerCli());
-            Ip.getNetIp("77.77.77.77", "255.255.255.0", "G3", true, restTestBase.getRadwareServerCli());
-            Ip.managementSet("G2", restTestBase.getRadwareServerCli());
-            Ip.getNetIp("88.88.88.77", "255.255.0.0", "G2", true, restTestBase.getRadwareServerCli());
-            Ip.managementSet("G1", restTestBase.getRadwareServerCli());
+            Ip.setNetIp("77.77.77.77", "255.255.255.0", "G3", radwareServerCli);
+            Ip.getNetIp("77.77.77.77", "255.255.255.0", "G3", false, radwareServerCli);
+            Ip.setNetIp("88.88.88.77", "255.255.0.0", "G2", radwareServerCli);
+            Ip.getNetIp("88.88.88.77", "255.255.0.0", "G2", false, radwareServerCli);
+            Ip.managementSet("G3", radwareServerCli);
+            Ip.getNetIp("77.77.77.77", "255.255.255.0", "G3", true, radwareServerCli);
+            Ip.managementSet("G2", radwareServerCli);
+            Ip.getNetIp("88.88.88.77", "255.255.0.0", "G2", true, radwareServerCli);
+            Ip.managementSet("G1", radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -46,10 +51,10 @@ public class NetIpSteps extends TestBase {
     public void netIpSet() {
         afterMethod();
         try {
-            Ip.setNetIp("77.77.77.77", "255.255.255.0", "G3", restTestBase.getRadwareServerCli());
-            Ip.getNetIp("77.77.77.77", "255.255.255.0", "G3", false, restTestBase.getRadwareServerCli());
-            Ip.setNetIp("88.88.88.77", "255.255.0.0", "G2", restTestBase.getRadwareServerCli());
-            Ip.getNetIp("88.88.88.77", "255.255.0.0", "G2", false, restTestBase.getRadwareServerCli());
+            Ip.setNetIp("77.77.77.77", "255.255.255.0", "G3", radwareServerCli);
+            Ip.getNetIp("77.77.77.77", "255.255.255.0", "G3", false, radwareServerCli);
+            Ip.setNetIp("88.88.88.77", "255.255.0.0", "G2", radwareServerCli);
+            Ip.getNetIp("88.88.88.77", "255.255.0.0", "G2", false, radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -65,7 +70,7 @@ public class NetIpSteps extends TestBase {
     public void netIpManagement() {
         afterMethod();
         try {
-            Ip.managementSet("G1", restTestBase.getRadwareServerCli());
+            Ip.managementSet("G1", radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -80,8 +85,8 @@ public class NetIpSteps extends TestBase {
     @When("^CLI Net Ip Delete$")
     public void netIpDelete() {
         try {
-            Ip.ipDelete("G2", restTestBase.getRadwareServerCli());
-            Ip.ipDelete("G3", restTestBase.getRadwareServerCli());
+            Ip.ipDelete("G2", radwareServerCli);
+            Ip.ipDelete("G3", radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -94,7 +99,7 @@ public class NetIpSteps extends TestBase {
      */
     @When("^CLI Ip Sub Menu Test$")
     public void ipSubMenuTest() throws Exception {
-        InvokeCommon.checkSubMenu(restTestBase.getRadwareServerCli(), Menu.net().ip().build(), Ip.NET_IP_SUB_MENU);
+        CliOperations.checkSubMenu(radwareServerCli, Menu.net().ip().build(), Ip.NET_IP_SUB_MENU);
     }
 
     /**
@@ -104,7 +109,7 @@ public class NetIpSteps extends TestBase {
      */
     @When("^CLI Ip Management SubMenu Test$")
     public void ipManagementSubMenuTest() throws Exception {
-        InvokeCommon.checkSubMenu(restTestBase.getRadwareServerCli(), Menu.net().ip().management().build(), Ip.NET_IP_MANAGEMENT_SUB_MENU);
+        CliOperations.checkSubMenu(radwareServerCli, Menu.net().ip().management().build(), Ip.NET_IP_MANAGEMENT_SUB_MENU);
     }
 
     /**
@@ -122,18 +127,18 @@ public class NetIpSteps extends TestBase {
         afterMethod();
         try {
             //net ip get - check the output
-            Ip.getNetIp("", "", "G3", false, restTestBase.getRadwareServerCli());
-            Ip.getNetIp("", "", "G2", false, restTestBase.getRadwareServerCli());
-            Ip.getNetIp(SutUtils.getCurrentVisionIp(), "255.255.0.0", "G1", true, restTestBase.getRadwareServerCli());
+            Ip.getNetIp("", "", "G3", false, radwareServerCli);
+            Ip.getNetIp("", "", "G2", false, radwareServerCli);
+            Ip.getNetIp(SutUtils.getCurrentVisionIp(), "255.255.0.0", "G1", true, radwareServerCli);
 
             //via root ...
-            String[] wantedOutput = {"G1", "G3", "G2", "255.255.0.0", restTestBase.getRadwareServerCli().getHost()};
-            RootVerifications.verifyLinuxOSParamsViaRootText("ifconfig", wantedOutput, restTestBase.getRootServerCli());
+            String[] wantedOutput = {"G1", "G3", "G2", "255.255.0.0", radwareServerCli.getHost()};
+            RootVerifications.verifyLinuxOSParamsViaRootText("ifconfig", wantedOutput, rootServerCli);
 
-            RootVerifications.verifyLinuxOSParamsViaRootText("ls /etc/sysconfig/network-scripts/ | grep ifcfg-G -c", "3", restTestBase.getRootServerCli());
+            RootVerifications.verifyLinuxOSParamsViaRootText("cat /etc/netplan/00-installer-config.yaml | grep -E G'[0-9]+': -c", "3", rootServerCli);
 
-            String[] wantedOutput2 = {"ifcfg-G1", "ifcfg-G2", "ifcfg-G3"};
-            RootVerifications.verifyLinuxOSParamsViaRootText("ls /etc/sysconfig/network-scripts/ | grep ifcfg-G", wantedOutput2, restTestBase.getRootServerCli());
+            String[] wantedOutput2 = {"G1:", "G2:", "G3:"};
+            RootVerifications.verifyLinuxOSParamsViaRootText("cat /etc/netplan/00-installer-config.yaml | grep -E G'[0-9]+':", wantedOutput2, rootServerCli);
 
             // Removed since the MAC Address is changed each VM deployment
 //			String [] wantedOutput3 = {radwareServerCli.getHost(), "255.255.0.0", "G1","HWaddr 00:0C:29:DD:"};
@@ -153,8 +158,8 @@ public class NetIpSteps extends TestBase {
 
     public void afterMethod() {
         try {
-            Ip.ipDelete("G2", restTestBase.getRadwareServerCli());
-            Ip.ipDelete("G3", restTestBase.getRadwareServerCli());
+            Ip.ipDelete("G2", radwareServerCli);
+            Ip.ipDelete("G3", radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

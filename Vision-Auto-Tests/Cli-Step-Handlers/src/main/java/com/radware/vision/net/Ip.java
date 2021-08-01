@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 public class Ip {
 
-    public static final String NET_IP_MANAGEMENT_SUB_MENU = "set                     Sets the management interface of the device .\n";
+    public static final String NET_IP_MANAGEMENT_SUB_MENU = "set                     Sets the management interface of the device.\n";
 
     public static final String NET_IP_SUB_MENU = "delete                  Deletes an IP address entry.\n"
             + "get                     Displays network interface information.\n"
@@ -77,7 +77,8 @@ public class Ip {
      */
     public static void managementSet(String iface, RadwareServerCli radwareServerCli) throws Exception {
         BaseTestUtils.reporter.startLevel("Management Set " + iface);
-        CliOperations.runCommand(radwareServerCli, Menu.net().ip().managementSet().build() + " " + iface, CliOperations.DEFAULT_TIME_OUT, false, true);
+        //todo: set ignoreErrors back to false when DE67231 is resolved
+        CliOperations.runCommand(radwareServerCli, Menu.net().ip().managementSet().build() + " " + iface, CliOperations.DEFAULT_TIME_OUT, true, true);
         CliOperations.runCommand(radwareServerCli, "y", CliOperations.DEFAULT_TIME_OUT);
         BaseTestUtils.reporter.stopLevel();
     }
