@@ -1,5 +1,5 @@
 
-@run3121
+@TC122560
 Feature: Top Attacks By Name Widget In Report
 
   @SID_1
