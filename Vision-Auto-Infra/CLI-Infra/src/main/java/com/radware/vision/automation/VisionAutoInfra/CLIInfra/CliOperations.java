@@ -154,6 +154,18 @@ public final class CliOperations {
 
     }
 
+    public static String[] getLinuxCatGrep(ServerCliBase cliBase, String filePath,String textToGrep) throws Exception{
+
+
+        InvokeUtils.invokeCommand(null, "cat " + filePath + " | grep " + textToGrep , cliBase);
+        String[] lines = cliBase.getTestAgainstObject().toString().split("\\r\\n");
+        String[] resultLines = new String [lines.length];
+        for (int i=1;i<lines.length-1;i++) {
+            resultLines[i-1]=lines[i];
+        }
+        return resultLines;
+    }
+
     public static void checkSubMenu(RadwareServerCli radwareCliConnection, String radwareCmd, String expectedSubMenu) throws Exception {
         checkSubMenu(radwareCliConnection, radwareCmd, expectedSubMenu, true);
     }

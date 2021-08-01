@@ -1,14 +1,14 @@
 {
   "setupFile": "fullSetup.json",
-  "serverName": "uVision - Automation - 172.17.154.6",
+  "serverName": "uVision",
   "deployConfigurations": {
     "snapshot": "Current-1",
-    "setupMode": "fresh install ovftool",
-    "environment": "OVA-232"
+    "setupMode": "upgrade",
+    "environment": "KVM-215"
   },
   "pair": {
     "pairIp": "172.17.164.101",
-    "environment": "OVA-232"
+    "environment": "KVM-217"
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.6",

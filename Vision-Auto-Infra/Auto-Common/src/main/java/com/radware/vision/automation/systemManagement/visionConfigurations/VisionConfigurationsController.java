@@ -5,6 +5,10 @@ import com.radware.vision.restAPI.GenericVisionRestAPI;
 import models.RestResponse;
 import models.StatusCode;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class VisionConfigurationsController {
 
     public ManagementInfo getVisionManagementInfoByRest() {
@@ -26,16 +30,17 @@ public class VisionConfigurationsController {
             managementInfo.setHostname(body.get("hostname").asText());
             managementInfo.setMacAddress(body.get("macAddress").asText());
 
-            String[] versionAndBuild = body.get("serverSoftwareVersion").asText().split("\\s+");
-//            String[] versionAndBuild = body.get("serverSoftwareVersion").asText().split(" ");
-            if (versionAndBuild.length != 2) {
+            String serverSoftwareVersion = body.get("serverSoftwareVersion").asText();
+
+            ArrayList<String> versionAndBuild = extractVersionAndBuild(serverSoftwareVersion);
+            if (versionAndBuild.size() != 2) {
                 managementInfo.setVersion("0.00.00");
                 managementInfo.setBuild("0");
-                throw new IllegalStateException(String.format("\"serverSoftwareVersion\" field returns unexpected value, maybe build or version are missing. "));
+                throw new IllegalStateException("\"serverSoftwareVersion\" field returns unexpected value, maybe build or version are missing. ");
             }
 
-            managementInfo.setVersion(versionAndBuild[0]);
-            managementInfo.setBuild(versionAndBuild[1]);
+            managementInfo.setVersion(versionAndBuild.get(0));
+            managementInfo.setBuild(versionAndBuild.get(1));
 
 
         } catch (NoSuchFieldException | UnsupportedOperationException e) {
@@ -44,8 +49,18 @@ public class VisionConfigurationsController {
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
-
-
         return managementInfo;
+    }
+    private ArrayList<String> extractVersionAndBuild(String serverSoftwareVersion) {
+
+        String serverSoftwareVersionPattern = "APSolute Vision\\s(\\d+.\\d+.\\d+)\\s\\(build\\s(\\d+)\\)";
+        ArrayList<String> returnArray = new ArrayList<>();
+            Matcher matcher = Pattern.compile(serverSoftwareVersionPattern).matcher(serverSoftwareVersion);
+            while (matcher.find()) {
+                returnArray.add(matcher.group(1));
+                returnArray.add(matcher.group(2));
+            }
+        return returnArray;
+
     }
 }
