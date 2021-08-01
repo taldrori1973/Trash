@@ -1,6 +1,6 @@
 
-@run3121
-Feature: Top Attacks By Name Widget In Report
+@run31213
+Feature: Top Attacks By Source IP Widget In Report
 
   @SID_1
   Scenario: Clear data
@@ -24,7 +24,6 @@ Feature: Top Attacks By Name Widget In Report
   @SID_4
   Scenario: Run DP simulator PCAPs for "many_attacks"
     Given CLI simulate 1 attacks of type "many_attacks" on "DefensePro" 10 and wait 250 seconds
-    * CLI kill all simulator attacks on current vision
 
   @SID_5
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
@@ -56,44 +55,47 @@ Feature: Top Attacks By Name Widget In Report
     Then UI Navigate to "AMS REPORTS" page via homepage
 
   @SID_8
-  Scenario: create new Top Attacks Report with Summary Table
+  Scenario: create new Top Attacks By Source Report with Summary Table
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks Report with Summary Table"
-      | Template | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:true |
+    Given UI "Create" Report With Name "Top Attacks By Source Report with Summary Table"
+      | Template | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[All],showTable:true |
       | Format   | Select: PDF                                                                                       |
-    Then UI "Validate" Report With Name "Top Attacks Report with Summary Table"
-      | Template | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:true |
+    Then UI "Validate" Report With Name "Top Attacks By Source Report with Summary Table"
+      | Template | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[All],showTable:true |
       | Format   | Select: PDF                                                                                       |
 
   @SID_9
-  Scenario: Validate delivery card and generate report: Top Attacks Report with Summary Table
-    Then UI Click Button "My Report" with value "Top Attacks Report with Summary Table"
-    Then UI Click Button "Generate Report Manually" with value "Top Attacks Report with Summary Table"
+  Scenario: Validate delivery card and generate report: Top Attacks By Source Report with Summary Table
+    Then UI Click Button "My Report" with value "Top Attacks By Source Report with Summary Table"
+    Then UI Click Button "Generate Report Manually" with value "Top Attacks By Source Report with Summary Table"
     Then Sleep "180"
 
   @SID_10
-  Scenario: Show Top Attacks Report with Summary Table after the create
-    Then UI Click Button "Log Preview" with value "Top Attacks Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all attack names):  33"
+  Scenario: Show Top Attacks By Source Report with Summary Table after the create
+    Then UI Click Button "Log Preview" with value "Top Attacks By Source Report with Summary Table_0"
+    Then Sleep "10"
+    Then UI Validate IP's in chart with Summary Table "Summary Table" with Col name "Source IP" with widget name "Top Attack Sources"
+    Then UI Validate Total Summary Table "Summary Table"
 
   @SID_11
-  Scenario: Edit share email in  Top Attacks Report with Summary Table
-    Given UI "Edit" Report With Name "Top Attacks Report with Summary Table"
+  Scenario: Edit share email in  Top Attacks By Source Report with Summary Table
+    Given UI "Edit" Report With Name "Top Attacks By Source Report with Summary Table"
       | Share | Email:[maha],Subject:Validate Email,Body:Email Body |
-    Then UI "Validate" Report With Name "Top Attacks Report with Summary Table"
+    Then UI "Validate" Report With Name "Top Attacks By Source Report with Summary Table"
       | Share | Email:[maha],Subject:Validate Email,Body:Email Body |
 
   @SID_12
   Scenario: Validate delivery card and generate report after edit share email
-    Then UI Click Button "My Report" with value "Top Attacks Report with Summary Table"
-    Then UI Click Button "Generate Report Manually" with value "Top Attacks Report with Summary Table"
+    Then UI Click Button "My Report" with value "Top Attacks By Source Report with Summary Table"
+    Then UI Click Button "Generate Report Manually" with value "Top Attacks By Source Report with Summary Table"
     Then Sleep "180"
 
   @SID_13
-  Scenario: Show Top Attacks Report with Summary Table after edit share email
-    Then UI Click Button "Log Preview" with value "Top Attacks Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all attack names):  33"
-
+  Scenario: Show Top Attacks By Source Report with Summary Table after edit share email
+    Then UI Click Button "Log Preview" with value "Top Attacks By Source Report with Summary Table_0"
+    Then Sleep "10"
+    Then UI Validate IP's in chart with Summary Table "Summary Table" with Col name "Source IP" with widget name "Top Attack Sources"
+    Then UI Validate Total Summary Table "Summary Table"
   @SID_14
   Scenario: Validate Report Email received content after edit share email
     #subject
@@ -113,22 +115,24 @@ Feature: Top Attacks By Name Widget In Report
 
 
   @SID_16
-  Scenario: Edit format Top Attacks Report with Summary Table
-    Given UI "Edit" Report With Name "Top Attacks Report with Summary Table"
+  Scenario: Edit format Top Attacks By Source Report with Summary Table
+    Given UI "Edit" Report With Name "Top Attacks By Source Report with Summary Table"
       | Format | Select: HTML |
-    Then UI "Validate" Report With Name "Top Attacks Report with Summary Table"
+    Then UI "Validate" Report With Name "Top Attacks By Source Report with Summary Table"
       | Format | Select: HTML |
 
   @SID_17
-  Scenario: Validate delivery card and generate report: Top Attacks Report with Summary Table after edit format
-    Then UI Click Button "My Report" with value "Top Attacks Report with Summary Table"
-    Then UI Click Button "Generate Report Manually" with value "Top Attacks Report with Summary Table"
+  Scenario: Validate delivery card and generate report: Top Attacks By Source Report with Summary Table after edit format
+    Then UI Click Button "My Report" with value "Top Attacks By Source Report with Summary Table"
+    Then UI Click Button "Generate Report Manually" with value "Top Attacks By Source Report with Summary Table"
     Then Sleep "180"
 
   @SID_18
-  Scenario: Show Top Attacks Report with Summary Table after edit format
-    Then UI Click Button "Log Preview" with value "Top Attacks Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all attack names):  33"
+  Scenario: Show Top Attacks By Source Report with Summary Table after edit format
+    Then UI Click Button "Log Preview" with value "Top Attacks By Source Report with Summary Table_0"
+    Then Sleep "10"
+    Then UI Validate IP's in chart with Summary Table "Summary Table" with Col name "Source IP" with widget name "Top Attack Sources"
+    Then UI Validate Total Summary Table "Summary Table"
 
   @SID_19
   Scenario: Clear SMTP server log files in first step
@@ -136,22 +140,23 @@ Feature: Top Attacks By Name Widget In Report
 
   @SID_20
   Scenario: Edit share email to html format Top Attacks
-    Given UI "Edit" Report With Name "Top Attacks Report with Summary Table"
+    Given UI "Edit" Report With Name "Top Attacks By Source Report with Summary Table"
       | Share | Email:[maha],Subject:Validate Email,Body:Email Body |
-    Then UI "Validate" Report With Name "Top Attacks Report with Summary Table"
+    Then UI "Validate" Report With Name "Top Attacks By Source Report with Summary Table"
       | Share | Email:[maha],Subject:Validate Email,Body:Email Body |
 
   @SID_21
   Scenario: Validate delivery card and generate report  after edit format and share
-    Then UI Click Button "My Report" with value "Top Attacks Report with Summary Table"
-    Then UI Click Button "Generate Report Manually" with value "Top Attacks Report with Summary Table"
+    Then UI Click Button "My Report" with value "Top Attacks By Source Report with Summary Table"
+    Then UI Click Button "Generate Report Manually" with value "Top Attacks By Source Report with Summary Table"
     Then Sleep "180"
 
   @SID_22
-  Scenario: Show Top Attacks Report with Summary Table  after edit format and share
-    Then UI Click Button "Log Preview" with value "Top Attacks Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all attack names):  33"
-
+  Scenario: Show Top Attacks By Source Report with Summary Table  after edit format and share
+    Then UI Click Button "Log Preview" with value "Top Attacks By Source Report with Summary Table_0"
+    Then Sleep "10"
+    Then UI Validate IP's in chart with Summary Table "Summary Table" with Col name "Source IP" with widget name "Top Attack Sources"
+    Then UI Validate Total Summary Table "Summary Table"
   @SID_23
   Scenario: Validate Report Email received content  after edit format and share
     #subject
@@ -170,50 +175,50 @@ Feature: Top Attacks By Name Widget In Report
     Given Clear email history for user "setup"
 
   @SID_25
-  Scenario: Delete report Top Attacks Report with Summary Table
-    Then UI Delete Report With Name "Top Attacks Report with Summary Table"
+  Scenario: Delete report Top Attacks By Source Report with Summary Table
+    Then UI Delete Report With Name "Top Attacks By Source Report with Summary Table"
 
   @SID_26
   Scenario: create new Top Attacks without summary table
-    Given UI "Create" Report With Name "Top Attacks Report without Summary Table"
-      | Template | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:false|
+    Given UI "Create" Report With Name "Top Attacks By Source Report without Summary Table"
+      | Template | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[All],showTable:false|
       | Format   | Select: PDF                                                                                       |
-    Then UI "Validate" Report With Name "Top Attacks Report without Summary Table"
-      | Template | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:false|
+    Then UI "Validate" Report With Name "Top Attacks By Source Report without Summary Table"
+      | Template | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[All],showTable:false|
       | Format   | Select: PDF                                                                                       |
 
   @SID_27
-  Scenario: Validate delivery card and generate report: Top Attacks Report without Summary Table
-    Then UI Click Button "My Report" with value "Top Attacks Report without Summary Table"
-    Then UI Click Button "Generate Report Manually" with value "Top Attacks Report without Summary Table"
+  Scenario: Validate delivery card and generate report: Top Attacks By Source Report without Summary Table
+    Then UI Click Button "My Report" with value "Top Attacks By Source Report without Summary Table"
+    Then UI Click Button "Generate Report Manually" with value "Top Attacks By Source Report without Summary Table"
     Then Sleep "180"
 
   @SID_28
-  Scenario: Show Top Attacks Report without Summary Table
-    Then UI Click Button "Log Preview" with value "Top Attacks Report without Summary Table_0"
+  Scenario: Show Top Attacks By Source Report without Summary Table
+    Then UI Click Button "Log Preview" with value "Top Attacks By Source Report without Summary Table_0"
     Then UI Validate Element Existence By Label "Total Summary Table" if Exists "false"
 
   @SID_29
   Scenario: Edit format to html in Top Attacks without summary table
-    Given UI "Edit" Report With Name "Top Attacks Report without Summary Table"
+    Given UI "Edit" Report With Name "Top Attacks By Source Report without Summary Table"
       | Format | Select: HTML |
-    Then UI "Validate" Report With Name "Top Attacks Report without Summary Table"
+    Then UI "Validate" Report With Name "Top Attacks By Source Report without Summary Table"
       | Format | Select: HTML |
 
   @SID_30
-  Scenario: Validate delivery card and generate report: Top Attacks Report without Summary Table after edit html format
-    Then UI Click Button "My Report" with value "Top Attacks Report without Summary Table"
-    Then UI Click Button "Generate Report Manually" with value "Top Attacks Report without Summary Table"
+  Scenario: Validate delivery card and generate report: Top Attacks By Source Report without Summary Table after edit html format
+    Then UI Click Button "My Report" with value "Top Attacks By Source Report without Summary Table"
+    Then UI Click Button "Generate Report Manually" with value "Top Attacks By Source Report without Summary Table"
     Then Sleep "180"
 
   @SID_31
-  Scenario: Show Top Attacks Report without Summary Table after edit html format
-    Then UI Click Button "Log Preview" with value "Top Attacks Report without Summary Table_0"
+  Scenario: Show Top Attacks By Source Report without Summary Table after edit html format
+    Then UI Click Button "Log Preview" with value "Top Attacks By Source Report without Summary Table_0"
     Then UI Validate Element Existence By Label "Total Summary Table" if Exists "false"
 
   @SID_32
-  Scenario: Delete report Top Attacks Report without Summary Table
-    Then UI Delete Report With Name "Top Attacks Report without Summary Table"
+  Scenario: Delete report Top Attacks By Source Report without Summary Table
+    Then UI Delete Report With Name "Top Attacks By Source Report without Summary Table"
 
   @SID_33
   Scenario: Logout and close browser

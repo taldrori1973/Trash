@@ -5,6 +5,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.table.BasicTable;
 import com.radware.automation.webui.widgets.impl.table.BasicTableWithPagination;
@@ -28,10 +29,12 @@ import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.tests.GeneralOperations.ByLabelValidations;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import org.json.JSONArray;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.How;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -169,6 +172,20 @@ public class BasicValidationsTests extends BddUITestBase {
     public void validateTableRecordValuesByColumnName(String elementLabel, String extension, Integer index, String columnName, String cellValue, List<WebUITable.TableDataSets> cells) {
         int rowIndex = index != null ? index : -1;
         tableHandler.validateTableRecordByContent(elementLabel, columnName, cellValue, cells, rowIndex, extension);
+    }
+
+    @Then("^UI Validate Total Summary Table \"([^\"]*)\"$")
+    public void uiValidateTotalSummaryTableWithWidget(String TableName) throws Throwable {
+        float sum =0;
+        sum = tableHandler.sumColOfTableByTableName(TableName);
+        VisionDebugIdsManager.setLabel("Top Attack Total");
+        String element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getText();
+        if (element == null)
+            BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+        float actualSum = Float.parseFloat(element.replaceAll("[^\\d.]", ""));
+        if(actualSum !=sum){
+            addErrorMessage("The total have to be eqaual to " + sum + ", not " + actualSum);
+        }
     }
 
     /**
@@ -439,6 +456,17 @@ public class BasicValidationsTests extends BddUITestBase {
             BaseTestUtils.reporter.report(e.getMessage(), Reporter.FAIL);
         }
 
+    }
+
+    @Then("^UI Validate IP's in chart with Summary Table \"([^\"]*)\" with Col name \"([^\"]*)\" with widget name \"([^\"]*)\"$")
+    public void uiValidateIPSInChartWithSummaryTable(String TableName,String ColName,String widgetName) throws Throwable {
+        ArrayList<String> IPList = tableHandler.getIpsFromSummaryTable(TableName,ColName);
+        List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + widgetName +"_') and contains(@data-debug-id, '_label')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        for(WebElement w:elements){
+            if(!IPList.contains(w.getText())){
+                BaseTestUtils.reporter.report("The label "+ w.getText()+"is'nt exist in Summary Table", Reporter.FAIL);
+            }
+        }
     }
 
     class TableValues {

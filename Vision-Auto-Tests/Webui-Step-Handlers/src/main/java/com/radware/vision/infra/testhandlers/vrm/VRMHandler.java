@@ -137,7 +137,7 @@ public class VRMHandler {
                 if (isLegendNameExistAndShouldReturn(chart, entry)) return;
                 if (isLabanAndEntryExists(chart, entry)) return;
                 int legendIndex;
-                legendIndex = legends.toList().stream().map(s-> String.valueOf(s)).collect(Collectors.toList()).indexOf(entry.legendName);
+                legendIndex = legends.toList().stream().map(s -> String.valueOf(s)).collect(Collectors.toList()).indexOf(entry.legendName);
                 if (legendIndex == -1) {
                     addErrorMessage("There is no legend with name " + entry.legendName);
                     scrollAndTakeScreenshot(chart);
@@ -161,10 +161,9 @@ public class VRMHandler {
                     scrollAndTakeScreenshot(chart);
                 }
 
-                if (entry.min != null)
-                {
-                    int actualCount = dataArray.toList().stream().map(s->s.toString().equals(entry.value)).collect(Collectors.toList()).size();
-                    if(actualCount < entry.min)
+                if (entry.min != null) {
+                    int actualCount = dataArray.toList().stream().map(s -> s.toString().equals(entry.value)).collect(Collectors.toList()).size();
+                    if (actualCount < entry.min)
                         addErrorMessage("The count of value " + entry.value + " is " + actualCount + " but the expected is " + entry.count);
                     scrollAndTakeScreenshot(chart);
 
@@ -219,8 +218,7 @@ public class VRMHandler {
                         addErrorMessage("The Actual count of value " + entry.value + " of label " + entry.label + " in chart " + chart + " is " + actualCount + " and the Expected is between minCount " + (minValue) + " and maxCount " + (maxValue));
                     return;
                 }
-                if (entry.min != null)
-                {
+                if (entry.min != null) {
                     int actualCount = 0;
                     for (Object value : dataArray) {
                         if (value.toString().equals(entry.value))
@@ -337,7 +335,7 @@ public class VRMHandler {
         if (!s.matches("\\d+\\.\\d+|\\d+"))
             return s.equals(entry.value);
         else if (entry.value.matches("\\d+\\.\\d+|\\d+"))
-            return Double.parseDouble(s) >= (Double.parseDouble(entry.value)- entry.valueOffset) && (Double.parseDouble(s) <= (Double.parseDouble(entry.value)+ entry.valueOffset));
+            return Double.parseDouble(s) >= (Double.parseDouble(entry.value) - entry.valueOffset) && (Double.parseDouble(s) <= (Double.parseDouble(entry.value) + entry.valueOffset));
         else return false;
     }
 
@@ -490,7 +488,7 @@ public class VRMHandler {
             WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
             if (element == null)
                 return;
-            WebUIUtils.scrollIntoView(element,true);
+            WebUIUtils.scrollIntoView(element, true);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -645,9 +643,51 @@ public class VRMHandler {
     }
 
     /**
-     * @param chart   - Session storage key
-     * @param entries it validate the entries values with the actual web values
+     * @param chart - Session storage key
      */
+    public void validatePieChartlabels(String chart, String label) {
+        boolean flag = false;
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        getObjectFromDataSets(chart);
+        JSONArray labels = getLabelsFromData(chart);
+        for (int i = 0; i < labels.length(); i++) {
+            if (labels.get(i).equals(label)) {
+                flag =true;
+            }
+        }
+        if(!flag){
+            BaseTestUtils.report("The more options didnt have" + label +  ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+
+        }
+    }
+
+    public void validatePieChartPercents(String chart,String percent,String label) {
+        int sum = 0;
+        Boolean flag = false;
+        float floatData;
+        percent = percent.replaceAll("[^\\d+.]","");
+        ArrayList<String> percentsList = new ArrayList<String>();
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        getObjectFromDataSets(chart);
+        JSONArray labels = getLabelsFromData(chart);
+        JSONArray dataArray = (JSONArray) foundObject.get(DATA);
+        for (int i = 0; i < dataArray.length(); i++) {
+            sum = sum + Integer.parseInt(dataArray.get(i).toString());
+        }
+        for (int i = 0; i < dataArray.length(); i++) {
+            floatData = Float.parseFloat(dataArray.get(i).toString());
+            percentsList.add(String.format("%.2f", floatData / sum * 100));
+        }
+        for(int i = 0; i < dataArray.length(); i++){
+            if(label.equals(labels.get(i))&& percentsList.get(i).equals(percent)){
+                flag = true;
+            }
+        }
+        if(!flag){
+            BaseTestUtils.report("The more options didnt have" + percent  + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+        }
+    }
+
     public void validatePieChartDataOfDataSets(String chart, List<PieChart> entries) {
         Objects.requireNonNull(chart, "Chart is equal to null");
         getObjectFromDataSets(chart);
@@ -685,7 +725,7 @@ public class VRMHandler {
                     Matcher matcher = pattern.matcher(entry.offsetPercentage);
                     if (matcher.matches()) {
                         double percentage = Double.parseDouble(matcher.group(1)) / 100.0;
-                        entry.offset =(int) (entryData * percentage);
+                        entry.offset = (int) (entryData * percentage);
                     }
                     if (!(entryData - entry.offset <= dataFromArray || entryData + entry.offset >= dataFromArray))
                         addErrorMessage("The EXPECTED between " + (entryData + entry.offset) + " and " + (entryData - entry.offset) + ", The ACTUAL value of " + entry.label + " is " + dataFromArray);
@@ -997,8 +1037,8 @@ public class VRMHandler {
         else
             WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(targetElementLocator.getBy()));
     }
-    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator)
-    {
+
+    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
         scrollUntilElementDisplayed(elementsLocator, targetElementLocator, false);
     }
 
@@ -1020,12 +1060,13 @@ public class VRMHandler {
             for (WebElement element : elementsShouldBeAddedList) {
                 elementsTextsList.add(element.getText());
             }
-            try
-            {
+            try {
                 if (isScrollElementToTop)
-                    ((JavascriptExecutor)WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", WebUIUtils.fluentWaitMultiple(elementsLocator.getBy()).get(elementsShouldBeAddedList.size() - 1));
-                else WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
-            }catch (Exception ignore){}
+                    ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", WebUIUtils.fluentWaitMultiple(elementsLocator.getBy()).get(elementsShouldBeAddedList.size() - 1));
+                else
+                    WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
+            } catch (Exception ignore) {
+            }
         }
 
         return isTargetLocatorExist(targetElementLocator);
@@ -1397,7 +1438,7 @@ public class VRMHandler {
         }
     }
 
-    public static class DfProtectedObject{
+    public static class DfProtectedObject {
         public String name;
         public Integer index;
     }
