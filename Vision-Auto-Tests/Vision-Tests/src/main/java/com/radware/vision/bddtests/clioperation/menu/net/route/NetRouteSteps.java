@@ -24,7 +24,6 @@ public class NetRouteSteps extends TestBase {
     public void netRouteGet() {
         try {
             afterMethod();
-            String commandToExecute = "net route delete 8.8.8.0 255.255.255.0 172.17.1.2";
             String[] interfaces = new String[]{"G3", "G2"};
             for (String iface : interfaces) {
                 Ip.setNetIp("4.4.4.0", "255.255.255.0", iface, radwareServerCli);

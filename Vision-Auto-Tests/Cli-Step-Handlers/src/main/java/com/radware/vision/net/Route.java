@@ -30,7 +30,7 @@ public class Route {
             + "get                     Displays route information.\n"
             + "set                     Sets a route entry or a default gateway.\n";
 
-    public static final String NET_ROUTE_SET_SUB_MENU = "default                 Setss the default route.\n"
+    public static final String NET_ROUTE_SET_SUB_MENU = "default                 Sets the default route.\n"
             + "host                    Sets a new host route\n"
             + "net                     Sets a new net route.\n";
 
