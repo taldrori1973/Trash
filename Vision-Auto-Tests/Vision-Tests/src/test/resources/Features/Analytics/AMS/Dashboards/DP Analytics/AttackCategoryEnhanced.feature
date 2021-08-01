@@ -1,5 +1,5 @@
 @TC122311
-Feature: Attacks by Threat Category
+Feature: Attack Category Enhanced
 
   @SID_1
   Scenario: Clean system data
