@@ -2,6 +2,7 @@ package com.radware.vision.net;
 
 import com.aqua.sysobj.conn.CliCommand;
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
@@ -212,19 +213,25 @@ public class Dns {
      * @throws Exception - Generic Exception object
      * @author izikp
      */
-    public static void dnsSubMenuCheck(RadwareServerCli radwareCliConnection) throws Exception {
-
-        CliOperations.checkSubMenu(radwareCliConnection, Menu.net().dns().build(), NET_DNS_SUB_MENU);
+    public static void dnsSubMenuCheck(RadwareServerCli radwareCliConnection) {
+        try {
+            CliOperations.checkSubMenu(radwareCliConnection, Menu.net().dns().build(), NET_DNS_SUB_MENU);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     /**
      * Verify sub menu of 'net dns set' cmd
      *
-     * @throws Exception - Generic Exception object
      * @author izikp
      */
-    public static void dnsSetSubMenuCheck(RadwareServerCli radwareCliConnection) throws Exception {
-        CliOperations.checkSubMenu(radwareCliConnection, Menu.net().dns().build() + " set", NET_DNS_SET_SUB_MENU);
+    public static void dnsSetSubMenuCheck(RadwareServerCli radwareCliConnection) {
+        try {
+            CliOperations.checkSubMenu(radwareCliConnection, Menu.net().dns().build() + " set", NET_DNS_SET_SUB_MENU);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
 
     }
 
