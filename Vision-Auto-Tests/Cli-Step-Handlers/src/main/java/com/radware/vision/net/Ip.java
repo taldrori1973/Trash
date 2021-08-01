@@ -77,7 +77,7 @@ public class Ip {
      */
     public static void managementSet(String iface, RadwareServerCli radwareServerCli) throws Exception {
         BaseTestUtils.reporter.startLevel("Management Set " + iface);
-        //todo: set ignoreErrors back to false when DE67231 is resolved
+        //todo: kvision - set ignoreErrors back to false when DE67231 is resolved
         CliOperations.runCommand(radwareServerCli, Menu.net().ip().managementSet().build() + " " + iface, CliOperations.DEFAULT_TIME_OUT, true, true);
         CliOperations.runCommand(radwareServerCli, "y", CliOperations.DEFAULT_TIME_OUT);
         BaseTestUtils.reporter.stopLevel();
