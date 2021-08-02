@@ -1,16 +1,20 @@
 package com.radware.vision.bddtests.clioperation.menu.net;
 
-import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.utils.SutUtils;
-import com.radware.vision.vision_handlers.net.Dns;
-import com.radware.vision.vision_handlers.net.Ip;
-import com.radware.vision.vision_handlers.net.Route;
-import com.radware.vision.vision_handlers.system.Version;
-import cucumber.api.java.en.Then;
+import com.radware.vision.net.Net;
+import cucumber.api.java.en.Given;
 
 public class NetSteps extends TestBase {
+
+    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+    private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+
+    @Given("^CLI net sub menu$")
+    public void netSubMenuTest() throws Exception {
+        Net.netSubMenuCheck(radwareServerCli);
+    }
 
 //    /**
 //     * Define primary DNS server

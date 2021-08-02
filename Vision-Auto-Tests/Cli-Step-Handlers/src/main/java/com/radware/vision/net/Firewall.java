@@ -17,7 +17,7 @@ public class Firewall {
 
     public final static String FIREWALL_SUBMENU = "open-port               Firewall open port parameters.\n";
 
-    public final static String FIREWALL_OPENPORT_SUBMENT = "list                    Lists the currently open TCP ports in the firewall.\n" +
+    public final static String FIREWALL_OPENPORT_SUBMENU = "list                    Lists the currently open TCP ports in the firewall.\n" +
             "set                     Opens or closes the specified TCP port in the firewall.\n";
 
     public final static String FIREWALL_OPEN_PORT_LIST = "Type            Port" + "\n" +
@@ -29,18 +29,17 @@ public class Firewall {
             "tcp             2214" + "\n" +
             "tcp             9443" + "\n";
 
-    public static void checkFirewallSubment(RadwareServerCli radwareServerCli) throws Exception {
+    public static void checkFirewallSubmenu(RadwareServerCli radwareServerCli) throws Exception {
         CliOperations.checkSubMenu(radwareServerCli, Menu.net().firewall().build(), FIREWALL_SUBMENU);
     }
 
-    public static void checkFirewallOpenPortSubment(RadwareServerCli radwareServerCli) throws Exception {
-        CliOperations.checkSubMenu(radwareServerCli, Menu.net().firewall().openport().build(), FIREWALL_OPENPORT_SUBMENT);
+    public static void checkFirewallOpenPortSubmenu(RadwareServerCli radwareServerCli) throws Exception {
+        CliOperations.checkSubMenu(radwareServerCli, Menu.net().firewall().openport().build(), FIREWALL_OPENPORT_SUBMENU);
     }
 
     public static void checkFirewallOpenPortListDefaults(RadwareServerCli radwareServerCli) throws Exception {
         CliOperations.checkSubMenu(radwareServerCli, Menu.net().firewall().openport().list().build(), FIREWALL_OPEN_PORT_LIST);
     }
-
 
 
     public static void checkFirewallOpenPortSetOpen(RadwareServerCli radwareServerCli, RootServerCli rootServerCli) throws Exception {
@@ -93,8 +92,7 @@ public class Firewall {
             if (isSpecificPortOpen(listPorts(radwareServerCli), addedport)) {
                 BaseTestUtils.reporter.report("Port: " + addedport, Reporter.FAIL);
             }
-        }
-        finally {
+        } finally {
             BaseTestUtils.reporter.stopLevel();
         }
     }
@@ -103,7 +101,7 @@ public class Firewall {
         String output = "";
         try {
             radwareServerCli.cleanCliBuffer();
-            InvokeUtils.invokeCommand(null, Menu.net().firewall().openport().list().build() , radwareServerCli, 3 * 1000);
+            InvokeUtils.invokeCommand(null, Menu.net().firewall().openport().list().build(), radwareServerCli, 3 * 1000);
             output = radwareServerCli.getTestAgainstObject().toString();
         } catch (Exception e) {
             BaseTestUtils.reporter.report("Failed to list open ports" + "\n" + e.getMessage(), Reporter.FAIL);

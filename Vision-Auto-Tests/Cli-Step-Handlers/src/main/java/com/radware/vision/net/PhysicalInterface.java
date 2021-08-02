@@ -2,6 +2,7 @@ package com.radware.vision.net;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.ParamsValidations;
@@ -32,6 +33,10 @@ public class PhysicalInterface {
             serverCli.analyze(new FindText(port));
         }
         BaseTestUtils.reporter.stopLevel();
+    }
+
+    public static void netPhysicalInterfaceSubMenuTest(RadwareServerCli radwareServerCli) throws Exception {
+        CliOperations.checkSubMenu(radwareServerCli, com.radware.vision.vision_project_cli.menu.Menu.net().physicalInterface().build(), PhysicalInterface.NET_PHYSICAL_INTERFACE_SUB_MENU);
     }
 
     /**
