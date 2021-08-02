@@ -1,5 +1,4 @@
 @TC122558
-@Test12
 
 Feature: QDoS Protection & Attack Category
 
@@ -26,13 +25,6 @@ Feature: QDoS Protection & Attack Category
 
 
 
-
-
-
-
-
-
-
   ### Forensics #####
   # 1. create Forensics with Qdos category
   # 2. validate that get row in table and validate values
@@ -45,9 +37,9 @@ Feature: QDoS Protection & Attack Category
   @SID_5
   Scenario: create new Forensics with QDos Attack
     Given UI "Create" Forensics With Name "QDos Attack"
-      | Product               | DefensePro                                                                     |
+      | Product | DefensePro |
     Then UI "Validate" Forensics With Name "QDos Attack"
-      | Product               | DefensePro                                                                     |
+      | Product | DefensePro |
 
   @SID_6
   Scenario: Validate delivery card and generate Forensics
@@ -87,9 +79,9 @@ Feature: QDoS Protection & Attack Category
   @SID_9
   Scenario: create new Forensics with QDos Attack and many attacks
     Given UI "Create" Forensics With Name "QDos Attack1"
-      | Product               | DefensePro                                                                     |
+      | Product | DefensePro |
     Then UI "Validate" Forensics With Name "QDos Attack1"
-      | Product               | DefensePro                                                                     |
+      | Product | DefensePro |
 
   @SID_10
   Scenario: Validate delivery and generate Forensics
@@ -145,6 +137,72 @@ Feature: QDoS Protection & Attack Category
 
 
 
+  ### Attacks Dashboard ###
+
+   # 1. check "Attacks Category" column value will be " QuantileDoS "
+  # 2. validate value og table
+
+  @SID_15
+  Scenario: Clean system data before Traffic Bandwidth test
+    * CLI kill all simulator attacks on current vision
+    * REST Delete ES index "dp-*"
+    * CLI Clear vision logs
+
+  @SID_16
+  Scenario:  Navigate to DefensePro Attacks dashboard
+    And UI Navigate to "DefensePro Attacks" page via homePage
+
+
+  @SID_17
+  Scenario: Run DP simulator - trap
+    Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Then Sleep "5"
+    When UI Do Operation "Select" item "Global Time Filter"
+    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
+    Then UI UnSelect Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
+    When UI set "Auto Refresh" switch button to "off"
+    Given UI Click Button "Accessibility Menu"
+    Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
+    Then UI Click Button "Accessibility Menu"
+
+  @SID_17
+  Scenario:  Validate Attacks Table Values
+    Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 0
+      | columnName             | value        |
+      | Attack Name            | QDoS         |
+      | Attack Category        | QuantileDoS  |
+      | Policy Name            | p1           |
+      | Packet Rate            | 0            |
+      | Status                 | Started      |
+      | Protocol               | IP           |
+      | Device IP Address      | 172.16.22.51 |
+      | Volume                 | 0 B          |
+      | Source IP Address      | 0.0.0.0      |
+      | Destination IP Address | 0.0.0.0      |
+      | Destination Port       | 0            |
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "p1"
+
+  @SID_18
+  Scenario Outline:  validate date of Info table
+    Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
+    Examples:
+      | label              | value          |
+      | Risk               | High           |
+      | Radware ID         | 900            |
+      | Direction          | In             |
+      | Action Type        | Drop           |
+      | Attack ID          | 710-1626720668 |
+      | Physical Port      | 1              |
+      | Total Packet Count | 0              |
+      | VLAN               | N/A            |
+      | MPLS RD            | N/A            |
+      | Source port        | 0              |
+      | Packet Type        | N/A            |
+
+  @SID_19
+  Scenario:  Validate rows count for Attacks Table
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 1
+
     ### DP Monitoring ###
   # 1. check "Attacks Categories" column value will be " QuantileDoS "
   # 2. in 2 drill Protection Name will be  "Quantile DoS"
@@ -168,14 +226,9 @@ Feature: QDoS Protection & Attack Category
 ##      | Attack Categories     | Quantile DoS            |
 
 
-  ### Attacks Dashboard ###
-
-   # 1. check "Attacks Category" column value will be " QuantileDoS "
-  # 2. validate value og table
 
 
-
-  @SID_16
+  @SID_20
   Scenario: Logout and close browser
     Given UI logout and close browser
     Given UI Logout
