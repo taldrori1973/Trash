@@ -1,4 +1,4 @@
-@CLI_Positive @TC106038 @Debug
+@CLI_Positive @TC106038
 Feature: System Tests
 
   @SID_1
