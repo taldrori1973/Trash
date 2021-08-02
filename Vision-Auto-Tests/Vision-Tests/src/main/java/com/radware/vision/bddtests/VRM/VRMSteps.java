@@ -8,6 +8,7 @@ import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -230,7 +231,6 @@ public class VRMSteps {
         vrmHandler.validateMemoryUtilization();
     }
 
-
     @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"$")
     public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName,  List<VRMHandler.Data> entries) throws Throwable {
         new Report().getVRMReportsChartsHandler(reportName).validateChartDataOfDataSets(chart, label, null, entries);
@@ -271,6 +271,17 @@ public class VRMSteps {
         map.put("Output", schedulingJson);
         map = CustomizedJsonManager.fixJson(map);
         new Forensics().selectOutput(map);
+    }
+
+
+    @Then("^UI Validate Labels from more options in pie chart \"([^\"]*)\" Equal to \"([^\"]*)\"$")
+    public void uiValidateLabelsFromMoreOptionsInPieChartEqualTo(String chart, String label) throws Throwable {
+        vrmHandler.validatePieChartlabels(chart,label);
+    }
+
+    @Then("^UI Validate Value from more options in pie chart \"([^\"]*)\" Equal to \"([^\"]*)\" with label \"([^\"]*)\" with offset \"([^\"]*)\"$")
+    public void uiValidateValueFromMoreOptionsInPieChartEqualToWithLabel(String chart, String percent, String label,String offset) throws Throwable {
+        vrmHandler.validatePieChartPercents(chart,percent,label,offset);
     }
 }
 

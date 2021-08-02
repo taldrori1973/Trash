@@ -1,0 +1,188 @@
+@TC122558
+@Test12
+
+Feature: QDoS Protection & Attack Category
+
+
+  @SID_1
+  Scenario: Clean system data before Traffic Bandwidth test
+    * CLI kill all simulator attacks on current vision
+    * REST Delete ES index "dp-*"
+    * CLI Clear vision logs
+
+    ## Run trap.pcap
+
+  @SID_2
+  Scenario: Run DP simulator - trap
+    Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Then Sleep "5"
+    * CLI kill all simulator attacks on current vision
+
+  @SID_3
+  Scenario:  login to vision
+    Given UI Login with user "sys_admin" and password "radware"
+    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then Sleep "2"
+
+
+
+
+
+
+
+
+
+
+  ### Forensics #####
+  # 1. create Forensics with Qdos category
+  # 2. validate that get row in table and validate values
+  #3. check values in All formats
+
+  @SID_4
+  Scenario:  Navigate to Forensics
+    Given UI Navigate to "AMS Forensics" page via homePage
+
+  @SID_5
+  Scenario: create new Forensics with QDos Attack
+    Given UI "Create" Forensics With Name "QDos Attack"
+      | Product               | DefensePro                                                                     |
+    Then UI "Validate" Forensics With Name "QDos Attack"
+      | Product               | DefensePro                                                                     |
+
+  @SID_6
+  Scenario: Validate delivery card and generate Forensics
+    Then UI Click Button "My Forensics" with value "QDos Attack"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "QDos Attack"
+    Then Sleep "35"
+
+  @SID_7
+  Scenario: Validate Forensics.Table for QDos Attack
+    And UI Click Button "Views.Forensic" with value "QDos Attack,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "QDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack ID" equal to "710-1626720668"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "QuantileDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination IP Address" equal to "0.0.0.0"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination Port" equal to "0"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Device IP Address" equal to "172.16.22.51"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "In"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "QDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "1"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "IP"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "900"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Risk" equal to "High"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Policy Name" equal to "p1"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Started"
+    When UI Click Button "Forensics.Attack Details.Close"
+
+
+  @SID_8
+  Scenario: Run DP simulator - many_attacks
+    Given CLI simulate 1000 attacks of type "many_attacks" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Then Sleep "5"
+    * CLI kill all simulator attacks on current vision
+
+
+  @SID_9
+  Scenario: create new Forensics with QDos Attack and many attacks
+    Given UI "Create" Forensics With Name "QDos Attack1"
+      | Product               | DefensePro                                                                     |
+    Then UI "Validate" Forensics With Name "QDos Attack1"
+      | Product               | DefensePro                                                                     |
+
+  @SID_10
+  Scenario: Validate delivery and generate Forensics
+    Then UI Click Button "My Forensics" with value "QDos Attack1"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "QDos Attack1"
+    Then Sleep "35"
+
+  @SID_11
+  Scenario: Validate Forensics.Table of QDos Attack1
+    And UI Click Button "Views.Forensic" with value "QDos Attack1,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
+
+
+  @SID_12
+  Scenario: Edit Forensics
+    When UI "Edit" Forensics With Name "QDos Attack1"
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:Quantile DoS |
+    Then UI "Validate" Forensics With Name "QDos Attack1"
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:Quantile DoS |
+
+  @SID_13
+  Scenario: Validate delivery and generate Forensics for QDos Attack1
+    Then UI Click Button "My Forensics" with value "QDos Attack1"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "QDos Attack1"
+    Then Sleep "35"
+
+
+  @SID_14
+  Scenario: Validate Forensics.Table for QDos Attack1
+    And UI Click Button "Views.Forensic" with value "QDos Attack1,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "QDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack ID" equal to "710-1626720668"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "QuantileDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination IP Address" equal to "0.0.0.0"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination Port" equal to "0"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Device IP Address" equal to "172.16.22.51"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "In"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "QDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "1"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "IP"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "900"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Risk" equal to "High"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Policy Name" equal to "p1"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Terminated"
+    When UI Click Button "Forensics.Attack Details.Close"
+
+  @SID_15
+  Scenario: Delete Forensics
+    Then UI Delete Forensics With Name "QDos Attack1"
+    Then UI Delete Forensics With Name "QDos Attack"
+
+
+
+    ### DP Monitoring ###
+  # 1. check "Attacks Categories" column value will be " QuantileDoS "
+  # 2. in 2 drill Protection Name will be  "Quantile DoS"
+
+
+#  @SID_4
+#  Scenario:  Navigate to DefensePro Monitoring Dashboard
+#    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+#
+#  @SID_5
+#  Scenario: Validate first under attack policy - traffic and attacks
+#    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
+#      | columnName            | value                   |
+#      | Site                  | RealDPs_Version_8_site  |
+#      | Device                | DefensePro_172.16.22.51 |
+#      | Policy Name           | p1                      |
+#      | Policy Status         | underAttack             |
+#      | Total Inbound Traffic | 0 bps                   |
+#      | Attack Rate           | 0                       |
+#      | Drop Rate             | 0 bps                   |
+##      | Attack Categories     | Quantile DoS            |
+
+
+  ### Attacks Dashboard ###
+
+   # 1. check "Attacks Category" column value will be " QuantileDoS "
+  # 2. validate value og table
+
+
+
+  @SID_16
+  Scenario: Logout and close browser
+    Given UI logout and close browser
+    Given UI Logout
+
+  ### Alrerts #####
+  # 1. create alert with Qdos category then run attack
+  # 2. validate that get row in table and validate values
+  #3. check values in All formats
+
+
