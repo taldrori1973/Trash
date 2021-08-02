@@ -279,9 +279,9 @@ public class VRMSteps {
         vrmHandler.validatePieChartlabels(chart,label);
     }
 
-    @Then("^UI Validate Value from more options in pie chart \"([^\"]*)\" Equal to \"([^\"]*)\" with label \"([^\"]*)\"$")
-    public void uiValidateValueFromMoreOptionsInPieChartEqualToWithLabel(String chart, String percent, String label) throws Throwable {
-        vrmHandler.validatePieChartPercents(chart,percent,label);
+    @Then("^UI Validate Value from more options in pie chart \"([^\"]*)\" Equal to \"([^\"]*)\" with label \"([^\"]*)\" with offset \"([^\"]*)\"$")
+    public void uiValidateValueFromMoreOptionsInPieChartEqualToWithLabel(String chart, String percent, String label,String offset) throws Throwable {
+        vrmHandler.validatePieChartPercents(chart,percent,label,offset);
     }
 }
 

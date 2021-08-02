@@ -661,10 +661,10 @@ public class VRMHandler {
         }
     }
 
-    public void validatePieChartPercents(String chart,String percent,String label) {
+    public void validatePieChartPercents(String chart,String percent,String label,String offset) {
         int sum = 0;
         Boolean flag = false;
-        float floatData;
+        float floatData,min,max;
         percent = percent.replaceAll("[^\\d+.]","");
         ArrayList<String> percentsList = new ArrayList<String>();
         Objects.requireNonNull(chart, "Chart is equal to null");
@@ -679,7 +679,9 @@ public class VRMHandler {
             percentsList.add(String.format("%.2f", floatData / sum * 100));
         }
         for(int i = 0; i < dataArray.length(); i++){
-            if(label.equals(labels.get(i))&& percentsList.get(i).equals(percent)){
+            max = Float.parseFloat(percentsList.get(i)) + Float.parseFloat(offset);
+            min = Float.parseFloat(percentsList.get(i)) - Float.parseFloat(offset);
+            if(label.equals(labels.get(i)) && Float.parseFloat(percent)<=max && Float.parseFloat(percent)>=min){
                 flag = true;
             }
         }
