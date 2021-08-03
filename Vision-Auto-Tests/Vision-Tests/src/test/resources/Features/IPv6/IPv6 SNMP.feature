@@ -1,4 +1,4 @@
-@TC108880 @Debug
+@TC108880
 Feature: IPv6 SNMP OS agent and trap test
 
   @SID_1
