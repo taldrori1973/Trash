@@ -1,7 +1,7 @@
 package com.radware.vision.bddtests.clioperation.menu.net.firewall;
 
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliNegativeTests;
 import cucumber.api.java.en.Given;
 
