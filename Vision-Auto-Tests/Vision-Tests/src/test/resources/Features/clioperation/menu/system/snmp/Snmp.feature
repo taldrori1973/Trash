@@ -96,5 +96,5 @@ Feature: System SNMP tests
   Scenario: System SNMP stop
     Given CLI Operations - Run Radware Session command "system snmp service stop"
     Then CLI Operations - Run Radware Session command "system snmp service status"
-    Then CLI Operations - Verify that output contains regex "snmpd is stopped.*"
+    Then CLI Operations - Verify that output contains regex "snmpd is inactive"
 
