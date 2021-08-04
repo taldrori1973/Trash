@@ -1,4 +1,4 @@
-@CLI_Positive @TC106036 @Debug
+@CLI_Positive @TC106036
 
 Feature: Snmp divided Tests
 
