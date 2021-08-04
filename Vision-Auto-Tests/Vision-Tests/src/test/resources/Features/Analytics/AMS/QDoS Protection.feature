@@ -2,7 +2,7 @@
 
 Feature: QDoS Protection & Attack Category
 
-  
+  @Test12
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -10,14 +10,14 @@ Feature: QDoS Protection & Attack Category
     * CLI Clear vision logs
 
     ## Run trap.pcap
-  
+  @Test12
   @SID_2
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
-  
+  @Test12
   @SID_3
   Scenario:  login to vision
     Given UI Login with user "sys_admin" and password "radware"
@@ -30,12 +30,12 @@ Feature: QDoS Protection & Attack Category
   # 1. create Forensics with Qdos category
   # 2. validate that get row in table and validate values
   #3. check values in All formats
-  
+
   @SID_4
   Scenario:  Navigate to Forensics
     Given UI Navigate to "AMS Forensics" page via homePage
 
-  
+
   @SID_5
   Scenario: create new Forensics with QDos Attack
     Given UI "Create" Forensics With Name "QDos Attack"
@@ -230,19 +230,19 @@ Feature: QDoS Protection & Attack Category
   # 2. validate that get row in table and validate values
   #3. check values in All formats
 
-  
+
   @SID_15
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-  
+
   @SID_2
   Scenario: Navigate to Alerts
     And UI Navigate to "AMS Alerts" page via homePage
 
-  
+
   @SID_3
   Scenario: Create Alert basic
     When UI "Create" Alerts With Name "QDos Alerts"
@@ -251,12 +251,11 @@ Feature: QDoS Protection & Attack Category
       | Schedule   | checkBox:Trigger,alertsPerHour:60                                 |
 
 
-  
   @SID_16
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
-  
+
   @SID_6
   Scenario: VRM Validate Alert Threat Category HTTPS Flood Any Time Schedule
     Then UI "Check" all the Toggle Alerts
@@ -289,38 +288,52 @@ Feature: QDoS Protection & Attack Category
     Then CLI Operations - Verify that output contains regex "\b2\b"
 
 
-
-
-
-
-
-
-
     ### DP Monitoring ###
   # 1. check "Attacks Categories" column value will be " QuantileDoS "
   # 2. in 2 drill Protection Name will be  "Quantile DoS"
 
+  @SID_15
+  Scenario: Clean system data before Traffic Bandwidth test
+    * CLI kill all simulator attacks on current vision
+    * REST Delete ES index "dp-*"
+    * CLI Clear vision logs
 
+  @SID_16
+  Scenario: Run DP simulator - trap
+    Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
-#  @SID_4
-#  Scenario:  Navigate to DefensePro Monitoring Dashboard
-#    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-#
-#  @SID_5
-#  Scenario: Validate first under attack policy - traffic and attacks
-#    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
-#      | columnName            | value                   |
-#      | Site                  | RealDPs_Version_8_site  |
-#      | Device                | DefensePro_172.16.22.51 |
-#      | Policy Name           | p1                      |
-#      | Policy Status         | underAttack             |
-#      | Total Inbound Traffic | 0 bps                   |
-#      | Attack Rate           | 0                       |
-#      | Drop Rate             | 0 bps                   |
-##      | Attack Categories     | Quantile DoS            |
+  @Test12
+  @SID_4
+  Scenario:  Navigate to DefensePro Monitoring Dashboard
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
+  @Test12
+  @SID_5
+  Scenario: Validate first under attack policy - traffic and attacks
+    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
+      | columnName            | value                   |
+      | Site                  | RealDPs_Version_8_site  |
+      | Device                | DefensePro_172.16.22.51 |
+      | Policy Name           | p1                      |
+      | Policy Status         | underAttack             |
+      | Total Inbound Traffic | 0 bps                   |
+      | Attack Rate           | 0                       |
+      | Drop Rate             | 0 bps                   |
+      | Attack Categories     | Quantile DoS            |
 
+  @Test12
+  @SID_4
+  Scenario: Entering to the under attack policy 2nd drill
+    Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
 
+  1
+  @SID_8
+  Scenario: validate events by Category table rows - sort by Alphabet
+    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
+      | columnName      | value        |
+      | Protection Name | Quantile DoS |
+      | Attack Rate     | 0 bps        |
+      | Drop Rate       | 0 bps        |
 
   @SID_20
   Scenario: Logout and close browser
