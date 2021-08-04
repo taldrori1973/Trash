@@ -2,7 +2,7 @@
 
 Feature: QDoS Protection & Attack Category
 
-
+  
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -10,13 +10,14 @@ Feature: QDoS Protection & Attack Category
     * CLI Clear vision logs
 
     ## Run trap.pcap
-
+  
   @SID_2
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
+  
   @SID_3
   Scenario:  login to vision
     Given UI Login with user "sys_admin" and password "radware"
@@ -29,11 +30,12 @@ Feature: QDoS Protection & Attack Category
   # 1. create Forensics with Qdos category
   # 2. validate that get row in table and validate values
   #3. check values in All formats
-
+  
   @SID_4
   Scenario:  Navigate to Forensics
     Given UI Navigate to "AMS Forensics" page via homePage
 
+  
   @SID_5
   Scenario: create new Forensics with QDos Attack
     Given UI "Create" Forensics With Name "QDos Attack"
@@ -67,6 +69,23 @@ Feature: QDoS Protection & Attack Category
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Policy Name" equal to "p1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Started"
     When UI Click Button "Forensics.Attack Details.Close"
+
+#  
+#  @SID_9
+#  Scenario: Edit Forensics with QDos Attack to CSV Format
+#    Given UI "Edit" Forensics With Name "QDos Attack"
+#      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+#      | Format | Select: CSVWithDetails                                                                                           |
+#    Then UI "Validate" Forensics With Name "QDos Attack"
+#      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+#      | Format | Select: CSVWithDetails                                                                                           |
+#
+#  
+#  @SID_10
+#  Scenario: Validate delivery and generate CSV Forensics
+#    Then UI Click Button "My Forensics" with value "QDos Attack"
+#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "QDos Attack"
+#    Then Sleep "35"
 
 
   @SID_8
@@ -130,6 +149,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Terminated"
     When UI Click Button "Forensics.Attack Details.Close"
 
+
   @SID_15
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "QDos Attack1"
@@ -149,13 +169,12 @@ Feature: QDoS Protection & Attack Category
     * CLI Clear vision logs
 
   @SID_16
-  Scenario:  Navigate to DefensePro Attacks dashboard
-    And UI Navigate to "DefensePro Attacks" page via homePage
-
-
-  @SID_17
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+
+  @SID_17
+  Scenario: Navigate to DefensePro Attacks dashboard
+    And UI Navigate to "DefensePro Attacks" page via homePage
     Then Sleep "5"
     When UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
@@ -203,6 +222,80 @@ Feature: QDoS Protection & Attack Category
   Scenario:  Validate rows count for Attacks Table
     Then UI Validate "Attacks Table" Table rows count EQUALS to 1
 
+
+
+
+    ### Alrerts #####
+  # 1. create alert with Qdos category then run attack
+  # 2. validate that get row in table and validate values
+  #3. check values in All formats
+
+  
+  @SID_15
+  Scenario: Clean system data before Traffic Bandwidth test
+    * CLI kill all simulator attacks on current vision
+    * REST Delete ES index "dp-*"
+    * CLI Clear vision logs
+
+  
+  @SID_2
+  Scenario: Navigate to Alerts
+    And UI Navigate to "AMS Alerts" page via homePage
+
+  
+  @SID_3
+  Scenario: Create Alert basic
+    When UI "Create" Alerts With Name "QDos Alerts"
+      | Basic Info | Description:QDos Attacks                                          |
+      | Criteria   | Event Criteria:Threat Category,Operator:Equals,Value:Quantile DoS |
+      | Schedule   | checkBox:Trigger,alertsPerHour:60                                 |
+
+
+  
+  @SID_16
+  Scenario: Run DP simulator - trap
+    Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+
+  
+  @SID_6
+  Scenario: VRM Validate Alert Threat Category HTTPS Flood Any Time Schedule
+    Then UI "Check" all the Toggle Alerts
+    When UI "Uncheck" all the Toggle Alerts
+    Then UI "Check" Toggle Alerts with name "QDos Alerts"
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
+      | columnName        | value                   |
+      | Severity          | MINOR                   |
+      | Device Name       | DefensePro_172.16.22.51 |
+      | Device IP Address | 172.16.22.51            |
+
+    Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
+    Then UI Validate Table record values by columns with elementLabel "Alert details" findBy index 0
+      | columnName             | value       |
+      | Threat Category        | QuantileDoS |
+      | Attack Name            | QDoS        |
+      | Policy Name            | p1          |
+      | Source IP Address      | 0.0.0.0     |
+      | Destination IP Address | 0.0.0.0     |
+      | Destination Port       | 0           |
+      | Direction              | In          |
+      | Protocol               | IP          |
+    Then UI Click Button "Table Details OK" with value "OK"
+
+
+  @SID_6
+  Scenario: VRM Validate Alert browser for HTTPS Flood Any Schedule
+    Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: QDos Alerts \nSeverity: MINOR \nDescription: QDos Attacks \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.51 \nAttacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
+    Then CLI Operations - Verify that output contains regex "\b2\b"
+
+
+
+
+
+
+
+
+
     ### DP Monitoring ###
   # 1. check "Attacks Categories" column value will be " QuantileDoS "
   # 2. in 2 drill Protection Name will be  "Quantile DoS"
@@ -234,9 +327,6 @@ Feature: QDoS Protection & Attack Category
     Given UI logout and close browser
     Given UI Logout
 
-  ### Alrerts #####
-  # 1. create alert with Qdos category then run attack
-  # 2. validate that get row in table and validate values
-  #3. check values in All formats
+
 
 
