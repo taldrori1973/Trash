@@ -169,7 +169,7 @@ Feature: QDoS Protection & Attack Category
     * CLI Clear vision logs
 
   @SID_17
-  Scenario: Run DP simulator - trap
+  Scenario: Run DP simulator - trap attack
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
   @SID_18
@@ -283,9 +283,9 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_27
-  Scenario: VRM Validate Alert browser for HTTPS Flood Any Schedule
+  Scenario: VRM Validate Alert browser for QDos attack
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: QDos Alerts \nSeverity: MINOR \nDescription: QDos Attacks \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.51 \nAttacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b2\b"
+
 
 
     ### DP Monitoring ###
@@ -328,7 +328,7 @@ Feature: QDoS Protection & Attack Category
 
   
   @SID_33
-  Scenario: validate events by Category table rows - sort by Alphabet
+  Scenario: validate events
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
       | columnName      | value        |
       | Protection Name | Quantile DoS |
