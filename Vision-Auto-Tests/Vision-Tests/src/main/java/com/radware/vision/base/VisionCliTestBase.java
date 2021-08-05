@@ -1,7 +1,7 @@
 package com.radware.vision.base;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.automation.tools.basetest.RuntimePropertiesEnum;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
@@ -19,13 +19,13 @@ public abstract class VisionCliTestBase extends TestBase {
         RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
         try {
             // Clear any remaining commands on the output (In case of a 'Help text' command)
-            String clearString = "";
+            StringBuilder clearString = new StringBuilder();
             for (int i = 0; i < 60; i++) {
-                clearString += "\b";
+                clearString.append("\b");
             }
-            CliOperations.runCommand(radwareServerCli, clearString, 2* 2000,true,true,
+            CliOperations.runCommand(radwareServerCli, clearString.toString(), 2* 2000,true,true,
                     true, null, true, true);
-            CliOperations.runCommand(rootServerCli, clearString, 2 * 2000, true, true,
+            CliOperations.runCommand(rootServerCli, clearString.toString(), 2 * 2000, true, true,
                     true, null, true, true);
 
             if (doTheVisionLabRestart) {
@@ -37,13 +37,8 @@ public abstract class VisionCliTestBase extends TestBase {
                 doTheVisionLabRestart = false;
             }
 
-            if (BaseTestUtils.getBooleanRuntimeProperty(RuntimePropertiesEnum.ADD_AUTO_RESULT.name(), RuntimePropertiesEnum.ADD_AUTO_RESULT.getDefaultValue())) {
-//                ReportResultEntity report = new ReportResultEntity().withtestID("").withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
-//                resultsManager.addResult(report);
-            }
-
         } catch (Exception e) {
-            e.printStackTrace();
+            BaseTestUtils.report(" Test after method " + e.getMessage(), Reporter.FAIL);
         } finally {
             radwareServerCli.cleanCliBuffer();
             rootServerCli.cleanCliBuffer();
