@@ -2,7 +2,7 @@
 
 Feature: QDoS Protection & Attack Category
 
-  @Test12
+  
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -10,14 +10,14 @@ Feature: QDoS Protection & Attack Category
     * CLI Clear vision logs
 
     ## Run trap.pcap
-  @Test12
+  
   @SID_2
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
-  @Test12
+  
   @SID_3
   Scenario:  login to vision
     Given UI Login with user "sys_admin" and password "radware"
@@ -162,17 +162,17 @@ Feature: QDoS Protection & Attack Category
    # 1. check "Attacks Category" column value will be " QuantileDoS "
   # 2. validate value og table
 
-  @SID_15
+  @SID_16
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-  @SID_16
+  @SID_17
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
-  @SID_17
+  @SID_18
   Scenario: Navigate to DefensePro Attacks dashboard
     And UI Navigate to "DefensePro Attacks" page via homePage
     Then Sleep "5"
@@ -184,7 +184,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
     Then UI Click Button "Accessibility Menu"
 
-  @SID_17
+  @SID_19
   Scenario:  Validate Attacks Table Values
     Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 0
       | columnName             | value        |
@@ -201,7 +201,7 @@ Feature: QDoS Protection & Attack Category
       | Destination Port       | 0            |
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "p1"
 
-  @SID_18
+  @SID_20
   Scenario Outline:  validate date of Info table
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
     Examples:
@@ -218,7 +218,7 @@ Feature: QDoS Protection & Attack Category
       | Source port        | 0              |
       | Packet Type        | N/A            |
 
-  @SID_19
+  @SID_21
   Scenario:  Validate rows count for Attacks Table
     Then UI Validate "Attacks Table" Table rows count EQUALS to 1
 
@@ -231,19 +231,19 @@ Feature: QDoS Protection & Attack Category
   #3. check values in All formats
 
 
-  @SID_15
+  @SID_22
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
 
-  @SID_2
+  @SID_23
   Scenario: Navigate to Alerts
     And UI Navigate to "AMS Alerts" page via homePage
 
 
-  @SID_3
+  @SID_24
   Scenario: Create Alert basic
     When UI "Create" Alerts With Name "QDos Alerts"
       | Basic Info | Description:QDos Attacks                                          |
@@ -251,12 +251,12 @@ Feature: QDoS Protection & Attack Category
       | Schedule   | checkBox:Trigger,alertsPerHour:60                                 |
 
 
-  @SID_16
+  @SID_25
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
 
-  @SID_6
+  @SID_26
   Scenario: VRM Validate Alert Threat Category HTTPS Flood Any Time Schedule
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
@@ -282,7 +282,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Click Button "Table Details OK" with value "OK"
 
 
-  @SID_6
+  @SID_27
   Scenario: VRM Validate Alert browser for HTTPS Flood Any Schedule
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: QDos Alerts \nSeverity: MINOR \nDescription: QDos Attacks \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.51 \nAttacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "\b2\b"
@@ -292,23 +292,23 @@ Feature: QDoS Protection & Attack Category
   # 1. check "Attacks Categories" column value will be " QuantileDoS "
   # 2. in 2 drill Protection Name will be  "Quantile DoS"
 
-  @SID_15
+  @SID_28
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-  @SID_16
+  @SID_29
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
-  @Test12
-  @SID_4
+  
+  @SID_30
   Scenario:  Navigate to DefensePro Monitoring Dashboard
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-  @Test12
-  @SID_5
+  
+  @SID_31
   Scenario: Validate first under attack policy - traffic and attacks
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
       | columnName            | value                   |
@@ -321,13 +321,13 @@ Feature: QDoS Protection & Attack Category
       | Drop Rate             | 0 bps                   |
       | Attack Categories     | Quantile DoS            |
 
-  @Test12
-  @SID_4
+  
+  @SID_32
   Scenario: Entering to the under attack policy 2nd drill
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
 
-  1
-  @SID_8
+  
+  @SID_33
   Scenario: validate events by Category table rows - sort by Alphabet
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
       | columnName      | value        |
@@ -335,7 +335,7 @@ Feature: QDoS Protection & Attack Category
       | Attack Rate     | 0 bps        |
       | Drop Rate       | 0 bps        |
 
-  @SID_20
+  @SID_34
   Scenario: Logout and close browser
     Given UI logout and close browser
     Given UI Logout
