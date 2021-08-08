@@ -16,6 +16,7 @@ import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.junit.FeatureRunner;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+import static com.radware.vision.automation.Deploy.UvisionServer.*;
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
 
@@ -242,7 +244,7 @@ public class VMOperationsSteps extends VisionUITestBase {
             //kVision
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
 //        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getMessage();
         }
     }
