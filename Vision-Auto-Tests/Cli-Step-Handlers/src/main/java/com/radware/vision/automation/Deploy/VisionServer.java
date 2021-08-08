@@ -51,7 +51,7 @@ public class VisionServer {
             // Run the system upgrade command
             radwareServerCli.connect(); // in-case connect on init is false.
             CliOperations.runCommand(radwareServerCli, Menu.system().upgrade().full().build() + " " + file,
-                    startUpgradeTimeOut, false,false, true);
+                    startUpgradeTimeOut, false, false, true);
             waitTillUpgradeComplete(rootServerCli, timeout);
             if (radwareServerCli.getTestAgainstObject().toString().contains(UPGRADE_FAILED_MESSAGE)) {
                 BaseTestUtils.report("Upgrade Failed with the following error:\n" +
@@ -125,7 +125,7 @@ public class VisionServer {
         long startTime = System.currentTimeMillis();
         boolean isResetNeeded = false;
         BaseTestUtils.report(String.format("Waiting for upgrade to finish within %d minutes",
-                (timeout / (60 * 1000 ) ) ), Reporter.PASS_NOR_FAIL);
+                (timeout / (60 * 1000))), Reporter.PASS_NOR_FAIL);
         while (System.currentTimeMillis() - startTime < timeout) {
             try {
                 if (!isResetNeeded)
@@ -219,19 +219,19 @@ public class VisionServer {
         return false;
     }
 
-    public static boolean isVisionReadyForUpgrade(CliConnectionImpl serverCli){
+    public static boolean isVisionReadyForUpgrade(CliConnectionImpl serverCli) {
         try {
             serverCli.connect();
-            InvokeUtils.invokeCommand(null,Menu.system().visionServer().status().build(), serverCli, 2 * 60 * 1000, true);
+            InvokeUtils.invokeCommand(null, Menu.system().visionServer().status().build(), serverCli, 2 * 60 * 1000, true);
             String status = serverCli.getTestAgainstObject().toString();
             if (status == null) {
                 return false;
             }
 
             boolean APSoluteVisionReporterStarted = status.contains(String.format("%s %s",
-                    VisionServices.COLLECTOR.getValue(),ServiceStatus.RUNNING.getStatus()));
+                    VisionServices.COLLECTOR.getValue(), ServiceStatus.RUNNING.getStatus()));
             boolean ConfigurationServerStarted = status.contains(String.format("%s %s",
-                    VisionServices.CONFIGURATION.getValue(),ServiceStatus.RUNNING.getStatus()));
+                    VisionServices.CONFIGURATION.getValue(), ServiceStatus.RUNNING.getStatus()));
             return APSoluteVisionReporterStarted &&
                     ConfigurationServerStarted;
             //&& TedAgentIsRunning;
@@ -315,9 +315,9 @@ public class VisionServer {
         }
 
         String errorMessage = "";
-        if(!lAddedServices.isEmpty() || !lRemovedServices.isEmpty())
+        if (!lAddedServices.isEmpty() || !lRemovedServices.isEmpty())
             errorMessage = String.format("Service list was changed:\nNew line/s found: %s\nMissing service/s found: %s",
-                    lAddedServices.toString(),lRemovedServices.toString());
+                    lAddedServices.toString(), lRemovedServices.toString());
         if (!errorMessage.isEmpty())
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
     }
