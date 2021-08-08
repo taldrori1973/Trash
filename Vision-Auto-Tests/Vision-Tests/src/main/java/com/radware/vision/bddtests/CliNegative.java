@@ -8,7 +8,6 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileS
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.base.VisionCliTestBase;
 import com.radware.vision.enums.YesNo;
-import com.radware.vision.vision_tests.CliTests;
 
 import java.io.IOException;
 import java.util.*;
@@ -17,13 +16,16 @@ import static com.radware.automation.tools.basetest.BaseTestUtils.reporter;
 
 public class CliNegative extends VisionCliTestBase {
     protected Properties prop = new Properties();
+    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
 
 
-    public void uiInit() throws Exception {
+    public void init() throws Exception {
         prop.load(getClass().getClassLoader().getResourceAsStream("badInput.properties"));
-//        super.uiInit();
     }
 
+    public void after() throws Exception {
+        super.afterMethod();
+    }
 
     /**
      * The function returns true if the value found in the correct error list, else its returns false
@@ -32,7 +34,7 @@ public class CliNegative extends VisionCliTestBase {
 
         List<String> correctErrors = getListByType(goodErrorsList);
         for (String correctError : correctErrors) {
-            if (restTestBase.getRadwareServerCli().getTestAgainstObject().toString().contains(correctError)) {
+            if (radwareServerCli.getTestAgainstObject().toString().contains(correctError)) {
                 return true;
             }
         }
@@ -80,7 +82,7 @@ public class CliNegative extends VisionCliTestBase {
     protected void exportNegativeTest(String command, String name, String destination, String password/*, GoodErrorsList goodErrorsList*/) throws Exception {
         try {
             RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
-            CliTests.report.startLevel("Begining the export");
+            BaseTestUtils.reporter.startLevel("Begining the export");
             CliOperations.runCommand(radwareServerCli, command + " export " + name + " " + destination,
                     2 * 60 *1000, true);
             if (radwareServerCli.getTestAgainstObject().toString().contains("(yes/no)?")) {
@@ -114,7 +116,7 @@ public class CliNegative extends VisionCliTestBase {
     protected void importNegativeTest(String command, String password, String location/*, GoodErrorsList goodErrorsList*/) throws Exception {
         RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
         try {
-            CliTests.report.startLevel("Beginning the import");
+            BaseTestUtils.reporter.startLevel("Beginning the import");
             CliOperations.runCommand(radwareServerCli, command + " import " + location,
                     3 * 60 * 1000, true);
             if (radwareServerCli.getTestAgainstObject().toString().contains("(yes/no)?")) {
@@ -143,22 +145,20 @@ public class CliNegative extends VisionCliTestBase {
      * 3.	Report Error and print the list if needed.
      */
     public void run(String commandRadware, ArrayList<InvalidInputDataType> invailedDataList, GoodErrorsList goodErrorsList) throws Exception {
-        run(commandRadware, invailedDataList, YesNo.YES, null, false, "", goodErrorsList, null, false);
+        run(commandRadware, invailedDataList, YesNo.YES, null, "", goodErrorsList, null);
     }
 
-    public void run(String commandRadware, ArrayList<InvalidInputDataType> invailedDataList, String seconedCommandRadwae, GoodErrorsList goodErrorsList) throws Exception {
-        run(commandRadware, invailedDataList, YesNo.YES, null, false, seconedCommandRadwae, goodErrorsList, null, false);
+    public void run(String commandRadware, ArrayList<InvalidInputDataType> invailedDataList, String seconedCommand, GoodErrorsList goodErrorsList) throws Exception {
+        run(commandRadware, invailedDataList, YesNo.YES, null, seconedCommand, goodErrorsList, null);
     }
 
     public void run(String commandRadware, ArrayList<InvalidInputDataType> invailedDataList, YesNo yesNo, GoodErrorsList goodErrorsList) throws Exception {
-        run(commandRadware, invailedDataList, yesNo, null, false, "", goodErrorsList, null, false);
+        run(commandRadware, invailedDataList, yesNo, null, "", goodErrorsList, null);
     }
 
     public void run(String command, ArrayList<InvalidInputDataType> invailedDataList, YesNo yesNo, String commandRoot,
-                    boolean isPossitiveRootCheck, String seconedPartOfCommand, GoodErrorsList goodErrorsList, String commandRadware,
-                    boolean isPossitiveRadwareCheck) throws Exception {
-        RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
-        reporter.report("About to begin the run for negative tests cli.");
+                    String seconedPartOfCommand, GoodErrorsList goodErrorsList, String commandRadware) throws Exception {
+        reporter.report("Negative test is about to begin");
 
         Properties prop = new Properties();
         prop.load(getClass().getClassLoader().getResourceAsStream("badInput.properties"));
@@ -188,54 +188,17 @@ public class CliNegative extends VisionCliTestBase {
                 }
             }
 
-            //this if is for the root or radware seconed command
-//			if(findString) {
-//				if(!badInput.isEmpty()) {
-//				if(commandRoot!= null) {
-//					//in this case there is a need to check the root
-//					InvokeUtils.invokeCommand(null, commandRoot, rootServerCli);
-//					//possitive -find
-//					if (radwareServerCli.getTestAgainstObject().toString().contains(badInput.split(" ")[1])) {
-//						if(!isPossitiveRootCheck) {
-//							findString = false;
-//						}
-//					}
-//					else {
-//						if(isPossitiveRootCheck) {
-//							findString = false;
-//						}
-//					}
-//				}
-//				if(commandRadware!= null) {
-//					//in this case there is a need to check the root
-//					InvokeUtils.invokeCommand(null, commandRadware, radwareServerCli);
-//					//possitive -find
-//					if (radwareServerCli.getTestAgainstObject().toString().contains(badInput.split(" ")[1])) {
-//						if(!isPossitiveRadwareCheck) {
-//							findString = false;
-//						}
-//					}
-//					else {
-//						if(isPossitiveRadwareCheck) {
-//							findString = false;
-//						}
-//					}
-//				}
-//				}
-//			}
-//
-            if (findString != true) {
-                errorsList.add( /*commandRadware + " " + badInput +"\n###################################\n"*/command + "\n" + restTestBase.getRadwareServerCli().getTestAgainstObject().toString());
+            if (!findString) {
+                errorsList.add(command + "\n" + radwareServerCli.getTestAgainstObject().toString());
             }
         }
 
         if (!errorsList.isEmpty()) {
-            BaseTestUtils.reporter.startLevel("The wrong errors list for the negative tests");
+            BaseTestUtils.reporter.startLevel("There are some wrong errors for the negative tests: ");
             for (String string : errorsList) {
                 BaseTestUtils.reporter.report(string);
             }
-            BaseTestUtils.report("There Is " + errorsList.size() + " Errors", Reporter.FAIL);
-            BaseTestUtils.reporter.stopLevel();
+            BaseTestUtils.report("There are: " + errorsList.size() + " Errors", Reporter.FAIL);
         }
         BaseTestUtils.reporter.stopLevel();
 
@@ -248,7 +211,7 @@ public class CliNegative extends VisionCliTestBase {
 
         //this list will be fill with invailed and vailed lists
         List<List<String>> listOfValidLists = new ArrayList<List<String>>();
-        List<List<String>> listOfInvalidLists = new ArrayList<List<String>>();
+        List<List<String>> listOfInvalidLists = new ArrayList<>();
 
         //getting the correct name of the list
         for (InvalidInputDataType invailedDataEnum : invailedDataList) {

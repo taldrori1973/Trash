@@ -23,7 +23,7 @@ Feature: System Tests
     Then CLI Operations - Verify that output contains regex ".*hostname.*Hostname settings..*"
     Then CLI Operations - Verify that output contains regex ".*java.*Java settings..*"
     Then CLI Operations - Verify that output contains regex ".*ntp.*Network Time Protocol settings..*"
-    Then CLI Operations - Verify that output contains regex ".*rpm.*Lists the RPM versions used by APSolute Vision..*"
+    Then CLI Operations - Verify that output contains regex ".*package.*Lists the packages used by APSolute Vision..*"
     Then CLI Operations - Verify that output contains regex ".*snmp.*Simple Network Management Protocol settings..*"
     Then CLI Operations - Verify that output contains regex ".*ssl.*Manages SSL..*"
     Then CLI Operations - Verify that output contains regex ".*statistics.*Displays system resources statistics..*"

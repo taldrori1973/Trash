@@ -36,6 +36,10 @@ Feature: IPv6 SNMP OS agent and trap test
 
 
   @SID_6
-  Scenario: Stop SNMP service IPv6
+  Scenario: Stop SNMP service and delete target IPv6
     Then CLI Connect Radware
     Then CLI Operations - Run Radware Session command "system snmp service stop"
+    Then CLI Operations - Run Radware Session command "system snmp trap target delete 200a::1001:1001:1001:1001 publicv6"
+    Then CLI Operations - Run Radware Session command "system snmp community delete com1"
+
+

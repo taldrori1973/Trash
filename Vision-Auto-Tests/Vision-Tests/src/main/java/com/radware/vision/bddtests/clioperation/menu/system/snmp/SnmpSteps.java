@@ -2,40 +2,44 @@ package com.radware.vision.bddtests.clioperation.menu.system.snmp;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.vision_handlers.system.snmp.SnmpHandler;
+import com.radware.vision.system.snmp.SnmpHandler;
 import cucumber.api.java.en.Then;
 
 
 public class SnmpSteps extends TestBase {
 
+    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+    private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
     @Then("^CLI System Snmp Community Add$")
     public void snmpCommunityAdd() {
 
-        SnmpHandler.snmpCommunityAddValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.snmpCommunityAddValidation(radwareServerCli);
 
     }
 
 
     @Then("^CLI System Snmp Community Delete$")
     public void snmpCommunityDelete() {
-        SnmpHandler.snmpCommunityDeleteValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.snmpCommunityDeleteValidation(radwareServerCli);
     }
 
 
     @Then("^CLI System Snmp Community List$")
     public void snmpCommunityList() {
-        SnmpHandler.snmpCommunityListValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.snmpCommunityListValidation(radwareServerCli);
     }
 
     @Then("^CLI System Snmp \"(Start|Stop)\"$")
     public void snmpStatus(String operation) {
 
         if (operation.equals("Stop")) {
-            SnmpHandler.snmpStopValidation(restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
+            SnmpHandler.snmpStopValidation(radwareServerCli, rootServerCli);
         } else if (operation.equals("Start")) {
-            SnmpHandler.snmpStartValidation(restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
+            SnmpHandler.snmpStartValidation(radwareServerCli, rootServerCli);
         } else {
             BaseTestUtils.report(operation + "is not supported here!", Reporter.FAIL);
         }
@@ -44,25 +48,25 @@ public class SnmpSteps extends TestBase {
 
     @Then("^CLI Service iptables restart$")
     public void iptablesServiceRestart() {
-        SnmpHandler.iptablesServiceRestartValidation(restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
+        SnmpHandler.iptablesServiceRestartValidation(radwareServerCli, rootServerCli);
     }
 
     @Then("^CLI System Snmp Initial Status$")
         public void snmpStatusInitial() {
-        SnmpHandler.snmpStop(restTestBase.getRadwareServerCli(), false);
-        SnmpHandler.snmpStart(restTestBase.getRadwareServerCli(), true);
-        SnmpHandler.snmpStatusInitialValidation(restTestBase.getRootServerCli());
+        SnmpHandler.snmpStop(radwareServerCli, false);
+        SnmpHandler.snmpStart(radwareServerCli, true);
+        SnmpHandler.snmpStatusInitialValidation(radwareServerCli, rootServerCli);
     }
 
     @Then("^CLI System Snmp Status - \"(Started|Stopped)\"$")
     public void snmpStatusOperation(String operation) {
         if (operation.equalsIgnoreCase("Started")) {
-            SnmpHandler.snmpStatusStartedValidation(restTestBase.getRadwareServerCli());
+            SnmpHandler.snmpStatusStartedValidation(radwareServerCli);
         }
         else
             {
                 if (operation.equals("Stopped")) {
-                    SnmpHandler.snmpStatusStoppedValidation(restTestBase.getRadwareServerCli());
+                    SnmpHandler.snmpStatusStoppedValidation(radwareServerCli);
                 } else {
                     BaseTestUtils.report(operation + " is not supported here!", Reporter.FAIL);
                 }
@@ -72,72 +76,72 @@ public class SnmpSteps extends TestBase {
 
     @Then("^CLI System Snmp Help$")
     public void helpSnmp() {
-        SnmpHandler.helpSnmpValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpValidation(radwareServerCli);
     }
 
     @Then("^CLI Help - System Snmp Community$")
     public void helpSnmpCommunity() {
-        SnmpHandler.helpSnmpCommunityValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpCommunityValidation(radwareServerCli);
     }
 
     @Then("^CLI Help - System Snmp Community Add$")
     public void helpSnmpCommunityAdd() {
-        SnmpHandler.helpSnmpCommunityValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpCommunityValidation(radwareServerCli);
     }
 
     @Then("^CLI Help - System Snmp Community Delete$")
     public void helpSnmpCommunityDelete() {
-        SnmpHandler.helpSnmpCommunityDeleteValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpCommunityDeleteValidation(radwareServerCli);
     }
 
     @Then("^CLI Help - System Snmp Community List$")
     public void helpSnmpCommunityList() {
-        SnmpHandler.helpSnmpCommunityListValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpCommunityListValidation(radwareServerCli);
     }
 
     @Then("^CLI Help - System Snmp Trap$")
     public void helpSnmpTrap() {
-        SnmpHandler.helpSnmpTrapValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpTrapValidation(radwareServerCli);
     }
 
     @Then("^CLI Help - System Snmp Trap Target$")
     public void helpSnmpTrapTarget() {
-        SnmpHandler.helpSnmpTrapTargetValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpTrapTargetValidation(radwareServerCli);
     }
 
     @Then("^CLI Help - System Snmp Trap Target Add$")
     public void helpSnmpTrapTargetAdd() {
-        SnmpHandler.helpSnmpTrapTargetAddValidation (restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpTrapTargetAddValidation (radwareServerCli);
     }
 
     @Then("^CLI Help - System Snmp Trap Target Delete$")
     public void helpSnmpTrapTargetDelete() {
-        SnmpHandler.helpSnmpTrapTargetDeleteValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpTrapTargetDeleteValidation(radwareServerCli);
     }
 
     @Then("^CLI Help - System Snmp Trap Target List$")
     public void helpSnmpTrapTargetList() {
-        SnmpHandler.helpSnmpTrapTargetListValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.helpSnmpTrapTargetListValidation(radwareServerCli);
     }
 
     @Then("^CLI System Snmp Trap Target list - Empty Initial$")
     public void snmpTrapTargetAddEmptyIitial() {
-        SnmpHandler.snmpTrapTargetAddEmptyInitialValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.snmpTrapTargetAddEmptyInitialValidation(radwareServerCli);
     }
 
     @Then("^CLI System Snmp Trap Target add & list - Custom port$")
     public void snmpTrapTargetAddAndListCustomPort() {
-        SnmpHandler.snmpTrapTargetAddAndListCustomPortValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.snmpTrapTargetAddAndListCustomPortValidation(radwareServerCli);
     }
 
     @Then("^CLI System Snmp Trap Target add & list - Default port$")
     public void snmpTrapTargetAddAndListDefaultPort() {
-        SnmpHandler.snmpTrapTargetAddAndListDefaultPortValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.snmpTrapTargetAddAndListDefaultPortValidation(radwareServerCli);
     }
 
     @Then("^CLI System Snmp Trap Target delete$")
     public void snmpTrapTargetDelete() {
-        SnmpHandler.snmpTrapTargetDeleteValidation(restTestBase.getRadwareServerCli());
+        SnmpHandler.snmpTrapTargetDeleteValidation(radwareServerCli);
     }
 
 
