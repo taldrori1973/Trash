@@ -1,5 +1,7 @@
 package com.radware.vision.bddtests.clioperation.menu.net.firewall;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
@@ -12,27 +14,47 @@ public class FirewallSteps extends TestBase {
     private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
     @Given("^CLI Net Firewall Submenu$")
-    public void netFirewallSubmenu() throws Exception {
-        Firewall.checkFirewallSubmenu(radwareServerCli);
+    public void netFirewallSubmenu() {
+        try {
+            Firewall.checkFirewallSubmenu(radwareServerCli);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @Given("^CLI Net Firewall open-port Submenu$")
-    public void netFirewallOpenPortSubmenu() throws Exception {
-        Firewall.checkFirewallOpenPortSubmenu(radwareServerCli);
+    public void netFirewallOpenPortSubmenu() {
+        try {
+            Firewall.checkFirewallOpenPortSubmenu(radwareServerCli);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @Given("^CLI Net Firewall open-port list - defaults$")
-    public void netFirewallOpenPortListDefaults() throws Exception {
-        Firewall.checkFirewallOpenPortListDefaults(radwareServerCli);
+    public void netFirewallOpenPortListDefaults() {
+        try {
+            Firewall.checkFirewallOpenPortListDefaults(radwareServerCli);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @Given("^CLI Net Firewall open-port set open$")
-    public void netFirewallOpenPortSet() throws Exception {
-        Firewall.checkFirewallOpenPortSetOpen(radwareServerCli, rootServerCli);
+    public void netFirewallOpenPortSet() {
+        try {
+            Firewall.checkFirewallOpenPortSetOpen(radwareServerCli, rootServerCli);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @Given("^CLI Net Firewall open-port set close$")
-    public void netFirewallOpenPortClose() throws Exception {
-        Firewall.checkFirewallOpenPortClose(radwareServerCli, rootServerCli);
+    public void netFirewallOpenPortClose() {
+        try {
+            Firewall.checkFirewallOpenPortClose(radwareServerCli, rootServerCli);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 }

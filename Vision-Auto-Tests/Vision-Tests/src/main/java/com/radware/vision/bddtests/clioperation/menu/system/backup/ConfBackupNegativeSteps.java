@@ -26,7 +26,7 @@ public class ConfBackupNegativeSteps extends CliNegative {
      * */
     @When("^CLI Conf Backup Create Negative Test$")
     public void confbackupCreateNegativeTest() throws Exception {
-        uiInit();
+        init();
         initNegativeBackup();
         ArrayList<InvalidInputDataType> invailedDataList = new ArrayList<InvalidInputDataType>(Arrays.asList(InvalidInputDataType.NAME));
         run(Menu.system().backup().config().create().build(),invailedDataList, GoodErrorsList.BACKUP_NEGATIVE_LIST);
@@ -67,7 +67,7 @@ public class ConfBackupNegativeSteps extends CliNegative {
      * */
     @When("^CLI Conf Backup Export Protocol \"(.*)\" Negative Test$")
     public void confBackupExportProtocolNegativeTest(String protocol) throws Exception  {
-        uiInit();
+        init();
         initNegativeBackup();
         protocol.toLowerCase();
         if(protocol.equals("ftp")){ confbackupExportNegativeTest(ImportExport.ImportExportType.ftp);}
@@ -82,7 +82,7 @@ public class ConfBackupNegativeSteps extends CliNegative {
 
     @When("^CLI Conf Backup Export File Negative Test$")
     public void confBackupExportFileNegativeTest() throws Exception  {
-        uiInit();
+        init();
         initNegativeBackup();
         exportNegativeTest(Menu.system().backup().config().build(), CONFBACKUP_NAME, "file:"+CONFBACKUP_NAME);
         afterMethod();
@@ -109,7 +109,7 @@ public class ConfBackupNegativeSteps extends CliNegative {
      * */
     @When("^CLI Conf Backup Import Protocol \"(.*)\" Negative Test$")
     public void confbackupImportProtocolNegativeTest(String protocol) throws Exception  {
-        uiInit();
+        init();
         initNegativeBackup();
         protocol.toLowerCase();
         if(protocol.equals("ftp")){ confbackupImportNegativeTest(ImportExport.ImportExportType.ftp);}
