@@ -116,7 +116,7 @@ public class VisionServerSteps extends TestBase {
         BaseTestUtils.report(restTestBase.getRadwareServerCli().getOutputStr(), Reporter.PASS);
     }
 
-    @Then("^CLI validate service \"(\\w+)\" status is \"(\\w+)\"(?: and health is \"(\\w+)\")?(?: retry for (\\d+) seconds)?$")
+    @Then("^CLI validate service \"(\\w+)\"(?: status is \"(\\w+)\")?(?: and health is \"(\\w+)\")?(?: retry for (\\d+) seconds)?$")
     public void validateUvisionDockerService(String dockerService,
                                              String dockerState,
                                              String dockerHealthState,
