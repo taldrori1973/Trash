@@ -19,6 +19,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.base.VisionUITestSetup;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.ReportsForensicsAlertsAbstract;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
@@ -40,13 +41,11 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import models.RestResponse;
 import models.StatusCode;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.How;
 import restInterface.client.SessionBasedRestClient;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -55,12 +54,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
-import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
+import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.*;
 import static com.radware.vision.utils.SutUtils.*;
 import static com.radware.vision.utils.SutUtils.getCurrentVisionRestUserPassword;
 import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
-
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
@@ -495,17 +492,9 @@ public class BasicOperationsSteps extends VisionUITestBase {
         BasicOperationsHandler.validateArrow(label, params, status);
     }
 
-
-    @Then("^UI Validate the attribute \"([^\"]*)\" Of Label \"([^\"]*)\"(?: With Params \"([^\"]*)\")?(?: with errorMessage \"([^\"]*)\")? is \"(EQUALS|CONTAINS|NOT CONTAINS|MatchRegx)\" to \"(.*)\"$")
-    public void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String expectedErrorMessage, String compare, String value) {
-        BasicOperationsHandler.uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(attribute, label, params, compare, value, expectedErrorMessage);
-    }
-
     @Then("^UI Validate order of labels \"([^\"]*)\" with attribute \"([^\"]*)\" that \"(EQUALS|CONTAINS|NOT CONTAINS)\" value of \"([^\"]*)\"$")
     public void uiValidateOrderOfLabelsWithAttributeThatValueOf(String label, String attribute, String compare, String value, List<VRMHandler.DfProtectedObject> entries) {
         BasicOperationsHandler.uiValidationItemsOrderInList(label, attribute, compare, value, entries);
-
-
     }
 
     @Then("^UI clear (\\d+) characters in \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: with enter Key \"(true|false)\")?$")
@@ -606,7 +595,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
         try {
             if (withoutNavigateToAnotherPage == null)
                 VisionDebugIdsManager.setTab("upBar");
-            BasicOperationsHandler.clickButton(label);
+            clickButton(label);
         } catch (TargetWebElementNotFoundException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -629,7 +618,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     @When("^close popup if it exists by button \"([^\"]*)\"(?: with params \"([^\"]*)\")?$")
     public void closePopupIfItExistsByButtonWithParams(String label, String params) {
         try {
-            BasicOperationsHandler.clickButton(label, params);
+            clickButton(label, params);
         } catch (Exception ignore) {
         }
     }
@@ -663,21 +652,12 @@ public class BasicOperationsSteps extends VisionUITestBase {
         uiSelectWANLinks(map);
     }
 
-    private void uiSelectWANLinks(Map<String, String> map) throws Exception {
-        if (map.containsKey("WAN Links")) {
-            int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks;
     public static void uiSelectWANLinks(Map<String, String> map) throws Exception {
         if (map.containsKey("WAN Links")) {
             BasicOperationsHandler.delay(5);
             int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks;
             WebUiTools.check("Expand Scope WAN Links", "", true);
             ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
-            if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase(""))
-                return;
-
-            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] ").getBy())) {
-                if (WANLinkNumbers > 0) {
-                    WANLinkNumbers--;
             if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase("")) {
                 unselectAllWanLinks();
                 return;
@@ -692,6 +672,8 @@ public class BasicOperationsSteps extends VisionUITestBase {
                     } else WebUiTools.check("WAN Link Value", instanceText, false);
                 }
             }
+//            if (expectedWANLinks.size() > 0)
+//                throw new Exception("The Instance " + expectedWANLinks + " don't exist in the  ");
         }
     }
 
@@ -701,6 +683,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
             WebUiTools.check("WAN Link Value", instanceText, false);
         }
     }
+
 
     public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare) {
         for (ParameterSelected parameter : listParamters) { //all the parameters that selected to compare with values
@@ -868,10 +851,10 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     private void saveScopeSelection(String deviceIP) throws TargetWebElementNotFoundException {
-        BasicOperationsHandler.clickButton("DPScopeSelectionChange", deviceIP);
-        BasicOperationsHandler.clickButton("SaveDPScopeSelection", "");
+        clickButton("DPScopeSelectionChange", deviceIP);
+        clickButton("SaveDPScopeSelection", "");
         if (WebUiTools.getWebElement("close scope selection") != null)
-            BasicOperationsHandler.clickButton("close scope selection");
+            clickButton("close scope selection");
     }
 
     private void expandScopePolicies(String device, Map<String, String> map) throws Exception {
@@ -981,12 +964,12 @@ public class BasicOperationsSteps extends VisionUITestBase {
                     switch (compare) {
                         case "EQUALS":
                             if (element.getAttribute(attribute).equalsIgnoreCase(value)) {
-                                BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                                clickButton(parameter.label, parameter.param);
                             }
                             break;
                         case "CONTAINS":
                             if (element.getAttribute(attribute).contains(value)) {
-                                BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                                clickButton(parameter.label, parameter.param);
                             }
                             break;
                     }
