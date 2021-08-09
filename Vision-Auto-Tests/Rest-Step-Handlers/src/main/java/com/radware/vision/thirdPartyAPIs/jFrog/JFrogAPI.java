@@ -23,7 +23,7 @@ public class JFrogAPI {
      */
     public static JFrogFileModel getBuild(FileType fileType, String repoName, String version, String branch, Integer build) throws Exception {
         if (version == null) version = "Latest";
-        if (branch == null) branch = "master";
+        if (branch == null) branch = "dev";
         if (build == null) build = 0;
         RepositoryService repositoryService = new RepositoryService(repoName);
         return repositoryService.getFile(fileType, version, branch, build);
@@ -73,7 +73,7 @@ public class JFrogAPI {
      * @return The Last extended build file info under a given branch
      */
     public static JFrogFileModel getLastExtendedBuildFromFeatureBranch(FileType fileType, String repoName, String branch) throws Exception {
-        if (branch == null || branch == "") branch = "master";
+        if (branch == null || branch == "") branch = "dev";
         RepositoryService repositoryService = new RepositoryService(repoName);
         return repositoryService.getFileFromLastExtendedBuild(fileType, branch);
     }
