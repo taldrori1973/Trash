@@ -204,6 +204,12 @@ public class Report extends ReportsForensicsAlertsAbstract {
             if (new JSONObject(singleTemplate.toString()).get("reportType") != null
                     && (new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("APPLICATION") ||
                     new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("SYSTEM AND NETWORK")))
+        for (Object singleTemplate: templatesArray)
+        {
+            if (new JSONObject(singleTemplate.toString()).get("reportType")!=null
+                    && (new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("APPLICATION")||
+                    new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("SYSTEM AND NETWORK"))||
+                    new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("LINKPROOF"))
                 return "ADC";
         }
         return "AMS";

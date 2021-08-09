@@ -160,10 +160,10 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static void validateTextFieldElementByLabel(String elementSelector, String params, String expectedText, String regex, OperatorsEnum validationType, int cutCharsNumber) {
+    public static void validateTextFieldElementByLabel(String elementSelector, String params, String expectedText, String regex, OperatorsEnum validationType, int cutCharsNumber, String offset) {
         try {
             WebElement element = BasicOperationsHandler.isItemAvailableById(elementSelector, params);
-            validateTextField(element, elementSelector, expectedText, regex, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText, regex, validationType, cutCharsNumber,offset);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with ID: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
@@ -177,26 +177,26 @@ public class ClickOperationsHandler {
 
     }
 
-    public static void validateTextFieldElementById(String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
+    public static void validateTextFieldElementById(String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber, String offset) {
         try {
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, elementSelector).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            validateTextField(element, elementSelector, expectedText, null, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText, null, validationType, cutCharsNumber,offset);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with ID: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
     }
 
-    public static void validateTextFieldElementByClass(String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
+    public static void validateTextFieldElementByClass(String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber, String offset) {
         try {
 //            WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.CLASS_NAME, elementSelector).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.XPATH, "//*[@class='" + elementSelector + "']").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            validateTextField(element, elementSelector, expectedText, null, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText, null, validationType, cutCharsNumber,offset);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with Class: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
     }
 
-    public static void validateTextField(WebElement element, String elementSelector, String expectedValue, String regex, OperatorsEnum validationOperation, int cutCharsNumber) {
+    public static void validateTextField(WebElement element, String elementSelector, String expectedValue, String regex, OperatorsEnum validationOperation, int cutCharsNumber, String offset) {
         try {
 //            The expectedValue for Contains Operation could be on the following format: value|value|...|value,
 //            if the actual value contains one of these values , the test will pass:
@@ -276,8 +276,16 @@ public class ClickOperationsHandler {
                                 BaseTestUtils.report("TextField Validation Failed. Expected Value is:" + Double.parseDouble(finalExpectedValue) + " Actual Value is:" + Double.parseDouble(actualValue), Reporter.FAIL);
                             }
                         } else {//compare strings
-                            if (!finalExpectedValue.equals(actualValue)) {
-                                BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
+                            if(offset != null && offset.matches("[0-9]+")){
+                                float maxVal = Float.parseFloat(finalExpectedValue.replaceAll("[^\\d]","")) + Integer.parseInt(offset);
+                                float minVal = Float.parseFloat(finalExpectedValue.replaceAll("[^\\d]","")) - Integer.parseInt(offset);
+                                if (Float.parseFloat(actualValue.replaceAll("[^\\d]",""))>maxVal || Float.parseFloat(actualValue.replaceAll("[^\\d]",""))< minVal ){
+                                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
+                                }
+                            }else {
+                                if (!finalExpectedValue.equals(actualValue)){
+                                    BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
+                                }
                             }
                         }
                         break;

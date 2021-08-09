@@ -327,7 +327,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     @Given("^UI Validate Text field with Class \"(.*)\" \"(Equals|Contains)\" To \"(.*)\"(?: cut Characters Number (\\S+))?$")
-    public void validateTextToElementWithClass(String elementClass, String compareMethod, String expectedText, String cutCharsNumber) {
+    public void validateTextToElementWithClass(String elementClass, String compareMethod, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         OperatorsEnum operatorsEnum;
         switch (compareMethod) {
@@ -338,7 +338,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
             default:
                 operatorsEnum = OperatorsEnum.EQUALS;
         }
-        ClickOperationsHandler.validateTextFieldElementByClass(elementClass, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber));
+        ClickOperationsHandler.validateTextFieldElementByClass(elementClass, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber), offset);
     }
 
     /**
@@ -666,6 +666,10 @@ public class BasicOperationsSteps extends VisionUITestBase {
     private void uiSelectWANLinks(Map<String, String> map) throws Exception {
         if (map.containsKey("WAN Links")) {
             int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks;
+    public static void uiSelectWANLinks(Map<String, String> map) throws Exception {
+        if (map.containsKey("WAN Links")) {
+            BasicOperationsHandler.delay(5);
+            int WANLinkNumbers = ReportsForensicsAlertsAbstract.maxWANLinks;
             WebUiTools.check("Expand Scope WAN Links", "", true);
             ArrayList<String> expectedWANLinks = new ArrayList<>(Arrays.asList(map.get("WAN Links").split(",")));
             if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase(""))
@@ -674,18 +678,29 @@ public class BasicOperationsSteps extends VisionUITestBase {
             for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] ").getBy())) {
                 if (WANLinkNumbers > 0) {
                     WANLinkNumbers--;
+            if (expectedWANLinks.size() == 1 && expectedWANLinks.get(0).equalsIgnoreCase("")) {
+                unselectAllWanLinks();
+                return;
+            }
+            for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] ").getBy())) {
+                if (WANLinkNumbers > 0) {
                     String instanceText = instanceElement.getText();
                     if (expectedWANLinks.contains(instanceText)) {
                         WebUiTools.check("WAN Link Value", instanceText, true);
                         expectedWANLinks.remove(instanceText);
+                        WANLinkNumbers--;
                     } else WebUiTools.check("WAN Link Value", instanceText, false);
                 }
             }
-            if (expectedWANLinks.size() > 0)
-                throw new Exception("The Instance " + expectedWANLinks + " don't exist in the  ");
         }
     }
 
+    private static void unselectAllWanLinks() throws Exception {
+        for (WebElement instanceElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//div[starts-with(@data-debug-id, 'WanLinkStatistics_instances_')] ").getBy())) {
+            String instanceText = instanceElement.getText();
+            WebUiTools.check("WAN Link Value", instanceText, false);
+        }
+    }
 
     public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare) {
         for (ParameterSelected parameter : listParamters) { //all the parameters that selected to compare with values
@@ -787,6 +802,118 @@ public class BasicOperationsSteps extends VisionUITestBase {
             }
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    @Then("^UI \"(Select|UnSelect|Validate)\" Scope Polices$")
+    public void uiScopePolicesInDevice(String operationType, Map<String, String> devicePolices) throws Exception {
+        Map<String, String> map = null;
+        map = CustomizedJsonManager.fixJson(devicePolices);
+        ReportsForensicsAlertsAbstract.fixTemplateMap(map);
+        switch (operationType) {
+            case "Select":
+                uiSelectScopePoliciesInDevice(map);
+                break;
+            case "UnSelect":
+                uiUnSelectScopePoliciesInDevice(map);
+                break;
+            case "Validate":
+                uiValidateScopePoliciesInDevice(map);
+                break;
+        }
+    }
+
+    private void uiSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
+        Forensics.fixSelectionToArray("devices", map);
+        new TemplateHandlers.DPScopeSelection(new JSONArray(map.get("devices")), "", new JSONObject(new JSONArray(map.get("devices")).get(0).toString()).get("type").toString()).create();
+    }
+
+    private void uiUnSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
+        String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
+        expandScopePolicies(deviceIP, map);
+        for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())) {
+            WebUiTools.check("DPPolicyCheck", new String[]{deviceIP, policy.toString()}, false);
+        }
+        saveScopeSelection(deviceIP);
+    }
+
+    private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
+        expandScopePolicies(deviceIP, map);
+        if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
+            errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
+        if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPScopeSelectionChange", deviceIP)))
+            errorMessage.append("This device DefensePro_" + deviceIP + " with index " + new JSONObject(map.get("devices")).get("index").toString() + " is not selected !!");
+        for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()))
+            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceIP, policy.toString()})))
+                errorMessage.append("This Policy " + policy.toString() + " is not selected !!");
+        if (!isSortedPolices(deviceIP, new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length(), new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())))
+            errorMessage.append("This Policies is not sorted !! ");
+        saveScopeSelection(deviceIP);
+        if (errorMessage.length() != 0)
+            BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
+    }
+
+    private boolean isSortedPolices(String deviceIP, int policesNumber, JSONArray polices) {
+        ArrayList<String> policesArray = (ArrayList) polices.toList();
+        policesArray.replaceAll(String::toLowerCase);
+        Collections.sort(policesArray);
+        List<WebElement> policyElements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_DefensePro_" + deviceIP + "_policiesLabel_')]").getBy());
+        for (int i = 0; i < policesNumber; i++) {
+            if (!policyElements.get(i).getText().toLowerCase().equals(policesArray.get(i)))
+                return false;
+        }
+        return true;
+    }
+
+    private void saveScopeSelection(String deviceIP) throws TargetWebElementNotFoundException {
+        BasicOperationsHandler.clickButton("DPScopeSelectionChange", deviceIP);
+        BasicOperationsHandler.clickButton("SaveDPScopeSelection", "");
+        if (WebUiTools.getWebElement("close scope selection") != null)
+            BasicOperationsHandler.clickButton("close scope selection");
+    }
+
+    private void expandScopePolicies(String device, Map<String, String> map) throws Exception {
+        try {
+            clickButton("Device Selection", "");
+        } catch (Exception e) {
+            clickButton("Open Scope Selection", new JSONObject(map.get("devices")).get("type").toString());
+        } finally {
+            setTextField("ScopeSelectionFilter", device);
+            clickButton("DPScopeSelectionChange", device);
+        }
+    }
+
+    @Then("^UI Text of \"([^\"]*)\" with extension \"([^\"]*)\" GTE to \"([^\"]*)\" with offset \"([^\"]*)\"$")
+    public void uiTextOfWithExtensionGTETo(String label, String params, String value, String offset) throws Throwable {
+
+        String[] splitValueExpected = value.split(" ");
+        String number1Expected = splitValueExpected[0].replaceAll("\\D+", "");
+        String number2Expected = splitValueExpected[1].replaceAll("\\D+", "");
+
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params.split(","));
+        String element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getText();
+        if (element == null)
+            BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+
+        String[] splitValueActual = element.split(" ");
+        String number1Actual = splitValueActual[0].replaceAll("[^\\d.]", "");
+        String number2Actual = splitValueActual[1].replaceAll("[^\\d.]", "");
+
+        float maxVal1, maxVal2, minVal1, minVal2;
+        if (offset != null && offset.matches("[0-9]+")) {
+            maxVal1 = Float.parseFloat(number1Expected) + Integer.parseInt(offset);
+            minVal1 = Float.parseFloat(number1Expected) - Integer.parseInt(offset);
+
+            maxVal2 = Float.parseFloat(number2Expected) + Integer.parseInt(offset);
+            minVal2 = Float.parseFloat(number2Expected) - Integer.parseInt(offset);
+
+            if (Float.parseFloat(number1Actual) > maxVal1 || Float.parseFloat(number1Actual) < minVal1)
+                BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+            if (Float.parseFloat(number2Actual) > maxVal2 || Float.parseFloat(number2Actual) < minVal2)
+                BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
         }
     }
 

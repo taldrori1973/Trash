@@ -70,7 +70,32 @@ public class TableHandler {
             ReportsUtils.reportAndTakeScreenShot("Failed to validate record Content: " + e.getMessage(), Reporter.FAIL);
         }
     }
+    public float sumColOfTableByTableName(String TableName){
+        float sum =0;
+        try {
+            setTable(TableName,true);
+            sleep(1);
+            for(int i =0;i<table.getRowCount();i++)
+            sum += Float.parseFloat(table.getCellValue(i,"Count"));
+        }catch (Exception e){
+            ReportsUtils.reportAndTakeScreenShot("Failed to calculate the sum of column " + e.getMessage(), Reporter.FAIL);
 
+        }
+        return sum;
+    }
+    public ArrayList<String> getIpsFromSummaryTable(String TableName , String ColName){
+        ArrayList<String> NamesList= new ArrayList<String>();
+        try {
+            setTable(TableName,true);
+            sleep(1);
+            for(int i =0;i<table.getRowCount();i++)
+                 NamesList.add(table.getCellValue(i,ColName));
+        }catch (Exception e){
+            ReportsUtils.reportAndTakeScreenShot("Failed get all names From Summary Table " + e.getMessage(), Reporter.FAIL);
+
+        }
+        return NamesList;
+    }
     public void validateTableRecordTooltipContent(String elementLabel, String columnName, String cellValue, List<WebUITable.TableDataSets> cells, int index, String extension) {
         try {
             if (extension == null) {

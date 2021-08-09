@@ -11,9 +11,13 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.ReportsForensicsAlertsAbstract;
+import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.infra.utils.json.CustomizedJsonManager;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.Keys;
@@ -22,6 +26,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.How;
 
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,12 +43,33 @@ public class TemplateHandlers {
         String currentTemplateName = getCurrentTemplateName(reportType);
         addWidgets(new JSONArray(templateJsonObject.has("Widgets") ? templateJsonObject.get("Widgets").toString() : "[ALL]"), currentTemplateName);
         setSummaryTable(templateJsonObject, currentTemplateName);
+        setExcludeMaliciousIPAddresses(templateJsonObject, currentTemplateName);
         getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
+        getWANLinksScopeSelection(templateJsonObject);
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
     }
 
+    private static void getWANLinksScopeSelection(JSONObject templateJsonObject) throws Exception {
+        if(templateJsonObject.has("WANLinks")){
+            Map<String, String> map = new HashMap<>();
+            String WANLinks = StringWANLinks(new JSONArray(templateJsonObject.get("WANLinks").toString()));
+            map.put("WAN Links",WANLinks);
+            map = CustomizedJsonManager.fixJson(map);
+            BasicOperationsSteps.uiSelectWANLinks(map);
+        }
+    }
 
-    private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
+    private static String StringWANLinks(JSONArray wanLinks) {
+        String WANLinks="";
+        for(Object wanLink : wanLinks) {
+            WANLinks += wanLink.toString();
+            WANLinks += ",";
+        }
+        WANLinks = StringUtils.chop(WANLinks); //remove the last ","
+        return  WANLinks;
+    }
+
+    private static ScopeSelection  getScopeSelection(JSONObject templateJsonObject, String templateParam) {
         switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
             case "HTTPS FLOOD":
                 return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), templateParam);
@@ -55,10 +81,8 @@ public class TemplateHandlers {
                 return new SystemAndNetworkScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
-//            case "SYSTEM, NETWORK AND LINKPROOF":
-//                return new SystemNetworkAndLinkProofScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
-//            case "ANALYTICS ADC APPLICATION":
-//                return new AnalyticsADCApplication(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
+                case "LINKPROOF":
+                return new LinkProofScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "ERT ACTIVE ATTACKERS FEED":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             //         return new EAAFScopeSelection(new JSONArray(), templateParam);
@@ -251,7 +275,7 @@ public class TemplateHandlers {
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Protected Objects')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                         break;
                     case "usage":
-                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Usage')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Usage')  or contains(@data-debug-id, '_usage')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                         break;
                     case "All":
                         options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Policies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -344,7 +368,7 @@ public class TemplateHandlers {
             return type;
         }
 
-        ScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+         ScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             this.devicesJSON = deviceJSONArray;
             this.templateParam = templateParam;
         }
@@ -354,7 +378,11 @@ public class TemplateHandlers {
         }
 
         protected void openScopeSelection() throws TargetWebElementNotFoundException {
-            BasicOperationsHandler.clickButton("Open Scope Selection", getType() + templateParam);
+           try {
+               BasicOperationsHandler.clickButton("Open Scope Selection", getType() + templateParam);
+           }catch (TargetWebElementNotFoundException e){
+               BasicOperationsHandler.clickButton("Open Scope Selection In Dashboard", "");
+           }
         }
 
         public void create() throws Exception {
@@ -491,7 +519,7 @@ public class TemplateHandlers {
 
             private void selectPortsOrPolicies(ArrayList devicePoliciesOrPorts, String dpPolicyCheck, String portOrPolicyFileter) throws Exception {
                 if (devicePoliciesOrPorts != null) {
-                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocator(portOrPolicyFileter, getDeviceIp()));
+                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator(portOrPolicyFileter, new String[]{getDeviceIp()}));
                     for (Object policyOrPort : devicePoliciesOrPorts) {
                         policyOrPortText.type(policyOrPort.toString().trim());
                         checkSpecificPortOrPolicy(dpPolicyCheck, policyOrPort);
@@ -652,29 +680,21 @@ public class TemplateHandlers {
         }
     }
 
-    public static class AnalyticsADCApplication extends ScopeSelection {
+    public static class LinkProofScopeSelection extends ScopeSelection {
 
-        AnalyticsADCApplication(JSONArray deviceJSONArray, String templateParam) {
+        LinkProofScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
-            this.type = "Analytics ADC Application";
-            this.saveButtonText = "AnalyticsADCApplicationSaveButton";
+            this.type = "LinkProof";
+            this.saveButtonText = "LinkProofSaveButton";
         }
     }
+
 
     public static class SystemAndNetworkScopeSelection extends ScopeSelection {
 
         SystemAndNetworkScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             this.type = "System and Network";
-            this.saveButtonText = "SystemAndNetworkSaveButton";
-        }
-    }
-
-    public static class SystemNetworkAndLinkProofScopeSelection extends ScopeSelection {
-
-        SystemNetworkAndLinkProofScopeSelection(JSONArray deviceJSONArray, String templateParam) {
-            super(deviceJSONArray, templateParam);
-            this.type = "System,Network And LinkProof";
             this.saveButtonText = "SystemAndNetworkSaveButton";
         }
     }
@@ -692,10 +712,43 @@ public class TemplateHandlers {
         JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate, expectedTemplateTitle, errorMessage);
         if (singleActualTemplate != null) {
             validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
+            validateTemplateWANLinksDefinition(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), errorMessage);
             validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), widgets, errorMessage);
             validateTemplateSummaryTableDefinition(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), widgets, expectedTemplateTitle, errorMessage);
+            validateTemplateExcludeMaliciousIPAddresses(singleActualTemplate, expectedSingleTemplate, expectedSingleTemplate.get("reportType").toString(), widgets, expectedTemplateTitle, errorMessage);
         } else
             errorMessage.append("There is no equal template on actual templates that equal to " + expectedSingleTemplate);
+    }
+
+    private static void validateTemplateWANLinksDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, String reportType,StringBuilder errorMessage) {
+      if(reportType.equalsIgnoreCase("LinkProof")) {
+          if (!expectedSingleTemplate.has("WANLinks"))
+              validateDefaultWanLinks( new JSONObject(singleActualTemplate.get("uiReflectionParams").toString()), errorMessage);
+          else {
+              JSONArray expectedWanLinksJSONArray = new JSONArray(expectedSingleTemplate.get("WANLinks").toString());
+              for (Object expectedWanLinkObject : expectedWanLinksJSONArray) {
+                  validateWANLinksArray(expectedWanLinkObject.toString(), new JSONObject(singleActualTemplate.get("uiReflectionParams").toString()), errorMessage);
+              }
+          }
+      }
+    }
+
+    private static void validateWANLinksArray(String expectWanLink, JSONObject uiReflectionParams, StringBuilder errorMessage) {
+        JSONArray wanLinksJsonOArrayActual = new JSONArray(uiReflectionParams.get("wanLinks").toString());
+        for(Object wanLink : wanLinksJsonOArrayActual){
+            if(new JSONObject(wanLink.toString()).get("id").equals(expectWanLink) && new JSONObject(wanLink.toString()).get("selected").toString().equals("false")){
+                errorMessage.append("This Wan Link " + expectWanLink+ "Does not selected !!");
+                return;
+            }
+        }
+    }
+
+    private static void validateDefaultWanLinks(JSONObject singleActualTemplate, StringBuilder errorMessage) {
+        JSONArray wanLinksJsonOArrayActual = new JSONArray(singleActualTemplate.get("wanLinks").toString());
+        for(int i=0;i< ReportsForensicsAlertsAbstract.maxWANLinks ;i++ ){
+        if(new JSONObject(wanLinksJsonOArrayActual.get(i).toString()).get("selected").toString().equals("false"))
+            errorMessage.append("This Wan Link " + new JSONObject(wanLinksJsonOArrayActual.get(i).toString()).get("is").toString()+ "Does not selected !!");
+        }
     }
 
     public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map, Map<String, Map<String, String>> templates, Map<String, Integer> widgets, String reportName) throws Exception {
@@ -719,12 +772,30 @@ public class TemplateHandlers {
         }
     }
 
+    private static void validateTemplateExcludeMaliciousIPAddresses(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, String reportType, Map<String, Integer> widgets, String expectedTemplateTitle, StringBuilder errorMessage) {
+        switch (expectedTemplateTitle) {
+            case "DefensePro Analytics":
+                validateTemplateContainsExcludeMaliciousIPAddresses(singleActualTemplate, expectedSingleTemplate, errorMessage);
+            default:
+                break;
+        }
+    }
+
     private static void validateTemplateContainsSummaryTable(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
         if (expectedSingleTemplate.toMap().containsKey("showTable")) {
             if (!singleActualTemplate.get("summaryTable").toString().equals(expectedSingleTemplate.get("showTable").toString()))
                 errorMessage.append("summaryTable on actual template = " + singleActualTemplate.get("summaryTable").toString() + " and not equal to " + expectedSingleTemplate.get("showTable").toString());
         } else if (!singleActualTemplate.get("summaryTable").toString().equals("false"))
             errorMessage.append("summaryTable on actual template = " + singleActualTemplate.get("summaryTable").toString() + " and not equal to false");
+    }
+
+    private static void validateTemplateContainsExcludeMaliciousIPAddresses(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
+        JSONObject ExcludeMaliciousIPAddresses = (JSONObject) singleActualTemplate.get("uiReflectionParams");
+        if (expectedSingleTemplate.toMap().containsKey("ExcludeMaliciousIPAddresses")) {
+            if (!ExcludeMaliciousIPAddresses.get("isExcludeMaliciousAddresses").toString().equals(expectedSingleTemplate.get("ExcludeMaliciousIPAddresses").toString()))
+                errorMessage.append("isExcludeMaliciousAddresses on actual template = " + ExcludeMaliciousIPAddresses.get("isExcludeMaliciousAddresses").toString() + " and not equal to " + expectedSingleTemplate.get("ExcludeMaliciousIPAddresses").toString());
+        } else if (!ExcludeMaliciousIPAddresses.get("isExcludeMaliciousAddresses").toString().equals("false"))
+            errorMessage.append("isExcludeMaliciousAddresses on actual template = " + ExcludeMaliciousIPAddresses.get("isExcludeMaliciousAddresses").toString() + " and not equal to false");
     }
 
     private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle, StringBuilder errorMessage) throws TargetWebElementNotFoundException {
@@ -797,8 +868,20 @@ public class TemplateHandlers {
             case "ERT Active Attackers Feed":
                 validateOptionsWidgetOnEAAF(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
                 break;
+            case "LinkProof":
+                validateOptionsWidgetOnADCLinkproof(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
+                break;
             default:
                 errorMessage.append("The template title is wrong : " + widgetTitle);
+        }
+    }
+
+    private static void validateOptionsWidgetOnADCLinkproof(String templateTitle, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject, StringBuilder errorMessage) {
+        JSONArray togglesData = new JSONArray(actualWidgetJSONObject.get("togglesData").toString());
+        JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(templateTitle).toString());
+        for (Object toggleData : togglesData) {
+            if (new JSONObject(toggleData.toString()).get("field").equals("tab") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue unit is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
         }
     }
 
@@ -898,6 +981,26 @@ public class TemplateHandlers {
         }
     }
 
+    private static void setExcludeMaliciousIPAddresses(JSONObject templateJsonObject, String templateName) {
+        if (!templateJsonObject.has("ExcludeMaliciousIPAddresses")) return;
+        WebElement checkbox = WebUiTools.getWebElement("Exclude Malicious IP Addresses", templateName);
+        if (checkbox == null)
+            return;
+        boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
+        switch (templateJsonObject.get("ExcludeMaliciousIPAddresses").toString().toLowerCase()) {
+            case "true":
+                if (!isChecked) {
+                    checkbox.click();
+                }
+                break;
+            case "false":
+                if (isChecked) {
+                    checkbox.click();
+                }
+                break;
+        }
+    }
+
     public static void editTemplate(String reportName, JSONObject templateJsonObject, String currentTemplateName) throws Exception {
         if (templateJsonObject.has("Widgets")) {
             addTemplate(templateJsonObject, reportName);
@@ -912,6 +1015,7 @@ public class TemplateHandlers {
         editTemplateWidgets(templateJsonObject, currentTemplateName);
         if (templateJsonObject.has("devices") || templateJsonObject.has("Servers") || templateJsonObject.has("Applications") || templateJsonObject.has("Protected Objects")) {
             getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
+            getWANLinksScopeSelection(templateJsonObject);
         }
     }
 

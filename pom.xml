@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <VISION_VERSION>4.82.00</VISION_VERSION>
+        <VISION_VERSION>4.83.00</VISION_VERSION>
         <revision>${VISION_VERSION}-SNAPSHOT</revision>
         <selenium.version>3.11.0</selenium.version>
         <jsystem.version>6.1.09</jsystem.version>
@@ -75,6 +75,12 @@
             <name>topq-remote-repo</name>
             <url>http://hudson.corp.radware.com:8081/artifactory/Maven-Remote_topq</url>
         </repository>
+<!--       test delete-->
+<!--        <repository>-->
+<!--            <id>auto-dp7-release</id>-->
+<!--            <name>auto-dp7-release</name>-->
+<!--            <url>http://bldartifactory:8081/artifactory/list/auto-dp7-release</url>-->
+<!--        </repository>-->
     </repositories>
 
     <distributionManagement>

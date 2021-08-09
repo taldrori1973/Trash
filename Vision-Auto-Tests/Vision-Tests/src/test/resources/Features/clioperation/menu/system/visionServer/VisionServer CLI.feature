@@ -48,7 +48,7 @@ Feature: Vision Server Services CLI Tests
   @SID_7
   Scenario: system vision-server status stopped
     Then CLI Run linux Command " system vision-server status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is stopped" in any line Wait For Prompt 100 seconds
-    Then CLI Run linux Command " system vision-server status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "APSolute Vision AMQP Service is stopped" in any line Wait For Prompt 100 seconds
+    Then CLI Run linux Command " system vision-server status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "AMQP service is stopped" in any line Wait For Prompt 100 seconds
     Then CLI Run linux Command " system vision-server status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "DPM is stopped" in any line Wait For Prompt 100 seconds
     Then CLI Run linux Command " system vision-server status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "Configuration server is stopped" in any line Wait For Prompt 100 seconds
     Then CLI Run linux Command " system vision-server status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "Collector service is stopped" in any line Wait For Prompt 100 seconds
