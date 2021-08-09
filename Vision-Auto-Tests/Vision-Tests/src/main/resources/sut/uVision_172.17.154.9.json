@@ -1,0 +1,37 @@
+{
+  "serverName": "uVision_fresh_ova",
+  "setupFile": "fullSetup.json",
+  "pair": {
+    "pairIp": "172.17.164.148",
+    "environment": "OVA-220"
+  },
+  "deployConfigurations": {
+    "setupMode": "fresh install",
+    "snapshot": "Current-1",
+    "environment": "OVA-220"
+  },
+  "clientConfiguration": {
+    "hostIp": "172.17.154.9",
+    "userName": "radware",
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 443,
+      "defaultProtocol": "https"
+    },
+    "sqlDbConnection": {
+      "defaultPort": 3306,
+      "username": "root",
+      "password": "radware"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
+      "password": "radware"
+    }
+  }
+}
