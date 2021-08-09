@@ -84,8 +84,9 @@ public class VisionInfo {
             String serverSoftwareVersion = response.getBody().getBodyAsJsonNode().get().findValue("serverSoftwareVersion").asText();
             String[] aServerSoftwareVersion = serverSoftwareVersion.split(" ");
 
-            visionVersion = aServerSoftwareVersion[0];
-            visionBuild = aServerSoftwareVersion[1];
+            visionVersion = aServerSoftwareVersion[2];
+            visionBuild = aServerSoftwareVersion[4];
+            visionBuild = visionBuild.substring(0,visionBuild.length()-1);
             if (response.getBody().getBodyAsJsonNode().get().has("branch"))
                 visionBranch = response.getBody().getBodyAsJsonNode().get().findValue("branch").asText();
     }

@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.Deploy.VisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
@@ -55,7 +56,8 @@ public class Upgrade extends Deploy {
             String[] path = buildFileInfo.getPath().toString().split("/");
             VisionServer.upgradeServerFile(this.radwareServerCli, this.rootServerCli
                     , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
-            UpgradeSteps.validateVisionServerServicesUP(radwareServerCli);
+            UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
+            //UpgradeSteps.validateVisionServerServicesUP(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
