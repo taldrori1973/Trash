@@ -26,12 +26,13 @@ public class Route {
     String netIp;
     String netMask;
 
-    public static final String NET_ROUTE_SUB_MENU = "delete                  Removes a route entry or a default gateway.\n"
+    public static final String NET_ROUTE_SUB_MENU =
+            "delete                  Removes a route entry or a default gateway.\n"
             + "get                     Displays route information.\n"
-            + "set                     Sets a route entry or a default gateway.\n";
+            + "set                     Sets a route entry or a default gateway.";
 
     public static final String NET_ROUTE_SET_SUB_MENU = "default                 Sets the default route.\n"
-            + "host                    Sets a new host route\n"
+            + "host                    Sets a new host route.\n"
             + "net                     Sets a new net route.\n";
 
 
@@ -46,7 +47,7 @@ public class Route {
         BaseTestUtils.reporter.report("Verify Route Default ");
         ParamsValidations.validateStringNotEmpty(gateWay);
         ParamsValidations.validateStringNotEmpty(iface);
-        InvokeUtils.invokeCommand(null, Menu.net().route().get().build(), serverCli);
+        CliOperations.runCommand(serverCli, Menu.net().route().get().build());
         serverCli.analyze(new FindRegex("0.0.0.0\\s+" + gateWay + "\\s+0.0.0.0\\s+UG\\s+0\\s+0\\s+0\\s+" + iface));
         BaseTestUtils.reporter.stopLevel();
     }
@@ -72,7 +73,7 @@ public class Route {
         if (iface == null) {
             iface = "(G1|G2|G3)";
         }
-        InvokeUtils.invokeCommand(null, Menu.net().route().get().build(), serverCli);
+        CliOperations.runCommand(serverCli, Menu.net().route().get().build());
         serverCli.analyze(new FindRegex(destination + "\\s+" + gateWay + "\\s+" + netMask + "\\s+(UG|U|UGH)\\s+\\d+\\s+\\d+\\s+\\d+\\s+" + iface));
         BaseTestUtils.reporter.stopLevel();
     }
@@ -91,7 +92,7 @@ public class Route {
         if (iface == null) {
             iface = "(G1|G2|G3)";
         }
-        InvokeUtils.invokeCommand(null, Menu.net().route().get().build(), serverCli);
+        CliOperations.runCommand(serverCli, Menu.net().route().get().build());
 
         if (com.radware.vision.utils.RegexUtils.isStringContainsThePattern(destination + "\\s+" + gateWay + "\\s+" + netMask + "\\s+(UG|U|UGH)\\s+\\d+\\s+\\d+\\s+\\d+\\s+" + iface, serverCli.getTestAgainstObject().toString())) {
             throw new Exception(destination + " founded.");
@@ -114,7 +115,7 @@ public class Route {
             newIface = " ";
         }
         String sendParams = StringParametersUtils.stringArrayParamsToString(new String[]{newNetIp, newNetMask, newGateWay, newIface});
-        InvokeUtils.invokeCommand(null, Menu.net().route().setNet().build() + sendParams, serverCli,
+        CliOperations.runCommand(serverCli, Menu.net().route().setNet().build() + sendParams,
                 CliOperations.DEFAULT_TIME_OUT, false, false, true, "Failed setting route");
         BaseTestUtils.reporter.stopLevel();
     }
@@ -133,7 +134,7 @@ public class Route {
             iface = " ";
         }
         String sendParams = StringParametersUtils.stringArrayParamsToString(new String[]{netIp, gateWay, iface});
-        InvokeUtils.invokeCommand(null, Menu.net().route().setHost().build() + sendParams, serverCli,
+        CliOperations.runCommand(serverCli, Menu.net().route().setHost().build() + sendParams,
                 CliOperations.DEFAULT_TIME_OUT, false, false, true, "Failed setting route");
         BaseTestUtils.reporter.stopLevel();
     }
@@ -146,7 +147,7 @@ public class Route {
     public static void setRouteDefault(String ip, RadwareServerCli serverCli) throws Exception {
         BaseTestUtils.reporter.report("Set Route Default : " + ip);
         ParamsValidations.validateStringNotEmpty(ip);
-        InvokeUtils.invokeCommand(null, Menu.net().route().setDefault().build() + " " + ip, serverCli);
+        CliOperations.runCommand(serverCli, Menu.net().route().setDefault().build() + " " + ip);
         BaseTestUtils.reporter.stopLevel();
     }
 
@@ -170,10 +171,10 @@ public class Route {
         }
         String sendParams = StringParametersUtils.stringArrayParamsToString(new String[]{netIp, netMask, gateWay, iface});
         if (isneedToCheckTheOutput) {
-            InvokeUtils.invokeCommand(null, Menu.net().route().delete().build() + " " + sendParams, serverCli,
+            CliOperations.runCommand(serverCli, Menu.net().route().delete().build() + " " + sendParams,
                     CliOperations.DEFAULT_TIME_OUT, false, false, true, "Failed deleting route");
         } else {
-            InvokeUtils.invokeCommand(null, Menu.net().route().delete().build() + " " + sendParams, serverCli);
+            CliOperations.runCommand(serverCli, Menu.net().route().delete().build() + " " + sendParams);
         }
         BaseTestUtils.reporter.stopLevel();
     }
@@ -188,7 +189,7 @@ public class Route {
      */
     public static void verifyRouteTableWithRootUser(RadwareServerCli serverCli, RootServerCli userConnection) throws Exception {
         BaseTestUtils.reporter.report("Verify Route Table With Root User");
-        InvokeUtils.invokeCommand(null, Menu.net().route().get().build(), serverCli);
+        CliOperations.runCommand(serverCli, Menu.net().route().get().build());
         String ipReg = "\\d+\\.\\d+\\.\\d+\\.\\d";
         String tableLinePattern = "(" + ipReg + "\\s+" + ipReg + "\\s+" + ipReg + "\\s+" + "(U|UG|UGH)\\s+\\d\\s+\\d\\s+\\d\\s+(G1|G2|G3))";
         ArrayList<String> linesArray = RegexUtils.fromStringToArrayWithPattern(tableLinePattern, serverCli.getTestAgainstObject().toString());

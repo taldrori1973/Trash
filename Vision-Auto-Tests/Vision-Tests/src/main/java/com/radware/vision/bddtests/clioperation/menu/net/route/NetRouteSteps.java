@@ -18,31 +18,32 @@ public class NetRouteSteps extends TestBase {
     private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
     /**
-     * Run net route test for port G2 and G3
+     * Run net route test for port G3
      */
     @When("^CLI Net Route Get$")
     public void netRouteGet() {
         try {
             afterMethod();
-            String[] interfaces = new String[]{"G3", "G2"};
-            for (String iface : interfaces) {
-                Ip.setNetIp("4.4.4.0", "255.255.255.0", iface, radwareServerCli);
-                Route.getRouteTable("4.4.4.0", "255.255.255.0", null, iface, radwareServerCli);
-                Route.getRouteTable("0.0.0.0", null, "172.17.1.1", null, radwareServerCli);
-                Route.setNewNetRoute("8.8.8.0", "255.255.255.0", "172.17.1.2", "G3", radwareServerCli);
-                Route.getRouteTable("8.8.8.0", "255.255.255.0", "172.17.1.2", null, radwareServerCli);
-                Route.setRouteHost("23.23.23.23", "4.4.4.2", "G3", radwareServerCli);
-                Route.getRouteTable("23.23.23.23", null, "4.4.4.2", null, radwareServerCli);
-                Route.verifyRouteTableWithRootUser(radwareServerCli, rootServerCli);
-                Route.routeDelete("8.8.8.0", "255.255.255.0", "172.17.1.2", null, radwareServerCli);
-                Route.routeDelete("23.23.23.23", "255.255.255.255", "4.4.4.2", null, radwareServerCli);
-                Ip.ipDelete(iface, radwareServerCli);
-                Route.verifyRouteTableWithRootUser(radwareServerCli, rootServerCli);
-            }
-        } catch (Exception e) {
+            String iface = "G3";
+            Ip.setNetIp("4.4.4.0", "255.255.255.0", iface, radwareServerCli);
+            Route.getRouteTable("4.4.4.0", "255.255.255.0", null, iface, radwareServerCli);
+            Route.getRouteTable("0.0.0.0", null, "172.17.1.1", null, radwareServerCli);
+            Route.setNewNetRoute("8.8.8.0", "255.255.255.0", "172.17.1.2", null, radwareServerCli);
+            Route.getRouteTable("8.8.8.0", "255.255.255.0", "172.17.1.2", null, radwareServerCli);
+            Route.setRouteHost("23.23.23.23", "4.4.4.2", "G3", radwareServerCli);
+            Route.getRouteTable("23.23.23.23", null, "4.4.4.2", null, radwareServerCli);
+            Route.verifyRouteTableWithRootUser(radwareServerCli, rootServerCli);
+            Route.routeDelete("8.8.8.0", "255.255.255.0", "172.17.1.2", null, radwareServerCli);
+            Route.routeDelete("23.23.23.23", "255.255.255.255", "4.4.4.2", null, radwareServerCli);
+            Ip.ipDelete(iface, radwareServerCli);
+            Route.verifyRouteTableWithRootUser(radwareServerCli, rootServerCli);
+        } catch (
+                Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
+
         afterMethod();
+
     }
 
 
@@ -51,9 +52,6 @@ public class NetRouteSteps extends TestBase {
      * Set new net route address
      * Verify route set
      * <p>
-     * Set new net ip for G2
-     * Set new net route address
-     * Verify route set
      *
      * @
      */
@@ -61,13 +59,11 @@ public class NetRouteSteps extends TestBase {
     public void routeSetNet() {
         try {
             afterMethod();
-            String[] interfaces = new String[]{"G3", "G2"};
-            for (String iface : interfaces) {
-                Ip.setNetIp("4.4.4.4", "255.255.255.0", iface, radwareServerCli);
-                Route.setNewNetRoute("8.8.8.0", "255.255.255.0", "4.4.4.2", null, radwareServerCli);
-                Route.getRouteTable("8.8.8.0", "255.255.255.0", "4.4.4.2", null, radwareServerCli);
-                Route.routeDelete("8.8.8.0", "255.255.255.0", "4.4.4.2 ", null, radwareServerCli);
-            }
+            String iface = "G3";
+            Ip.setNetIp("4.4.4.4", "255.255.255.0", iface, radwareServerCli);
+            Route.setNewNetRoute("8.8.8.0", "255.255.255.0", "4.4.4.2", iface, radwareServerCli);
+            Route.getRouteTable("8.8.8.0", "255.255.255.0", "4.4.4.2", iface, radwareServerCli);
+            Route.routeDelete("8.8.8.0", "255.255.255.0", "4.4.4.2 ", iface, radwareServerCli);
             afterMethod();
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -83,9 +79,10 @@ public class NetRouteSteps extends TestBase {
     public void routeSetHost() {
         try {
             afterMethod();
-            Ip.setNetIp("4.4.4.0", "255.255.255.0", "G3", radwareServerCli);
-            Route.setRouteHost("23.23.23.23", "4.4.4.3", null, radwareServerCli);
-            Route.getRouteTable("23.23.23.23", null, "4.4.4.3", null, radwareServerCli);
+            String iface = "G3";
+            Ip.setNetIp("4.4.4.0", "255.255.255.0", iface, radwareServerCli);
+            Route.setRouteHost("23.23.23.23", "4.4.4.3", iface, radwareServerCli);
+            Route.getRouteTable("23.23.23.23", null, "4.4.4.3", iface, radwareServerCli);
             afterMethod();
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -128,29 +125,17 @@ public class NetRouteSteps extends TestBase {
     public void netRouteDelete() {
         try {
             afterMethod();
-            String[] interfaces = new String[]{"G2", "G3"};
-            for (String iface : interfaces) {
-
-                Ip.setNetIp("4.4.4.4", "255.255.255.0", iface, radwareServerCli);
-
-                Route.setNewNetRoute("7.7.7.0", "255.255.255.0", "4.4.4.1", iface, radwareServerCli);
-
-                Route.getRouteTable("7.7.7.0", "255.255.255.0", "4.4.4.1", iface, radwareServerCli);
-
-                Route.routeDelete("7.7.7.0", "255.255.255.0", "4.4.4.1", iface, radwareServerCli);
-
-                Route.getRouteTableNotExist("7.7.7.0", "255.255.255.0", "4.4.4.1", iface, radwareServerCli);
-
-                Route.setRouteHost("23.23.23.23", "4.4.4.3", iface, radwareServerCli);
-
-                Route.getRouteTable("23.23.23.23", "255.255.255.255", "4.4.4.3", iface, radwareServerCli);
-
-                Route.routeDelete("23.23.23.23", "255.255.255.255", "4.4.4.3", iface, radwareServerCli);
-
-                Route.getRouteTableNotExist("23.23.23.23", "255.255.255.255", "4.4.4.3", iface, radwareServerCli);
-
-                Route.verifyRouteTableWithRootUser(radwareServerCli, rootServerCli);
-            }
+            String iface = "G3";
+            Ip.setNetIp("4.4.4.4", "255.255.255.0", iface, radwareServerCli);
+            Route.setNewNetRoute("7.7.7.0", "255.255.255.0", "4.4.4.1", iface, radwareServerCli);
+            Route.getRouteTable("7.7.7.0", "255.255.255.0", "4.4.4.1", iface, radwareServerCli);
+            Route.routeDelete("7.7.7.0", "255.255.255.0", "4.4.4.1", iface, radwareServerCli);
+            Route.getRouteTableNotExist("7.7.7.0", "255.255.255.0", "4.4.4.1", iface, radwareServerCli);
+            Route.setRouteHost("23.23.23.23", "4.4.4.3", iface, radwareServerCli);
+            Route.getRouteTable("23.23.23.23", "255.255.255.255", "4.4.4.3", iface, radwareServerCli);
+            Route.routeDelete("23.23.23.23", "255.255.255.255", "4.4.4.3", iface, radwareServerCli);
+            Route.getRouteTableNotExist("23.23.23.23", "255.255.255.255", "4.4.4.3", iface, radwareServerCli);
+            Route.verifyRouteTableWithRootUser(radwareServerCli, rootServerCli);
             afterMethod();
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -161,7 +146,6 @@ public class NetRouteSteps extends TestBase {
 
     public void afterMethod() {
         try {
-            Ip.ipDelete("G2", radwareServerCli);
             Ip.ipDelete("G3", radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
