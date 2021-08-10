@@ -1,4 +1,4 @@
-@CLI_Positive @TC106040 @Debug
+@CLI_Positive @TC106040
 
 Feature: Vision Server Services CLI Tests
 
