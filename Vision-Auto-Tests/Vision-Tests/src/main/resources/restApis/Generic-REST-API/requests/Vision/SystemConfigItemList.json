@@ -68,6 +68,27 @@
       "method": "DELETE",
       "basePath": "/mgmt/system/config/itemlist/{item}/{id}",
       "produces": "application/json"
+    },
+    {
+      "label": "Get device information",
+      "description": "get all the information about the device",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/tree/device/byid/{id}",
+      "produces": "application/json"
+    },
+    {
+      "label": "Update SNMP Write Community",
+      "description": "edit the value - SNMP Write Community in the device setting",
+      "method": "PUT",
+      "basePath": "/mgmt/system/config/tree/device",
+      "produces": "application/json"
+    },
+    {
+      "label": "Get device name",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/tree/Organization",
+      "produces": "application/json",
+      "description": "Gets all the device names"
     }
   ]
 }
