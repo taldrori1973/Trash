@@ -1,4 +1,4 @@
-@CLI_Positive @TC106030 @Debug
+@CLI_Positive @TC106030
 Feature: Net Route Functional Tests
 
   @SID_1

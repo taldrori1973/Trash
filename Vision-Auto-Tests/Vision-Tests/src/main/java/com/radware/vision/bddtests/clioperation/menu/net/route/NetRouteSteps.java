@@ -30,7 +30,7 @@ public class NetRouteSteps extends TestBase {
             Route.getRouteTable("0.0.0.0", null, "172.17.1.1", null, radwareServerCli);
             Route.setNewNetRoute("8.8.8.0", "255.255.255.0", "172.17.1.2", null, radwareServerCli);
             Route.getRouteTable("8.8.8.0", "255.255.255.0", "172.17.1.2", null, radwareServerCli);
-            Route.setRouteHost("23.23.23.23", "4.4.4.2", "G3", radwareServerCli);
+            Route.setRouteHost("23.23.23.23", "4.4.4.2", null, radwareServerCli);
             Route.getRouteTable("23.23.23.23", null, "4.4.4.2", null, radwareServerCli);
             Route.verifyRouteTableWithRootUser(radwareServerCli, rootServerCli);
             Route.routeDelete("8.8.8.0", "255.255.255.0", "172.17.1.2", null, radwareServerCli);
