@@ -197,7 +197,7 @@ public class NewVmHandler extends TestBase {
             }
 
             BaseTestUtils.reporter.startLevel("Vision First time wizard");
-            String expectedFile = "/var/lock/subsys/local";
+            String expectedFile = "/var/local";
             if (!rootServerCli.checkDeploymentComplete(expectedFile, 2700000L)) {
                 BaseTestUtils.reporter.report("Vision Server Initial Deployment took longer than usual.\nThis may indicate an improper Vision Server installation", 1);
             }
