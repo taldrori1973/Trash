@@ -23,11 +23,11 @@ import java.util.*;
  */
 public class VisionServer {
 
-    private final static String TARGET_UPGRADE_SERVER_FILE_FOLDER = "/opt/radware/storage/sftphome/temp";
+    private final static String TARGET_UPGRADE_SERVER_FILE_FOLDER = "/opt/radware/storage/uploads/temp";
     private final static String UPGRADE_FAILED_MESSAGE = "The APSolute Vision upgrade process failed";
     private final static String GOING_TO_REBOOT = "Is reboot required: 0";
     private final static String SUCCESSFUL_UPGRADE = "The upgrade of APSolute Vision server has completed successfully";
-    private final static String UPGRADE_FILE_PATH = "/opt/radware/storage/maintenance/upgrade/upgrade.log";
+    private final static String UPGRADE_FILE_PATH = "/opt/radware/storage/maintenance/logs/upgrade.log";
 
     public static void upgradeServerFile(RadwareServerCli radwareServerCli, RootServerCli rootServerCli,
                                          String upgradePassword,
@@ -99,7 +99,7 @@ public class VisionServer {
             String command = String.format(grep, SUCCESSFUL_UPGRADE, UPGRADE_FILE_PATH);
             executeShellCommands.runRemoteShellCommand(rootCredentials, command);
             String output = executeShellCommands.getShellCommandOutput().trim();
-            if (output.equals("2")) {
+            if (output.equals("1")) {
                 BaseTestUtils.report("UPGRADE finished SUCCESSFULLY", Reporter.PASS_NOR_FAIL);
                 return true;
             }

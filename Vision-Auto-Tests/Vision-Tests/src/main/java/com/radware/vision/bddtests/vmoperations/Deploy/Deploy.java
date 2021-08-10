@@ -3,6 +3,7 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.RepositoryService;
@@ -26,8 +27,8 @@ public abstract class Deploy {
     public boolean isSetupNeeded;
     private String ipaddress;
     private static final Map<String, String> Respository_types = new HashMap<String, String>() {{
-        put("Snapshot", "vision-snapshot-local");
-        put("Release", "vision-release-local");
+        put("Snapshot", "kvision-images-snapshot-local");
+        put("Release", "kvision-images-release-local");
     }};
 
     public Deploy(boolean isExtended, String build, String ipaddress) {
@@ -35,7 +36,7 @@ public abstract class Deploy {
         this.build = build;
         this.version = readVisionVersionFromPomFile();
 //        this.featureBranch = "4.81.00";
-        this.featureBranch = BaseTestUtils.getRuntimeProperty("PRDCT_BRANCH", "master"); // default branch master
+        this.featureBranch = BaseTestUtils.getRuntimeProperty("PRDCT_BRANCH", "dev"); // default branch master
         this.repositoryName =Respository_types.get(BaseTestUtils.getRuntimeProperty("BuildType", "Snapshot"));
 //        this.repositoryName = "vision-release-local";
         this.ipaddress = ipaddress;
@@ -67,7 +68,8 @@ public abstract class Deploy {
             String build = BaseTestUtils.getRuntimeProperty("BUILD", null); //get build from portal
             if (build == null || build.equals("") || build.equals("0")) {
                 BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
-                this.build = String.valueOf(repositoryService.getLastExtendedBuildNumberFromBranch(this.featureBranch));
+                String setupMode = TestBase.getSutManager().getDeployConfigurations().getSetupMode();
+                this.build = String.valueOf(repositoryService.getLastExtendedDeployNumberFromBranch(this.featureBranch, setupMode));
                 isExtended = true;
             } else {
                 this.build = build;

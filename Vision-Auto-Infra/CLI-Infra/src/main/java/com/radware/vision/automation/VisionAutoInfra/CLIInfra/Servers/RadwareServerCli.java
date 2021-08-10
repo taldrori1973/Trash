@@ -202,7 +202,7 @@ public class RadwareServerCli extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("Enter the upgrade password:");
+        p.setPrompt("Enter the upgrade password: ");
         p.setStringToSend(this.upgradePassword);
         prompts.add(p);
 
@@ -221,7 +221,7 @@ public class RadwareServerCli extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("You are about to upgrade the APSolute Vision system. Continue? [Y/n]");
+        p.setPrompt("You are about to upgrade the APSolute Vision system. Continue? [y/N]");
         p.setStringToSend("Y");
         p.setCommandEnd(false);
         p.setAddEnter(false);
@@ -233,6 +233,12 @@ public class RadwareServerCli extends ServerCliBase {
         p.setStringToSend("y");
         p.setCommandEnd(false);
         p.setAddEnter(true);
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Starting APSolute Vision server upgrade from version 4.98.0 to version 4.98.0.");
+        p.setCommandEnd(true);
+        p.setDontWaitForScrollEnd(true);
         prompts.add(p);
 
         p = new Prompt();
