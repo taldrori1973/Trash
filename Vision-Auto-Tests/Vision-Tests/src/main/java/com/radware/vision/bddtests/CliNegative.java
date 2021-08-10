@@ -200,6 +200,7 @@ public class CliNegative extends VisionCliTestBase {
             }
             BaseTestUtils.report("There are: " + errorsList.size() + " Errors", Reporter.FAIL);
         }
+        reporter.report("Negative test successful");
         BaseTestUtils.reporter.stopLevel();
 
     }
