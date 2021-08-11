@@ -114,8 +114,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
         expandReportParameters();
         WebUiTools.check("Name Tab", "", true);
         createName(reportName);
-        WebUiTools.check("Executive Summary Tab", "", true);
-        createExecutiveSummary(map);
+//        WebUiTools.check("Executive Summary Tab", "", true);
+//        createExecutiveSummary(map);
         WebUiTools.check("Logo Tab", "", true);
         addLogo(map);
         WebUiTools.check("Time Tab", "", true);
@@ -133,8 +133,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
         expandReportParameters();
         WebUiTools.check("Name Tab", "", true);
         editName(map, reportName);
-        WebUiTools.check("Executive Summary Tab", "", true);
-        editExecutiveSummary(map);
+//        WebUiTools.check("Executive Summary Tab", "", true);
+//        editExecutiveSummary(map);
         WebUiTools.check("Logo Tab", "", true);
         editLogo(map);
         WebUiTools.check("Time Tab", "", true);
@@ -250,7 +250,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         JSONObject basicRestResult = getReportDefinition(reportName, map);
         if (basicRestResult != null) {
             errorMessage.append(validateExecutiveSummaryDefinition(new JSONObject(basicRestResult.get("executiveSummary").toString()), map));
-            errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
+           // errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeFrame").toString().replace("\\", "")), map, reportName));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
@@ -299,6 +299,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     private StringBuilder validateExecutiveSummaryDefinition(JSONObject executiveSummary, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("ExecutiveSummary")) {
+
 
         }
 
