@@ -296,7 +296,7 @@ public class RepositoryService {
                 ArtifactFolderPojo buildPojo = getPojo(buildPath, StatusCode.OK, ArtifactFolderPojo.class);
                 String fileType = buildPath.split("/")[0];
                 ArtifactFilePojo filePojo = getFile(buildPojo, FileType.valueOf(fileType.toUpperCase()));
-                Pattern p = Pattern.compile(String.format("%s-%d-%s-D-([\\d]+)-",fileType.toLowerCase(),last,jenkinsJob));
+                Pattern p = Pattern.compile(String.format("%d-%s-D-([\\d]+)-", last, jenkinsJob));
                 Matcher m = p.matcher(filePojo.getPath().getPath());
                 while(m.find()) {
                     try {
@@ -377,7 +377,7 @@ public class RepositoryService {
 
     public int getLastExtendedDeployNumberFromBranch(String branch, String setupMode) throws Exception {
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
-        String artifactPojoPtah = artifactPojo.getPath().getPath() + setupMode.toUpperCase();
+        String artifactPojoPtah = artifactPojo.getPath().getPath() + ((setupMode!=null)?setupMode.toUpperCase():"");
         ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
         Integer lastSuccessfulExtendedBuild = getLastSuccessfulExtendedDeployID(branchPojo, branch);
