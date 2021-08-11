@@ -249,8 +249,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
         StringBuilder errorMessage = new StringBuilder();
         JSONObject basicRestResult = getReportDefinition(reportName, map);
         if (basicRestResult != null) {
-            errorMessage.append(validateExecutiveSummaryDefinition(new JSONObject(basicRestResult.get("executiveSummary").toString()), map));
-           // errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
+            //errorMessage.append(validateExecutiveSummaryDefinition(new JSONObject(basicRestResult.get("executiveSummary").toString()), map));
+            errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeFrame").toString().replace("\\", "")), map, reportName));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
