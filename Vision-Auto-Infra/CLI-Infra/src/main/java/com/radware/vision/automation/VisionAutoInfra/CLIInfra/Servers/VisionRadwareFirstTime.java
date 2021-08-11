@@ -117,6 +117,11 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
+        p.setPrompt("Netmask/Prefix: ");
+        p.setStringToSend(getNetMask());
+        prompts.add(p);
+
+        p = new Prompt();
         p.setPrompt("Gateway: ");
         p.setStringToSend(getGateway());
         prompts.add(p);
@@ -145,6 +150,11 @@ public class VisionRadwareFirstTime extends ServerCliBase {
 
         p = new Prompt();
         p.setPrompt("Apply these settings [y/N]? ");
+        p.setStringToSend("y");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Apply these settings? [y/N] ");
         p.setStringToSend("y");
         prompts.add(p);
 
