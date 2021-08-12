@@ -1,6 +1,122 @@
 [
   {
     "version": 1,
+    "id": "AXo4an_lW65Y1cIaB2im",
+    "state": "disabled",
+    "templates": [
+      {
+        "templateType": "linkProof",
+        "templateId": "44a56706-dccd-427a-9b96-15efe0b58054",
+        "widgets": [
+          {
+            "id": "fe5037b0-9415-4b94-a849-a79f76814b71",
+            "scopeId": "systemDevicesScope",
+            "templateId": "linkProof",
+            "component": "WanLinkStatistics",
+            "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+          },
+          {
+            "id": "0da265cf-da7d-422c-a707-0c3f6bb701af",
+            "scopeId": "systemDevicesScope",
+            "templateId": "linkProof",
+            "component": "WanLinkStatistics",
+            "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+          },
+          {
+            "id": "6fd1c5a6-976c-4664-b4e0-30a17ed963b8",
+            "scopeId": "systemDevicesScope",
+            "templateId": "linkProof",
+            "component": "WanLinkStatistics",
+            "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+          }
+        ],
+        "scope": [
+          "{\\\"deviceName\\\":\\\"LP_simulator_101\\\",\\\"deviceIP\\\":\\\"50.50.101.101\\\",\\\"deviceID\\\":\\\"2c91240879ea9d730179eaa486540024\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326565\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"LP_simulator_101\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"RnDLP_172.19.88.5\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c91240879ea9d730179eaa53841002c\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLP_172.19.88.5\\\",\\\"selected\\\":false,\\\"enabled\\\":true}"
+        ],
+        "summaryTable": false,
+        "printScopePreview": true,
+        "templateTitle": "LinkProof",
+        "uiReflectionParams": {
+          "wanLinks": [
+            {
+              "id": "Ahlam_WAN",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "Maha_Wan",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "EdiWanLinks",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "Giora123",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "mansour_1",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "Prometheus_is_no_team_to_be_in",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "Radware1",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "id": "w1",
+              "selected": true,
+              "disabled": false
+            },
+            {
+              "id": "w2",
+              "selected": true,
+              "disabled": false
+            }
+          ],
+          "isExcludeMaliciousAddresses": false
+        }
+      }
+    ],
+    "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180,\\\"fromDate\\\":1624440508836,\\\"toDate\\\":1624444108836,\\\"fiveMinutePrecisionHours\\\":1,\\\"amsRawDataHoursDiff\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
+    "reportName": "ADC LinkProof Report",
+    "scheduling": null,
+    "exportFormat": {
+      "type": "pdf"
+    },
+    "logo": {
+      "file": null,
+      "fileName": null
+    },
+    "deliveryMethod": {
+      "email": {
+        "recipients": [],
+        "subject": "",
+        "message": ""
+      },
+      "ftp": null
+    },
+    "tags": [
+      "adc"
+    ],
+    "userName": "radware",
+    "userRoles": [
+      "SYS_ADMIN"
+    ]
+  },
+  {
+    "version": 1,
     "id": "d5bfdb19-7849-4d32-9d50",
     "templates": [
       {
@@ -2272,5 +2388,935 @@
     "userRoles": [
       "SYS_ADMIN"
     ]
-  }
+  },
+  [
+    {
+      "version": 1,
+      "id": "AXoP2k-elclYjWUPQsQS",
+      "state": "disabled",
+      "templates": [
+        {
+          "templateType": "linkProof",
+          "templateId": "6e11fb61-5125-488d-a823-0993791214e5",
+          "widgets": [
+            {
+              "id": "41bbd328-1aa4-44d5-8268-5df41cb91ab0",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+            },
+            {
+              "id": "e25258bb-078b-4446-a318-2ba399e145ce",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+            },
+            {
+              "id": "0d1c2eb4-493d-4d7e-a203-71e6c7b95691",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "LinkProof",
+          "uiReflectionParams": {
+            "wanLinks": [
+              {
+                "id": "Ahlam_WAN",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "EdiWanLinks",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "Edi_Call_Lior",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "Giora123",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "Prometheus_is_no_team_to_be_in",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "Radware1",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "mansour_1",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "w1",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "w2",
+                "selected": false,
+                "disabled": false
+              }
+            ],
+            "isExcludeMaliciousAddresses": false
+          }
+        }
+      ],
+      "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180,\\\"fromDate\\\":1623759642432,\\\"toDate\\\":1623763242432,\\\"fiveMinutePrecisionHours\\\":1,\\\"amsRawDataHoursDiff\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
+      "reportName": "amal",
+      "scheduling": null,
+      "exportFormat": {
+        "type": "csv"
+      },
+      "logo": {
+        "file": null,
+        "fileName": null
+      },
+      "deliveryMethod": {
+        "email": {
+          "recipients": [],
+          "subject": "",
+          "message": ""
+        },
+        "ftp": null
+      },
+      "tags": [
+        "adc"
+      ],
+      "userName": "radware",
+      "userRoles": [
+        "SYS_ADMIN"
+      ]
+    },
+    {
+      "version": 1,
+      "id": "AXoUJce3lclYjWUPQs1Y",
+      "state": "disabled",
+      "templates": [
+        {
+          "templateType": "linkProof",
+          "templateId": "0429a236-3cfe-4d3f-9a0c-bd06cc5ccec0",
+          "widgets": [
+            {
+              "id": "cc48ec04-4724-4b13-b678-ed234d9d5cea",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+            },
+            {
+              "id": "2f71c318-7118-4aff-906c-e19efc81343e",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+            },
+            {
+              "id": "38081b8e-c555-4395-8faa-9506055dad98",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "LinkProof",
+          "uiReflectionParams": {
+            "wanLinks": [
+              {
+                "id": "Ahlam_WAN",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "Edi_Call_Lior",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "EdiWanLinks",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "Giora123",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "mansour_1",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "Prometheus_is_no_team_to_be_in",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "Radware1",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "w1",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "w2",
+                "selected": true,
+                "disabled": false
+              }
+            ],
+            "isExcludeMaliciousAddresses": false
+          }
+        }
+      ],
+      "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180,\\\"fromDate\\\":1623832116648,\\\"toDate\\\":1623835716649,\\\"fiveMinutePrecisionHours\\\":1,\\\"amsRawDataHoursDiff\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
+      "reportName": "LinkProof Report Defeinitions",
+      "scheduling": null,
+      "exportFormat": {
+        "type": "pdf"
+      },
+      "logo": {
+        "file": null,
+        "fileName": null
+      },
+      "deliveryMethod": {
+        "email": {
+          "recipients": [],
+          "subject": "",
+          "message": ""
+        },
+        "ftp": null
+      },
+      "tags": [
+        "adc"
+      ],
+      "userName": "radware",
+      "userRoles": [
+        "SYS_ADMIN"
+      ]
+    },
+    {
+      "version": 1,
+      "id": "AXn2MDJtQosAdZuTaM16",
+      "state": "disabled",
+      "templates": [
+        {
+          "templateType": "linkProof",
+          "templateId": "3dc09d0b-d588-4355-86b9-886b9354893f",
+          "widgets": [
+            {
+              "id": "9722daba-a7f9-400d-afa5-53b54f062b98",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+            },
+            {
+              "id": "035c623d-9255-4b55-ba92-86b3c9d977a8",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+            },
+            {
+              "id": "6a8d40b7-a81c-4aab-8b13-832a09cb1956",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"Alteon_172.17.164.17\\\",\\\"deviceIP\\\":\\\"172.17.164.20\\\",\\\"deviceID\\\":\\\"2c9124fc6beba9b3016bebbbbce30012\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"012baaaf5a061fc73795916630bd0b99\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_172.17.164.17\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_172.17.164.18\\\",\\\"deviceIP\\\":\\\"172.17.164.21\\\",\\\"deviceID\\\":\\\"2c9124fc6beba9b3016bebbdc70d0019\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"79de89af156f2f8e36aafa94f10ac57a\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"INIT\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_172.17.164.18\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_50.50.101.11\\\",\\\"deviceIP\\\":\\\"50.50.101.11\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580729e870041\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead53232650b\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_50.50.101.11\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_50.50.101.21\\\",\\\"deviceIP\\\":\\\"50.50.101.21\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580316419001a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326515\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_50.50.101.21\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_50.50.101.22\\\",\\\"deviceIP\\\":\\\"50.50.101.22\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580715eec0033\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326516\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_50.50.101.22\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_172.17.154.19\\\",\\\"deviceIP\\\":\\\"172.17.154.19\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e632a46021a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Unknown\\\",\\\"site\\\":\\\"VA_Alteons_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"792c29d6856ce2b4b2273d861ed67123\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_172.17.154.19\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"deviceIP\\\":\\\"172.17.154.190\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6804600240\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2a046feddb9374a56f4aeb197422cafa\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"deviceIP\\\":\\\"172.17.154.200\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6865e30250\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2fa1f66b6b0a8e1dd49b01be33fa02b2\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Esam's_vadc\\\",\\\"deviceIP\\\":\\\"172.185.200.6\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5a56e7300fa\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612 SL\\\",\\\"externalID\\\":\\\"a1f1e087ac46dbb6f3bba4817f775045\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Esam's_vadc\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc1\\\",\\\"deviceIP\\\":\\\"10.171.196.101\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c566a397009d\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"a982c923123ef4c9e9b6cb75c374a53c\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc1\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc2\\\",\\\"deviceIP\\\":\\\"10.171.196.102\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5671c3d00a5\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"63f57eea42db7a87d143af1b2cdecc19\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc2\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc3\\\",\\\"deviceIP\\\":\\\"10.171.196.103\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5678f2600b3\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"363330c3303f35ffc05ed98d52c8c620\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc3\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc4\\\",\\\"deviceIP\\\":\\\"10.171.196.104\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5685f5c00ba\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"1f6d02928497a99ca296decd50fcf5be\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc4\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"yaron_vadc\\\",\\\"deviceIP\\\":\\\"172.185.200.173\\\",\\\"deviceID\\\":\\\"2c9124fc78a6177e0178b194f1a303fb\\\",\\\"softwareVersion\\\":\\\"32.4.7.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"6024\\\",\\\"externalID\\\":\\\"b6d1b37a62f5301879e8e67dd0217d4a\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"yaron_vadc\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"172.185.100.10\\\",\\\"deviceIP\\\":\\\"172.185.100.10\\\",\\\"deviceID\\\":\\\"2c9124fc75d5cac50175d6bc1b550558\\\",\\\"softwareVersion\\\":\\\"32.6.3.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"8420\\\",\\\"externalID\\\":\\\"5c70ea9ce984dae43dc049d70146d11f\\\",\\\"timeStamp\\\":\\\"160978000\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"172.185.100.10\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"172.185.95.40\\\",\\\"deviceIP\\\":\\\"172.185.95.40\\\",\\\"deviceID\\\":\\\"2c9124fc75dda38b0175df71930200c8\\\",\\\"softwareVersion\\\":\\\"32.6.3.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"7e9e1d027e5140c0821af0ec3f07556b\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"172.185.95.40\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_Ahlam_Test\\\",\\\"deviceIP\\\":\\\"176.188.154.100\\\",\\\"deviceID\\\":\\\"2c9124fc76b2e6690176b7bff0bd0098\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"b863c462af1337a2d59f5d1a85327952\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_Ahlam_Test\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Geiselle's Alteon\\\",\\\"deviceIP\\\":\\\"176.188.143.100\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178e4cd2e28026c\\\",\\\"softwareVersion\\\":\\\"33.0.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f5108151a11ecdfcc5af71180d90197a\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Geiselle's Alteon\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Test_Alteon\\\",\\\"deviceIP\\\":\\\"176.188.153.100\\\",\\\"deviceID\\\":\\\"2c9124fc76b2e6690176b914894400fe\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"a6067dbcafb54f57b94ef0cf5b52c626\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Test_Alteon\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Esam's_vx\\\",\\\"deviceIP\\\":\\\"172.185.200.5\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5768f7000c2\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"7612 SL\\\",\\\"externalID\\\":\\\"dbd8db974aeee216400bdc4e1b4ed469\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Esam's_vx\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_VX\\\",\\\"deviceIP\\\":\\\"10.171.196.100\\\",\\\"deviceID\\\":\\\"2c935f5f79ea4e1e0179f06fb48d0da0\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"8e7944d81436573c1576459a6f87258a\\\",\\\"timeStamp\\\":\\\"3167000\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_VX\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Yaron's_VX\\\",\\\"deviceIP\\\":\\\"172.185.200.2\\\",\\\"deviceID\\\":\\\"2c9124fc78a6177e0178b189bb3f03f1\\\",\\\"softwareVersion\\\":\\\"32.4.7.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"6024\\\",\\\"externalID\\\":\\\"cbc2634489d680d730c14029efa5cc79\\\",\\\"timeStamp\\\":\\\"4115000\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Yaron's_VX\\\",\\\"selected\\\":true,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "LinkProof",
+          "uiReflectionParams": {
+            "wanLinks": [],
+            "isExcludeMaliciousAddresses": false
+          }
+        }
+      ],
+      "timeFrame": "{\\\"from\\\":1623246720889,\\\"to\\\":1623333120889,\\\"rangeType\\\":\\\"absolute\\\",\\\"generatedTimeFrame\\\":{\\\"precision\\\":\\\"HOUR\\\",\\\"baseUnit\\\":\\\"hour\\\",\\\"unit\\\":\\\"hours\\\",\\\"baseUnitStep\\\":1,\\\"dateTimeFormat\\\":\\\"MMM. DD!HH:mm\\\",\\\"value\\\":24,\\\"baseUnitDisplaySkip\\\":4,\\\"dataPoints\\\":25,\\\"fromDate\\\":1623246720889,\\\"toDate\\\":1623333120889,\\\"type\\\":\\\"timeRange\\\",\\\"amsRawDataHoursDiff\\\":1,\\\"fiveMinutePrecisionHours\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180}}",
+      "reportName": "Lo qa",
+      "scheduling": null,
+      "exportFormat": {
+        "type": "pdf"
+      },
+      "logo": {
+        "file": null,
+        "fileName": null
+      },
+      "deliveryMethod": {
+        "email": {
+          "recipients": [],
+          "subject": "",
+          "message": ""
+        },
+        "ftp": null
+      },
+      "tags": [
+        "adc"
+      ],
+      "userName": "radware",
+      "userRoles": [
+        "SYS_ADMIN"
+      ]
+    },
+    {
+      "version": 1,
+      "id": "AXoP784zlclYjWUPQsQg",
+      "state": "disabled",
+      "templates": [
+        {
+          "templateType": "linkProof",
+          "templateId": "bf98c436-6a24-4a89-abe1-26ca389b7bc6",
+          "widgets": [
+            {
+              "id": "4f665051-081f-4714-b060-c14d09d06daf",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "LinkProof",
+          "uiReflectionParams": {
+            "wanLinks": [
+              {
+                "id": "Ahlam_WAN",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Edi_Call_Lior",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "EdiWanLinks",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Giora123",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "mansour_1",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Prometheus_is_no_team_to_be_in",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Radware1",
+                "selected": false,
+                "disabled": true
+              },
+              {
+                "id": "w1",
+                "selected": false,
+                "disabled": true
+              },
+              {
+                "id": "w2",
+                "selected": false,
+                "disabled": true
+              }
+            ],
+            "isExcludeMaliciousAddresses": false
+          }
+        }
+      ],
+      "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180,\\\"fromDate\\\":1623761469891,\\\"toDate\\\":1623765069892,\\\"fiveMinutePrecisionHours\\\":1,\\\"amsRawDataHoursDiff\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
+      "reportName": "Lp Report",
+      "scheduling": null,
+      "exportFormat": {
+        "type": "pdf"
+      },
+      "logo": {
+        "file": null,
+        "fileName": null
+      },
+      "deliveryMethod": {
+        "email": {
+          "recipients": [],
+          "subject": "",
+          "message": ""
+        },
+        "ftp": null
+      },
+      "tags": [
+        "adc"
+      ],
+      "userName": "radware",
+      "userRoles": [
+        "SYS_ADMIN"
+      ]
+    },
+    {
+      "version": 1,
+      "id": "AXoEkq1P5I1gxbMXA5sr",
+      "state": "disabled",
+      "templates": [
+        {
+          "templateType": "linkProof",
+          "templateId": "230c6169-e715-48f5-b251-204153b62bcf",
+          "widgets": [
+            {
+              "id": "e9aa4498-fd34-4e47-95c8-e353288715e0",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+            },
+            {
+              "id": "ae632601-4f4d-4353-8d0b-0da75427b8e9",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+            },
+            {
+              "id": "0adce539-9cda-4ff1-911b-568aed8d52ed",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "LinkProof",
+          "uiReflectionParams": {
+            "wanLinks": [
+              {
+                "id": "Ahlam_WAN",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Edi_Call_Lior",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "EdiWanLinks",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Giora123",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "mansour_1",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Prometheus_is_no_team_to_be_in",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Radware1",
+                "selected": false,
+                "disabled": true
+              },
+              {
+                "id": "w1",
+                "selected": false,
+                "disabled": true
+              },
+              {
+                "id": "w2",
+                "selected": false,
+                "disabled": true
+              }
+            ],
+            "isExcludeMaliciousAddresses": false
+          }
+        },
+        {
+          "templateType": "linkProof",
+          "templateId": "e716c338-aa2d-4c64-9010-92aa67b97eea",
+          "widgets": [
+            {
+              "id": "7a87f1a7-23ec-40ec-8f04-c67ec50e7fa2",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+            },
+            {
+              "id": "b283f025-c7f5-43fb-9632-cd4dd99ff056",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+            },
+            {
+              "id": "0b430e4a-b76b-419a-ab05-db67ed141c1c",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "LinkProof_1",
+          "uiReflectionParams": {
+            "wanLinks": [
+              {
+                "id": "Ahlam_WAN",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "Edi_Call_Lior",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "EdiWanLinks",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Giora123",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "mansour_1",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Prometheus_is_no_team_to_be_in",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Radware1",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "w1",
+                "selected": false,
+                "disabled": false
+              },
+              {
+                "id": "w2",
+                "selected": false,
+                "disabled": false
+              }
+            ],
+            "isExcludeMaliciousAddresses": false
+          }
+        },
+        {
+          "templateType": "linkProof",
+          "templateId": "569c0e67-2544-401a-9656-82104788b28b",
+          "widgets": [
+            {
+              "id": "fc14514c-b91c-42f3-9099-b3d634a3abcc",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+            },
+            {
+              "id": "28fdbe6d-8e7d-4c47-adf3-00229f21dd07",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+            },
+            {
+              "id": "e3c85809-374f-48ef-a5f2-829cb736de62",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "LinkProof_2",
+          "uiReflectionParams": {
+            "wanLinks": [],
+            "isExcludeMaliciousAddresses": false
+          }
+        }
+      ],
+      "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180,\\\"fromDate\\\":1623570837920,\\\"toDate\\\":1623574437920,\\\"fiveMinutePrecisionHours\\\":1,\\\"amsRawDataHoursDiff\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
+      "reportName": "maha",
+      "scheduling": null,
+      "exportFormat": {
+        "type": "pdf"
+      },
+      "logo": {
+        "file": null,
+        "fileName": null
+      },
+      "deliveryMethod": {
+        "email": {
+          "recipients": [],
+          "subject": "",
+          "message": ""
+        },
+        "ftp": null
+      },
+      "tags": [
+        "adc"
+      ],
+      "userName": "radware",
+      "userRoles": [
+        "SYS_ADMIN"
+      ]
+    },
+    {
+      "version": 1,
+      "id": "AXn16YrFQosAdZuTaMzL",
+      "state": "disabled",
+      "templates": [
+        {
+          "templateType": "systemDevices",
+          "templateId": "06ed945f-9ddb-40be-b48a-da2e2777bb3b",
+          "widgets": [
+            {
+              "id": "8834c02b-6162-4071-b6da-ffcb56fbbb75",
+              "scopeId": "systemDevicesScope",
+              "templateId": "systemDevices",
+              "component": "comp-vrm-dpm-servers-info-table",
+              "metaData": "{\\\"title\\\":\\\"Ports Traffic Information\\\",\\\"dashboardType\\\":\\\"systemDevices\\\",\\\"componentType\\\":\\\"port-info-table\\\",\\\"uuid\\\":\\\"7e7fd2cf-d094-41d2-ac98-c63649d73333\\\",\\\"settings\\\":{},\\\"config\\\":{\\\"api\\\":\\\"ADC_MONITORING_NETWORK_RAW\\\",\\\"chartType\\\":\\\"area\\\",\\\"settings\\\":{},\\\"type\\\":\\\"area\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"Alteon_172.17.164.17\\\",\\\"deviceIP\\\":\\\"172.17.164.20\\\",\\\"deviceID\\\":\\\"2c9124fc6beba9b3016bebbbbce30012\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"012baaaf5a061fc73795916630bd0b99\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_172.17.164.17\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_172.17.164.18\\\",\\\"deviceIP\\\":\\\"172.17.164.21\\\",\\\"deviceID\\\":\\\"2c9124fc6beba9b3016bebbdc70d0019\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"79de89af156f2f8e36aafa94f10ac57a\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"INIT\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_172.17.164.18\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_50.50.101.11\\\",\\\"deviceIP\\\":\\\"50.50.101.11\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580729e870041\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead53232650b\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_50.50.101.11\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_50.50.101.21\\\",\\\"deviceIP\\\":\\\"50.50.101.21\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580316419001a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326515\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_50.50.101.21\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_50.50.101.22\\\",\\\"deviceIP\\\":\\\"50.50.101.22\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580715eec0033\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326516\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_50.50.101.22\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_172.17.154.19\\\",\\\"deviceIP\\\":\\\"172.17.154.19\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e632a46021a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Unknown\\\",\\\"site\\\":\\\"VA_Alteons_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"792c29d6856ce2b4b2273d861ed67123\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_172.17.154.19\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"deviceIP\\\":\\\"172.17.154.190\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6804600240\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2a046feddb9374a56f4aeb197422cafa\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"deviceIP\\\":\\\"172.17.154.200\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6865e30250\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2fa1f66b6b0a8e1dd49b01be33fa02b2\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Esam's_vadc\\\",\\\"deviceIP\\\":\\\"172.185.200.6\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5a56e7300fa\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612 SL\\\",\\\"externalID\\\":\\\"a1f1e087ac46dbb6f3bba4817f775045\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Esam's_vadc\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc1\\\",\\\"deviceIP\\\":\\\"10.171.196.101\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c566a397009d\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"a982c923123ef4c9e9b6cb75c374a53c\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc1\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc2\\\",\\\"deviceIP\\\":\\\"10.171.196.102\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5671c3d00a5\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"63f57eea42db7a87d143af1b2cdecc19\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc2\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc3\\\",\\\"deviceIP\\\":\\\"10.171.196.103\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5678f2600b3\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"363330c3303f35ffc05ed98d52c8c620\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc3\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc4\\\",\\\"deviceIP\\\":\\\"10.171.196.104\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5685f5c00ba\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"1f6d02928497a99ca296decd50fcf5be\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc4\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"yaron_vadc\\\",\\\"deviceIP\\\":\\\"172.185.200.173\\\",\\\"deviceID\\\":\\\"2c9124fc78a6177e0178b194f1a303fb\\\",\\\"softwareVersion\\\":\\\"32.4.7.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"6024\\\",\\\"externalID\\\":\\\"b6d1b37a62f5301879e8e67dd0217d4a\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"yaron_vadc\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"172.185.100.10\\\",\\\"deviceIP\\\":\\\"172.185.100.10\\\",\\\"deviceID\\\":\\\"2c9124fc75d5cac50175d6bc1b550558\\\",\\\"softwareVersion\\\":\\\"32.6.3.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"8420\\\",\\\"externalID\\\":\\\"5c70ea9ce984dae43dc049d70146d11f\\\",\\\"timeStamp\\\":\\\"160978000\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"172.185.100.10\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"172.185.95.40\\\",\\\"deviceIP\\\":\\\"172.185.95.40\\\",\\\"deviceID\\\":\\\"2c9124fc75dda38b0175df71930200c8\\\",\\\"softwareVersion\\\":\\\"32.6.3.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"7e9e1d027e5140c0821af0ec3f07556b\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"172.185.95.40\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_Ahlam_Test\\\",\\\"deviceIP\\\":\\\"176.188.154.100\\\",\\\"deviceID\\\":\\\"2c9124fc76b2e6690176b7bff0bd0098\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"b863c462af1337a2d59f5d1a85327952\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_Ahlam_Test\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Geiselle's Alteon\\\",\\\"deviceIP\\\":\\\"176.188.143.100\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178e4cd2e28026c\\\",\\\"softwareVersion\\\":\\\"33.0.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f5108151a11ecdfcc5af71180d90197a\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Geiselle's Alteon\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Test_Alteon\\\",\\\"deviceIP\\\":\\\"176.188.153.100\\\",\\\"deviceID\\\":\\\"2c9124fc76b2e6690176b914894400fe\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"a6067dbcafb54f57b94ef0cf5b52c626\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Test_Alteon\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Esam's_vx\\\",\\\"deviceIP\\\":\\\"172.185.200.5\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5768f7000c2\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"7612 SL\\\",\\\"externalID\\\":\\\"dbd8db974aeee216400bdc4e1b4ed469\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Esam's_vx\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_VX\\\",\\\"deviceIP\\\":\\\"10.171.196.100\\\",\\\"deviceID\\\":\\\"2c935f5f79ea4e1e0179f06fb48d0da0\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"8e7944d81436573c1576459a6f87258a\\\",\\\"timeStamp\\\":\\\"3167000\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_VX\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Yaron's_VX\\\",\\\"deviceIP\\\":\\\"172.185.200.2\\\",\\\"deviceID\\\":\\\"2c9124fc78a6177e0178b189bb3f03f1\\\",\\\"softwareVersion\\\":\\\"32.4.7.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"6024\\\",\\\"externalID\\\":\\\"cbc2634489d680d730c14029efa5cc79\\\",\\\"timeStamp\\\":\\\"4115000\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Yaron's_VX\\\",\\\"selected\\\":false,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "System and Network",
+          "uiReflectionParams": {
+            "wanLinks": [],
+            "isExcludeMaliciousAddresses": false
+          }
+        },
+        {
+          "templateType": "linkProof",
+          "templateId": "a2ae75be-1114-4071-8f2a-37a112a4e2a0",
+          "widgets": [
+            {
+              "id": "999f97d4-25fc-4a79-a571-544c7a38ec3f",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+            },
+            {
+              "id": "4768db92-a532-4c19-bbca-20b5c2c8fec9",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+            },
+            {
+              "id": "cdd4fe14-fde6-4075-8b65-e1164e290cda",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "LinkProof",
+          "uiReflectionParams": {
+            "wanLinks": [
+              {
+                "id": "Ahlam_WAN",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Edi_Call_Lior",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "EdiWanLinks",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Giora123",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "mansour_1",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Prometheus_is_no_team_to_be_in",
+                "selected": true,
+                "disabled": false
+              },
+              {
+                "id": "Radware1",
+                "selected": false,
+                "disabled": true
+              },
+              {
+                "id": "w1",
+                "selected": false,
+                "disabled": true
+              },
+              {
+                "id": "w2",
+                "selected": false,
+                "disabled": true
+              }
+            ],
+            "isExcludeMaliciousAddresses": false
+          }
+        }
+      ],
+      "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180,\\\"fromDate\\\":1623324827055,\\\"toDate\\\":1623328427055,\\\"fiveMinutePrecisionHours\\\":1,\\\"amsRawDataHoursDiff\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
+      "reportName": "qa",
+      "scheduling": null,
+      "exportFormat": {
+        "type": "pdf"
+      },
+      "logo": {
+        "file": null,
+        "fileName": null
+      },
+      "deliveryMethod": {
+        "email": {
+          "recipients": [],
+          "subject": "",
+          "message": ""
+        },
+        "ftp": null
+      },
+      "tags": [
+        "adc"
+      ],
+      "userName": "radware",
+      "userRoles": [
+        "SYS_ADMIN"
+      ]
+    },
+    {
+      "version": 1,
+      "id": "AXoElr515I1gxbMXA5ss",
+      "state": "disabled",
+      "templates": [
+        {
+          "templateType": "linkProof",
+          "templateId": "314d149c-c682-44f9-b215-b41137c6af51",
+          "widgets": [
+            {
+              "id": "1358cc11-37f4-4b4e-9d62-44d05c82d419",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Upload Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"upThroughputBitsPs\\\",\\\"utilKey\\\":\\\"upThroughputUtil\\\"}}"
+            },
+            {
+              "id": "6eabb902-e6ee-42b5-be6a-4f8ecdcd9b27",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"Download Throughput\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"bps\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"usage\\\",\\\"title\\\":\\\"Usage\\\"},{\\\"value\\\":\\\"bps\\\",\\\"title\\\":\\\"bps\\\"}]}}],\\\"config\\\":{\\\"key\\\":\\\"downThroughputBitsPS\\\",\\\"utilKey\\\":\\\"downThroughputUtil\\\"}}"
+            },
+            {
+              "id": "422c79c0-f6db-4f37-b61a-f46aeaf924b7",
+              "scopeId": "systemDevicesScope",
+              "templateId": "linkProof",
+              "component": "WanLinkStatistics",
+              "metaData": "{\\\"title\\\":\\\"CEC\\\",\\\"dashboardType\\\":\\\"linkProof\\\",\\\"config\\\":{\\\"key\\\":\\\"cunnEstConn\\\"}}"
+            }
+          ],
+          "scope": [
+            "{\\\"deviceName\\\":\\\"Esam's_vx\\\",\\\"deviceIP\\\":\\\"172.185.200.5\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5768f7000c2\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"7612 SL\\\",\\\"externalID\\\":\\\"dbd8db974aeee216400bdc4e1b4ed469\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Esam's_vx\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_VX\\\",\\\"deviceIP\\\":\\\"10.171.196.100\\\",\\\"deviceID\\\":\\\"2c935f5f79ea4e1e0179f06fb48d0da0\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"8e7944d81436573c1576459a6f87258a\\\",\\\"timeStamp\\\":\\\"3167000\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_VX\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Yaron's_VX\\\",\\\"deviceIP\\\":\\\"172.185.200.2\\\",\\\"deviceID\\\":\\\"2c9124fc78a6177e0178b189bb3f03f1\\\",\\\"softwareVersion\\\":\\\"32.4.7.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"6024\\\",\\\"externalID\\\":\\\"cbc2634489d680d730c14029efa5cc79\\\",\\\"timeStamp\\\":\\\"4115000\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Yaron's_VX\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_172.17.164.17\\\",\\\"deviceIP\\\":\\\"172.17.164.20\\\",\\\"deviceID\\\":\\\"2c9124fc6beba9b3016bebbbbce30012\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"012baaaf5a061fc73795916630bd0b99\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_172.17.164.17\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_172.17.164.18\\\",\\\"deviceIP\\\":\\\"172.17.164.21\\\",\\\"deviceID\\\":\\\"2c9124fc6beba9b3016bebbdc70d0019\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"79de89af156f2f8e36aafa94f10ac57a\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"INIT\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_172.17.164.18\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_50.50.101.11\\\",\\\"deviceIP\\\":\\\"50.50.101.11\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580729e870041\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead53232650b\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_50.50.101.11\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_50.50.101.21\\\",\\\"deviceIP\\\":\\\"50.50.101.21\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580316419001a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326515\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_50.50.101.21\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_50.50.101.22\\\",\\\"deviceIP\\\":\\\"50.50.101.22\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580715eec0033\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326516\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_50.50.101.22\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_172.17.154.19\\\",\\\"deviceIP\\\":\\\"172.17.154.19\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e632a46021a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Unknown\\\",\\\"site\\\":\\\"VA_Alteons_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"792c29d6856ce2b4b2273d861ed67123\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_172.17.154.19\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"deviceIP\\\":\\\"172.17.154.190\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6804600240\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2a046feddb9374a56f4aeb197422cafa\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"deviceIP\\\":\\\"172.17.154.200\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6865e30250\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2fa1f66b6b0a8e1dd49b01be33fa02b2\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Esam's_vadc\\\",\\\"deviceIP\\\":\\\"172.185.200.6\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5a56e7300fa\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612 SL\\\",\\\"externalID\\\":\\\"a1f1e087ac46dbb6f3bba4817f775045\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Esam's_vadc\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc1\\\",\\\"deviceIP\\\":\\\"10.171.196.101\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c566a397009d\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"a982c923123ef4c9e9b6cb75c374a53c\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc1\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc2\\\",\\\"deviceIP\\\":\\\"10.171.196.102\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5671c3d00a5\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"63f57eea42db7a87d143af1b2cdecc19\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc2\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc3\\\",\\\"deviceIP\\\":\\\"10.171.196.103\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5678f2600b3\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"363330c3303f35ffc05ed98d52c8c620\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc3\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Naief_vadc4\\\",\\\"deviceIP\\\":\\\"10.171.196.104\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178c5685f5c00ba\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"7612nxc S\\\",\\\"externalID\\\":\\\"1f6d02928497a99ca296decd50fcf5be\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Naief_vadc4\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"yaron_vadc\\\",\\\"deviceIP\\\":\\\"172.185.200.173\\\",\\\"deviceID\\\":\\\"2c9124fc78a6177e0178b194f1a303fb\\\",\\\"softwareVersion\\\":\\\"32.4.7.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"6024\\\",\\\"externalID\\\":\\\"b6d1b37a62f5301879e8e67dd0217d4a\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"yaron_vadc\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"172.185.100.10\\\",\\\"deviceIP\\\":\\\"172.185.100.10\\\",\\\"deviceID\\\":\\\"2c9124fc75d5cac50175d6bc1b550558\\\",\\\"softwareVersion\\\":\\\"32.6.3.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"8420\\\",\\\"externalID\\\":\\\"5c70ea9ce984dae43dc049d70146d11f\\\",\\\"timeStamp\\\":\\\"160978000\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"172.185.100.10\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"172.185.95.40\\\",\\\"deviceIP\\\":\\\"172.185.95.40\\\",\\\"deviceID\\\":\\\"2c9124fc75dda38b0175df71930200c8\\\",\\\"softwareVersion\\\":\\\"32.6.3.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"7e9e1d027e5140c0821af0ec3f07556b\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"172.185.95.40\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Alteon_Ahlam_Test\\\",\\\"deviceIP\\\":\\\"176.188.154.100\\\",\\\"deviceID\\\":\\\"2c9124fc76b2e6690176b7bff0bd0098\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"b863c462af1337a2d59f5d1a85327952\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Alteon_Ahlam_Test\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Geiselle's Alteon\\\",\\\"deviceIP\\\":\\\"176.188.143.100\\\",\\\"deviceID\\\":\\\"2c9124fc78c52b200178e4cd2e28026c\\\",\\\"softwareVersion\\\":\\\"33.0.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f5108151a11ecdfcc5af71180d90197a\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Geiselle's Alteon\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"linkProof\\\",\\\"deviceIP\\\":\\\"172.19.105.74\\\",\\\"deviceID\\\":\\\"2c9124fc795100790179510dfa340036\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"f6ba2ac0ac7e0f5ce82eec0903fe10b8\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"linkProof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"QA_LP_172.17.160.40\\\",\\\"deviceIP\\\":\\\"172.17.160.40\\\",\\\"deviceID\\\":\\\"2c9124fc799eb1f901799ebf98380042\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"c1a14c5ae7c8e2e48a6e320e0d3ab884\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"QA_LP_172.17.160.40\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"RnDLinkproof\\\",\\\"deviceIP\\\":\\\"172.19.88.5\\\",\\\"deviceID\\\":\\\"2c9124fc797417be01797e8180f60993\\\",\\\"softwareVersion\\\":\\\"32.6.5.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"67e8d8ca9ca1a988268b36bb599e6906\\\",\\\"timeStamp\\\":\\\"2147483647\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":true,\\\"name\\\":\\\"RnDLinkproof\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+            "{\\\"deviceName\\\":\\\"Test_Alteon\\\",\\\"deviceIP\\\":\\\"176.188.153.100\\\",\\\"deviceID\\\":\\\"2c9124fc76b2e6690176b914894400fe\\\",\\\"softwareVersion\\\":\\\"33.0.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"a6067dbcafb54f57b94ef0cf5b52c626\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"isLinkProofOn\\\":false,\\\"name\\\":\\\"Test_Alteon\\\",\\\"selected\\\":true,\\\"enabled\\\":true}"
+          ],
+          "summaryTable": false,
+          "printScopePreview": true,
+          "templateTitle": "LinkProof",
+          "uiReflectionParams": {
+            "wanLinks": [],
+            "isExcludeMaliciousAddresses": false
+          }
+        }
+      ],
+      "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":180,\\\"fromDate\\\":1623571046599,\\\"toDate\\\":1623574646599,\\\"fiveMinutePrecisionHours\\\":1,\\\"amsRawDataHoursDiff\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
+      "reportName": "qA",
+      "scheduling": null,
+      "exportFormat": {
+        "type": "pdf"
+      },
+      "logo": {
+        "file": null,
+        "fileName": null
+      },
+      "deliveryMethod": {
+        "email": {
+          "recipients": [],
+          "subject": "",
+          "message": ""
+        },
+        "ftp": null
+      },
+      "tags": [
+        "adc"
+      ],
+      "userName": "radware",
+      "userRoles": [
+        "SYS_ADMIN"
+      ]
+    }
+  ]
 ]

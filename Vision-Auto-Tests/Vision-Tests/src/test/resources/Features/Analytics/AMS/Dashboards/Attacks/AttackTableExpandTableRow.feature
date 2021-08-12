@@ -309,7 +309,7 @@ Feature: Attack Table - Expand Table Row
       | parameter | 1     | Destination Ip  |
       | value     | 1     | 10.10.1.200     |
       | operator  | 5     | AND             |
-      | parameter | 5     | Ttl             |
+      | parameter | 5     | TTL             |
       | value     | 5     | 255             |
       | operator  | 6     | AND             |
       | parameter | 6     | Packet Size     |
@@ -418,7 +418,7 @@ Feature: Attack Table - Expand Table Row
       | Action Type        | Drop     |
       | Attack ID          | 4109-103 |
       | Physical Port      | T-1      |
-      | Total Packet Count | 128      |
+      | Total Packet Count | 17      |
       | VLAN               | N/A      |
       | MPLS RD            | N/A      |
       | Source port        | 0        |
