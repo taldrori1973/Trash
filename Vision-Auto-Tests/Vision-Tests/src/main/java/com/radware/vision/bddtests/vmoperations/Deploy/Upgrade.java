@@ -29,7 +29,7 @@ public class Upgrade extends Deploy {
     private FileType upgradeType;
 
     public Upgrade(boolean isExtended, String build, RadwareServerCli radwareServerCli, RootServerCli rootServerCli) {
-        super(isExtended, build, rootServerCli.getHost());
+        super(isExtended, build, rootServerCli.getHost(), FileType.UPGRADE);
         this.radwareServerCli = radwareServerCli;
         this.rootServerCli = rootServerCli;
         this.initFileType();

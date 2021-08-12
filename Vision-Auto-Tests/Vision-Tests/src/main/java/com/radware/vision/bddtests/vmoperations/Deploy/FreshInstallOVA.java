@@ -17,7 +17,7 @@ public class FreshInstallOVA extends Deploy {
     private FileType ovaType;
 
     public FreshInstallOVA(boolean isExtended, String build) {
-        super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp());
+        super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.OVA);
         this.initFileType();
         buildFileInfo(this.ovaType);
     }
