@@ -20,13 +20,13 @@
         <dependency>
             <groupId>com.radware.vision.automation.cli</groupId>
             <artifactId>vision-infra</artifactId>
-            <version>DEVELOPMENT-${revision}</version>
+            <version>${cli.base}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Common</artifactId>
-            <version>${VISION_VERSION}-SNAPSHOT</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
