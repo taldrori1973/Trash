@@ -99,6 +99,7 @@ public abstract class TestBase {
             FeatureRunner.update_version_build_mode(managementInfo.getVersion(),
                     managementInfo.getBuild(),
                     BddReporterManager.getRunMode());
+            FeatureRunner.update_station_sutName(serversManagement.getRootServerCLI().get().getHost(), System.getProperty("SUT"));
         } catch (Exception e) {
             BaseTestUtils.report("publish BDD results Failure!!! ", Reporter.PASS_NOR_FAIL);
         }
