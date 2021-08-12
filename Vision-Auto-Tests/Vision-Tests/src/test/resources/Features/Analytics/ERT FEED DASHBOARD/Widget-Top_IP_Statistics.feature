@@ -1,6 +1,7 @@
 @TC108105
 
 Feature: EAAF Widget - Top IP Statistics
+
 @SID_1
   Scenario: Clean system attacks,database and logs
     * CLI kill all simulator attacks on current vision
@@ -15,6 +16,7 @@ Feature: EAAF Widget - Top IP Statistics
     * CLI Clear vision logs
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
+
   @SID_2
   Scenario: Run DP simulator PCAPs for EAAF widgets
     * CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_Set_1" and wait 150 seconds
@@ -34,12 +36,10 @@ Feature: EAAF Widget - Top IP Statistics
   Scenario: Validate Top Malicious IP Addresses Widget - Events
 #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "54.17%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "MatchRegx" to "([4][1-9]|[6][1-9])%"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "37.50%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "MatchRegx" to "([2][1-9]|[4][1-9])%"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "25.00%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "MatchRegx" to "([1][1-9]|[3][1-9])%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "11%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5%" with offset 2
+
 
   @SID_5
   Scenario: Validate Num of attacks per IP
@@ -84,12 +84,12 @@ Feature: EAAF Widget - Top IP Statistics
   @SID_10
   Scenario: Validate Num of packets per IP
 # Validate Num of packets per IP
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "12 K" with offset 2
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "12 K" with offset 2
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "12 K" with offset 2
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 K" with offset 2
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 K" with offset 2
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1 K" with offset 2
     Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "989"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688"
 
@@ -120,21 +120,21 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Click Button "Volume" with value "Top-Malicious-IP-Addresses"
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99.99%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99.97%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99.96%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "9.48%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "9%" with offset 2
 
   @SID_14
   Scenario: Validate Volume amount per IP
 # Validate Volume amount per IP
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1 M" with offset 1
     Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "989 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688 K"
 
@@ -170,13 +170,13 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Set Text Field "ipFilter" To "148.223.160.129" enter Key true
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99.99%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "EQUALS" to "99.97%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99.97%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99.96%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "5" is "EQUALS" to "99.96%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "18.33%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "5" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "18.33%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%" with offset 2
     Then UI Validate Element Existence By Label "Top IP Address bar" if Exists "false" with value "8"
 #    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5.33%"
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "MatchRegx" to "([0][1-9]|[2][1-9])%"
@@ -184,12 +184,12 @@ Feature: EAAF Widget - Top IP Statistics
   @SID_18
   Scenario: Validate IP filtering data correctness check values
 # check values
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1 M" with offset 1
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "8"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
 
@@ -210,31 +210,25 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Click Button "Packets" with value "Top-Malicious-IP-Addresses"
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99.99%"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "EQUALS" to "99.97%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "MatchRegx" to "([9][1-9]|[9][1-9])%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99.97%"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99.96%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "MatchRegx" to "([9][1-9]|[9][1-9])%"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "5" is "EQUALS" to "99.96%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "5" is "MatchRegx" to "([9][1-9]|[9][1-9])%"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "18.33%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "MatchRegx" to "([0][1-9]|[1][1-9])%"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "MatchRegx" to "([0][1-9]|[1][1-9])%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "5" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "11%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "9%" with offset 2
     Then UI Validate Element Existence By Label "Top IP Address bar" if Exists "false" with value "8"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5.33%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "MatchRegx" to "([0][1-9]|[1][1-9])%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5%" with offset 2
 
   @SID_21
   Scenario: Check values
 # check values
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "12 K" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "12 K" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "12 K" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 K" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 K" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1 K" with offset 1
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "8"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
 
@@ -255,25 +249,25 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Click Button "Events" with value "Top-Malicious-IP-Addresses"
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "87.50%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "EQUALS" to "58.33%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "54.17%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "50.00%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "5" is "EQUALS" to "41.67%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "37.50%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "33.33%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "25.00%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "87.50%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "EQUALS" to "58.33%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "54.17%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "50.00%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "5" is "EQUALS" to "41.67%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "37.50%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "33.33%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "25.00%" with offset 2
 
   @SID_24
   Scenario: check values
 # check values
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "24"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "14"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "10"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "9"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "8"
-    Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "7"
-    Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "6"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "24" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "14" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "10" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "9" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "8" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "7" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "6" with offset 1
 
   @SID_25
   Scenario: Validate IP addresses correctness
@@ -291,26 +285,25 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Click Button "Volume" with value "Top-Malicious-IP-Addresses"
     * Sleep "125"
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99.99%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "EQUALS" to "99.97%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99.97%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99.96%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "5" is "EQUALS" to "99.96%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "18.33%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "5" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "6" is "EQUALS" to "18%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15%" with offset 2
     Then UI Validate Element Existence By Label "Top IP Address bar" if Exists "false" with value "8"
-#    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5.33%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "MatchRegx" to "([0][1-9]|[1][1-9])%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "1%" with offset 1
 
   @SID_27
   Scenario: check values
 # check values
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.37"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1 M" with offset 1
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "8"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
 
@@ -330,21 +323,21 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Click Button "ipFilter clear"
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99.99%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99.97%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99.96%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "9.48%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "99%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "9.48%" with offset 2
 
   @SID_30
   Scenario: Validate Volume amount per IP
 # Validate Volume amount per IP
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.93"
-    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1 M" with offset 1
+    Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1 M" with offset 1
     Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "989 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688 K"
 

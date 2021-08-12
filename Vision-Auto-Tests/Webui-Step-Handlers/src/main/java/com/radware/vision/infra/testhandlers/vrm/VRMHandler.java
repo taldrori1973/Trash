@@ -642,9 +642,53 @@ public class VRMHandler {
     }
 
     /**
-     * @param chart   - Session storage key
-     * @param entries it validate the entries values with the actual web values
+     * @param chart - Session storage key
      */
+    public void validatePieChartlabels(String chart, String label) {
+        boolean flag = false;
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        getObjectFromDataSets(chart);
+        JSONArray labels = getLabelsFromData(chart);
+        for (int i = 0; i < labels.length(); i++) {
+            if (labels.get(i).equals(label)) {
+                flag =true;
+            }
+        }
+        if(!flag){
+            BaseTestUtils.report("The more options didnt have" + label +  ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+
+        }
+    }
+
+    public void validatePieChartPercents(String chart,String percent,String label,String offset) {
+        int sum = 0;
+        Boolean flag = false;
+        float floatData,min,max;
+        percent = percent.replaceAll("[^\\d+.]","");
+        ArrayList<String> percentsList = new ArrayList<String>();
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        getObjectFromDataSets(chart);
+        JSONArray labels = getLabelsFromData(chart);
+        JSONArray dataArray = (JSONArray) foundObject.get(DATA);
+        for (int i = 0; i < dataArray.length(); i++) {
+            sum = sum + Integer.parseInt(dataArray.get(i).toString());
+        }
+        for (int i = 0; i < dataArray.length(); i++) {
+            floatData = Float.parseFloat(dataArray.get(i).toString());
+            percentsList.add(String.format("%.2f", floatData / sum * 100));
+        }
+        for(int i = 0; i < dataArray.length(); i++){
+            max = Float.parseFloat(percentsList.get(i)) + Float.parseFloat(offset);
+            min = Float.parseFloat(percentsList.get(i)) - Float.parseFloat(offset);
+            if(label.equals(labels.get(i)) && Float.parseFloat(percent)<=max && Float.parseFloat(percent)>=min){
+                flag = true;
+            }
+        }
+        if(!flag){
+            BaseTestUtils.report("The more options didnt have" + percent  + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+        }
+    }
+
     public void validatePieChartDataOfDataSets(String chart, List<PieChart> entries) {
         Objects.requireNonNull(chart, "Chart is equal to null");
         getObjectFromDataSets(chart);
@@ -1022,12 +1066,13 @@ public class VRMHandler {
             for (WebElement element : elementsShouldBeAddedList) {
                 elementsTextsList.add(element.getText());
             }
-            try
-            {
+            try {
                 if (isScrollElementToTop)
-                    ((JavascriptExecutor)WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", WebUIUtils.fluentWaitMultiple(elementsLocator.getBy()).get(elementsShouldBeAddedList.size() - 1));
-                else WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
-            }catch (Exception ignore){}
+                    ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", WebUIUtils.fluentWaitMultiple(elementsLocator.getBy()).get(elementsShouldBeAddedList.size() - 1));
+                else
+                    WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
+            } catch (Exception ignore) {
+            }
         }
 
         return isTargetLocatorExist(targetElementLocator);

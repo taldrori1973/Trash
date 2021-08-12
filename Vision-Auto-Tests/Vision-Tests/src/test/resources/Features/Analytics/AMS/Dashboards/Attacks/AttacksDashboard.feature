@@ -41,6 +41,10 @@ Feature: Attacks Dashboard Traffic Widget
       | value   | min |
       | 1027638 | 5   |
 
+#    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
+
   @SID_6
   Scenario: validate traffic bandwidth bps+outbound
     When UI Click Button "outboundSwitch"
@@ -51,6 +55,10 @@ Feature: Attacks Dashboard Traffic Widget
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
       | 0     | 5   |
+
+#    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
 
   @SID_7
   Scenario: validate traffic bandwidth pps+outbound
@@ -64,6 +72,10 @@ Feature: Attacks Dashboard Traffic Widget
       | value | min |
       | 0     | 5   |
 
+#    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
+
 
   @SID_8
   Scenario: validate traffic bandwidth pps+inbound
@@ -76,6 +88,10 @@ Feature: Attacks Dashboard Traffic Widget
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value   | min |
       | 1035926 | 5   |
+
+    #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
 
 
   @SID_9
@@ -93,6 +109,10 @@ Feature: Attacks Dashboard Traffic Widget
       | value   | min |
       | 517963 | 1   |
 
+    #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
+
   @SID_11
   Scenario: validate traffic bandwidth bps+outbound
     When UI Click Button "outboundSwitch"
@@ -103,6 +123,10 @@ Feature: Attacks Dashboard Traffic Widget
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
       | 0     | 1   |
+
+    #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
 
   @SID_12
   Scenario: validate traffic bandwidth pps+outbound
@@ -116,6 +140,10 @@ Feature: Attacks Dashboard Traffic Widget
       | value | min |
       | 0     | 1   |
 
+    #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
+
 
   @SID_13
   Scenario: validate traffic bandwidth pps+inbound
@@ -128,6 +156,10 @@ Feature: Attacks Dashboard Traffic Widget
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value  | min |
       | 517963 | 1   |
+
+    #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
 
 
   @SID_14
@@ -150,6 +182,10 @@ Feature: Attacks Dashboard Traffic Widget
       | value  | min |
       | 513819 | 1   |
 
+    #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
+
   @SID_16
   Scenario: validate traffic bandwidth bps+outbound
     When UI Click Button "outboundSwitch"
@@ -160,6 +196,10 @@ Feature: Attacks Dashboard Traffic Widget
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
       | 0     | 1   |
+
+    #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
 
   @SID_17
   Scenario: validate traffic bandwidth pps+outbound
@@ -173,6 +213,10 @@ Feature: Attacks Dashboard Traffic Widget
       | value | min |
       | 0     | 1   |
 
+    #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
+
 
   @SID_18
   Scenario: validate traffic bandwidth pps+inbound
@@ -185,6 +229,10 @@ Feature: Attacks Dashboard Traffic Widget
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value  | min |
       | 517963 | 1   |
+
+    #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
+#      | value   | min |
+#      | 1027638 | 5   |
 
 
   @SID_19

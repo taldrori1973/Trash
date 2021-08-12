@@ -912,7 +912,7 @@ public class BasicOperationsHandler {
         }
     }
 
-    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String compare, String value, String expectedErrorMessage) {
+    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String compare, String value, String expectedErrorMessage, String offset) {
         if (params == null) params = "";
         VisionDebugIdsManager.setLabel(label);
         if (params != null)
@@ -934,10 +934,22 @@ public class BasicOperationsHandler {
         switch (compare) {
             case "EQUAL":
             case "EQUALS":
-                if (!element.getAttribute(attribute).equalsIgnoreCase(value)) {
+                float maxVal;
+                float minVal;
+                if (offset != null && offset.matches("[0-9]+")) {
+                    String floatValue = value.replaceAll("[^\\d.]", "");
+                    String floatAttribute = element.getAttribute(attribute).replaceAll("[^\\d.]", "");
+                    maxVal = Float.parseFloat(floatValue) + Integer.parseInt(offset);
+                    minVal = Float.parseFloat(floatValue) - Integer.parseInt(offset);
+                    if (Float.parseFloat(floatAttribute) > maxVal || Float.parseFloat(floatAttribute) < minVal) {
+                        if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
+                        BaseTestUtils.report(errorMessage, Reporter.FAIL);
+                    }
+                } else if (!element.getAttribute(attribute).equalsIgnoreCase(value)) {
                     if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
                     BaseTestUtils.report(errorMessage, Reporter.FAIL);
                 }
+
                 break;
             case "CONTAINS":
                 if (!element.getAttribute(attribute).contains(value)) {
@@ -954,7 +966,7 @@ public class BasicOperationsHandler {
                 }
                 break;
             case "MatchRegx":
-                if (element.getAttribute(attribute).matches(value)) {
+                if (!element.getAttribute(attribute).matches(value)) {
                     errorMessage.replaceFirst(" is not match to ", " is matched in ");
                     if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
                     BaseTestUtils.report(errorMessage, Reporter.FAIL);

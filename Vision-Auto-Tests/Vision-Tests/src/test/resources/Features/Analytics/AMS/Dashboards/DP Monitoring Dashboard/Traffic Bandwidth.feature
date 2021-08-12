@@ -37,6 +37,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value   | count | offset |
       | 1027638 | 8     | 2      |
+#    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
@@ -47,6 +50,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value   | count | offset |
       | 1027638 | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -55,6 +61,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | 0     | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -63,6 +72,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | 0     | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -71,6 +83,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value   | count | offset |
       | 1035926 | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
 
   @SID_5
   Scenario: VRM - Validate Dashboards "Traffic Bandwidth" Chart data for one selected DP machine
@@ -88,6 +103,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value  | count | offset |
       | 517963 | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
@@ -98,6 +116,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | 0     | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -106,6 +127,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value  | count | offset |
       | 513819 | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -114,6 +138,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | 0     | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
 
   @SID_6
   Scenario: VRM - Validate Dashboards "Traffic Bandwidth" Chart data for one selected DP machine filtered by ports
@@ -131,6 +158,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | 0     | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     Then UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -139,6 +169,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | 0     | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -147,6 +180,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | 0     | 8     | 2      |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -155,6 +191,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | 0     | 8     | 2      |
+    #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
 
   @SID_7
   Scenario: VRM - Validate Dashboards "Traffic Bandwidth" Chart data for one selected DP machine filtered by policies
@@ -174,6 +213,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | null  | 8     | 2      |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -182,6 +224,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value  | count | offset |
       | 115568 | 8     | 2      |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Click Button "Accessibility Open Menu"
@@ -192,6 +237,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | null  | 8     | 2      |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -200,6 +248,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | 4190  | 8     | 2      |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
 
   @SID_8
   Scenario: VRM - NEGATIVE - Validate Dashboards "Traffic Bandwidth" Chart data doesn't exist for policy without traffic
@@ -217,6 +268,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value  | count | offset | exist |
       | 517963 | 8     | 2      | false |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -225,6 +279,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset | exist |
       | 0     | 8     | 2      | false |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -233,6 +290,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value  | count | offset | exist |
       | 513819 | 8     | 2      | false |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -241,6 +301,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset | exist |
       | 0     | 8     | 2      | false |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
 
   @SID_9
   Scenario: VRM - Validate Dashboards "Traffic Bandwidth" Chart data for one selected DP machine filtered by ports and policies
@@ -259,6 +322,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | null  | 8     | 2      |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -267,6 +333,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | null  | 8     | 2      |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -275,6 +344,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | null  | 8     | 2      |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -283,6 +355,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset |
       | null  | 8     | 2      |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
 
   @SID_10
   Scenario: VRM - NEGATIVE - Validate Dashboards "Traffic Bandwidth" Chart data doesn't exist for policy with traffic on wrong port
@@ -300,6 +375,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset | exist |
       | 0     | 8     | 2      | false |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -308,6 +386,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset | exist |
       | 0     | 8     | 2      | false |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -316,6 +397,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset | exist |
       | 0     | 8     | 2      | false |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"
@@ -324,6 +408,9 @@ Feature: AMS main dashboard Traffic Bandwidth
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count | offset | exist |
       | 0     | 8     | 2      | false |
+        #    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
+#      | value   | count | offset |
+#      | 1027638 | 8     | 2      |
 
   @SID_11
   Scenario: VRM - Validate Dashboards "Traffic Bandwidth" Chart widget styling attributes
@@ -361,6 +448,23 @@ Feature: AMS main dashboard Traffic Bandwidth
       | hoverBackgroundColor  | rgba(194, 218, 235, 0.4) |
       | hoverBorderColor      | rgba(194, 218, 235, 5)   |
       | borderColor           | rgba(194, 218, 235, 5)   |
+#    And UI Validate Line Chart attributes "Traffic Bandwidth" with Label "Excluded"
+#      | attribute             | value                    |
+#      | fill                  | true                     |
+#  #   | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#  #   | borderDash            | []                       |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 2                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | pointRadius           | 0                        |
+#      | pointHitRadius        | 0                        |
+#      | backgroundColor       | rgba(194, 218, 235, 0.1) |
+#      | hoverBackgroundColor  | rgba(194, 218, 235, 0.4) |
+#      | hoverBorderColor      | rgba(194, 218, 235, 5)   |
+#      | borderColor           | rgba(194, 218, 235, 5)   |
 
   @SID_12
   Scenario: Inbound Traffic 2 minutes Gaps
@@ -382,6 +486,11 @@ Feature: AMS main dashboard Traffic Bandwidth
       | null   | 49    | 2      |
 
     And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
+      | value  | count | offset |
+      | 513819 | 10    | 1      |
+      | null   | 49    | 2      |
+
+    And  UI Validate Line Chart data "Traffic Bandwidth" with Label "Excluded"
       | value  | count | offset |
       | 513819 | 10    | 1      |
       | null   | 49    | 2      |

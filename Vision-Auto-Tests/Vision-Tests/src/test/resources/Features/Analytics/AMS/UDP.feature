@@ -38,7 +38,7 @@ Feature: UDP widgets
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
-      | 185   |       | Test     |
+      | 185   |       | test     |
     Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
       | value | min |
       | 0     | 5   |

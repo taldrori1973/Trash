@@ -37,15 +37,21 @@ public class NewVmHandler extends TestBase {
         CliTests.isFirstTimeScenario = true;
 
         try {
+            //host - vSphere
+            String hostIp = sutManager.getEnviorement().get().getHostIp();
+            String vmName = sutManager.getEnviorement().get().getName();
+
+            //Server - VM
+            String hostUser = sutManager.getClientConfigurations().getUserName();
+            String hostPassword = sutManager.getClientConfigurations().getPassword();
+            String vmIp = sutManager.getClientConfigurations().getHostIp();
             String netMask = sutManager.getEnviorement().get().getNetMask();
             String gateway = sutManager.getEnviorement().get().getGateWay();
             String primaryDns = sutManager.getEnviorement().get().getDnsServerIp();
             String physicalManagement = sutManager.getEnviorement().get().getPhysicalManagement();
-            String vmName = sutManager.getEnviorement().get().getName();
-            String ip = sutManager.getEnviorement().get().getHostIp();
-            String user = sutManager.getEnviorement().get().getUser();
-            String password = sutManager.getEnviorement().get().getPassword();
-            this.visionRadwareFirstTime = new VisionRadwareFirstTime(user, password, netMask, gateway, primaryDns, physicalManagement, vmName, ip);
+
+            //this.visionRadwareFirstTime = new VisionRadwareFirstTime(hostUser, hostPassword, netMask, gateway, primaryDns, physicalManagement, vmName, hostIp);
+            this.visionRadwareFirstTime = new VisionRadwareFirstTime(hostUser, hostPassword, hostIp, netMask, gateway, primaryDns, physicalManagement, vmName, vmIp);
         } catch (Exception var2) {
             BaseTestUtils.report("Failed to read sut object " + var2.getMessage(), 1);
         }
@@ -205,7 +211,8 @@ public class NewVmHandler extends TestBase {
             try {
                 this.visionRadwareFirstTime.setHost(ip);
                 this.visionRadwareFirstTime.connect();
-                CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
+                // ToDo kvision check what for this lines
+                //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
                 Thread.sleep(240000L);
                 this.visionRadwareFirstTime.close();
             } catch (Exception var23) {
@@ -227,11 +234,7 @@ public class NewVmHandler extends TestBase {
 
             this.visionRadwareFirstTime.setHost(this.visionRadwareFirstTime.getIp());
             waitForServerConnection(2700000L, this.visionRadwareFirstTime);
-            if (VisionServer.waitForVisionServerServicesToStart(this.visionRadwareFirstTime, 2700000L)) {
-                BaseTestUtils.reporter.report("All services up");
-            } else {
-                BaseTestUtils.report("Not all services up.", 1);
-            }
+            UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
 
             this.initialRestLogin(900000L);
             BaseTestUtils.reporter.report("License Key updated.");

@@ -41,6 +41,26 @@ public class VisionRadwareFirstTime extends ServerCliBase {
 
     }
 
+    public VisionRadwareFirstTime(String user,
+                                  String password,
+                                  String hostIP,
+                                  String netMask,
+                                  String gateway,
+                                  String primaryDns,
+                                  String physicalManagement,
+                                  String vmName,
+                                  String ip) {
+        super(hostIP, user, password);
+        this.netMask = netMask;
+        this.gateway = gateway;
+        this.primaryDns = primaryDns;
+        this.physicalManagement = physicalManagement;
+        this.vmName = vmName;
+        this.ip = ip;
+        this.vm = this;
+
+    }
+
 //    @Override
 //    public void init() throws Exception {
 //        super.init();
@@ -143,6 +163,12 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
+        p.setPrompt("Physical Management Interface \\[G1 G2 G3\\] \\(Active links on:.*\\): ");
+        p.setRegularExpression(true);
+        p.setStringToSend(getPhysicalManagement());
+        prompts.add(p);
+
+        p = new Prompt();
         p.setPrompt("Physical Management Interface \\[G3 G5 G7\\]  \\(Active links on:.*\\): ");
         p.setRegularExpression(true);
         p.setStringToSend(getPhysicalManagement());
@@ -161,6 +187,16 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         p = new Prompt();
         p.setPrompt("Do you want to change the root user password [y/N]?");
         p.setStringToSend("n");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Do you want to change the root user password? [y/N]");
+        p.setStringToSend("n");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("The root user password was not changed.");
+        p.setCommandEnd(true);
         prompts.add(p);
 
         p = new Prompt();

@@ -6,6 +6,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.RegexUtils;
 
@@ -104,9 +105,18 @@ public final class CliOperations {
         verifyLastOutputByRegex(regex);
     }
 
+    public static void verifyLastOutputNotExistByRegex(String regex, ServerCliBase cliBase) {
+        updateLastOutput(cliBase);
+        verifyLastOutputNotExistByRegex(regex);
+    }
+
     // validate last output with fail reporter - with last server session that connected from
     public static void verifyLastOutputByRegex(String regex) {
         verifyLastOutputByRegexWithOutput(regex, CliOperations.lastOutput);
+    }
+
+    public static void verifyLastOutputNotExistByRegex(String regex) {
+        verifyLastOutputByRegexNotExistWithOutput(regex, CliOperations.lastOutput);
     }
 
     // validate last output without fail reporter (just exception) - with last server session that connected from
@@ -118,6 +128,16 @@ public final class CliOperations {
     public static void verifyLastOutputByRegexWithOutput(String regex, String output) {
         try {
             verifyLastOutputByRegexWithOutputWithoutFail(regex, output);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+
+
+    public static void verifyLastOutputByRegexNotExistWithOutput(String regex, String output) {
+        try {
+            verifyLastOutputByRegexNotExistWithOutputWithoutFail(regex, output);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -136,6 +156,17 @@ public final class CliOperations {
             throw new Exception(result.toString());
         } else
             BaseTestUtils.report(regex + " is contained", Reporter.PASS);
+    }
+
+    public static void verifyLastOutputByRegexNotExistWithOutputWithoutFail( String unWantedOutputReg, String lastOutput){
+
+
+        if(RegexUtils.isStringContainsThePattern(unWantedOutputReg, lastOutput)){
+            BaseTestUtils.reporter.report("The pattern : "+unWantedOutputReg+" was found", Reporter.FAIL);
+        }
+        else {
+            BaseTestUtils.reporter.report("The pattern : "+unWantedOutputReg+" was not found", Reporter.PASS);
+        }
     }
 
     public static void verifyDeviationValidity(int output, int expected, int deviation) {

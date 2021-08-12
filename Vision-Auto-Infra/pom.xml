@@ -7,6 +7,7 @@
         <groupId>com.radware.vision.automation</groupId>
         <version>${revision}</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Vision-Auto-Infra</artifactId>
     <name>Vision-Auto-Infra</name>
