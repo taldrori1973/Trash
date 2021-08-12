@@ -176,7 +176,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "900"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Risk" equal to "High"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Policy Name" equal to "p1"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Terminated"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Started"
     When UI Click Button "Forensics.Attack Details.Close"
 
 
@@ -317,7 +317,7 @@ Feature: QDoS Protection & Attack Category
 
   @SID_35
   Scenario: Delete Alerts
-    Then UI Delete Forensics With Name "QDos Alerts"
+    Then UI Delete Alerts With Name "QDos Alerts"
 
     ### DP Monitoring ###
 
