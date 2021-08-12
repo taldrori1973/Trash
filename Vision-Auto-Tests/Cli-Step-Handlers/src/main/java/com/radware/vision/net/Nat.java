@@ -25,10 +25,9 @@ public class Nat {
     public static void netNatSetIp(String ip, RadwareServerCli radwareServerCli) throws Exception {
 
         BaseTestUtils.reporter.startLevel("Net Nat Set Ip " + ip);
-        InvokeUtils.invokeCommand(null, Menu.net().nat().setIp().build() + " " + ip, radwareServerCli);
-        radwareServerCli.analyze(new FindText("The server will be accessible to clients using the IP address <" + ip + ">"));
-        InvokeUtils.invokeCommand(null, "y", radwareServerCli, 5 * 60 * 1000);
-        radwareServerCli.analyze(new FindRegex("Starting APSolute Vision Application Server:(\\.*\\s*)*G\\[  OK  \\]|\\[FAILED\\]"));
+        CliOperations.runCommand(radwareServerCli, Menu.net().nat().setIp().build() + " " + ip, 6 * 1000, false, false, false);
+        boolean info1 = radwareServerCli.isAnalyzeSuccess(new FindText("The server will be accessible to clients using the IP address <" + ip + ">"));
+        CliOperations.runCommand(radwareServerCli, "y", 5 * 60 * 1000);
         BaseTestUtils.reporter.stopLevel();
     }
 
@@ -40,10 +39,9 @@ public class Nat {
     public static void netNatSetNone(RadwareServerCli radwareServerCli) throws Exception {
 
         BaseTestUtils.reporter.startLevel("Net Nat Set None");
-        InvokeUtils.invokeCommand(null, Menu.net().nat().setNone().build(), radwareServerCli);
-        radwareServerCli.analyze(new FindText("The server will be accessible to clients only using the internal Management IP address."));
-        InvokeUtils.invokeCommand(null, "y", radwareServerCli, 5 * 60 * 1000);
-        radwareServerCli.analyze(new FindRegex("Starting APSolute Vision Application Server:(\\.*\\s*)*G\\[  OK  \\]|\\[FAILED\\]"));
+        CliOperations.runCommand(radwareServerCli, Menu.net().nat().setNone().build(), 6 * 1000, false, false, false);
+        radwareServerCli.isAnalyzeSuccess(new FindText("The server will be accessible to clients only using the internal Management IP address."));
+        CliOperations.runCommand(radwareServerCli, "y", 5 * 60 * 1000);
         BaseTestUtils.reporter.stopLevel();
     }
 
@@ -53,8 +51,8 @@ public class Nat {
      */
     public static void netNatGet(String wantedOutput, RadwareServerCli radwareServerCli) throws Exception {
         BaseTestUtils.reporter.startLevel("Net Nat Get " + wantedOutput);
-        InvokeUtils.invokeCommand(null, Menu.net().nat().get().build(), radwareServerCli);
-        radwareServerCli.analyze(new FindText(wantedOutput));
+        CliOperations.runCommand(radwareServerCli, Menu.net().nat().get().build());
+        radwareServerCli.isAnalyzeSuccess(new FindText(wantedOutput));
         BaseTestUtils.reporter.stopLevel();
     }
 
@@ -72,10 +70,9 @@ public class Nat {
      */
     public static void netNatSetHostName(String hostName, RadwareServerCli radwareServerCli) throws Exception {
         BaseTestUtils.reporter.startLevel("Net Nat Set Host Name" + hostName);
-        InvokeUtils.invokeCommand(null, Menu.net().nat().setHostName().build() + " " + hostName, radwareServerCli);
-        radwareServerCli.analyze(new FindText("The server will be accessible to clients using the hostname " + hostName));
-        InvokeUtils.invokeCommand(null, "y", radwareServerCli, 5 * 60 * 1000);
-        radwareServerCli.analyze(new FindRegex("Starting APSolute Vision Application Server:(\\.*\\s*)*G\\[  OK  \\]|\\[FAILED\\]"));
+        CliOperations.runCommand(radwareServerCli, Menu.net().nat().setHostName().build() + " " + hostName, 6 * 1000, false, false, false);
+        radwareServerCli.isAnalyzeSuccess(new FindText("The server will be accessible to clients using the hostname " + hostName));
+        CliOperations.runCommand(radwareServerCli, "y", 5 * 60 * 1000);
         BaseTestUtils.reporter.stopLevel();
     }
 

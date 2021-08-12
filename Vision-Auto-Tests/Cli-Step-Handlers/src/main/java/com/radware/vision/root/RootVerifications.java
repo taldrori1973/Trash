@@ -103,7 +103,7 @@ public class RootVerifications {
     }
 
     public static boolean isIptableContainsKey(String key, int expectedEntries, RootServerCli rootServerCli) throws Exception {
-        InvokeUtils.invokeCommand("iptables --list | grep " + key + " | grep -v trap", rootServerCli);
+        InvokeUtils.invokeCommand("iptables --list | grep " + key, rootServerCli);
         String pattern = "ACCEPT.*(snmp).*";
         List<String> iptableEntries = com.radware.vision.test_utils.RegexUtils.fromStringToArrayWithPattern(pattern, rootServerCli.getTestAgainstObject().toString());
         if(iptableEntries != null && iptableEntries.size() == expectedEntries) {
