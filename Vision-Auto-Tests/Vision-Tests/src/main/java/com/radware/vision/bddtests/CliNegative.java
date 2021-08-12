@@ -8,6 +8,8 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileS
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.base.VisionCliTestBase;
 import com.radware.vision.enums.YesNo;
+import com.radware.vision.test_parameters.ImportExport;
+import com.radware.vision.utils.SutUtils;
 
 import java.io.IOException;
 import java.util.*;
@@ -106,8 +108,9 @@ public class CliNegative extends VisionCliTestBase {
     /**
      * general import negative test
      */
-    protected void importNegativeTest(String command, String location) throws Exception {
+    protected void importNegativeTest(String command, ImportExport.ImportExportType type, String backupName) throws Exception {
         LinuxFileServer linuxFileServer = serversManagement.getLinuxFileServer().get();
+        String location = type+"://root@"+ linuxFileServer.getHost() +":"+ImportExport.getPath(type)+ backupName + ".tar";
         String password;
         password = linuxFileServer.getPassword();
         importNegativeTest(command, password, location);

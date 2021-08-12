@@ -26,8 +26,21 @@ public class RegexUtils {
         return returnArray;
     }
 
+    public static String fromStringToArrayWithPattern(String patternStr, String str, String searchName) throws Exception {
 
-        public static ArrayList<String> getGroupsWithPattern(String patternStr, String str) throws Exception {
+        String[] lines = str.split("\\r\\n");
+
+        for (String line : lines) {
+            if (line.contains(searchName)) {
+                Matcher matcher = Pattern.compile(patternStr).matcher(line);
+                matcher.find();
+                return matcher.group(1);
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<String> getGroupsWithPattern(String patternStr, String str) throws Exception {
 
         ArrayList<String> returnArray = new ArrayList<>();
         Matcher matcher = Pattern.compile(patternStr).matcher(str);
