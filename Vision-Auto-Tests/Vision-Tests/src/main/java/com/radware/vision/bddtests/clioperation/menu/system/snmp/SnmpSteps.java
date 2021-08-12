@@ -53,7 +53,7 @@ public class SnmpSteps extends TestBase {
 
     @Then("^CLI System Snmp Initial Status$")
         public void snmpStatusInitial() {
-        SnmpHandler.snmpStop(radwareServerCli, false);
+        SnmpHandler.snmpStop(radwareServerCli, true);
         SnmpHandler.snmpStart(radwareServerCli, true);
         SnmpHandler.snmpStatusInitialValidation(radwareServerCli, rootServerCli);
     }

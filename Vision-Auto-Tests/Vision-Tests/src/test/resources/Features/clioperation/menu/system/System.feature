@@ -3,7 +3,7 @@ Feature: System Tests
 
   @SID_1
   Scenario: Verifying sub menu of system cmd
-    Then CLI Verifying sub menu of system cmd
+    Then CLI System Sub Menu Test
 #####################################################################################################################
   @SID_2
   Scenario: Cli System help

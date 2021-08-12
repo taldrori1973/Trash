@@ -63,7 +63,8 @@ public class Ip {
      */
     public static void ipDelete(String iFace, RadwareServerCli radwareServerCli) throws Exception {
         BaseTestUtils.reporter.startLevel("Ip Delete "+ iFace);
-        CliOperations.runCommand(radwareServerCli, Menu.net().ip().delete().build() + " " + iFace, CliOperations.DEFAULT_TIME_OUT, true, true);
+        CliOperations.runCommand(radwareServerCli, Menu.net().ip().delete().build() + " "
+                + iFace, CliOperations.DEFAULT_TIME_OUT, false, true, false);
         CliOperations.runCommand(radwareServerCli, "y");
         BaseTestUtils.reporter.stopLevel();
     }

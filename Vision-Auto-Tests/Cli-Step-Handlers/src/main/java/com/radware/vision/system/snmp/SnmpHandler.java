@@ -133,7 +133,7 @@ public class SnmpHandler {
     }
 
     public static boolean areSnmpPortsOpen(RootServerCli rootServerCli) throws Exception {
-        return RootVerifications.isIptableContainsKey("snmp", 2, rootServerCli);
+        return RootVerifications.isIptableContainsKey("snmp", 3, rootServerCli);
     }
 
     public static void restartIptablesService(RootServerCli rootServerCli) throws Exception {
