@@ -158,7 +158,8 @@ public class NetIpSteps extends TestBase {
 
     public void afterMethod() {
         try {
-            Ip.ipDelete("G2", radwareServerCli);
+            String fakeNetIp = SutUtils.getCurrentVisionIp().replaceAll("^\\d+\\.+\\d+\\.", "50.50.");
+            Ip.setNetIp(fakeNetIp, "255.255.0.0", "G2", radwareServerCli);
             Ip.ipDelete("G3", radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

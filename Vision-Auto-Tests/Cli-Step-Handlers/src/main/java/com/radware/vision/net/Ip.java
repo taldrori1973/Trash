@@ -7,6 +7,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import com.radware.vision.test_utils.StringParametersUtils;
 import com.radware.automation.tools.utils.InvokeUtils;
 import jsystem.extensions.analyzers.text.FindRegex;
+import jsystem.extensions.analyzers.text.FindText;
 
 import java.util.Arrays;
 
@@ -64,7 +65,7 @@ public class Ip {
     public static void ipDelete(String iFace, RadwareServerCli radwareServerCli) throws Exception {
         BaseTestUtils.reporter.startLevel("Ip Delete "+ iFace);
         CliOperations.runCommand(radwareServerCli, Menu.net().ip().delete().build() + " "
-                + iFace, CliOperations.DEFAULT_TIME_OUT, false, true, false);
+                + iFace, CliOperations.DEFAULT_TIME_OUT, false, true, true);
         CliOperations.runCommand(radwareServerCli, "y");
         BaseTestUtils.reporter.stopLevel();
     }
@@ -79,7 +80,8 @@ public class Ip {
     public static void managementSet(String iface, RadwareServerCli radwareServerCli) throws Exception {
         BaseTestUtils.reporter.startLevel("Management Set " + iface);
         //todo: kvision - set ignoreErrors back to false when DE67231 is resolved
-        CliOperations.runCommand(radwareServerCli, Menu.net().ip().managementSet().build() + " " + iface, CliOperations.DEFAULT_TIME_OUT, true, true);
+        CliOperations.runCommand(radwareServerCli, Menu.net().ip().managementSet().build() + " " + iface, CliOperations.DEFAULT_TIME_OUT, true, false, true);
+        radwareServerCli.isAnalyzeSuccess(new FindText("Changing to this management device interface will require a server restart"));
         CliOperations.runCommand(radwareServerCli, "y", CliOperations.DEFAULT_TIME_OUT);
         BaseTestUtils.reporter.stopLevel();
     }
