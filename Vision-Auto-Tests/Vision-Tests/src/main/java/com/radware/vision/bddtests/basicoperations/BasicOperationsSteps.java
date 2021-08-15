@@ -875,6 +875,20 @@ public class BasicOperationsSteps extends BddUITestBase {
         }
     }
 
+    @Then("^UI ScrollIntoView with label \"([^\"]*)\" (?:and params \"([^\"]*)\")?$")
+    public void uiScrollIntoViewWithLabelAndParams(String label, String params) throws Throwable {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params.split(","));
+        try {
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null)
+                return;
+            WebUIUtils.scrollIntoView(element, true);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
     public static class ParameterSelected {
         String label;
         String param;
