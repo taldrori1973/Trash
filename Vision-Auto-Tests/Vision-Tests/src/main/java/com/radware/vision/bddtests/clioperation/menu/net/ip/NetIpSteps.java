@@ -85,7 +85,6 @@ public class NetIpSteps extends TestBase {
     @When("^CLI Net Ip Delete$")
     public void netIpDelete() {
         try {
-            Ip.ipDelete("G2", radwareServerCli);
             Ip.ipDelete("G3", radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
