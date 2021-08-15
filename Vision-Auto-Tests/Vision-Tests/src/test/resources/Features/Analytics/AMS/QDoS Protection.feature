@@ -4,7 +4,7 @@ Feature: QDoS Protection & Attack Category
 
   
   @SID_1
-  Scenario: Clean system data before Traffic Bandwidth test
+  Scenario: Clean  data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
@@ -70,7 +70,7 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_8
-  Scenario: Clean system data before Traffic Bandwidth test
+  Scenario: Clean system  before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
@@ -116,6 +116,48 @@ Feature: QDoS Protection & Attack Category
     Then CLI Run linux Command "cat /home/radware/ftp/CSV\ QDos\ Attack_*.csv |grep 'QuantileDoS,QDoS,p1,0.0.0.0,0.0.0.0,0,In,IP' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
 
+
+    ################################################
+
+  @SID_10
+  Scenario: Create Forensics with  QDos Attack and CSV Format
+    Given UI "Create" Forensics With Name "CSVWithDetails QDos Attack"
+      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format | Select: CSVWithDetails                                                                                                      |
+    Then UI "Validate" Forensics With Name "CSVWithDetails QDos Attack"
+      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format | Select: CSVWithDetails                                                                                                      |
+
+
+  @SID_11
+  Scenario: Validate delivery and generate CSVWithDetails Forensics
+    Then CLI Run remote linux Command "rm -f /home/radware/ftp/CSV QDos Attack.zip /home/radware/ftp/CSVWithDetails QDos Attack.csv" on "GENERIC_LINUX_SERVER"
+    Then UI Click Button "My Forensics" with value "CSVWithDetails QDos Attack"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "CSVWithDetails QDos Attack"
+    Then Sleep "35"
+
+
+  @SID_12
+  Scenario: Unzip CSV file
+    Then CLI Run remote linux Command "unzip -o /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
+    Then Sleep "3"
+
+
+  @SID_13
+  Scenario: Validate Forensics.Table of QDos Attack1
+    And UI Click Button "Views.Forensic" with value "CSVWithDetails QDos Attack,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+
+
+  @SID_14
+  Scenario: Validate The number of rows attacks , numberOfRecords
+    Then CLI Run linux Command "cat /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.csv |grep 'S.No,Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.csv |grep 'QuantileDoS,QDoS,p1,0.0.0.0,0.0.0.0,0,In,IP' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+
+
+
+
+  #############################################################
 
 
   @SID_15
@@ -194,7 +236,7 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_23
-  Scenario: Clean system data before Traffic Bandwidth test
+  Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
@@ -260,7 +302,7 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_29
-  Scenario: Clean system data before Traffic Bandwidth test
+  Scenario: Clean system data before Traffic Bandwidth
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
