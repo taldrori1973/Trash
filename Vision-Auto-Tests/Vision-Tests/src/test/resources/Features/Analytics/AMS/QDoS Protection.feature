@@ -64,7 +64,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "900"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Risk" equal to "High"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Policy Name" equal to "p1"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Started"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Terminated"
     When UI Click Button "Forensics.Attack Details.Close"
 
 
@@ -119,7 +119,7 @@ Feature: QDoS Protection & Attack Category
 
     ################################################
 
-  @SID_10
+  @SID_15
   Scenario: Create Forensics with  QDos Attack and CSV Format
     Given UI "Create" Forensics With Name "CSVWithDetails QDos Attack"
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -129,7 +129,7 @@ Feature: QDoS Protection & Attack Category
       | Format | Select: CSVWithDetails                                                                                                      |
 
 
-  @SID_11
+  @SID_16
   Scenario: Validate delivery and generate CSVWithDetails Forensics
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/CSV QDos Attack.zip /home/radware/ftp/CSVWithDetails QDos Attack.csv" on "GENERIC_LINUX_SERVER"
     Then UI Click Button "My Forensics" with value "CSVWithDetails QDos Attack"
@@ -137,19 +137,19 @@ Feature: QDoS Protection & Attack Category
     Then Sleep "35"
 
 
-  @SID_12
+  @SID_17
   Scenario: Unzip CSV file
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
 
-  @SID_13
+  @SID_18
   Scenario: Validate Forensics.Table of QDos Attack1
     And UI Click Button "Views.Forensic" with value "CSVWithDetails QDos Attack,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 
 
-  @SID_14
+  @SID_19
   Scenario: Validate The number of rows attacks , numberOfRecords
     Then CLI Run linux Command "cat /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.csv |grep 'S.No,Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.csv |grep 'QuantileDoS,QDoS,p1,0.0.0.0,0.0.0.0,0,In,IP' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
@@ -160,47 +160,47 @@ Feature: QDoS Protection & Attack Category
   #############################################################
 
 
-  @SID_15
+  @SID_20
   Scenario: Run DP simulator - many_attacks
     Given CLI simulate 1000 attacks of type "many_attacks" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
 
-  @SID_16
+  @SID_21
   Scenario: create new Forensics with QDos Attack and many attacks
     Given UI "Create" Forensics With Name "QDos Attack1"
       | Product | DefensePro |
     Then UI "Validate" Forensics With Name "QDos Attack1"
       | Product | DefensePro |
 
-  @SID_17
+  @SID_22
   Scenario: Validate delivery and generate Forensics
     Then UI Click Button "My Forensics" with value "QDos Attack1"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "QDos Attack1"
     Then Sleep "35"
 
-  @SID_18
+  @SID_23
   Scenario: Validate Forensics.Table of QDos Attack1
     And UI Click Button "Views.Forensic" with value "QDos Attack1,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
 
 
-  @SID_19
+  @SID_24
   Scenario: Edit Forensics
     When UI "Edit" Forensics With Name "QDos Attack1"
       | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:Quantile DoS |
     Then UI "Validate" Forensics With Name "QDos Attack1"
       | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:Quantile DoS |
 
-  @SID_20
+  @SID_25
   Scenario: Validate delivery and generate Forensics for QDos Attack1
     Then UI Click Button "My Forensics" with value "QDos Attack1"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "QDos Attack1"
     Then Sleep "35"
 
 
-  @SID_21
+  @SID_26
   Scenario: Validate Forensics.Table for QDos Attack1
     And UI Click Button "Views.Forensic" with value "QDos Attack1,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
@@ -222,11 +222,12 @@ Feature: QDoS Protection & Attack Category
     When UI Click Button "Forensics.Attack Details.Close"
 
 
-  @SID_22
+  @SID_27
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "QDos Attack1"
     Then UI Delete Forensics With Name "QDos Attack"
     Then UI Delete Forensics With Name "CSV QDos Attack"
+    Then UI Delete Forensics With Name "CSVWithDetails QDos Attack"
 
 
 
@@ -235,17 +236,17 @@ Feature: QDoS Protection & Attack Category
 
 
 
-  @SID_23
+  @SID_28
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-  @SID_24
+  @SID_29
   Scenario: Run DP simulator - trap attack
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
-  @SID_25
+  @SID_30
   Scenario: Navigate to DefensePro Attacks dashboard
     And UI Navigate to "DefensePro Attacks" page via homePage
     Then Sleep "5"
@@ -257,7 +258,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
     Then UI Click Button "Accessibility Menu"
 
-  @SID_26
+  @SID_31
   Scenario:  Validate Attacks Table Values
     Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 0
       | columnName             | value        |
@@ -274,7 +275,7 @@ Feature: QDoS Protection & Attack Category
       | Destination Port       | 0            |
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "p1"
 
-  @SID_27
+  @SID_32
   Scenario Outline:  validate date of Info table
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
     Examples:
@@ -291,7 +292,7 @@ Feature: QDoS Protection & Attack Category
       | Source port        | 0              |
       | Packet Type        | N/A            |
 
-  @SID_28
+  @SID_33
   Scenario:  Validate rows count for Attacks Table
     Then UI Validate "Attacks Table" Table rows count EQUALS to 1
 
@@ -301,19 +302,19 @@ Feature: QDoS Protection & Attack Category
     ### Alrerts #####
 
 
-  @SID_29
+  @SID_34
   Scenario: Clean system data before Traffic Bandwidth
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
 
-  @SID_30
+  @SID_35
   Scenario: Navigate to Alerts
     And UI Navigate to "AMS Alerts" page via homePage
 
 
-  @SID_31
+  @SID_36
   Scenario: Create Alert basic
     When UI "Create" Alerts With Name "QDos Alerts"
       | Basic Info | Description:QDos Attacks                                          |
@@ -321,12 +322,12 @@ Feature: QDoS Protection & Attack Category
       | Schedule   | checkBox:Trigger,alertsPerHour:60                                 |
 
 
-  @SID_32
+  @SID_37
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
 
-  @SID_33
+  @SID_38
   Scenario: VRM Validate Alert Threat Category HTTPS Flood Any Time Schedule
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
@@ -352,35 +353,35 @@ Feature: QDoS Protection & Attack Category
     Then UI Click Button "Table Details OK" with value "OK"
 
 
-  @SID_34
+  @SID_39
   Scenario: VRM Validate Alert browser for QDos attack
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: QDos Alerts \nSeverity: MINOR \nDescription: QDos Attacks \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.51 \nAttacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
 
 
-  @SID_35
+  @SID_40
   Scenario: Delete Alerts
     Then UI Delete Alerts With Name "QDos Alerts"
 
     ### DP Monitoring ###
 
 
-  @SID_36
+  @SID_41
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-  @SID_37
+  @SID_42
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
 
-  @SID_38
+  @SID_43
   Scenario:  Navigate to DefensePro Monitoring Dashboard
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
-  @SID_39
+  @SID_44
   Scenario: Validate first under attack policy - traffic and attacks
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
       | columnName            | value                   |
@@ -394,12 +395,12 @@ Feature: QDoS Protection & Attack Category
       | Attack Categories     | Quantile DoS            |
 
 
-  @SID_40
+  @SID_45
   Scenario: Entering to the under attack policy 2nd drill
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
 
 
-  @SID_41
+  @SID_46
   Scenario: validate events
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
       | columnName      | value        |
@@ -407,7 +408,7 @@ Feature: QDoS Protection & Attack Category
       | Attack Rate     | 0 bps        |
       | Drop Rate       | 0 bps        |
 
-  @SID_42
+  @SID_47
   Scenario: Logout and close browser
     Given UI logout and close browser
     Given UI Logout
