@@ -172,6 +172,11 @@ public class UvisionServer {
         return stat[0];
     }
 
+    public static boolean isServiceReady(RadwareServerCli radwareServerCli, DockerServices dockerService){
+        CliOperations.runCommand(radwareServerCli, Menu.system().visionServer().status().build(), 120 * 1000);
+        return isServiceReady(radwareServerCli.getCmdOutput(), dockerService, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+    }
+
     /**
      * Validate a service status
      * @param response - Output of "system vision-server status"
