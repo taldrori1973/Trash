@@ -4,11 +4,8 @@ Feature: CLI System Database Maintenance
   @SID_1
   Scenario: system database maintenance menu
     Given CLI Reset radware password
-    Then REST Login with activation with user "radware" and password "radware"
-    When CLI Operations - Run Radware Session command "system database maintenance ?"
-    Then CLI Operations - Verify that output contains regex ".*check.*Checks whether the database needs optimization.*"
-    Then CLI Operations - Verify that output contains regex ".*driver_table( |\t)+Database maintenance commands for the driver_table.*"
-    Then CLI Operations - Verify that output contains regex ".*optimize( |\t)+Optimizes the relevant tables.*"
+    When CLI System Database Maintenance Sub Menu Test
+
 
   @SID_2
   Scenario: system database maintenance check menu
@@ -23,9 +20,7 @@ Feature: CLI System Database Maintenance
 
   @SID_4
   Scenario: system database maintenance driver_table menu
-    When CLI Operations - Run Radware Session command "system database maintenance driver_table ?"
-    Then CLI Operations - Verify that output contains regex ".*Database maintenance commands for the driver_table.*"
-    Then CLI Operations - Verify that output contains regex ".*delete( |\t)+Deletes all device drivers from the system.*"
+    When CLI System Database Maintenance Driver Table Sub Menu Test
 
   @SID_5
   Scenario: system database maintenance driver_table delete menu
@@ -35,9 +30,11 @@ Feature: CLI System Database Maintenance
 
   @SID_6
   Scenario: Load a device driver into database
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_driver where device_version like "%6.14.%";"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and halt 120 seconds
-
+    Then Clear Radware Session
+    Then MYSQL DELETE FROM "device_driver" Table in "vision_ng" Schema WHERE "device_version like '%6.14.%'"
+    Then CLI Server Stop
+    Then CLI Server Start
+    When CLI validate service "all" status is "up" and health is "healthy" retry for 600 seconds
     Then CLI copy "/home/radware/Scripts/upload_DD.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI copy "/home/radware/Scripts/DefensePro-6.14.03-DD-1.00-28.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
 
@@ -45,32 +42,18 @@ Feature: CLI System Database Maintenance
 
   @SID_7
   Scenario: verify the driver is in database
-    Then CLI Run linux Command "mysql -prad123 vision_ng -N -B -e "select driver_name from device_driver where driver_name like '%6.14.03%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "DefensePro-6.14.03-DD-1.00-28.jar"
+    When MYSQL Validate Single Value by SELECT "driver_name" Column FROM "vision_ng" Schema and "device_driver" Table WHERE "driver_name like '%6.14.03%'" EQUALS "DefensePro-6.14.03-DD-1.00-28.jar"
 
   @SID_8
-  Scenario: system database maintenance driver_table delete cancel
-    When CLI Operations - Run Radware Session command "system database maintenance driver_table delete"
-    When CLI Operations - Run Radware Session command "n"
+  Scenario: system database maintenance driver_table delete
+    When CLI System Database Maintenance Driver Table Delete Test
 
   @SID_9
-  Scenario: system database maintenance driver_table delete
-    When CLI Operations - Run Radware Session command "system database maintenance driver_table delete"
-    When CLI Operations - Run Radware Session command "y" timeout 360
+  Scenario: Verify services are running
+    When CLI validate service "all" status is "up" and health is "healthy" retry for 600 seconds
 
   @SID_10
   Scenario: verify the driver is not in database
-    Then CLI Run linux Command "mysql -prad123 vision_ng -N -B -e "select driver_name from device_driver where driver_name like '%6.14.03%';"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then MYSQL Validate Number of Records FROM "device_driver" Table in "vision_ng" Schema WHERE "driver_name like '%6.14.03%'" Condition Applies EQUALS 0 Retry 10 seconds
 
-  @SID_11
-  Scenario: Verify services are running
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Collector service is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "New Reporter service is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Alerts service is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Scheduler service is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration Synchronization service is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Tor feed service is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line Retry 600 seconds
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line Retry 600 seconds
+

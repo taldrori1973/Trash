@@ -13,12 +13,6 @@ import java.util.HashMap;
 
 public class Database {
 
-    public static final String SYSTEM_DATABASE_MAINTENANCE_SUB_MENU = "check                   Checks whether the database needs optimization.\n"
-            + "driver_table            Database maintenance commands for the driver_table.\n"
-            + "optimize                Optimizes the relevant tables.\n";
-
-    public static final String SYSTEM_DATABASE_MAINTENANCE_DRIVER_TABLE_SUB_MENU = "delete                  Deletes all device drivers from the system.\n";
-
     public static final String SYSTEM_DATABASE_SUB_MENU = "access                  Manages the list of viewers of database tables.\n" +
             "clear                   Clears the database.\n" +
             "maintenance             Database maintenance commands.\n" +
@@ -26,6 +20,11 @@ public class Database {
             "status                  Shows the status of the database service.\n" +
             "stop                    Stops the database service.\n";
 
+    public static final String SYSTEM_DATABASE_MAINTENANCE_SUB_MENU = "check                   Checks whether the database needs optimization.\n"
+            + "driver_table            Database maintenance commands for the driver_table.\n"
+            + "optimize                Optimizes the relevant tables.\n";
+
+    public static final String SYSTEM_DATABASE_MAINTENANCE_DRIVER_TABLE_SUB_MENU = "delete                  Deletes all device drivers from the system.";
 
     /**
      * Starts the db server. Set timeout for 4 minutes Wait for: Starting MySQL.. SUCCESS!
@@ -144,13 +143,9 @@ public class Database {
         try {
             BaseTestUtils.reporter.startLevel("System DB Maintenance Driver Table Delete");
             CliOperations.runCommand(serverCli, Menu.system().database().maintenance().driver_table().delete().build(),
-                    2 * 60 * 1000);
+                    2 * 60 * 1000, false, false, false);
+            Thread.sleep(5 * 1000);
             CliOperations.runCommand(serverCli, "y", 5 * 60 * 1000);
-            serverCli.analyze(new FindRegex("Starting APSolute Vision Application Server:(\\.*\\s*)*G\\[  OK  \\]|\\[FAILED\\]"));
-            serverCli.analyze(new FindRegex("You can access Vision Server via (\\d*\\.*\\d*\\.*\\d*\\.*\\d*)"));
-            //serverCli.analyze(new FindText("Reloading httpd:"));
-            serverCli.analyze(new FindRegex("Starting Apsolute Vision Reporter Service:\\s*G\\[  OK  \\]"));
-            serverCli.analyze(new FindRegex("Starting APSolute Vision Web Server\\s*G\\[  OK  \\]"));
         } finally {
             BaseTestUtils.reporter.stopLevel();
         }

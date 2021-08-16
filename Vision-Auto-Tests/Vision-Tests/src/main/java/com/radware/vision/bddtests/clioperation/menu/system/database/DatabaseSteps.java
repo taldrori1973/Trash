@@ -29,10 +29,40 @@ public class DatabaseSteps extends TestBase {
         }
     }
 
+    @When("^CLI System Database Maintenance Sub Menu Test$")
+    public void databaseMaintenanceCheckSubMenu() {
+        try {
+            CliOperations.checkSubMenu(radwareServerCli, Menu.system().database().maintenance().build() + " ?", Database.SYSTEM_DATABASE_MAINTENANCE_SUB_MENU);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    @When("^CLI System Database Maintenance Driver Table Sub Menu Test$")
+    public void databaseMaintenanceDriverTableCheckSubMenu() {
+        try {
+            CliOperations.checkSubMenu(radwareServerCli, Menu.system().database().maintenance().driver_table().build() + " ?", Database.SYSTEM_DATABASE_MAINTENANCE_DRIVER_TABLE_SUB_MENU);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    /**
+     * Delete and validate device driver deletion
+     *
+     */
+    @When("^CLI System Database Maintenance Driver Table Delete Test$")
+    public void databaseMaintenanceDriverTableDelete() {
+        try {
+            Database.systemDBMaintenanceDriverTableDelete(radwareServerCli);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
     /**
      * Check the system database status
      *
-     * @throws Exception
      */
     @When("^CLI System Database Status$")
     public void validateSystemDataBaseStatus() {

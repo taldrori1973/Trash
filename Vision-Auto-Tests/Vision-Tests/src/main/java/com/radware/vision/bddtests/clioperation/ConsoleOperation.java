@@ -6,6 +6,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.base.VisionCliTestBase;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -167,5 +168,15 @@ public class ConsoleOperation extends TestBase {
     @Then("^CLI Operations - Verify that the output Lines number as expected (\\d+)$")
     public void verifyLinesNumber(int num) {
         CliOperations.verifyLinesNumber(num);
+    }
+
+    @Then("^Clear Radware Session$")
+    public void clearRadwareSession() {
+        StringBuilder clearString = new StringBuilder();
+        for (int i = 0; i < 60; i++) {
+            clearString.append("\b");
+        }
+        CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), clearString.toString(), 2* 2000,true,true,
+                true, null, true, true);
     }
 }
