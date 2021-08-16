@@ -14,8 +14,6 @@ import java.util.concurrent.TimeUnit;
 public class SaproClientSteps {
     private final SaproCommunicationHandler sc = new SaproCommunicationHandler();
 
-
-
     @Given("^Start map \"([^\"]*)\"$")
     public void startMap(String mapName) {
         sc.startMap(mapName);
@@ -49,7 +47,6 @@ public class SaproClientSteps {
     }
 
 
-    //@Given("Test map \"([^\"]*)\" device \"([^\"]*)\" file \"([^\"]*)\"")
     @Given("Play File \"([^\"]*)\" in device \"([^\"]*)\" from map \"([^\"]*)\"(?: and wait (\\d+) seconds)?$")
     public void reloadFile (String newFile, String deviceName, String mapName, Integer secondsToWait) {
         sc.reloadXmlFile(mapName, deviceName, newFile);
@@ -60,11 +57,6 @@ public class SaproClientSteps {
         } catch (InterruptedException e) {
             BaseTestUtils.report("Interrupted while Sleeping: " + e.getMessage(), Reporter.FAIL);
         }
-    }
-
-    @Given("^Test Test$")
-    public void testTest() {
-        sc.test();
     }
 }
 

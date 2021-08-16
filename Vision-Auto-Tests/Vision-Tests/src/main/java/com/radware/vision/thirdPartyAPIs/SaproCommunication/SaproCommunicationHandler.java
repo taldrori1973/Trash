@@ -21,20 +21,11 @@ public class SaproCommunicationHandler {
     public SaproCommunicationHandler() {
         SaproCommunicationFactory factoryObj = SaproCommunicationFactory.sessionFactory;
         this.saproObj = factoryObj.getNewSession();
+        this.saproObj.setNewVersion(true);
         this.inetAddress = "172.17.166.8";
         this.port = 2100;
         mapDirectoryName = "/opt/sapro/map/";
         xmlFullPath = "/opt/sapro/xml/";
-    }
-
-    public void test() {
-        try {
-            this.initConnect();
-            saproObj.sendAddDevCmdToMap("/opt/sapro/map/map0.map","/opt/sapro/map/devlist.map");
-            this.closeConnect();
-        } catch (SaproException e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
     }
 
 
@@ -82,8 +73,8 @@ public class SaproCommunicationHandler {
                 BaseTestUtils.report("Starting device " + devName + " from " + mapName, Reporter.PASS_NOR_FAIL);
                 CommandMessage start = saproObj.sendStartCmdToDevice(mapName, devName);
                 BaseTestUtils.report(start.getMessage(), Reporter.PASS);
-                this.closeConnect();
             }
+            this.closeConnect();
         } catch (SaproException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -101,8 +92,8 @@ public class SaproCommunicationHandler {
             for (String devName : devNames) {
                 CommandMessage stop = saproObj.sendStopCmdToDevice(mapName, devName);
                 BaseTestUtils.report(stop.getMessage(), Reporter.PASS);
-                this.closeConnect();
             }
+            this.closeConnect();
         } catch (SaproException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -166,7 +157,7 @@ public class SaproCommunicationHandler {
     public void reloadXmlFile(String mapName, String deviceName, String newXmlFile) {
         try {
             // making sure the device is on:
-            //this.startDevicesFromMap(mapName, deviceName);
+            this.startDevicesFromMap(mapName, deviceName);
             this.initConnect();
             CommandMessage reload = saproObj.sendTclCmdToDevice(this.getFullMapName(mapName), deviceName, "SA_reload_xmlmodfile " + this.xmlFullPath + newXmlFile);
             BaseTestUtils.report(reload.getMessage(), Reporter.PASS);
@@ -174,6 +165,10 @@ public class SaproCommunicationHandler {
         } catch (SaproException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
+    }
+
+    public void refresh() throws SaproException {
+        saproObj.getStatsFromMap("/opt/sapro/map/Danny.map");
     }
 
 
@@ -191,15 +186,6 @@ public class SaproCommunicationHandler {
                     return mapDirectoryName + m;
                 }
             }
-//            List<MapListInfo> mapList = saproObj.getMapDevListFromServer();
-//            for (MapListInfo map : mapList) {
-//                String[] parts = map.getMapName().split("/");
-//                String lastPart = parts[parts.length - 1];
-//                String name = lastPart.substring(0, lastPart.indexOf('.'));
-//                if (name.equals(mapName)) {
-//                    return map.getMapName();
-//                }
-//            }
         } catch (SaproException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
