@@ -788,7 +788,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     private void uiUnSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
         String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
-        expandScopePolicies(deviceIP,map);
+        expandScopePolicies(deviceIP, map);
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())) {
             WebUiTools.check("DPPolicyCheck", new String[]{deviceIP, policy.toString()}, false);
         }
@@ -798,7 +798,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
-        expandScopePolicies(deviceIP,map);
+        expandScopePolicies(deviceIP, map);
         if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
             errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
         if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPScopeSelectionChange", deviceIP)))
@@ -806,23 +806,23 @@ public class BasicOperationsSteps extends BddUITestBase {
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()))
             if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceIP, policy.toString()})))
                 errorMessage.append("This Policy " + policy.toString() + " is not selected !!");
-        if(!isSortedPolices(deviceIP,new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() ,new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())))
+        if (!isSortedPolices(deviceIP, new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length(), new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())))
             errorMessage.append("This Policies is not sorted !! ");
         saveScopeSelection(deviceIP);
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
 
-    private boolean isSortedPolices(String deviceIP, int policesNumber , JSONArray polices) {
-        ArrayList<String> policesArray =(ArrayList)polices.toList();
+    private boolean isSortedPolices(String deviceIP, int policesNumber, JSONArray polices) {
+        ArrayList<String> policesArray = (ArrayList) polices.toList();
         policesArray.replaceAll(String::toLowerCase);
         Collections.sort(policesArray);
         List<WebElement> policyElements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_DefensePro_" + deviceIP + "_policiesLabel_')]").getBy());
-        for(int i=0; i<policesNumber;i++){
-            if(!policyElements.get(i).getText().toLowerCase().equals(policesArray.get(i)))
+        for (int i = 0; i < policesNumber; i++) {
+            if (!policyElements.get(i).getText().toLowerCase().equals(policesArray.get(i)))
                 return false;
         }
-        return true ;
+        return true;
     }
 
     private void saveScopeSelection(String deviceIP) throws TargetWebElementNotFoundException {
@@ -832,14 +832,60 @@ public class BasicOperationsSteps extends BddUITestBase {
             BasicOperationsHandler.clickButton("close scope selection");
     }
 
-    private void expandScopePolicies(String device,Map<String, String> map) throws Exception {
-        try{
+    private void expandScopePolicies(String device, Map<String, String> map) throws Exception {
+        try {
             clickButton("Device Selection", "");
-        }catch(Exception e){
+        } catch (Exception e) {
             clickButton("Open Scope Selection", new JSONObject(map.get("devices")).get("type").toString());
-        }finally {
+        } finally {
             setTextField("ScopeSelectionFilter", device);
             clickButton("DPScopeSelectionChange", device);
+        }
+    }
+
+    @Then("^UI Text of \"([^\"]*)\" with extension \"([^\"]*)\" GTE to \"([^\"]*)\" with offset \"([^\"]*)\"$")
+    public void uiTextOfWithExtensionGTETo(String label, String params, String value, String offset) throws Throwable {
+
+        String[] splitValueExpected = value.split(" ");
+        String number1Expected = splitValueExpected[0].replaceAll("\\D+", "");
+        String number2Expected = splitValueExpected[1].replaceAll("\\D+", "");
+
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params.split(","));
+        String element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getText();
+        if (element == null)
+            BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+
+        String[] splitValueActual = element.split(" ");
+        String number1Actual = splitValueActual[0].replaceAll("[^\\d.]", "");
+        String number2Actual = splitValueActual[1].replaceAll("[^\\d.]", "");
+
+        float maxVal1, maxVal2, minVal1, minVal2;
+        if (offset != null && offset.matches("[0-9]+")) {
+            maxVal1 = Float.parseFloat(number1Expected) + Integer.parseInt(offset);
+            minVal1 = Float.parseFloat(number1Expected) - Integer.parseInt(offset);
+
+            maxVal2 = Float.parseFloat(number2Expected) + Integer.parseInt(offset);
+            minVal2 = Float.parseFloat(number2Expected) - Integer.parseInt(offset);
+
+            if (Float.parseFloat(number1Actual) > maxVal1 || Float.parseFloat(number1Actual) < minVal1)
+                BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+            if (Float.parseFloat(number2Actual) > maxVal2 || Float.parseFloat(number2Actual) < minVal2)
+                BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+        }
+    }
+
+    @Then("^UI ScrollIntoView with label \"([^\"]*)\" (?:and params \"([^\"]*)\")?$")
+    public void uiScrollIntoViewWithLabelAndParams(String label, String params) throws Throwable {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params.split(","));
+        try {
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null)
+                return;
+            WebUIUtils.scrollIntoView(element, true);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -906,7 +952,8 @@ public class BasicOperationsSteps extends BddUITestBase {
 
 
     @Then("^UI Unclick all the attributes \"([^\"]*)\" is \"(EQUALS|CONTAINS)\" to \"([^\"]*)\"$")
-    public void uiUnclickAllTheAttributesOf(String attribute, String compare, String value, List<ParameterSelected> listParameters) {
+    public void uiUnclickAllTheAttributesOf(String attribute, String compare, String
+            value, List<ParameterSelected> listParameters) {
         try {
             for (ParameterSelected parameter : listParameters) {
                 VisionDebugIdsManager.setLabel(parameter.label);
