@@ -48,6 +48,9 @@ public class VisionServerSteps extends TestBase {
     @When("^CLI Server Start$")
     public void serverStart() {
         try {
+            if (!radwareServerCli.isConnected()) {
+                radwareServerCli.connect();
+            }
             VisionServerCli.visionServerStart(radwareServerCli, rootServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -59,6 +62,9 @@ public class VisionServerSteps extends TestBase {
     @When("^CLI Server Stop$")
     public void serverStop() {
         try {
+            if (!radwareServerCli.isConnected()) {
+                radwareServerCli.connect();
+            }
             VisionServerCli.visionServerStop(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

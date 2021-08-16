@@ -212,7 +212,11 @@ public class RemoteSshCommandsTests extends TestBase {
 
     @When("^CLI Run linux Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"( in any line)?(?: Wait For Prompt (\\d+) seconds)?(?: Retry (\\d+) seconds)?$")
     public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, ServersManagement.ServerIds serverId, OperatorsEnum operatorsEnum, String expectedResult, String inAnyLine, Integer waitForPrompt, Integer iRetryFor) {
+        ServerCliBase serverCliBase = TestBase.serversManagement.getServerById(serverId);
         try {
+            if (!serverCliBase.isConnected()){
+                serverCliBase.connect();
+            }
             waitForPrompt = waitForPrompt != null ? waitForPrompt * 1000 : CliOperations.DEFAULT_TIME_OUT;
             boolean bTestSuccess;
             int iInterval = 5; //in seconds
@@ -223,7 +227,7 @@ public class RemoteSshCommandsTests extends TestBase {
             long startTime = System.currentTimeMillis();
 
             do {
-                CliOperations.runCommand(TestBase.serversManagement.getServerById(serverId), commandToExecute, waitForPrompt);
+                CliOperations.runCommand(serverCliBase, commandToExecute, waitForPrompt);
                 String actualResult = CliOperations.lastRow.trim();
 
                 if (inAnyLine != null && !inAnyLine.isEmpty()) {

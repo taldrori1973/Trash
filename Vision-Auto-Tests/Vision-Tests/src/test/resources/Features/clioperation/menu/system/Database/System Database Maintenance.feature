@@ -1,4 +1,4 @@
-@TC111696
+@TC111696 @Debug
 Feature: CLI System Database Maintenance
 
   @SID_1

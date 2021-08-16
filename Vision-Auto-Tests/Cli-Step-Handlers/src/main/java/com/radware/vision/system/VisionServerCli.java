@@ -32,8 +32,7 @@ public class VisionServerCli {
             if (serverCli.getTestAgainstObject().toString().contains("The APSolute Vision server is already started.")) {
                 BaseTestUtils.reporter.report("Vision Server is already started", Reporter.PASS);
             } else {
-                rootServerCli.isServerConnected();
-                BaseTestUtils.report("Vision Server is starting...", Reporter.PASS);
+                BaseTestUtils.report("Vision Server has started...", Reporter.PASS);
             }
         } finally {
             BaseTestUtils.reporter.stopLevel();
