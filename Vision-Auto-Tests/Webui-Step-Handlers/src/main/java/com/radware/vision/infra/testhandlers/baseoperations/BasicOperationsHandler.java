@@ -132,6 +132,54 @@ public class BasicOperationsHandler {
 
     }
 
+    public static void uiValidateExecutiveSummaryText(String expectedText, String expectedURL) {
+        if (expectedURL != null) {
+            try{
+                validateExecSummaryWithURL(expectedText, expectedURL);
+
+            }catch (Exception e){
+                BaseTestUtils.report("Exception in: validate Executive Summary with URL ", Reporter.FAIL);
+
+            }
+        } else {
+            try{
+                validateExecSummaryWithoutURL(expectedText);
+
+            }catch (Exception e){
+                BaseTestUtils.report("Exception in: validate Executive Summary without URL ", Reporter.FAIL);
+
+            }
+        }
+    }
+
+    private static void validateExecSummaryWithoutURL(String expectedText) {
+        List<WebElement> elements;
+        elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[div and contains(@data-offset-key,'-0-0')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        if (!elements.get(0).getText().equals(expectedText)) {
+            BaseTestUtils.report("The expected text :" + expectedText + " not equal to " + elements.get(0).getText(), Reporter.FAIL);
+        }
+    }
+
+    private static void validateExecSummaryWithURL(String expectedText, String expectedURL) {
+        List<WebElement> elements;
+        elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[div and contains(@data-offset-key,'-0-0')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        String[] splitedExpectedURL = expectedURL.split(",");
+        if (!elements.get(0).getText().equals(expectedText)) {
+            BaseTestUtils.report("The expected text :" + expectedText + " not equal to " + elements.get(0).getText(), Reporter.FAIL);
+        }
+        if (!elements.get(1).getText().equals(splitedExpectedURL[0])) {
+            BaseTestUtils.report("The expected text :" + splitedExpectedURL[0] + " not equal to " + elements.get(1).getText(), Reporter.FAIL);
+        }
+        elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@href,'//www.')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        if (!elements.get(0).getText().equals(splitedExpectedURL[0])) {
+            BaseTestUtils.report("The expected text :" + splitedExpectedURL[0] + " not equal to " + elements.get(0).getText(), Reporter.FAIL);
+        }
+        if (!elements.get(0).getAttribute("href").contains(splitedExpectedURL[1])) {
+            BaseTestUtils.report("The expected text :" + splitedExpectedURL[1] + " not equal to " + elements.get(0).getAttribute("href"), Reporter.FAIL);
+
+        }
+    }
+
     public static void selectIframvalue(String iframeName) {
 
         String by = "", value = "";
@@ -663,8 +711,7 @@ public class BasicOperationsHandler {
     public static void settings() {
         navigateFromHomePage("VISION SETTINGS");
         WebUIBasePage.closeAllYellowMessages();
-        try
-        {
+        try {
             HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
             WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
         } catch (Exception ignore) {
