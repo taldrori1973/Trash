@@ -244,6 +244,8 @@ public class NewVmHandler extends TestBase {
             this.visionRadwareFirstTime.setConnectRetries(3);
             RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
             rootServerCli.setHost(this.visionRadwareFirstTime.getIp());
+            UvisionServer.modifyDockerNetwork(rootServerCli);
+            UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
         }
 
     }
