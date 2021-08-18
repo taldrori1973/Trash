@@ -27,11 +27,13 @@ public class VisionServerCli {
     public static void visionServerStart(RadwareServerCli serverCli, RootServerCli rootServerCli) throws Exception {
         try {
             BaseTestUtils.reporter.startLevel("Starting Vision Server");
-            BaseTestUtils.reporter.report("Starting Vision Server");
             CliOperations.runCommand(serverCli, Menu.system().visionServer().start().build(), 60 * 10 * 1000, false, true);
             if (serverCli.getTestAgainstObject().toString().contains("The APSolute Vision server is already started.")) {
                 BaseTestUtils.reporter.report("Vision Server is already started", Reporter.PASS);
             } else {
+                //todo: kvision DE67449 - delete when bug resolved
+                CliOperations.runCommand(rootServerCli, "docker restart config_kvision-configuration-service_1");
+                Thread.sleep(30 * 1000);
                 BaseTestUtils.report("Vision Server has started...", Reporter.PASS);
             }
         } finally {

@@ -1,11 +1,9 @@
-@TC111696 @Debug
+@TC111696
 Feature: CLI System Database Maintenance
 
   @SID_1
   Scenario: system database maintenance menu
-    Given CLI Reset radware password
     When CLI System Database Maintenance Sub Menu Test
-
 
   @SID_2
   Scenario: system database maintenance check menu

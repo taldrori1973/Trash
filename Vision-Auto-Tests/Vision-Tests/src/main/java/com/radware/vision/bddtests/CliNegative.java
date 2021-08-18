@@ -116,7 +116,7 @@ public class CliNegative extends VisionCliTestBase {
         importNegativeTest(command, password, location);
     }
 
-    protected void importNegativeTest(String command, String password, String location/*, GoodErrorsList goodErrorsList*/) throws Exception {
+    protected void importNegativeTest(String command, String password, String location) throws Exception {
         RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
         try {
             BaseTestUtils.reporter.startLevel("Beginning the import");

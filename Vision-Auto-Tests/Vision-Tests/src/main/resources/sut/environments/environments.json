@@ -11,6 +11,20 @@
       "physicalManagement": "G1"
     },
     {
+      "name": "OVA-232",
+      "hostIp": "10.205.200.232",
+      "user": "root",
+      "password": "radware",
+      "dnsServerIp": "10.221.1.47",
+      "netMask": "255.255.0.0",
+      "gateWay": "172.17.1.1",
+      "physicalManagement": "G1",
+      "resourcePool": "RP1",
+      "url": "https://10.205.172.220/sdk",
+      "networkName": "Mgmt",
+      "dataStores": "VMFS_00"
+    },
+    {
       "name": "OVA-220",
       "hostIp": "10.205.172.220",
       "user": "root",

@@ -3,8 +3,8 @@
   "serverName": "uVision",
   "deployConfigurations": {
     "snapshot": "Current-1",
-    "setupMode": "upgrade",
-    "environment": "KVM-215"
+    "setupMode": "fresh install",
+    "environment": "OVA-232"
   },
   "pair": {
     "pairIp": "172.17.164.101",
