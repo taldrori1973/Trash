@@ -93,12 +93,6 @@ Feature: Report introduction and executive summary
     Then UI "Validate" Report With Name "Report intro_executive summary"
       | Format | Select: CSV |
 
-    Then UI Click Button "My Report" with value "Report intro_executive summary"
-    Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary"
-    Then Sleep "60"
-    Then UI Click Button "Log Preview" with value "Report intro_executive summary_0"
-    Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
-
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
     #body
