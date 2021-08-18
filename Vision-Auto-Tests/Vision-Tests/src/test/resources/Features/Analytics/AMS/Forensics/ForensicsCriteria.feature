@@ -16,11 +16,11 @@ Feature: Forensic Criteria Tests
 
   @SID_2
   Scenario: Run DP simulator
-    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 20 with attack ID
-    And CLI simulate 1 attacks of type "vrm_bdos" on "DefensePro" 21 with attack ID
-    And CLI simulate 2 attacks of type "https_new2" on "DefensePro" 11 with loopDelay 15000 and wait 230 seconds
-    Given CLI simulate 1 attacks of type "pps_traps" on "DefensePro" 10
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "rest_black_ip46" on SetId "DefensePro_Set_4" with attack ID
+    And CLI simulate 1 attacks of type "vrm_bdos" on SetId "DefensePro_Set_5" with attack ID
+    And CLI simulate 2 attacks of type "https_new2" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 230 seconds
+    Given CLI simulate 1 attacks of type "pps_traps" on SetId "DefensePro_Set_1"
 
 
   @SID_3
