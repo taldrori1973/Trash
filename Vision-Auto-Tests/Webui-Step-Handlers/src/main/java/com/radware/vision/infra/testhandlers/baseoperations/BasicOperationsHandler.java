@@ -132,24 +132,25 @@ public class BasicOperationsHandler {
 
     }
 
-    public static void uiValidateExecutiveSummaryText(String expectedText, String expectedURL) {
+    public static void uiValidateExecutiveSummaryText(String expectedText, String expectedURL) throws InterruptedException {
         if (expectedURL != null) {
-            try{
+            try {
+                Thread.sleep(20000);
                 validateExecSummaryWithURL(expectedText, expectedURL);
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 BaseTestUtils.report("Exception in: validate Executive Summary with URL ", Reporter.FAIL);
 
             }
-        } else {
-            try{
+        } else
+            try {
+                Thread.sleep(20000);
                 validateExecSummaryWithoutURL(expectedText);
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 BaseTestUtils.report("Exception in: validate Executive Summary without URL ", Reporter.FAIL);
 
             }
-        }
     }
 
     private static void validateExecSummaryWithoutURL(String expectedText) {

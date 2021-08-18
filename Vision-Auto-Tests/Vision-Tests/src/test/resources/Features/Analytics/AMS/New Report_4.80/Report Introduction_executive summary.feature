@@ -47,7 +47,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
 
     #subject
@@ -73,7 +72,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
 
     #subject
@@ -99,7 +97,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
 
     #subject
@@ -132,7 +129,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary1"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary1_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
     Then UI Delete Report With Name "Report intro_executive summary1"
 
@@ -151,7 +147,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary2"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary2_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
     Then UI Delete Report With Name "Report intro_executive summary2"
 
@@ -170,7 +165,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary3"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary3_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
     Then UI Delete Report With Name "Report intro_executive summary3"
 
@@ -189,7 +183,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary4"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary4_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
     Then UI Delete Report With Name "Report intro_executive summary4"
 
@@ -208,7 +201,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary5"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary5_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
     Then UI Delete Report With Name "Report intro_executive summary5"
 
@@ -227,7 +219,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary6"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary6_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
     Then UI Delete Report With Name "Report intro_executive summary6"
 
@@ -246,7 +237,6 @@ Feature: Report introduction and executive summary
     Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary7"
     Then Sleep "60"
     Then UI Click Button "Log Preview" with value "Report intro_executive summary7_0"
-    Then Sleep "20"
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
     Then UI Delete Report With Name "Report intro_executive summary7"
 
