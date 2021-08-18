@@ -4,6 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import jsystem.framework.report.Reporter;
 
@@ -23,15 +24,17 @@ public class VisionServerCli {
      *
      * @throws Exception
      */
-    public static void visionServerStart(RadwareServerCli serverCli) throws Exception {
+    public static void visionServerStart(RadwareServerCli serverCli, RootServerCli rootServerCli) throws Exception {
         try {
             BaseTestUtils.reporter.startLevel("Starting Vision Server");
-            BaseTestUtils.reporter.report("Starting Vision Server");
             CliOperations.runCommand(serverCli, Menu.system().visionServer().start().build(), 60 * 10 * 1000, false, true);
             if (serverCli.getTestAgainstObject().toString().contains("The APSolute Vision server is already started.")) {
                 BaseTestUtils.reporter.report("Vision Server is already started", Reporter.PASS);
             } else {
-                BaseTestUtils.report("Vision Server is starting...", Reporter.PASS);
+                //todo: kvision DE67449 - delete when bug resolved
+                CliOperations.runCommand(rootServerCli, "docker restart config_kvision-configuration-service_1");
+                Thread.sleep(30 * 1000);
+                BaseTestUtils.report("Vision Server has started...", Reporter.PASS);
             }
         } finally {
             BaseTestUtils.reporter.stopLevel();
@@ -64,8 +67,7 @@ public class VisionServerCli {
     public static void visionServerStop(RadwareServerCli serverCli) throws Exception {
         try {
             BaseTestUtils.reporter.startLevel("Stopping Vision Server");
-            BaseTestUtils.reporter.report("Stopping Vision Server");
-            CliOperations.runCommand(serverCli, Menu.system().visionServer().stop().build(), 30 * 10 * 1000, false);
+            CliOperations.runCommand(serverCli, Menu.system().visionServer().stop().build(), 30 * 10 * 1000);
             if(!isVisionServerRunning(serverCli)){
                 BaseTestUtils.reporter.report("Vision Server Is Stopped", Reporter.PASS);
             } else {
@@ -79,7 +81,6 @@ public class VisionServerCli {
     public static void visionServerReboot(RadwareServerCli serverCli) throws Exception {
         try {
             BaseTestUtils.reporter.startLevel("Stopping Vision Server");
-            BaseTestUtils.reporter.report("Stopping Vision Server");
             CliOperations.runCommand(serverCli, Menu.reboot().build(), 5 * 1000);
             CliOperations.runCommand(serverCli, "y", 5 * 60 * 1000);
         } finally {

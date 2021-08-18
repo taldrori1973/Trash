@@ -54,7 +54,7 @@ public class NetNatSteps extends VisionCliTestBase {
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        AfterMethod();
+        
     }
 
     @When("^Net Nat Set none$")
@@ -67,7 +67,7 @@ public class NetNatSteps extends VisionCliTestBase {
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        AfterMethod();
+        
     }
 
 
@@ -89,7 +89,7 @@ public class NetNatSteps extends VisionCliTestBase {
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        AfterMethod();
+        
     }
 
     /**
@@ -136,7 +136,7 @@ public class NetNatSteps extends VisionCliTestBase {
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        AfterMethod();
+        
     }
 
     public NetPortIp[] getNetPortIpArray() {
@@ -148,13 +148,4 @@ public class NetNatSteps extends VisionCliTestBase {
     }
 
 
-    private void AfterMethod() {
-
-        try {
-            Nat.netNatSetNone(radwareServerCli);
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-
-    }
 }

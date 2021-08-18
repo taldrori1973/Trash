@@ -3,6 +3,7 @@ package com.radware.vision.automation.Deploy;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import jsystem.framework.report.Reporter;
 
@@ -155,8 +156,9 @@ public class UvisionServer {
 
     /**
      * Validate list of services to validate their state
+     *
      * @param radwareServerCli - RadwareServerCli object
-     * @param servicesMap - map of all the services to validate
+     * @param servicesMap      - map of all the services to validate
      * @return - true if all as expected else false
      */
     public static boolean isUvisionReady(RadwareServerCli radwareServerCli, HashMap<DockerServices, DockerServiceStatus> servicesMap) {
@@ -172,10 +174,16 @@ public class UvisionServer {
         return stat[0];
     }
 
+    public static boolean isServiceReady(RadwareServerCli radwareServerCli, DockerServices dockerService) {
+        CliOperations.runCommand(radwareServerCli, Menu.system().visionServer().status().build(), 120 * 1000);
+        return isServiceReady(radwareServerCli.getCmdOutput(), dockerService, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+    }
+
     /**
      * Validate a service status
-     * @param response - Output of "system vision-server status"
-     * @param dockerService - Service to validate
+     *
+     * @param response            - Output of "system vision-server status"
+     * @param dockerService       - Service to validate
      * @param dockerServiceStatus - Srvice expected status
      * @return True if match else false
      */
@@ -184,7 +192,7 @@ public class UvisionServer {
         boolean status = false;
         String patternStr = dockerServiceStatus.dockerState.getState();
         String line = response.stream().filter(c -> c.contains(dockerService.getService())).findFirst().orElse(null);
-        if(line == null) {
+        if (line == null) {
             BaseTestUtils.reportInfoMessage("Service: " + dockerService.getService() + " was not found in output:\n" + response);
             return false;
         }
@@ -212,9 +220,10 @@ public class UvisionServer {
 
     /**
      * Check services status till timeout
+     *
      * @param radwareServerCli - RadwareServerCli object
-     * @param sevicesMap - Map of all services to validate
-     * @param timeout - timeout in seconds
+     * @param sevicesMap       - Map of all services to validate
+     * @param timeout          - timeout in seconds
      */
     public static void waitForUvisionServerServicesStatus(RadwareServerCli radwareServerCli, HashMap<DockerServices, DockerServiceStatus> sevicesMap, long timeout) {
         timeout = timeout * 1000;
@@ -228,10 +237,24 @@ public class UvisionServer {
             try {
                 Thread.sleep(15 * 1000);
             } catch (InterruptedException e) {
-                BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
         }
         while (System.currentTimeMillis() - startTime < timeout);
         BaseTestUtils.report("Not all services are up till timeout", Reporter.FAIL);
     }
+
+    //todo: kvision maybe temporary WA for internal docker network
+    public static void modifyDockerNetwork(RootServerCli rootServerCli) {
+        try {
+            CliOperations.runCommand(rootServerCli, "cd /deploy/config");
+            CliOperations.runCommand(rootServerCli, "docker-compose stop", 60 * 1000);
+            CliOperations.runCommand(rootServerCli, "wget -O /etc/docker/daemon.json ftp://radware:radware@172.17.164.10://home/radware/ftp/daemon.json");
+            CliOperations.runCommand(rootServerCli, "service docker restart");
+            CliOperations.runCommand(rootServerCli, "docker-compose up -d");
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
 }

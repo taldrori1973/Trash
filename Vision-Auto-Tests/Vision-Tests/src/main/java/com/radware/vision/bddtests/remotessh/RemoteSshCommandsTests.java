@@ -25,6 +25,7 @@ import static java.lang.Integer.parseInt;
 
 public class RemoteSshCommandsTests extends TestBase {
 
+
     @When("^run Remote Script \"(.*)\" at scriptPath \"(.*)\" on IP \"(.*)\" with script params \"(.*)\"$")
     public void runRemoteScript(String scriptName, String scriptPath, String remoteServerIP, String scriptParams) {
         String remoteUsername = "root";
@@ -216,8 +217,8 @@ public class RemoteSshCommandsTests extends TestBase {
             waitForPrompt = waitForPrompt != null ? waitForPrompt * 1000 : CliOperations.DEFAULT_TIME_OUT;
             boolean bTestSuccess;
             int iInterval = 5; //in seconds
-            if(iRetryFor==null)
-                iRetryFor=0;
+            if (iRetryFor == null)
+                iRetryFor = 0;
             iRetryFor = iRetryFor * 1000;
 
             long startTime = System.currentTimeMillis();
@@ -390,7 +391,7 @@ public class RemoteSshCommandsTests extends TestBase {
             String commandToExecute = String.format("grep -c \"%s\" %s", domain, file);
             CliOperations.runCommand(serverCliBase, commandToExecute, 10 * 1000);
             actualResult = parseInt(CliOperations.lastRow.trim());
-            if(actualResult == 0) //need to add
+            if (actualResult == 0) //need to add
             {
                 commandToExecute = "sudo useradd " + domain;
                 CliOperations.runCommand(serverCliBase, commandToExecute, 10 * 1000);
@@ -465,10 +466,11 @@ public class RemoteSshCommandsTests extends TestBase {
                     "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
         }
     }
+
     @Given("^CLI Wait for Vision Re-Connection(?: (\\d+) seconds)?$")
     public static void waitForVisionReConnection(Integer timeOut) {
         try {
-            timeOut = timeOut == null? 300 : timeOut;
+            timeOut = timeOut == null ? 300 : timeOut;
             waitForServerConnection(timeOut * 1000, serversManagement.getRootServerCLI().get());
         } catch (InterruptedException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

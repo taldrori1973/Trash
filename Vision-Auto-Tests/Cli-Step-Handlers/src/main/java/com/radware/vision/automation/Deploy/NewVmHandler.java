@@ -235,7 +235,8 @@ public class NewVmHandler extends TestBase {
             this.visionRadwareFirstTime.setHost(this.visionRadwareFirstTime.getIp());
             waitForServerConnection(2700000L, this.visionRadwareFirstTime);
             UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
-
+            UvisionServer.modifyDockerNetwork(rootServerCli);
+            UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
             this.initialRestLogin(900000L);
             BaseTestUtils.reporter.report("License Key updated.");
         } catch (Exception var24) {
@@ -243,7 +244,6 @@ public class NewVmHandler extends TestBase {
         } finally {
             this.visionRadwareFirstTime.setConnectRetries(3);
             RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
-            rootServerCli.setHost(this.visionRadwareFirstTime.getIp());
         }
 
     }

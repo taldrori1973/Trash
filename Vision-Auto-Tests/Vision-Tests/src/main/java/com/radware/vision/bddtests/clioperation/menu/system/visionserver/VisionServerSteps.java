@@ -6,6 +6,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.system.VisionServerCli;
@@ -19,6 +20,7 @@ import static com.radware.vision.automation.Deploy.UvisionServer.*;
 public class VisionServerSteps extends TestBase {
 
     private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+    private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
 
     @When("^CLI wait to vision services up for (\\d+) seconds$")
@@ -46,7 +48,10 @@ public class VisionServerSteps extends TestBase {
     @When("^CLI Server Start$")
     public void serverStart() {
         try {
-            VisionServerCli.visionServerStart(radwareServerCli);
+            if (!radwareServerCli.isConnected()) {
+                radwareServerCli.connect();
+            }
+            VisionServerCli.visionServerStart(radwareServerCli, rootServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -57,6 +62,9 @@ public class VisionServerSteps extends TestBase {
     @When("^CLI Server Stop$")
     public void serverStop() {
         try {
+            if (!radwareServerCli.isConnected()) {
+                radwareServerCli.connect();
+            }
             VisionServerCli.visionServerStop(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -74,7 +82,7 @@ public class VisionServerSteps extends TestBase {
         //todo: kvision add status when available
         try {
             VisionServerCli.visionServerStop(radwareServerCli);
-            VisionServerCli.visionServerStart(radwareServerCli);
+            VisionServerCli.visionServerStart(radwareServerCli, rootServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

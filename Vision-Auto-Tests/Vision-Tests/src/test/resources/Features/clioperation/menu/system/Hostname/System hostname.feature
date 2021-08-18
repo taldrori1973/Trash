@@ -32,19 +32,9 @@ Feature: CLI System Hostname
     When CLI Operations - Run Radware Session command "system hostname get"
     Then CLI Operations - Verify that output contains regex "myserver.auto"
 
-#TODO kvision check status
-#  @SID_6
-#  Scenario: Verify services are running
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Collector service is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "New Reporter service is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Alerts service is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Scheduler service is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration Synchronization service is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Tor feed service is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line Retry 90 seconds
-#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line Retry 90 seconds
+  @SID_6
+  Scenario: Verify services are running
+    When CLI validate service "all" status is "up" and health is "healthy" retry for 600 seconds
+
 
 
