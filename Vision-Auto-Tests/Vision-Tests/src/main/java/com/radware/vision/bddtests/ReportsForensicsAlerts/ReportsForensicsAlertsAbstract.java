@@ -7,6 +7,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -225,7 +226,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         List<String> emailList = Arrays.asList(eMailsText.split(","));
         emailList.forEach(mail -> {
             if (!mail.contains("@"))
-                emailList.set(emailList.indexOf(mail), String.format("%s@%s.local", mail, restTestBase.getRootServerCli().getHost()));
+                emailList.set(emailList.indexOf(mail), String.format("%s@%s.local", mail, TestBase.getSutManager().getClientConfigurations().getHostIp())); //restTestBase.getRootServerCli().getHost()
         });
         return emailList;
     }
