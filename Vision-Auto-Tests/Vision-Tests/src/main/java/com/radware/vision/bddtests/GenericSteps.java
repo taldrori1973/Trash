@@ -24,6 +24,7 @@ import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -456,6 +457,12 @@ public class GenericSteps extends BddUITestBase {
     @When("^UI set \"([^\"]*)\" switch button to \"([^\"]*)\"$")
     public void clickOnSwitchButton(String label, String state) throws TargetWebElementNotFoundException {
         ClickOperationsHandler.clickOnSwitchButton(label, null, state);
+    }
+
+    @Then("^UI Text of Executive Summary equal to \"([^\"]*)\"(?: and Link Equal to \"([^\"]*)\")?$")
+    public void uiTextOfExecutiveSummaryEqualToAndLinkEqualTo(String expectedText, String expectedURL) throws Throwable {
+        BasicOperationsHandler.uiValidateExecutiveSummaryText(expectedText,expectedURL);
+
     }
 
     static class DataServer {
