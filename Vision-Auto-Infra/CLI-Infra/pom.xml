@@ -28,6 +28,18 @@
             <version>DEVELOPMENT-1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.toastcoders</groupId>
+            <artifactId>yavijava</artifactId>
+            <version>6.0.05</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.radware.vision.automation.tools</groupId>
+            <artifactId>license-keys-repository</artifactId>
+            <version>DEVELOPMENT-1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

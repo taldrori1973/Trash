@@ -2,27 +2,24 @@ package com.radware.vision.automation.Deploy;
 
 import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.automation.tools.licensekeys.LicenseRepository;
 import com.radware.restcore.RestBasicConsts;
 import com.radware.restcore.VisionRestClient;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.ReflectionUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.RegexUtils;
-import ch.ethz.ssh2.log.Logger;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.VMNetworkingOps;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.test_utils.DeployOva;
-import com.radware.vision.test_utils.VMNetworkingOps;
 import com.radware.vision.vision_tests.CliTests;
 
-import java.util.ArrayList;
-import java.util.StringJoiner;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.StringJoiner;
 
 public class NewVmHandler extends TestBase {
     private static final String licenseKeyPrefix = "vision-activation";
@@ -183,7 +180,6 @@ public class NewVmHandler extends TestBase {
 
     public void firstTimeWizardOva(String ovaUrl, boolean isAPM, String vCenterURL, String userName, String password, String hostip, String specificVisionBuild, String newVmName, String containedDVS, String networkName, String resourcePool, String destFolder, String dataStores) {
         VMNetworkingOps vmNetworkingOps = new VMNetworkingOps(vCenterURL, hostip, userName, password);
-
         try {
             File outputDir = new File(System.getProperty("user.dir"));
             BaseTestUtils.reporter.report("Working Directory is " + outputDir.getAbsolutePath());
