@@ -1092,11 +1092,21 @@ public class BasicOperationsHandler {
     private static void closeAllPopups() {
         ComponentLocator locator = ComponentLocatorFactory.getLocatorByClass("ant-modal-close");
         if ((WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME)) != null && WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME).isDisplayed())
+        {
             try {
                 WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false).click();
             } catch (ElementNotInteractableException ignore) {
             }
+        }
 
+        locator = ComponentLocatorFactory.getLocatorById("gwt-debug-Dialog_Box_Close");
+        if ((WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME)) != null && WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME).isDisplayed())
+        {
+            try {
+                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
+            } catch (ElementNotInteractableException ignore) {
+            }
+        }
     }
 
     public static boolean isNavigationDisabled(String pageName) throws Exception {
