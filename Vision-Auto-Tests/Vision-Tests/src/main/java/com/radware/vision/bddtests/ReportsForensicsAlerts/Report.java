@@ -251,7 +251,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
         StringBuilder errorMessage = new StringBuilder();
         JSONObject basicRestResult = getReportDefinition(reportName, map);
         if (basicRestResult != null) {
-            errorMessage.append(validateExecutiveSummaryDefinition(new JSONObject(basicRestResult.get("executiveSummary").toString()), map));
+            if (basicRestResult.get("executiveSummary").toString().equals("null"))
+                errorMessage.append(validateExecutiveSummaryDefinition(new JSONObject(basicRestResult.get("executiveSummary")), map));
+            else
+                errorMessage.append(validateExecutiveSummaryDefinition(new JSONObject(basicRestResult.get("executiveSummary").toString()), map));
             errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeFrame").toString().replace("\\", "")), map, reportName));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
@@ -361,10 +364,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
         blockList = (JSONArray) new JSONObject(new JSONObject(executiveSummary.toString()).get("summaryState").toString()).get("blocks");
         inlineStyleRangesList = (JSONArray) new JSONObject(blockList.get(0).toString()).get("inlineStyleRanges");
         for (int i = 0; i < inlineStyleRangesList.length(); i++) {
-            if (new JSONObject(inlineStyleRangesList.get(i).toString()).get("style").equals("BOLD")){
+            if (new JSONObject(inlineStyleRangesList.get(i).toString()).get("style").equals("BOLD")) {
                 flag = true;
                 break;
-            }else
+            } else
                 flag = false;
         }
         if (!(flag == Boolean.parseBoolean(new JSONObject(map.get("ExecutiveSummary")).get("Bold").toString()))) {
@@ -397,11 +400,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
         blockList = (JSONArray) new JSONObject(new JSONObject(executiveSummary.toString()).get("summaryState").toString()).get("blocks");
         inlineStyleRangesList = (JSONArray) new JSONObject(blockList.get(0).toString()).get("inlineStyleRanges");
         for (int i = 0; i < inlineStyleRangesList.length(); i++) {
-            if (new JSONObject(inlineStyleRangesList.get(i).toString()).get("style").equals("UNDERLINE")){
+            if (new JSONObject(inlineStyleRangesList.get(i).toString()).get("style").equals("UNDERLINE")) {
                 flag = true;
                 break;
-            }
-            else
+            } else
                 flag = false;
         }
         if (!(flag == Boolean.parseBoolean(new JSONObject(map.get("ExecutiveSummary")).get("Underline").toString()))) {
