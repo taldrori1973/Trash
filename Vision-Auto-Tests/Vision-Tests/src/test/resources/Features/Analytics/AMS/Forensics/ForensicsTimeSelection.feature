@@ -10,8 +10,8 @@ Feature: Forensic Time Selection
     Given REST Delete ES index "dp-sampl*"
     Given REST Delete ES index "dp-packet*"
     When CLI Clear vision logs
-    And CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 22 seconds
+    And CLI simulate 1 attacks of type "rest_dos" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1" and wait 22 seconds
 
   
   @SID_2
