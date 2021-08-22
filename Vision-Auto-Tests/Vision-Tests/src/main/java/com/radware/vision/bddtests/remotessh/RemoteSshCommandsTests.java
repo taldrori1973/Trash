@@ -4,6 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.Operators.Comparator;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
@@ -17,6 +18,7 @@ import cucumber.api.java.en.When;
 import enums.SUTEntryType;
 import testutils.RemoteProcessExecutor;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
@@ -244,6 +246,28 @@ public class RemoteSshCommandsTests extends TestBase {
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + serverId + "\n" + e.getMessage(), Reporter.FAIL);
         }
+    }
+
+    /**
+     *
+     * @param service - UvisionServer.DockerServices ENUM
+     * @param timeout - timeout to wait
+     * @param timeUnit - min or sec
+     */
+    @When("^CLI Validate service \"(.*)\" is up with timeout \"(\\d+)\" (socend(?:s)|minute(?:s))$")
+    public void runCLICommandAndValidateBiggerOrEqualResulta(String service, Integer timeout, String timeUnit)
+    {
+        timeout *= (timeUnit.startsWith("minute"))?60:1;
+        HashMap<UvisionServer.DockerServices, UvisionServer.DockerServiceStatus> uVision_Service =
+                new HashMap<UvisionServer.DockerServices, UvisionServer.DockerServiceStatus>() {{
+                    put(
+                            UvisionServer.DockerServices.valueOf(service),
+                            new UvisionServer.DockerServiceStatus(UvisionServer.DockerState.UP, UvisionServer.DockerHealthState.HEALTHY)
+                            );
+
+        }};
+
+        UvisionServer.waitForUvisionServerServicesStatus(TestBase.getServersManagement().getRadwareServerCli().get(), uVision_Service, timeout);
     }
 
     @When("^CLI Run remote \"(root|radware)\" Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"$")
