@@ -8,12 +8,10 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.ReflectionUtils;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.RegexUtils;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.VMNetworkingOps;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.*;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.test_utils.DeployOva;
 import com.radware.vision.vision_tests.CliTests;
+import com.vmware.vim25.mo.VirtualMachine;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -181,16 +179,15 @@ public class NewVmHandler extends TestBase {
     public void firstTimeWizardOva(String ovaUrl, boolean isAPM, String vCenterURL, String userName, String password, String hostip, String specificVisionBuild, String newVmName, String containedDVS, String networkName, String resourcePool, String destFolder, String dataStores) {
         VMNetworkingOps vmNetworkingOps = new VMNetworkingOps(vCenterURL, hostip, userName, password);
         try {
+            DeployOvaNew deployOvaNew = new DeployOvaNew(vCenterURL, userName, password);
             File outputDir = new File(System.getProperty("user.dir"));
             BaseTestUtils.reporter.report("Working Directory is " + outputDir.getAbsolutePath());
             BaseTestUtils.reporter.report("OVA URL: " + ovaUrl);
             newVmName = newVmName + "(" + specificVisionBuild + ")_" + DeployOva.getOVADateFormat().format(new Date());
             BaseTestUtils.reporter.report("Creating VM: " + newVmName);
 
-            String ip = DeployOva.deployOvfFromUrlAndGetIp(vCenterURL, userName, password, hostip, ovaUrl, outputDir, newVmName, networkName, null, containedDVS, resourcePool, destFolder, dataStores, isAPM);
-            if (ip == null || ip.equals("")) {
-                BaseTestUtils.report("Could not retrieve an IP address from vSphere", 1);
-            }
+            VirtualMachine vm = deployOvaNew.deployOVF(hostip, ovaUrl, outputDir, newVmName, networkName, resourcePool, dataStores);
+            String ip = deployOvaNew.getValidIpAddress(vm, "10.205");
 
             RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
             rootServerCli.setHost(ip);
@@ -206,6 +203,7 @@ public class NewVmHandler extends TestBase {
 
             try {
                 this.visionRadwareFirstTime.setHost(ip);
+                this.visionRadwareFirstTime.setPhysicalManagement("G2");
                 this.visionRadwareFirstTime.connect();
                 // ToDo kvision check what for this lines
                 //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
@@ -221,12 +219,13 @@ public class NewVmHandler extends TestBase {
                 networkIfcs = new String[]{"Network adapter 1", "Network adapter 2"};
             }
 
-            vmNetworkingOps.changeVMNicPortGroup(vCenterURL, newVmName, networkIfcs, networkName, containedDVS, false);
-            vmNetworkingOps.resetVm(newVmName);
-            targetVisionMacAddress = vmNetworkingOps.getMacAddress(newVmName);
+            vmNetworkingOps.changeVMNicPortGroup(vm, networkIfcs, networkName, containedDVS, false);
+            vmNetworkingOps.resetVm(vm);
+            targetVisionMacAddress = vmNetworkingOps.getMacAddress(vm);
             if (targetVisionMacAddress == null) {
                 BaseTestUtils.reporter.report("Could not retrieve any of the ethernet Mac Address. License registration will fail.\nPlease manually add the required license to Vision Server.", 0);
             }
+
 
             this.visionRadwareFirstTime.setHost(this.visionRadwareFirstTime.getIp());
             waitForServerConnection(2700000L, this.visionRadwareFirstTime);
