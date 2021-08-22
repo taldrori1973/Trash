@@ -22,6 +22,7 @@ public class VMNetworkingOps {
     private ManagedObjectReference rootFolder;
     private VimPortType vimPort;
     private ServiceContent serviceContent;
+    private ServiceInstance serviceInstance;
     private static final String STR_SERVICE_INSTANCE = "ServiceInstance";
     private static final String ADD = "add";
     private static final String REMOVE = "remove";
@@ -48,14 +49,12 @@ public class VMNetworkingOps {
     }
 
     /**
-     *
      * @param targetUrl The URL of the Virtual Center Server
-     *
-     * https://<Server IP / host name>/sdk
-     *
-     * The method establishes connection with the web service port on the server.
-     * This is not to be confused with the session connection.
-     *
+     *                  <p>
+     *                  https://<Server IP / host name>/sdk
+     *                  <p>
+     *                  The method establishes connection with the web service port on the server.
+     *                  This is not to be confused with the session connection.
      */
 
     public VMNetworkingOps(String targetUrl, String hostIp, String username, String password) {
@@ -70,8 +69,11 @@ public class VMNetworkingOps {
 
     private void initVimPort(String targetUrl) {
         try {
-            ServiceInstance serviceInstance = new ServiceInstance(new URL(vimHost), userName, password, true);
+            if (serviceInstance == null) {
+                serviceInstance = new ServiceInstance(new URL(vimHost), userName, password, true);
+            }
             vimPort = serviceInstance.getServerConnection().getVimService();
+
         } catch (MalformedURLException mue) {
             mue.printStackTrace();
         } catch (Exception se) {
@@ -100,8 +102,10 @@ public class VMNetworkingOps {
     private void initServiceContent() {
         if (serviceContent == null) {
             try {
-                ServiceInstance serviceInstance = new ServiceInstance(new URL(vimHost), userName, password, true);
-                serviceContent = serviceInstance .getServiceContent();
+                if (serviceInstance == null) {
+                    serviceInstance = new ServiceInstance(new URL(vimHost), userName, password, true);
+                }
+                serviceContent = serviceInstance.getServiceContent();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -129,16 +133,27 @@ public class VMNetworkingOps {
     }
 
     /**
-     *
      * @param uname The user name for the session
      * @param pword The password for the user
-     *
-     * Establishes session with the virtual center server
-     *
+     *              <p>
+     *              Establishes session with the virtual center server
      * @throws Exception
      */
     private void connect(String uname, String pword) throws Exception {
-        vimPort.login(serviceContent.getSessionManager(), uname, pword, null);
+        int numOfRetries = 5;
+        while (numOfRetries > 0) {
+            try {
+                UserSession login = vimPort.login(serviceContent.getSessionManager(), uname, pword, null);
+                if (login != null) break;
+            } catch (Exception e) {
+                if (e.getMessage().equals("Cannot complete login due to an incorrect user name or password.")) {
+                    numOfRetries--;
+                    Thread.sleep(2 * 1000);
+                } else {
+                    throw new Exception(e.getMessage());
+                }
+            }
+        }
     }
 
     /**
@@ -151,7 +166,6 @@ public class VMNetworkingOps {
     }
 
     /**
-     *
      * @return TraversalSpec specification to get to the VirtualMachine managed object.
      */
     public TraversalSpec getVMTraversalSpec() {
@@ -264,6 +278,22 @@ public class VMNetworkingOps {
         return retVal;
     }
 
+    public List<VirtualEthernetCard> getAllNics(VirtualMachine vm) throws RemoteException {
+        List<VirtualEthernetCard> nics = new ArrayList<>();
+        try {
+            VirtualDevice[] devices = vm.getConfig().getHardware().getDevice();
+            for (VirtualDevice device : devices) {
+                if (device instanceof VirtualEthernetCard) {
+                    nics.add((VirtualEthernetCard) device);
+                }
+            }
+        } catch (Exception e) {
+            BaseTestUtils.reporter.report(e.getMessage(), Reporter.FAIL);
+        }
+
+        return nics;
+    }
+
     /**
      * @param mor ManagedObjectReference of a managed object, specifically virtual machine
      * @return VirtualEthernetCard[] array of virtual machine ethernet card details
@@ -292,7 +322,7 @@ public class VMNetworkingOps {
             PropertyFilterSpec[] propertyFilterSpecs = new PropertyFilterSpec[]{propertyFilterSpec};
 
             VirtualHardware vmHardware = null;
-            ObjectContent[] oCont = vimPort.retrieveProperties(propCollector, propertyFilterSpecs);
+            ObjectContent[] oCont = vimPort.retrieveProperties(serviceContent.propertyCollector, propertyFilterSpecs);
             if (oCont != null) {
                 System.out.println("ObjectContent Length : " + oCont.length);
                 for (ObjectContent oc : oCont) {
@@ -300,7 +330,7 @@ public class VMNetworkingOps {
                     if (dps != null) {
                         for (DynamicProperty dp : dps) {
                             System.out.println(dp.getName() + " : " + dp.getVal());
-                            vmHardware = (VirtualHardware)dp.getVal();
+                            vmHardware = (VirtualHardware) dp.getVal();
                         }
                     }
                 }
@@ -312,7 +342,7 @@ public class VMNetworkingOps {
                 for (VirtualDevice vd : vdArr) {
                     if (vd != null) {
                         if (vd instanceof VirtualEthernetCard) {
-                            vmNicsList.add((VirtualEthernetCard)vd);
+                            vmNicsList.add((VirtualEthernetCard) vd);
                         }
                     }
                 }
@@ -328,9 +358,7 @@ public class VMNetworkingOps {
     }
 
     /**
-     *
      * @param vmnicArr Array of VirtualEthernetCard
-     *
      */
     public void printVMNicPortGroups(VirtualEthernetCard[] vmnicArr) {
         System.out.println("*******************************************************");
@@ -348,39 +376,32 @@ public class VMNetworkingOps {
         System.out.println("*******************************************************");
     }
 
-    public void changeVMNicPortGroup(String targetURL, String vmName, String[] vmNicName, String network, String containedDVS) throws IOException {
-        changeVMNicPortGroup(targetURL, vmName, vmNicName, network, containedDVS, false);
-    }
-
     /**
      * This method is used to change the portgroup of vmnics of a VM.
      *
-     * @param vmName Name of the virtual machine
-     * @param vmNicName Array of VM network adapter names (label)
-     * @param network Name of the port group to which the vmnics are being changed to
-     * @throws IOException
      *
+     * @param vm
+     * @param vmNicName Array of VM network adapter names (label)
+     * @param network   Name of the port group to which the vmnics are being changed to
+     * @throws IOException
      */
-    public void changeVMNicPortGroup(String targetURL, String vmName, String[] vmNicName, String network, String containedDVS, boolean resetVMMachine) throws IOException {
-        ServiceInstance si = new ServiceInstance(new URL(vimHost), userName, password, true);
-        VirtualMachine virtualMachine = (VirtualMachine) new InventoryNavigator(si.getRootFolder()).searchManagedEntity("VirtualMachine", vmName);
-        ManagedObjectReference vmMor = virtualMachine.getMOR();
-        VirtualEthernetCard[] vmNicArr = getVMNics(vmMor);
+    public void changeVMNicPortGroup(VirtualMachine vm, String[] vmNicName, String network, String containedDVS, boolean resetVMMachine) throws IOException {
+        List<VirtualEthernetCard> allNics = getAllNics(vm);
         List<String> vmNicNameList = Arrays.asList(vmNicName);
 
-        List<VirtualDevice> changeNicsList = new ArrayList<VirtualDevice>();
-        for (VirtualEthernetCard vmNic : vmNicArr) {
+        List<VirtualDevice> changeNicsList = new ArrayList<>();
+        for (VirtualEthernetCard vmNic : allNics) {
             String vmNicAdapterLabel = vmNic.getDeviceInfo().getLabel();
             System.out.println("vmnic Info (Label) : " + vmNicAdapterLabel);
 
             if (vmNicNameList.contains(vmNicAdapterLabel)) {
-                changeNicsList.add((VirtualDevice)vmNic);
+                changeNicsList.add(vmNic);
             }
         }
 
         if (!changeNicsList.isEmpty()) {
             VirtualMachineConfigSpec vmcs = getVMReConfigSpecToChangePortGroup(changeNicsList.toArray(new VirtualDevice[changeNicsList.size()]), network, containedDVS);
-            if (reconfigureVM(vmMor, vmcs)) {
+            if (reconfigureVM(vmcs, vm)) {
                 System.out.println(" Successfully changed the portgroup for the vmnic adapters");
             } else {
                 System.out.println("Failed to change the portgroup for the vmnic adapters");
@@ -392,15 +413,15 @@ public class VMNetworkingOps {
         if (resetVMMachine) {
             try {
                 BaseTestUtils.reporter.startLevel("Reset VM Machine.");
-                Task resetTask = virtualMachine.resetVM_Task();
+                Task resetTask = vm.resetVM_Task();
                 Object[] result;
 
-                result = waitForValues(resetTask.getMOR(), new String[] {
-                                "info.state", "info.error", "info.progress" },
-                        new String[] { "state" }, // info has a property - state
+                result = waitForValues(resetTask.getMOR(), new String[]{
+                                "info.state", "info.error", "info.progress"},
+                        new String[]{"state"}, // info has a property - state
                         // for state of the task
-                        new Object[][] { new Object[] { TaskInfoState.success,
-                                TaskInfoState.error } });
+                        new Object[][]{new Object[]{TaskInfoState.success,
+                                TaskInfoState.error}});
 
                 if (result[0].equals(TaskInfoState.success)) {
                     BaseTestUtils.reporter.report("VM Reset Successful");
@@ -409,24 +430,15 @@ public class VMNetworkingOps {
                 }
             } catch (Exception e) {
                 BaseTestUtils.reporter.report("VM Reset Failed. Further tests may fail.", Reporter.WARNING);
-            }
-            finally {
+            } finally {
                 BaseTestUtils.reporter.startLevel("Finished Reset VM Machine.");
             }
         }
     }
 
-    public String resetVm(String vmName) throws Exception {
-        Task resetTask = getVirtualMachine(vmName).resetVM_Task();
-        Object[] result;
-
-        result = waitForValues(resetTask.getMOR(), new String[] {
-                        "info.state", "info.error", "info.progress" },
-                new String[] { "state" }, // info has a property - state for state of the task
-                new Object[][] { new Object[] { TaskInfoState.success,
-                        TaskInfoState.error } });
-
-        return result[0].toString();
+    public String resetVm(VirtualMachine vm) throws Exception {
+        Task resetTask = vm.resetVM_Task();
+        return resetTask.waitForTask();
     }
 
     public VirtualMachine getVirtualMachine(String vmName) throws MalformedURLException, RemoteException {
@@ -438,13 +450,15 @@ public class VMNetworkingOps {
         return getVirtualMachine(vmName).getMOR();
     }
 
-    public String getMacAddress(String vmName) throws MalformedURLException, RemoteException {
-        VirtualEthernetCard[] ethernetCardsArr = getVMNics(getMOReference(vmName));
-        if(ethernetCardsArr != null) {
-            List<VirtualEthernetCard> ethernetCardsList = Arrays.asList(getVMNics(getMOReference(vmName)));
-            for(VirtualEthernetCard ethernetCard : ethernetCardsList) {
+    public String getMacAddress(VirtualMachine vm) throws MalformedURLException, RemoteException {
+        List<VirtualEthernetCard> allNics = getAllNics(vm);
+        if (allNics != null) {
+            for (VirtualEthernetCard ethernetCard : allNics) {
+                VirtualDeviceBackingInfo backing = ethernetCard.getBacking();
+                Description deviceInfo = ethernetCard.getDeviceInfo();
+                String externalId = ethernetCard.getExternalId();
                 String macAddress = ethernetCard.getMacAddress();
-                if(macAddress  != null) {
+                if (macAddress != null) {
                     return macAddress;
                 }
             }
@@ -459,7 +473,7 @@ public class VMNetworkingOps {
         VirtualEthernetCard[] vmNicArr = getVMNics(vmMor);
 
         List<String> modifiedMacAddr = MacAddressGenerator.generateMacAddrList(macAddr, 1, vmNicArr.length);
-        for(int ethernetCardIdx = 0; ethernetCardIdx < 1; ethernetCardIdx++) {
+        for (int ethernetCardIdx = 0; ethernetCardIdx < 1; ethernetCardIdx++) {
             vmNicArr[ethernetCardIdx].setMacAddress(modifiedMacAddr.get(ethernetCardIdx));
             vmNicArr[ethernetCardIdx].setAddressType("manual");
         }
@@ -470,7 +484,7 @@ public class VMNetworkingOps {
         ConfigTarget configTarget = envBrowser.queryConfigTarget(host);
 
         VirtualDeviceConfigSpec[] virtualDeviceConfigSpecsArr = new VirtualDeviceConfigSpec[vmNicArr.length];
-        for(int i = 0; i < virtualDeviceConfigSpecsArr.length; i++) {
+        for (int i = 0; i < virtualDeviceConfigSpecsArr.length; i++) {
             VirtualMachineDeviceManager.VirtualNetworkAdapterType type = VirtualMachineDeviceManager.VirtualNetworkAdapterType.VirtualVmxnet3;
             virtualDeviceConfigSpecsArr[i] = createNicSpec(type, networkName, vmNicArr[i].getMacAddress(), false, true, configTarget);
             virtualDeviceConfigSpecsArr[i].operation = VirtualDeviceConfigSpecOperation.edit;
@@ -480,17 +494,16 @@ public class VMNetworkingOps {
         VirtualMachineConfigSpec vmcs = new VirtualMachineConfigSpec();
         vmcs.setDeviceChange(virtualDeviceConfigSpecsArr);
 
-        reconfigureVM(vmMor, vmcs);
+        reconfigureVM(vmcs, virtualMachine);
     }
 
-    public void setMemoryConfiguration(String vmName, String memorySize) throws MalformedURLException, RemoteException{
+    public void setMemoryConfiguration(String vmName, String memorySize) throws MalformedURLException, RemoteException {
         VirtualMachine virtualMachine = getVirtualMachine(vmName);
         ManagedObjectReference vmMor = virtualMachine.getMOR();
         VirtualMachineConfigSpec vmcs = new VirtualMachineConfigSpec();
         vmcs.setMemoryMB(Long.parseLong(memorySize));
-        reconfigureVM(vmMor, vmcs);
+        reconfigureVM(vmcs, virtualMachine);
     }
-
 
 
 //    public void setVmNicIpAddress(String ipAddress, String networkName, int targetNicIndex) {
@@ -583,8 +596,7 @@ public class VMNetworkingOps {
 
         if (macAddress == null) {
             device.addressType = "generated";
-        }
-        else {
+        } else {
             device.addressType = "manual";
             device.macAddress = macAddress;
         }
@@ -640,14 +652,13 @@ public class VMNetworkingOps {
                     DVPortgroupConfigInfo configInfo = vDSNetwork.getConfig();
                     ManagedObjectReference distributedVirtualSwitchMOR = configInfo.getDistributedVirtualSwitch();
 
-                    DistributedVirtualSwitch distributedVirtualSwitch = (DistributedVirtualSwitch) retrieveDistributedVirtualSwitch(containedDVS);
+                    DistributedVirtualSwitch distributedVirtualSwitch = retrieveDistributedVirtualSwitch(containedDVS);
                     port.setSwitchUuid(distributedVirtualSwitch.getUuid());
                     port.setPortgroupKey(configInfo.getKey());
 
                     nicBacking.setPort(port);
                     virtDevice.setBacking(nicBacking);
-                }
-                else{
+                } else {
                     VirtualEthernetCardNetworkBackingInfo vdbi = new VirtualEthernetCardNetworkBackingInfo();
                     if (vdbi != null) {
                         if (vdbi instanceof VirtualEthernetCardNetworkBackingInfo) {
@@ -672,28 +683,26 @@ public class VMNetworkingOps {
         HostSystem hostSystem = (HostSystem) si.getSearchIndex().findByIp(null, hostIp, false);
         Network net = null;
 
-        if(vSwitchName != null) {
+        if (vSwitchName != null) {
             DistributedVirtualSwitch foundDistributedVirtualSwitch = retrieveDistributedVirtualSwitch(vSwitchName);
-            if(foundDistributedVirtualSwitch != null) {
+            if (foundDistributedVirtualSwitch != null) {
                 DistributedVirtualPortgroup[] portGroups = foundDistributedVirtualSwitch.getPortgroup();
-                for(int i = 0; i < portGroups.length; i++){
-                    if(portGroups[i].getConfig().getName().equals(networkName)) {
+                for (int i = 0; i < portGroups.length; i++) {
+                    if (portGroups[i].getConfig().getName().equals(networkName)) {
                         return portGroups[i];
                     }
                 }
-            }
-            else {
+            } else {
                 throw new IllegalStateException("Network '" + networkName + "' under Distributed Virtual Switch '" + vSwitchName + "' was not found.");
             }
-        }
-        else {
+        } else {
             for (Network network : hostSystem.getNetworks()) {
                 if (network.getName().equals(networkName)) {
                     net = network;
                     break;
                 }
             }
-            if(net == null) {
+            if (net == null) {
                 throw new IllegalStateException("Network '" + networkName + "' was not found.");
             }
         }
@@ -708,12 +717,12 @@ public class VMNetworkingOps {
         HostProxySwitch[] hostProxySwitches = hostNetworkInfo.getProxySwitch();
 
         DistributedVirtualSwitch foundDistributedVirtualSwitch = null;
-        for(int i = 0; i < hostProxySwitches.length; i++) {
+        for (int i = 0; i < hostProxySwitches.length; i++) {
             DistributedVirtualSwitchManager dVSM = si.getDistributedVirtualSwitchManager();
             DistributedVirtualSwitch dVS = dVSM.queryDvsByUuid(hostProxySwitches[i].getDvsUuid());
-            if(dVS != null) {
+            if (dVS != null) {
                 DVSConfigInfo dvsConfigInfo = dVS.getConfig();
-                if(dvsConfigInfo.getName().equals(dvsName)) {
+                if (dvsConfigInfo.getName().equals(dvsName)) {
                     foundDistributedVirtualSwitch = dVS;
                 }
             }
@@ -721,7 +730,6 @@ public class VMNetworkingOps {
 
         return foundDistributedVirtualSwitch;
     }
-
 
 
     /**
@@ -781,10 +789,9 @@ public class VMNetworkingOps {
 
     /**
      * This method is used to change the portgroup of vmnics of a VM.
-     *
-     //     * @param vmName Name of the virtual machine
-     //     * @param vmNicName Array of VM network adapter names (label)
-     *
+     * <p>
+     * //     * @param vmName Name of the virtual machine
+     * //     * @param vmNicName Array of VM network adapter names (label)
      */
     /*public static void removeVMNic(String vmName, String vmNicName) {
         ManagedObjectReference vmMor = getVMByName(vmName);
@@ -812,42 +819,31 @@ public class VMNetworkingOps {
             }
         }
     }*/
-
-    public boolean reconfigureVM(ManagedObjectReference vmMor, VirtualMachineConfigSpec vmcs) {
-        boolean retVal = false;
+    public boolean reconfigureVM(VirtualMachineConfigSpec vmcs, VirtualMachine vm) {
+        String result = null;
         try {
-//        	VimPortType vimPortType = new VimPortType(targetURL, true);
-            ManagedObjectReference cssTask = vimPort.reconfigVM_Task(vmMor, vmcs);
-            Object[] result =
-                    waitForValues(
-                            cssTask, new String[]{"info.state", "info.error", "info.progress"},
-                            new String[]{"state"}, // info has a property - state for state of the task
-                            new Object[][]{new Object[]{TaskInfoState.success, TaskInfoState.error}});
-            if (result[0].equals(TaskInfoState.success)) {
-                System.out.println("Success: VM Reconfiguration");
-                retVal = true;
-            } else {
-                System.out.println("Failure: VM Reconfiguration");
-            }
+            Task cssTask = vm.reconfigVM_Task(vmcs);
+            result = cssTask.waitForTask();
+
         } catch (Exception e) {
-            e.printStackTrace();
+            BaseTestUtils.reporter.report("Failed to reconfigure VM: " + e.getMessage(), Reporter.FAIL);
         }
 
-        return retVal;
+        return result.equals(Task.SUCCESS);
     }
 
     /************************************************************/
     /**
-     *  Handle Updates for a single object.
-     *  waits till expected values of properties to check are reached
-     *  Destroys the ObjectFilter when done.
-     *  @param objmor MOR of the Object to wait for</param>
-     *  @param filterProps Properties list to filter
-     *  @param endWaitProps
-     *    Properties list to check for expected values
-     *    these be properties of a property in the filter properties list
-     *  @param expectedVals values for properties to end the wait
-     *  @return true indicating expected values were met, and false otherwise
+     * Handle Updates for a single object.
+     * waits till expected values of properties to check are reached
+     * Destroys the ObjectFilter when done.
+     *
+     * @param objmor       MOR of the Object to wait for</param>
+     * @param filterProps  Properties list to filter
+     * @param endWaitProps Properties list to check for expected values
+     *                     these be properties of a property in the filter properties list
+     * @param expectedVals values for properties to end the wait
+     * @return true indicating expected values were met, and false otherwise
      */
     public Object[] waitForValues(
             ManagedObjectReference objmor, String[] filterProps,
