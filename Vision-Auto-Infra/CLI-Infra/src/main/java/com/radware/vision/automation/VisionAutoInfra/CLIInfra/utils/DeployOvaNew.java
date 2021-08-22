@@ -110,7 +110,7 @@ public class DeployOvaNew {
             ovfCreateImpSpecParms.setPropertyMapping(null);
             UnTar.untarTarUrl(ovaUrl, ovfDestFolder.getAbsolutePath());
             final String fileName = FilenameUtils.getBaseName(ovaUrl);
-            String ovfPath = ovfDestFolder + "\\" + fileName + ".ovf";
+            String ovfPath = ovfDestFolder + "/" + fileName + ".ovf";
             StringBuffer buffer = new StringBuffer();
             String ovfDescriptor = null;
             FileReader fr = new FileReader(ovfPath);
