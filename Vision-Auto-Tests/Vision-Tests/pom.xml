@@ -136,11 +136,11 @@
             <artifactId>radwareGeneric</artifactId>
             <version>1.0.0</version>
         </dependency>
-<!--                <dependency>-->
-<!--                    <groupId>com.radware.vision.automation.openstack</groupId>-->
-<!--                    <artifactId>openstack-tests</artifactId>-->
-<!--                    <version>${VISION_VERSION}-SNAPSHOT</version>-->
-<!--                </dependency>-->
+        <!--                <dependency>-->
+        <!--                    <groupId>com.radware.vision.automation.openstack</groupId>-->
+        <!--                    <artifactId>openstack-tests</artifactId>-->
+        <!--                    <version>${VISION_VERSION}-SNAPSHOT</version>-->
+        <!--                </dependency>-->
         <dependency>
 
             <groupId>org.projectlombok</groupId>
@@ -153,15 +153,7 @@
             <artifactId>saprocommunication</artifactId>
             <version>V190</version>
         </dependency>
-        <dependency>
-            <groupId>com.sapcnsl.api</groupId>
-            <artifactId>saprocommunication</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/sapirg/Desktop/test_sscustomer/saprocommunication.jar</systemPath>
-        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -416,7 +408,6 @@
 
         </resources>
     </build>
-
     <profiles>
         <profile>
             <id>production</id>
