@@ -222,7 +222,6 @@ public class NewVmHandler extends TestBase {
             }
 
             vmNetworkingOps.changeVMNicPortGroup(vm, networkIfcs, networkName, containedDVS, false);
-            vmNetworkingOps.resetVm(vm);
             targetVisionMacAddress = vmNetworkingOps.getMacAddress(vm);
             if (targetVisionMacAddress == null) {
                 BaseTestUtils.reporter.report("Could not retrieve any of the ethernet Mac Address. License registration will fail.\nPlease manually add the required license to Vision Server.", 0);
