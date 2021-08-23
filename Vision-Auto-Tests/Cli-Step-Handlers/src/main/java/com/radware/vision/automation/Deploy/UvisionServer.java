@@ -91,6 +91,27 @@ public class UvisionServer {
     }
 
     /**
+     * start or stop or restart
+     */
+    public enum DockerServiceAction {
+
+        START("start"),
+        STOP("stop"),
+        RESTART("restart");
+
+        private final String action;
+
+        DockerServiceAction(String state) {
+            this.action = state;
+        }
+
+        private String getState() {
+            return this.action;
+        }
+
+    }
+
+    /**
      * Healthy, Unhealthy, Starting
      */
     public enum DockerHealthState {
@@ -255,6 +276,17 @@ public class UvisionServer {
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
+    }
+
+    public static void doActionForService(RootServerCli rootServerCli, String service, DockerServiceAction dockerServiceAction)
+    {
+        StringBuilder command = new StringBuilder();
+        command.append("docker ").append(dockerServiceAction.action).append(" ").append(service);
+        CliOperations.runCommand(rootServerCli, command.toString(), 120 * 1000);
+        ArrayList<String> response = rootServerCli.getCmdOutput();
+
+        if(response.stream().filter(a->a.contains(service)).count() != 1)
+            BaseTestUtils.report("Test ERROR", Reporter.FAIL);
     }
 
 }
