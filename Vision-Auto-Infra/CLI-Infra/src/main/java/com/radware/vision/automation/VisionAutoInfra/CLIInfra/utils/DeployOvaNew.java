@@ -139,6 +139,11 @@ public class DeployOvaNew {
 //                }
 //                Thread.sleep(3000);
 //            }
+            while (true){
+                if(!thread.isAlive()){
+                    break;
+                }
+            }
             httpNfcLease.httpNfcLeaseComplete();
             vm = new VirtualMachine(si.getServerConnection(), httpNfcLease.getInfo().getEntity());
             System.out.println("Successfully VM deployed::" + vm.getName());
