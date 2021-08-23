@@ -4,10 +4,10 @@ Feature: DefensePro Analytics Part 1
 
 #Scenario: Create Report of Traffic Global Kbps Inbound
 #Given UI "Create" Report With Name "Traffic Report"
-#| Template-1            | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{devicesIndex:10,devicePorts:[1],devicePolicies:[BDOS,APOL]},{deviceIndex:10}]                             |
-#| Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps/pps,Inbound/Outbound,All/1-100]},ALL/specific widgets],devices:[{devicesIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{deviceIndex:10}] |
+#| Template-1            | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{devicesIndex:10,devicePorts:[1],devicePolicies:[BDOS,APOL]},{SetId:DefensePro_Set_1}]                             |
+#| Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps/pps,Inbound/Outbound,All/1-100]},ALL/specific widgets],devices:[{devicesIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{SetId:DefensePro_Set_1}] |
 #| Format                | Select: CSV                                                                                                                                                                            |
-#|Template-3             |reportType:DefensePro Analytics,Widgets:[BDoS-TCP SYN,Concurrent Connections],devices:[{devicesIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{deviceIndex:10}]|
+#|Template-3             |reportType:DefensePro Analytics,Widgets:[BDoS-TCP SYN,Concurrent Connections],devices:[{devicesIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{SetId:DefensePro_Set_1}]|
 #| Logo                  | reportLogoPNG.png                                                                                                                                                                      |
 #| Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,SEP,DEC]                                                                                                                                |
 #| Time Definitions.Date | Quick:This Month                                                                                                                                                                       |
@@ -43,13 +43,13 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Traffic Bandwidth2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                         |
       | Time Definitions.Date | Quick:Yesterday                                                                                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                 |
       | Format                | Select: PDF                                                                                                                          |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                         |
       | Time Definitions.Date | Quick:Yesterday                                                                                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                 |
@@ -119,14 +119,14 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Connections Rate1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Connections Rate Report1"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Quick:1D                                                                                             |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                         |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
       | Format                | Select: CSV                                                                                          |
     Then UI "Validate" Report With Name "Connections Rate Report1"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Quick:1D                                                                                             |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                         |
@@ -138,12 +138,12 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Connections Rate2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Connections Rate Report2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true |
       | Time Definitions.Date | Quick:1H                                                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                                          |
       | Format                | Select: PDF                                                                                          |
     Then UI "Validate" Report With Name "Connections Rate Report2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true |
       | Time Definitions.Date | Quick:1H                                                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                                          |
       | Format                | Select: PDF                                                                                          |
@@ -224,13 +224,13 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Concurrent Connections3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Concurrent Connections Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Quick:This Month                                                                                            |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                 |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                        |
       | Format                | Select: PDF                                                                                                 |
     Then UI "Validate" Report With Name "Concurrent Connections Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Quick:This Month                                                                                            |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                 |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                        |
@@ -293,12 +293,12 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Top Attacks3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Relative:[Hours,3]                                                                               |
       | Schedule              | Run Every:Once, On Time:+6H                                                                      |
       | Format                | Select: HTML                                                                                     |
     Then UI "Validate" Report With Name "Top Attacks Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Relative:[Hours,3]                                                                               |
       | Schedule              | Run Every:Once, On Time:+6H                                                                      |
       | Format                | Select: HTML                                                                                     |
@@ -359,12 +359,12 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Top Attacks by Volume3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Volume3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                           |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                               |
       | Format                | Select: HTML                                                                                               |
     Then UI "Validate" Report With Name "Top Attacks by Volume3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                           |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                               |
       | Format                | Select: HTML                                                                                               |
@@ -431,11 +431,11 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Top Attacks by Protocol3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                             |
       | Format                | Select: HTML                                                                                                 |
     Then UI "Validate" Report With Name "Top Attacks by Protocol Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                             |
       | Format                | Select: HTML                                                                                                 |
     Then UI Delete Report With Name "Top Attacks by Protocol Report3"
@@ -497,12 +497,12 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Critical Attacks by Mitigation Action3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Critical Attacks by Mitigation Action Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                           |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                               |
       | Format                | Select: HTML                                                                                                               |
     Then UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                           |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                               |
       | Format                | Select: HTML                                                                                                               |
@@ -565,12 +565,12 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Attacks by Threat Category3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Threat Category Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Relative:[Months,2]                                                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                    |
       | Format                | Select: HTML                                                                                                    |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Relative:[Months,2]                                                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                    |
       | Format                | Select: HTML                                                                                                    |
@@ -633,12 +633,12 @@ Feature: DefensePro Analytics Part 1
   Scenario: create new Attacks by Mitigation Action3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Mitigation Action Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Quick:Today                                                                                                       |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                       |
       | Format                | Select: HTML                                                                                                      |
     Then UI "Validate" Report With Name "Attacks by Mitigation Action Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Quick:Today                                                                                                       |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                       |
       | Format                | Select: HTML                                                                                                      |

@@ -11,7 +11,8 @@ Feature: Packet Type testing in DefensePro Attacks Dashboard
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
-    Given CLI simulate 1 attacks of type "https" on "DefensePro" 11
+#    Given CLI simulate 1 attacks of type "https" on "DefensePro" 11
+    Given CLI simulate 1 attacks of type "https" on SetId "DefensePro_Set_1"
 
   @SID_3
   Scenario:  login
