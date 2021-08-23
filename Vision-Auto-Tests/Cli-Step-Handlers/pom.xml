@@ -24,12 +24,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.toastcoders</groupId>
-            <artifactId>yavijava</artifactId>
-            <version>6.0.05</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Common</artifactId>
             <version>${revision}</version>

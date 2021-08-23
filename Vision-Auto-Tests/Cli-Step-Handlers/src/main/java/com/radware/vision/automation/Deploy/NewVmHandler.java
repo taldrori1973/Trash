@@ -8,11 +8,11 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.DeployOva;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.ReflectionUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.RegexUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.VMNetworkingOps;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.test_utils.DeployOva;
 import com.radware.vision.vision_tests.CliTests;
 
 import java.io.File;
