@@ -1,5 +1,5 @@
 
-Feature: Attacks Dashboard Traffic Widget
+Feature: Attacks Per Period Chart in Dashboard
 
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
@@ -76,7 +76,7 @@ Feature: Attacks Dashboard Traffic Widget
     * CLI kill all simulator attacks on current vision
 
   @SID_12
-  Scenario: validate DP Analytics Widget - Top Attack Destinations
+  Scenario: validate DP Analytics Widget - Attacks Per Period
     Then Validate Line Chart data "Attacks Per Period-DefensePro Analytics" with Label "Attacks" in report "attack per period widget report"
       | value | min |
       | 0     | 10  |
