@@ -6,6 +6,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.utils.DeviceUtils;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
@@ -27,7 +28,7 @@ public class DefenseProRESTHandler {
 
         lockDevice(deviceIP);
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
                 "DefensePro->Update Policies", deviceIP, null, null);
 
         unlockDevice(deviceIP);
@@ -37,9 +38,8 @@ public class DefenseProRESTHandler {
     public static String fetchPolicies() {
         String result;
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
                 "DefensePro->Fetch Policies", null, null, null);
-
 
         return result;
     }
@@ -53,7 +53,7 @@ public class DefenseProRESTHandler {
         String result;
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                 HttpMethodEnum.POST, "DefensePro->Add New Policy", dpIp + "|" + policyName, "rsIDSNewRulesName=" + policyName, null);
 
         unlockDevice(dpIp);
@@ -86,7 +86,7 @@ public class DefenseProRESTHandler {
             String result;
             VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-            result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+            result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                     HttpMethodEnum.DELETE, "DefensePro->Delete Policy", dpIp + "|" + policyName, null, null);
 
 
@@ -122,7 +122,7 @@ public class DefenseProRESTHandler {
             String result;
             VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-            result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+            result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                     HttpMethodEnum.POST, "DefensePro->Add New Policy", dpIp + "|" + policyName, "rsIDSNewRulesName=" + policyName, null);
 
             unlockDevice(dpIp);
@@ -143,7 +143,7 @@ public class DefenseProRESTHandler {
         String result;
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                 HttpMethodEnum.DELETE,"DefensePro->Delete Policy", dpIp + "|" + policyName, null, null);
 
 
@@ -163,7 +163,7 @@ public class DefenseProRESTHandler {
         String result;
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                 HttpMethodEnum.PUT, "DefensePro->Add New profile", dpIp + "|" + policyName, "rsIDSNewRulesName=" + policyName + ",rsIDSNewRulesProfileHttpsflood=" + rule, null);
 
         unlockDevice(dpIp);
@@ -182,7 +182,7 @@ public class DefenseProRESTHandler {
         String result;
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                 HttpMethodEnum.POST, "DefensePro->Block Country", deviceIp + "|" + policyName + "|" + countryCode, "blockTimeBySeconds=" + time, null);
         unlockDevice(deviceIp);
 
@@ -210,7 +210,7 @@ public class DefenseProRESTHandler {
         String result;
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                 HttpMethodEnum.DELETE, "DefensePro->Release Blocked Country", deviceIp + "|" + policyName + "|" + countryCode, null, null);
         unlockDevice(deviceIp);
 
@@ -225,7 +225,7 @@ public class DefenseProRESTHandler {
         String result;
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                 HttpMethodEnum.GET, "DefensePro->Get All Blocked Countries", deviceIp + "|" + policyName, null, null);
 
         if (!result.contains("\"status\": \"Success\""))
@@ -250,7 +250,7 @@ public class DefenseProRESTHandler {
         String result;
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                 HttpMethodEnum.GET, "DefensePro->Profiles Names", dpIp + "|" + policyName, null, null);
 
 
@@ -271,7 +271,7 @@ public class DefenseProRESTHandler {
         String result;
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
-        result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
                 HttpMethodEnum.GET, "DefensePro->Rules Names", dpIp, null, null);
 
 
@@ -294,7 +294,7 @@ public class DefenseProRESTHandler {
     private static void lockDevice(String deviceIp) {
         String result;
 
-        result = DeviceUtils.lockCommand(BaseHandler.restTestBase.getVisionRestClient(), deviceIp);
+        result = DeviceUtils.lockCommand(TestBase.restTestBase.getVisionRestClient(), deviceIp);
 
         if (!result.contains("\"status\":\"ok\""))
             BaseTestUtils.report(result, Reporter.FAIL);
@@ -303,7 +303,7 @@ public class DefenseProRESTHandler {
     private static void unlockDevice(String deviceIp) {
         String result;
 
-        result = DeviceUtils.unlockCommand(BaseHandler.restTestBase.getVisionRestClient(), deviceIp);
+        result = DeviceUtils.unlockCommand(TestBase.restTestBase.getVisionRestClient(), deviceIp);
 
         if (!result.contains("\"status\":\"ok\""))
             BaseTestUtils.report(result, Reporter.FAIL);
