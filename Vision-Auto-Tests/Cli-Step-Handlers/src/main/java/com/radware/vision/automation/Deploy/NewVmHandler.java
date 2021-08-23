@@ -200,19 +200,17 @@ public class NewVmHandler extends TestBase {
             if (!rootServerCli.checkDeploymentComplete(expectedFile, 2700000L)) {
                 BaseTestUtils.reporter.report("Vision Server Initial Deployment took longer than usual.\nThis may indicate an improper Vision Server installation", 1);
             }
-            //todo: kvision temporary WA for uvision
-            CliOperations.runCommand(rootServerCli, "ifconfig " + this.visionRadwareFirstTime.getPhysicalManagement() + " " + this.visionRadwareFirstTime.getIp() + "/16", 60 * 100, false, true, false);
-//            try {
-//
-//                this.visionRadwareFirstTime.setHost(ip);
-//                this.visionRadwareFirstTime.setPhysicalManagement("G2");
-//                this.visionRadwareFirstTime.connect();
-//                // ToDo kvision check what for this lines
-//                //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
-//                Thread.sleep(240000L);
-//                this.visionRadwareFirstTime.close();
-//            } catch (Exception var23) {
-//            }
+
+            try {
+
+                this.visionRadwareFirstTime.setHost(ip);
+                this.visionRadwareFirstTime.connect();
+                // ToDo kvision check what for this lines
+                //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
+                Thread.sleep(240000L);
+                this.visionRadwareFirstTime.close();
+            } catch (Exception var23) {
+            }
 
             String[] networkIfcs;
             if (!isAPM) {

@@ -131,13 +131,18 @@ public class DeployOvaNew {
                     dc.getVmFolder(), hs);
             System.out.println("ovfFilePath Parent::" + ovfPath);
             Thread thread = uploadVMDK(httpNfcLease, ovfCreateImpSpecResult, hs.getName(), ovfPath);
-            int percent = 1;
-            while (thread.isAlive()) {
-                httpNfcLease.httpNfcLeaseProgress(percent);
-                if (percent < 100) {
-                    percent++;
+//            int percent = 1;
+//            while (thread.isAlive()) {
+//                httpNfcLease.httpNfcLeaseProgress(percent);
+//                if (percent < 100) {
+//                    percent++;
+//                }
+//                Thread.sleep(3000);
+//            }
+            while (true){
+                if(!thread.isAlive()){
+                    break;
                 }
-                Thread.sleep(3000);
             }
             httpNfcLease.httpNfcLeaseComplete();
             vm = new VirtualMachine(si.getServerConnection(), httpNfcLease.getInfo().getEntity());
