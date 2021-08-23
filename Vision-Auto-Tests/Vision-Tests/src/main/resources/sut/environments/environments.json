@@ -13,14 +13,14 @@
     {
       "name": "OVA-232",
       "hostIp": "10.205.200.232",
-      "user": "rotemw@shy.vcenter",
-      "password": "Radware1!",
+      "user": "root",
+      "password": "radware",
       "dnsServerIp": "10.221.1.47",
       "netMask": "255.255.0.0",
       "gateWay": "172.17.1.1",
       "physicalManagement": "G1",
       "resourcePool": "RP1",
-      "url": "https://10.175.89.20/sdk",
+      "url": "https://10.205.200.232/sdk",
       "networkName": "Mgmt",
       "dataStores": "VMFS_00"
     },
