@@ -164,6 +164,16 @@ public class RemoteSshCommandsTests extends TestBase {
         }
     }
 
+    @Then("^CLI Service \"(.*)\" do action (START|STOP|RESTART)")
+    public void runActionForService(String service, String action)
+    {
+        UvisionServer.doActionForService(
+                TestBase.getServersManagement().getRootServerCLI().get(),
+                service,
+                UvisionServer.DockerServiceAction.valueOf(action)
+        );
+    }
+
     @When("^CLI Run remote linux Command on Vision 2 \"(.*)\" on \"(.*)\"(?: with timeOut (\\d+))?$")
     public void runCLICommandOnVision2(String commandToExecute, SUTEntryType sutEntryType, Integer timeOut) {
         try {
