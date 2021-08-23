@@ -1,5 +1,5 @@
-
-Feature: Attacks Per Period Chart in Dashboard
+@TC122760
+Feature: Attacks Per Period Chart in Dashboard and Report
 
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
