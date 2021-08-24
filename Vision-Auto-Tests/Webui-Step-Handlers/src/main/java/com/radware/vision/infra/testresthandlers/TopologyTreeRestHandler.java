@@ -245,4 +245,13 @@ public class TopologyTreeRestHandler extends TestBase {
         public String value;
 
     }
+
+    public static class DataAdapter extends Data
+    {
+        public DataAdapter(String attribute, String value)
+        {
+            this.attribute = attribute;
+            this.value = value;
+        }
+    }
 }
