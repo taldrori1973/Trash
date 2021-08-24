@@ -20,6 +20,7 @@ Feature: Top Attack by GeoLocation
     When UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then Sleep "60"
 
   @SID_4
   Scenario: Validate Top Attacking by GeoLocations Widget, 15m
