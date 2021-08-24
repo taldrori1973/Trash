@@ -112,7 +112,6 @@ Feature: Vision Install OVA SA
 
   @SID_12
   Scenario: Validate MySql version
-#    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
     Then MYSQL Validate "version" Variable Value EQUALS "10.4.6-MariaDB"
 
   @SID_13
@@ -138,30 +137,44 @@ Feature: Vision Install OVA SA
 
   @SID_17
   Scenario: Verify number of tables in vision schema
-#    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
     Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 90
 
 
   @SID_18
   Scenario: Verify number of tables in vision_ng schema
-
-#    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
     Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 166
 
   @SID_19
   Scenario: Verify services are running
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Collector service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "New Reporter service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Alerts service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Scheduler service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration Synchronization service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Tor feed service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "td-agent is running" in any line
+    Then CLI validate service "CONFIG_KVISION_DC_NGINX" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_FORMATTER" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_RT_ALERT" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_REPORTER" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_COLLECTOR" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_VRM" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_CONFIG_SYNC_SERVICE" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_VDIRECT" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_SCHEDULER" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_TOR_FEED" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_CONFIGURATION_SERVICE" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_ALERTS" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_INFRA_AVR" status is "UP" and health is "NONE"
+    Then CLI validate service "CONFIG_KVISION_LLS" status is "UP" and health is "NONE"
+    Then CLI validate service "CONFIG_KVISION_TED" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_HELP" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_INFRA_EFK" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_WEBUI" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_INFRA_MARIADB" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_INFRA_AUTOHEAL" status is "UP" and health is "HEALTHY"
+    Then CLI validate service "CONFIG_KVISION_INFRA_IPV6NAT" status is "UP" and health is "NONE"
+    Then CLI validate service "CONFIG_KVISION_INFRA_RABBITMQ" status is "UP" and health is "NONE"
+    Then CLI validate service "CONFIG_KVISION_INFRA_FLUENTD" status is "UP" and health is "NONE"
+    Then CLI validate service "NODE_EXPORTER" status is "UP" and health is "NONE"
+    Then CLI validate service "MYSQK_EXPORTER" status is "UP" and health is "NONE"
+    Then CLI validate service "PROMETHEUS" status is "UP" and health is "NONE"
+    Then CLI validate service "ES_EXPORTER" status is "UP" and health is "NONE"
+    Then CLI validate service "GRAFANA" status is "UP" and health is "NONE"
+    Then CLI validate service "PROCESS_EXPORTER" status is "UP" and health is "NONE"
 
   @SID_20
   Scenario: Verify 32GB RAM
