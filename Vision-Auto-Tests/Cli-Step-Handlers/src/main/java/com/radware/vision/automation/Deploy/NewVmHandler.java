@@ -206,7 +206,6 @@ public class NewVmHandler extends TestBase {
 
             try {
                 this.visionRadwareFirstTime.setHost(ip);
-                this.visionRadwareFirstTime.setPhysicalManagement("G2");
                 this.visionRadwareFirstTime.connect();
                 // ToDo kvision check what for this lines
                 //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
@@ -228,7 +227,7 @@ public class NewVmHandler extends TestBase {
             if (targetVisionMacAddress == null) {
                 BaseTestUtils.reporter.report("Could not retrieve any of the ethernet Mac Address. License registration will fail.\nPlease manually add the required license to Vision Server.", 0);
             }
-
+            rootServerCli.setHost(this.visionRadwareFirstTime.getIp());
             this.visionRadwareFirstTime.setHost(this.visionRadwareFirstTime.getIp());
             waitForServerConnection(2700000L, this.visionRadwareFirstTime);
             UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
