@@ -7,13 +7,15 @@ Feature: AppWall
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
-    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
+#    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
+#      | attribute     | value    |
+#      | httpPassword  | 1qaz!QAZ |
+#      | httpsPassword | 1qaz!QAZ |
+#      | httpsUsername | user1    |
+#      | httpUsername  | user1    |
+#      | visionMgtPort | G1       |
+    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
+
     Then Browser Refresh Page
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
@@ -1005,5 +1007,10 @@ Feature: AppWall
     Then UI Delete Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4"
 
   @SID_62
+    Scenario: Delete AppWall
+#    Then REST Delete device asd from topology tree
+    Then REST Delete device with SetID "AppWall_Set_1" from topology tree
+
+  @SID_63
   Scenario: Logout
     Then UI logout and close browser
