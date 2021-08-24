@@ -4,8 +4,6 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.Deploy.NewVmHandler;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
-import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 
 import java.util.Arrays;
@@ -56,7 +54,6 @@ public class FreshInstallOVA extends Deploy {
 
     @Override
     public void deploy() {
-//        VisionVMs visionVMs = VisionUITestBase.getRestTestBase().getVisionVMs();
         // init firstTimeWizardOva parameters
         String vmName = getSutManager().getServerName();
         if (vmName == null) {
