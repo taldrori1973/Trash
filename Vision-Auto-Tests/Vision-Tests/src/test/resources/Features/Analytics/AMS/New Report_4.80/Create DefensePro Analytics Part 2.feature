@@ -45,12 +45,12 @@ Feature: DefensePro Analytics Part 2
   Scenario: create new Top Attack Destinations3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destinations Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                           |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                 |
       | Format                | Select: HTML                                                                                                 |
     Then UI "Validate" Report With Name "Top Attack Destinations Report3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[{deviceIndex:10}],showTable:false |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[{SetId:DefensePro_Set_1}],showTable:false |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                           |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                 |
       | Format                | Select: HTML                                                                                                 |
@@ -95,13 +95,13 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Attack Sources Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                             |
       | Logo                  | reportLogoPNG.png                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body          |
     Then UI "Validate" Report With Name "Top Attack Sources 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                             |
       | Logo                  | reportLogoPNG.png                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                        |
@@ -112,11 +112,11 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Attack Sources Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: HTML                                                                            |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                      |
     Then UI "Validate" Report With Name "Top Attack Sources 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Sources],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: HTML                                                                            |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                      |
     Then UI Delete Report With Name "Top Attack Sources 3"
@@ -159,14 +159,14 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Scanners Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Scanners 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Scanners],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Scanners],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                       |
       | Logo                  | reportLogoPNG.png                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                  |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body    |
     Then UI "Validate" Report With Name "Top Scanners 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Scanners],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Scanners],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                       |
       | Logo                  | reportLogoPNG.png                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                  |
@@ -178,11 +178,11 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Scanners Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Scanners 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Scanners],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Scanners],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                       |
       | Time Definitions.Date | Relative:[Months,4]                                                                                |
     Then UI "Validate" Report With Name "Top Scanners 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Scanners],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Scanners],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                       |
       | Time Definitions.Date | Relative:[Months,4]                                                                                |
     Then UI Delete Report With Name "Top Scanners 3"
@@ -227,14 +227,14 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Probed IP Addresses 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Probed IP Addresses 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Probed IP Addresses],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Probed IP Addresses],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                            |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                 |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body               |
     Then UI "Validate" Report With Name "Top Probed IP Addresses 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Probed IP Addresses],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Probed IP Addresses],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                            |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                             |
@@ -246,12 +246,12 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Probed IP Addresses Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Probed IP Addresses 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Probed IP Addresses],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Probed IP Addresses],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: HTML                                                                                 |
       | Time Definitions.Date | Relative:[Hours,2]                                                                           |
       | Schedule              | Run Every:once, On Time:+6H                                                                  |
     Then UI "Validate" Report With Name "Top Probed IP Addresses 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Probed IP Addresses],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Probed IP Addresses],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: HTML                                                                                 |
       | Time Definitions.Date | Relative:[Hours,2]                                                                           |
       | Schedule              | Run Every:once, On Time:+6H                                                                  |
@@ -295,14 +295,14 @@ Feature: DefensePro Analytics Part 2
   Scenario: Attacks by Protection Policy Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Protection Policy 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Protection Policy],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Protection Policy],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                       |
       | Logo                  | reportLogoPNG.png                                                                                 |
       | Time Definitions.Date | Relative:[Days,2]                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                    |
     Then UI "Validate" Report With Name "Attacks by Protection Policy 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Protection Policy],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Protection Policy],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                       |
       | Logo                  | reportLogoPNG.png                                                                                 |
       | Time Definitions.Date | Relative:[Days,2]                                                                                 |
@@ -314,12 +314,12 @@ Feature: DefensePro Analytics Part 2
   Scenario: Attacks by Protection Policy 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Protection Policy 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Protection Policy],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Protection Policy],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[SEP]                                                                    |
     Then UI "Validate" Report With Name "Attacks by Protection Policy 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Protection Policy],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Protection Policy],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[SEP]                                                                    |
@@ -362,14 +362,14 @@ Feature: DefensePro Analytics Part 2
   Scenario: Attack Categories by Bandwidth Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attack Categories by Bandwidth 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attack Categories by Bandwidth],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attack Categories by Bandwidth],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                         |
       | Logo                  | reportLogoPNG.png                                                                                   |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
     Then UI "Validate" Report With Name "Attack Categories by Bandwidth 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attack Categories by Bandwidth],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attack Categories by Bandwidth],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                         |
       | Logo                  | reportLogoPNG.png                                                                                   |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                    |
@@ -381,12 +381,12 @@ Feature: DefensePro Analytics Part 2
   Scenario: Attack Categories by Bandwidth Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attack Categories by Bandwidth 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attack Categories by Bandwidth],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attack Categories by Bandwidth],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                         |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                   |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                         |
     Then UI "Validate" Report With Name "Attack Categories by Bandwidth 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attack Categories by Bandwidth],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Attack Categories by Bandwidth],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                         |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                   |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                         |
@@ -432,14 +432,14 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Allowed Attackers Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Allowed Attackers 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Allowed Attackers],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Allowed Attackers],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                |
       | Logo                  | reportLogoPNG.png                                                                          |
       | Time Definitions.Date | Quick:This Week                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body             |
     Then UI "Validate" Report With Name "Top Allowed Attackers 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Allowed Attackers],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Allowed Attackers],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                |
       | Logo                  | reportLogoPNG.png                                                                          |
       | Time Definitions.Date | Quick:This Week                                                                            |
@@ -451,12 +451,12 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Allowed Attackers Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Allowed Attackers 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Allowed Attackers],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Allowed Attackers],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                             |
     Then UI "Validate" Report With Name "Top Allowed Attackers 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Allowed Attackers],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Allowed Attackers],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                             |
@@ -502,13 +502,13 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Attacks by Duration 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Duration],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                            |
       | Time Definitions.Date | Quick:3M                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body               |
     Then UI "Validate" Report With Name "Top Attacks by Duration 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Duration],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                            |
       | Time Definitions.Date | Quick:3M                                                                                     |
@@ -519,12 +519,12 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Attacks by Duration Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Duration],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                  |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                  |
     Then UI "Validate" Report With Name "Top Attacks by Duration 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Duration],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                  |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                  |
@@ -568,14 +568,14 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Attacks by Signature 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Signature 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Signature],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Signature],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                   |
       | Logo                  | reportLogoPNG.png                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                |
     Then UI "Validate" Report With Name "Top Attacks by Signature 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Signature],devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Signature],devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                   |
       | Logo                  | reportLogoPNG.png                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                              |
@@ -587,12 +587,12 @@ Feature: DefensePro Analytics Part 2
   Scenario: Top Attacks by Signature Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Signature 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Signature],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Signature],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                   |
       | Time Definitions.Date | Relative:[Days,3]                                                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                    |
     Then UI "Validate" Report With Name "Top Attacks by Signature 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Signature],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Signature],devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                   |
       | Time Definitions.Date | Relative:[Days,3]                                                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                    |
@@ -636,14 +636,14 @@ Feature: DefensePro Analytics Part 2
   Scenario: All Widgets Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All Policies]}]}], devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All Policies]}]}], devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                                                   |
       | Logo                  | reportLogoPNG.png                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                |
     Then UI "Validate" Report With Name "All Widgets 2"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All Policies]}]}], devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All Policies]}]}], devices:[{SetId:DefensePro_Set_1}] |
       | Format                | Select: PDF                                                                                                                   |
       | Logo                  | reportLogoPNG.png                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                              |
@@ -655,12 +655,12 @@ Feature: DefensePro Analytics Part 2
   Scenario: All Widgets Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[bps,Inbound,50]}]}], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[bps,Inbound,50]}]}], devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                                        |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                   |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                         |
     Then UI "Validate" Report With Name "All Widgets 3"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[bps,Inbound,50]}]}], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[bps,Inbound,50]}]}], devices:[{SetId:DefensePro_Set_1},{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                                        |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                   |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                         |
@@ -670,12 +670,12 @@ Feature: DefensePro Analytics Part 2
   Scenario: All Widgets Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 4"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Outbound,60]}]}], devices:[{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Outbound,60]}]}], devices:[{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                        |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                   |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
     Then UI "Validate" Report With Name "All Widgets 4"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Outbound,60]}]}], devices:[{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Outbound,60]}]}], devices:[{SetId:DefensePro_Set_2}] |
       | Format                | Select: HTML                                                                                                        |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                   |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
