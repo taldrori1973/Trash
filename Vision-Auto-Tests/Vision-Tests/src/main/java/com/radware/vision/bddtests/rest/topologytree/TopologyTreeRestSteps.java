@@ -1,12 +1,14 @@
 package com.radware.vision.bddtests.rest.topologytree;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testresthandlers.TopologyTreeRestHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TopologyTreeRestSteps extends TestBase {
@@ -17,6 +19,17 @@ public class TopologyTreeRestSteps extends TestBase {
         String deviceIp = "";
         try {
             deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
+            TopologyTreeRestHandler.deleteDeviceByManagementIp(restTestBase.getVisionRestClient(), deviceIp);
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to Delete device: " + deviceIp, e);
+        }
+    }
+
+    @Then("^REST Delete device with SetID \"(\\w+)\" from topology tree$")
+    public void deleteDeviceBySetID(String setID) {
+        String deviceIp = "";
+        try {
+            deviceIp = TestBase.getSutManager().getTreeDeviceManagement(setID).get().getManagementIp();
             TopologyTreeRestHandler.deleteDeviceByManagementIp(restTestBase.getVisionRestClient(), deviceIp);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to Delete device: " + deviceIp, e);
@@ -64,6 +77,22 @@ public class TopologyTreeRestSteps extends TestBase {
         TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, site, dataTable);
     }
 
+    @Then("^REST Add device with SetId \"(.*)\" into site \"(.*)\"$")
+    public void restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(String setID, String site) {
+        TreeDeviceManagementDto device = TestBase.getSutManager().getTreeDeviceManagement(setID).get();
+        String type = device.getDeviceType();
+        String name = device.getDeviceName();
+        String ip = device.getManagementIp();
+
+        List<TopologyTreeRestHandler.Data> dataTable = new ArrayList<>();
+        dataTable.add(new TopologyTreeRestHandler.DataAdapter("httpPassword", device.getHttpPassword()));
+        dataTable.add(new TopologyTreeRestHandler.DataAdapter("httpsPassword", device.getHttpsPassword()));
+        dataTable.add(new TopologyTreeRestHandler.DataAdapter("httpUsername", device.getHttpUsername()));
+        dataTable.add(new TopologyTreeRestHandler.DataAdapter("httpsUsername", device.getHttpsUsername()));
+        dataTable.add(new TopologyTreeRestHandler.DataAdapter("visionMgtPort", device.getVisionMgtPort()));
+
+        TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, site, dataTable);
+    }
 
     @Then("^REST Add \"(.*)\" site To topology Tree under \"(.*)\" site$")
     public void restAddSiteToTopologyTree(String site, String name) {
