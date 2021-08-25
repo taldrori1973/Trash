@@ -264,7 +264,7 @@ public class RemoteSshCommandsTests extends TestBase {
      * @param timeout - timeout to wait
      * @param timeUnit - min or sec
      */
-    @When("^CLI Validate service \"(.*)\" is up with timeout \"(\\d+)\" (socend(?:s)|minute(?:s))$")
+    @When("^CLI Validate service \"(.*)\" is up with timeout \"(\\d+)\" (socend(?:s)?|minute(?:s)?)$")
     public void runCLICommandAndValidateBiggerOrEqualResulta(String service, Integer timeout, String timeUnit)
     {
         timeout *= (timeUnit.startsWith("minute"))?60:1;
