@@ -10,6 +10,7 @@ import cucumber.api.java.en.Then;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TopologyTreeRestSteps extends TestBase {
 
@@ -77,19 +78,23 @@ public class TopologyTreeRestSteps extends TestBase {
         TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, site, dataTable);
     }
 
-    @Then("^REST Add device with SetId \"(.*)\" into site \"(.*)\"$")
+    @Then("^REST Add device with SetId \"(.*)\"(?: into site \"(.*)\")?$")
     public void restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(String setID, String site) {
         TreeDeviceManagementDto device = TestBase.getSutManager().getTreeDeviceManagement(setID).get();
         String type = device.getDeviceType();
         String name = device.getDeviceName();
         String ip = device.getManagementIp();
+        if(site==null) site = TestBase.getSutManager().getDeviceParentSite(device.getDeviceId());
 
         List<TopologyTreeRestHandler.Data> dataTable = new ArrayList<>();
-        dataTable.add(new TopologyTreeRestHandler.DataAdapter("httpPassword", device.getHttpPassword()));
-        dataTable.add(new TopologyTreeRestHandler.DataAdapter("httpsPassword", device.getHttpsPassword()));
-        dataTable.add(new TopologyTreeRestHandler.DataAdapter("httpUsername", device.getHttpUsername()));
-        dataTable.add(new TopologyTreeRestHandler.DataAdapter("httpsUsername", device.getHttpsUsername()));
-        dataTable.add(new TopologyTreeRestHandler.DataAdapter("visionMgtPort", device.getVisionMgtPort()));
+
+        for(Map.Entry<String, String> entry : device.getDeviceSetupData().entrySet()) {
+            String key = entry.getKey();
+            String value =  entry.getValue();
+
+            if(value != null && !value.equals(""))
+                dataTable.add(new TopologyTreeRestHandler.DataAdapter(key, value));
+        }
 
         TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, site, dataTable);
     }
