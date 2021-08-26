@@ -12,18 +12,13 @@ Feature: Snmp divided Tests
 #      | is running |
     When CLI Operations - Run Root Session command "iptables --list | grep snmp | grep -v trap"
     Then CLI Operations - Verify that output contains regex "ACCEPT.*(snmp).*"
-    Then CLI Operations - Verify that the output Lines number as expected 3
+    Then CLI Operations - Verify that the output Lines number as expected 1
 
   @SID_2
   Scenario: System Snmp Stop
     When CLI Operations - Run Radware Session command "system snmp service stop"
     When CLI Operations - Run Root Session command "systemctl status snmpd | grep Active:"
     Then CLI Operations - Verify that output contains regex ".*inactive.*(dead).*"
-#    Then CLI Operations - Verify last output contains
-#      | snmpd is stopped |
-    When CLI Operations - Run Root Session command "iptables --list | grep snmp"
-    Then CLI Operations - Verify that output contains regex "ACCEPT.*(snmp).*"
-    Then CLI Operations - Verify that the output Lines number as expected 2
 
   @SID_3
   Scenario: System Snmp Status - Started
