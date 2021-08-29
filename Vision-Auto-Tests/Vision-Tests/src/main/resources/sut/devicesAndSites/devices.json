@@ -330,6 +330,39 @@
             }
           }
         }
+      },
+      {
+        "deviceId": "Alteon_2.2.2.2",
+        "deviceSetId": "Alteon_Set_2.2.2.2",
+        "configurations": {
+          "name": "Alteon_2.2.2.2",
+          "parentOrmID": null,
+          "type": "Alteon",
+          "deviceSetup": {
+            "deviceAccess": {
+              "cliPassword": "admin",
+              "cliPort": 22,
+              "cliUsername": "admin",
+              "exclusivelyReceiveDeviceEvents": false,
+              "httpPassword": "admin",
+              "httpsPassword": "admin",
+              "httpsUsername": "admin",
+              "httpUsername": "admin",
+              "managementIp": "2.2.2.2",
+              "registerDeviceEvents": true,
+              "snmpV1ReadCommunity": "public",
+              "snmpV1WriteCommunity": "private",
+              "snmpV2ReadCommunity": "public",
+              "snmpV2WriteCommunity": "private",
+              "snmpV3AuthenticationProtocol": "SHA",
+              "snmpV3PrivacyProtocol": "DES",
+              "snmpVersion": "SNMP_V2",
+              "verifyHttpCredentials": true,
+              "verifyHttpsCredentials": true,
+              "visionMgtPort": "G1"
+            }
+          }
+        }
       }
     ],
     "linkProofs": [
@@ -589,6 +622,39 @@
               "httpsUsername": "radware",
               "httpUsername": "radware",
               "managementIp": "172.16.22.25",
+              "registerDeviceEvents": true,
+              "snmpV1ReadCommunity": "public",
+              "snmpV1WriteCommunity": "public",
+              "snmpV2ReadCommunity": "public",
+              "snmpV2WriteCommunity": "public",
+              "snmpV3AuthenticationProtocol": "SHA",
+              "snmpV3PrivacyProtocol": "DES",
+              "snmpVersion": "SNMP_V2",
+              "verifyHttpCredentials": true,
+              "verifyHttpsCredentials": true,
+              "visionMgtPort": "G1"
+            }
+          }
+        }
+      },
+      {
+        "deviceId": "DefensePro_10.185.2.85",
+        "deviceSetId": "DefensePro_Set_7",
+        "configurations": {
+          "name": "DefensePro_10.185.2.85",
+          "parentOrmID": null,
+          "type": "DefensePro",
+          "deviceSetup": {
+            "deviceAccess": {
+              "cliPassword": "radware1",
+              "cliPort": 22,
+              "cliUsername": "radware",
+              "exclusivelyReceiveDeviceEvents": false,
+              "httpPassword": "radware1",
+              "httpsPassword": "radware1",
+              "httpsUsername": "radware",
+              "httpUsername": "radware",
+              "managementIp": "10.185.2.85",
               "registerDeviceEvents": true,
               "snmpV1ReadCommunity": "public",
               "snmpV1WriteCommunity": "public",

@@ -196,6 +196,7 @@ public class VisionRadwareFirstTime extends ServerCliBase {
 
         p = new Prompt();
         p.setPrompt("The root user password was not changed.");
+        p.setDontWaitForScrollEnd(true);
         p.setCommandEnd(true);
         prompts.add(p);
 

@@ -205,7 +205,7 @@ public class UvisionServer {
      *
      * @param response            - Output of "system vision-server status"
      * @param dockerService       - Service to validate
-     * @param dockerServiceStatus - Srvice expected status
+     * @param dockerServiceStatus - Service expected status
      * @return True if match else false
      */
     public static boolean isServiceReady(ArrayList<String> response, DockerServices dockerService,
