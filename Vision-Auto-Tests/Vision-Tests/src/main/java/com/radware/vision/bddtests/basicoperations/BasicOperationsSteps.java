@@ -183,35 +183,35 @@ public class BasicOperationsSteps extends VisionUITestBase {
         restTestBase.getVisionRestClient().login();
     }
 
-    /**
-     * REST logout from server and UI validation
-     *
-     * @param visionRestClient - rest client
-     *                         //     * @param sessionID - rest session ID
-     */
-    public static void logoutFromServer(VisionRestClient visionRestClient, String username) {
-        int sessionID = visionRestClient.getSuitableSessionId(username);
-        WebUIUtils.isIgnoreDisplayedPopup = true;
-        WebUIUtils.setIsTriggerPopupSearchEvent(true);
-        try {
-            if (!isLoggedOut(WebUIUtils.SHORT_WAIT_TIME)) {
-                visionRestClient.logout(sessionID);
-            }
-        } catch (IllegalStateException e) {
-            //if user was already logged in we got into a inactivity timeout (most likely Configuration TO)
-            visionRestClient.login(visionRestClient.getUsername(), visionRestClient.getPassword(), "", sessionID);
-            visionRestClient.logout(sessionID);
-        } catch (Exception e) {
-            BaseTestUtils.report("Failed to logout: " + e.getMessage(), Reporter.FAIL);
-        } finally {
-            if (!isLoggedOut(WebUIUtils.DEFAULT_LOGIN_WAIT_TIME)) {
-                BaseTestUtils.report("Logout Operation failed, no \"log In\" button found", Reporter.FAIL);
-            } else {
-                isLoggedIn = false;
-                VisionDebugIdsManager.setTab("LoginPage");
-            }
-        }
-    }
+//    /**
+//     * REST logout from server and UI validation
+//     *
+//     * @param visionRestClient - rest client
+//     *                         //     * @param sessionID - rest session ID
+//     */
+//    public static void logoutFromServer(VisionRestClient visionRestClient, String username) {
+//        int sessionID = visionRestClient.getSuitableSessionId(username);
+//        WebUIUtils.isIgnoreDisplayedPopup = true;
+//        WebUIUtils.setIsTriggerPopupSearchEvent(true);
+//        try {
+//            if (!isLoggedOut(WebUIUtils.SHORT_WAIT_TIME)) {
+//                visionRestClient.logout(sessionID);
+//            }
+//        } catch (IllegalStateException e) {
+//            //if user was already logged in we got into a inactivity timeout (most likely Configuration TO)
+//            visionRestClient.login(visionRestClient.getUsername(), visionRestClient.getPassword(), "", sessionID);
+//            visionRestClient.logout(sessionID);
+//        } catch (Exception e) {
+//            BaseTestUtils.report("Failed to logout: " + e.getMessage(), Reporter.FAIL);
+//        } finally {
+//            if (!isLoggedOut(WebUIUtils.DEFAULT_LOGIN_WAIT_TIME)) {
+//                BaseTestUtils.report("Logout Operation failed, no \"log In\" button found", Reporter.FAIL);
+//            } else {
+//                isLoggedIn = false;
+//                VisionDebugIdsManager.setTab("LoginPage");
+//            }
+//        }
+//    }
 
     public static void logoutBrowser() throws Exception {
         Cookie jsessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID");
@@ -492,6 +492,11 @@ public class BasicOperationsSteps extends VisionUITestBase {
         BasicOperationsHandler.validateArrow(label, params, status);
     }
 
+    @Then("^UI Validate the attribute \"([^\"]*)\" Of Label \"([^\"]*)\"(?: With Params \"([^\"]*)\")?(?: with errorMessage \"([^\"]*)\")? is \"(EQUALS|CONTAINS|NOT CONTAINS|MatchRegx)\" to \"(.*)\" ?(?: with offset (\\S+))?$")
+    public void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String expectedErrorMessage, String compare, String value, String offset) {
+        BasicOperationsHandler.uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(attribute, label, params, compare, value, expectedErrorMessage, offset);
+    }
+
     @Then("^UI Validate order of labels \"([^\"]*)\" with attribute \"([^\"]*)\" that \"(EQUALS|CONTAINS|NOT CONTAINS)\" value of \"([^\"]*)\"$")
     public void uiValidateOrderOfLabelsWithAttributeThatValueOf(String label, String attribute, String compare, String value, List<VRMHandler.DfProtectedObject> entries) {
         BasicOperationsHandler.uiValidationItemsOrderInList(label, attribute, compare, value, entries);
@@ -756,7 +761,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     private static void selectHoursOrMinutes(String label, String params, String HoursOrMinutes, LocalDateTime scheduleTime) {
-        int differenceValue = Integer.valueOf(WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCount'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? "1" : "2") + "]")).getText()) - (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? scheduleTime.getHour() : scheduleTime.getMinute());
+        int differenceValue = Integer.parseInt(WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCount'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? "1" : "2") + "]")).getText()) - (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? scheduleTime.getHour() : scheduleTime.getMinute());
         for (int i = 0; i < Math.abs(differenceValue); i++)
             WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCounter'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? "1" : "2") + "]//span[.='" + (differenceValue > 0 ? "▼" : "▲") + "']")).click();
     }
@@ -790,7 +795,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
 
     @Then("^UI \"(Select|UnSelect|Validate)\" Scope Polices$")
     public void uiScopePolicesInDevice(String operationType, Map<String, String> devicePolices) throws Exception {
-        Map<String, String> map = null;
+        Map<String, String> map;
         map = CustomizedJsonManager.fixJson(devicePolices);
         ReportsForensicsAlertsAbstract.fixTemplateMap(map);
         switch (operationType) {
@@ -897,6 +902,20 @@ public class BasicOperationsSteps extends VisionUITestBase {
                 BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
             if (Float.parseFloat(number2Actual) > maxVal2 || Float.parseFloat(number2Actual) < minVal2)
                 BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+        }
+    }
+
+    @Then("^UI ScrollIntoView with label \"([^\"]*)\" (?:and params \"([^\"]*)\")?$")
+    public void uiScrollIntoViewWithLabelAndParams(String label, String params) throws Throwable {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params.split(","));
+        try {
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null)
+                return;
+            WebUIUtils.scrollIntoView(element, true);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
