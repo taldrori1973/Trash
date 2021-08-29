@@ -257,7 +257,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
             BasicOperationsHandler.delay(1);
             //todo
             //temproray until bug resolve (remove closeBrower)
-            WebUIUtils.closeBrowser();
+//            WebUIUtils.closeBrowser();
         }
     }
 
