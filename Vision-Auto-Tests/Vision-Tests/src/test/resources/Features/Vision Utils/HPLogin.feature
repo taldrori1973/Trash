@@ -45,6 +45,7 @@ Feature: HPLogin
   @SID_8
   Scenario: specific characters
 
+  @SID_9
   Scenario: login without activate license
     When UI Login with user "sys_admin" and password "radware"
     When UI Logout
@@ -57,6 +58,7 @@ Feature: HPLogin
     * REST Vision Install License Request "vision-activation"
     When UI Login with user "sys_admin" and password "radware" negative
 
+  @SID_10
   Scenario: logout
     * REST Vision Install License Request "vision-activation"
     When UI logout and close browser
