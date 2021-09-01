@@ -41,6 +41,18 @@
         "parentSite": "Alteon_for_DPM"
       },
       {
+        "deviceId": "Alteon_Fake_0",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_Fake_1",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_Fake_2",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
         "deviceId": "Alteon_50.50.101.11",
         "parentSite": "Alteons_for_DPM-Fakes"
       },
