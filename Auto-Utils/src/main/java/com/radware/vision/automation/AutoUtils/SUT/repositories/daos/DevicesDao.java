@@ -2,33 +2,42 @@ package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 
 import com.radware.vision.automation.AutoUtils.SUT.enums.DeviceType;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DeviceConfiguration;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DevicesPojo;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.SimulatorPojo;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
+import com.radware.vision.automation.AutoUtils.utils.DevicesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class DevicesDao {
 
     private static final String SUT_DEVICES_FILES_PATH_PROPERTY = "SUT.devices.path";
     private static final String DEVICES_FILE_NAME = "devices.json";
+    private static final String SIMULATORS_FILE_NAME = "simulators.json";
 
     private static DevicesDao _instance = new DevicesDao();
     private DevicesPojo devicesPojo;
+    private SimulatorPojo simulatorPojo;
     private List<Device> allDevices;
 
     public DevicesDao() {
         ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
-        SystemProperties systemProperties =SystemProperties.get_instance();
+        SystemProperties systemProperties = SystemProperties.get_instance();
         this.devicesPojo = JsonUtilities.loadJsonFile(
                 systemProperties.getResourcesPath(
                         String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME)
                 ),
                 DevicesPojo.class
+        );
+
+        this.simulatorPojo = JsonUtilities.loadJsonFile(
+                systemProperties.getResourcesPath(
+                        String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), SIMULATORS_FILE_NAME)
+                ),
+                SimulatorPojo.class
         );
 
         loadAllDevices();
@@ -51,9 +60,23 @@ public class DevicesDao {
 
     //    DAO
     public Optional<Device> findDeviceById(String deviceId) {
-
         return findAllDevices().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
 
+    }
+
+    public void addSimulatorsBySetID(String simSetId) {
+        List<String> simulatorsIp = simulatorPojo.getSimulatorSets().entrySet().stream().filter(sim -> sim.getKey().equals(simSetId)).map(Map.Entry::getValue).findAny().get();
+        simulatorsIp.forEach(simIP -> {
+            Device simulator = new Device();
+            simulator.setDeviceId("Alteon_" + "Fake_" + simulatorsIp.indexOf(simIP));
+            simulator.setDeviceSetId("Alteon_" + "Sim_" + "Set_" + simulatorsIp.indexOf(simIP));
+            DeviceConfiguration configurations = DevicesUtils.getDeviceConfigurationFromTemplate(simulatorPojo.getConfigurations());
+            configurations.setName("Alteon_" + simIP);
+            configurations.getDeviceSetup().getDeviceAccess().setManagementIp(simIP);
+            simulator.setConfigurations(configurations);
+            allDevices.add(simulator);
+
+        });
     }
 
     public List<Device> findDevicesByType(DeviceType deviceType) {

@@ -67,6 +67,13 @@ public class SutDao {
         return this.sutPojo.getServerName();
     }
 
+    public String getSimulators() {
+        return this.sutPojo.getSimulatorSet();
+    }
+
+    public boolean isLoadSimulators() {
+        return this.sutPojo.isLoadSimulators();
+    }
 
     public ClientConfiguration findClientConfiguration() {
         return this.sutPojo.getClientConfiguration();

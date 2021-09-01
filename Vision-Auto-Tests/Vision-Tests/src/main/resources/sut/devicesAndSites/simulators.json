@@ -1,0 +1,38 @@
+{
+  "simulatorSets": {
+    "sim_set_1": [
+      "50.50.101.1",
+      "50.50.101.2",
+      "50.50.101.3"
+    ]
+  },
+  "configurations": {
+    "name": "",
+    "parentOrmID": null,
+    "type": "Alteon",
+    "deviceSetup": {
+      "deviceAccess": {
+        "cliPassword": "admin",
+        "cliPort": 22,
+        "cliUsername": "admin",
+        "exclusivelyReceiveDeviceEvents": false,
+        "httpPassword": "admin",
+        "httpsPassword": "admin",
+        "httpsUsername": "admin",
+        "httpUsername": "admin",
+        "managementIp": "",
+        "registerDeviceEvents": true,
+        "snmpV1ReadCommunity": "public",
+        "snmpV1WriteCommunity": "private",
+        "snmpV2ReadCommunity": "public",
+        "snmpV2WriteCommunity": "private",
+        "snmpV3AuthenticationProtocol": "SHA",
+        "snmpV3PrivacyProtocol": "DES",
+        "snmpVersion": "SNMP_V2",
+        "verifyHttpCredentials": true,
+        "verifyHttpsCredentials": true,
+        "visionMgtPort": "G1"
+      }
+    }
+  }
+}

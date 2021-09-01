@@ -10,4 +10,6 @@ public class SUTPojo {
     private DeployConfigurations deployConfigurations;
     private ClientConfiguration clientConfiguration;
     private CliConfiguration cliConfiguration;
+    private String simulatorSet;
+    private boolean loadSimulators;
 }
