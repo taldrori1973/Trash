@@ -107,6 +107,18 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
+        p.setPrompt("qcow2 saved \\[.*/.*\\]");
+        p.setRegularExpression(true);
+        p.setCommandEnd(true);
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Ubuntu %s LTS %s ttyS0");
+        p.setDontWaitForScrollEnd(true);
+        p.setCommandEnd(true);
+        prompts.add(p);
+
+        p = new Prompt();
         p.setPrompt("login as: ");
         p.setStringToSend(getUser());
         prompts.add(p);
@@ -118,6 +130,11 @@ public class VisionRadwareFirstTime extends ServerCliBase {
 
         p = new Prompt();
         p.setPrompt("s' password: ");
+        p.setStringToSend(getPassword());
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Password: ");
         p.setStringToSend(getPassword());
         prompts.add(p);
 
@@ -170,6 +187,12 @@ public class VisionRadwareFirstTime extends ServerCliBase {
 
         p = new Prompt();
         p.setPrompt("Physical Management Interface \\[G3 G5 G7\\]  \\(Active links on:.*\\): ");
+        p.setRegularExpression(true);
+        p.setStringToSend(getPhysicalManagement());
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Physical Management Interface \\[G1 ens4 ens5\\] \\(Active links on:.*\\): ");
         p.setRegularExpression(true);
         p.setStringToSend(getPhysicalManagement());
         prompts.add(p);
@@ -329,7 +352,24 @@ public class VisionRadwareFirstTime extends ServerCliBase {
                 return;
             }
         }
+        p.setStringToSend(promptCommand);
         terminal.addPrompt(p);
-        p.setStringToSend(promptString);
     }
+
+    /*public Prompt promptStringFormat(String promptString, Object... args) {
+        Prompt p = new Prompt();
+        p.setPrompt(String.format(promptString, args));
+        for (Prompt prompt : terminal.getPrompts())
+        {
+            if (prompt.getPrompt().equals(promptString))
+            {
+                p.setStringToSend(prompt.getStringToSend());
+                p.setCommandEnd(prompt.isCommandEnd());
+                p.setRegularExpression(prompt.isRegularExpression());
+                break;
+            }
+        }
+        terminal.addPrompt(p);
+        return p;
+    }*/
 }
