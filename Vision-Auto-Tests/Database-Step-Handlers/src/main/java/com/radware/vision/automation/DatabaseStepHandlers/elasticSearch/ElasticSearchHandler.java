@@ -51,7 +51,7 @@ public class ElasticSearchHandler {
         match.add(field, value);
         SearchBool searchBool = new SearchBool();
         searchBool.getMust().add(match);
-        String json= null;
+        String json = null;
         try {
             SearchQuery searchQuery = new SearchQuery(searchBool);
             EsQuery esQuery = new EsQuery(searchQuery);
@@ -79,10 +79,10 @@ public class ElasticSearchHandler {
             RestResponse restResponse = esRestApi.sendRequest();
             if (!restResponse.getStatusCode().equals(StatusCode.OK) &&
                     !restResponse.getStatusCode().equals(StatusCode.NOT_FOUND)) {
-                BaseTestUtils.report("can't delete index: " + index, Reporter.FAIL);
+                BaseTestUtils.report("can't delete index: " + index + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 

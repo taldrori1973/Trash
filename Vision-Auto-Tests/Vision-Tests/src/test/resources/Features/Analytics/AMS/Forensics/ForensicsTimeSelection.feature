@@ -6,9 +6,10 @@ Feature: Forensic Time Selection
   @SID_1
   Scenario: Clean DB and generate attacks
     When CLI kill all simulator attacks on current vision
-    Given REST Delete ES index "dp-attack*"
-    Given REST Delete ES index "dp-sampl*"
-    Given REST Delete ES index "dp-packet*"
+#    Given REST Delete ES index "dp-attack*"
+#    Given REST Delete ES index "dp-sampl*"
+#    Given REST Delete ES index "dp-packet*"
+    Given REST Delete ES index "dp*"
     When CLI Clear vision logs
     And CLI simulate 1 attacks of type "rest_dos" on SetId "DefensePro_Set_1"
     And CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1" and wait 22 seconds
