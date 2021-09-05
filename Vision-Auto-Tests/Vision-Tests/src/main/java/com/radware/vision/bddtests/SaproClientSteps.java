@@ -70,6 +70,9 @@ public class SaproClientSteps extends TestBase {
     public void initSimulators() {
         List<TreeDeviceManagementDto> simulators = sutManager.getVisionSetupTreeDevices().stream().filter(
                 dev -> dev.getDeviceId().contains("Fake")).collect(Collectors.toList());
+        if (simulators.isEmpty()){
+            BaseTestUtils.report("No Alteon simulators available, please add set to SUT.", Reporter.FAIL);
+        }
         try {
             simulators.forEach(sim -> {
                 String setId = sim.getDeviceSetId();
