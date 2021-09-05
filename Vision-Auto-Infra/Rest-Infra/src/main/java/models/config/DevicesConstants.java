@@ -27,6 +27,13 @@ public interface DevicesConstants {
     String ALTEON_SESSION_DETAILS_PATH = "/config/sessiondetails";
     StatusCode ALTEON_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
 
+    //ALTEON SIMULATORS
+    String DEFAULT_MAP = "Automation_Machines";
+    String SIMULATOR_XML_FILE_1 = "Alteon_32.2.0.141_jason_xml_output.xmf";
+    String SIMULATOR_XML_FILE_2 = "Alteon_32.2.0.141_jason_xml_output_all_fields.xmf";
+    String SIMULATOR_XML_FILE_3 = "Alteon_32.2.0.141_jason_xml_output_all_fields_even.xmf";
+
+
     //    APPWALL
     int APPWALL_DEFAULT_PORT = 443;
     String APPWALL_USER_INFO_PATH = "/v2/config/aw/Users/{Login_Name}";

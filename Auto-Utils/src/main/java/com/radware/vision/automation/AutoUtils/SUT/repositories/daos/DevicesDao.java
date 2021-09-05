@@ -64,14 +64,14 @@ public class DevicesDao {
 
     }
 
-    public void addSimulatorsBySetID(String simSetId) {
+    public void addSimulatorsBySetId(String simSetId) {
         List<String> simulatorsIp = simulatorPojo.getSimulatorSets().entrySet().stream().filter(sim -> sim.getKey().equals(simSetId)).map(Map.Entry::getValue).findAny().get();
         simulatorsIp.forEach(simIP -> {
             Device simulator = new Device();
             simulator.setDeviceId("Alteon_" + "Fake_" + simulatorsIp.indexOf(simIP));
             simulator.setDeviceSetId("Alteon_" + "Sim_" + "Set_" + simulatorsIp.indexOf(simIP));
             DeviceConfiguration configurations = DevicesUtils.getDeviceConfigurationFromTemplate(simulatorPojo.getConfigurations());
-            configurations.setName("Alteon_" + simIP);
+            configurations.setName(simIP);
             configurations.getDeviceSetup().getDeviceAccess().setManagementIp(simIP);
             simulator.setConfigurations(configurations);
             allDevices.add(simulator);
