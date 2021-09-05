@@ -100,7 +100,7 @@ public class TopologyTreeRestSteps extends TestBase {
         TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, site, dataTable);
     }
 
-    @Then("^REST Add device with SetId \"(.*)\"(?: into site \"(.*)\")?$")
+    @Then("^REST Add device with SetId \"(.*?)\"(?: into site \"(.*)\")?$")
     public void restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(String setID, String site) {
         TreeDeviceManagementDto device = TestBase.getSutManager().getTreeDeviceManagement(setID).get();
         String type = device.getDeviceType();
