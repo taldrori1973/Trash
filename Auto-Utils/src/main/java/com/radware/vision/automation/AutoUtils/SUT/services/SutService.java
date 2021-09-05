@@ -40,7 +40,7 @@ public class SutService {
         this.devicesDao = DevicesDao.get_instance();
         this.sutDao = SutDao.get_instance();
         if (this.sutDao.isLoadSimulators()) {
-            this.devicesDao.addSimulatorsBySetID(sutDao.getSimulators());
+            this.devicesDao.addSimulatorsBySetId(sutDao.getSimulators());
         }
         this.setupDao = SetupDao.get_instance(sutDao.getSetupFileName());
         serverNameDao = sutDao.getServerName();

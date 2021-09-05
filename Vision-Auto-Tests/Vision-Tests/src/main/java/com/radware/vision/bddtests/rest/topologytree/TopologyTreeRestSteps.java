@@ -1,6 +1,7 @@
 package com.radware.vision.bddtests.rest.topologytree;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -11,6 +12,9 @@ import cucumber.api.java.en.Then;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static models.config.DevicesConstants.*;
 
 public class TopologyTreeRestSteps extends TestBase {
 
@@ -34,6 +38,24 @@ public class TopologyTreeRestSteps extends TestBase {
             TopologyTreeRestHandler.deleteDeviceByManagementIp(restTestBase.getVisionRestClient(), deviceIp);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to Delete device: " + deviceIp, e);
+        }
+    }
+
+    @Then("^REST Add Simulators$")
+    public void addSimulators() {
+        List<TreeDeviceManagementDto> simulators = sutManager.getVisionSetupTreeDevices().stream().filter(
+                dev -> dev.getDeviceId().contains("Fake")).collect(Collectors.toList());
+        if (simulators.isEmpty()) {
+            BaseTestUtils.report("No Alteon simulators available, please add set to SUT.", Reporter.FAIL);
+        }
+        try {
+            simulators.forEach(sim -> {
+                String setId = sim.getDeviceSetId();
+                String parentSite = TestBase.getSutManager().getDeviceParentSite(sim.getDeviceId());
+                this.restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(setId, parentSite);
+            });
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to add Alteon simulators " + e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -84,15 +106,15 @@ public class TopologyTreeRestSteps extends TestBase {
         String type = device.getDeviceType();
         String name = device.getDeviceName();
         String ip = device.getManagementIp();
-        if(site==null) site = TestBase.getSutManager().getDeviceParentSite(device.getDeviceId());
+        if (site == null) site = TestBase.getSutManager().getDeviceParentSite(device.getDeviceId());
 
         List<TopologyTreeRestHandler.Data> dataTable = new ArrayList<>();
 
-        for(Map.Entry<String, String> entry : device.getDeviceSetupData().entrySet()) {
+        for (Map.Entry<String, String> entry : device.getDeviceSetupData().entrySet()) {
             String key = entry.getKey();
-            String value =  entry.getValue();
+            String value = entry.getValue();
 
-            if(value != null && !value.equals(""))
+            if (value != null && !value.equals(""))
                 dataTable.add(new TopologyTreeRestHandler.DataAdapter(key, value));
         }
 
@@ -139,7 +161,7 @@ public class TopologyTreeRestSteps extends TestBase {
      *                   verifyHttpCredentials
      *                   verifyHttpsCredentials
      *                   visionMgtPort
-     * @param request   Request from Properties file
+     * @param request    Request from Properties file
      * @param deviceIp
      * @param newValue
      */
