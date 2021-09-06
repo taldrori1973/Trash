@@ -76,10 +76,12 @@ public class NewVmHandler extends TestBase {
         messages.add(" Warning \n Some of the packages you have selected for install are missing  \n dependencies or conflict with another package. You can exit the \n installation, go back and change your package selections, or    \n continue installing these packages without their dependencies.");
         String mysqlSocketProblem = "Can't connect to local MySQL server";
         messages.add(mysqlSocketProblem);
-        String vmName = sutManager.getEnviorement().get().getName() + sutManager.getEnviorement().get().getHostIp();
-        CliOperations.runCommand(this.visionRadwareFirstTime, "rm -rf /var/lib/libvirt/images/" + vmName + ".iso");
+        String vmName = String.format("%s_%s", sutManager.getServerName(), sutManager.getClientConfigurations().getHostIp());
+        // ToDo - check why setConnectOnInit is true
+        this.visionRadwareFirstTime.setConnectOnInit(false);
+        CliOperations.runCommand(this.visionRadwareFirstTime, "rm -rf /var/lib/libvirt/images/" + vmName + ".qcow2");
         CliOperations.runCommand(this.visionRadwareFirstTime, "cd /var/lib/libvirt/images/");
-        CliOperations.runCommand(this.visionRadwareFirstTime, "wget " + fileUrl + " -O " + vmName + ".iso", 600000);
+        CliOperations.runCommand(this.visionRadwareFirstTime, "wget " + fileUrl + " -O " + vmName + ".qcow2", 25*60*1000);
         StringJoiner installCommand = new StringJoiner(" ");
         installCommand.add("virt-install").add("--name " + vmName);
         String selectCommand;
@@ -87,13 +89,17 @@ public class NewVmHandler extends TestBase {
             installCommand.add("--ram 32768").add("--vcpus 12").add("--disk /var/lib/libvirt/images/" + vmName + ".img,size=250,bus=virtio,format=qcow2").add("--disk /var/lib/libvirt/images/" + vmName + "_APM.img,size=350,bus=virtio,format=qcow2").add("--cdrom /var/lib/libvirt/images/" + vmName + ".iso").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network network=TAG.502.ADC.Servers,model=virtio").add("--graphics none").add("--video cirrus").add("--serial pty");
             selectCommand = "A";
         } else {
-            installCommand.add("--ram 24576").add("--vcpus 8").add("--disk " + vmName + ".img,size=250,bus=virtio").add("--cdrom /var/lib/libvirt/images/" + vmName + ".iso").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--graphics none").add("--video cirrus").add("--serial pty");
+    //        installCommand.add("--ram 24576").add("--vcpus 8").add("--disk " + vmName + ".img,size=250,bus=virtio").add("--cdrom /var/lib/libvirt/images/" + vmName + ".iso").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--graphics none").add("--video cirrus").add("--serial pty");
+            installCommand.add("--ram 24576").add("--vcpus 8").add("--import").add("--disk /var/lib/libvirt/images/" + vmName + ".qcow2,bus=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--graphics none").add("--video cirrus").add("--serial pty");
             selectCommand = "I";
         }
-        this.visionRadwareFirstTime.changeCommandToSendForPrompt("vision.radware login: ", "radware");
-        CliOperations.runCommand(this.visionRadwareFirstTime, installCommand.toString(), 30000, false, false, false);
-
+        String promptBuildName = fileUrl.substring(fileUrl.lastIndexOf("/")+1,fileUrl.lastIndexOf(".")).toLowerCase();
+        // ToDo hardcoded - ubuntu version
+        String ubuntuVersion = "20.04.2";
+        this.visionRadwareFirstTime.editPromptStringFormat("Ubuntu %s LTS %s ttyS0", ubuntuVersion, promptBuildName);
+        CliOperations.runCommand(this.visionRadwareFirstTime, installCommand.toString(), (int) timeOut);
         Thread.sleep(15000L);
+        CliOperations.runCommand(this.visionRadwareFirstTime, "radware", 5*60*1000);
         boolean isShutoff;
         if (selectCommand.equals("A")) {
             CliOperations.runCommand(this.visionRadwareFirstTime, selectCommand, 60000, false, false, false, (String) null, true);
@@ -131,16 +137,16 @@ public class NewVmHandler extends TestBase {
             }
         }
 
-        try {
+/*        try {
             CliOperations.runCommand(this.visionRadwareFirstTime, selectCommand, (int) timeOut);
         } catch (Exception var22) {
             this.isContained(messages, vmName, specificVisionBuild, version);
             throw new Exception(var22.getMessage());
-        }
+        }*/
 
         this.isContained(messages, vmName, specificVisionBuild, version);
         this.visionRadwareFirstTime.connect();
-        CliOperations.runCommand(this.visionRadwareFirstTime, "rm -rf /var/lib/libvirt/images/" + vmName + ".iso");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "rm -rf /var/lib/libvirt/images/" + vmName + ".qcow2");
         CliOperations.runCommand(this.visionRadwareFirstTime, "virsh list --all");
         CliOperations.runCommand(this.visionRadwareFirstTime, "virsh list --all");
         isShutoff = RegexUtils.isStringContainsThePattern(vmName + ".*running.*", CliOperations.lastOutput.trim());
