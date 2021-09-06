@@ -7,9 +7,7 @@ Feature: DefensePro Network Policy Export from Device
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /download" on "ROOT_SERVER_CLI"
     Given REST Login with user "sys_admin" and password "radware"
-    Given Rest delete Policy "auto_import" from DP if Exist
-      | index |
-      | 11    |
+    Given REST delete Policy "auto_import" from DP with Set "DefensePro_Set_2"
 
   @SID_2
   Scenario: Upload network policy to vision
