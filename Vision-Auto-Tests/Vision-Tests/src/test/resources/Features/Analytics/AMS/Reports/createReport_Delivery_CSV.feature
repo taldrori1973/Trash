@@ -4,9 +4,12 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_1
   Scenario: keep reports copy on file system
-    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
+#    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
+    Then CLI Service "config_kvision-collector_1" do action RESTART
+#    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
+    Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
     Given CLI Reset radware password
 
 
@@ -23,8 +26,10 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_3
   Scenario: generate two attacks
-    Given CLI simulate 2 attacks of type "rest_anomalies" on "DefensePro" 10 with attack ID
-    Given CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10 and wait 60 seconds
+#   Given CLI simulate 2 attacks of type "rest_anomalies" on "DefensePro" 10 with attack ID
+    Given CLI simulate 2 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1" with attack ID
+#   Given CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10 and wait 60 seconds
+    Given CLI simulate 1 attacks of type "rest_dos" on SetId "DefensePro_Set_1" and wait 60 seconds
 
 
   @SID_4
