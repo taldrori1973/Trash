@@ -43,6 +43,11 @@ public class DefenseProRESTSteps {
         DefenseProRESTHandler.deletePolicy(policyName, entries);
     }
 
+    @Given("^REST delete Policy \"([^\"]*)\" from DP with Set \"([^\"]*)\"$")
+    public void restDeletePolicyFromDP(String policyName, String entries) {
+        DefenseProRESTHandler.deletePolicyWithSetID(policyName, entries);
+    }
+
     @Then("^REST Release All Blocked Countries of Device IP \"([^\"]*)\" and Policy Name \"([^\"]*)\"$")
     public void restReleaseAllBlockedCountriesOfDeviceIPAndPolicyName(String deviceIp, String policyName) throws Throwable {
         DefenseProRESTHandler.releaseBlocksForAllCountries(deviceIp, policyName);
