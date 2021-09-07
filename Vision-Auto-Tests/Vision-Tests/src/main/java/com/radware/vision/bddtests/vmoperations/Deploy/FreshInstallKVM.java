@@ -10,9 +10,10 @@ public class FreshInstallKVM extends Deploy {
     private boolean isAPM;
 
     public FreshInstallKVM(boolean isExtended, String build) {
-        super(isExtended, build, TestBase.getSutManager().getClientConfigurations().getHostIp());
+//        super(isExtended, build, TestBase.getSutManager().getClientConfigurations().getHostIp());
+        super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.QCOW2);
         initIsAPM();
-        buildFileInfo(FileType.ISO_SERIAL);
+        buildFileInfo(FileType.QCOW2);
     }
 
     public void initIsAPM() {
