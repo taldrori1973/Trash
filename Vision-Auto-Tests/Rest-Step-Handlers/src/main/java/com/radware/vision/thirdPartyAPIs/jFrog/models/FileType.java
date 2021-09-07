@@ -16,7 +16,8 @@ public enum FileType {
     KVM("Vision-\\d(.*).KVM_\\d(.*)_prod.qcow2"),
     KVM_APM("Vision-with-APM-\\d(.*).KVM_\\d(.*)_prod.qcow2"),
     ISO_USB("APSoluteVision-USB-\\d(.*)-x86_64.iso "),
-    ISO_SERIAL("APSoluteVision-Serial_console-\\d(.*)-x86_64.iso");
+    ISO_SERIAL("APSoluteVision-Serial_console-\\d(.*)-x86_64.iso"),
+    QCOW2("\\d(.*)-(.*)-D-\\d(.*)-(.*)-C-(.*).qcow2");
 
     private String extension;
     private String fileName;
