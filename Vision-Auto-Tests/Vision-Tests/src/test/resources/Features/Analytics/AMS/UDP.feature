@@ -5,19 +5,7 @@ Feature: UDP widgets
   Scenario: add DP
     Then REST Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then REST Add "DefensePro" Device To topology Tree with Name "DefensePro_10.185.2.85" and Management IP "10.185.2.85" into site "Default"
-      | attribute            | value    |
-      | cliUsername          | radware  |
-      | cliPassword          | radware1 |
-      | httpPassword         | radware1 |
-      | httpsPassword        | radware1 |
-      | httpsUsername        | radware  |
-      | httpUsername         | radware  |
-      | visionMgtPort        | G1       |
-      | snmpV1ReadCommunity  | public   |
-      | snmpV1WriteCommunity | public   |
-      | snmpV2ReadCommunity  | public   |
-      | snmpV2WriteCommunity | public   |
+    Then REST Add device with SetId "DefensePro_Set_7"
 
   @SID_2
   Scenario: Clear the vision from the attacks and run PCAP
@@ -29,7 +17,8 @@ Feature: UDP widgets
     * REST Delete ES index "dp-*"
     When CLI Clear vision logs
 
-    Given CLI simulate 100 attacks of type "testUDPAttack" on "DefensePro" 185 with loopDelay 15000 and wait 120 seconds
+#    Given CLI simulate 100 attacks of type "testUDPAttack" on "DefensePro" 185 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 100 attacks of type "testUDPAttack" on SetId "DefensePro_Set_7" with loopDelay 15000 and wait 120 seconds with attack ID
 
   @SID_3
   Scenario: Login and navigate to BDOS behavioral dashboard
@@ -37,8 +26,8 @@ Feature: UDP widgets
     And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 185   |       | test     |
+      | setId | ports | policies |
+      | DefensePro_Set_7   |       | test     |
     Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
       | value | min |
       | 0     | 5   |
@@ -76,4 +65,5 @@ Feature: UDP widgets
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     When CLI Clear vision logs
-    Then REST Delete Device By IP "10.185.2.85"
+#    Then REST Delete Device By IP "10.185.2.85"
+    Then REST Delete device with SetID "DefensePro_Set_7" from topology tree
