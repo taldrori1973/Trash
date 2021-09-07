@@ -10,8 +10,9 @@ Feature: Top Attack by GeoLocation
 
   @SID_2
   Scenario: Run DP simulator for ErtFeed_GeoFeed
-    Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 11 with loopDelay 15000 and wait 60 seconds
-    Given CLI simulate 1000 attacks of type "GEO" on "DefensePro" 11 with loopDelay 15000 and wait 60 seconds
+    Given CLI simulate 1000 attacks of type "GEO" on "DefensePro" 11 with loopDelay 1500 and wait 60 seconds
+    Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 11 with loopDelay 1500 and wait 60 seconds
+
     Then Sleep "15"
 
 
@@ -20,12 +21,12 @@ Feature: Top Attack by GeoLocation
     When UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
-    Then Sleep "60"
+    Then Sleep "30"
 
   @SID_4
   Scenario: Validate Top Attacking by GeoLocations Widget, 15m
     # Validate Header chart
-    Then UI Validate Text field "Chart" with params "Top Attacking by GeoLocation" EQUALS "Top Attacking by GeoLocation"
+    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
@@ -45,7 +46,7 @@ Feature: Top Attack by GeoLocation
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "30m"
     # Validate Header chart
-    Then UI Validate Text field "Chart" with params "Top Attacking by GeoLocation" EQUALS "Top Attacking by GeoLocation"
+    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
@@ -63,7 +64,7 @@ Feature: Top Attack by GeoLocation
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
     # Validate Header chart
-    Then UI Validate Text field "Chart" with params "Top Attacking by GeoLocation" EQUALS "Top Attacking by GeoLocation"
+    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
