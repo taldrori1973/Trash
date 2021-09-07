@@ -25,6 +25,8 @@ Feature: Top Attack by GeoLocation
 
   @SID_4
   Scenario: Validate Top Attacking by GeoLocations Widget, 15m
+    And UI Do Operation "Select" item "Global Time Filter"
+    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
     # Validate Header chart
     Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
 
