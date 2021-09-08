@@ -31,7 +31,7 @@ Feature: HTTPS Server Dashboard
   @SID_4
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
 #    Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
-  Given CLI simulate 2 attacks of type "HTTPS" on SetId "DefensePro_Set_1" with loopDelay 5000 and wait 60 seconds
+  Given CLI simulate 2 attacks of type "HTTPS" on SetId "DefensePro_Set_2" with loopDelay 5000 and wait 60 seconds
 
   @SID_5
   Scenario: Select Server
