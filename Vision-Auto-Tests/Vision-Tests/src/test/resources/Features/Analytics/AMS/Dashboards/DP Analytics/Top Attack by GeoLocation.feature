@@ -21,6 +21,11 @@ Feature: Top Attack by GeoLocation
     When UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then UI Click Button "Widget Selection"
+    Then UI Click Button "Widget Selection.Clear Dashboard"
+    Then UI Click Button "Widget Selection.Remove All Confirm"
+   Then UI Click Button "Geolocation widget"
+    Then UI Click Button "Widget Selection.Add Selected Widgets"
     Then Sleep "30"
 
   @SID_4
