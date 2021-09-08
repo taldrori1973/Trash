@@ -18,7 +18,8 @@ Feature: DPGenerateReport
 
   @SID_2
   Scenario: Run DP simulator
-    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
+#    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1" and wait 250 seconds
 
   @SID_3
   Scenario: Login and navigate
@@ -27,7 +28,9 @@ Feature: DPGenerateReport
 
   @SID_4
   Scenario: validate DP Analytics Widget - Top Attack Destinations
-    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
+    # ToDo - need to check if still using "service iptables stop" and the value that returned
+#    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
+    Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
     Then UI Validate Pie Chart data "Top Attack Destinations-DefensePro Analytics" in Report "DPAndDPBehavioralReport"
       | label    | data |
       | 1.1.1.10 | 5    |
@@ -61,7 +64,8 @@ Feature: DPGenerateReport
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
-    Given CLI simulate 200 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
+#    Given CLI simulate 200 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
+    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_8
   Scenario: validate BDoS-TCP SYN
