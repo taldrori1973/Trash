@@ -26,14 +26,16 @@ Feature: Top Attack by GeoLocation
     Then UI Click Button "Widget Selection.Remove All Confirm"
    Then UI Click Button "Geolocation widget"
     Then UI Click Button "Widget Selection.Add Selected Widgets"
+    Then UI Click Button "Widget Selection"
     Then Sleep "30"
 
   @SID_4
   Scenario: Validate Top Attacking by GeoLocations Widget, 15m
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
+    Then Sleep "30"
     # Validate Header chart
-    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
+#    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
@@ -52,8 +54,9 @@ Feature: Top Attack by GeoLocation
   Scenario: Validate Top Attacking by GeoLocations Widget, 30m
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "30m"
+    Then Sleep "30"
     # Validate Header chart
-    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
+#    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
@@ -70,8 +73,9 @@ Feature: Top Attack by GeoLocation
   Scenario: Validate Top Attacking by GeoLocations Widget, 1H
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
+    Then Sleep "30"
     # Validate Header chart
-    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
+#    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
@@ -90,6 +94,7 @@ Feature: Top Attack by GeoLocation
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses Checkbox" is "EQUALS" to "true"
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "30m"
+    Then Sleep "30"
 
     # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
