@@ -30,21 +30,25 @@ public class SimulatorUtils {
     public static Map<String, String> getNewReportTemplate(Map<String, String> reportsEntry) {
         Map<String, String> newReportEntry = new HashMap<>(reportsEntry);
         String[] application = newReportEntry.get("Application").split(":");
+        String name = sutManager.getTreeDeviceManagement(application[0]).get().getDeviceName();
         String template = newReportEntry.get("Template");
         StringBuilder newTemplate = new StringBuilder();
-        newTemplate.append(template).append(", Applications:").append(getApplication(application[0], application[1]));
+        if (newReportEntry.get("Template").contains("System and Network")) {
+            newTemplate.append(template).append(", Applications:").append("[").append(name).append("]");
+        } else {
+            newTemplate.append(template).append(", Applications:").append(getApplication(application[0], application[1], name));
+        }
         newReportEntry.remove("Application");
         newReportEntry.put("Template", newTemplate.toString());
         return newReportEntry;
     }
 
-    public static String getApplication(String simSetId, String port) {
+    public static String getApplication(String simSetId, String port, String name) {
 
-        String simIp = sutManager.getTreeDeviceManagement(simSetId).get().getDeviceName();
-        if (simIp.isEmpty()) {
+        if (name.isEmpty()) {
             BaseTestUtils.report("Unable to find simulator id", Reporter.FAIL);
             return null;
         }
-        return "[Rejith_" + convertIpToHexa(simIp) + ":" + port + "]";
+        return "[Rejith_" + convertIpToHexa(name) + ":" + port + "]";
     }
 }

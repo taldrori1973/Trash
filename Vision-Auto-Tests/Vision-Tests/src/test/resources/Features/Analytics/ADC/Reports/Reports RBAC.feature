@@ -1,32 +1,40 @@
-@ADC_Report @TC105973
+@ADC_Report @TC105973 @Debug
 
 Feature: DPM - ADC Reports RBAC
 
   @SID_1
-  Scenario: Clean system data
+  Scenario: Clean system data and Prepare simulators
 #    * CLI kill all simulator attacks on current vision
 #    * REST Delete ES index "vrm-scheduled-report-*"
     * CLI Clear vision logs
+    Given Init Simulators
+    * REST Vision Install License Request "vision-reporting-module-ADC"
+    Given REST Login with user "radware" and password "radware"
+    Then REST Add Simulators
+    When CLI validate service "all" status is "up" and health is "healthy" retry for 600 seconds
 
   @SID_2
   Scenario: ADC - Login as admin and create two types of reports
-    * REST Vision Install License Request "vision-reporting-module-ADC"
-    Given UI Login with user "radware" and password "radware"
+    Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
     Given UI "Create" Report With Name "App Report"
-      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[6:80] |
+      | Application    | Alteon_Sim_Set_1:80                              |
+      | Template | reportType:Application , Widgets:[Requests per Second] |
     Then UI "Validate" Report With Name "App Report"
-      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[6:80] |
+      | Application    | Alteon_Sim_Set_1:80                              |
+      | Template | reportType:Application , Widgets:[Requests per Second] |
 
 
 #    Then UI "Create" DPMReport With Name "All_apps"
 #      | reportType | DefensePro Behavioral Protections Dashboard |
 #      | devices    | virts:[Rejith:88, Rejith:443]               |
 
-    Given UI "Create" Report With Name "Alteon_172.17.164.17 Report"
-      | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-    Then UI "Validate" Report With Name "Alteon_172.17.164.17 Report"
-      | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+    Given UI "Create" Report With Name "Alteon_Sim_Set_2 Report"
+      | Application    | Alteon_Sim_Set_2                                                                                    |
+      | Template | reportType:System and Network , Widgets:[Ports Traffic Information]                                       |
+    Then UI "Validate" Report With Name "Alteon_Sim_Set_2 Report"
+      | Application    | Alteon_Sim_Set_2                                                                                    |
+      | Template | reportType:System and Network , Widgets:[Ports Traffic Information]                                       |
 
 
 #    Then UI "Create" DPMReport With Name "All_devices"
@@ -36,10 +44,10 @@ Feature: DPM - ADC Reports RBAC
 
     Then UI Click Button "My Report Tab"
     Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "App Report"
-    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "Alteon_172.17.164.17 Report"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "Alteon_Sim_Set_2 Report"
 
     Then UI Delete Report With Name "App Report"
-    Then UI Delete Report With Name "Alteon_172.17.164.17 Report"
+    Then UI Delete Report With Name "Alteon_Sim_Set_2 Report"
 
 
   @SID_3
