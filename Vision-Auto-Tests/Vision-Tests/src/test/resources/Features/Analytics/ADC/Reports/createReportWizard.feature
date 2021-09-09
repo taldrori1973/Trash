@@ -1,4 +1,4 @@
-@ADC_Report @TC105968 @Debug
+@ADC_Report @TC105968
 
 Feature: DPM - Report Wizard Creation
 
