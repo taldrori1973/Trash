@@ -106,7 +106,7 @@ public abstract class TestBase {
     }
 
     public static boolean connectOnInit() {
-        return sutManager.getDeployConfigurations().getSetupMode().toLowerCase().equals("fresh install") ? false : true;
+        return sutManager.getDeployConfigurations().getSetupMode().toLowerCase().contains("fresh install") ? false : true;
     }
 
 }

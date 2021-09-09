@@ -91,7 +91,10 @@ public class VMOperationsSteps extends VisionUITestBase {
 
     public void deleteKvm() throws Exception {
         NewVmHandler handler = new NewVmHandler();
-        String vmName = handler.visionRadwareFirstTime.getVmName() + handler.visionRadwareFirstTime.getIp();
+        String vmPrefix = getVisionSetupAttributeFromSUT("vmPrefix");
+        String vmName = String.format("%s_%s", vmPrefix, handler.visionRadwareFirstTime.getIp());
+        // ToDo - check why setConnectOnInit is true
+        handler.visionRadwareFirstTime.setConnectOnInit(false);
         handler.deleteKvm(vmName);
     }
 

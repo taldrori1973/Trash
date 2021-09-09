@@ -99,7 +99,29 @@ public class DefenseProRESTHandler {
         });
     }
 
+    public static void deletePolicyWithSetID(String policyName, String setID) {
 
+        String dpIp = TestBase.getSutManager().getTreeDeviceManagement(setID).get().getManagementIp();
+
+        lockDevice(dpIp);
+
+        if (!isPolicyExist(policyName, dpIp)) return;
+
+
+        String result;
+        VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
+
+        result = (String) visionRestApiHandler.handleRequest(TestBase.restTestBase.getVisionRestClient(),
+                HttpMethodEnum.DELETE, "DefensePro->Delete Policy", dpIp + "|" + policyName, null, null);
+
+
+        unlockDevice(dpIp);
+        if (!result.contains("\"status\" : \"ok\"")) {
+            BaseTestUtils.report(result, Reporter.FAIL);
+        }
+
+        updatePolicies(dpIp);
+    }
 
     public static void addNewPolicy(String policyName, List<VRMHandler.DpDeviceFilter> entries) {
 

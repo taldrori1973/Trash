@@ -1,6 +1,7 @@
 package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers;
 
 import com.aqua.sysobj.conn.LinuxDefaultCliConnection;
+import systemobject.terminal.Prompt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,5 +50,20 @@ public class ServerCliBase extends LinuxDefaultCliConnection {
         if (results.size() > 0)
             return results.get(results.size() - 1);
         return null;
+    }
+
+    public Prompt editPromptStringFormat(String promptString, Object... args) {
+        for (Prompt prompt : terminal.getPrompts())
+        {
+            if (prompt.getPrompt().equals(promptString))
+            {
+                prompt.setPrompt(String.format(promptString, args));
+                return prompt;
+            }
+        }
+        Prompt p = new Prompt();
+        p.setPrompt(String.format(promptString, args));
+        terminal.addPrompt(p);
+        return p;
     }
 }

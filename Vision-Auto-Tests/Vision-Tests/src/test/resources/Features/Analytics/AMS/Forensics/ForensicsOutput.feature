@@ -5,7 +5,7 @@ Feature: Forensics Output
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-attack-raw-*"
+    * REST Delete ES index "dp-*"
     * REST Delete ES index "forensics-*"
     * REST Delete ES index "dpforensics-*"
     * CLI Clear vision logs
@@ -16,7 +16,7 @@ Feature: Forensics Output
   
   @SID_2
   Scenario: Run DP simulator
-    And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 11 and wait 30 seconds
+    And CLI simulate 1 attacks of type "rest_black_ip46" on SetId "DefensePro_Set_2" and wait 30 seconds
 #    Given CLI simulate 20 attacks of type "DNS_States" on "DefensePro" 11 with loopDelay 15000 and wait 40 seconds
 
   

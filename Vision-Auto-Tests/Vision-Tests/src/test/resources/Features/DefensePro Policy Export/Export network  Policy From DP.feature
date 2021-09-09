@@ -7,9 +7,7 @@ Feature: DefensePro Network Policy Export from Device
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /download" on "ROOT_SERVER_CLI"
     Given REST Login with user "sys_admin" and password "radware"
-    Given Rest delete Policy "auto_import" from DP if Exist
-      | index |
-      | 11    |
+    Given REST delete Policy "auto_import" from DP with Set "DefensePro_Set_2"
 
   @SID_2
   Scenario: Upload network policy to vision
@@ -30,7 +28,8 @@ Feature: DefensePro Network Policy Export from Device
 
   @SID_4
   Scenario: Delete network template from Vision server
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "device_exported_file" Table in "VISION_NG" Schema WHERE "name='auto_import'"
 
   @SID_5
   Scenario: Export Network Policy from DP to server
@@ -50,7 +49,8 @@ Feature: DefensePro Network Policy Export from Device
 
   @SID_6
   Scenario: Verify exported network policy exists in DB
-    Then CLI Run linux Command "mysql -prad123 vision_ng -BNe "select dev_type,file_type from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "DefensePro	1"
+#    Then CLI Run linux Command "mysql -prad123 vision_ng -BNe "select dev_type,file_type from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "DefensePro	1"
+  Then MYSQL Validate FROM "device_exported_file" Table in "VISION_NG" Schema WHERE "name='auto_import'" Condition and values equal to "DefensePro	1"
 
   @SID_7
   Scenario: Export Network Policy from DP to Client

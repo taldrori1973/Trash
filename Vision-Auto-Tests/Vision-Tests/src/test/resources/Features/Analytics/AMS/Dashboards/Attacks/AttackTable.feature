@@ -39,7 +39,7 @@ Feature: Attacks Table
   @SID_4
   Scenario: validate the table count
     Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 14
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 35
     When UI set "Auto Refresh" switch button to "off"
     Given UI Click Button "Accessibility Menu"
     Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"

@@ -146,6 +146,29 @@ public class MySQLSteps extends TestBase {
         BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
     }
 
+    @Then("^MYSQL Validate FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" Condition and values equal to \"([^\"]*)\"?$")
+    public void validateValue(String tableName, VisionDBSchema schema, String whereCondition, String expectedValue) {
+
+        try {
+            JsonNode result;
+            if (whereCondition == null || whereCondition.isEmpty())
+                result = GenericCRUD.selectAllTable(schema, tableName);
+            else
+                result = GenericCRUD.selectTable(schema, tableName, whereCondition);
+
+            String devType = result.get(0).get("dev_type").toString();
+            devType = devType.substring(1,devType.length()-1);
+            String fileType = result.get(0).get("file_type").toString();
+            String realValue =  String.format("%s\t%s", devType, fileType);
+
+            if(!realValue.equals(expectedValue))
+                BaseTestUtils.report(String.format("result value \"%s\" not equal to expected values \"%s\"", realValue, expectedValue), Reporter.FAIL);
+
+        } catch (SQLException | JDBCConnectionException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
     @Then("^MYSQL Validate The Time by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" Close to (\\d+)$")
     public void validateTimeCloseTo(String columnName, VisionDBSchema schema, String tableName, String whereCondition, Integer closeTo) {
 //      This Step Was refactored from com.radware.vision.bddtests.scheduledtasks.ScheduledTaskCommonTests.validateTime
