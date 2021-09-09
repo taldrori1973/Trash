@@ -3,11 +3,14 @@ package com.radware.vision.bddtests.rest.topologytree;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
+import com.radware.vision.automation.Deploy.UvisionServer;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testresthandlers.TopologyTreeRestHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import org.apache.tools.ant.taskdefs.Sleep;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,9 @@ public class TopologyTreeRestSteps extends TestBase {
                 String parentSite = TestBase.getSutManager().getDeviceParentSite(sim.getDeviceId());
                 this.restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(setId, parentSite);
             });
+            //Todo: KVISION delete this WA when applications issue fixed (sleep added to wait until all simulators are connected)
+            Thread.sleep(60* 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "docker restart config_kvision-configuration-service_1");
         } catch (Exception e) {
             BaseTestUtils.report("Failed to add Alteon simulators " + e.getMessage(), Reporter.FAIL);
         }

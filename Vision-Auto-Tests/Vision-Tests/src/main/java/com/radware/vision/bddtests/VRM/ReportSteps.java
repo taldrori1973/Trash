@@ -10,6 +10,7 @@ import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementN
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
+import com.radware.vision.bddtests.utils.SimulatorUtils;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
@@ -34,7 +35,7 @@ public class ReportSteps extends VisionUITestBase {
      * @param reportsEntry  The values that the user want to added it like:
      *                      *- | reportType| DefensePro Analytics Dashboard / HTTPS Flood
      *                      The device type that you want to create the reporter with
-     *
+     *                      <p>
      *                      Scope Selection:
      *                      By Devices for non HTTPS Flood , or Policy for HTTPS Flood
      *                      *- | devices| index:10, ports:[1], policies:[pol_1]; ports: [1,3], index:11;|
@@ -42,9 +43,9 @@ public class ReportSteps extends VisionUITestBase {
      *                      - we seperate between the devices by ';'
      *                      - The ports and policies value shold be inside [] (type of array)
      *                      - We seperate between the different keys inside the same device by ','
-     *
+     *                      <p>
      *                      *- | policy | serverName:test,deviceName:DefensePro_172.16.22.51,policyName:pol1 |
-     *
+     *                      <p>
      *                      * - | Time Definitions.Date|Quick:30m|
      *                      - Second widget is time definition you can select it with 3 ways:
      *                      - Quick: you type Quick:'the time definition how it witten at the UI'
@@ -82,23 +83,30 @@ public class ReportSteps extends VisionUITestBase {
      *                      and it will work
      */
     @Then("^UI \"(Create|Validate|Edit|Generate|Isexist|Delete)\" Report With Name \"([^\"]*)\"( negative)?$")
-    public void uiReportWithName(vrmActions operationType, String reportName,String negative, Map<String, String> reportsEntry) {
+    public void uiReportWithName(vrmActions operationType, String reportName, String negative, Map<String, String> reportsEntry) {
+        Map<String, String> newReportEntry = new HashMap<>(reportsEntry);
+        if (!newReportEntry.get("Application").isEmpty()) {
+            newReportEntry = SimulatorUtils.getNewReportTemplate(newReportEntry);
+        }
         try {
             RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
-            new Report().baseOperation(operationType, reportName, negative, reportsEntry, rootServerCli);
+            new Report().baseOperation(operationType, reportName, negative, newReportEntry, rootServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
     @Then("^UI Delete (Report|Forensics|Alert) With Name \"([^\"]*)\"( negative)?$")
-    public void uiReportWithName(String type, String reportName,String negative) {
+    public void uiReportWithName(String type, String reportName, String negative) {
         try {
-            switch (type.toLowerCase())
-            {
-                case "report": new Report().delete(reportName);break;
-                case "forensics": new Forensics().delete(reportName);break;
-    //            case "Alert": new Alert().delete(reportName);break;
+            switch (type.toLowerCase()) {
+                case "report":
+                    new Report().delete(reportName);
+                    break;
+                case "forensics":
+                    new Forensics().delete(reportName);
+                    break;
+                //            case "Alert": new Alert().delete(reportName);break;
             }
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -152,7 +160,7 @@ public class ReportSteps extends VisionUITestBase {
     }
 
     @Then("^UI Validate Search The Text \"([^\"]*)\" in Search Label \"([^\"]*)\" if this elements exist with prefix label \"([^\"]*)\"$")
-    public void uiValidateSearchTheTextInSearchPlaceIfThisElementsExist(String text, String searchPlace,String prefixLabel, List<VRMHandler.LabelParam> elementsExist) {
+    public void uiValidateSearchTheTextInSearchPlaceIfThisElementsExist(String text, String searchPlace, String prefixLabel, List<VRMHandler.LabelParam> elementsExist) {
         try {
             vrmReportsHandler.validateFilter(text, searchPlace, elementsExist, prefixLabel);
         } catch (Exception e) {
@@ -186,30 +194,30 @@ public class ReportSteps extends VisionUITestBase {
 
     @Then("^UI Undo Widgets with label \"([^\"]*)\"$")
     public void uiUndoWidgetsWithLabel(String label, List<String> listWidgets) {
-        vrmReportsHandler.undoWidgets(label,listWidgets);
+        vrmReportsHandler.undoWidgets(label, listWidgets);
 
     }
 
     @Then("^UI Validate Report Mail With Subject \"([^\"]*)\" And Content \"([^\"]*)\"$")
-    public void reportMail(String subject , String content) throws Exception{
+    public void reportMail(String subject, String content) throws Exception {
         try {
-            vrmReportsHandler.validateMailReport(subject,content);
+            vrmReportsHandler.validateMailReport(subject, content);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
     @Then("^UI Generate (and Validate )?Report With Name \"([^\"]*)\" with Timeout of (\\d+) Seconds$")
-    public void uiGenerateAndValidateReportWithNameWithTimeoutOfSeconds(String Validate,String reportName ,int timeout) {
+    public void uiGenerateAndValidateReportWithNameWithTimeoutOfSeconds(String Validate, String reportName, int timeout) {
         try {
-            Map<String,String> map=new HashMap<>();
-            map.put("validation",Validate);
-            map.put("timeout",String.valueOf(timeout));
+            Map<String, String> map = new HashMap<>();
+            map.put("validation", Validate);
+            map.put("timeout", String.valueOf(timeout));
             Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
             if (!rootServerCliOpt.isPresent()) {
                 throw new Exception("Root Server Not found!");
             }
-            vrmReportsHandler.VRMReportOperation(vrmActions.GENERATE,reportName,map,rootServerCliOpt.get());
+            vrmReportsHandler.VRMReportOperation(vrmActions.GENERATE, reportName, map, rootServerCliOpt.get());
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -217,7 +225,7 @@ public class ReportSteps extends VisionUITestBase {
 
     @Then("^UI validate togglesData in report \"([^\"]*)\" with widget \"([^\"]*)\"$")
     public void uiValidateTogglesDataInReportWithWidget(String reportName, String widget, List<VRMHandler.ToggleData> entries) {
-            vrmReportsHandler.uiValidateTogglesDataInReportWithWidget(reportName, widget, entries);
+        vrmReportsHandler.uiValidateTogglesDataInReportWithWidget(reportName, widget, entries);
     }
 
     @Then("^UI Open Report Parameters$")
@@ -226,8 +234,8 @@ public class ReportSteps extends VisionUITestBase {
     }
 
     @Then("^UI Validate generate report with name \"([^\"]*)\" is exist$")
-    public void validateGenerateReportWithNameIsExist(String reportName){
-        if (WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//div[@id='react-app']//*[text()='" + reportName + "']").getBy())== null)
+    public void validateGenerateReportWithNameIsExist(String reportName) {
+        if (WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//div[@id='react-app']//*[text()='" + reportName + "']").getBy()) == null)
             BaseTestUtils.report("The generate report " + reportName + " isn't appearing in the UI!", Reporter.FAIL);
 
     }

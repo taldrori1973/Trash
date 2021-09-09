@@ -1,5 +1,5 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_ADC_1.json",
   "serverName": "uVision",
   "deployConfigurations": {
     "snapshot": "Current-1",

@@ -1,5 +1,5 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_ADC_2.json",
   "serverName": "uVision",
   "deployConfigurations": {
     "snapshot": "Current-1",
@@ -33,5 +33,7 @@
       "userName": "root",
       "password": "radware"
     }
-  }
+  },
+  "simulators_set" : "sim_set_2",
+  "loadSimulators" : "true"
 }
