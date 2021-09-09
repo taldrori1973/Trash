@@ -1641,7 +1641,7 @@ public class VRMHandler {
             String selectAllCheckBox = "Device Selection.All Devices Selection";
             VisionDebugIdsManager.setLabel(selectAllCheckBox);
             WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-            entries.forEach(entry -> {
+            entries.forEach(entry ->{
                 String deviceIp = null;
                 try {
                     if (entry.index == null) {
@@ -1656,15 +1656,15 @@ public class VRMHandler {
                 boolean changePolicies = entry.policies != null && !entry.policies.equals("");
                 boolean isExist = entry.isExist;
                 if (changePolicies) {
-                    String policyPrefix = "scopeSelection_deviceIP_" + deviceIp + "_policiesLabel_";
-                    String policySearch = "scopeSelection_deviceIP_[" + deviceIp + "]_policy_Text";
+                    String policyPrefix = "scopeSelection_DefensePro_" + deviceIp + "_policiesLabel_";
+                    String policySearch = "scopeSelection_DefensePro_[" + deviceIp + "]_policy_Text";
                     List<String> policiesList;
                     if (changePolicies) {
-                        WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
+                        WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix));
                         if (!entry.policies.equalsIgnoreCase("ALL")) {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
-                                policyText.type(policy.trim());
+                           //     policyText.type(policy.trim());
                                 // WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
                                 if (!isExist) {
                                     if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()) != null) {
@@ -1711,7 +1711,7 @@ public class VRMHandler {
             if (!entries.isEmpty())
                 checkbox.uncheck();
 
-            entries.forEach(entry -> {
+            entries.forEach(entry ->{
                 String deviceIp = null;
                 try {
                     if (entry.index == null) {
@@ -1727,9 +1727,10 @@ public class VRMHandler {
                     BaseTestUtils.report(e.getMessage(), e);
                 }
                 //select the device
-                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
+               // checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
+                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_" + deviceType + "_" +  deviceIp  + "_Label"));
                 checkbox.check();
-                ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
+                ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceType + "_" + deviceIp), false);
             });
 
         } catch (

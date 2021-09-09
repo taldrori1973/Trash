@@ -2,7 +2,7 @@
 
 Feature: QDoS Protection & Attack Category
 
-  
+
   @SID_1
   Scenario: Clean  data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -10,14 +10,13 @@ Feature: QDoS Protection & Attack Category
     * CLI Clear vision logs
 
 
-  
   @SID_2
   Scenario: Run DP simulator - trap
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
-  
+
   @SID_3
   Scenario:  login to vision
     Given UI Login with user "sys_admin" and password "radware"
@@ -27,7 +26,7 @@ Feature: QDoS Protection & Attack Category
 
 
   ### Forensics #####
-  
+
   @SID_4
   Scenario:  Navigate to Forensics
     Given UI Navigate to "AMS Forensics" page via homePage
@@ -68,7 +67,6 @@ Feature: QDoS Protection & Attack Category
     When UI Click Button "Forensics.Attack Details.Close"
 
 
-
   @SID_8
   Scenario: Clean system  before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -79,7 +77,7 @@ Feature: QDoS Protection & Attack Category
   Scenario: Run DP simulator with trap attack
     Given CLI simulate 1000 attacks of type "trap" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
-  
+
   @SID_10
   Scenario: Create Forensics with  QDos Attack and CSV Format
     Given UI "Create" Forensics With Name "CSV QDos Attack"
@@ -89,7 +87,7 @@ Feature: QDoS Protection & Attack Category
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format | Select: CSV                                                                                                      |
 
-  
+
   @SID_11
   Scenario: Validate delivery and generate CSV Forensics
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/CSV QDos Attack.zip /home/radware/ftp/CSV QDos Attack.csv" on "GENERIC_LINUX_SERVER"
@@ -97,19 +95,19 @@ Feature: QDoS Protection & Attack Category
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "CSV QDos Attack"
     Then Sleep "35"
 
-  
+
   @SID_12
   Scenario: Unzip CSV file
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/CSV\ QDos\ Attack_*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
-  
+
   @SID_13
   Scenario: Validate Forensics.Table of QDos Attack1
     And UI Click Button "Views.Forensic" with value "CSV QDos Attack,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 
-  
+
   @SID_14
   Scenario: Validate The number of rows attacks , numberOfRecords
     Then CLI Run linux Command "cat /home/radware/ftp/CSV\ QDos\ Attack_*.csv |grep 'S.No,Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
@@ -123,10 +121,10 @@ Feature: QDoS Protection & Attack Category
   Scenario: Create Forensics with  QDos Attack and CSV Format
     Given UI "Create" Forensics With Name "CSVWithDetails QDos Attack"
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format | Select: CSVWithDetails                                                                                                      |
+      | Format | Select: CSVWithDetails                                                                                           |
     Then UI "Validate" Forensics With Name "CSVWithDetails QDos Attack"
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format | Select: CSVWithDetails                                                                                                      |
+      | Format | Select: CSVWithDetails                                                                                           |
 
 
   @SID_16
@@ -295,6 +293,67 @@ Feature: QDoS Protection & Attack Category
   @SID_33
   Scenario:  Validate rows count for Attacks Table
     Then UI Validate "Attacks Table" Table rows count EQUALS to 1
+
+#############################  Characteristics ##############################
+  @WWWW
+  @SID_1
+  Scenario: Clean system  before Traffic Bandwidth test
+    * CLI kill all simulator attacks on current vision
+    * REST Delete ES index "dp-*"
+    * CLI Clear vision logs
+  @WWWW
+  @SID_2
+  Scenario: Run DP simulator with QDos attack
+    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 32 with loopDelay 1500 and wait 120 seconds
+
+  @WWWW
+  @SID_3
+  Scenario:  login to vision
+    Given UI Login with user "sys_admin" and password "radware"
+    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then Sleep "2"
+
+  @SID_4
+    Scenario: Navigate
+    And UI Navigate to "DefensePro Attacks" page via homePage
+    Then UI UnSelect Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
+    When UI set "Auto Refresh" switch button to "off"
+    Given UI Click Button "Accessibility Menu"
+    Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
+    Then UI Click Button "Accessibility Menu"
+
+
+  @SID_5
+  Scenario:  validate tables for DOS
+    Then UI search row table in searchLabel "tableSearch" with text "QDoS"
+    Then Sleep "3"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Packet Rate" findBy cellValue "2195"
+    Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
+
+  @SID_7
+  Scenario Outline:  validate data of Characteristics table
+    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
+    Examples:
+      | label                              | value                         |
+      | Quantile Number                    | 40                            |
+      | Attacked Quantile IP Address Range | 192.0.199.147 - 192.0.204.157 |
+      | Current Policy Bandwidth           | 164.6 Mbps                    |
+      | Detection Sensitivity              | 2%                            |
+      | Peacetime Quantile Bandwidth       | 3.3 Mbps                      |
+      | Dropped Quantile Bandwidth         | 25.9 Mbps                     |
+      | Current Quantile Bandwidth         | 25.7 Mbps                     |
+      | Quantile Rate Limit                | Moderate 150%, 2.2 Mbps       |
+      | Mitigation Method                  | Quantile Top Talkers          |
+
+  @WWWW
+  @SID_6
+  Scenario: Entering to the under attack policy 3nd drill
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+
+    Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
+    And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
+#    And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
+    Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Packet Rate" findBy cellValue "2195"
 
 
 

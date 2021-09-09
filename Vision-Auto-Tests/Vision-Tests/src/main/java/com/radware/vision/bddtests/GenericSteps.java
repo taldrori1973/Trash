@@ -14,6 +14,7 @@ import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DeviceDriverType;
@@ -134,6 +135,21 @@ public class GenericSteps extends BddUITestBase {
             buttonClick("Server Selection.Save", (String) null);
         }
     }
+
+    @Then("^UI Select Policy and save$")
+    public void uiSelectPolicyAndSave(List<DataServer> policies) throws Exception {
+        buttonClick("Device Selection",(String)null);
+        WebUiTools.check("AllScopeSelection", "", false);
+        buttonClick("Devices Policies",(String)null);
+        for(DataServer node: policies) {
+            uiSetTextFieldTo("PolicySearchFilter", null, node.policy, false);
+            WebUiTools.check("Policy Selection", new String[]{node.name,node.device, node.policy}, true);
+        }
+        buttonClick("SaveDPScopeSelection",(String)null);
+    }
+
+
+
 
     @When("^UI Click Button By JavascriptExecutor with label \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
     public void clickButtonByJavaScript(String label, String param) {
@@ -461,9 +477,10 @@ public class GenericSteps extends BddUITestBase {
 
     @Then("^UI Text of Executive Summary equal to \"([^\"]*)\"(?: and Link Equal to \"([^\"]*)\")?$")
     public void uiTextOfExecutiveSummaryEqualToAndLinkEqualTo(String expectedText, String expectedURL) throws Throwable {
-        BasicOperationsHandler.uiValidateExecutiveSummaryText(expectedText,expectedURL);
+        BasicOperationsHandler.uiValidateExecutiveSummaryText(expectedText, expectedURL);
 
     }
+
 
     static class DataServer {
         String name;
@@ -474,6 +491,10 @@ public class GenericSteps extends BddUITestBase {
         public String toString() {
             return this.name + "," + this.device + "," + this.policy;
         }
+    }
+
+    static class Server{
+        String name;
     }
 
 

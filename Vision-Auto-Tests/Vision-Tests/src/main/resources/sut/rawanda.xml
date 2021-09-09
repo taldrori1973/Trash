@@ -238,6 +238,24 @@
             <writeCommunity>public</writeCommunity>
             <macAddress>00:03:b2:sh:f3:00</macAddress>
         </defenseProDevices>
+        <defenseProDevices index="32">
+        <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+        <deviceName>DefensePro_10.180.14.99</deviceName>
+        <deviceIp>10.180.14.99</deviceIp>
+        <username>admin</username>
+        <password>admin</password>
+        <readCommunity>public</readCommunity>
+        <writeCommunity>private</writeCommunity>
+        </defenseProDevices>
+        <defenseProDevices index="33">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>NewDP_10.185.4.85</deviceName>
+            <deviceIp>10.185.4.85</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </defenseProDevices>
 
         <alteonDevices index="0">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
@@ -294,15 +312,7 @@
             <writeCommunity>private</writeCommunity>
             <macAddress>00:03:b2:a3:db:00</macAddress>
         </alteonDevices>
-        <alteonDevices index="10">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_172.17.154.19</deviceName>
-            <deviceIp>172.17.154.19</deviceIp>
-            <username>admin</username>
-            <password>admin</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
+
         <alteonDevices index="11">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.11</deviceName>
@@ -418,6 +428,7 @@
             <readCommunity>public</readCommunity>
             <writeCommunity>private</writeCommunity>
         </linkProofDevices>
+
     </devices>
 
     <connectivity>
