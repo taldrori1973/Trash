@@ -9,7 +9,7 @@ Feature: Edit ADC Report tests
 
   @SID_2
   Scenario: Create and validate ADC Report
-    Then UI Click Button "New Report Tab"
+#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC Report"
       | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                             |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
