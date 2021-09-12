@@ -1,7 +1,7 @@
-@Analytics_ADC @TC105998 
+@Analytics_ADC @TC105998
 Feature: Forensic Attack details Tests
 
-  
+
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -9,7 +9,6 @@ Feature: Forensic Attack details Tests
     # Sleeping in order to let collector cache clean
     Then Sleep "20"
     * REST Delete ES index "dp-*"
-
     * REST Delete ES index "forensics-*"
     * REST Delete ES index "dpforensics-*"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
@@ -17,7 +16,7 @@ Feature: Forensic Attack details Tests
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
-  
+
   @SID_2
   Scenario: Run DP simulator
     Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
@@ -284,21 +283,21 @@ Feature: Forensic Attack details Tests
 
 
 ##################################################### Attack Details ####################################################################
-  
+
   @SID_29
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
-  
+
   @SID_30
   Scenario: New attack and create forensics view
     Given CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 10 and wait 50 seconds
     When UI "Create" Forensics With Name "Attack_Details"
       | Output | Start Time,Action,Attack ID,Threat Category,Duration |
 
-  
+
   @SID_31
   Scenario: VRM - open forensic "Attack details" table
     Then UI Click Button "My Forensics" with value "Attack_Details"
@@ -307,7 +306,6 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Views.Forensic" with value "Attack_Details,0"
 
 
-  
   @SID_32
   Scenario: Validate Behavioral DoS table
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7839-1402580209"
@@ -341,17 +339,17 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "1" equal to "sequence-number"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Values" with extension "1" equal to "123456"
 
-  
+
   @SID_33
   Scenario: close attack Behavioral DoS details
     Then UI Click Button "Forensics.Attack Details.Close"
 
-  
+
   @SID_34
   Scenario: Enter to 34-2206430105 details
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "34-2206430105"
 
-  
+
   @SID_35
   Scenario: Validate Traffic Filters details
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
@@ -416,6 +414,7 @@ Feature: Forensic Attack details Tests
   Scenario: close attack SYN Flood details
     Then UI Click Button "Forensics.Attack Details.Close"
 
+
   @SID_40
   Scenario: Enter to 45-1426496290 details
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "45-1426496290"
@@ -445,9 +444,9 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attacker IP Address" equal to "198.18.0.1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protected Host" equal to "198.18.252.1"
     Then UI Validate Element Existence By Label "Forensics.Attack Details.Detail" if Exists "true" with value "Attack Duration [Sec]"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Current Packet Rate [Packet/Sec]" equal to "7"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Current Packet Rate [Packets/Sec]" equal to "7"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protected Port" equal to "80"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Average Packet Rate [Packet/Sec]" equal to "30"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Average Packet Rate [Packets/Sec]" equal to "30"
 
   @SID_42
   Scenario: close attack DoS details
