@@ -3,7 +3,7 @@ Feature: Device Scope Policies Selection
 
   @SID_1
   Scenario:  login to vision and navigate DP Monitoring
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Monitoring Dashboard" page via homepage
 
@@ -143,3 +143,5 @@ Feature: Device Scope Policies Selection
   @SID_11
   Scenario: Logout and close browser
     Given UI logout and close browser
+
+
