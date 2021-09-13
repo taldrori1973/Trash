@@ -11,45 +11,15 @@ import java.util.Arrays;
 import static com.radware.vision.automation.base.TestBase.getSutManager;
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 
-public class FreshInstallOVA extends Deploy {
-    private FileType ovaType;
+public class FreshInstallOVA extends FreshInstall {
+    private FileType fileType = FileType.OVA;
 
     public FreshInstallOVA(boolean isExtended, String build) {
         super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.OVA);
-        this.initFileType();
-        buildFileInfo(this.ovaType);
-    }
-
-
-    /**
-     * initialize the right FileType according to SUT for deploy.
-     */
-    private void initFileType() {
-        String ovaType = getVisionSetupAttributeFromSUT("serverType");
-        // if there is no attribute name fileType in SUT -- the default is ova
-        if (ovaType == null) {
-            this.ovaType = FileType.OVA;
-            return;
-        }
-        switch (ovaType.toLowerCase().trim()) {
-            case "ova":
-            case "":
-                this.ovaType = FileType.OVA;
-                break;
-            case "apm":
-                this.ovaType = FileType.OVA_APM;
-                break;
-            case "basic":
-                this.ovaType = FileType.OVA_BASIC;
-                break;
-            default:
-                this.ovaType = FileType.OVA;
-                BaseTestUtils.report(ovaType + " is invalid for fresh install ova. Suppose to be ova | apm | basic. Installing with fileType ova", Reporter.PASS_NOR_FAIL);
-        }
     }
 
     public FileType getOvaType() {
-        return ovaType;
+        return fileType;
     }
 
     @Override
@@ -59,7 +29,7 @@ public class FreshInstallOVA extends Deploy {
         if (vmName == null) {
             BaseTestUtils.report("Can't find \"vmPrefix\" at SUT File", Reporter.FAIL);
         }
-        boolean isAPM = this.ovaType.isContained("APM");
+        boolean isAPM = false;//this.fileType.isContained("APM");
         String vCenterUser = getSutManager().getEnviorement().get().getUser();
         String vCenterPassword = getSutManager().getEnviorement().get().getPassword();
         String hostIp = getSutManager().getEnviorement().get().getHostIp();
