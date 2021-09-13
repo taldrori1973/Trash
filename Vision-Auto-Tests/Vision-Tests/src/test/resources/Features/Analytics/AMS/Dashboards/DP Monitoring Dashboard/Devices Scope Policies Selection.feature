@@ -3,7 +3,7 @@ Feature: Device Scope Policies Selection
 
   @SID_1
   Scenario:  login to vision and navigate DP Monitoring
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Monitoring Dashboard" page via homepage
 
@@ -20,7 +20,7 @@ Feature: Device Scope Policies Selection
     Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "RealDPs_Version_8_site,DefensePro_172.16.22.50,pol1" is "EQUALS" to "true"
 
   @SID_3
-  Scenario: uselect all device and select spicific policy then validate in policy
+  Scenario: unselect all device and select spicific policy then validate in policy
     Given UI Click Button "Device Selection"
     Given UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "true"
     Given UI Click Button "Device Selection.Save Filter"
@@ -42,7 +42,7 @@ Feature: Device Scope Policies Selection
     Given UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "true"
     Given UI Click Button "Device Selection.Save Filter"
     Given UI Click Button "Device Selection"
-  #The type is not in the DDI###################################################
+
     Then UI "Select" Scope Polices
       | devices | type:DefensePro Analytics,index:12,policies:[Ahlam69] |
     Given UI Click Button "Device Selection"
@@ -87,32 +87,7 @@ Feature: Device Scope Policies Selection
     Then UI validate Checkbox by label "Device Selection Check Box" with extension "DefensePro_172.16.22.50" if Selected "true"
     Given UI Click Button "Device Selection.Save Filter"
 
-######################## the bug of all checkbox ###########################
   @SID_7
-  Scenario: Select Policies and Validate in more one device
-    Given UI Click Button "Device Selection"
-
-
-    Then UI Select Policy and save
-      | name                   | device                  | policy  |
-      | RealDPs_Version_8_site | DefensePro_172.16.22.50 | any     |
-      | RealDPs_Version_8_site | DefensePro_172.16.22.50 | bdos1   |
-      | VA_DPs_Version_8_site  | DefensePro_172.16.22.55 | Ahlam69 |
-     | RealDPs_Version_8_site | DefensePro_172.16.22.51 | DiTest1 |
-
-
-    Given UI Click Button "Device Selection"
-
-    Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[any,bdos1] |
-
-    Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:12,policies:[Ahlam69] |
-
-    Then UI "Validate" Scope Polices
-     | devices | type:DefensePro Analytics,index:11,policies:[DiTest1] |
-
-  @SID_8
   Scenario: unselect all in devices and select all  in polices then validate selected checkbox in devices
 
     Given UI Click Button "Device Selection"
@@ -126,13 +101,13 @@ Feature: Device Scope Policies Selection
     Given UI Click Button "Device Selection"
     Then UI validate Checkbox by label "Device Selection.All Devices Selection" with extension "" if Selected "true"
 
-  @SID_9
+  @SID_8
   Scenario: number of devices
     Then UI Click Button "Device Selection"
-    Then UI Text of "Device Selection.Available Devices header" with extension "" equal to "Devices5/5"
+    Then UI Text of "Device Selection.Available Devices header" with extension "" equal to "Devices3/3"
     Given UI Click Button "Device Selection.Save Filter"
 
-  @SID_10
+  @SID_9
   Scenario: select from device and validate that all checkbox in policies is not selected
     Given UI Click Button "Device Selection"
 
@@ -141,8 +116,9 @@ Feature: Device Scope Policies Selection
     Given UI Click Button "Device Selection"
     Given UI Click Button "Devices Policies"
     Then UI validate Checkbox by label "Device Selection.All Devices Selection" with extension "" if Selected "false"
+    Given UI Click Button "Device Selection.Save Filter"
 
-  @SID_11
+  @SID_10
   Scenario: deleted items is not in policies tab
   Given UI Click Button "Device Selection"
     When UI Select device from dashboard device type "DefensePro"
@@ -163,3 +139,9 @@ Feature: Device Scope Policies Selection
     | 10    | 1234     | false    |
 
     Then UI Click Button "Device Selection.Cancel"
+
+  @SID_11
+  Scenario: Logout and close browser
+    Given UI logout and close browser
+
+
