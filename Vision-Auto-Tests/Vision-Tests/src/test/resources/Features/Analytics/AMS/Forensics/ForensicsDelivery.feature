@@ -55,7 +55,7 @@ Feature: Forensics Delivery
   @SID_4
   Scenario: Run DP simulator and clear email logs
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
-    And CLI simulate 4 attacks of type "rest_intrusion" on "DefensePro" 10 and wait 35 seconds
+    And CLI simulate 4 attacks of type "rest_intrusion" on SetId "DefensePro_Set_1" and wait 35 seconds
 
   @SID_5
   Scenario: login and generate the forensic report "Email Validate"
@@ -232,15 +232,15 @@ Feature: Forensics Delivery
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "End Time"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Device IP Address"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Device IP"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Threat Category"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $6}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack Name"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $7}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Policy Name"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $8}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Action"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $9}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack ID"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $10}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP Address"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $10}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $11}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $12}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP Address"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $12}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $13}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination Port"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Direction"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Protocol"
