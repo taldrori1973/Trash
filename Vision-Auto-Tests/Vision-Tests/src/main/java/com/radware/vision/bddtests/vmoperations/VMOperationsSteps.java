@@ -9,9 +9,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServer
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
-import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
-import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallOVA;
-import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
+import com.radware.vision.bddtests.vmoperations.Deploy.*;
 import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
@@ -130,6 +128,7 @@ public class VMOperationsSteps extends VisionUITestBase {
                     preFreshInstall();
                     return;
 
+                case "qcow2_fresh install":
                 case "kvm_fresh install":
                     deleteKvm();
                     return;
@@ -228,17 +227,16 @@ public class VMOperationsSteps extends VisionUITestBase {
                 case "kvm_upgrade_inparallel":
                     UpgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
                     break;
-                case "kvm_fresh install":
-                    FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, null);
-                    freshInstallKVM.deploy();
-                    break;
+                case "qcow2_fresh install":
+                case "serial iso_fresh install":
+                case "fresh install":
+                    String[] setupModeSplit = setupMode.split("_");
+                    String fileType = (setupModeSplit.length==2)?setupModeSplit[0]:"ova";
+                    FreshInstall freshInstall = FreshInstallFactory.getFreshInstall(fileType, true, null);
+                    freshInstall.deploy();
 //                case "fresh install_inparallel":
 //                    freshInstallInParallel();
 //                    break;
-                case "fresh install":
-                    FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
-                    freshInstallOVA.deploy();
-                    break;
                 default: {
                     BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
                 }
