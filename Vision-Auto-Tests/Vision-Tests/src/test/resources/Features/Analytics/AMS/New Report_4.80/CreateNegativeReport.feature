@@ -1,5 +1,6 @@
 @TC117967
 Feature: Negative test to validate Error Messages
+
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -48,6 +49,7 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Error message description" equal to "Invalid configuration. Specify a name for the Report."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
+    Then UI Click Button "No"
 
   @SID_9
   Scenario: Create New Report without Templates
