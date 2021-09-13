@@ -274,7 +274,7 @@ public class RepositoryService {
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
             Integer parentBuild = getParentBuildNumber(buildPath);
             if (parentBuild == null) continue;
-            if (parentBuild == lastParentSuccessfulBuild) {
+            if (parentBuild.equals(lastParentSuccessfulBuild)) {
                 return last;
             }
         }
