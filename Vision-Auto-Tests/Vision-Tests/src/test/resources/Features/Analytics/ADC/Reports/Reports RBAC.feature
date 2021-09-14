@@ -1,4 +1,4 @@
-@ADC_Report @TC105973 @Debug
+@ADC_Report @TC105973
 
 Feature: DPM - ADC Reports RBAC
 
