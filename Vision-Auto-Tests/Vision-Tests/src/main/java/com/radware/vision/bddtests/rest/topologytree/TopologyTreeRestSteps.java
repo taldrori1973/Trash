@@ -46,8 +46,7 @@ public class TopologyTreeRestSteps extends TestBase {
 
     @Then("^REST Add Simulators$")
     public void addSimulators() {
-        List<TreeDeviceManagementDto> simulators = sutManager.getVisionSetupTreeDevices().stream().filter(
-                dev -> dev.getDeviceId().contains("Fake")).collect(Collectors.toList());
+        List<TreeDeviceManagementDto> simulators = sutManager.getSimulators();
         if (simulators.isEmpty()) {
             BaseTestUtils.report("No Alteon simulators available, please add set to SUT.", Reporter.FAIL);
         }
@@ -62,6 +61,21 @@ public class TopologyTreeRestSteps extends TestBase {
             CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "docker restart config_kvision-configuration-service_1");
         } catch (Exception e) {
             BaseTestUtils.report("Failed to add Alteon simulators " + e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    @Then("^REST Delete Simulators$")
+    public void deleteSimulators() {
+        List<TreeDeviceManagementDto> simulators = sutManager.getSimulators();
+        if (simulators.isEmpty()) {
+            BaseTestUtils.report("No Alteon simulators available, please add set to SUT.", Reporter.FAIL);
+        }
+        try {
+            simulators.forEach(sim -> {
+                this.restDeleteDeviceByIP(sim.getDeviceName());
+            });
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to delete Alteon simulators " + e.getMessage(), Reporter.FAIL);
         }
     }
 

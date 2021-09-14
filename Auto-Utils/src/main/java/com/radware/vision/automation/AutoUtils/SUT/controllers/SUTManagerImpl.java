@@ -100,4 +100,9 @@ public class SUTManagerImpl implements SUTManager {
     public List<TreeDeviceManagementDto> getVisionSetupTreeDevices() {
         return sutService.getVisionSetupTreeDevices();
     }
+
+    @Override
+    public List<TreeDeviceManagementDto> getSimulators() {
+        return sutService.getSimulators();
+    }
 }

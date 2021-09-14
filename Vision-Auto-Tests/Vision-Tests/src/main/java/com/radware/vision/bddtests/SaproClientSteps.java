@@ -68,8 +68,7 @@ public class SaproClientSteps extends TestBase {
 
     @Given("^Init Simulators$")
     public void initSimulators() {
-        List<TreeDeviceManagementDto> simulators = sutManager.getVisionSetupTreeDevices().stream().filter(
-                dev -> dev.getDeviceId().contains("Fake")).collect(Collectors.toList());
+        List<TreeDeviceManagementDto> simulators = sutManager.getSimulators();
         if (simulators.isEmpty()){
             BaseTestUtils.report("No Alteon simulators available, please add set to SUT.", Reporter.FAIL);
         }
@@ -91,6 +90,32 @@ public class SaproClientSteps extends TestBase {
             });
         } catch (Exception e) {
             BaseTestUtils.report("Failed to initialize Alteon simulators " + e.getMessage(), Reporter.FAIL);
+        }
+    }
+    @Given("^Stop Simulators$")
+    public void stopSimulators() {
+        List<TreeDeviceManagementDto> simulators = sutManager.getSimulators();
+        if (simulators.isEmpty()){
+            BaseTestUtils.report("No Alteon simulators available, please add set to SUT.", Reporter.FAIL);
+        }
+        try {
+            simulators.forEach(sim -> {
+                String setId = sim.getDeviceSetId();
+                String name = sim.getDeviceName();
+                switch (setId) {
+                    case "Alteon_Sim_Set_0":
+                        sc.stopDevicesFromMap(DEFAULT_MAP, name);
+                        break;
+                    case "Alteon_Sim_Set_1":
+                        sc.stopDevicesFromMap(DEFAULT_MAP, name);
+                        break;
+                    case "Alteon_Sim_Set_2":
+                        sc.stopDevicesFromMap(DEFAULT_MAP, name);
+                        break;
+                }
+            });
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to stop Alteon simulators " + e.getMessage(), Reporter.FAIL);
         }
     }
 }

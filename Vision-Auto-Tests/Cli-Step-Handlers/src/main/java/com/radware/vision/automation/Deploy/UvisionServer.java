@@ -30,7 +30,6 @@ public class UvisionServer {
         put(DockerServices.CONFIG_KVISION_TOR_FEED, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_CONFIGURATION_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_ALERTS, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_KVISION_INFRA_AVR, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_LLS, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_TED, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_HELP, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
@@ -41,12 +40,6 @@ public class UvisionServer {
         put(DockerServices.CONFIG_KVISION_INFRA_IPV6NAT, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_INFRA_RABBITMQ, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_INFRA_FLUENTD, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
-        put(DockerServices.NODE_EXPORTER, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
-        put(DockerServices.MYSQK_EXPORTER, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
-        put(DockerServices.PROMETHEUS, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
-        put(DockerServices.ES_EXPORTER, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
-        put(DockerServices.GRAFANA, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
-        put(DockerServices.PROCESS_EXPORTER, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
     }};
 
     /**

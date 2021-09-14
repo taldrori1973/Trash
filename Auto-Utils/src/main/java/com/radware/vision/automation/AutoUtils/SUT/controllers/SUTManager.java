@@ -32,6 +32,9 @@ public interface SUTManager {
 
     List<TreeDeviceManagementDto> getVisionSetupTreeDevices();
 
+    List<TreeDeviceManagementDto> getSimulators();
+
+
     Optional<EnvironmentDto> getEnviorement();
 
     Optional<EnvironmentDto> getPairEnviorement();

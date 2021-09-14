@@ -76,6 +76,10 @@ public class SutService {
         return modelMapper.map(deployConfigurations, DeployConfigurationsDto.class);
     }
 
+    public List<TreeDeviceManagementDto> getSimulators() {
+        return getVisionSetupTreeDevices().stream().filter(dev -> dev.getDeviceId().contains("Fake")).collect(Collectors.toList());
+    }
+
     public List<String> getVisionSetupTreeSites() {
         List<Site> allSites = this.setupDao.findAllSites();
         return allSites.stream().map(Site::getName).collect(Collectors.toList());
