@@ -5,9 +5,9 @@ Feature: Forensic Criteria Tests
   @SID_1
   Scenario: Clean system data
 #    * CLI kill all simulator attacks on current vision
-#    * REST Delete ES index "dp-attack*"
-#    * REST Delete ES index "forensics-*"
-#    * REST Delete ES index "dpforensics-*"
+    * REST Delete ES index "dp-*"
+    * REST Delete ES index "forensics-*"
+    * REST Delete ES index "dpforensics-*"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |

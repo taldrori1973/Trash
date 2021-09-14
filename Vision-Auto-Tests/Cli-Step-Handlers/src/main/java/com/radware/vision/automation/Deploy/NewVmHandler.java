@@ -68,6 +68,48 @@ public class NewVmHandler extends TestBase {
 
     }
 
+    public void firstTimeWizardQCow2(String version, String specificVisionBuild, String fileUrl) throws Exception
+    {
+        long timeOut = 3600000L;
+        ArrayList<String> messages = new ArrayList();
+        String fileNotFound = "Error 15: File not found\n";
+        messages.add(fileNotFound);
+        messages.add(" Warning \n Some of the packages you have selected for install are missing  \n dependencies or conflict with another package. You can exit the \n installation, go back and change your package selections, or    \n continue installing these packages without their dependencies.");
+        String mysqlSocketProblem = "Can't connect to local MySQL server";
+        messages.add(mysqlSocketProblem);
+        String vmName = String.format("%s_%s", sutManager.getServerName(), sutManager.getClientConfigurations().getHostIp());
+        // ToDo - check why setConnectOnInit is true
+        this.visionRadwareFirstTime.setConnectOnInit(false);
+        CliOperations.runCommand(this.visionRadwareFirstTime, "rm -rf /var/lib/libvirt/images/" + vmName + ".qcow2");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "cd /var/lib/libvirt/images/");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "wget " + fileUrl + " -O " + vmName + ".qcow2", 25*60*1000);
+        StringJoiner installCommand = new StringJoiner(" ");
+        installCommand.add("virt-install").add("--name " + vmName);
+        installCommand.add("--ram 24576").add("--vcpus 8").add("--import").add("--disk /var/lib/libvirt/images/" + vmName + ".qcow2,bus=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--graphics none").add("--video cirrus").add("--serial pty");
+
+        String promptBuildName = fileUrl.substring(fileUrl.lastIndexOf("/")+1,fileUrl.lastIndexOf(".")).toLowerCase();
+        // ToDo hardcoded - ubuntu version
+        String ubuntuVersion = "20.04.2";
+        this.visionRadwareFirstTime.editPromptStringFormat("Ubuntu %s LTS %s ttyS0", ubuntuVersion, promptBuildName);
+        CliOperations.runCommand(this.visionRadwareFirstTime, installCommand.toString(), (int) timeOut);
+        Thread.sleep(15000L);
+        CliOperations.runCommand(this.visionRadwareFirstTime, "radware", 5*60*1000);
+        Thread.sleep(240000L);
+
+        boolean isShutoff;
+        this.isContained(messages, vmName, specificVisionBuild, version);
+
+        CliOperations.runCommand(this.visionRadwareFirstTime, "rm -rf /var/lib/libvirt/images/" + vmName + ".qcow2");
+        CliOperations.runCommand(this.visionRadwareFirstTime, "virsh list --all");
+        isShutoff = RegexUtils.isStringContainsThePattern(vmName + ".*running.*", CliOperations.lastOutput.trim());
+        if (!isShutoff) {
+            this.deleteKvm(vmName);
+            BaseTestUtils.report(" The vm : '" + vmName + "' is not exist! failed to be created successfully ", 1);
+        }
+
+        UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
+    }
+
     public void firstTimeWizardKVM(boolean isAPM, String version, String specificVisionBuild, String fileUrl) throws Exception {
         long timeOut = 3600000L;
         ArrayList<String> messages = new ArrayList();
