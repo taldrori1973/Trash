@@ -1,21 +1,24 @@
 package com.radware.vision.bddtests.clioperation;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
 import com.radware.automation.tools.utils.LinuxServerCredential;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.ElasticSearchHandler;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.LogsHandler;
-import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.automation.databases.elasticSearch.search.*;
-import com.radware.vision.automation.databases.elasticSearch.search.innerQuery.Match;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
+import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
+import com.radware.vision.bddtests.device.drivers.DeviceDrivers;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import joptsimple.internal.Strings;
+import jsystem.framework.report.Reporter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.radware.vision.bddtests.device.drivers.DeviceDrivers.*;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
@@ -99,6 +102,34 @@ public class GeneralSteps extends TestBase {
         else if (!output.equals("") && object.isExpected.equals(MessageAction.NOT_EXPECTED)) {
             addErrorMessage(object.logType.toString() + ": contains -> " + object.expression + "\n" + output);
         }
+    }
+
+    @Then("^CLI Upload Device Driver For \"([^\"]*)\" Version \"([^\"]*)\"$")
+    public void uploadDeviceDriver(SUTDeviceType deviceType, String version) {
+        String jarFile = null;
+        FileSteps f = new FileSteps();
+        DeviceDrivers dd = new DeviceDrivers();
+        switch (deviceType) {
+            case Alteon:
+                jarFile = dd.getAlteonVersionsMap().get(version);
+                break;
+            case DefensePro:
+                jarFile = dd.getDpVersionsMap().get(version);
+                break;
+        }
+        if (Strings.isNullOrEmpty(jarFile)) {
+            BaseTestUtils.report("Unable to find device driver file for this version", Reporter.FAIL);
+        }
+        try {
+            f.scp(DEFAULT_DEVICE_DRIVERS_PATH + SCRIPT_FILE_NAME, ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, DEFAULT_DST_PATH);
+            f.scp(DEFAULT_DEVICE_DRIVERS_PATH + jarFile, ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, DEFAULT_DST_PATH);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), DEFAULT_DST_PATH + SCRIPT_FILE_NAME + " " + DEFAULT_DST_PATH + jarFile, DEFAULT_TIME_OUT);
+
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to load device driver " + e.getMessage(), Reporter.FAIL);
+        }
+
+
     }
 
     @Then("^Service Vision (restart|stop|start) and Wait (\\d+) Minute|Minutes$")
