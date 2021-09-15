@@ -1,5 +1,4 @@
 @ADC_Report @TC105973
-
 Feature: DPM - ADC Reports RBAC
 
   @SID_1
@@ -10,9 +9,7 @@ Feature: DPM - ADC Reports RBAC
     Given Init Simulators
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given REST Login with user "radware" and password "radware"
-    Then CLI copy "/home/radware/Scripts/upload_DD.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
-    Then CLI copy "/home/radware/Scripts/Alteon-32.4.0.0-DD-1.00-396.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
-    Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
+    Then CLI Upload Device Driver For "Alteon" Version "32.4.0.0"
     Then REST Add Simulators
     When CLI validate service "all" status is "up" and health is "healthy" retry for 600 seconds
 
