@@ -1,4 +1,4 @@
-@TC122170
+@TC122170 
 Feature: Attack Statistics Totals Table
 
   @SID_1
@@ -25,6 +25,7 @@ Feature: Attack Statistics Totals Table
 
 #--------------------------------------------- HTML Format ------------------------------------------
 
+  
   @SID_4
   Scenario: create new DefensePro Analytics Report
     Given UI "Create" Report With Name "DefensePro Analytics Report"
@@ -44,13 +45,13 @@ Feature: Attack Statistics Totals Table
     Then Sleep "100"
 
   @SID_6
-  Scenario: Show report DefensePro Analytics Report
+  Scenario: Show DefensePro Analytics Report
     Then UI Click Button "Log Preview" with value "DefensePro Analytics Report_0"
     Then UI ScrollIntoView with label "Attack Statistics Totals Label" and params "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total dropped bandwidth" equal to "Total dropped bandwidth"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total dropped bandwidth" equal to "140,128.994 Mbit"
-    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of event"
-    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of event" equal to "32"
+    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of events" equal to "Total number of events"
+    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of events" equal to "32"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total number of dropped packets" equal to "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total number of dropped packets" equal to "151,049,502"
 
@@ -73,8 +74,8 @@ Feature: Attack Statistics Totals Table
     Then UI ScrollIntoView with label "Attack Statistics Totals Label" and params "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total dropped bandwidth" equal to "Total dropped bandwidth"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total dropped bandwidth" equal to "93,702.729 Mbit"
-    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of event"
-    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of event" equal to "16"
+    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of events" equal to "Total number of events"
+    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of events" equal to "16"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total number of dropped packets" equal to "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total number of dropped packets" equal to "96,305,216"
 
@@ -97,8 +98,8 @@ Feature: Attack Statistics Totals Table
     Then UI ScrollIntoView with label "Attack Statistics Totals Label" and params "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total dropped bandwidth" equal to "Total dropped bandwidth"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total dropped bandwidth" equal to "93,702.729 Mbit"
-    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of event"
-    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of event" equal to "16"
+    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of events" equal to "Total number of events"
+    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of events" equal to "16"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total number of dropped packets" equal to "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total number of dropped packets" equal to "96,305,216"
 
@@ -112,7 +113,7 @@ Feature: Attack Statistics Totals Table
       | Format | Select: PDF |
 
   @SID_14
-  Scenario: Generate report DefensePro Analytics Report
+  Scenario: Generate DefensePro Analytics Report
     Then UI Click Button "My Report" with value "DefensePro Analytics Report"
     Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
     Then Sleep "100"
@@ -123,13 +124,13 @@ Feature: Attack Statistics Totals Table
     Then UI ScrollIntoView with label "Attack Statistics Totals Label" and params "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total dropped bandwidth" equal to "Total dropped bandwidth"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total dropped bandwidth" equal to "93,702.729 Mbit"
-    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of event"
-    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of event" equal to "16"
+    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of events" equal to "Total number of events"
+    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of events" equal to "16"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total number of dropped packets" equal to "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total number of dropped packets" equal to "96,305,216"
 
   @SID_16
-  Scenario: Edit share email and devices DefensePro Analytics Report
+  Scenario: Edit share and devices DefensePro Analytics Report
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
       | Share | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
@@ -147,8 +148,8 @@ Feature: Attack Statistics Totals Table
     Then UI ScrollIntoView with label "Attack Statistics Totals Label" and params "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total dropped bandwidth" equal to "Total dropped bandwidth"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total dropped bandwidth" equal to "93,702.729 Mbit"
-    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of event"
-    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of event" equal to "16"
+    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of events" equal to "Total number of events"
+    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of events" equal to "16"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total number of dropped packets" equal to "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total number of dropped packets" equal to "96,305,216"
 
@@ -171,8 +172,8 @@ Feature: Attack Statistics Totals Table
     Then UI ScrollIntoView with label "Attack Statistics Totals Label" and params "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total dropped bandwidth" equal to "Total dropped bandwidth"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total dropped bandwidth" equal to "93,702.729 Mbit"
-    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of event" equal to "Total number of event"
-    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of event" equal to "16"
+    Then UI Text of "Attack Statistics Totals Label" with extension "Total number of events" equal to "Total number of events"
+    Then UI Text of "Attack Statistics Totals Value" with extension "Total number of events" equal to "16"
     Then UI Text of "Attack Statistics Totals Label" with extension "Total number of dropped packets" equal to "Total number of dropped packets"
     Then UI Text of "Attack Statistics Totals Value" with extension "Total number of dropped packets" equal to "96,305,216"
 
