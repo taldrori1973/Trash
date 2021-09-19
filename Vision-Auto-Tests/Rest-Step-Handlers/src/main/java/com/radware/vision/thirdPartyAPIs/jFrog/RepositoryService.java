@@ -292,7 +292,7 @@ public class RepositoryService {
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
             Integer parentBuild = getParentBuildNumber(buildPath);
             if (parentBuild == null) continue;
-            if (parentBuild == lastParentSuccessfulBuild) {
+            if (parentBuild.equals(lastParentSuccessfulBuild)) {
                 ArtifactFolderPojo buildPojo = getPojo(buildPath, StatusCode.OK, ArtifactFolderPojo.class);
                 String fileType = buildPath.split("/")[0];
                 ArtifactFilePojo filePojo = getFile(buildPojo, FileType.valueOf(fileType.toUpperCase()));
