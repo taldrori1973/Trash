@@ -54,7 +54,7 @@ Feature: Forensic Time Selection
   @SID_4
   Scenario: Forensic Time Relative Hours
    # move Anomalies start time 23.20 hrs backwards
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-85800000'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-Type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-85800000'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
       | Output                | Attack ID,Start Time |
       | Time Definitions.Date | Relative:[Hours,24]  |
