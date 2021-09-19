@@ -180,6 +180,12 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
+        p.setPrompt("Physical Management Interface \\[G1 G2\\] \\(Active links on:.*\\): ");
+        p.setRegularExpression(true);
+        p.setStringToSend(getPhysicalManagement());
+        prompts.add(p);
+
+        p = new Prompt();
         p.setPrompt("Physical Management Interface \\[G1 G2 G3\\] \\(Active links on:.*\\): ");
         p.setRegularExpression(true);
         p.setStringToSend(getPhysicalManagement());
