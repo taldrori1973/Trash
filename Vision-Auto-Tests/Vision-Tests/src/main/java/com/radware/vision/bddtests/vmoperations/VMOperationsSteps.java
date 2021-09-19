@@ -234,6 +234,7 @@ public class VMOperationsSteps extends VisionUITestBase {
                     String fileType = (setupModeSplit.length==2)?setupModeSplit[0]:"ova";
                     FreshInstall freshInstall = FreshInstallFactory.getFreshInstall(fileType, true, null);
                     freshInstall.deploy();
+                    break;
 //                case "fresh install_inparallel":
 //                    freshInstallInParallel();
 //                    break;
