@@ -215,6 +215,12 @@ public class RootServerCli extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
+        p.setPrompt("# reboot");
+        p.setDontWaitForScrollEnd(true);
+        p.setCommandEnd(true);
+        prompts.add(p);
+
+        p = new Prompt();
         p.setPrompt("mysql>");
         p.setCommandEnd(true);
         prompts.add(p);
