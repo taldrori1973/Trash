@@ -69,10 +69,9 @@ Feature: Backup and Restore
     Given UI Login with user "radware" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI "Validate" Report With Name "Report_backup_restore"
-      | reportType            | DefensePro Analytics     |
-      | devices               | index:10,policies:[BDOS] |
-      | Time Definitions.Date | Quick:1W                 |
-      | Format                | Select: HTML             |
+      | Template              | reportType:DefensePro Analytics, Widgets:[ALL], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
+      | Time Definitions.Date | Quick:1W                                                                                          |
+      | Format                | Select: HTML                                                                                      |
 
   @SID_12
   Scenario: Restore validation AMS report schedule
