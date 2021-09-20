@@ -30,11 +30,15 @@ import java.util.Map;
 public class SetupImpl extends TestBase implements Setup {
 
     public void buildSetup() throws Exception {
-        GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "GET Device Tree");
-        RestResponse restResponse = restAPI.sendRequest();
-        deleteDevices(restResponse.getBody().getBodyAsJsonNode().get());
+        //SystemProperties systemProperties = SystemProperties.get_instance();
+        //String syncDevices = systemProperties.getValueByKey("SYNC_DEVICES");
+        //if(syncDevices == null || !syncDevices.toUpperCase().equals("TRUE"))
+        //    return;
+
+        DevicesTree existedDevicesTree = getDeviceTree();
         List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
-        visionSetupTreeDevices.forEach(device -> addDevice(device.getDeviceSetId()));
+        deleteDevices(existedDevicesTree, visionSetupTreeDevices, existedDevicesTree.getName());
+        addDevices(existedDevicesTree , visionSetupTreeDevices);
     }
 
     public void validateSetupIsReady() throws Exception {
