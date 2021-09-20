@@ -34,8 +34,6 @@ Feature: Top Attack by GeoLocation
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
     Then Sleep "30"
-    # Validate Header chart
-#    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
@@ -55,8 +53,7 @@ Feature: Top Attack by GeoLocation
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "30m"
     Then Sleep "30"
-    # Validate Header chart
-#    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
+
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
@@ -74,8 +71,6 @@ Feature: Top Attack by GeoLocation
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
     Then Sleep "30"
-    # Validate Header chart
-#    Then UI Validate Text field "Chart" with params "Top Attacking Geolocations" EQUALS "Top Attacking Geolocations"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
