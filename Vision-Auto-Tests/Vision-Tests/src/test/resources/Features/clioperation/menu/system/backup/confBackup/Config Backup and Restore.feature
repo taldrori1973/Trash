@@ -62,16 +62,16 @@ Feature: Backup and Restore
 
   @SID_10
   Scenario: Restore validation hostname
-    Then CLI Run linux Command "hostname" on "ROOT_SERVER_CLI" and validate result EQUALS "vision.radware"
+    Then CLI Run linux Command "hostname" on "ROOT_SERVER_CLI" and validate result EQUALS "my.auto.vision"
 
   @SID_11
   Scenario: Restore validation AMS report definition
     Given UI Login with user "radware" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI "Validate" Report With Name "Report_backup_restore"
-      | Template              | reportType:DefensePro Analytics, Widgets:[ALL], devices:[{deviceIndex:10,  devicePolicies:[BDOS]}] |
-      | Time Definitions.Date | Quick:1W                                                                                           |
-      | Format                | Select: HTML                                                                                       |
+      | Template              | reportType:DefensePro Analytics, Widgets:[ALL], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
+      | Time Definitions.Date | Quick:1W                                                                                          |
+      | Format                | Select: HTML                                                                                      |
 
   @SID_12
   Scenario: Restore validation AMS report schedule
@@ -97,10 +97,10 @@ Feature: Backup and Restore
   Scenario: Restore validation AMS forensic definition
     And UI Navigate to "AMS Forensics" page via homePage
     Then UI "Validate" Forensics With Name "Forensic backup restore"
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                             |
-      | Criteria              | Event Criteria:Attack ID,Operator:Not Equals,Value:123; Event Criteria:Attack ID,Operator:Not Equals,Value:1234;                                                                                                                             |
+      | Time Definitions.Date | Quick:This Month                                                                                                 |
+      | Criteria              | Event Criteria:Attack ID,Operator:Not Equals,Value:123; Event Criteria:Attack ID,Operator:Not Equals,Value:1234; |
 #      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
-      | Format                | Select: HTML                                                                                                                                                                                                                                 |
+      | Format                | Select: HTML                                                                                                     |
 #      | Share                 | FTP:checked, FTP.Location:my.ftp.server, FTP.Path:/backup, FTP.Username:user1, FTP.Password:1234                                                                                                                                             |
 
   @SID_16

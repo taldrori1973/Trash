@@ -459,15 +459,27 @@ public class BasicValidationsTests extends BddUITestBase {
     }
 
     @Then("^UI Validate IP's in chart with Summary Table \"([^\"]*)\" with Col name \"([^\"]*)\" with widget name \"([^\"]*)\"$")
-    public void uiValidateIPSInChartWithSummaryTable(String TableName,String ColName,String widgetName) throws Throwable {
-        ArrayList<String> IPList = tableHandler.getIpsFromSummaryTable(TableName,ColName);
-        List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + widgetName +"_') and contains(@data-debug-id, '_label')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        for(WebElement w:elements){
-            if(!IPList.contains(w.getText())){
-                BaseTestUtils.reporter.report("The label "+ w.getText()+"is'nt exist in Summary Table", Reporter.FAIL);
+    public void uiValidateIPSInChartWithSummaryTable(String TableName, String ColName, String widgetName) throws Throwable {
+        ArrayList<String> IPList = tableHandler.getIpsFromSummaryTable(TableName, ColName);
+        List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + widgetName + "_') and contains(@data-debug-id, '_label')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        for (WebElement w : elements) {
+            if (!IPList.contains(w.getText())) {
+                BaseTestUtils.reporter.report("The label " + w.getText() + "is'nt exist in Summary Table", Reporter.FAIL);
             }
         }
     }
+
+    @Then("^Sort \"([^\"]*)\" rows in Attacks Table By ColName \"([^\"]*)\"$")
+    public void sortRowsInAttacksTableByColName(String SortType, String ColName) throws Throwable {
+        List<WebElement> elements;
+        if(SortType.equals("DOWN")){
+            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort "+ColName+"\"] i:nth-child(1)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        }else{
+            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort "+ColName+"\"] i:nth-child(2)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        }
+        elements.get(0).click();
+    }
+
 
     class TableValues {
         public String columnName;
