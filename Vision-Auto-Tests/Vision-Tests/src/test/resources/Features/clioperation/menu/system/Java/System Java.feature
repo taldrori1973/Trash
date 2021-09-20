@@ -35,7 +35,7 @@ Feature: CLI system java certificate-algorithm
 
   @SID_6
   Scenario: system java certificate-algorithm set strict
-    Then CLI Operations - Run Root Session command "yes | /opt/radware/box/bin/system java certificate-algorithm set strict" timeout 360
+    Then CLI Operations - Run Root Session command "yes | /opt/radware/box/bin/system java certificate-algorithm set strict" timeout 720
 
   @SID_7
   Scenario: system java certificate-algorithm get
@@ -49,7 +49,7 @@ Feature: CLI system java certificate-algorithm
 
   @SID_9
   Scenario: system java certificate-algorithm set tolerant
-    Then CLI Operations - Run Root Session command "yes | /opt/radware/box/bin/system java certificate-algorithm set tolerant" timeout 360
+    Then CLI Operations - Run Root Session command "yes | /opt/radware/box/bin/system java certificate-algorithm set tolerant" timeout 720
 
   @SID_10
   Scenario: system java certificate-algorithm get
