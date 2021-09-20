@@ -1,12 +1,15 @@
 package com.radware.vision.setup;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
@@ -14,10 +17,12 @@ import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.setup.snapshot.Snapshot;
 import com.radware.vision.setup.snapshot.SnapshotKVM;
 import com.radware.vision.setup.snapshot.SnapshotOVA;
+import lombok.Data;
 import models.RestResponse;
 import models.StatusCode;
 import org.json.simple.JSONArray;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,6 +149,70 @@ public class SetupImpl extends TestBase implements Setup {
             }
 
             numberOfChildrens--;
+        }
+    }
+
+    public boolean deleteDevices(DevicesTree existedDevicesTree, List<TreeDeviceManagementDto> setupDevicesTree, String parentSite) throws Exception {
+        String name = existedDevicesTree.getName();
+        String type = (existedDevicesTree.getType()!=null)?"device":"site";
+        
+        boolean containsDevices = false;
+        if(existedDevicesTree.getChildren().size() > 0)
+        {
+            for (DevicesTree dt:existedDevicesTree.getChildren()
+                 ) {
+                containsDevices = !deleteDevices(dt, setupDevicesTree, name) || containsDevices;
+            }
+        }
+        
+        if(type.equals("device"))
+        {
+            String parentSiteSetup = TestBase.getSutManager().getDeviceParentSite(name);
+            
+            if(parentSiteSetup != null && parentSiteSetup.equals(parentSite))
+                return false;
+        }
+        else if(containsDevices || name.equals("Default"))
+            return false;
+
+        GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Delete Site/device by Name");
+        Map<String, String> pathParams = new HashMap<>();
+        pathParams.put("type", type);
+        pathParams.put("name", name);
+        restAPI.getRestRequestSpecification().setPathParams(pathParams);
+        RestResponse restResponse;
+        int timeToTry = 5;
+        do {
+            if(timeToTry != 5)
+            {
+                Thread.sleep(10 * 1000);
+            }
+            restResponse = restAPI.sendRequest();
+            timeToTry--;
+        }
+        while (!restResponse.getStatusCode().equals(StatusCode.OK) && type.equals("site"));
+
+        if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+            BaseTestUtils.report(String.format("Failed to delete device/site: %s", name), Reporter.FAIL);
+            return false;
+        }
+        
+        return true;
+    }
+
+    public void addDevices(DevicesTree existedDevicesTree, List<TreeDeviceManagementDto> setupDevicesTree)
+    {
+        String name = existedDevicesTree.getName();
+        String type = (existedDevicesTree.getType()!=null)?"device":"site";
+
+        HashMap<String, String> existedDevicesHash = existedDevicesTree.getDevicesHash();
+
+        for (TreeDeviceManagementDto device:setupDevicesTree
+             ) {
+            if(!existedDevicesHash.containsKey(device.getDeviceName()))
+            {
+                addDevice(device.getDeviceSetId());
+            }
         }
     }
 
