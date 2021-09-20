@@ -233,9 +233,55 @@ public class SetupImpl extends TestBase implements Setup {
 
     }
 
+    private static DevicesTree getDeviceTree() throws NoSuchFieldException
+    {
+        GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "GET Device Tree");
+        RestResponse restResponse = restAPI.sendRequest();
+        String jsonTree = restResponse.getBody().getBodyAsJsonNode().get().toString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        DevicesTree devicesTree = null;
+
+        try {
+            devicesTree = objectMapper.readValue(jsonTree, DevicesTree.class);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return devicesTree;
+    }
+
     public enum VMType {
         OVA,
         KVM
     }
 
+}
+
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+class DevicesTree {
+    private List<DevicesTree> children;
+    private String name;
+    private String type;
+
+    public HashMap<String,String> getDevicesHash()
+    {
+        HashMap<String,String> devicesHash = new HashMap<>();
+
+        if(children.size() > 0)
+        {
+            for (DevicesTree dt:children
+                 ) {
+                devicesHash.putAll(dt.getDevicesHash());
+            }
+        }
+        else if(type!=null)
+        {
+            devicesHash.put(name, type);
+        }
+
+        return devicesHash;
+    }
 }
