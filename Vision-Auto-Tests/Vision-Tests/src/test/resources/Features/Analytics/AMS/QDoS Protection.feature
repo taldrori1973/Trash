@@ -3,7 +3,7 @@
 Feature: QDoS Protection & Attack Category
 
   @SID_1
-  Scenario: Clean  data before sending Qdos attack
+  Scenario: Clean data before sending Qdos attack
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
@@ -244,12 +244,12 @@ Feature: QDoS Protection & Attack Category
     Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
     Then UI Click Button "Accessibility Menu"
 
-  @SID_33
+  @SID_31
   Scenario:  Validate rows count for Attacks Table and Sort rows
     Then UI Validate "Attacks Table" Table rows count EQUALS to 2
     Then Sort "UP" rows in Attacks Table By ColName "lastPeriodPacketRate"
 
-  @SID_31
+  @SID_32
   Scenario:  Validate Attacks Table Values first row
     Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 0
       | columnName             | value        |
@@ -265,7 +265,7 @@ Feature: QDoS Protection & Attack Category
       | Destination IP Address | Multiple     |
       | Destination Port       | 1024         |
 
-  @SID_31
+  @SID_33
   Scenario:  Validate Attacks Table Values second row
     Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 1
       | columnName             | value        |
@@ -281,12 +281,12 @@ Feature: QDoS Protection & Attack Category
       | Destination IP Address | Multiple     |
       | Destination Port       | 1024         |
 
-  @SID_31
+  @SID_34
   Scenario:  click on first row in attack label
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Packet Rate" findBy cellValue "2197"
 
 
-  @SID_32
+  @SID_35
   Scenario Outline:  validate date of Info table
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
     Examples:
@@ -303,7 +303,7 @@ Feature: QDoS Protection & Attack Category
       | Packet Type        | Regular |
 
 
-  @SID_42
+  @SID_36
   Scenario Outline:  validate data of Characteristics table
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
     Examples:
@@ -319,12 +319,12 @@ Feature: QDoS Protection & Attack Category
       | Mitigation Method                  | Quantile Top Talkers          |
 
 
-  @SID_31
+  @SID_37
   Scenario:  close first row and click on second row in attacks table
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Packet Rate" findBy cellValue "2197"
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Packet Rate" findBy cellValue "2211"
 
-  @SID_32
+  @SID_38
   Scenario Outline:  validate date of Info table
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
     Examples:
@@ -357,18 +357,18 @@ Feature: QDoS Protection & Attack Category
 
     ### Alrerts #####
 
-  @SID_41
+  @SID_40
   Scenario: Clean system data before QDos
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-  @SID_42
+  @SID_41
   Scenario: Navigate to Alerts
     And UI Navigate to "AMS Alerts" page via homePage
 
 
-  @SID_43
+  @SID_42
   Scenario: Create Alert basic
     When UI "Create" Alerts With Name "QDos Alerts"
       | Basic Info | Description:QDos Attacks                                          |
@@ -376,13 +376,13 @@ Feature: QDoS Protection & Attack Category
       | Schedule   | checkBox:Trigger,alertsPerHour:60                                 |
 
 
-  @SID_44
+  @SID_43
   Scenario: Run DP simulator - QDos_Ahlam4
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
       * CLI kill all simulator attacks on current vision
 
 
-  @SID_45
+  @SID_44
   Scenario: VRM Validate Alert Threat Category HTTPS Flood Any Time Schedule
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
@@ -406,11 +406,11 @@ Feature: QDoS Protection & Attack Category
       | Protocol               | TCP         |
     Then UI Click Button "Table Details OK" with value "OK"
 
-  @SID_46
+  @SID_45
   Scenario: VRM Validate Alert browser for QDos attack
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: QDos Alerts \nSeverity: MINOR \nDescription: QDos Attacks \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.51 \nAttacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
 
-  @SID_47
+  @SID_46
   Scenario: Delete Alerts
     Then UI Delete Alerts With Name "QDos Alerts"
 
@@ -419,25 +419,25 @@ Feature: QDoS Protection & Attack Category
     ### DP Monitoring ###
 
 
-  @SID_48
+  @SID_47
   Scenario: Clean system data before sending Qdos attack
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-  @SID_49
+  @SID_48
   Scenario: Run DP simulator - QDos_Ahlam4
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     * CLI kill all simulator attacks on current vision
 
 
-  @SID_50
+  @SID_49
   Scenario:  Navigate to DefensePro Monitoring Dashboard
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "30"
 
 
-  @SID_51
+  @SID_50
   Scenario: Validate first under attack policy - attacks
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
       | columnName            | value                   |
@@ -451,11 +451,11 @@ Feature: QDoS Protection & Attack Category
       | Attack Category       | Quantile DoS            |
 
 
-  @SID_52
+  @SID_51
   Scenario: Entering to the under attack policy 
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
 
-  @SID_53
+  @SID_52
   Scenario: validate events
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
       | columnName      | value        |
@@ -465,7 +465,7 @@ Feature: QDoS Protection & Attack Category
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "39-1630605835"
 
-  @SID_46
+  @SID_53
   Scenario: Validate Characteristics card data -monitoring
     Then UI Validate Text field "Characteristics Labels" with params "40" EQUALS "40"
     Then UI Validate Text field "Characteristics Labels" with params "192.0.199.147 - 192.0.204.157" EQUALS "192.0.199.147 - 192.0.204.157"
@@ -477,14 +477,14 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate Text field "Characteristics Labels" with params "Quantile Top Talkers" EQUALS "Quantile Top Talkers"
 
 
-  @SID_44
+  @SID_54
   Scenario: Navigate to DefensePro Monitoring Dashboard
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "38-1630605835"
 
-  @SID_44
+  @SID_55
   Scenario: Validate Characteristics card data -monitoring
     Then UI Validate Text field "Characteristics Labels" with params "1" EQUALS "1"
     Then UI Validate Text field "Characteristics Labels" with params "0:0:0:0:0:0:0:0 - 192.0.5.47" EQUALS "0:0:0:0:0:0:0:0 - 192.0.5.47"
@@ -495,7 +495,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate Text field "Characteristics Labels" with params "25.5 Mbps" EQUALS "25.5 Mbps"
     Then UI Validate Text field "Characteristics Labels" with params "Quantile Top Talkers" EQUALS "Quantile Top Talkers"
 
-  @SID_54
+  @SID_56
   Scenario: click and validate Quantile Status chart
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
@@ -515,7 +515,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Click Button "Exit button"
 
 
-  @SID_55
+  @SID_57
   Scenario: Logout and close browser
     Given UI logout and close browser
     Given UI Logout
