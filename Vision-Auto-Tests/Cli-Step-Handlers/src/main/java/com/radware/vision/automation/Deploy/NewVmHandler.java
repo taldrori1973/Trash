@@ -4,8 +4,6 @@ import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.restcore.RestBasicConsts;
 import com.radware.restcore.VisionRestClient;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.PhysicalPort;
-import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
