@@ -259,7 +259,7 @@ public class NewVmHandler extends TestBase {
 
             try {
                 // ToDo - after trying to connect at line 259 throw exception with timeout cuz the IP was changed.
-                Thread.sleep(240000L);
+                Thread.sleep(600000L); // was 240 second
                 this.visionRadwareFirstTime.close();
             }
             catch (Exception e){}
