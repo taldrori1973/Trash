@@ -34,7 +34,11 @@ public class VRMSteps {
     public void uiValidateStackBarDataWithWidget(String chart, List<StackBarData> entries) {
         vrmHandler.validateStackBarData(chart, entries);
     }
+    @Then("^UI Validate Virtical StackBar data with widget \"([^\"]*)\"$")
+    public void uiValidateVirticalStackBarDataWithWidget(String chart ,List<StackBarData> entries){
+        vrmHandler.validateVirticalStackBarData(chart, entries);
 
+    }
     @Then("^UI Validate StackBar Timedata with widget \"([^\"]*)\"$")
     public void uiValidateStackBarTimedataWithWidget(String chart, List<StackBarData> entries) {
         vrmHandler.uiValidateStackBarTimeDataWithWidget(chart, entries);
@@ -283,5 +287,6 @@ public class VRMSteps {
     public void uiValidateValueFromMoreOptionsInPieChartEqualToWithLabel(String chart, String percent, String label,String offset) throws Throwable {
         vrmHandler.validatePieChartPercents(chart,percent,label,offset);
     }
+
 }
 

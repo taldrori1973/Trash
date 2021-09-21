@@ -173,6 +173,26 @@ public class VRMHandler {
         reportErrors();
     }
 
+    public void validateVirticalStackBarData(String chart, List<StackBarData> entries) {
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        JSONArray legends = getLabelsFromData(chart);
+        JSONArray dataSets = getObjectArraysFromDataSets(chart);
+        if (dataSets != null && legends != null) {
+            for (int i = 0; i < entries.size(); i++) {
+                Objects.requireNonNull(entries.get(i).legendName, "Legend can't be null");
+                if (entries.get(i).legendName.equals("Peacetime")) {
+                    if (!((JSONArray) new JSONObject(dataSets.get(0).toString()).get("data")).get(Integer.parseInt(entries.get(i).label)).equals(entries.get(i).value)) {
+                        addErrorMessage("The expected Value is" + entries.get(i).label + "not equal to actual Value" + ((JSONArray) new JSONObject(dataSets.get(0).toString()).get("data")).get(Integer.parseInt(entries.get(i).label)));
+                    }
+                } else {
+                    if (!((JSONArray) new JSONObject(dataSets.get(1).toString()).get("data")).get(Integer.parseInt(entries.get(i).label)).equals(entries.get(i).value)) {
+                        addErrorMessage("The expected Value is" + entries.get(i).label + "not equal to actual Value" + ((JSONArray) new JSONObject(dataSets.get(1).toString()).get("data")).get(Integer.parseInt(entries.get(i).label)));
+                    }
+                }
+            }
+        }
+    }
+
     protected boolean isLegendNameExistAndShouldReturn(String chart, StackBarData entry) {
         boolean returnValue = entry.legendNameExist != null;
         entry.legendNameExist = entry.legendNameExist == null || entry.legendNameExist;
@@ -652,20 +672,20 @@ public class VRMHandler {
         JSONArray labels = getLabelsFromData(chart);
         for (int i = 0; i < labels.length(); i++) {
             if (labels.get(i).equals(label)) {
-                flag =true;
+                flag = true;
             }
         }
-        if(!flag){
-            BaseTestUtils.report("The more options didnt have" + label +  ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+        if (!flag) {
+            BaseTestUtils.report("The more options didnt have" + label + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
 
         }
     }
 
-    public void validatePieChartPercents(String chart,String percent,String label,String offset) {
+    public void validatePieChartPercents(String chart, String percent, String label, String offset) {
         int sum = 0;
         Boolean flag = false;
-        float floatData,min,max;
-        percent = percent.replaceAll("[^\\d+.]","");
+        float floatData, min, max;
+        percent = percent.replaceAll("[^\\d+.]", "");
         ArrayList<String> percentsList = new ArrayList<String>();
         Objects.requireNonNull(chart, "Chart is equal to null");
         getObjectFromDataSets(chart);
@@ -678,15 +698,15 @@ public class VRMHandler {
             floatData = Float.parseFloat(dataArray.get(i).toString());
             percentsList.add(String.format("%.2f", floatData / sum * 100));
         }
-        for(int i = 0; i < dataArray.length(); i++){
+        for (int i = 0; i < dataArray.length(); i++) {
             max = Float.parseFloat(percentsList.get(i)) + Float.parseFloat(offset);
             min = Float.parseFloat(percentsList.get(i)) - Float.parseFloat(offset);
-            if(label.equals(labels.get(i)) && Float.parseFloat(percent)<=max && Float.parseFloat(percent)>=min){
+            if (label.equals(labels.get(i)) && Float.parseFloat(percent) <= max && Float.parseFloat(percent) >= min) {
                 flag = true;
             }
         }
-        if(!flag){
-            BaseTestUtils.report("The more options didnt have" + percent  + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+        if (!flag) {
+            BaseTestUtils.report("The more options didnt have" + percent + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
         }
     }
 
@@ -1641,7 +1661,7 @@ public class VRMHandler {
             String selectAllCheckBox = "Device Selection.All Devices Selection";
             VisionDebugIdsManager.setLabel(selectAllCheckBox);
             WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-            entries.forEach(entry ->{
+            entries.forEach(entry -> {
                 String deviceIp = null;
                 try {
                     if (entry.index == null) {
@@ -1664,7 +1684,7 @@ public class VRMHandler {
                         if (!entry.policies.equalsIgnoreCase("ALL")) {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
-                           //     policyText.type(policy.trim());
+                                //     policyText.type(policy.trim());
                                 // WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
                                 if (!isExist) {
                                     if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()) != null) {
@@ -1711,7 +1731,7 @@ public class VRMHandler {
             if (!entries.isEmpty())
                 checkbox.uncheck();
 
-            entries.forEach(entry ->{
+            entries.forEach(entry -> {
                 String deviceIp = null;
                 try {
                     if (entry.index == null) {
@@ -1727,8 +1747,8 @@ public class VRMHandler {
                     BaseTestUtils.report(e.getMessage(), e);
                 }
                 //select the device
-               // checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
-                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_" + deviceType + "_" +  deviceIp  + "_Label"));
+                // checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
+                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_" + deviceType + "_" + deviceIp + "_Label"));
                 checkbox.check();
                 ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceType + "_" + deviceIp), false);
             });

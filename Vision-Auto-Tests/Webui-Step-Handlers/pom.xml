@@ -93,7 +93,7 @@
         <dependency>
             <groupId>com.radware.vision.automation.rest</groupId>
             <artifactId>testinfra</artifactId>
-            <version>${artifact-type}-${revision}</version>
+            <version>${artifact-type}-${rest.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.radware</groupId>
@@ -146,7 +146,7 @@
         <dependency>
             <groupId>com.radware.vision.automation.localization-infra</groupId>
             <artifactId>localization</artifactId>
-            <version>${revision}</version>
+            <version>${localization.version}</version>
         </dependency>
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
@@ -156,7 +156,7 @@
         <dependency>
             <groupId>com.radware.vision.automation.cli</groupId>
             <artifactId>vision-infra</artifactId>
-            <version>${artifact-type}-${revision}</version>
+            <version>${artifact-type}-${cli.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
