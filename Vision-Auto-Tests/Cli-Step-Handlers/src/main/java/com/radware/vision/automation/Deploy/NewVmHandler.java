@@ -4,6 +4,8 @@ import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.restcore.RestBasicConsts;
 import com.radware.restcore.VisionRestClient;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.PhysicalPort;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
@@ -16,10 +18,7 @@ import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.vision_tests.CliTests;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class NewVmHandler extends TestBase {
     private static final String licenseKeyPrefix = "vision-activation";
@@ -257,10 +256,15 @@ public class NewVmHandler extends TestBase {
                 this.visionRadwareFirstTime.connect();
                 // ToDo kvision check what for this lines
                 //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
-                Thread.sleep(240000L);
-                this.visionRadwareFirstTime.close();
             } catch (Exception var23) {
             }
+
+            try {
+                // ToDo - after trying to connect at line 259 throw exception with timeout cuz the IP was changed.
+                Thread.sleep(240000L);
+                this.visionRadwareFirstTime.close();
+            }
+            catch (Exception e){}
 
             String[] networkIfcs;
             if (!isAPM) {
