@@ -255,7 +255,7 @@ public class NewVmHandler extends TestBase {
                 // ToDo kvision check what for this lines
                 //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
             } catch (Exception var23) {}
-
+            ip = sutManager.getClientConfigurations().getHostIp();
             String[] networkIfcs;
             if (!isAPM) {
                 networkIfcs = new String[]{"Network adapter 1", "Network adapter 2", "Network adapter 3"};
@@ -272,15 +272,14 @@ public class NewVmHandler extends TestBase {
 
             try
             {
-                this.visionRadwareFirstTime.close();
-                this.visionRadwareFirstTime.setHost(sutManager.getClientConfigurations().getHostIp());
-                this.visionRadwareFirstTime.connect();
+                this.visionRadwareFirstTime.setHost(ip);
+                waitForServerConnection(2700000L, this.visionRadwareFirstTime);
                 Thread.sleep(600000L);
             }
             catch (Exception e){}
 
-            waitForServerConnection(2700000L, this.visionRadwareFirstTime);
-            UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
+            //UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
+            rootServerCli.setHost(ip);
             UvisionServer.modifyDockerNetwork(rootServerCli);
             UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
             this.initialRestLogin(900000L);
