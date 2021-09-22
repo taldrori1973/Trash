@@ -251,18 +251,13 @@ public class NewVmHandler extends TestBase {
 
             try {
                 this.visionRadwareFirstTime.setHost(ip);
-                this.visionRadwareFirstTime.connect();
-                // ToDo kvision check what for this lines
-                //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
-            } catch (Exception var23) {
-            }
-
-            try {
-                // ToDo - after trying to connect at line 259 throw exception with timeout cuz the IP was changed.
+                //this.visionRadwareFirstTime.connect();
+                CliOperations.runCommand(this.visionRadwareFirstTime, "", 180000);
                 Thread.sleep(600000L); // was 240 second
                 this.visionRadwareFirstTime.close();
-            }
-            catch (Exception e){}
+                // ToDo kvision check what for this lines
+                //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
+            } catch (Exception var23) {}
 
             String[] networkIfcs;
             if (!isAPM) {
