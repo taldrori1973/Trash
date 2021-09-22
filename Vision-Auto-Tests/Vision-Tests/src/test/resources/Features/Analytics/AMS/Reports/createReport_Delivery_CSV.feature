@@ -148,32 +148,47 @@ Feature:  Report AMS analytics CSV Validations
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -3 |tail -1|grep -oP "AU,1.1.1.8,1,33.3333" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
+  @SID_19
+  Scenario: VRM report validate CSV file TOP ATTACK DESTINATION content
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -5 |tail -1|grep -oP "Total Count,,3" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+
+  @SID_20
+  Scenario: VRM report validate CSV file TOP ATTACK DESTINATION content
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv |tail -1|grep -oP "Total Hits,,3" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+
     ############################################       TOP ATTACK SOURCES       ###############################################################################
 
-  @SID_19
+  @SID_21
   Scenario: VRM report validate CSV file TOP ATTACK SOURCES number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "6"
 
-  @SID_20
+  @SID_22
   Scenario: VRM report validate CSV file TOP ATTACK SOURCES headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -1 |grep "Country,Address,Count,Percent" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_21
+  @SID_23
   Scenario: VRM report validate CSV file TOP ATTACK SOURCES content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -3 |tail -1|grep -oP "US,192.85.1.8,1,33.3333" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
+  @SID_24
+  Scenario: VRM report validate CSV file TOP ATTACK SOURCES content
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -5 |tail -1|grep -oP "Total Count,,3" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+
+  @SID_25
+  Scenario: VRM report validate CSV file TOP ATTACK SOURCES content
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv |tail -1|grep -oP "Total Hits,,3" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
     ############################################       ATTACK CATEGORIES BY BANDWIDTH       ###################################################################
 
-  @SID_22
+  @SID_26
   Scenario: VRM report validate CSV file ATTACK CATEGORIES BY BANDWIDTH number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attack\ Categories\ by\ Bandwidth-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "3"
 
-  @SID_23
+  @SID_27
   Scenario: VRM report validate CSV file ATTACK CATEGORIES BY BANDWIDTH headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attack\ Categories\ by\ Bandwidth-DefensePro\ Analytics.csv|head -1 |grep "category,ruleName,packetBandwidth" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_24
+  @SID_28
   Scenario: VRM report validate CSV file ATTACK CATEGORIES BY BANDWIDTH content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attack\ Categories\ by\ Bandwidth-DefensePro\ Analytics.csv|head -2 |tail -1|grep -oP "Anomalies,\"Packet Anomalies\",0"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attack\ Categories\ by\ Bandwidth-DefensePro\ Analytics.csv|head -3 |tail -1|grep -oP "DOSShield,BDOS,56641"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
@@ -181,15 +196,15 @@ Feature:  Report AMS analytics CSV Validations
 
     ############################################       ATTACK BY MITIGATION ACTION       ####################################################################
 
-  @SID_25
+  @SID_29
   Scenario: VRM report validate CSV file ATTACK BY MITIGATION ACTION number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Mitigation\ Action-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "3"
 
-  @SID_26
+  @SID_30
   Scenario: VRM report validate CSV file ATTACK BY MITIGATION ACTION headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Mitigation\ Action-DefensePro\ Analytics.csv|head -1 |grep "name,actionType,ruleName,Count" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_27
+  @SID_31
   Scenario: VRM report validate CSV file ATTACK BY MITIGATION ACTION content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Mitigation\ Action-DefensePro\ Analytics.csv|head -2 |tail -1|grep -oP "\"Incorrect IPv4 checksum\",Drop,\"Packet Anomalies\",2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Mitigation\ Action-DefensePro\ Analytics.csv|head -4 |tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,Drop,BDOS,1"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
@@ -197,11 +212,11 @@ Feature:  Report AMS analytics CSV Validations
 
     ############################################       ATTACKS BY PROTECTION POLICY       ####################################################################
 
-  @SID_28
+  @SID_32
   Scenario: VRM report validate CSV file ATTACKS BY PROTECTION POLICY number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "3"
 
-  @SID_29
+  @SID_33
   Scenario: VRM report validate CSV file ATTACKS BY PROTECTION POLICY headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -1|grep "name,ruleName,Count" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "name"
@@ -209,7 +224,7 @@ Feature:  Report AMS analytics CSV Validations
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Count"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS ""
 
-  @SID_30
+  @SID_34
   Scenario: VRM report validate CSV file ATTACKS BY PROTECTION POLICY content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Incorrect IPv4 checksum""
@@ -223,38 +238,38 @@ Feature:  Report AMS analytics CSV Validations
 
     ############################################       CRITICAK ATTACKS BY MITIGATION ACTION      #############################################################
 
-  @SID_31
+  @SID_35
   Scenario: VRM report validate CSV file CRITICAL ATTACKS BY MITIGATION ACTION number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Critical\ Attacks\ by\ Mitigation\ Action-DefensePro\ Analytics.csv|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
-  @SID_32
+  @SID_36
   Scenario: VRM report validate CSV file CRITICAL ATTACKS BY MITIGATION ACTION headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Critical\ Attacks\ by\ Mitigation\ Action-DefensePro\ Analytics.csv|head -1|grep "NO DATA FOR SELECTED DATA SOURCE" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
       ############################################       TOP ALLOWED ATTACKERS      ############################################################################
 
-  @SID_33
+  @SID_37
   Scenario: VRM report validate CSV file TOP ALLOWED ATTACKERS number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Allowed\ Attackers-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
     # Changed result to 0 once this template was removed in 4.20
 
-  @SID_34
+  @SID_38
   Scenario: VRM report validate CSV file TOP ALLOWED ATTACKERS headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Allowed\ Attackers-DefensePro\ Analytics.csv|head -1|grep "NO DATA FOR SELECTED DATA SOURCE" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     # Changed result to 0 once this template was removed in 4.20
 
       ############################################       Top\ Attacks BY BANDWIDTH      ########################################################################
 
-#  @SID_35
+#  @SID_39
 #  Scenario: VRM report validate CSV file Top\ Attacks BY BANDWIDTH number of lines
 #    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks by Bandwidth.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "3"
 #
-#  @SID_36
+#  @SID_40
 #  Scenario: VRM report validate CSV file Top\ Attacks BY BANDWIDTH headers
 #    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks\ by\ Bandwidth.csv|head -1|grep "name,ruleName,endTime,packetBandwidth,packetcount" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 #
-#  @SID_37
+#  @SID_41
 #  Scenario: VRM report validate CSV file Top\ Attacks BY BANDWIDTH content
 #    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks\ by\ Bandwidth.csv|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),0,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 #    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks\ by\ Bandwidth.csv|head -3|tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),56641,58469"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
@@ -262,15 +277,15 @@ Feature:  Report AMS analytics CSV Validations
 
       ############################################       Top\ Attacks BY PROTOCOL      ########################################################################
 
-  @SID_38
+  @SID_42
   Scenario: VRM report validate CSV file Top\ Attacks BY PROTOCOL number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacks\ by\ Protocol-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "3"
 
-  @SID_39
+  @SID_43
   Scenario: VRM report validate CSV file Top\ Attacks BY PROTOCOL headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacks\ by\ Protocol-DefensePro\ Analytics.csv|head -1|grep "name,ruleName,protocol,Count" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_40
+  @SID_44
   Scenario: VRM report validate CSV file Top\ Attacks BY PROTOCOL content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacks\ by\ Protocol-DefensePro\ Analytics.csv|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",IP,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacks\ by\ Protocol-DefensePro\ Analytics.csv|head -4|tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,TCP,1"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
@@ -278,15 +293,15 @@ Feature:  Report AMS analytics CSV Validations
 
       ############################################       TOP SCANNERS      ##################################################################################
 
-  @SID_41
+  @SID_45
   Scenario: VRM report validate CSV file TOP SCANNERS number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Scanners-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
-  @SID_42
+  @SID_46
   Scenario: VRM report validate CSV file TOP SCANNERS headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Scanners-DefensePro\ Analytics.csv|head -1|grep "NO DATA FOR SELECTED DATA SOURCE" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_43
+  @SID_47
   Scenario: Edit report format - from CSV to PDF
     Given UI "Create" Report With Name "just English characters"
       | Template   | reportType:DefensePro Analytics,Widgets:[ALL], devices:[All], showTable:true |
@@ -301,7 +316,7 @@ Feature:  Report AMS analytics CSV Validations
       | Format     | Select: PDF                                                                  |
 
 
-  @SID_44
+  @SID_48
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains
