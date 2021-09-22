@@ -1,71 +1,21 @@
 @TC122821
 Feature: Edit snmp1
 
-
   @SID_1
-  Scenario:A
+  Scenario:deletes and adds a device, and then edits the values
 
-    Given That Current Vision is Logged In
-
-    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get device name"
-      | managedElementID | $.children[0].meIdentifier.managedElementID |
-      | snmpVersion      | $.children[0].snmpVersion                   |
-
-    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Update SNMP Write Community"
-    And The Request Body is the following Object
-      | jsonPath                                      | value                 |
-      | ormID                                         | "${managedElementID}" |
-      | deviceSetup.deviceAccess.snmpVersion          | "SNMP_V1"             |
-    When Send Request with the Given Specification
-
-    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Get device information"
-    And The Request Path Parameters Are
-      | id | ${managedElementID} |
-    When Send Request with the Given Specification
-
-    Then Validate That Response Body Contains
-      | jsonPath                                        | value     |
-      | $.deviceSetup.deviceAccess.snmpVersion          | "SNMP_V1" |
-      | $.deviceSetup.deviceAccess.snmpV1WriteCommunity | "public"  |
-
-
-
-
-    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Update SNMP Write Community"
-    And The Request Body is the following Object
-      | jsonPath                                      | value                 |
-      | ormID                                         | "${managedElementID}" |
-      | deviceSetup.deviceAccess.snmpV1WriteCommunity | "publicnew"           |
-    When Send Request with the Given Specification
-
-    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Get device information"
-    And The Request Path Parameters Are
-      | id | ${managedElementID} |
-    When Send Request with the Given Specification
-
-    Then Validate That Response Body Contains
-      | jsonPath                                        | value       |
-      | $.deviceSetup.deviceAccess.snmpVersion          | "SNMP_V1"   |
-      | $.deviceSetup.deviceAccess.snmpV1WriteCommunity | "publicnew" |
-
-
-
-
-
-    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Update SNMP Write Community"
-    And The Request Body is the following Object
-      | jsonPath                                      | value                 |
-      | ormID                                         | "${managedElementID}" |
-      | deviceSetup.deviceAccess.snmpVersion          | "${snmpVersion}"      |
-      | $.deviceSetup.deviceAccess.snmpV1WriteCommunity | "public" |
-    When Send Request with the Given Specification
-
-    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Get device information"
-    And The Request Path Parameters Are
-      | id | ${managedElementID} |
-    When Send Request with the Given Specification
-
-    Then Validate That Response Body Contains
-      | jsonPath                                        | value     |
-      | $.deviceSetup.deviceAccess.snmpVersion          | "${snmpVersion}" |
-      | $.deviceSetup.deviceAccess.snmpV1WriteCommunity | "public"  |
+    Given UI Login with user "radware" and password "radware"
+    Then UI Go To Vision
+    Then UI open Topology Tree view "SitesAndClusters" site
+    Then UI Delete "DefensePro" device with index 1 from topology tree
+    Then UI Add "DefensePro" with index 1 on "Default" site
+    Then UI Edit DP device with index 1 from topology tree expected status "OK"
+      | snmpVersion        | SNMP_V1    |
+      | snmpWriteCommunity | public new |
+      | snmpReadCommunity  | public     |
+      | verifyHttpsAccess  | true       |
+      | httpUserName       | radware    |
+      | httpPassword       | radware    |
+      | httpPort           | 80         |
+      | httpsPort          | 443        |
+      | sshPort            | 22         |
