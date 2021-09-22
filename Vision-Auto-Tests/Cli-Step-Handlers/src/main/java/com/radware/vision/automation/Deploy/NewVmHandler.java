@@ -251,10 +251,7 @@ public class NewVmHandler extends TestBase {
 
             try {
                 this.visionRadwareFirstTime.setHost(ip);
-                //this.visionRadwareFirstTime.connect();
-                CliOperations.runCommand(this.visionRadwareFirstTime, "", 180000);
-                Thread.sleep(600000L); // was 240 second
-                this.visionRadwareFirstTime.close();
+                this.visionRadwareFirstTime.connect();
                 // ToDo kvision check what for this lines
                 //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
             } catch (Exception var23) {}
@@ -272,8 +269,16 @@ public class NewVmHandler extends TestBase {
             if (targetVisionMacAddress == null) {
                 BaseTestUtils.reporter.report("Could not retrieve any of the ethernet Mac Address. License registration will fail.\nPlease manually add the required license to Vision Server.", 0);
             }
-            rootServerCli.setHost(this.visionRadwareFirstTime.getIp());
-            this.visionRadwareFirstTime.setHost(this.visionRadwareFirstTime.getIp());
+
+            try
+            {
+                this.visionRadwareFirstTime.close();
+                this.visionRadwareFirstTime.setHost(sutManager.getClientConfigurations().getHostIp());
+                this.visionRadwareFirstTime.connect();
+                Thread.sleep(600000L);
+            }
+            catch (Exception e){}
+
             waitForServerConnection(2700000L, this.visionRadwareFirstTime);
             UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
             UvisionServer.modifyDockerNetwork(rootServerCli);
