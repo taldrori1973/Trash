@@ -83,7 +83,7 @@
         <dependency>
             <groupId>com.radware.vision.automation.rest</groupId>
             <artifactId>vision-rest-framework</artifactId>
-            <version>${artifact-type}-${revision}</version>
+            <version>${artifact-type}-${rest.version}</version>
         </dependency>
         <dependency>
             <groupId>xml-apis</groupId>

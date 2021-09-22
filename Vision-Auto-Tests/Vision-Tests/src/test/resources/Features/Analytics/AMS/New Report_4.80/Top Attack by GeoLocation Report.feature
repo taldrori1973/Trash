@@ -1,7 +1,7 @@
 @TC122728
 Feature: Top Attacking By GeoLocation Widget In Report
 
-  @RW123
+
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -9,7 +9,7 @@ Feature: Top Attacking By GeoLocation Widget In Report
     * REST Delete ES index "dp-*"
     Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and halt 60 seconds
 
-  @RW123
+
   @SID_2
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
@@ -17,13 +17,13 @@ Feature: Top Attacking By GeoLocation Widget In Report
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
     Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
 
-  @RW123
+
   @SID_3
   Scenario: Clear Database and old reports on file-system
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
 
-  @RW123
+
   @SID_4
   Scenario: Run DP simulator PCAPs for "GEO" and "ErtFeed_GeoFeed"
     Given CLI simulate 1 attacks of type "GEO" on "DefensePro" 10 and wait 60 seconds
@@ -78,7 +78,7 @@ Feature: Top Attacking By GeoLocation Widget In Report
   @SID_10
   Scenario: Show Top Attacking By GeoLocation Report with Summary Table after the create
     Then UI Click Button "Log Preview" with value "Top Attacking By GeoLocation Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all countries):3K"
+    Then UI Text of "Total Summary Table" equal to "Total (for all countries):3"
 
   @SID_11
   Scenario: Edit share email in Top Attacking By GeoLocation Report with Summary Table
@@ -91,12 +91,12 @@ Feature: Top Attacking By GeoLocation Widget In Report
   Scenario: Validate delivery card and generate report after edit share email
     Then UI Click Button "My Report" with value "Top Attacking By GeoLocation Report with Summary Table"
     Then UI Click Button "Generate Report Manually" with value "Top Attacking By GeoLocation Report with Summary Table"
-    Then Sleep "120"
+    Then Sleep "30"
 
   @SID_13
   Scenario: Show Top Attacking By GeoLocation Report with Summary Table after edit share email
     Then UI Click Button "Log Preview" with value "Top Attacking By GeoLocation Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all countries):3K"
+    Then UI Text of "Total Summary Table" equal to "Total (for all countries):3"
 
   @SID_14
   Scenario: Validate Report Email received content after edit share email
@@ -127,12 +127,12 @@ Feature: Top Attacking By GeoLocation Widget In Report
   Scenario: Validate delivery card and generate report: Top Attacking By GeoLocation Report with Summary Table after edit format
     Then UI Click Button "My Report" with value "Top Attacking By GeoLocation Report with Summary Table"
     Then UI Click Button "Generate Report Manually" with value "Top Attacking By GeoLocation Report with Summary Table"
-    Then Sleep "120"
+    Then Sleep "30"
 
   @SID_18
   Scenario: Show Top Attacking By GeoLocation Report with Summary Table after edit format
     Then UI Click Button "Log Preview" with value "Top Attacking By GeoLocation Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all countries):3K"
+    Then UI Text of "Total Summary Table" equal to "Total (for all countries):3"
 
   @SID_19
   Scenario: Clear SMTP server log files in first step
@@ -154,20 +154,20 @@ Feature: Top Attacking By GeoLocation Widget In Report
   @SID_22
   Scenario: Show Top Attacking By GeoLocation Report with Summary Table  after edit format and share
     Then UI Click Button "Log Preview" with value "Top Attacking By GeoLocation Report with Summary Table_0"
-    Then UI Text of "Total Summary Table" equal to "Total (for all countries):3K"
+    Then UI Text of "Total Summary Table" equal to "Total (for all countries):3"
 
   @SID_23
   Scenario: Validate Report Email received content  after edit format and share
     #subject
-    Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
+    Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "2"
     #body
-    Then Validate "setup" user eMail expression "grep "Email Body"" EQUALS "1"
+    Then Validate "setup" user eMail expression "grep "Email Body"" EQUALS "2"
     #From
-    Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "1"
+    Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "2"
     #To
-    Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "1"
+    Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "2"
     #Attachment
-    Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).html"" EQUALS "1"
+    Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).html"" EQUALS "2"
 
   @SID_24
   Scenario: Clear SMTP server log files  after edit format and share
@@ -190,7 +190,7 @@ Feature: Top Attacking By GeoLocation Widget In Report
   Scenario: Validate delivery card and generate report: Top Attacking By GeoLocation Report without Summary Table
     Then UI Click Button "My Report" with value "Top Attacking By GeoLocation Report without Summary Table"
     Then UI Click Button "Generate Report Manually" with value "Top Attacking By GeoLocation Report without Summary Table"
-    Then Sleep "120"
+    Then Sleep "30"
 
   @SID_28
   Scenario: Show Top Attacking By GeoLocation Report without Summary Table
@@ -208,7 +208,7 @@ Feature: Top Attacking By GeoLocation Widget In Report
   Scenario: Validate delivery card and generate report: Top Attacking By GeoLocation Report without Summary Table after edit html format
     Then UI Click Button "My Report" with value "Top Attacking By GeoLocation Report without Summary Table"
     Then UI Click Button "Generate Report Manually" with value "Top Attacking By GeoLocation Report without Summary Table"
-    Then Sleep "120"
+    Then Sleep "30"
 
   @SID_31
   Scenario: Show Top Attacking By GeoLocation Report without Summary Table after edit html format
@@ -259,44 +259,44 @@ Feature: Top Attacking By GeoLocation Widget In Report
 
   @SID_35
   Scenario: VRM report validate CSV Exclude Top Attacking by GeoLocation number of lines
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "5"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "6"
     Then Sleep "10"
 
 
   @SID_36
   Scenario: VRM report validate CSV file Exclude Top Attacking by GeoLocation headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "country"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "count"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "percent"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Country"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Count"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Percent"
     Then Sleep "10"
 
 
   @SID_37
   Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -2|tail -1|grep -oP "CN,1,50.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "CN"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "50.0000"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -2|tail -1|grep -oP "CN,1,50.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "CN"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "50.0000"
     Then Sleep "10"
 
   @SID_38
   Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -3|tail -1|grep -oP "Multiple,1,50.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -3|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Multiple"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -3|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -3|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "50.0000"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -3|tail -1|grep -oP "Multiple,1,50.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -3|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Multiple"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -3|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -3|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "50.0000"
 
   @SID_39
   Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -4|tail -1|grep -oP "totalCount,,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -4|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "totalCount"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|head -4|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -5|tail -1|grep -oP "Total Count,,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -5|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Total Count"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -5|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
 
   @SID_40
   Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|tail -1|grep -oP "totalHits,,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "totalHits"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ by\ GeoLocation-DefensePro\ Analytics.csv|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|tail -1|grep -oP "Total Hits,,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Total Hits"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
 
   @SID_41
   Scenario: Logout and close browser
