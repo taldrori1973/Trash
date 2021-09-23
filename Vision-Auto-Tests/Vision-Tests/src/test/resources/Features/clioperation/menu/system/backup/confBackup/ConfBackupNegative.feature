@@ -1,4 +1,4 @@
-@CLI_Negative @TC106033 @Debug
+@CLI_Negative @TC106033
 
 Feature: System ConfBackup Negative Functional Tests
 
