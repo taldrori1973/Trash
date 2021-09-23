@@ -66,7 +66,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | no       |
-      | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
@@ -91,7 +90,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | no       |
-      | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
@@ -117,7 +115,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | no       |
-      | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
@@ -142,7 +139,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | yes      |
-      | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
@@ -167,7 +163,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | no       |
-      | APM                                         | no       |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
@@ -192,7 +187,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | yes      |
-      | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
@@ -217,7 +211,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | no       |
-      | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
@@ -242,7 +235,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | no       |
-      | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
@@ -268,7 +260,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | yes      |
-      | APM                                         | no       |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
@@ -295,7 +286,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | no       |
-      | APM                                         | no       |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
@@ -320,7 +310,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | yes      |
-      | APM                                         | no       |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
@@ -345,7 +334,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | yes      |
-      | APM                                         | no       |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
@@ -370,7 +358,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | no       |
-      | APM                                         | no       |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
@@ -395,7 +382,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | yes      |
-      | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
@@ -420,7 +406,6 @@ Feature: RBAC Menu
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | yes      |
-      | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
