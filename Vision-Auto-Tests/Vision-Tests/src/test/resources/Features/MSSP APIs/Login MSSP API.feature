@@ -1,4 +1,4 @@
-@Analytics_ADC @TC106063 @Debug
+@Analytics_ADC @TC106063
 
 Feature: MSSP Login APIs
 
