@@ -1,4 +1,4 @@
-@VRM @TC106041 @Debug
+@VRM @TC106041
 Feature: Cloud WAF API
 
   @SID_1
