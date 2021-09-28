@@ -57,9 +57,9 @@ Feature: AW Scope Selection
       | param      |
       | my_app-10  |
       | my_app-101 |
-      | my_app-105 |
-      | my_app-107 |
-      | my_app-109 |
+      | my_app-102 |
+      | my_app-100 |
+      | my_app-104 |
     And UI Click Button "Scope Selection Cancel"
     And UI Do Operation "Select" item "Applications"
     Then UI Validate Search Numbering With text: "my_app-10" And Element Label: "Prefix Application Name" In Search Label "Filter" If this equal to 11
