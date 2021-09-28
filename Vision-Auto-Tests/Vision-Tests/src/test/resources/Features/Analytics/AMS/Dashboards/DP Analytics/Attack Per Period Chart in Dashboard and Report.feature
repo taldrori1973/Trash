@@ -75,7 +75,7 @@ Feature: Attacks Per Period Chart in Dashboard and Report
   Scenario: navigate to AMS REPORTS
     When UI Navigate to "AMS REPORTS" page via homePage
 
-  @SID_11
+  @SID_10
   Scenario: validate DP Analytics Widget - Attacks Per Period
     Then Validate Line Chart data "Attacks Per Period-DefensePro Analytics" with Label "Attacks" in report "attack per period widget report"
       | value | min |
@@ -83,6 +83,6 @@ Feature: Attacks Per Period Chart in Dashboard and Report
       | 520   | 1   |
       | 500   | 1   |
 
-  @SID_12
+  @SID_11
   Scenario: Cleanup
     Given UI logout and close browser
