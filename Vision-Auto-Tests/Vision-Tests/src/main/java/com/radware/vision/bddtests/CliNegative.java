@@ -111,7 +111,7 @@ public class CliNegative extends BddCliTestBase {
      * general export negative test
      */
     protected void exportNegativeTest(String command, String name, String destenation) throws Exception {
-        exportNegativeTest(command, name, destenation, restTestBase.getLinuxFileServer().getPassword());
+        exportNegativeTest(command, name, destenation, restTestBase.getGenericLinuxServer().getPassword());
     }
 
     protected void exportNegativeTest(String command, String name, String destenation, String password/*, GoodErrorsList goodErrorsList*/) throws Exception {
@@ -140,7 +140,7 @@ public class CliNegative extends BddCliTestBase {
      * general import negative test
      */
     protected void importNegativeTest(String command, String location) throws Exception {
-        importNegativeTest(command, restTestBase.getLinuxFileServer().getPassword(), location);
+        importNegativeTest(command, restTestBase.getGenericLinuxServer().getPassword(), location);
     }
 
     protected void importNegativeTest(String command, String password, String location/*, GoodErrorsList goodErrorsList*/) throws Exception {

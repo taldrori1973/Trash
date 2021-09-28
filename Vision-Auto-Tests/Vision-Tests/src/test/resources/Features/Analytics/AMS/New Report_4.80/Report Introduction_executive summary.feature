@@ -93,6 +93,11 @@ Feature: Report introduction and executive summary
     Then UI "Validate" Report With Name "Report intro_executive summary"
       | Format | Select: CSV |
 
+    Then UI Click Button "My Report" with value "Report intro_executive summary"
+    Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary"
+    Then Sleep "60"
+    Then UI Click Button "Log Preview" with value "Report intro_executive summary_0"
+
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
     #body
@@ -103,9 +108,7 @@ Feature: Report introduction and executive summary
     Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "1"
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "1"
-
     Given Clear email history for user "setup"
-
     Then UI Delete Report With Name "Report intro_executive summary"
 
   @SID_7

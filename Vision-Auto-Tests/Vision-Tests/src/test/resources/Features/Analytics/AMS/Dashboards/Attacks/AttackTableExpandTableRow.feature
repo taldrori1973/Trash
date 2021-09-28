@@ -1,7 +1,7 @@
 @TC114854
 Feature: Attack Table - Expand Table Row
 
-  
+
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -9,7 +9,7 @@ Feature: Attack Table - Expand Table Row
     * REST Delete ES index "dp-atta*"
     * CLI Clear vision logs
 
-  
+
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
@@ -18,7 +18,7 @@ Feature: Attack Table - Expand Table Row
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
     Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
 
-  
+
   @SID_3
   Scenario:  login
     Given UI Login with user "radware" and password "radware"
@@ -79,12 +79,12 @@ Feature: Attack Table - Expand Table Row
     Then Validate Expand  "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
-      | parameter | 1     | Fragment Offset |
+      | parameter | 1     | fragment-offset |
       | value     | 1     | 2               |
 
 
   ####################  DNS attack tables ####################################################
-  
+
   @SID_8
   Scenario:  validate tables for DNS
     Then UI search row table in searchLabel "tableSearch" with text "DNS"
@@ -92,7 +92,7 @@ Feature: Attack Table - Expand Table Row
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "1"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics,realTimeSignature"
 
-  
+
   @SID_9
   Scenario Outline:  validate date of Info table - DNS
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
@@ -110,7 +110,7 @@ Feature: Attack Table - Expand Table Row
       | MPLS RD            | N/A           |
       | Source port        | 0             |
 
-  
+
   @SID_10
   Scenario Outline:  validate date of Characteristics table - DNS
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
@@ -119,22 +119,22 @@ Feature: Attack Table - Expand Table Row
       | label             | value                |
       | DNS Query         | -                    |
       | DN an Query Count | 0                    |
-      | TTL               | 64                  |
+      | TTL               | 64                   |
       | DNS ID            | 1                    |
       | DNS Query Count   | 1                    |
       | L4 Checksum       | 36009                |
       | State             | Blocking             |
       | Mitigation Action | Signature Rate Limit |
 
-  
+
   @SID_11
   Scenario:  validate date of Real Time Signature table - DNS
     Then Validate Expand  "Real Time Signature" table
       | Name      | index | value         |
       | operator  | 1     | OR            |
-      | parameter | 1     | Dns Subdomain |
+      | parameter | 1     | dns-subdomain |
       | operator  | 5     | AND           |
-      | parameter | 5     | Dns Flags     |
+      | parameter | 5     | dns-flags     |
       | value     | 5     | 256           |
 
   ####################  Https attack tables ####################################################
@@ -144,7 +144,7 @@ Feature: Attack Table - Expand Table Row
   Scenario:  validate tables for Https
     Then UI search row table in searchLabel "tableSearch" with text "Https"
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy index 0 findBy columnName "Policy Name" findBy cellValue "pol1"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy index 1 findBy columnName "Policy Name" findBy cellValue "pol1"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
 
@@ -158,7 +158,7 @@ Feature: Attack Table - Expand Table Row
       | Radware ID         | 700     |
       | Direction          | Unknown |
       | Action Type        | Drop    |
-      | Attack ID          | 33-     |
+      | Attack ID          | 33-19   |
       | Physical Port      | 0       |
       | Total Packet Count | 0       |
       | VLAN               | N/A     |
@@ -227,7 +227,7 @@ Feature: Attack Table - Expand Table Row
       | HTTP Auth. List      | 0                    |
 
         ####################  DOS attack tables ####################################################
-  
+
   @SID_18
   Scenario:  validate tables for DOS
     Then UI search row table in searchLabel "tableSearch" with text "DOSShield"
@@ -235,7 +235,7 @@ Feature: Attack Table - Expand Table Row
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "pph_9Pkt_lmt_252.1"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
-  
+
   @SID_19
   Scenario Outline:  validate date of Info table - DOS
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
@@ -253,7 +253,7 @@ Feature: Attack Table - Expand Table Row
       | MPLS RD            | N/A           |
       | Source port        | 49743         |
 
-  
+
   @SID_20
   Scenario Outline:  validate date of Characteristics table - DOS
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
@@ -265,7 +265,7 @@ Feature: Attack Table - Expand Table Row
       | Protected Host      | 198.18.252.1 |
 
 ####################  AntiScanning attack tables ####################################################
-  
+
   @SID_21
   Scenario:  validate tables for AntiScanning
     Then UI search row table in searchLabel "tableSearch" with text "AntiScanning"
@@ -306,13 +306,13 @@ Feature: Attack Table - Expand Table Row
     Then Validate Expand  "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
-      | parameter | 1     | Destination Ip  |
+      | parameter | 1     | destination-ip  |
       | value     | 1     | 10.10.1.200     |
       | operator  | 5     | AND             |
       | parameter | 5     | TTL             |
       | value     | 5     | 255             |
       | operator  | 6     | AND             |
-      | parameter | 6     | Packet Size     |
+      | parameter | 6     | packet-size     |
       | value     | 6     | 124             |
       | operator  | 7     | AND             |
       | parameter | 7     | Sequence Number |
@@ -359,7 +359,7 @@ Feature: Attack Table - Expand Table Row
 #      | destinationPort | 11    | 32461       |
 #      | flag            | 11    | SYN         |
   ####################  Traffic Filter attack tables ####################################################
-  
+
   @SID_26
   Scenario:  validate tables for Traffic Filter
     Then UI search row table in searchLabel "tableSearch" with text "Traffic"
@@ -367,7 +367,7 @@ Feature: Attack Table - Expand Table Row
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Attack Category" findBy cellValue "Traffic Filters"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
-  
+
   @SID_27
   Scenario Outline:  validate date of Info table - Traffic Filter
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
@@ -385,7 +385,7 @@ Feature: Attack Table - Expand Table Row
       | MPLS RD            | N/A           |
       | Source port        | 1024          |
 
-  
+
   @SID_28
   Scenario Outline:  validate date of Characteristics table - Traffic Filter
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
@@ -418,7 +418,7 @@ Feature: Attack Table - Expand Table Row
       | Action Type        | Drop     |
       | Attack ID          | 4109-103 |
       | Physical Port      | T-1      |
-      | Total Packet Count | 17      |
+      | Total Packet Count | 128      |
       | VLAN               | N/A      |
       | MPLS RD            | N/A      |
       | Source port        | 0        |

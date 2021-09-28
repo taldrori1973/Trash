@@ -52,8 +52,8 @@ public class ConfBackupNegativeSteps extends CliNegative {
      * 3.	Export with bad ip
      * 4.	Export with bad password
      * */
-    public void confbackupExportNegativeTest(ImportExport.ImportExportType importExportType) throws Exception  {
-        exportNegativeTest(Menu.system().backup().config().build(), CONFBACKUP_NAME, importExportType.toString()+"://root@"+restTestBase.getLinuxFileServer().getHost()+":/home/radware");
+    public void confbackupExportNegativeTest(ImportExport.ImportExportType importExportType, String hostIp, String password) throws Exception  {
+        exportNegativeTest(Menu.system().backup().config().build(), CONFBACKUP_NAME, importExportType.toString()+"://root@"+ hostIp +":/home/radware", password);
         }
 
     /**
@@ -69,10 +69,12 @@ public class ConfBackupNegativeSteps extends CliNegative {
         uiInit();
         initNegativeBackup();
         protocol.toLowerCase();
-        if(protocol.equals("ftp")){ confbackupExportNegativeTest(ImportExport.ImportExportType.ftp);}
-        else if(protocol.equals("sftp")){confbackupExportNegativeTest(ImportExport.ImportExportType.sftp);}
-        else if(protocol.equals("ssh")){confbackupExportNegativeTest(ImportExport.ImportExportType.ssh);}
-        else if(protocol.equals("scp")){confbackupExportNegativeTest(ImportExport.ImportExportType.scp);}
+        String host = restTestBase.getGenericLinuxServer().getHost();
+        String password = restTestBase.getGenericLinuxServer().getPassword();
+        if(protocol.equals("ftp")){ confbackupExportNegativeTest(ImportExport.ImportExportType.ftp, host , password);}
+        else if(protocol.equals("sftp")){confbackupExportNegativeTest(ImportExport.ImportExportType.sftp, "1.1.1.1" , password);}
+        else if(protocol.equals("ssh")){confbackupExportNegativeTest(ImportExport.ImportExportType.ssh, host, "bad_password" );}
+        else if(protocol.equals("scp")){confbackupExportNegativeTest(ImportExport.ImportExportType.scp, "1.1.1.1" , "bad_password");}
         else {
             BaseTestUtils.report(protocol + " is not supported here!", Reporter.FAIL);
         }
@@ -94,8 +96,8 @@ public class ConfBackupNegativeSteps extends CliNegative {
      * 3.	Import with bad ip
      * 4.	Import with bad password
      * */
-    public void confbackupImportNegativeTest(ImportExport.ImportExportType importExportType) throws Exception  {
-        importNegativeTest(Menu.system().backup().config().build(), importExportType+"://root@"+ restTestBase.getLinuxFileServer().getHost() +":"+ImportExport.getPath(importExportType)+ CONFBACKUP_NAME + ".tar");
+    public void confbackupImportNegativeTest(ImportExport.ImportExportType importExportType, String hostIp, String password) throws Exception  {
+        importNegativeTest(Menu.system().backup().config().build(), password, importExportType+"://root@"+ hostIp +":"+ImportExport.getPath(importExportType)+ CONFBACKUP_NAME + ".tar");
 
     }
 
@@ -111,10 +113,12 @@ public class ConfBackupNegativeSteps extends CliNegative {
         uiInit();
         initNegativeBackup();
         protocol.toLowerCase();
-        if(protocol.equals("ftp")){ confbackupImportNegativeTest(ImportExport.ImportExportType.ftp);}
-        else if(protocol.equals("sftp")){confbackupImportNegativeTest(ImportExport.ImportExportType.sftp);}
-        else if(protocol.equals("ssh")){confbackupImportNegativeTest(ImportExport.ImportExportType.ssh);}
-        else if(protocol.equals("scp")){confbackupImportNegativeTest(ImportExport.ImportExportType.scp);}
+        String host = restTestBase.getGenericLinuxServer().getHost();
+        String password = restTestBase.getGenericLinuxServer().getPassword();
+        if(protocol.equals("ftp")){ confbackupImportNegativeTest(ImportExport.ImportExportType.ftp, host, password);}
+        else if(protocol.equals("sftp")){confbackupImportNegativeTest(ImportExport.ImportExportType.sftp, host, "bad_password");}
+        else if(protocol.equals("ssh")){confbackupImportNegativeTest(ImportExport.ImportExportType.ssh, "1.1.1.1", host);}
+        else if(protocol.equals("scp")){confbackupImportNegativeTest(ImportExport.ImportExportType.scp, "1.1.1.1", "bad_password");}
         else {
             BaseTestUtils.report(protocol + " is not supported here!", Reporter.FAIL);
         }

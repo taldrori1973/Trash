@@ -3,8 +3,10 @@
 Feature: MSSP Login APIs
 
   @SID_1
-  Scenario: kill all simulation on current vision
+  Scenario: kill all simulation on current vision and register as mssp
     * CLI kill all simulator attacks on current vision
+    Then CLI Operations - Run Root Session command "echo -e "ip.address=172.17.164.10\nhttp.user.name=msspportal\nhttp.password=msspportal\nauth=basic" > /opt/radware/mgt-server/properties/mssp.properties"
+    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 360
 
   @SID_2
   Scenario: /mgmt/monitor/security/devices/status/bulk
