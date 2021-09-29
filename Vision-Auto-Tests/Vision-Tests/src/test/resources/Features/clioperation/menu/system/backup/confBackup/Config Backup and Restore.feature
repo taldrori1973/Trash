@@ -8,7 +8,7 @@ Feature: Backup and Restore
     # TED Configuration
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionInDays\":.*,/\"elasticRetentionInDays\":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionMaxPercent\":.*,/\"elasticRetentionMaxPercent\":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command on Vision 2 "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command on Vision 2 "sed -i '1,5s/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
     Then CLI Operations - Run Radware Session command "net firewall open-port set 9200 open" on vision 2, timeout 5
 
   @SID_2
@@ -69,14 +69,14 @@ Feature: Backup and Restore
     Given UI Login with user "radware" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI "Validate" Report With Name "Report_backup_restore"
-      | Template              | reportType:DefensePro Analytics, Widgets:[ALL], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
+      | Template              | reportType:DefensePro Analytics, Widgets:[Traffic Bandwidth, Connections Rate, Concurrent Connections, Top Attacks, Top Attacks by Volume, Top Attacks by Protocol, Critical Attacks by Mitigation Action, Attacks by Threat Category, Attacks by Mitigation Action, Top Attack Destinations, Top Attack Sources, Top Scanners, Top Probed IP Addresses, Attacks by Protection Policy, Attack Categories by Bandwidth, Top Allowed Attackers, Top Attacks by Duration, Top Attacks by Signature], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
       | Time Definitions.Date | Quick:1W                                                                                          |
       | Format                | Select: HTML                                                                                      |
 
   @SID_12
   Scenario: Restore validation AMS report schedule
     Then CLI copy "/home/radware/Scripts/get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI Run linux Command "/get_scheduled_report_value.sh Report_backup_restore" on "ROOT_SERVER_CLI" and validate result EQUALS "0 34 16 1 1,2,3,4,5,6,7,8,9,10,11,12 ? *"
+    Then CLI Run linux Command "/get_scheduled_report_value.sh Report_backup_restore" on "ROOT_SERVER_CLI" and validate result EQUALS "0 00 12 ? * 1"
 
   @SID_13
   Scenario: Restore validation AMS report results
@@ -132,7 +132,7 @@ Feature: Backup and Restore
 
   @SID_20
   Scenario: Restore validation fluentd listening port
-    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk '{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400"
+    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk 'NR==1{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400"
 
   @SID_21
   Scenario: Restore validation td-agent service
@@ -149,7 +149,7 @@ Feature: Backup and Restore
 
   @SID_24
   Scenario: Restore Validate td-agent configuration
-    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk '{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400"
+    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk 'NR==1{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400"
 
   @SID_25
   Scenario: Restore Validate TED configuration
