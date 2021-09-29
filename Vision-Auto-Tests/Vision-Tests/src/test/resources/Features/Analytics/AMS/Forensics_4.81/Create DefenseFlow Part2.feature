@@ -1,6 +1,6 @@
 @TC119588
 Feature:Create DefenseFlow Part2
-
+  
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     * REST Delete ES index "forensics-*"
@@ -533,13 +533,13 @@ Feature:Create DefenseFlow Part2
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Output Protocol Destination Port Not Equal"
-
+  
   @SID_27
   Scenario: create new Output Radware ID Direction Equal
     Given UI "Create" Forensics With Name "Output Radware ID Direction Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Radware ID                                                                     |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In]                            |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound]                            |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -547,19 +547,19 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Radware ID Direction Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Radware ID                                                                     |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In]                            |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound]                            |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Radware ID Direction Equal"
-
+  
   @SID_28
   Scenario: create new Output Duration Direction Equal
     Given UI "Create" Forensics With Name "Output Duration Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Duration                                                                                                         |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Out]                                                             |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Outbound]                                                             |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -567,7 +567,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Duration Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Duration                                                                                                         |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Out]                                                             |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Outbound]                                                             |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -621,7 +621,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Total Mbits Dropped Direction Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Total Mbits Dropped                                                            |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Out,Unknown]               |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Outbound,Unknown]               |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -630,20 +630,20 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Total Mbits Dropped Direction Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Total Mbits Dropped                                                            |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Out,Unknown]               |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Outbound,Unknown]               |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Total Mbits Dropped Direction Not Equal"
-
+  
   @SID_32
   Scenario: create new Output Max bps Direction Equal
     Given UI "Create" Forensics With Name "Output Max bps Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Max bps                                                                                                          |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In,Out,Unknown,Both]                                             |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound,Outbound,Unknown,Both]                                             |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -652,27 +652,27 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Max bps Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Max bps                                                                                                          |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In,Out,Unknown,Both]                                             |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound,Outbound,Unknown,Both]                                             |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Max bps Direction Equal"
-
+  
   @SID_33
   Scenario: create new Output Physical Port Direction Not Equal
     Given UI "Create" Forensics With Name "Output Physical Port Direction Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Physical Port                                                                  |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[In,Out,Unknown,Both]       |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Inbound,Outbound,Unknown,Both]       |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
     Then UI "Validate" Forensics With Name "Output Physical Port Direction Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Physical Port                                                                  |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[In,Out,Unknown,Both]       |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Inbound,Outbound,Unknown,Both]       |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
@@ -885,13 +885,13 @@ Feature:Create DefenseFlow Part2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Start Time Duration Not Equal"
-
+  
   @SID_44
   Scenario: create new Output End Time Duration Not Equal
     Given UI "Create" Forensics With Name "Output End Time Duration Not Equal"
       | Product               | DefenseFlow                                                                                                         |
       | Output                | End Time                                                                                                            |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hou] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hour] |
       | devices               | All                                                                                                                 |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
@@ -900,7 +900,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output End Time Duration Not Equal"
       | Product               | DefenseFlow                                                                                                         |
       | Output                | End Time                                                                                                            |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hou] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hour] |
       | devices               | All                                                                                                                 |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |

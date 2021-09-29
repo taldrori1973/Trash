@@ -226,48 +226,48 @@ Feature: Top Attacking By GeoLocation Widget In Report
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
 
   @SID_34
-  Scenario: Create and Generate New Report with Exclude Malicious IP Addresses
+  Scenario: Create and Generate New Report with 10 plus countries
 
-#    Then UI Navigate to "AMS REPORTS" page via homepage
-    Given UI "Create" Report With Name "Exclude Top Attacking by GeoLocation"
+
+    Given UI "Create" Report With Name "Top 10 Attacking by GeoLocation"
       | Template | reportType:DefensePro Analytics,Widgets:[Top Attacking Geolocations], devices:[All], showTable:true |
 
-    Then UI "Validate" Report With Name "Exclude Top Attacking by GeoLocation"
+    Then UI "Validate" Report With Name "Top 10 Attacking by GeoLocation"
       | Template | reportType:DefensePro Analytics,Widgets:[Top Attacking Geolocations], devices:[All], showTable:true |
 
-    Then UI Click Button "My Report" with value "Exclude Top Attacking by GeoLocation"
-    Then UI Click Button "Generate Report Manually" with value "Exclude Top Attacking by GeoLocation"
+    Then UI Click Button "My Report" with value "Top 10 Attacking by GeoLocation"
+    Then UI Click Button "Generate Report Manually" with value "Top 10 Attacking by GeoLocation"
     Then Sleep "35"
 
-    Given UI "Edit" Report With Name "Exclude Top Attacking by GeoLocation"
+    Given UI "Edit" Report With Name "Top 10 Attacking by GeoLocation"
       | Format   | Select: CSV                                                                                                                                                       |
 
-    Then UI "Validate" Report With Name "Exclude Top Attacking by GeoLocation"
+    Then UI "Validate" Report With Name "Top 10 Attacking by GeoLocation"
       | Template | reportType:DefensePro Analytics,Widgets:[Top Attacking Geolocations], devices:[All], showTable:true |
       | Format   | Select: CSV                                                                                                                                                       |
 
-    Then UI Click Button "My Report" with value "Exclude Top Attacking by GeoLocation"
-    Then UI Click Button "Generate Report Manually" with value "Exclude Top Attacking by GeoLocation"
+    Then UI Click Button "My Report" with value "Top 10 Attacking by GeoLocation"
+    Then UI Click Button "Generate Report Manually" with value "Top 10 Attacking by GeoLocation"
     Then Sleep "65"
 
   @SID_35
   Scenario: VRM report unzip local CSV file
-    Then Sleep "10"
+    Then Sleep "20"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
-    Then Sleep "10"
+    Then Sleep "20"
 
 
     #############################  Validate Top Attacking By GeoLocation CSV ####################################################
 
   @SID_36
-  Scenario: VRM report validate CSV Exclude Top Attacking by GeoLocation number of lines
+  Scenario: VRM report validate New Report with 10 plus countries number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "14"
     Then Sleep "10"
 
 
   @SID_37
-  Scenario: VRM report validate CSV file Exclude Top Attacking by GeoLocation headers
+  Scenario: VRM report validate New Report with 10 plus countries headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Country"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Count"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Percent"
@@ -275,7 +275,7 @@ Feature: Top Attacking By GeoLocation Widget In Report
 
 
   @SID_38
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -2|tail -1|grep -oP "Multiple,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Multiple"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
@@ -283,76 +283,76 @@ Feature: Top Attacking By GeoLocation Widget In Report
     Then Sleep "10"
 
   @SID_39
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -3|tail -1|grep -oP "CN,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -3|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "CN"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -3|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -3|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.0000"
 
   @SID_40
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -4|tail -1|grep -oP "FR,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -4|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "FR"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -4|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -4|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.0000"
 
   @SID_41
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -5|tail -1|grep -oP "IN,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -5|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "IN"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -5|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -5|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.0000"
 
   @SID_42
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -6|tail -1|grep -oP "KR,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -6|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "KR"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -6|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -6|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.0000"
 
   @SID_43
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -7|tail -1|grep -oP "LT,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -7|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "LT"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -7|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -7|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.0000"
 
   @SID_44
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -8|tail -1|grep -oP "MD,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -8|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "MD"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -8|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -8|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.0000"
 
   @SID_45
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -9|tail -1|grep -oP "MX,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -9|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "MX"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -9|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -9|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.0000"
 
   @SID_46
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -10|tail -1|grep -oP "SE,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -10|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "SE"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -10|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -10|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.0000"
 
   @SID_47
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -11|tail -1|grep -oP "SG,1,10.0000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -11|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "SG"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -11|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -11|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.0000"
 
   @SID_48
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -13|tail -1|grep -oP "Total Count,,10" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -13|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Total Count"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|head -13|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10"
 
   @SID_49
-  Scenario:VRM report validate CSV file Exclude Top Attacking by GeoLocation content
+  Scenario:VRM report validate New Report with 10 plus countries content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|tail -1|grep -oP "Total Hits,,12" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Total Hits"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "12"
@@ -360,7 +360,7 @@ Feature: Top Attacking By GeoLocation Widget In Report
 
   @SID_50
   Scenario: Delete report Top Attacking By GeoLocation Report without Summary Table
-    Then UI Delete Report With Name "Exclude Top Attacking by GeoLocation"
+    Then UI Delete Report With Name "Top 10 Attacking by GeoLocation"
 
 
   @SID_51
@@ -654,6 +654,9 @@ Feature: Top Attacking By GeoLocation Widget In Report
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Total Hits"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attacking\ Geolocations-DefensePro\ Analytics.csv|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
 
+  @SID_50
+  Scenario: Delete report Exclude Top Attacking by GeoLocation
+    Then UI Delete Report With Name "Exclude Top Attacking by GeoLocation"
   @SID_91
   Scenario: Logout and close browser
     Given UI logout and close browser
