@@ -539,7 +539,7 @@ Feature:Create DefensePro Part2
     Given UI "Create" Forensics With Name "Output Radware ID Direction Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Radware ID                                                                     |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In]                            |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound]                            |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Days,2]                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
@@ -548,7 +548,7 @@ Feature:Create DefensePro Part2
     Then UI "Validate" Forensics With Name "Output Radware ID Direction Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Radware ID                                                                     |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In]                            |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound]                            |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Days,2]                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
@@ -561,7 +561,7 @@ Feature:Create DefensePro Part2
     Given UI "Create" Forensics With Name "Output Duration Direction Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Duration                                                                                                         |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Out]                                                             |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Outbound]                                                             |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -570,7 +570,7 @@ Feature:Create DefensePro Part2
     Then UI "Validate" Forensics With Name "Output Duration Direction Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Duration                                                                                                         |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Out]                                                             |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Outbound]                                                             |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -627,7 +627,7 @@ Feature:Create DefensePro Part2
     Given UI "Create" Forensics With Name "Output Total Mbits Dropped Direction Not Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Total Mbits Dropped                                                            |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Out,Unknown]               |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Outbound,Unknown]               |
       | devices               | index:10                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -635,7 +635,7 @@ Feature:Create DefensePro Part2
     Then UI "Validate" Forensics With Name "Output Total Mbits Dropped Direction Not Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Total Mbits Dropped                                                            |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Out,Unknown]               |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Outbound,Unknown]               |
       | devices               | index:10                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -647,7 +647,7 @@ Feature:Create DefensePro Part2
     Given UI "Create" Forensics With Name "Output Max bps Direction Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Max bps                                                                                                          |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In,Out,Unknown,Both]                                             |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound,Outbound,Unknown,Both]                                             |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                  |
@@ -656,7 +656,7 @@ Feature:Create DefensePro Part2
     Then UI "Validate" Forensics With Name "Output Max bps Direction Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Max bps                                                                                                          |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In,Out,Unknown,Both]                                             |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound,Outbound,Unknown,Both]                                             |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                  |
@@ -669,7 +669,7 @@ Feature:Create DefensePro Part2
     Given UI "Create" Forensics With Name "Output Physical Port Direction Not Equal"
       | Product               | DefensePro                                                                         |
       | Output                | Physical Port                                                                      |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[In,Out,Unknown,Both]           |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Inbound,Outbound,Unknown,Both]           |
       | devices               | index:10                                                                           |
       | Time Definitions.Date | Relative:[Months,4]                                                                |
       | Schedule              | Run Every:once, On Time:+6H                                                        |
@@ -678,7 +678,7 @@ Feature:Create DefensePro Part2
     Then UI "Validate" Forensics With Name "Output Physical Port Direction Not Equal"
       | Product               | DefensePro                                                                         |
       | Output                | Physical Port                                                                      |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[In,Out,Unknown,Both]           |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Inbound,Outbound,Unknown,Both]           |
       | devices               | index:10                                                                           |
       | Time Definitions.Date | Relative:[Months,4]                                                                |
       | Schedule              | Run Every:once, On Time:+6H                                                        |

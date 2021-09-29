@@ -1,7 +1,6 @@
 @TC119592
 Feature:Create DefensePro Part3
 
-  
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     * REST Delete ES index "forensics-*"
@@ -240,7 +239,7 @@ Feature:Create DefensePro Part3
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Duration Protocol Equal"
-
+  @test_par4
   @SID_13
   Scenario: create new Output Total Packets Dropped Protocol Equal
     Given UI "Create" Forensics With Name "Output Total Packets Dropped Protocol Equal"
@@ -1032,7 +1031,7 @@ Feature:Create DefensePro Part3
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output VLAN Tag Threat Category Equal"
-
+  @test_par4
   @SID_51
   Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Threat Category Equal
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Threat Category Equal"
@@ -1054,13 +1053,13 @@ Feature:Create DefensePro Part3
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Threat Category Equal"
-
+  @test_par4
   @SID_52
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag Threat Category Equal
     Given UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Threat Category Equal"
       | Product               | DefensePro                                                                                                                                       |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag   |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS]                                                                                       |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS Flood]                                                                                       |
       | devices               | All                                                                                                                                              |
       | Time Definitions.Date | Quick:1D                                                                                                                                         |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                                                                                     |
@@ -1069,7 +1068,7 @@ Feature:Create DefensePro Part3
     Then UI "Validate" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Threat Category Equal"
       | Product               | DefensePro                                                                                                                                       |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag   |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS]                                                                                       |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS Flood]                                                                                       |
       | devices               | All                                                                                                                                              |
       | Time Definitions.Date | Quick:1D                                                                                                                                         |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                                                                                     |
@@ -1180,7 +1179,7 @@ Feature:Create DefensePro Part3
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                  |
       | Format                | Select: CSV With Attack Details                                                                                                                                                                                                                                                                   |
     Then UI Delete Forensics With Name "Output All Threat Category Equal"
-
+  @test_par4
   @SID_58
   Scenario: create new Output Start Time Threat Category Equal
     Given UI "Create" Forensics With Name "Output Start Timen Threat Category Equal"
@@ -1222,7 +1221,7 @@ Feature:Create DefensePro Part3
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware        |
       | Format                | Select: CSV                                                                                                             |
     Then UI Delete Forensics With Name "Output End Time Threat Category Equal"
-
+  @test_par4
   @SID_60
   Scenario: create new Output Device IP Address Threat Category Not Equal
     Given UI "Create" Forensics With Name "Output Device IP Address Threat Category Not Equal"
