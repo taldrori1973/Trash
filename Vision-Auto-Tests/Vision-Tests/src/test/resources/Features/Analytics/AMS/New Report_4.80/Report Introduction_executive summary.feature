@@ -1,9 +1,9 @@
 @TC122738
 Feature: Report introduction and executive summary
-
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
+
 
   @SID_2
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
@@ -25,6 +25,7 @@ Feature: Report introduction and executive summary
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
     And UI Navigate to "AMS Reports" page via homePage
+
 
   @SID_3
   Scenario: Clear SMTP server log files
@@ -237,7 +238,173 @@ Feature: Report introduction and executive summary
     Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
     Then UI Delete Report With Name "Report intro_executive summary7"
 
-
   @SID_14
+  Scenario: create new ADC Report intro_executive summary
+    And UI Navigate to "ADC Reports" page via homePage
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Report intro_executive summary"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                         |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: false, Bold:false, Underline: false, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Share            | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                                    |
+      | Format           | Select:  PDF                                                                                                                                           |
+    Then UI "Validate" Report With Name "Report intro_executive summary"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                         |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: false, Bold:false, Underline: false, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Share            | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                                    |
+      | Format           | Select: PDF                                                                                                                                            |
+
+    Then UI Click Button "My Report" with value "Report intro_executive summary"
+    Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary"
+    Then Sleep "60"
+    Then UI Click Button "Log Preview" with value "Report intro_executive summary_0"
+    Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
+
+    #subject
+    Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
+    #body
+    Then Validate "setup" user eMail expression "grep "Email Body"" EQUALS "1"
+    #From
+    Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "1"
+    #To
+    Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "1"
+    #Attachment
+    Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).pdf"" EQUALS "1"
+    Given Clear email history for user "setup"
+
+
+  @SID_15
+  Scenario: Edit HTML Format new Report intro_executive summary
+    Given UI "Edit" Report With Name "Report intro_executive summary"
+      | Format | Select: HTML |
+    Then Sleep "10"
+    Then UI "Validate" Report With Name "Report intro_executive summary"
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80] |
+      | Format     | Select: HTML                                                                   |
+
+    Then UI Click Button "My Report" with value "Report intro_executive summary"
+    Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary"
+    Then Sleep "60"
+    Then UI Click Button "Log Preview" with value "Report intro_executive summary_0"
+    Then UI Text of Executive Summary equal to "Automation test" and Link Equal to "Click Here To Open Google,www.google.com"
+
+    #subject
+    Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
+    #body
+    Then Validate "setup" user eMail expression "grep "Email Body"" EQUALS "1"
+    #From
+    Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "1"
+    #To
+    Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "1"
+    #Attachment
+    Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).html"" EQUALS "1"
+    Given Clear email history for user "setup"
+
+
+  @SID_16
+  Scenario: Edit csv Format new Report intro_executive summary
+    Given UI "Edit" Report With Name "Report intro_executive summary"
+      | Format | Select: CSV |
+    Then Sleep "10"
+    Then UI "Validate" Report With Name "Report intro_executive summary"
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80] |
+      | Format     | Select: CSV                                                                    |
+
+    Then UI Click Button "My Report" with value "Report intro_executive summary"
+    Then UI Click Button "Generate Report Manually" with value "Report intro_executive summary"
+    Then Sleep "60"
+    Then UI Click Button "Log Preview" with value "Report intro_executive summary_0"
+
+    #subject
+    Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
+    #body
+    Then Validate "setup" user eMail expression "grep "Email Body"" EQUALS "1"
+    #From
+    Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "1"
+    #To
+    Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "1"
+    #Attachment
+    Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "1"
+    Given Clear email history for user "setup"
+    Then UI Delete Report With Name "Report intro_executive summary"
+
+  @SID_17
+  Scenario: create new ADC Report intro_executive summary1
+    Given UI "Create" Report With Name "Report intro_executive summary1"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                        |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: false, Bold:false, Underline: true, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select:  PDF                                                                                                                                          |
+    Then UI "Validate" Report With Name "Report intro_executive summary1"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                        |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: false, Bold:false, Underline: true, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select: PDF                                                                                                                                           |
+
+
+  @SID_18
+  Scenario: create new ADC Report intro_executive summary2
+    Given UI "Create" Report With Name "Report intro_executive summary2"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                       |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: false, Bold:true, Underline: true, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select:  PDF                                                                                                                                         |
+    Then UI "Validate" Report With Name "Report intro_executive summary2"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                       |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: false, Bold:true, Underline: true, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select: PDF                                                                                                                                          |
+
+  @SID_19
+  Scenario: create new ADC Report intro_executive summary3
+    Given UI "Create" Report With Name "Report intro_executive summary3"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                       |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: true, Bold:false, Underline: true, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select:  PDF                                                                                                                                         |
+    Then UI "Validate" Report With Name "Report intro_executive summary3"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                       |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: true, Bold:false, Underline: true, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select: PDF                                                                                                                                          |
+
+  @SID_20
+  Scenario: create new ADC Report intro_executive summary4
+    Given UI "Create" Report With Name "Report intro_executive summary4"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                        |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: true, Bold:false, Underline: false, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select:  PDF                                                                                                                                          |
+    Then UI "Validate" Report With Name "Report intro_executive summary4"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                        |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: true, Bold:false, Underline: false, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select: PDF                                                                                                                                           |
+
+  @SID_21
+  Scenario: create new ADC Report intro_executive summary5
+    Given UI "Create" Report With Name "Report intro_executive summary5"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                       |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: true, Bold:true, Underline: false, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select:  PDF                                                                                                                                         |
+    Then UI "Validate" Report With Name "Report intro_executive summary5"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                       |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: true, Bold:true, Underline: false, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select: PDF                                                                                                                                          |
+
+  @SID_22
+  Scenario: create new ADC Report intro_executive summary6
+    Given UI "Create" Report With Name "Report intro_executive summary6"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                        |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: false, Bold:true, Underline: false, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select:  PDF                                                                                                                                          |
+    Then UI "Validate" Report With Name "Report intro_executive summary6"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                        |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: false, Bold:true, Underline: false, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select: PDF                                                                                                                                           |
+
+  @SID_23
+  Scenario: create new ADC Report intro_executive summary7
+    Given UI "Create" Report With Name "Report intro_executive summary7"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                      |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: true, Bold:true, Underline: true, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select:  PDF                                                                                                                                        |
+    Then UI "Validate" Report With Name "Report intro_executive summary7"
+      | Template-1       | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                                                                      |
+      | ExecutiveSummary | SummaryBody: Automation test, Title: true, Bold:true, Underline: true, Location: left, URL:[www.google.com,Click Here To Open Google] ,Enable :true |
+      | Format           | Select: PDF                                                                                                                                         |
+
+  @SID_24
   Scenario: Logout
     Then UI logout and close browser
