@@ -1,6 +1,6 @@
 @TC119589
 Feature:Create DefenseFlow Part3
-
+  
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     * REST Delete ES index "forensics-*"
@@ -1064,7 +1064,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Threat Category Equal"
       | Product               | DefenseFlow                                                                                                                                    |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS]                                                                                     |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS Flood]                                                                                     |
       | devices               | index:10                                                                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                               |
@@ -1072,7 +1072,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Threat Category Equal"
       | Product               | DefenseFlow                                                                                                                                    |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS]                                                                                     |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS Flood]                                                                                     |
       | devices               | index:10                                                                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                               |
