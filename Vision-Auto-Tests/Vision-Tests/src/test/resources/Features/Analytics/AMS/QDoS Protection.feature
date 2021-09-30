@@ -324,6 +324,7 @@ Feature: QDoS Protection & Attack Category
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Packet Rate" findBy cellValue "2197"
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Packet Rate" findBy cellValue "2211"
 
+
   @SID_38
   Scenario Outline:  validate date of Info table
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
@@ -515,7 +516,27 @@ Feature: QDoS Protection & Attack Category
     Then UI Click Button "Exit button"
 
 
+
   @SID_57
+  Scenario:Navigate to DefensePro Behavioral Protections Dashboard and validate QDos chart
+    And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI "Select" Scope Polices
+      | devices | type:DefensePro Behavioral Protections,index:11,policies:[p1] |
+    Then Sleep "10"
+    Then UI Validate Virtical StackBar data with widget "qdosChart"
+      | label | value | legendName   |
+      | 0     | 25852 | Under Attack |
+      | 1     | 2430  | Peacetime    |
+      | 5     | 2070  | Peacetime    |
+      | 10    | 2178  | Peacetime    |
+      | 20    | 2001  | Peacetime    |
+      | 30    | 2124  | Peacetime    |
+      | 39    | 25768 | Under Attack |
+      | 40    | 2211  | Peacetime    |
+      | 45    | 2417  | Peacetime    |
+
+
+  @SID_58
   Scenario: Logout and close browser
     Given UI logout and close browser
     Given UI Logout

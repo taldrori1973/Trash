@@ -218,7 +218,7 @@ Feature: Vision APM Upgrade current -3
 
   @SID_24
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.5.0-1"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.5.0-2"
 
   @SID_25
   Scenario: validate APM container is up and relevant services are running in it

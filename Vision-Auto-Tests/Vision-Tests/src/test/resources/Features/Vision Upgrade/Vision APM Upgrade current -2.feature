@@ -204,7 +204,7 @@ Feature: Vision APM Upgrade current -2
 
   @SID_23
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.5.0-1"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.5.0-2"
 
   @SID_24
   Scenario: Validate IPv6 Hostname in /etc/hosts
