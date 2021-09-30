@@ -11,14 +11,14 @@ Feature: Edit ADC Report tests
   Scenario: Create and validate ADC Report
 #    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC Report"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                             |
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select:  PDF                                                                                              |
     Then UI "Validate" Report With Name "ADC Report"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                             |
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
@@ -28,16 +28,16 @@ Feature: Edit ADC Report tests
   @SID_3
   Scenario: Add Template Widget to ADC Report
     Given UI "Edit" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,AddWidgets:[End-to-End Time] , Applications:[6:80] |
+      | Template-1 | reportType:Application ,AddWidgets:[End-to-End Time] , Applications:[Rejith_32326516:80] |
     Then UI "Validate" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections,End-to-End Time] , Applications:[6:80] |
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections,End-to-End Time] , Applications:[Rejith_32326516:80] |
 
   @SID_4
   Scenario: Delete Template Widget from ADC Report
     Given UI "Edit" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,DeleteWidgets:[End-to-End Time] , Applications:[6:80] |
+      | Template-1 | reportType:Application ,DeleteWidgets:[End-to-End Time] , Applications:[Rejith_32326516:80] |
     Then UI "Validate" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80] |
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80] |
 
   @SID_5
   Scenario: Edit Template Applications from ADC Report Report
@@ -51,7 +51,7 @@ Feature: Edit ADC Report tests
     Given UI "Edit" Report With Name "ADC Report"
       | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
     Then UI "Validate" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                             |
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
       | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
       | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
 
@@ -60,21 +60,21 @@ Feature: Edit ADC Report tests
     Given UI "Edit" Report With Name "ADC Report"
       | Template-3 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                             |
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
       | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
 
   @SID_8
   Scenario: Create and validateADC Report2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC Report2"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                             |
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |
     Then UI "Validate" Report With Name "ADC Report2"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[6:80]                             |
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
