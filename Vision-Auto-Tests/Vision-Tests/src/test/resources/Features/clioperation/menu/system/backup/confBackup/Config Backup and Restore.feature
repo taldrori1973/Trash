@@ -18,7 +18,6 @@ Feature: Backup and Restore
     # Wait for lls to run before restore
     Then CLI LLS validate installation with expected: "Local License Server is running", timeout 1200
 
-
   @SID_3
   Scenario: Backup from source vision, and export to target vision
     When CLI Connect Radware
