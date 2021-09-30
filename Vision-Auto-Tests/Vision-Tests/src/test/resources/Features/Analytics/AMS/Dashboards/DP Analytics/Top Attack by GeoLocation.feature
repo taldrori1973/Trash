@@ -13,7 +13,7 @@ Feature: Top Attack by GeoLocation
     Given CLI simulate 1000 attacks of type "GEO" on "DefensePro" 11 with loopDelay 1500 and wait 60 seconds
     Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 11 with loopDelay 1500 and wait 60 seconds
 
-    Then Sleep "15"
+    Then Sleep "30"
 
 
   @SID_3
@@ -33,7 +33,7 @@ Feature: Top Attack by GeoLocation
   Scenario: Validate Top Attacking by GeoLocations Widget, 15m
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
-    Then Sleep "30"
+    Then Sleep "40"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
@@ -52,7 +52,7 @@ Feature: Top Attack by GeoLocation
   Scenario: Validate Top Attacking by GeoLocations Widget, 30m
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "30m"
-    Then Sleep "30"
+    Then Sleep "40"
 
 
      # Validate Multiple country
@@ -70,7 +70,7 @@ Feature: Top Attack by GeoLocation
   Scenario: Validate Top Attacking by GeoLocations Widget, 1H
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
-    Then Sleep "30"
+    Then Sleep "40"
 
      # Validate Multiple country
     Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
