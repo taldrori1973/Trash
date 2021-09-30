@@ -37,7 +37,7 @@ Feature: E2E LinkProof Report
   Scenario: Validate delivery card and generate report: ADC LinkProof Report1
     Then UI Click Button "My Report" with value "ADC LinkProof Report1"
     Then UI Click Button "Generate Report Manually" with value "ADC LinkProof Report1"
-    Then Sleep "35"
+    Then Sleep "45"
 
   @SID_7
   Scenario: VRM report unzip local CSV file
@@ -80,7 +80,7 @@ Feature: E2E LinkProof Report
   Scenario: Validate delivery card and generate report: ADC LinkProof Report2
     Then UI Click Button "My Report" with value "ADC LinkProof Report2"
     Then UI Click Button "Generate Report Manually" with value "ADC LinkProof Report2"
-    Then Sleep "35"
+    Then Sleep "45"
 
   @SID_12
   Scenario: VRM report unzip local CSV file
@@ -88,13 +88,13 @@ Feature: E2E LinkProof Report
 
   @SID_13
   Scenario: ADC LinkProof Report1 validate CSV file LinkProof Statistics-LinkProof.csv
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -1|tail -1|grep downThroughputUtil,wanLinkID,cunnEstConn,upThroughputBitsPs,upThroughputUtil,downThroughputBitsPS,timestamp|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "-1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Prometheus_is_no_team_to_be_in"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "0"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "0"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -2|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "-1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -2|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "0"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -1|tail -1|grep downThroughputUtil,wanLinkID,upThroughputBitsPs,cunnEstConn,upThroughputUtil,downThroughputBitsPS,timestamp|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -4|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "-1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -4|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Prometheus_is_no_team_to_be_in"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -4|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "0"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -4|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "0"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -4|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "-1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/LinkProof Statistics-LinkProof.csv"|head -4|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "0"
 
   @SID_14
   Scenario: Delete reports
