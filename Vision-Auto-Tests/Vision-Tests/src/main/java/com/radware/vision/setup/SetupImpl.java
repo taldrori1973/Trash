@@ -30,10 +30,10 @@ import java.util.Map;
 public class SetupImpl extends TestBase implements Setup {
 
     public void buildSetup() throws Exception {
-        //SystemProperties systemProperties = SystemProperties.get_instance();
-        //String syncDevices = systemProperties.getValueByKey("SYNC_DEVICES");
-        //if(syncDevices == null || !syncDevices.toUpperCase().equals("TRUE"))
-        //    return;
+        SystemProperties systemProperties = SystemProperties.get_instance();
+        String syncDevices = systemProperties.getValueByKey("SYNC_DEVICES");
+        if(syncDevices == null || !syncDevices.toUpperCase().equals("TRUE"))
+            return;
 
         DevicesTree existedDevicesTree = getDeviceTree();
         List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
