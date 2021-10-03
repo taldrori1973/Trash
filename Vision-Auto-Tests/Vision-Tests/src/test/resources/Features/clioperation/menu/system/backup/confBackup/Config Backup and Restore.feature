@@ -1,4 +1,4 @@
-@TC108785
+@TC108785 @Debug
 Feature: Backup and Restore
 
 
@@ -16,7 +16,7 @@ Feature: Backup and Restore
     Given validate vision server services is UP
     Given validate vision server services is UP on vision 2
     # Wait for lls to run before restore
-    Then CLI LLS validate installation with expected: "Local License Server is running", timeout 1200
+    Then CLI LLS validate installation with expected: "Local License Server is running", timeout 1200 on vision 2
 
   @SID_3
   Scenario: Backup from source vision, and export to target vision

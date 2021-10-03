@@ -103,6 +103,17 @@ public class LLSSteps {
         }
     }
 
+    @Given("^CLI LLS validate installation with expected: \"(.*)\", timeout (\\d+) on vision 2$")
+    public void waitForInstallationVision2(String expected, int timeout) {
+        try {
+            String sourceIP = restTestBase.getVisionServerHA().getHost_2();
+            RadwareServerCli radwareServerCli = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            LLSHandler.waitForInstallation(radwareServerCli, timeout, expected);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
     @Given("^CLI LLS HA validate License Activation: \"(.*)\", on the standby machine,timeout (\\d+)$")
     public void waitForLicenseActivation(String entitlementID, int timeout) {
         try {
