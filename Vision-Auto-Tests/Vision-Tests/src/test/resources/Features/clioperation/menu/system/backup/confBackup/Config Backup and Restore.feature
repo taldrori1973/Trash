@@ -1,4 +1,4 @@
-@TC108785 @Debug
+@TC108785
 Feature: Backup and Restore
 
 
