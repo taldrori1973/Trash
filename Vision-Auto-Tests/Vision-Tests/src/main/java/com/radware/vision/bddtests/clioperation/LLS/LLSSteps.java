@@ -108,7 +108,9 @@ public class LLSSteps {
         try {
             String sourceIP = restTestBase.getVisionServerHA().getHost_2();
             RadwareServerCli radwareServerCli = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
-            radwareServerCli.connect();
+            if (!radwareServerCli.isConnected()) {
+                radwareServerCli.connect();
+            }
             LLSHandler.waitForInstallation(radwareServerCli, timeout, expected);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
