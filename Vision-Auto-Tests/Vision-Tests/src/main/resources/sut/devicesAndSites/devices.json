@@ -460,7 +460,7 @@
               "snmpV3AuthenticationProtocol": "SHA",
               "snmpV3PrivacyProtocol": "DES",
               "snmpVersion": "SNMP_V2",
-              "verifyHttpCredentials": true,
+              "verifyHttpCredentials": false,
               "verifyHttpsCredentials": true,
               "visionMgtPort": "G1"
             }
@@ -495,10 +495,10 @@
               "snmpV3PrivacyPassword": "radware",
               "snmpV3PrivacyProtocol": "DES",
               "snmpV3Username": "radware",
-              "snmpVersion": "SNMP_V3",
+              "snmpVersion": "SNMP_V2",
               "useSnmpV3Authentication": true,
               "useSnmpV3Privacy": true,
-              "verifyHttpCredentials": true,
+              "verifyHttpCredentials": false,
               "verifyHttpsCredentials": true,
               "visionMgtPort": "G1"
             }
@@ -531,7 +531,7 @@
               "snmpV3AuthenticationProtocol": "SHA",
               "snmpV3PrivacyProtocol": "DES",
               "snmpVersion": "SNMP_V2",
-              "verifyHttpCredentials": true,
+              "verifyHttpCredentials": false,
               "verifyHttpsCredentials": true,
               "visionMgtPort": "G1"
             }
