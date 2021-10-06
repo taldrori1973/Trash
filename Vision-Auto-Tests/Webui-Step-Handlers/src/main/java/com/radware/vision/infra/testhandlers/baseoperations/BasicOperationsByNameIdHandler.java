@@ -10,16 +10,19 @@ import com.radware.automation.webui.widgets.api.Button;
 import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.*;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.enums.WebWidgetType;
 import junit.framework.SystemTestCase;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
+import static com.radware.automation.webui.UIUtils.getDriver;
 
 /**
  * Created by AviH on 9/6/2015.
@@ -298,6 +301,36 @@ public class BasicOperationsByNameIdHandler extends WebUIBasePage {
 			BaseTestUtils.report("Failed to get Element for label: " + elementLabelId + " \n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
+	public int ScrollDownAndCountApplications(String prefix) throws TargetWebElementNotFoundException, InterruptedException {
+		BasicOperationsHandler.setTextField("Filter", prefix);
+		Set<String> elementsDebugIds = new HashSet<>();
+		int i = 2;
+		WebElement prevApplicationElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, 'scopeSelection_deviceIP_')]").getBy()).get(0);
+		WebElement ApplicationElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, 'scopeSelection_deviceIP_')]").getBy()).get(1);
+		while (!prevApplicationElement.equals(ApplicationElement)) {
+			prevApplicationElement = ApplicationElement;
+			ApplicationElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, 'scopeSelection_deviceIP_')]").getBy()).get(i);
+			List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, 'scopeSelection_deviceIP_')]").getBy());
+			elements.forEach(n -> {
+				try {
+					elementsDebugIds.add(n.getAttribute("data-debug-id"));
+				} catch (StaleElementReferenceException exception) {
+					WebUIUtils.sleep(1);
+					elementsDebugIds.add(n.getAttribute("data-debug-id"));
+				}
+			});
+			if (ApplicationElement != null) {
+				((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true)", ApplicationElement);
+				Thread.sleep(100);
+			}
+			if (i < 6) {
+				i++;
+			}
+		}
+
+		return elementsDebugIds.size();
+	}
+
 
 	public void validateCheckboxSelection(String elementId, boolean expectedCheckboxSelection) {
 		try {
