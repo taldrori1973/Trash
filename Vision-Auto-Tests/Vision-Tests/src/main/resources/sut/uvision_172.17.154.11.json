@@ -1,0 +1,39 @@
+{
+  "setupFile": "fullSetup.json",
+  "serverName": "uVision",
+  "deployConfigurations": {
+    "snapshot": "Current-1",
+    "setupMode": "upgrade",
+    "environment": "KVM-215"
+  },
+  "pair": {
+    "pairIp": "172.17.164.101",
+    "environment": "KVM-217"
+  },
+  "clientConfiguration": {
+    "hostIp": "172.17.154.11",
+    "userName": "radware",
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 443,
+      "defaultProtocol": "https"
+    },
+    "sqlDbConnection": {
+      "defaultPort": 3306,
+      "username": "root",
+      "password": "radware"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
+      "password": "radware"
+    }
+  },
+  "simulatorSet" : "sim_set_2",
+  "loadSimulators" : "true"
+}
