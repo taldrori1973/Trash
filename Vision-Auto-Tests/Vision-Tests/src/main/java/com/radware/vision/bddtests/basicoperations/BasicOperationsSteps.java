@@ -323,7 +323,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
         ClickOperationsHandler.setTextToElement(WebElementType.Class, elementId, inputText, false);
     }
 
-    @Given("^UI Validate Text field with Class \"(.*)\" \"(Equals|Contains)\" To \"(.*)\"(?: cut Characters Number (\\S+))?$")
+    @Given("^UI Validate Text field with Class \"(.*)\" \"(Equals|Contains)\" To \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\\\S+))?$")
     public void validateTextToElementWithClass(String elementClass, String compareMethod, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         OperatorsEnum operatorsEnum;
