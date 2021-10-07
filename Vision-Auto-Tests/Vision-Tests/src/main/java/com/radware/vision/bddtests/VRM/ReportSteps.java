@@ -85,7 +85,7 @@ public class ReportSteps extends VisionUITestBase {
     @Then("^UI \"(Create|Validate|Edit|Generate|Isexist|Delete)\" Report With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName, String negative, Map<String, String> reportsEntry) {
         Map<String, String> newReportEntry = new HashMap<>(reportsEntry);
-        if (!newReportEntry.get("Application").isEmpty()) {
+        if (!(newReportEntry.get("Application")==null)) {
             newReportEntry = SimulatorUtils.getNewReportTemplate(newReportEntry);
         }
         try {
