@@ -29,7 +29,6 @@ import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.tests.GeneralOperations.ByLabelValidations;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import org.json.JSONArray;
 import org.openqa.selenium.By;
@@ -40,6 +39,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethod;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.setTextField;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
@@ -54,8 +54,8 @@ public class BasicValidationsTests extends VisionUITestBase {
     }
 
     /**
-     * @param label
-     * @param isEnabled
+     * @param label - element labal
+     * @param isEnabled - element's expected status
      */
     @Then("^UI Validate Element EnableDisable status By Label \"([^\"]*)\"(?: and Value \"([^\"]*)\")? is Enabled \"(true|false)\"$")
     public void validateElementEnableDisableStatus(String label, String value, Boolean isEnabled) {
@@ -63,43 +63,36 @@ public class BasicValidationsTests extends VisionUITestBase {
     }
 
     /**
-     * @param label
-     * @param isExists
+     * @param label - element labal
+     * @param isExists - element's existance state
      */
     @Then("^UI Validate Element Existence By Label \"(.*)\" if Exists \"(true|false)\"(?: with value \"(.*)\")?$")
     public void validateElementExistenceByLabel(String label, Boolean isExists, String param) {
         BasicOperationsHandler.isElementFounds(label, isExists, param);
     }
 
-//    @Then("^UI Validate Element Existence By Label \"([^\"]*)\" Equals \"([^\"]*)\"$")
-//    public void validateElementValue(String param, String value) {
-//        BasicOperationsHandler.isElementFounds(label, isExists, param);
-//    }
-
-
     @Then("^UI Validate Element Existence By GWT id \"(.*)\" if Exists \"(true|false)\"(?: with value \"(.*)\")?$")
     public void validateElementExistenceByGwtId(String label, Boolean isExists, String param) {
         BasicOperationsHandler.isGwtElementExists(label, isExists, param);
     }
 
-    /**
-     * @param label
-     * @param isExists
-     */
     @Then("^UI Validate Element Selection By Label \"(.*)\" if Exists \"(true|false)\"(?: with value \"(.*)\")?$")
     public void validateElementSelectionByLabel(String label, Boolean isExists, String param) {
         BasicOperationsHandler.isElementSelected(label, isExists, param);
     }
 
-    /**
-     * @param selectorValue
-     * @param expectedText
-     * @param operatorsEnum
-     * @param cutCharsNumber - will be cut from the right side of the String
-     */
-
     @Then("^UI Validate Text field \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: On Regex \"([^\"]*)\")? (EQUALS|CONTAINS|MatchRegex|GT|GTE|LT|LTE) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
     public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
+            try {
+                if(params.contains("#")) {
+                    params = params.replaceAll("#.*;", (String) invokeMethod(params));
+                }
+                if(expectedText.contains("#"))
+                    expectedText = expectedText.replaceAll("#.*;", (String) invokeMethod(expectedText));
+            } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+            }
+
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;//this parameter can be used for equals or contains of String from char 0 until char cutCharsNumber
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
         ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, regex, operatorsEnum, Integer.parseInt(cutCharsNumber),offset);
@@ -116,13 +109,8 @@ public class BasicValidationsTests extends VisionUITestBase {
     public void validateTextFieldElementbyId(String selectorValue, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, operatorsEnum, Integer.valueOf(cutCharsNumber),offset);
+        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber),offset);
     }
-
-    /**
-     * @Description - validate dialog box existence and caption text
-     * @param expectedText
-     */
 
     @Then("^UI Validate Popup Dialog Box, have value \"(.*)\" with text Type \"(CAPTION|MESSAGE)\"$")
     public void validatePopupTextFieldElement(String expectedText, PopupDialogBoxTexts popupDialogBoxTexts) {
@@ -130,14 +118,6 @@ public class BasicValidationsTests extends VisionUITestBase {
     }
 
 
-    /**
-     * @param expectedRecordsNumber
-     * @param columnValue
-     * @param columnKey
-     * @param elementLabelId
-     * @param deviceDriverType
-     * @param findByType
-     */
     @Then("^UI validate Table RecordsCount \"(.*)\" with Identical ColumnValue \"(.*)\" by columnKey \"(.*)\" by elementLabelId \"(.*)\" by deviceDriverType \"(VISION|DEVICE)\" findBy Type \"(BY_NAME|BY_ID)\"$")
     public void validateTableRecordsNumberWithIdenticalColumnValue(String expectedRecordsNumber, String columnValue, String columnKey, String elementLabelId, DeviceDriverType deviceDriverType, FindByType findByType) {
         try {
@@ -162,12 +142,6 @@ public class BasicValidationsTests extends VisionUITestBase {
         }
     }
 
-    /**
-     * @param elementLabel
-     * @param columnName
-     * @param cellValue
-     * @param cells
-     */
     @Then("^UI Validate Table record values by columns with elementLabel \"([^\"]*)\"(?: with extension (\\S+))?(?: findBy index (\\d+))?(?: findBy columnName \"([^\"]*)\")?(?: findBy cellValue \"([^\"]*)\")?$")
     public void validateTableRecordValuesByColumnName(String elementLabel, String extension, Integer index, String columnName, String cellValue, List<WebUITable.TableDataSets> cells) {
         int rowIndex = index != null ? index : -1;
@@ -188,23 +162,12 @@ public class BasicValidationsTests extends VisionUITestBase {
         }
     }
 
-    /**
-     * @param elementLabel
-     * @param columnName
-     * @param cellValue
-     * @param cells
-     */
     @Then("^UI Validate Table record tooltip values with elementLabel \"([^\"]*)\"(?: with extension (\\S+))?(?: findBy index (\\d+))?(?: findBy columnName \"([^\"]*)\")?(?: findBy cellValue \"([^\"]*)\")?$")
     public void validateTableRecordTooltipValuesByColumnName(String elementLabel, String extension, Integer index, String columnName, String cellValue, List<WebUITable.TableDataSets> cells) {
         int rowIndex = index != null ? index : -1;
         tableHandler.validateTableRecordTooltipContent(elementLabel, columnName, cellValue, cells, rowIndex, extension);
     }
 
-    /**
-     * @param elementLabel - table name
-     * @param count        - total rows count
-     * @param offset       - optional offset to count parameter
-     */
     @Then("^UI Validate \"(.*)\" Table rows count (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) to (\\d+)(?: with offset (\\d+))?$")
     public void validateTableRowsCount(String elementLabel, OperatorsEnum operatorsEnum, int count, Integer offset) {
         tableHandler.validateTableRowsCount(elementLabel, count, operatorsEnum, offset);
@@ -238,6 +201,14 @@ public class BasicValidationsTests extends VisionUITestBase {
     public void clickTableRowByKeyValueOrIndex(String elementLabel, Integer index, String columnName, String cellValue) {
         int rowIndex = index != null ? index : -1;
         try {
+            try {
+                if(cellValue.contains("#")) {
+                    cellValue = cellValue.replaceAll("#.*;", (String) invokeMethod(cellValue));
+                }
+            } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+            }
+
             if (columnName != null && cellValue != null && columnName.contains(",") && cellValue.contains(","))
                 tableHandler.clickTableRowByKeyValueOrIndex(elementLabel, Arrays.asList(columnName.split(",")), Arrays.asList(cellValue.split(",")), rowIndex);
             else
@@ -276,22 +247,10 @@ public class BasicValidationsTests extends VisionUITestBase {
         }
     }
 
-    /**
-     * @param elementLabel
-     * @param columnName
-     * @param criteria
-     */
     @Then("^UI Validate Table Sorting with elementLabel \"([^\"]*)\" Sort By columnName \"([^\"]*)\"(?: By Criteria (\\S+))?$")
     public void validateTableSortingByColumnName(String elementLabel, String columnName, TableSortingCriteria criteria) {
         tableHandler.validateTableSortingByColumn(elementLabel, columnName, criteria);
     }
-
-    /**
-     * @param textOption
-     * @param elementLabelId
-     * @param deviceDriverType
-     * @param findByType
-     */
 
     @Then("^UI validate DropDown textOption Existence \"(.*)\" by elementLabelId \"(.*)\" by deviceDriverType \"(VISION|DEVICE)\" findBy Type \"(BY_NAME|BY_ID)\"$")
     public void validateDropDownTextOptionExistence(String textOption, String elementLabelId, DeviceDriverType deviceDriverType, FindByType findByType) {
@@ -304,9 +263,6 @@ public class BasicValidationsTests extends VisionUITestBase {
         basicOperationsByNameIdHandler.validateDropDownSelection(textOption, elementLabelId, deviceDriverType.getDDType(), findByType);
     }
 
-    /**
-     * @param expectedValue
-     */
     @Then("^UI validate popup Message \"(.*)\"$")
     public void validatePopupContent(String expectedValue) {
         try {
@@ -325,20 +281,11 @@ public class BasicValidationsTests extends VisionUITestBase {
         }
     }
 
-    /**
-     * @param elementId
-     * @param expectedCheckboxSelection
-     */
     @Then("^UI validate CheckBox by ID \"(.*)\" if Selected \"(true|false)\"$")
     public void validateCheckboxSelection(String elementId, boolean expectedCheckboxSelection) {
         basicOperationsByNameIdHandler.validateCheckboxSelection(elementId, expectedCheckboxSelection);
     }
 
-    /**
-     * @param label
-     * @param deviceName
-     * @param expectedCheckboxSelection
-     */
     @Then("^UI validate Checkbox by label \"([^\"]*)\"(?: optional (device IP|params) \"(.*)\")? if Selected \"(true|false)\"$")
     public void validateCheckboxSelectionbyLabel(String label, String ipOrParams, String deviceName, boolean expectedCheckboxSelection) {
         String deviceNameFinal = deviceName != null ? deviceName : "";
