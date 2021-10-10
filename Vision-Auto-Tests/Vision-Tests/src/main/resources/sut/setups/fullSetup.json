@@ -61,22 +61,6 @@
         "parentSite": "Alteons_for_DPM-Fakes"
       },
       {
-        "deviceId": "Alteon_200a::172:17:164:19",
-        "parentSite": "Alteons-IPv6"
-      },
-      {
-        "deviceId": "Alteon_2.2.2.2",
-        "parentSite": "Default"
-      },
-      {
-        "deviceId": "LinkProof NG_172.17.154.190",
-        "parentSite": "VA_LP_site"
-      },
-      {
-        "deviceId": "LinkProof NG_172.17.154.200",
-        "parentSite": "VA_LP_site"
-      },
-      {
         "deviceId": "DefensePro_172.16.22.50",
         "parentSite": "RealDPs_Version_8_site"
       },
@@ -91,14 +75,6 @@
       {
         "deviceId": "DefensePro_172.16.22.25",
         "parentSite": "Default"
-      },
-      {
-        "deviceId": "DefensePro_50.50.7.1",
-        "parentSite": "VA_DPs_Version_8_site"
-      },
-      {
-        "deviceId": "DefensePro_50.50.7.2",
-        "parentSite": "VA_DPs_Version_8_site"
       },
       {
         "deviceId": "DefensePro_10.185.2.85",
