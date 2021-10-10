@@ -135,7 +135,7 @@ Feature: Vision Install KVM SA
 
   @SID_15
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.1-1"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.5.0-2"
 
   @SID_16
   Scenario: Validate IPv6 Hostname in /etc/hosts

@@ -1,4 +1,4 @@
-@TC114242
+@TC114242 @Test12
 Feature: ConnectionPPS
 
 
@@ -31,11 +31,11 @@ Feature: ConnectionPPS
       | Policy Status     | underAttack             |
       | Device            | DefensePro_172.16.22.50 |
       | Policy Name       | test                    |
-      | Attack Categories | Connection PPS          |
+      | Attack Category | Connection PPS          |
 
   @SID_5
   Scenario: Validate to second drill
-    Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Attack Categories" findBy cellValue "Connection PPS"
+    Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Attack Category" findBy cellValue "Connection PPS"
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Connection PPS"
       | columnName      | value          |
       | Protection Name | Connection PPS |

@@ -362,8 +362,8 @@ public class TopologyTreeHandler {
         switch (com.radware.vision.pojomodel.helpers.constants.ImConstants$SnmpVersionEnumPojo.valueOf(devPorperties.get("snmpVersion"))) {
             case SNMP_V1:
                 deviceProperties.mSnmp().setSnmpVersion(snmpV1VersionText);
-                deviceProperties.mSnmp().setSnmpV1WriteCommunity(devPorperties.get("writeCommunityDefencePro"));
-                deviceProperties.mSnmp().setSnmpV1ReadCommunity(devPorperties.get("readCommunity"));
+                deviceProperties.mSnmp().setSnmpV1WriteCommunity(devPorperties.get("snmpWriteCommunity"));
+                deviceProperties.mSnmp().setSnmpV1ReadCommunity(devPorperties.get("snmpReadCommunity"));
                 break;
             case SNMP_V2:
                 deviceProperties.mSnmp().setSnmpVersion(snmpV2VersionText);

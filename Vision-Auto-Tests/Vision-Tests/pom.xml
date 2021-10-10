@@ -147,11 +147,11 @@
             <artifactId>radwareGeneric</artifactId>
             <version>1.0.0</version>
         </dependency>
-<!--                <dependency>-->
-<!--                    <groupId>com.radware.vision.automation.openstack</groupId>-->
-<!--                    <artifactId>openstack-tests</artifactId>-->
-<!--                    <version>${VISION_VERSION}-SNAPSHOT</version>-->
-<!--                </dependency>-->
+        <!--                <dependency>-->
+        <!--                    <groupId>com.radware.vision.automation.openstack</groupId>-->
+        <!--                    <artifactId>openstack-tests</artifactId>-->
+        <!--                    <version>${VISION_VERSION}-SNAPSHOT</version>-->
+        <!--                </dependency>-->
         <dependency>
 
             <groupId>org.projectlombok</groupId>
@@ -177,7 +177,6 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -432,7 +431,6 @@
 
         </resources>
     </build>
-
     <profiles>
         <profile>
             <id>production</id>

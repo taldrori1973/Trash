@@ -21,6 +21,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.Clic
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -129,6 +130,21 @@ public class GenericSteps extends VisionUITestBase {
             buttonClick("Server Selection.Save", (String) null);
         }
     }
+
+    @Then("^UI Select Policy and save$")
+    public void uiSelectPolicyAndSave(List<DataServer> policies) throws Exception {
+        buttonClick("Device Selection",(String)null);
+        WebUiTools.check("AllScopeSelection", "", false);
+        buttonClick("Devices Policies",(String)null);
+        for(DataServer node: policies) {
+            uiSetTextFieldTo("PolicySearchFilter", null, node.policy, false);
+            WebUiTools.check("Policy Selection", new String[]{node.name,node.device, node.policy}, true);
+        }
+        buttonClick("SaveDPScopeSelection",(String)null);
+    }
+
+
+
 
     @When("^UI Click Button By JavascriptExecutor with label \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
     public void clickButtonByJavaScript(String label, String param) {
@@ -455,6 +471,13 @@ public class GenericSteps extends VisionUITestBase {
         ClickOperationsHandler.clickOnSwitchButton(label, null, state);
     }
 
+    @Then("^UI Text of Executive Summary equal to \"([^\"]*)\"(?: and Link Equal to \"([^\"]*)\")?$")
+    public void uiTextOfExecutiveSummaryEqualToAndLinkEqualTo(String expectedText, String expectedURL) throws Throwable {
+        BasicOperationsHandler.uiValidateExecutiveSummaryText(expectedText, expectedURL);
+
+    }
+
+
     static class DataServer {
         String name;
         String device;
@@ -464,6 +487,10 @@ public class GenericSteps extends VisionUITestBase {
         public String toString() {
             return this.name + "," + this.device + "," + this.policy;
         }
+    }
+
+    static class Server{
+        String name;
     }
 
 

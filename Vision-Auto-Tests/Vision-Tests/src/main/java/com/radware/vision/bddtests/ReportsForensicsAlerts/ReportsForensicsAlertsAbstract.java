@@ -42,7 +42,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     public static final Map<String, Integer> widgets;
     static {
         Map<String, Integer> templateWidgets = new HashMap<>();
-        templateWidgets.put("DefensePro Analytics", 18);
+        templateWidgets.put("DefensePro Analytics", 21);
         templateWidgets.put("DefensePro Behavioral Protections", 20);
         templateWidgets.put("HTTPS Flood", 1);
         templateWidgets.put("DefenseFlow Analytics", 13);

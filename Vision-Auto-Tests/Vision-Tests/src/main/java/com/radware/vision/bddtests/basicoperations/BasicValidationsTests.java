@@ -106,6 +106,7 @@ public class BasicValidationsTests extends VisionUITestBase {
     }
 
     @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\\\S+))?$")
+    @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
     public void validateTextFieldElementbyId(String selectorValue, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
@@ -406,15 +407,37 @@ public class BasicValidationsTests extends VisionUITestBase {
     }
 
     @Then("^UI Validate IP's in chart with Summary Table \"([^\"]*)\" with Col name \"([^\"]*)\" with widget name \"([^\"]*)\"$")
-    public void uiValidateIPSInChartWithSummaryTable(String TableName,String ColName,String widgetName) throws Throwable {
-        ArrayList<String> IPList = tableHandler.getIpsFromSummaryTable(TableName,ColName);
-        List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + widgetName +"_') and contains(@data-debug-id, '_label')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        for(WebElement w:elements){
-            if(!IPList.contains(w.getText())){
-                BaseTestUtils.reporter.report("The label "+ w.getText()+"is'nt exist in Summary Table", Reporter.FAIL);
+    public void uiValidateIPSInChartWithSummaryTable(String TableName, String ColName, String widgetName) throws Throwable {
+        ArrayList<String> IPList = tableHandler.getIpsFromSummaryTable(TableName, ColName);
+        List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + widgetName + "_') and contains(@data-debug-id, '_label')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        for (WebElement w : elements) {
+            if (!IPList.contains(w.getText())) {
+                BaseTestUtils.reporter.report("The label " + w.getText() + "is'nt exist in Summary Table", Reporter.FAIL);
             }
         }
     }
+
+    @Then("^Sort \"([^\"]*)\" rows in Attacks Table By ColName \"([^\"]*)\"$")
+    public void sortRowsInAttacksTableByColName(String SortType, String ColName) throws Throwable {
+        List<WebElement> elements;
+        if(SortType.equals("DOWN")){
+            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort "+ColName+"\"] i:nth-child(1)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        }else{
+            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort "+ColName+"\"] i:nth-child(2)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        }
+        elements.get(0).click();
+    }
+
+    @Then("^UI Validate Count of Applications scope selection starts with \"([^\"]*)\" in AppWall dashboard equal to \"([^\"]*)\"$")
+    public void uiValidateCountOfApplicationsScopeSelectionStartsWithInAppWallDashboardEqualTo(String prefix, String ExpectedCount) throws Throwable {
+        int actualCount = basicOperationsByNameIdHandler.ScrollDownAndCountApplications(prefix);
+        if(actualCount != Integer.parseInt(ExpectedCount)){
+            ReportsUtils.reportAndTakeScreenShot("actualCount = "+actualCount+" , not equal to ExpectedCount = "+ExpectedCount, Reporter.FAIL);
+        }
+
+
+    }
+
 
     class TableValues {
         public String columnName;
@@ -449,8 +472,6 @@ public class BasicValidationsTests extends VisionUITestBase {
             WebUIUtils.sleep(1);
             BasicOperationsHandler.isTextEqualValue(label, value.get(0), params);
         }
-
-
     }
 
     class TableContent {

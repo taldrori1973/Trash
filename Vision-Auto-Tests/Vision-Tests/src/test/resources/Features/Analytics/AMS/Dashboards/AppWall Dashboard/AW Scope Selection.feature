@@ -23,13 +23,13 @@ Feature: AW Scope Selection
       | httpsUsername | user1    |
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
-    And Sleep "5"
+    And Sleep "60"
     Given add 200 applications with prefix name "app" to appWall ip:"172.17.164.30" with timeout 300
     Given add 200 applications with prefix name "my_app" to appWall ip:"172.17.164.30" with timeout 300
     Given add 200 applications with prefix name "radware_app" to appWall ip:"172.17.164.30" with timeout 300
     Given add 150 applications with prefix name "radware_application" to appWall ip:"172.17.164.30" with timeout 300
     Given add 50 applications with prefix name "application" to appWall ip:"172.17.164.30" with timeout 300
-    And Sleep "45"
+    And Sleep "90"
     And UI Navigate to "AppWall Dashboard" page via homePage
     And Sleep "5"
     And UI Do Operation "Select" item "Applications"
@@ -57,12 +57,13 @@ Feature: AW Scope Selection
       | param      |
       | my_app-10  |
       | my_app-101 |
-      | my_app-105 |
-      | my_app-107 |
-      | my_app-109 |
+      | my_app-102 |
+      | my_app-100 |
+      | my_app-104 |
     And UI Click Button "Scope Selection Cancel"
     And UI Do Operation "Select" item "Applications"
-    Then UI Validate Search Numbering With text: "my_app-10" And Element Label: "Prefix Application Name" In Search Label "Filter" If this equal to 11
+    Then UI Validate Count of Applications scope selection starts with "my_app-10" in AppWall dashboard equal to "11"
+
     And UI Click Button "Scope Selection Cancel"
 
   @SID_4
