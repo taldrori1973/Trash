@@ -76,7 +76,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_7
   Scenario:  validate date of Real Time Signature table - BehavioralDOS
-    Then Validate Expand  "Real Time Signature" table
+    Then Validate Expand "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
       | parameter | 1     | fragment-offset |
@@ -129,7 +129,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_11
   Scenario:  validate date of Real Time Signature table - DNS
-    Then Validate Expand  "Real Time Signature" table
+    Then Validate Expand "Real Time Signature" table
       | Name      | index | value         |
       | operator  | 1     | OR            |
       | parameter | 1     | dns-subdomain |
@@ -303,7 +303,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_24
   Scenario:  validate date of Real Time Signature table - AntiScanning
-    Then Validate Expand  "Real Time Signature" table
+    Then Validate Expand "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
       | parameter | 1     | destination-ip  |

@@ -105,7 +105,6 @@ public class BasicValidationsTests extends VisionUITestBase {
 
     }
 
-    @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\\\S+))?$")
     @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
     public void validateTextFieldElementbyId(String selectorValue, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
@@ -123,7 +122,7 @@ public class BasicValidationsTests extends VisionUITestBase {
     public void validateTableRecordsNumberWithIdenticalColumnValue(String expectedRecordsNumber, String columnValue, String columnKey, String elementLabelId, DeviceDriverType deviceDriverType, FindByType findByType) {
         try {
             int actualRowAmount = basicOperationsByNameIdHandler.getRowsAmountByKeyValue(deviceDriverType.getDDType(), elementLabelId, columnKey, columnValue, findByType);
-            if (actualRowAmount != Integer.valueOf(expectedRecordsNumber)) {
+            if (actualRowAmount != Integer.parseInt(expectedRecordsNumber)) {
                 BaseTestUtils.report("Records number by KeyValue validation has Failed : actualRowAmount = " + actualRowAmount + " expectedRecordsNumber: " + expectedRecordsNumber, Reporter.FAIL);
             }
         } catch (Exception e) {
@@ -135,7 +134,7 @@ public class BasicValidationsTests extends VisionUITestBase {
     public void validateTableRecordsNumberPerPage(String expectedRecordsNumber, DeviceDriverType deviceDriverType, String elementNameId, FindByType findByType) {
         try {
             int actualRowAmount = basicOperationsByNameIdHandler.getRowsAmountPerPage(deviceDriverType.getDDType(), elementNameId, findByType);
-            if (actualRowAmount != Integer.valueOf(expectedRecordsNumber)) {
+            if (actualRowAmount != Integer.parseInt(expectedRecordsNumber)) {
                 BaseTestUtils.report("Records number by KeyValue validation has Failed : actualRowAmount = " + actualRowAmount + " expectedRecordsNumber: " + expectedRecordsNumber, Reporter.FAIL);
             }
         } catch (Exception e) {
@@ -151,12 +150,13 @@ public class BasicValidationsTests extends VisionUITestBase {
 
     @Then("^UI Validate Total Summary Table \"([^\"]*)\"$")
     public void uiValidateTotalSummaryTableWithWidget(String TableName) throws Throwable {
-        float sum =0;
+        float sum;
         sum = tableHandler.sumColOfTableByTableName(TableName);
         VisionDebugIdsManager.setLabel("Top Attack Total");
         String element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getText();
         if (element == null)
             BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+        assert element != null;
         float actualSum = Float.parseFloat(element.replaceAll("[^\\d.]", ""));
         if(actualSum !=sum){
             addErrorMessage("The total have to be eqaual to " + sum + ", not " + actualSum);
@@ -403,7 +403,6 @@ public class BasicValidationsTests extends VisionUITestBase {
         } catch (Exception e) {
             BaseTestUtils.reporter.report(e.getMessage(), Reporter.FAIL);
         }
-
     }
 
     @Then("^UI Validate IP's in chart with Summary Table \"([^\"]*)\" with Col name \"([^\"]*)\" with widget name \"([^\"]*)\"$")
@@ -434,12 +433,10 @@ public class BasicValidationsTests extends VisionUITestBase {
         if(actualCount != Integer.parseInt(ExpectedCount)){
             ReportsUtils.reportAndTakeScreenShot("actualCount = "+actualCount+" , not equal to ExpectedCount = "+ExpectedCount, Reporter.FAIL);
         }
-
-
     }
 
 
-    class TableValues {
+    static class TableValues {
         public String columnName;
         public String value;
     }
@@ -457,7 +454,7 @@ public class BasicValidationsTests extends VisionUITestBase {
         tableHandler.uiValidateRowsIsBetweenDates(tableLabel, first, second);
     }
 
-    @Then("^Validate Expand  \"([^\"]*)\" table$")
+    @Then("^Validate Expand \"([^\"]*)\" table$")
     public void uiValidateValues(String label, List<TableContent> entries) throws Exception {
 
         String params = null;
@@ -474,7 +471,7 @@ public class BasicValidationsTests extends VisionUITestBase {
         }
     }
 
-    class TableContent {
+    static class TableContent {
         public String name;
         public String value;
         public String index;
