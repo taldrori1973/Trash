@@ -16,6 +16,7 @@ import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisi
 
 public class Upgrade extends Deploy {
     private static final Map<String, String> LAST_SUPPORTED_UPGRADE_VERSION = new HashMap<String, String>() {{
+        put("4.84.00", "4.81.00");
         put("4.83.00", "4.80.00");
         put("4.82.00", "4.70.00");
         put("4.81.00", "4.60.00");

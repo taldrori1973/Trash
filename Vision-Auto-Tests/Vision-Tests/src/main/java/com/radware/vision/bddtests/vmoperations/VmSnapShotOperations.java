@@ -35,6 +35,7 @@ public class VmSnapShotOperations extends BddUITestBase {
     String vmName = visionVMs.getVMNameByIndex(defaultVMWareNumber);
     EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
     private static final Map<String, String> NEXT_VERSION = new HashMap<String, String>() {{
+        put("4.83.00", "4.84.00");
         put("4.82.00", "4.83.00");
         put("4.81.00", "4.82.00");
         put("4.81.01", "4.82.00");

@@ -17,11 +17,11 @@
     </modules>
 
     <properties>
-        <VISION_VERSION>4.83.00</VISION_VERSION>
+        <VISION_VERSION>4.84.00</VISION_VERSION>
         <revision>${VISION_VERSION}-SNAPSHOT</revision>
-        <rest.version>4.83.00-SNAPSHOT</rest.version>
-        <cli.version>4.83.00-SNAPSHOT</cli.version>
-        <localization.version>4.83.00-SNAPSHOT</localization.version>
+        <rest.version>4.84.00-SNAPSHOT</rest.version>
+        <cli.version>4.84.00-SNAPSHOT</cli.version>
+        <localization.version>4.84.00-SNAPSHOT</localization.version>
         <selenium.version>3.11.0</selenium.version>
         <jsystem.version>6.1.09</jsystem.version>
         <maven.compiler.source>1.8</maven.compiler.source>
