@@ -17,12 +17,12 @@ import models.RestResponse;
 import models.StatusCode;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -289,10 +289,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     private String isReportAmsOrAdc(Map<String, String> map) {
         JSONArray templatesArray = new JSONArray(map.get("Template"));
-        for (Object singleTemplate : templatesArray) {
-            if (new JSONObject(singleTemplate.toString()).get("reportType") != null
-                    && (new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("APPLICATION") ||
-                    new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("SYSTEM AND NETWORK")))
         for (Object singleTemplate : templatesArray) {
             if (new JSONObject(singleTemplate.toString()).get("reportType") != null
                     && (new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("APPLICATION") ||
