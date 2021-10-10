@@ -480,6 +480,16 @@ public class BasicValidationsTests extends BddUITestBase {
         elements.get(0).click();
     }
 
+    @Then("^UI Validate Count of Applications scope selection starts with \"([^\"]*)\" in AppWall dashboard equal to \"([^\"]*)\"$")
+    public void uiValidateCountOfApplicationsScopeSelectionStartsWithInAppWallDashboardEqualTo(String prefix, String ExpectedCount) throws Throwable {
+        int actualCount = basicOperationsByNameIdHandler.ScrollDownAndCountApplications(prefix);
+        if(actualCount != Integer.parseInt(ExpectedCount)){
+            ReportsUtils.reportAndTakeScreenShot("actualCount = "+actualCount+" , not equal to ExpectedCount = "+ExpectedCount, Reporter.FAIL);
+        }
+
+
+    }
+
 
     class TableValues {
         public String columnName;
@@ -514,8 +524,6 @@ public class BasicValidationsTests extends BddUITestBase {
             WebUIUtils.sleep(1);
             BasicOperationsHandler.isTextEqualValue(label, value.get(0), params);
         }
-
-
     }
 
     class TableContent {
