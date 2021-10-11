@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <VISION_VERSION>4.83.00</VISION_VERSION>
+        <VISION_VERSION>4.84.00</VISION_VERSION>
         <revision>${VISION_VERSION}-SNAPSHOT</revision>
         <rest.version>4.83.00-SNAPSHOT</rest.version>
         <cli.version>4.83.00-SNAPSHOT</cli.version>
