@@ -15,13 +15,13 @@ Feature: ADC dashboard Current Totals Widget
   @SID_3
   Scenario: Login and go to ADC device network
     Then REST Login with user "sys_admin" and password "radware"
-    Then REST Vision Install License Request "vision-reporting-module-ADC"
+#    Then REST Vision Install License Request "vision-reporting-module-ADC"
 
     Then UI Login with user "sys_admin" and password "radware"
-    Then UI Add "Alteon" with index 21 on "Alteons_for_DPM-Fakes" site
-    Then UI Add "Alteon" with index 22 on "Alteons_for_DPM-Fakes" site
-    Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 21 with timeout 300
-    Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 22 with timeout 300
+    Then REST Add device with SetId "Alteon_Set_50.50.101.31" into site "Alteons_for_DPM-Fakes"
+    Then REST Add device with SetId "Alteon_Set_50.50.101.32" into site "Alteons_for_DPM-Fakes"
+    Then UI Wait For Device To Show Up In The Topology Tree "Alteon_Set_50.50.101.31" with timeout 300
+    Then UI Wait For Device To Show Up In The Topology Tree "Alteon_Set_50.50.101.32" with timeout 300
 
 
     When UI Navigate to "System and Network Dashboard" page via homePage
