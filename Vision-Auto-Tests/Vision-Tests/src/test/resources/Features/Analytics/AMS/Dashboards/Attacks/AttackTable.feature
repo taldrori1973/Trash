@@ -17,16 +17,16 @@ Feature: Attacks Table
 
     When CLI Run remote linux Command "^C" on "ROOT_SERVER_CLI"
     Then Sleep "10"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.startTime='$(date -d "-2 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.startTime='$(date -d \"-2 hour\" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
     Then Sleep "5"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
 
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
 
 
   @SID_3
@@ -39,7 +39,7 @@ Feature: Attacks Table
   @SID_4
   Scenario: validate the table count
     Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 35
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 14
     When UI set "Auto Refresh" switch button to "off"
     Given UI Click Button "Accessibility Menu"
     Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
