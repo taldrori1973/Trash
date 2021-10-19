@@ -84,7 +84,7 @@ public class BasicValidationsTests extends VisionUITestBase {
     @Then("^UI Validate Text field \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: On Regex \"([^\"]*)\")? (EQUALS|CONTAINS|MatchRegex|GT|GTE|LT|LTE) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
     public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
             try {
-                if(params.contains("#")) {
+                if(params!=null && params.contains("#")) {
                     params = params.replaceAll("#.*;", (String) invokeMethod(params));
                 }
                 if(expectedText.contains("#"))
