@@ -126,9 +126,9 @@ Feature: VRM Real Time Status Bar Inbound Traffic
   @SID_9
   Scenario: Inbound Traffic Cleared
     Given CLI kill all simulator attacks on current vision
+    And Sleep "150"
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    And Sleep "150"
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
