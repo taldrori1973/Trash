@@ -1,0 +1,37 @@
+{
+  "serverName": "vision_auto",
+  "setupFile": "fullSetup.json",
+  "pair": {
+    "pairIp": "172.17.164.148",
+    "environment": "KVM-210"
+  },
+  "deployConfigurations": {
+    "setupMode": "qcow2_fresh install",
+    "snapshot": "Current-1",
+    "environment": "KVM-210"
+  },
+  "clientConfiguration": {
+    "hostIp": "172.17.154.12",
+    "userName": "root",
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 443,
+      "defaultProtocol": "https"
+    },
+    "sqlDbConnection": {
+      "defaultPort": 3306,
+      "username": "root",
+      "password": "radware"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
+      "password": "radware"
+    }
+  }
+}
