@@ -1,5 +1,5 @@
 {
-  "serverName": "vision_auto",
+  "serverName": "uvision_auto",
   "setupFile": "fullSetup.json",
   "pair": {
     "pairIp": "172.17.164.148",
