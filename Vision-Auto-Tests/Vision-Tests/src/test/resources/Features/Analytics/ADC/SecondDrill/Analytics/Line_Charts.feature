@@ -5,13 +5,14 @@ Feature: Second Drill - Validate General Charts
   @SID_1
   Scenario: Import driver script and jar file
     Then CLI copy "/home/radware/Scripts/upload_DD.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
-    Then CLI copy "/home/radware/Scripts/Alteon-32.2.1.0-DD-1.00-110.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
+#    Then CLI copy "/home/radware/Scripts/Alteon-32.2.1.0-DD-1.00-110.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI copy "/home/radware/Scripts/Alteon-32.4.0.0-DD-1.00-396.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
 
   @SID_2
   Scenario: Upload Driver to vision
-    Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.2.1.0-DD-1.00-110.jar" on "ROOT_SERVER_CLI" with timeOut 240
-    Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
+#    Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.2.1.0-DD-1.00-110.jar" on "ROOT_SERVER_CLI" with timeOut 240
+#    Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
+    Then CLI Upload Device Driver For "Alteon" Version "32.4.0.0"
 
   @SID_3
   Scenario: Validate server fetched all applications after upgrade
@@ -34,8 +35,7 @@ Feature: Second Drill - Validate General Charts
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     Examples:
       | Function                                   |
-      | #convertIpToHexa(Alteon_Sim_Set_1); |
-#      | #convertIpToHexa(Alteon_Set_Simulators_2); |
+      | #convertIpToHexa(Alteon_Set_Simulators_2); |
 
 #Validate Widgets Titles
   @SID_6
