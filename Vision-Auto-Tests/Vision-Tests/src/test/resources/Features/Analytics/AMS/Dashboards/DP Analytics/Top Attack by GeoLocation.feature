@@ -10,8 +10,8 @@ Feature: Top Attack by GeoLocation
 
   @SID_2
   Scenario: Run DP simulator for ErtFeed_GeoFeed
-    Given CLI simulate 1000 attacks of type "GEO" on "DefensePro" 11 with loopDelay 1500 and wait 120 seconds
-    Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 11 with loopDelay 1500 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "GEO" on SetId "DefensePro_Set_2" with loopDelay 1500 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on SetId "DefensePro_Set_2" with loopDelay 1500 and wait 120 seconds
     Then Sleep "15"
     * CLI kill all simulator attacks on current vision
 
@@ -111,7 +111,7 @@ Feature: Top Attack by GeoLocation
 
   @SID_9
   Scenario: Run DP simulator for GeoPlus10
-    Given CLI simulate 1000 attacks of type "GeoPlus10" on "DefensePro" 11 with loopDelay 1500 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "GeoPlus10" on SetId "DefensePro_Set_2" with loopDelay 1500 and wait 120 seconds
     Then Sleep "15"
     * CLI kill all simulator attacks on current vision
 
@@ -132,12 +132,12 @@ Feature: Top Attack by GeoLocation
   Scenario: Validate Top Attacking by GeoLocations Widget with more than 10 countries
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
-    Then Sleep "30"
+    Then Sleep "60"
 
 
-    Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
-    Then UI Validate Text field "Country Value" with params "Multiple" EQUALS "10%" with offset 1
-    Then UI Validate Text field "Total Events Value" with params "Multiple" EQUALS "1"
+#    Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
+#    Then UI Validate Text field "Country Value" with params "Multiple" EQUALS "10%" with offset 1
+#    Then UI Validate Text field "Total Events Value" with params "Multiple" EQUALS "1"
 
     Then UI Validate Text field "Country Name" with params "China" EQUALS "China"
     Then UI Validate Text field "Country Value" with params "CN" EQUALS "10%" with offset 1
@@ -168,6 +168,10 @@ Feature: Top Attack by GeoLocation
     Then UI Validate Text field "Country Value" with params "MX" EQUALS "10%" with offset 1
     Then UI Validate Text field "Total Events Value" with params "MX" EQUALS "1"
 
+    Then UI Validate Text field "Country Name" with params "Netherlands" EQUALS "Netherlands"
+    Then UI Validate Text field "Country Value" with params "NL" EQUALS "10%" with offset 1
+    Then UI Validate Text field "Total Events Value" with params "NL" EQUALS "1"
+
     Then UI Validate Text field "Country Name" with params "Sweden" EQUALS "Sweden"
     Then UI Validate Text field "Country Value" with params "SE" EQUALS "10%" with offset 1
     Then UI Validate Text field "Total Events Value" with params "SE" EQUALS "1"
@@ -178,6 +182,6 @@ Feature: Top Attack by GeoLocation
 
 
 
-  @SID_9
+  @SID_12
   Scenario: Logout and close browser
     Given UI logout and close browser
