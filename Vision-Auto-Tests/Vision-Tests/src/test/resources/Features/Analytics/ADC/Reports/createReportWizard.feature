@@ -19,12 +19,12 @@ Feature: DPM - Report Wizard Creation
   @SID_2
   Scenario: ADC - Add new Report
     Given UI "Create" Report With Name "ADCcreateReport1"
-      | Application           | Alteon_Sim_Set_1:80                                                                                       |
+      | Application           | Alteon_Set_Simulators_2:80                                                                                       |
       | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time]                                    |
       | Time Definitions.Date | Quick:30m                                                                                                 |
       | Share              | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
     Given UI "Validate" Report With Name "ADCcreateReport1"
-      | Application           | Alteon_Sim_Set_1:80                                                                                       |
+      | Application           | Alteon_Set_Simulators_2:80                                                                                       |
       | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time]                                    |
       | Time Definitions.Date | Quick:30m                                                                                                 |
       | Share              | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
