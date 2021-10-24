@@ -49,6 +49,6 @@ public class SimulatorUtils {
             BaseTestUtils.report("Unable to find simulator id", Reporter.FAIL);
             return null;
         }
-        return "[Rejith_" + convertIpToHexa(name) + ":" + port + "]";
+        return "[Rejith_" + convertIpToHexa((name.contains("_")?name.split("_",2)[1]:name)) + ":" + port + "]";
     }
 }
