@@ -12,6 +12,11 @@ Feature: DP ANALYTICS
     * Sleep "15"
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
+    Given REST Login with activation with user "radware" and password "radware"
+    Then REST Add device with SetId "DefensePro_Set_3"
+    Then REST Add device with SetId "DefensePro_Set_4"
+    Then REST Add device with SetId "DefensePro_Set_5"
+    Then Sleep "90"
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
@@ -1418,4 +1423,7 @@ Feature: DP ANALYTICS
 
   @Sanity @SID_104
   Scenario: Cleanup
+    * REST Delete device with SetID "DefensePro_Set_3" from topology tree
+    * REST Delete device with SetID "DefensePro_Set_4" from topology tree
+    * REST Delete device with SetID "DefensePro_Set_5" from topology tree
     Given UI logout and close browser

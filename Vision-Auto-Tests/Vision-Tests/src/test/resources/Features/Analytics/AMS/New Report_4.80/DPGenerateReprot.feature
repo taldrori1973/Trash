@@ -112,6 +112,6 @@ Feature: DPGenerateReport
 
   @SID_13
   Scenario: start IPTABLES
-    Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+    Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
     Then UI logout and close browser
 

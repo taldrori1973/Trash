@@ -179,7 +179,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%" with offset 2
     Then UI Validate Element Existence By Label "Top IP Address bar" if Exists "false" with value "8"
 #    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5.33%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "MatchRegx" to "([0][1-9]|[2][1-9])%"
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "0.01%" with offset 2
 
   @SID_18
   Scenario: Validate IP filtering data correctness check values

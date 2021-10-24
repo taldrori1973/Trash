@@ -84,7 +84,7 @@ public class BasicValidationsTests extends VisionUITestBase {
     @Then("^UI Validate Text field \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: On Regex \"([^\"]*)\")? (EQUALS|CONTAINS|MatchRegex|GT|GTE|LT|LTE) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
     public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
             try {
-                if(params.contains("#")) {
+                if(params!=null && params.contains("#")) {
                     params = params.replaceAll("#.*;", (String) invokeMethod(params));
                 }
                 if(expectedText.contains("#"))
@@ -198,12 +198,12 @@ public class BasicValidationsTests extends VisionUITestBase {
         }
     }
 
-    @Then("^UI click Table row by keyValue or Index with elementLabel \"([^\"]*)\"(?: findBy index (\\S+))?(?: findBy columnName \"([^\"]*)\")?(?: findBy cellValue \"([^\"]*)\")?$")
-    public void clickTableRowByKeyValueOrIndex(String elementLabel, Integer index, String columnName, String cellValue) {
+    @Then("^UI click Table row by keyValue or Index with elementLabel \"([^\"]*)\"(?: findBy index (\\S+))?(?: findBy columnName \"([^\"]*)\")?(?: findBy cellValue \"([^\"]*)\")?(?: findBy table \"([^\"]*)\" with label \"([^\"]*)\" Equals to \"([^\"]*)\")?$")
+    public void clickTableRowByKeyValueOrIndex(String elementLabel, Integer index, String columnName, String cellValue, String table, String label, String labelValue) {
         int rowIndex = index != null ? index : -1;
         try {
             try {
-                if(cellValue.contains("#")) {
+                if(cellValue!= null && cellValue.contains("#")) {
                     cellValue = cellValue.replaceAll("#.*;", (String) invokeMethod(cellValue));
                 }
             } catch (Exception e) {
@@ -212,6 +212,8 @@ public class BasicValidationsTests extends VisionUITestBase {
 
             if (columnName != null && cellValue != null && columnName.contains(",") && cellValue.contains(","))
                 tableHandler.clickTableRowByKeyValueOrIndex(elementLabel, Arrays.asList(columnName.split(",")), Arrays.asList(cellValue.split(",")), rowIndex);
+            else if(table!=null)
+                tableHandler.clickTableRowByLabelValue(elementLabel, table, label, labelValue);
             else
                 tableHandler.clickTableRowByKeyValueOrIndex(elementLabel, columnName, cellValue, rowIndex);
 
