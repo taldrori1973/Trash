@@ -180,6 +180,12 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
+        p.setPrompt("Docker Subnet \\(default is .*, ENTER to use it\\):");
+        p.setRegularExpression(true);
+        p.setStringToSend("10.10.0.0");
+        prompts.add(p);
+
+        p = new Prompt();
         p.setPrompt("Physical Management Interface \\[G1 G2 G3\\]  \\(Active links on:.*\\): ");
         p.setRegularExpression(true);
         p.setStringToSend(getPhysicalManagement());
