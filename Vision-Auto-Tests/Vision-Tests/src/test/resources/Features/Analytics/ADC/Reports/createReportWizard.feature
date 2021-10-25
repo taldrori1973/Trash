@@ -9,7 +9,8 @@ Feature: DPM - Report Wizard Creation
     Given REST Login with user "radware" and password "radware"
     Then CLI copy "/home/radware/Scripts/upload_DD.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI copy "/home/radware/Scripts/Alteon-32.4.0.0-DD-1.00-396.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
-    Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
+#    Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
+    Then CLI Upload Device Driver For "Alteon" Version "32.4.0.0"
     Then REST Add Simulators
     When CLI validate service "all" status is "up" and health is "healthy" retry for 600 seconds
     Given UI Login with user "sys_admin" and password "radware"
@@ -17,18 +18,20 @@ Feature: DPM - Report Wizard Creation
 
 
   @SID_2
-  Scenario: ADC - Add new Report
-    Given UI "Create" Report With Name "ADCcreateReport1"
-      | Application           | Alteon_Set_Simulators_2:80                                                                                       |
-      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time]                                    |
-      | Time Definitions.Date | Quick:30m                                                                                                 |
-      | Share              | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
-    Given UI "Validate" Report With Name "ADCcreateReport1"
-      | Application           | Alteon_Set_Simulators_2:80                                                                                       |
-      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time]                                    |
-      | Time Definitions.Date | Quick:30m                                                                                                 |
-      | Share              | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
-    Then UI Delete Report With Name "ADCcreateReport1"
+  Scenario Outline: ADC - Add new Report
+    Given UI "Create" Report With Name "<ReportName>"
+      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[<ApplicationName>] |
+      | Time Definitions.Date | Quick:30m                                                                                                |
+      | Share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                     |
+    Given UI "Validate" Report With Name "<ReportName>"
+      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[<ApplicationName>] |
+      | Time Definitions.Date | Quick:30m                                                                                                |
+      | Share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                     |
+    Then UI Delete Report With Name "<ReportName>"
+
+    Examples:
+      | ReportName       | ApplicationName                                      |
+      | ADCcreateReport1 | Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80 |
 
 #    When UI Click Button "Edit" with value "createReport1"
 #    When UI Click Button "Next" with value ""
