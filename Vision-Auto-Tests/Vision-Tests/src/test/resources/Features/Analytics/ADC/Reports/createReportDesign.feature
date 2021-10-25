@@ -11,12 +11,12 @@ Feature: DPM - Design Report Wizard
   @SID_2
   Scenario: Design the Report - delete all widgets and add one widget
     Given UI "Create" Report With Name "DesignADC"
-      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[6:80] |
-      | Format   | Select: PDF                                                                 |
-    Then UI "Validate" Report With Name "DesignADC"
-      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[6:80] |
-      | Format   | Select: PDF                                                                 |
+      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80] |
+      | Format   | Select: PDF                                                                                                                 |
 
+    Then UI "Validate" Report With Name "DesignADC"
+      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80] |
+      | Format   | Select: PDF                                                                                                                 |
 
     Then UI Click Button "My Report" with value "DesignADC"
     Then UI Click Button "Generate Report Manually" with value "DesignADC"
@@ -25,12 +25,11 @@ Feature: DPM - Design Report Wizard
   @SID_3
   Scenario: Design the Report - edit and delete the top widget
     Given UI "Create" Report With Name "TopWidgetsReport"
-      | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[6:80] |
-      | Format   | Select: CSV                                                                                 |
+      | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80] |
+      | Format   | Select: CSV                                                                                             |
     Then UI "Validate" Report With Name "TopWidgetsReport"
-      | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[6:80] |
-      | Format   | Select: CSV                                                                                 |
-
+      | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80] |
+      | Format   | Select: CSV                                                                                             |
 
     Then UI Click Button "My Report" with value "TopWidgetsReport"
     Then UI Click Button "Generate Report Manually" with value "TopWidgetsReport"
@@ -65,13 +64,12 @@ Feature: DPM - Design Report Wizard
     Then UI Click Button "Generate Report Manually" with value "NetworkReport"
     Then Sleep "35"
 
-    Then UI Delete Report With Name "DesignADC"
-    Then UI Delete Report With Name "TopWidgetsReport"
-    Then UI Delete Report With Name "NetworkReport"
-
 #
   @SID_5
   Scenario: Cleanup
+    Then UI Delete Report With Name "DesignADC"
+    Then UI Delete Report With Name "TopWidgetsReport"
+    Then UI Delete Report With Name "NetworkReport"
     Given UI logout and close browser
     * CLI Check if logs contains
       | logType | expression | isExpected   |
