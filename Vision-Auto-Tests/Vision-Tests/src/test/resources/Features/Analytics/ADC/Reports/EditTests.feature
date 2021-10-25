@@ -8,78 +8,106 @@ Feature: Edit ADC Report tests
     Then UI Click Button "New Report Tab"
 
   @SID_2
-  Scenario: Create and validate ADC Report
+  Scenario Outline: Create and validate ADC Report
 #    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "ADC Report"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
+    Given UI "Create" Report With Name "<ReportName>"
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]               |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select:  PDF                                                                                              |
-    Then UI "Validate" Report With Name "ADC Report"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
+    Then UI "Validate" Report With Name "<ReportName>"
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]               |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |
+
+    Examples:
+      | ReportName | ApplicationName                                      |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
 
   @SID_3
-  Scenario: Add Template Widget to ADC Report
-    Given UI "Edit" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,AddWidgets:[End-to-End Time] , Applications:[Rejith_32326516:80] |
-    Then UI "Validate" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections,End-to-End Time] , Applications:[Rejith_32326516:80] |
+  Scenario Outline: Add Template Widget to ADC Report
+    Given UI "Edit" Report With Name "<ReportName>"
+      | Template-1 | reportType:Application ,AddWidgets:[End-to-End Time] , Applications:[<ApplicationName>] |
+    Then UI "Validate" Report With Name "<ReportName>"
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections,End-to-End Time] , Applications:[<ApplicationName>] |
+
+    Examples:
+      | ReportName | ApplicationName                                      |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
 
   @SID_4
-  Scenario: Delete Template Widget from ADC Report
-    Given UI "Edit" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,DeleteWidgets:[End-to-End Time] , Applications:[Rejith_32326516:80] |
-    Then UI "Validate" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80] |
+  Scenario Outline: Delete Template Widget from ADC Report
+    Given UI "Edit" Report With Name "<ReportName>"
+      | Template-1 | reportType:Application ,DeleteWidgets:[End-to-End Time] , Applications:[<ApplicationName>] |
+    Then UI "Validate" Report With Name "<ReportName>"
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>] |
+
+    Examples:
+      | ReportName | ApplicationName                                      |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
 
   @SID_5
-  Scenario: Edit Template Applications from ADC Report Report
-    Given UI "Edit" Report With Name "ADC Report"
-      | Template-2 | reportType:System and Network,Applications:[Alteon_172.17.164.18] |
+  Scenario Outline: Edit Template Applications from ADC Report Report
+    Given UI "Edit" Report With Name "<ReportName>"
+      | Template-2 | reportType:System and Network,Applications:[<ApplicationName>] |
     Then UI "Validate" Report With Name "ADC Report"
-      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
+      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[<ApplicationName>] |
+
+    Examples:
+      | ReportName | ApplicationName                                      |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
 
   @SID_6
-  Scenario:Add Template to ADC Report Report
-    Given UI "Edit" Report With Name "ADC Report"
+  Scenario Outline:Add Template to ADC Report Report
+    Given UI "Edit" Report With Name "<ReportName>"
       | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
-    Then UI "Validate" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
+    Then UI "Validate" Report With Name "<ReportName>"
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]              |
       | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
       | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
+
+    Examples:
+      | ReportName | ApplicationName                                      |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
 
   @SID_7
-  Scenario: Delete Template from ADC Report
-    Given UI "Edit" Report With Name "ADC Report"
+  Scenario Outline: Delete Template from ADC Report
+    Given UI "Edit" Report With Name "<ReportName>"
       | Template-3 | DeleteTemplate:true |
-    Then UI "Validate" Report With Name "ADC Report"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
+    Then UI "Validate" Report With Name "<ReportName>"
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]              |
       | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
 
+    Examples:
+      | ReportName | ApplicationName                                      |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
+
   @SID_8
-  Scenario: Create and validateADC Report2
+  Scenario Outline: Create and validateADC Report2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "ADC Report2"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
+    Given UI "Create" Report With Name "<ReportName>"
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]              |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |
-    Then UI "Validate" Report With Name "ADC Report2"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
+    Then UI "Validate" Report With Name "<ReportName>"
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]              |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |
+
+    Examples:
+      | ReportName | ApplicationName                                      |
+      | ADC Report2 | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
 
   @SID_9
   Scenario: Edit ADC Report2 report name
