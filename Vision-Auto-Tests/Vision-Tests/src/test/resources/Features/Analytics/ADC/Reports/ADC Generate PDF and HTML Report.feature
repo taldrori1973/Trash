@@ -9,13 +9,13 @@ Feature: ADC Generate PDF and HTML Report
 
   @SID_2
   Scenario: stop IPTABLES
-    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
+    Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
 
   @SID_3
   Scenario: validate Ports Traffic Information-System and Network
     Then Validate Line Chart data "Ports Traffic Information-System and Network" with Label "port_20" in report "ADC System and Network Report Definition"
       | value | min |
-      | 205   | 10  |
+      | 202   | 10  |
 
   @SID_4
   Scenario: validate Concurrent Connections-Application
@@ -70,7 +70,7 @@ Feature: ADC Generate PDF and HTML Report
 
   @SID_10
   Scenario: start IPTABLES
-    Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+    Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
 
   @SID_11
   Scenario: Logout
