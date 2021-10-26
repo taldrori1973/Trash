@@ -2,6 +2,7 @@
 
 Feature: Edit DefensePro Parameters
 
+
   @SID_1
   Scenario: Login and Navigate
     Given UI Login with user "sys_admin" and password "radware"
@@ -9,6 +10,7 @@ Feature: Edit DefensePro Parameters
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
     Then UI Navigate to "AMS Forensics" page via homepage
+
 
   @SID_2
   Scenario: create new Forensics DefensePro and validate
@@ -128,29 +130,31 @@ Feature: Edit DefensePro Parameters
   @SID_19
   Scenario: Edit Scope
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Product | DefensePro |
-      | devices | index:10   |
+      | Product | DefensePro             |
+      | devices | SetId:DefensePro_Set_2 |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Product | DefensePro |
-      | devices | index:10   |
+      | Product | DefensePro             |
+      | devices | SetId:DefensePro_Set_2 |
+
 
   @SID_20
   Scenario: Edit Scope policy
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Product | DefensePro               |
-      | devices | index:10,policies:[BDOS] |
+      | Product | DefensePro                             |
+      | devices | SetId:DefensePro_Set_1,policies:[BDOS] |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Product | DefensePro                   |
-      | devices | index:10,policies:[Policy15] |
+      | Product | DefensePro                                 |
+      | devices | SetId:DefensePro_Set_1,policies:[Policy15] |
+
 
   @SID_21
   Scenario: Edit Scope port
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro                             |
-      | devices | index:10,policies:[Policy15],ports:[1] |
+      | devices | SetId:DefensePro_Set_1,policies:[Policy15],ports:[1] |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro                             |
-      | devices | index:10,policies:[Policy15],ports:[1] |
+      | devices | SetId:DefensePro_Set_1,policies:[Policy15],ports:[1] |
 
   @SID_22
   Scenario: Edit Criteria
