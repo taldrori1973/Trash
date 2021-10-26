@@ -55,19 +55,19 @@ Feature: Edit ADC Report tests
   Scenario Outline: Edit Template Applications from ADC Report Report
     Given UI "Edit" Report With Name "<ReportName>"
       | Template-2 | reportType:System and Network,Applications:[<ApplicationName>] |
-    Then UI "Validate" Report With Name "ADC Report"
+    Then UI "Validate" Report With Name "<ReportName>"
       | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[<ApplicationName>] |
 
     Examples:
-      | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
+      | ReportName | ApplicationName      |
+      | ADC Report | Alteon_172.17.164.18 |
 
   @SID_6
   Scenario Outline:Add Template to ADC Report Report
     Given UI "Edit" Report With Name "<ReportName>"
       | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
     Then UI "Validate" Report With Name "<ReportName>"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]              |
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]               |
       | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
       | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
 
@@ -80,7 +80,7 @@ Feature: Edit ADC Report tests
     Given UI "Edit" Report With Name "<ReportName>"
       | Template-3 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "<ReportName>"
-      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]              |
+      | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]               |
       | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
 
     Examples:
@@ -91,14 +91,14 @@ Feature: Edit ADC Report tests
   Scenario Outline: Create and validateADC Report2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "<ReportName>"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]              |
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]               |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |
     Then UI "Validate" Report With Name "<ReportName>"
-      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]              |
+      | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]               |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
@@ -106,7 +106,7 @@ Feature: Edit ADC Report tests
       | Format                | Select: PDF                                                                                               |
 
     Examples:
-      | ReportName | ApplicationName                                      |
+      | ReportName  | ApplicationName                                      |
       | ADC Report2 | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
 
   @SID_9
