@@ -19,7 +19,7 @@ Feature: Forensic Attack details Tests
 
   @SID_2
   Scenario: Run DP simulator
-    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1" and wait 250 seconds
 
 
   @SID_3
@@ -179,7 +179,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Refine View"
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | End Time |
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     * UI Click Button "Forensics.Clear Refine"
 
   @SID_19
@@ -293,7 +293,7 @@ Feature: Forensic Attack details Tests
 
   @SID_30
   Scenario: New attack and create forensics view
-    Given CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 10 and wait 50 seconds
+    Given CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_1" and wait 60 seconds
     When UI "Create" Forensics With Name "Attack_Details"
       | Output | Start Time,Action,Attack ID,Threat Category,Duration |
 
