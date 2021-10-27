@@ -10,7 +10,7 @@
     @SID_2
     Scenario: Run DP simulator - QDos_Ahlam4
       Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
-      Then Sleep "5"
+      Then Sleep "30"
       * CLI kill all simulator attacks on current vision
 
 
