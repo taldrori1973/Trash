@@ -19,6 +19,7 @@
       Given UI Login with user "radware" and password "radware"
       Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
       Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+      Then Sleep "30"
 
 
     @SID_4
