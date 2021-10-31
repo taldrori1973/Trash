@@ -31,7 +31,7 @@
     @SID_5
     Scenario: validate QDos State attack ID 38-1630605835
       Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "38-1630605835"
-      Then UI Validate Line Chart data "Quantile-Traffic-Badnwidth" with Label "Received"
+      Then UI Validate Line Chart data "Quantile Traffic Badnwidth" with Label "Received"
         | value  | count |
         | 26152  | 1   |
         | 25818  | 1   |
@@ -42,7 +42,7 @@
         | 25257  | 1   |
         | 25491  | 1   |
         | 25430  | 1   |
-      And UI Validate Line Chart data "Quantile-Traffic-Badnwidth" with Label "Dropped"
+      And UI Validate Line Chart data "Quantile Traffic Badnwidth" with Label "Dropped"
         | value  | count |
         | 26074  | 1   |
         | 25607  | 1   |
@@ -53,7 +53,7 @@
         | 25525  | 1   |
         | 25852  | 1   |
         | 25794  | 1   |
-      And UI Validate Line Chart data "Quantile-Traffic-Badnwidth" with Label "Attack Edge"
+      And UI Validate Line Chart data "Quantile Traffic Badnwidth" with Label "Attack Edge"
         | value  | count |
         | 3529  | 9   |
 
@@ -68,7 +68,7 @@
     @SID_7
     Scenario: validate QDos State attack ID 39-1630605835
       Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "39-1630605835"
-      Then UI Validate Line Chart data "Quantile-Traffic-Badnwidth" with Label "Received"
+      Then UI Validate Line Chart data "Quantile Traffic Badnwidth" with Label "Received"
         | value  | count |
         | 25897  | 1   |
         | 25575  | 1   |
@@ -79,7 +79,7 @@
         | 25942  | 1   |
         | 25768  | 1   |
         | 25742  | 1   |
-      And UI Validate Line Chart data "Quantile-Traffic-Badnwidth" with Label "Dropped"
+      And UI Validate Line Chart data "Quantile Traffic Badnwidth" with Label "Dropped"
         | value  | count |
         | 25841  | 1   |
         | 25478  | 1   |
@@ -90,7 +90,7 @@
         | 25724  | 1   |
         | 25630  | 1   |
         | 25899  | 1   |
-      And UI Validate Line Chart data "Quantile-Traffic-Badnwidth" with Label "Attack Edge"
+      And UI Validate Line Chart data "Quantile Traffic Badnwidth" with Label "Attack Edge"
         | value  | count |
         | 2230  | 9   |
 
