@@ -17,11 +17,11 @@ Feature: DP ANALYTICS RBAC
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 12 with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 20 with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 21 and wait 240 seconds with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_3" with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_4" with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_5" and wait 240 seconds with attack ID
 
 
   @SID_3
@@ -49,20 +49,22 @@ Feature: DP ANALYTICS RBAC
       | POL_IPV6         | network flood IPv6 TCP-SYN-ACK | 3     |
       | POL_IPV6         | network flood IPv6 UDP         | 3     |
     Then UI Total "Attacks by Protection Policy" legends equal to 10
-    Then UI Text of "Device Selection" equal to "DEVICES 3/3"
-    Then UI Text of "UpDevices" equal to "3"
+
+
+    Then UI Text of "Device Selection" equal to "DEVICES4/4"
+    Then UI Text of "UpDevices" equal to "4"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
-      | index | polices                | total |
-      | 10    | Policy14,Policy15,BDOS | All   |
-      | 11    | pol_1,shlomi           | All   |
-      | 12    | BDOS,Policy14          | All   |
+      | setId            | polices                | total |
+      | DefensePro_Set_1 | Policy14,Policy15,BDOS | All   |
+      | DefensePro_Set_2 | pol_1,policy_3         | All   |
+      | DefensePro_Set_3 | Ahlam69                | All   |
     When UI VRM Select device from dashboard
-      | index |
-    Then UI Text of "Device Selection.Available Devices header" contains "Devices3/3"
-    Then UI VRM Total Available Device's 3
+      | setId |
+    Then UI Text of "Device Selection.Available Devices header" contains "Devices4/4"
+    Then UI VRM Total Available Device's 4
     * UI Logout
 
     ### see DE39973 WNBF
@@ -108,19 +110,19 @@ Feature: DP ANALYTICS RBAC
       | legendName | label               | value |
       | policy1    | TCP Scan (vertical) | 2     |
       | policy1    | SYN Flood HTTP      | 2     |
-    Then UI Text of "Device Selection" equal to "DEVICES 1/1"
+    Then UI Text of "Device Selection" equal to "DEVICES1/1"
     Then UI Text of "UpDevices" equal to "1"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
 
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
-      | index | polices | total |
-      | 10    | policy1 | 1     |
+      | setId            | polices | total |
+      | DefensePro_Set_1 | policy1 | 1     |
     Then UI Total "Attacks by Protection Policy" legends equal to 1
 
     When UI VRM Select device from dashboard
-      | index |
+      | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
     * UI Logout
@@ -134,11 +136,11 @@ Feature: DP ANALYTICS RBAC
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
     When UI Click Button "Device Selection"
     When UI VRM Select device from dashboard
-      | index |
+      | setId |
     When UI Set Text Field "Device Selection.Search" To "FakeDPs_Old_Version_site"
     Then UI VRM Total Available Device's 0
     When UI Set Text Field "Device Selection.Search" To "RealDPs_Version_8_site"
-    Then UI VRM Total Available Device's 1
+    Then UI VRM Total Available Device's 0
     When UI Set Text Field "Device Selection.Search" To "VA_DPs_Version_8_site"
     Then UI VRM Total Available Device's 0
     When UI Set Text Field "Device Selection.Search" To "DPs_Mixed_Versions_LogicalGroup"
@@ -170,18 +172,18 @@ Feature: DP ANALYTICS RBAC
       | Black_IPV6       | Black List                     | 2     |
       | Packet Anomalies | Incorrect IPv4 checksum        | 3     |
     Then UI Total "Attacks by Protection Policy" legends equal to 10
-    Then UI Text of "Device Selection" equal to "DEVICES 1/1"
+    Then UI Text of "Device Selection" equal to "DEVICES1/1"
     Then UI Text of "UpDevices" equal to "1"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
 
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
-      | index | polices  | total |
-      | 10    | Policy15 | All   |
+      | setId            | polices  | total |
+      | DefensePro_Set_1 | Policy15 | All   |
 
     When UI VRM Select device from dashboard
-      | index |
+      | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
     Then UI Logout
@@ -207,18 +209,18 @@ Feature: DP ANALYTICS RBAC
       | Black_IPV6       | Black List                     | 2     |
       | Packet Anomalies | Incorrect IPv4 checksum        | 3     |
     Then UI Total "Attacks by Protection Policy" legends equal to 10
-    Then UI Text of "Device Selection" equal to "DEVICES 1/1"
+    Then UI Text of "Device Selection" equal to "DEVICES1/1"
     Then UI Text of "UpDevices" equal to "1"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
 
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
-      | index | polices  | total |
-      | 10    | Policy15 | All   |
+      | setId            | polices  | total |
+      | DefensePro_Set_1 | Policy15 | All   |
 
     When UI VRM Select device from dashboard
-      | index |
+      | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
     Then UI Logout
@@ -237,18 +239,18 @@ Feature: DP ANALYTICS RBAC
       | BDOS       | network flood IPv4 TCP-SYN-ACK | 1     |
       | BDOS       | tim                            | 1     |
     Then UI Total "Attacks by Protection Policy" legends equal to 1
-    Then UI Text of "Device Selection" equal to "DEVICES 1/1"
+    Then UI Text of "Device Selection" equal to "DEVICES1/1"
     Then UI Text of "UpDevices" equal to "1"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
 
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
-      | index | polices | total |
-      | 10    | BDOS    | 1     |
+      | setId            | polices | total |
+      | DefensePro_Set_1 | BDOS    | 1     |
 
     When UI VRM Select device from dashboard
-      | index |
+      | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
     Then UI Logout
@@ -274,18 +276,18 @@ Feature: DP ANALYTICS RBAC
       | Black_IPV6       | Black List                     | 2     |
       | 1                | DNS flood IPv4 DNS-A           | 2     |
     Then UI Total "Attacks by Protection Policy" legends equal to 10
-    Then UI Text of "Device Selection" equal to "DEVICES 1/1"
+    Then UI Text of "Device Selection" equal to "DEVICES1/1"
     Then UI Text of "UpDevices" equal to "1"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
 
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
-      | index | polices | total |
-      | 11    | policy1 | ALl   |
+      | setId            | polices | total |
+      | DefensePro_Set_2 | pol1 | ALl   |
 
     When UI VRM Select device from dashboard
-      | index |
+      | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
     Then UI Logout
@@ -302,18 +304,18 @@ Feature: DP ANALYTICS RBAC
       | POL_IPV6   | network flood IPv6 TCP-SYN-ACK | 1     |
       | POL_IPV6   | network flood IPv6 UDP         | 1     |
     Then UI Total "Attacks by Protection Policy" legends equal to 1
-    Then UI Text of "Device Selection" equal to "DEVICES 1/1"
+    Then UI Text of "Device Selection" equal to "DEVICES1/1"
     Then UI Text of "UpDevices" equal to "1"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
 
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
-      | index | polices  | total |
-      | 10    | POL_IPV6 | 1     |
+      | setId            | polices  | total |
+      | DefensePro_Set_1 | POL_IPV6 | 1     |
 
     When UI VRM Select device from dashboard
-      | index |
+      | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
     Then UI Logout
@@ -330,21 +332,21 @@ Feature: DP ANALYTICS RBAC
       | policy1    | SYN Flood HTTP      | 2     |
       | policy1    | TCP Scan (vertical) | 2     |
     Then UI Total "Attacks by Protection Policy" legends equal to 1
-    Then UI Text of "Device Selection" equal to "DEVICES 1/1"
+    Then UI Text of "Device Selection" equal to "DEVICES1/1"
     Then UI Text of "UpDevices" equal to "1"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
 
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
-      | index | polices | total |
-      | 10    | policy1 | 1     |
+      | setId            | polices | total |
+      | DefensePro_Set_1 | policy1 | 1     |
 
     When UI VRM Select device from dashboard
-      | index |
+      | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+
 
   @SID_13
   Scenario: Stop attack and search for bad logs

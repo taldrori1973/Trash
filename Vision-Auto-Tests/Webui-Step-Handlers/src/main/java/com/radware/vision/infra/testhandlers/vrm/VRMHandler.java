@@ -1125,16 +1125,20 @@ public class VRMHandler {
     public void validateDevicePolicies(List<DevicesAndPolices> entries) {
         entries.forEach(entry -> {
             String deviceIp = "";
+            String deviceType = "";
             try {
-                deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+                TreeDeviceManagementDto deviceInfo = TestBase.getSutManager().getTreeDeviceManagement(entry.setId).get();
+                deviceIp = deviceInfo.getManagementIp();
+                deviceType = deviceInfo.getDeviceType();
+
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
-            VisionDebugIdsManager.setLabel("Device Selection.Available Device.change");
+            VisionDebugIdsManager.setLabel("DPChange");
             VisionDebugIdsManager.setParams(deviceIp);
             WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
 
-            String policySearch = "scopeSelection_deviceIP_[" + deviceIp + "]_policy_Text";
+            String policySearch = String.format("scopeSelection_[%s_%s]_policy_Text",deviceType,deviceIp);
             WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
 
             List<String> polices = Lists.newArrayList(entry.polices.split(","));
@@ -1142,26 +1146,21 @@ public class VRMHandler {
             for (String policy : polices) {
                 policy = policy.trim();
                 policyText.type(policy);
-                VisionDebugIdsManager.setLabel("Device Selection.Available Device.change.policy");
-                VisionDebugIdsManager.setParams(deviceIp, policy);
+                VisionDebugIdsManager.setLabel("PolicyValidate");
+               VisionDebugIdsManager.setParams(deviceIp, policy);
                 if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()) == null) {
                     addErrorMessage(String.format("device [%s] ->Expected policy [%s] does not exist", deviceIp, policy));
                     WebUIUtils.generateAndReportScreenshot();
                 }
             }
             //count the policies
-            int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label")).getViewValues().size();
+            int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id,'scopeSelection_DefensePro_"+deviceIp+"')]")).getViewValues().size();
             if (entry.total.equalsIgnoreCase("All")) {
                 ServersManagement serversManagement = TestBase.getServersManagement();
                 Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
                 RootServerCli rsc = rootServerCli.get();
 
-                CliOperations.runCommand(rsc, String.format("mysql -u root -pradware vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
-                int totalDpPolicesNumber = Integer.parseInt(CliOperations.lastRow);
-                if (actualPoliciesNumber == totalDpPolicesNumber) {
-                    addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected \"All =\" [%s]", deviceIp, actualPoliciesNumber, totalDpPolicesNumber));
-                    WebUIUtils.generateAndReportScreenshot();
-                }
+               CliOperations.runCommand(rsc, String.format("mysql -u root -pradware vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
             } else if (!String.valueOf(actualPoliciesNumber).equals(entry.total)) {
                 addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected [%s]", deviceIp, actualPoliciesNumber, entry.total));
                 WebUIUtils.generateAndReportScreenshot();
@@ -1475,8 +1474,7 @@ public class VRMHandler {
     }
 
     public static class DevicesAndPolices {
-        int index;
-        String polices, total;
+        String setId, polices, total;
     }
 
     public static class Polices {
