@@ -22,7 +22,7 @@ Feature: Edit Criteria Testes
     Given add 200 applications with prefix name "radware_app" to appWall ip:"172.17.164.30" with timeout 300
     Given add 150 applications with prefix name "radware_application" to appWall ip:"172.17.164.30" with timeout 300
     Given add 50 applications with prefix name "application" to appWall ip:"172.17.164.30" with timeout 300
-    And Sleep "90"
+    And Sleep "135"
     Then UI Navigate to "AMS Forensics" page via homepage
 
 #    ------------------------------------- DefenseFlow------------------------------------------------------
