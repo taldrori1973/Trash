@@ -56,6 +56,7 @@ Feature: RBAC Menu
     * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
       | jsonPath             | value   |
       | $.authenticationMode | "Local" |
+    * UI logout and close browser
 
 
   @SID_5
@@ -80,7 +81,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_6
   Scenario: ADC Administrator
@@ -104,9 +105,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
-    #  Vdirect should not be display as  mentioned in table from user Guid
+#      Vdirect should not be display as  mentioned in table from user Guid
   @SID_7
   Scenario: ADC Operator
     When UI Login with user "adc_operator" and password "Radware1234!@#$"
@@ -129,7 +130,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_8
   Scenario: Administrator
@@ -153,7 +154,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_9
   Scenario: Certificate Administrator
@@ -177,7 +178,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_10
   Scenario: Device Administrator
@@ -201,7 +202,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_11
   Scenario: Device Configurator
@@ -225,7 +226,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_12
   Scenario: Device Operator
@@ -249,7 +250,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
      #  Vdirect should not be display as  mentioned in table from user Guid
   @SID_13
@@ -274,7 +275,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
 
    #  Vdirect should not be display as  mentioned in table from user Guid
@@ -300,7 +301,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_15
   Scenario: Security Administrator
@@ -324,7 +325,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_16
   Scenario: Security Monitor
@@ -348,7 +349,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_17
   Scenario: User Administrator
@@ -372,7 +373,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_18
   Scenario: Vision Administrator
@@ -396,7 +397,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_19
   Scenario: Vision Reporter
@@ -420,7 +421,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
     @SID_20
   Scenario Outline: Delete All Users
@@ -452,4 +453,3 @@ Feature: RBAC Menu
     * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
       | jsonPath             | value    |
       | $.authenticationMode | "TACACS" |
-
