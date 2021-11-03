@@ -51,8 +51,8 @@ Feature: DP ANALYTICS RBAC
     Then UI Total "Attacks by Protection Policy" legends equal to 10
 
 
-    Then UI Text of "Device Selection" equal to "DEVICES4/4"
-    Then UI Text of "UpDevices" equal to "4"
+    Then UI Text of "Device Selection" equal to "DEVICES5/5"
+    Then UI Text of "UpDevices" equal to "5"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
     When UI Click Button "Device Selection"
@@ -63,8 +63,8 @@ Feature: DP ANALYTICS RBAC
       | DefensePro_Set_3 | Ahlam69                | All   |
     When UI VRM Select device from dashboard
       | setId |
-    Then UI Text of "Device Selection.Available Devices header" contains "Devices4/4"
-    Then UI VRM Total Available Device's 4
+    Then UI Text of "Device Selection.Available Devices header" contains "Devices5/5"
+    Then UI VRM Total Available Device's 5
     * UI Logout
 
     ### see DE39973 WNBF
