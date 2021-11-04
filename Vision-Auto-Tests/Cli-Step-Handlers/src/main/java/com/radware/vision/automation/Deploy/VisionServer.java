@@ -27,7 +27,7 @@ public class VisionServer {
     private final static String UPGRADE_FAILED_MESSAGE = "The APSolute Vision upgrade process failed";
     private final static String GOING_TO_REBOOT = "Is reboot required: 0";
     private final static String SUCCESSFUL_UPGRADE = "The upgrade of APSolute Vision server has completed successfully";
-    private final static String UPGRADE_FILE_PATH = "/opt/radware/storage/maintenance/logs/upgrade.log";
+    private final static String UPGRADE_FILE_PATH = "/opt/radware/storage/maintenance/upgrade/upgrade.log";
 
     public static void upgradeServerFile(RadwareServerCli radwareServerCli, RootServerCli rootServerCli,
                                          String upgradePassword,
@@ -317,7 +317,7 @@ public class VisionServer {
         String errorMessage = "";
         if (!lAddedServices.isEmpty() || !lRemovedServices.isEmpty())
             errorMessage = String.format("Service list was changed:\nNew line/s found: %s\nMissing service/s found: %s",
-                    lAddedServices.toString(), lRemovedServices.toString());
+                    lAddedServices, lRemovedServices);
         if (!errorMessage.isEmpty())
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
     }
