@@ -129,10 +129,10 @@ Feature: Edit DefenseFlow Parameters
   Scenario: Edit Scope
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Product           | DefenseFlow |
-      | Protected Objects | PO_10        |
+      | Protected Objects | PO_1        |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Product           | DefenseFlow |
-      | Protected Objects | PO_10        |
+      | Protected Objects | PO_1        |
 
   @SID_19
   Scenario: Edit Criteria
