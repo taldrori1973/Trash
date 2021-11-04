@@ -1,18 +1,18 @@
 {
-  "serverName": "uvision_auto_Ahlam",
   "setupFile": "fullSetup.json",
-  "pair": {
-    "pairIp": "172.17.164.148",
-    "environment": "KVM-210"
-  },
+  "serverName": "uVision",
   "deployConfigurations": {
-    "setupMode": "qcow2_fresh install",
     "snapshot": "Current-1",
-    "environment": "KVM-210"
+    "setupMode": "fresh install",
+    "environment": "OVA-232"
+  },
+  "pair": {
+    "pairIp": "172.17.164.101",
+    "environment": "KVM-217"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.154.13",
-    "userName": "root",
+    "hostIp": "172.17.154.15",
+    "userName": "radware",
     "password": "radware",
     "restConnection": {
       "defaultPort": 443,
