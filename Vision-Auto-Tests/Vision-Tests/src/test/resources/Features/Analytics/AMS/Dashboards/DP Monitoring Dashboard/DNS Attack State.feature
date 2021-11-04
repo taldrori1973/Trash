@@ -8,7 +8,7 @@ Feature: AMS DNS Attack State
 
   @SID_2
   Scenario: generate DNS attacks with all possible states
-    Given CLI simulate 20 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 40 seconds
+    Given CLI simulate 20 attacks of type "DNS_States" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 40 seconds
 
 
   @SID_3
@@ -16,6 +16,7 @@ Feature: AMS DNS Attack State
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    Then Sleep "40"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "pol_1"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "DNS Flood"
 
