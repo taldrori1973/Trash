@@ -4,6 +4,7 @@ Feature: AMS DNS Attack State
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
+    * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
   @SID_2
