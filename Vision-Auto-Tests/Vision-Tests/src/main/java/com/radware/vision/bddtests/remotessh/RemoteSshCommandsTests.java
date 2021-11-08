@@ -18,8 +18,10 @@ import cucumber.api.java.en.When;
 import enums.SUTEntryType;
 import testutils.RemoteProcessExecutor;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
 import static com.radware.vision.vision_handlers.NewVmHandler.waitForServerConnection;
@@ -153,6 +155,31 @@ public class RemoteSshCommandsTests extends TestBase {
         }
     }
 
+    @When("^CLI Copy files contains name \"(.*)\" from container \"(.*)\" from path \"(.*)\" to path \"(.*)\"$")
+    public void copyFilesFromContainer(String fileName, String containerName, String fromPath, String toPath)
+    {
+        String commandToExecute = String.format("docker exec -it %s sh -c \"ls %s | grep %s | tr '\n' ';' && echo '\n'\"", containerName, fromPath, fileName);
+
+        try {
+            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), String.format("mkdir -p %s", toPath));
+            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute);
+            List<String> files = Arrays.stream(CliOperations.lastRow.split(";")).filter(x->!x.isEmpty() && !x.contains("'")).collect(Collectors.toList());
+            int filesNotFoundCount = 0;
+            for (String fn:files
+                 ) {
+                String copyCommand = String.format("docker cp %s:%s/%s %s", containerName, fromPath, fn, toPath);
+                CliOperations.runCommand(serversManagement.getRootServerCLI().get(), copyCommand);
+                if(CliOperations.lastRow != null)
+                    filesNotFoundCount++;
+            }
+            if(filesNotFoundCount > 0)
+                BaseTestUtils.report(String.format("%d Files Not Found", filesNotFoundCount), Reporter.FAIL);
+
+            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), String.format("docker exec -it %s sh -c \"rm %s/%s\"",containerName,fromPath,fileName));
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + ServersManagement.ServerIds.ROOT_SERVER_CLI + "\n" + e.getMessage(), Reporter.FAIL);
+        }
+    }
 
     @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\"(?: with timeOut (\\d+))?$")
     public void runCLICommand(String commandToExecute, ServersManagement.ServerIds serverId, Integer timeOut) {
