@@ -16,9 +16,9 @@ Feature: Forensics RBAC
     Given CLI Reset radware password
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    When CLI simulate 1 attacks of type "Ascan_Policy14" on "DefensePro" 10
-    When CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 11
-    When CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 22 seconds
+    Given CLI simulate 1 attacks of type "Ascan_Policy14" on SetId "DefensePro_Set_1"
+    Given CLI simulate 1 attacks of type "rest_dos" on SetId "DefensePro_Set_2"
+    When CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1" and wait 22 seconds
 
   @SID_3
   Scenario: Forensics RBAC restricted user DEVICE can not view definition of admin other
@@ -27,7 +27,7 @@ Feature: Forensics RBAC
     When UI "Create" Forensics With Name "AllDevAllPol"
       |  |  |
     When UI "Create" Forensics With Name "Device10_Policy15"
-      | devices               | index:10,policies:[Policy15];|
+      | devices               | setId:DefensePro_Set_1,policies:[Policy15];|
     * UI logout and close browser
 
   @SID_4
