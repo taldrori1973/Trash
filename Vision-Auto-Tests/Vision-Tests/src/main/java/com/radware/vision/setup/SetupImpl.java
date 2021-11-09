@@ -35,10 +35,27 @@ public class SetupImpl extends TestBase implements Setup {
         if(syncDevices == null || !syncDevices.toUpperCase().equals("TRUE"))
             return;
 
-        DevicesTree existedDevicesTree = getDeviceTree();
-        List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
-        deleteDevices(existedDevicesTree, visionSetupTreeDevices, existedDevicesTree.getName());
-        addDevices(existedDevicesTree , visionSetupTreeDevices);
+        DevicesTree existedDevicesTree = null;
+//        try {
+            existedDevicesTree = getDeviceTree();
+//        }
+//        catch (StatusCodeException e){
+//            if(e.getStatusCode().equals(StatusCode.PAYMENT_REQUIRED))
+//            {
+//                activateVision();
+//                existedDevicesTree = getDeviceTree();
+//            }
+//            else
+//                BaseTestUtils.report("Can't get devices tree", Reporter.FAIL);
+//        }
+
+        if(existedDevicesTree!=null)
+        {
+            deleteDevices(existedDevicesTree, existedDevicesTree.getName());
+            List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
+            addDevices(existedDevicesTree , visionSetupTreeDevices);
+            //validateSetupIsReady();
+        }
     }
 
     public void validateSetupIsReady() throws Exception {
@@ -156,7 +173,7 @@ public class SetupImpl extends TestBase implements Setup {
         }
     }
 
-    public boolean deleteDevices(DevicesTree existedDevicesTree, List<TreeDeviceManagementDto> setupDevicesTree, String parentSite) throws Exception {
+    public boolean deleteDevices(DevicesTree existedDevicesTree, String parentSite) throws Exception {
         String name = existedDevicesTree.getName();
         String type = (existedDevicesTree.getType()!=null)?"device":"site";
         
@@ -165,7 +182,7 @@ public class SetupImpl extends TestBase implements Setup {
         {
             for (DevicesTree dt:existedDevicesTree.getChildren()
                  ) {
-                containsDevices = !deleteDevices(dt, setupDevicesTree, name) || containsDevices;
+                containsDevices = !deleteDevices(dt, name) || containsDevices;
             }
         }
         
@@ -179,10 +196,19 @@ public class SetupImpl extends TestBase implements Setup {
         else if(containsDevices || name.equals("Default"))
             return false;
 
-        GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Delete Site/device by Name");
+        GenericVisionRestAPI restAPI = null;
         Map<String, String> pathParams = new HashMap<>();
-        pathParams.put("type", type);
-        pathParams.put("name", name);
+        if(type.toUpperCase().equals("DEVICE"))
+        {
+            restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Delete Device");
+            pathParams.put("ormID" ,existedDevicesTree.getMeIdentifier().getManagedElementID()); // get ormID
+        }
+        else
+        {
+            restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Delete Site/device by Name");
+            pathParams.put("type", type);
+            pathParams.put("name", name);
+        }
         restAPI.getRestRequestSpecification().setPathParams(pathParams);
         RestResponse restResponse;
         int timeToTry = 5;
@@ -206,9 +232,6 @@ public class SetupImpl extends TestBase implements Setup {
 
     public void addDevices(DevicesTree existedDevicesTree, List<TreeDeviceManagementDto> setupDevicesTree)
     {
-        String name = existedDevicesTree.getName();
-        String type = (existedDevicesTree.getType()!=null)?"device":"site";
-
         HashMap<String, String> existedDevicesHash = existedDevicesTree.getDevicesHash();
 
         for (TreeDeviceManagementDto device:setupDevicesTree
@@ -269,6 +292,7 @@ class DevicesTree {
     private List<DevicesTree> children;
     private String name;
     private String type;
+    private Identifier meIdentifier;
 
     public HashMap<String,String> getDevicesHash()
     {
