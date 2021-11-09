@@ -735,39 +735,6 @@
             }
           }
         }
-      },
-      {
-        "deviceId": "DefensePro_172.16.22.50",
-        "deviceSetId": "DefensePro_Set_172.16.22.50",
-        "configurations": {
-          "name": "DefensePro_172.16.22.50",
-          "parentOrmID": null,
-          "type": "DefensePro",
-          "deviceSetup": {
-            "deviceAccess": {
-              "cliPassword": "radware1",
-              "cliPort": 22,
-              "cliUsername": "radware",
-              "exclusivelyReceiveDeviceEvents": false,
-              "httpPassword": "radware1",
-              "httpsPassword": "radware1",
-              "httpsUsername": "radware",
-              "httpUsername": "radware",
-              "managementIp": "172.16.22.50",
-              "registerDeviceEvents": true,
-              "snmpV1ReadCommunity": "public",
-              "snmpV1WriteCommunity": "public",
-              "snmpV2ReadCommunity": "public",
-              "snmpV2WriteCommunity": "public",
-              "snmpV3AuthenticationProtocol": "SHA",
-              "snmpV3PrivacyProtocol": "DES",
-              "snmpVersion": "SNMP_V2",
-              "verifyHttpCredentials": true,
-              "verifyHttpsCredentials": true,
-              "visionMgtPort": "G1"
-            }
-          }
-        }
       }
     ],
     "appWalls": [
