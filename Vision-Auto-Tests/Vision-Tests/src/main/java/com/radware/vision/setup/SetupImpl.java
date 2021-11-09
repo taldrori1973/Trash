@@ -288,6 +288,12 @@ public class SetupImpl extends TestBase implements Setup {
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
+class Identifier {
+    private String managedElementID;
+}
+
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 class DevicesTree {
     private List<DevicesTree> children;
     private String name;
