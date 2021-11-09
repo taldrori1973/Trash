@@ -4,12 +4,8 @@ Feature: DefensePro Analytics CSV Report
   @SID_1
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
-#    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-#    Then CLI Run remote linux Command "docker restart config_kvision-collector_1" on "ROOT_SERVER_CLI" with timeOut 720
     Then CLI Service "config_kvision-collector_1" do action RESTART
-#    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
     Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
 
   @SID_2
@@ -84,7 +80,7 @@ Feature: DefensePro Analytics CSV Report
   @SID_7
   Scenario: generate report
     Then UI "Generate" Report With Name "DP Analytics csv"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
 #########################todo
 #
@@ -103,6 +99,7 @@ Feature: DefensePro Analytics CSV Report
   @SID_9
   Scenario: VRM report unzip local CSV file
     Then Sleep "10"
+    Then CLI Copy files contains name ".txt" from container "config_kvision-reporter_1" from path "/usr/local/tomcat" to path "/opt/radware/mgt-server/third-party/tomcat/bin/"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then Sleep "10"
