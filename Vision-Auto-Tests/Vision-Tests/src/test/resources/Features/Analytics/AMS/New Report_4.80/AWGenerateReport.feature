@@ -4,10 +4,9 @@ Feature: AWGenerateReport
   @SID_1
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
-    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
-
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Service "config_kvision-collector_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
 
   @SID_2
   Scenario: old reports on file-system
@@ -49,20 +48,14 @@ Feature: AWGenerateReport
 
   @SID_6
   Scenario: Navigate AMS Report
-    Given REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
+    Given REST Add device with SetId "AppWall_Set_1" into site "AW_site"
     * REST Vision Install License Request "vision-AVA-AppWall"
     And Browser Refresh Page
     And UI Navigate to "AMS Reports" page via homePage
 
-    @SID_7
-    Scenario: validate attacks by action
-      Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
+  @SID_7
+  Scenario: validate attacks by action
+#    Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
     Then UI Validate Pie Chart data "Attacks by Action-AppWall" in Report "AwReportGeneration"
       | label    | data |
       | Blocked  | 281  |
@@ -87,9 +80,10 @@ Feature: AWGenerateReport
       | A5    | 100  |
       | A7    | 60   |
       | A6    | 10   |
-    @SID_10
-    Scenario: start IPTABLES
-      Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+
+#  @SID_10
+#  Scenario: start IPTABLES
+#    Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
 
   @SID_11
   Scenario: validate that generate report exist in UI
