@@ -28,8 +28,8 @@ Feature: HTTPSGenerateReport
 
   @SID_5
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
-    Given CLI simulate 1 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 15000 and wait 60 seconds
-    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
+    Given CLI simulate 1 attacks of type "HTTPS" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 60 seconds
+    Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
 
   @SID_6
   Scenario: Inbound Traffic - Real-Time Traffic
@@ -92,4 +92,4 @@ Feature: HTTPSGenerateReport
 
   @SID_7
   Scenario: start IPTABLES
-    Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+    Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"

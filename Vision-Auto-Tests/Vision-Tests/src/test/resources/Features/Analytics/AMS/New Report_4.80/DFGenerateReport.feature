@@ -38,7 +38,7 @@ Feature: DFGenerateReport
 
   @SID_5
   Scenario: validate destination
-    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
+    Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
     Then UI Validate Pie Chart data "Top Attack Destination-DefenseFlow Analytics" in Report "dfGenerateReport"
       | label          | data |
       | 94.125.59.119  | 178  |
@@ -103,7 +103,7 @@ Feature: DFGenerateReport
 
   @SID_9
   Scenario: start IPTABLES
-    Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+    Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
 
 
 
