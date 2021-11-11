@@ -17,7 +17,7 @@ Feature: AppWall CSV Report
   @SID_3
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Delete ES index "appwall-v2-attack*"
     * REST Delete ES index "vrm-scheduled-report-*"
     * CLI Clear vision logs
@@ -55,7 +55,7 @@ Feature: AppWall CSV Report
       | httpsUsername | user1    |
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
-    * REST Vision Install License Request "vision-AVA-AppWall"
+    Then REST Vision Install License Request "vision-AVA-AppWall"
     And Browser Refresh Page
     And UI Navigate to "AMS Reports" page via homePage
 
