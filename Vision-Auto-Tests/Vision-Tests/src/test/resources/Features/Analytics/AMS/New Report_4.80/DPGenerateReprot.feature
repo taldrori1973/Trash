@@ -28,9 +28,8 @@ Feature: DPGenerateReport
 
   @SID_4
   Scenario: validate DP Analytics Widget - Top Attack Destinations
-    # ToDo - need to check if still using "service iptables stop" and the value that returned
-#    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
-    Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
+    # ToDo - check service iptables
+    #Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
     Then UI Validate Pie Chart data "Top Attack Destinations-DefensePro Analytics" in Report "DPAndDPBehavioralReport"
       | label    | data |
       | 1.1.1.10 | 5    |
@@ -112,6 +111,7 @@ Feature: DPGenerateReport
 
   @SID_13
   Scenario: start IPTABLES
-    Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
+    # ToDo - check service iptables
+    #Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
     Then UI logout and close browser
 
