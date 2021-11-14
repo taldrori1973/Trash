@@ -9,7 +9,6 @@ Feature: System Tests
   Scenario: Cli System help
     When CLI Operations - Run Radware Session command "system ?"
     Then CLI Operations - Verify that output contains regex ".*System parameters..*"
-    Then CLI Operations - Verify that output contains regex ".*apm.*Manages APM..*"
     Then CLI Operations - Verify that output contains regex ".*audit-log.*Audit log settings..*"
     Then CLI Operations - Verify that output contains regex ".*backup.*Manages system backup..*"
     Then CLI Operations - Verify that output contains regex ".*cleanup.*APSolute Vision server data-cleanup commands..*"
@@ -17,7 +16,6 @@ Feature: System Tests
     Then CLI Operations - Verify that output contains regex ".*database.*Database commands..*"
     Then CLI Operations - Verify that output contains regex ".*date.*Date settings..*"
     Then CLI Operations - Verify that output contains regex ".*df.*Manages DefenseFlow..*"
-    Then CLI Operations - Verify that output contains regex ".*dpm.*Manages the Device Performance Monitor..*"
     Then CLI Operations - Verify that output contains regex ".*exporter.*Events exporter configuration..*"
     Then CLI Operations - Verify that output contains regex ".*hardware.*Displays the system hardware..*"
     Then CLI Operations - Verify that output contains regex ".*hostname.*Hostname settings..*"
