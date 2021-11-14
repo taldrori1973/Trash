@@ -79,6 +79,11 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getTreeDeviceManagementBySetId(setId);
     }
 
+    @Override
+    public Optional<TreeDeviceManagementDto> getTreeDeviceManagementFromDevices(String setId) {
+        return this.sutService.getTreeDeviceManagementBySetIdFromDevices(setId);
+    }
+
     public Optional<EnvironmentDto> getEnviorement() {
         return this.sutService.getEnviorement(getDeployConfigurations().getEnvironment());
     }
