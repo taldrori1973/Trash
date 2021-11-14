@@ -54,7 +54,7 @@ public class TopologyTreeRestSteps extends TestBase {
             simulators.forEach(sim -> {
                 String setId = sim.getDeviceSetId();
                 String parentSite = TestBase.getSutManager().getDeviceParentSite(sim.getDeviceId());
-                this.restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(setId, parentSite);
+                this.restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues("SetID", setId, parentSite);
             });
             //Todo: KVISION delete this WA when applications issue fixed (sleep added to wait until all simulators are connected)
             Thread.sleep(60* 1000);
