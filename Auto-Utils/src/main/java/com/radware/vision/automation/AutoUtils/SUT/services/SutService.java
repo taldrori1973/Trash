@@ -130,6 +130,42 @@ public class SutService {
 
     }
 
+    public Optional<TreeDeviceManagementDto> getTreeDeviceManagementBySetIdFromDevices(String deviceId) {
+        try {
+            ModelMapper modelMapper = new ModelMapper();//this is special model mapper
+            List<Device> allDevices = this.devicesDao.findAllDevices();
+            Type listType = new TypeToken<List<TreeDeviceManagementDto>>() {}.getType();
+
+            modelMapper.createTypeMap(Device.class, TreeDeviceManagementDto.class)
+                    .addMapping(device -> device.getConfigurations().getName(), TreeDeviceManagementDto::setDeviceName)
+                    .addMapping(device -> device.getConfigurations().getType(), TreeDeviceManagementDto::setDeviceType)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getCliPassword(), TreeDeviceManagementDto::setCliPassword)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getCliPort(), TreeDeviceManagementDto::setCliPort)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getCliUsername(), TreeDeviceManagementDto::setCliUsername)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpPassword(), TreeDeviceManagementDto::setHttpPassword)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpUsername(), TreeDeviceManagementDto::setHttpUsername)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsPassword(), TreeDeviceManagementDto::setHttpsPassword)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsUsername(), TreeDeviceManagementDto::setHttpsUsername)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getManagementIp(), TreeDeviceManagementDto::setManagementIp)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV1ReadCommunity(), TreeDeviceManagementDto::setSnmpV1ReadCommunity)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV1WriteCommunity(), TreeDeviceManagementDto::setSnmpV1WriteCommunity)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV2ReadCommunity(), TreeDeviceManagementDto::setSnmpV2ReadCommunity)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV2WriteCommunity(), TreeDeviceManagementDto::setSnmpV2WriteCommunity)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV3AuthenticationProtocol(), TreeDeviceManagementDto::setSnmpV3AuthenticationProtocol)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpV3PrivacyProtocol(), TreeDeviceManagementDto::setSnmpV3PrivacyProtocol)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpVersion(), TreeDeviceManagementDto::setSnmpVersion)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVerifyHttpCredentials(), TreeDeviceManagementDto::setVerifyHttpCredentials)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVerifyHttpsCredentials(), TreeDeviceManagementDto::setVerifyHttpsCredentials)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVisionMgtPort(), TreeDeviceManagementDto::setVisionMgtPort);
+
+            List<Device> setupDevices = allDevices.stream().filter(device -> deviceId.equals(device.getDeviceId())).collect(Collectors.toList());
+            List<TreeDeviceManagementDto> treeDeviceManagementDtos = modelMapper.map(setupDevices, listType);
+            return Optional.of(treeDeviceManagementDtos.get(0));
+        }
+        catch (Exception e){}
+        return null;
+    }
+
     public Optional<ServerDto> getServerById(String serverId) {
         Optional<ServerPojo> serverFromPojo = this.externalServersDao.findServerById(serverId);
         if (!serverFromPojo.isPresent()) return Optional.empty();

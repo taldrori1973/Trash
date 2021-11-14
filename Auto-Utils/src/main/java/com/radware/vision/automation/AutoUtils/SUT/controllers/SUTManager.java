@@ -30,6 +30,8 @@ public interface SUTManager {
 
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
 
+    Optional<TreeDeviceManagementDto> getTreeDeviceManagementFromDevices(String setId);
+
     List<TreeDeviceManagementDto> getVisionSetupTreeDevices();
 
     List<TreeDeviceManagementDto> getSimulators();
