@@ -51,7 +51,8 @@ Feature: EAAF Generate PDF and HTML Report
 
   @SID_7
   Scenario: stop IPTABLES
-    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
+    # ToDo - check service iptables
+    #Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
 
   @SID_8
   Scenario: validate Ports EAAF Hits Timeline-EAAF
@@ -61,7 +62,8 @@ Feature: EAAF Generate PDF and HTML Report
 
   @SID_9
   Scenario: start IPTABLES
-    Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+    # ToDo - check service iptables
+    #Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
 
   @SID_10
   Scenario: Logout
