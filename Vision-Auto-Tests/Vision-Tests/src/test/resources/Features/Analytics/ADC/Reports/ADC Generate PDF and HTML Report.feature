@@ -9,7 +9,7 @@ Feature: ADC Generate PDF and HTML Report
 
   @SID_2
   Scenario: stop IPTABLES
-    Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
+    #Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
 
   @SID_3
   Scenario: validate Ports Traffic Information-System and Network
@@ -70,7 +70,7 @@ Feature: ADC Generate PDF and HTML Report
 
   @SID_10
   Scenario: start IPTABLES
-    Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
+    #Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
 
   @SID_11
   Scenario: Logout
