@@ -1,7 +1,6 @@
 @TC112423
 Feature: AppWall Reports
 
-  
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -11,7 +10,6 @@ Feature: AppWall Reports
     * REST Delete ES index "vrm-scheduled-report-*"
     * CLI Clear vision logs
 
-  
   @SID_2
   Scenario:Run AW Attacks
     Given CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -41,7 +39,6 @@ Feature: AppWall Reports
     Given CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/radware" on "GENERIC_LINUX_SERVER"
     And CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
 
-  
   @SID_4
   Scenario: Login And Copy get_scheduled_report_value.sh File To Server
     Given UI Login with user "radware" and password "radware"
@@ -64,17 +61,10 @@ Feature: AppWall Reports
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
 
-  
   @SID_6
   Scenario: Navigate AMS Report
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Given REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
+    Then REST Add device with DeviceID "AppWall_172.17.164.30" into site "AW_site"
     * REST Vision Install License Request "vision-AVA-AppWall"
     And Browser Refresh Page
     And UI Navigate to "AMS Reports" page via homePage
@@ -84,29 +74,25 @@ Feature: AppWall Reports
   @SID_7
   Scenario: Create One Report Validation
     Given UI "Create" Report With Name "OverAllAppWallReport"
-      | Template              | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[Vision1,radware1,test1] , showTable:false|
-      | Logo                  | reportLogoPNG.png                                                                |
-     
-    
-    
-    Then UI "Validate" Report With Name "OverAllAppWallReport"
-      | Template              | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[Vision1,radware1,test1] , showTable:false|
-      | Logo                  | reportLogoPNG.png                                                                |
+      | Template | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[Vision1,radware1,test1] , showTable:false |
+      | Logo     | reportLogoPNG.png                                                                                                      |
 
-    
+    Then UI "Validate" Report With Name "OverAllAppWallReport"
+      | Template | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[Vision1,radware1,test1] , showTable:false |
+      | Logo     | reportLogoPNG.png                                                                                                      |
+
     Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverAllAppWallReport"
 
-    
 
   @SID_8
   Scenario: Edit Report Validation
     Given UI "Edit" Report With Name "OverAllAppWallReport"
-      | Template-3 | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision2] , showTable:false |
-      | Time Definitions.Date | Quick:15m          |
+      | Template-3            | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision2] , showTable:false |
+      | Time Definitions.Date | Quick:15m                                                                                 |
 
     Then UI "Validate" Report With Name "OverAllAppWallReport"
-      | Template-3 | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision2] , showTable:false |
-      | Time Definitions.Date | Quick:15m          |
+      | Template-3            | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision2] , showTable:false |
+      | Time Definitions.Date | Quick:15m                                                                                 |
 
   @SID_9
   Scenario: Generate Report Validation
@@ -126,8 +112,8 @@ Feature: AppWall Reports
     Given CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/radware" on "GENERIC_LINUX_SERVER"
     And CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
     When UI "Create" Report With Name "deliveryAW"
-      | Template              | reportType:AppWall , Widgets:[All] , Applications:[All] , showTable:false|
-      | Share           | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject AW |
+      | Template | reportType:AppWall , Widgets:[All] , Applications:[All] , showTable:false                    |
+      | Share    | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject AW |
 
     Then UI "Generate" Report With Name "deliveryAW"
       | timeOut | 60 |
@@ -151,25 +137,25 @@ Feature: AppWall Reports
   @SID_13
   Scenario: Create New Report With Monthly Schedule
     When UI "Create" Report With Name "scheduleMonthlyAW"
-      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false|
-      | Schedule   | Run Every:Monthly,On Time:+2m |
+      | Template | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false |
+      | Schedule | Run Every:Monthly,On Time:+2m                                                                                                                                                       |
 
     When UI "Validate" Report With Name "scheduleMonthlyAW"
-      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false|
-      | Schedule   | Run Every:Monthly,On Time:+2m |
+      | Template | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false |
+      | Schedule | Run Every:Monthly,On Time:+2m                                                                                                                                                       |
 
-  
+
   @SID_14
   Scenario: Create New Report With Daily Schedule
     When UI "Create" Report With Name "scheduleDailyAW"
-      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false|
-      | Schedule   | Run Every:Daily,On Time:+2m |
+      | Template | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false |
+      | Schedule | Run Every:Daily,On Time:+2m                                                                                                                                                         |
 
     Then UI "Validate" Report With Name "scheduleDailyAW"
-      | Template              | reportType:AppWall, Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity], Applications:[All] , showTable:false|
-      | Schedule   | Run Every:Daily,On Time:+2m |
+      | Template | reportType:AppWall, Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity], Applications:[All] , showTable:false |
+      | Schedule | Run Every:Daily,On Time:+2m                                                                                                                                                       |
 
-    
+
   @SID_15
   Scenario: Validation If Reports Generated After The Expected Time
     Given Sleep "150"
@@ -190,13 +176,13 @@ Feature: AppWall Reports
   @SID_16
   Scenario: Validate Time Selection - Quick Range - Report
     Given UI "Create" Report With Name "1HourBeforeReport"
-      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[test1] , showTable:false|
-      | Time Definitions.Date | Quick:1H          |
-      | Format                | Select: CSV       |
+      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[test1] , showTable:false |
+      | Time Definitions.Date | Quick:1H                                                                                                                                                                              |
+      | Format                | Select: CSV                                                                                                                                                                           |
     Then UI "Validate" Report With Name "1HourBeforeReport"
-      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[test1] , showTable:false|
-      | Time Definitions.Date | Quick:1H          |
-      | Format                | Select: CSV       |
+      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[test1] , showTable:false |
+      | Time Definitions.Date | Quick:1H                                                                                                                                                                              |
+      | Format                | Select: CSV                                                                                                                                                                           |
 
     Then UI "Generate" Report With Name "1HourBeforeReport"
       | timeOut | 60 |
@@ -205,13 +191,13 @@ Feature: AppWall Reports
   @SID_17
   Scenario: Validate Time Selection - Relative - Report
     Given UI "Create" Report With Name "2DaysBeforeReport"
-      | Template              | reportType:AppWall , Widgets:[Geolocation, Attack Severity] , Applications:[All] , showTable:false|
-      | Time Definitions.Date | Relative:[Days,2]                  |
-      | Format                | Select: CSV                        |
+      | Template              | reportType:AppWall , Widgets:[Geolocation, Attack Severity] , Applications:[All] , showTable:false |
+      | Time Definitions.Date | Relative:[Days,2]                                                                                  |
+      | Format                | Select: CSV                                                                                        |
     Then UI "Validate" Report With Name "2DaysBeforeReport"
-      | Template              | reportType:AppWall , Widgets:[Geolocation, Attack Severity] , Applications:[All] , showTable:false|
-      | Time Definitions.Date | Relative:[Days,2]                      |
-      | Format                | Select: CSV                            |
+      | Template              | reportType:AppWall , Widgets:[Geolocation, Attack Severity] , Applications:[All] , showTable:false |
+      | Time Definitions.Date | Relative:[Days,2]                                                                                  |
+      | Format                | Select: CSV                                                                                        |
 
     Then UI "Generate" Report With Name "2DaysBeforeReport"
       | timeOut | 60 |

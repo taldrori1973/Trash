@@ -54,7 +54,7 @@ public class TopologyTreeRestSteps extends TestBase {
             simulators.forEach(sim -> {
                 String setId = sim.getDeviceSetId();
                 String parentSite = TestBase.getSutManager().getDeviceParentSite(sim.getDeviceId());
-                this.restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(setId, parentSite);
+                this.restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues("SetID", setId, parentSite);
             });
             //Todo: KVISION delete this WA when applications issue fixed (sleep added to wait until all simulators are connected)
             Thread.sleep(60* 1000);
@@ -120,9 +120,11 @@ public class TopologyTreeRestSteps extends TestBase {
         TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, site, dataTable);
     }
 
-    @Then("^REST Add device with SetId \"(.*?)\"(?: into site \"(.*)\")?$")
-    public void restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(String setID, String site) {
-        TreeDeviceManagementDto device = TestBase.getSutManager().getTreeDeviceManagement(setID).get();
+    @Then("^REST Add device with (SetId|DeviceID) \"(.*?)\"(?: into site \"(.*)\")?$")
+    public void restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(String idType, String id, String site) {
+        TreeDeviceManagementDto device =
+                        (idType.equals("SetId"))?TestBase.getSutManager().getTreeDeviceManagement(id).get():
+                        (idType.equals("DeviceID"))?TestBase.getSutManager().getTreeDeviceManagementFromDevices(id).get():null;
         String type = device.getDeviceType();
         String name = device.getDeviceName();
         String ip = device.getManagementIp();
@@ -138,7 +140,7 @@ public class TopologyTreeRestSteps extends TestBase {
                 dataTable.add(new TopologyTreeRestHandler.DataAdapter(key, value));
         }
 
-        TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, site, dataTable);
+        TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, (site!=null)?site:"Default", dataTable);
     }
 
     @Then("^REST Add \"(.*)\" site To topology Tree under \"(.*)\" site$")
