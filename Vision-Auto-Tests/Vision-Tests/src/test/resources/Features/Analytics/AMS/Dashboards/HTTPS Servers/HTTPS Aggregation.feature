@@ -1,6 +1,4 @@
 @TC108222
-
-
 Feature: AMS HTTPS System Aggregation
 
   @SID_1
@@ -15,7 +13,6 @@ Feature: AMS HTTPS System Aggregation
   # in this scenario we run a shell file thatr delete all documents and leave only two documens
   # each document will set a different value every field in order verify that the aggigation performs an everage calulation
     And REST Delete ES index "dp-https-rt*"
-#   Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 10 with loopDelay 5000 and wait 90 seconds
     Given CLI simulate 2 attacks of type "HTTPS" on SetId "DefensePro_Set_1" with loopDelay 5000 and wait 90 seconds
 
     * CLI Run remote linux Command on "ROOT_SERVER_CLI" and wait for prompt "True"
@@ -33,11 +30,11 @@ Feature: AMS HTTPS System Aggregation
     And REST Delete ES index "dp-hourly*"
     Then CLI Clear vision logs
 #    Then CLI Run remote linux Command "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://localhost:10080/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.dp.task.https.DPHttpsDataHourlyAggTask'" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "curl -w 'RESP_CODE:%{response_code}\n' -XPOST 'http://localhost:10080/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.dp.task.https.DPHttpsDataHourlyAggTask'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
+    Then CLI Run linux Command "curl -w 'RESP_CODE:%{response_code}\n' -XPOST 'http://localhost:8080/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.dp.task.https.DPHttpsDataHourlyAggTask'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
     * Sleep "30"
     * CLI Check if logs contains
-      | logType | expression                                           | isExpected |
-      | TOMCAT  | DPHttpsDataHourlyPerformer: aggregation task finished| EXPECTED   |
+      | logType | expression                                            | isExpected |
+      | TOMCAT  | DPHttpsDataHourlyPerformer: aggregation task finished | EXPECTED   |
 
   @SID_4
   Scenario: validate average values of fields in index dp-hourly-https-rt
