@@ -27,7 +27,7 @@ Feature: Forensics RBAC
     When UI "Create" Forensics With Name "AllDevAllPol"
       |  |  |
     When UI "Create" Forensics With Name "Device10_Policy15"
-      | devices               | setId:DefensePro_Set_1,policies:[Policy15];|
+      | devices               | SetId:DefensePro_Set_1,policies:[Policy15];|
     * UI logout and close browser
 
   @SID_4
@@ -48,7 +48,7 @@ Feature: Forensics RBAC
     Then UI Validate Element Existence By Label "INFO Forensics" if Exists "true" with value "Device10_Policy15"
     Then UI Validate Element Existence By Label "Delete Forensics" if Exists "true" with value "Device10_Policy15"
     Then UI Validate Element Existence By Label "Edit Forensics" if Exists "true" with value "Device10_Policy15"
-    And UI Logout
+    * UI logout and close browser
 
   @SID_6
   Scenario: Forensics RBAC sec_mon_all_pol gets all results only on device
@@ -69,7 +69,7 @@ Feature: Forensics RBAC
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 1
       | columnName | value   |
       | Direction  | Unknown |
-    And UI Logout
+    * UI logout and close browser
 
   @SID_7
   Scenario: Forensics RBAC admin can view definition of restricted user
@@ -90,7 +90,7 @@ Feature: Forensics RBAC
     Then UI Validate Element Existence By Label "INFO Forensics" if Exists "true" with value "Device10_Policy15"
     Then UI Validate Element Existence By Label "Delete Forensics" if Exists "true" with value "Device10_Policy15"
     Then UI Validate Element Existence By Label "Edit Forensics" if Exists "true" with value "Device10_Policy15"
-    And UI Logout
+    * UI logout and close browser
 
   @SID_9
   Scenario: Forensics RBAC restricted POLICY user gets results only for relevant policy
@@ -106,7 +106,9 @@ Feature: Forensics RBAC
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName  | value    |
       | Policy Name | Policy14 |
+    * UI logout and close browser
 
+  @MAH
   @SID_10
   Scenario: Validate DF not appears for sec_mon_all_pol
     Given UI Login with user "sec_mon_all_pol" and password "radware"
@@ -115,8 +117,9 @@ Feature: Forensics RBAC
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
       | label     | param       | value |
       | Product   | DefenseFlow | false |
-    And UI Logout
+    * UI logout and close browser
 
+  @MAH
   @SID_11
   Scenario: Validate DF not appears for sec_mon
     Given UI Login with user "sec_mon" and password "radware"
@@ -125,9 +128,9 @@ Feature: Forensics RBAC
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
       | label     | param       | value |
       | Product   | DefenseFlow | false |
+    * UI logout and close browser
 
-
-
+  @MAH
   @SID_13
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
@@ -185,7 +188,7 @@ Feature: Forensics RBAC
     Then UI Navigate to page "System->User Management->Authentication Mode"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
-    Then UI Logout
+    * UI logout and close browser
 
 
   @SID_17
@@ -194,7 +197,7 @@ Feature: Forensics RBAC
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AMS Forensics                               | no       |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_18
   Scenario: Validate DF not appears for adc_admin
@@ -202,7 +205,7 @@ Feature: Forensics RBAC
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AMS Forensics                               | no       |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_19
   Scenario: Validate DF not appears for adc_operator
@@ -210,7 +213,7 @@ Feature: Forensics RBAC
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AMS Forensics                               | no       |
-    * UI Logout
+    * UI logout and close browser
 
 
   @SID_20
@@ -219,7 +222,7 @@ Feature: Forensics RBAC
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AMS Forensics                               | no       |
-    * UI Logout
+    * UI logout and close browser
 
 
 
@@ -233,7 +236,7 @@ Feature: Forensics RBAC
       | Product   | DefenseFlow | false |
       | Product   | DefensePro  | true  |
       | Product   | AppWall     | true  |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_22
   Scenario: Validate DF not appears for device_configurator
@@ -241,7 +244,7 @@ Feature: Forensics RBAC
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AMS Forensics                               | no       |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_23
   Scenario: Validate DF not appears for device_operator
@@ -253,7 +256,7 @@ Feature: Forensics RBAC
       | Product   | DefenseFlow | false |
       | Product   | DefensePro  | true  |
       | Product   | AppWall     | true  |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_24
   Scenario: Validate DF not appears for device_viewer
@@ -261,7 +264,7 @@ Feature: Forensics RBAC
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AMS Forensics                               | no       |
-    * UI Logout
+    * UI logout and close browser
 
 
   @SID_25
@@ -270,7 +273,7 @@ Feature: Forensics RBAC
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AMS Forensics                               | no       |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_26
   Scenario: Validate DF not appears for security_admin
@@ -282,7 +285,7 @@ Feature: Forensics RBAC
       | Product   | DefenseFlow | true |
       | Product   | DefensePro  | true  |
       | Product   | AppWall     | true  |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_27
   Scenario: Validate DF not appears for security_monitor
@@ -294,7 +297,7 @@ Feature: Forensics RBAC
       | Product   | DefenseFlow | false |
       | Product   | DefensePro  | true  |
       | Product   | AppWall     | true  |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_28
   Scenario: Validate DF not appears for user_admin
@@ -302,7 +305,7 @@ Feature: Forensics RBAC
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AMS Forensics                               | no       |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_29
   Scenario: Validate DF not appears for vision_admin
@@ -314,7 +317,7 @@ Feature: Forensics RBAC
       | Product   | DefenseFlow | true |
       | Product   | DefensePro  | true  |
       | Product   | AppWall     | true  |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_30
   Scenario: Validate DF not appears for vision_reporter
@@ -326,7 +329,7 @@ Feature: Forensics RBAC
       | Product   | DefenseFlow | true |
       | Product   | DefensePro  | true  |
       | Product   | AppWall     | true  |
-    * UI Logout
+    * UI logout and close browser
 
 
 
