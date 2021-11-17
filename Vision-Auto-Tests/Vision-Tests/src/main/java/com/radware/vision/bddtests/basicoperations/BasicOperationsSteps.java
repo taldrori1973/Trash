@@ -9,7 +9,6 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
-import com.radware.restcore.VisionRestClient;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
@@ -43,9 +42,13 @@ import models.RestResponse;
 import models.StatusCode;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 import restInterface.client.SessionBasedRestClient;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -55,11 +58,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.*;
-import static com.radware.vision.utils.SutUtils.*;
-import static com.radware.vision.utils.SutUtils.getCurrentVisionRestUserPassword;
-import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
+import static com.radware.vision.utils.SutUtils.*;
+import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
 
 /**
  * Created by AviH on 30-Nov-17.
@@ -817,8 +819,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     private void uiUnSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
-        String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
-        expandScopePolicies(deviceIP, map);
+        String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();        expandScopePolicies(deviceIP, map);
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())) {
             WebUiTools.check("DPPolicyCheck", new String[]{deviceIP, policy.toString()}, false);
         }
@@ -827,12 +828,13 @@ public class BasicOperationsSteps extends VisionUITestBase {
 
     private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
-        String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
-        expandScopePolicies(deviceIP, map);
+        String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();
+        BasicOperationsHandler.clickButton("Scope Selection");
         if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
             errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
+        BasicOperationsHandler.clickButton("DPScopeSelectionChange",deviceIP);
         if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPScopeSelectionChange", deviceIP)))
-            errorMessage.append("This device DefensePro_" + deviceIP + " with index " + new JSONObject(map.get("devices")).get("index").toString() + " is not selected !!");
+            errorMessage.append("This device DefensePro_" + deviceIP + " with SetId " + new JSONObject(map.get("devices")).get("SetId").toString() + " is not selected !!");
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()))
             if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceIP, policy.toString()})))
                 errorMessage.append("This Policy " + policy.toString() + " is not selected !!");
