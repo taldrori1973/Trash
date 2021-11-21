@@ -4,15 +4,15 @@ Feature: Edit DefenseFlow Parameters
 
   @SID_1
   Scenario: Login and Navigate
-#    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
-##    When CLI Operations - Run Radware Session command "system df management-ip get"
-##    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
 
     Given UI Login with user "radware" and password "radware"
-#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    * REST Vision Install License Request "vision-AVA-AppWall"
-#    * REST Vision Install License Request "vision-reporting-module-AMS"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-AppWall"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_2
@@ -129,10 +129,10 @@ Feature: Edit DefenseFlow Parameters
   Scenario: Edit Scope
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Product           | DefenseFlow |
-      | Protected Objects | PO_1        |
+      | Protected Objects | PO_10        |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Product           | DefenseFlow |
-      | Protected Objects | PO_1        |
+      | Protected Objects | PO_10        |
 
   @SID_19
   Scenario: Edit Criteria
