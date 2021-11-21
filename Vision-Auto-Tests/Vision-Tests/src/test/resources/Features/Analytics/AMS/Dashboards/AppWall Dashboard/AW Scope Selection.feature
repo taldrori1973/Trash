@@ -15,7 +15,7 @@ Feature: AW Scope Selection
       | visionMgtPort | G1       |
     Then REST Delete Device By IP "172.17.164.30"
     And Browser Refresh Page
-    And Sleep "5"
+    And Sleep "60"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
