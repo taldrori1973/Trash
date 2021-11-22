@@ -1,4 +1,4 @@
-@Functional @TC105960
+@Functional @TC105960 
 
 Feature: Alert browser
 
@@ -19,6 +19,7 @@ Feature: Alert browser
       | Device Name | Device IP | Site    |
       | Alt_1.1.1.1 | 1.1.1.1   | Default |
       | Alt_2.2.2.2 | 2.2.2.2   | Default |
+
 
   @SID_3
   Scenario: Acknowledge and unAcknowledge Alerts
@@ -354,6 +355,7 @@ Feature: Alert browser
     Then UI Auto Refresh Alerts OnOFF "OFF"
     Then UI Logout
 
+
   @SID_26
   Scenario: Clear All Alerts Button
     When UI Login with user "radware" and password "radware"
@@ -371,6 +373,7 @@ Feature: Alert browser
     Then UI clear All Alerts with TimeOut 0
     Then UI Logout
 
+  
   @SID_27
   Scenario: Tear Down - Delete Devices
 #    When UI Open "Configurations" Tab
@@ -378,11 +381,16 @@ Feature: Alert browser
     Then REST Delete Device By IP "1.1.1.1"
     Then REST Delete Device By IP "2.2.2.2"
 
+  
   @SID_28
   Scenario: Preparations - clear all alerts and delete local user
     Given UI Login with user "radware" and password "radware"
-    Then REST Delete ES index "alert"
+#    Then REST Delete ES index "alert"
+    Then UI clear All Alerts with TimeOut 0
+    Then UI Logout
+    Given UI Login with user "radware" and password "radware"
     Given That Current Vision is Logged In
+
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
       | ormID | $[?(@.name=='cucumber')].ormID |
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
@@ -391,7 +399,7 @@ Feature: Alert browser
       | id   | ${ormID} |
     When Send Request with the Given Specification
 
-
+  
   @SID_29
   Scenario: Create Local User and Validate alert
     Given That Current Vision is Logged In
@@ -420,7 +428,11 @@ Feature: Alert browser
     Then Validate That Response Body Contains
       | jsonPath | value |
       | $.status | "ok"  |
-    Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "User radware added account cucumber." with timeout 120 seconds
+
+    Then UI Logout
+    Given UI Login with user "radware" and password "radware"
+
+    Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "User radware added account cucumber."
       | columnName   | value          |
       | Severity     | Info           |
       | Module       | Vision General |
