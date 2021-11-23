@@ -20,6 +20,7 @@ import com.radware.automation.webui.widgets.impl.table.BasicTable;
 import com.radware.automation.webui.widgets.impl.table.BasicTableWithPagination;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortableColumn;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortingDataSet;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.TableSortingHandler;
@@ -243,6 +244,22 @@ public class TableHandler {
         } else {
             throw new IllegalArgumentException("Failed due to an incorrect input data: columnName is " + columnName + " value is " + value);
         }
+    }
+
+    public void clickTableRowByLabelValue(String elementTable, String tableName, String label, String value) throws Exception {
+        setTable(elementTable, false);
+        VisionDebugIdsManager.setParams(tableName);
+        VisionDebugIdsManager.setLabel(label);
+
+        for(int i=table.getRowCount()-1; i >= 0; --i)
+        {
+            table.clickOnRow(i);
+            String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
+            if (actualValue.contains(value))
+                return;
+        }
+
+        throw new IllegalArgumentException("Failed due to an incorrect input data:tableName "+ tableName +" label is " + label + " value is " + value);
     }
 
 
