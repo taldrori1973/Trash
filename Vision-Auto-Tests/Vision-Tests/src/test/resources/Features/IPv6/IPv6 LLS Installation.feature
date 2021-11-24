@@ -1,4 +1,4 @@
-@TC111604 @Debug
+@TC111604
 Feature: IPv6 LLS-GEL Installation
   @SID_1
   Scenario: verify lls service status is Not running
