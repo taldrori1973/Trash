@@ -5,11 +5,11 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.Deploy.VisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.ConfigSyncMode;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.LastConfiguration;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.YesNo;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
-import com.radware.vision.enums.ConfigSyncMode;
-import com.radware.vision.enums.LastConfiguration;
-import com.radware.vision.enums.YesNo;
-import com.radware.vision.utils.RegexUtils;
+import utils.RegexUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -152,7 +152,7 @@ public class ConfigSync {
 
     public static void setMode(RadwareServerCli serverCli, ConfigSyncMode mode, int timeout, String yesNo) throws Exception {
         try {
-            if (yesNo.equals(null)) {
+            if (yesNo == null) {
                 throw new Exception("Please specify if you want to continue or not (y/n)");
 
             }
@@ -182,7 +182,7 @@ public class ConfigSync {
                 }
             }
 
-            if ((serviceNeedToGoDown || serviceNeedToGoUp) && warningMessage == false)
+            if ((serviceNeedToGoDown || serviceNeedToGoUp) && !warningMessage)
                 throw new Exception("No warning message been showed");
             if (warningMessage) {
                 CliOperations.runCommand(serverCli, yesNo,  5 * 60 * 1000);

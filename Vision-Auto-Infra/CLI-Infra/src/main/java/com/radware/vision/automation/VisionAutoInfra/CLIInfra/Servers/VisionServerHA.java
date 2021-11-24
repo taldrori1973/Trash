@@ -1,7 +1,4 @@
-package com.radware.vision.system;
-
-import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
+package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers;
 
 /**
  * Created by moaada on 4/16/2017.
@@ -14,9 +11,7 @@ public class VisionServerHA extends ServerCliBase {
     String host_2;
     @Override
     public void init() throws Exception {
-        BaseTestUtils.reporter.startLevel("Init VisionServerHA");
         super.init();
-        BaseTestUtils.reporter.stopLevel();
     }
 
 

@@ -4,22 +4,24 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.LinuxFileServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.GenericSteps;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.EmailHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.highavailability.HAHandler;
+import com.radware.vision.highavailability.HAHandler;
 import com.radware.vision.utils.SutUtils;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Then;
-import enums.SUTEntryType;
 
 public class ConfigSyncFailureSteps extends VisionUITestBase {
 
     public ConfigSyncFailureSteps() throws Exception {
     }
+    
+    RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
 
     @Then("^CLI Verify Config Sync Failure Mail(?: \"(.*)\" password for radware.com \"(.*)\")?$")
     public void mailFailure(String mail, String password) {
@@ -53,21 +55,18 @@ public class ConfigSyncFailureSteps extends VisionUITestBase {
         EmailHandler emailHandler = new EmailHandler(mail, password);
         try {
             /* this for peer = host2*/
-            String peerHost = restTestBase.getVisionServerHA().getHost_2();
-            RadwareServerCli peerServerCli = new RadwareServerCli(peerHost, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
-            peerServerCli.init();
             /* **********************/
-            HAHandler.setConfigSyncMode(restTestBase.getRadwareServerCli(), "active", 1000 * sec, "YES");
+            HAHandler.setConfigSyncMode(radwareServerCli, "active", 1000 * sec, "YES");
 //            system config-sync peer set host2
-            HAHandler.setConfigSyncPeer(restTestBase.getRadwareServerCli(), peerHost, restTestBase.getVisionServerHA());
+            HAHandler.setConfigSyncPeer(radwareServerCli);
 //            system config-sync interval set 10
-            HAHandler.setConfigSyncInterval(restTestBase.getRadwareServerCli(), interval1);
+            HAHandler.setConfigSyncInterval(radwareServerCli, interval1);
 
-            HAHandler.setConfigSyncMode(peerServerCli, "standby", 1000 * sec, "YES");
+            HAHandler.setConfigSyncMode(radwareServerCli, "standby", 1000 * sec, "YES");
 //           system config-sync peer set host1
-            HAHandler.setConfigSyncPeer(peerServerCli, restTestBase.getRadwareServerCli().getHost(), restTestBase.getVisionServerHA());
+            HAHandler.setConfigSyncPeer(radwareServerCli);
 //           system config-sync interval set 1
-            HAHandler.setConfigSyncInterval(peerServerCli, interval2);
+            HAHandler.setConfigSyncInterval(radwareServerCli, interval2);
 //           kVision
 //            CliOperations.runCommand(peerServerCli, "system config-sync mail_recipients set " + mail);
             int missedSyncs = 1;
@@ -78,7 +77,7 @@ public class ConfigSyncFailureSteps extends VisionUITestBase {
             configMailViaUi(smtpAddress, "APSolute Vision");
 
 //           system config-sync manual
-            HAHandler.manualSync(restTestBase.getRadwareServerCli());
+            HAHandler.manualSync(radwareServerCli);
             emailHandler.verifyLastUnreadEmail(null, subject, content, null, 180);
             missedSyncs = 0;
 //           kVision
@@ -114,24 +113,19 @@ public class ConfigSyncFailureSteps extends VisionUITestBase {
 //            delete cliuser file
             String delCliuser = "rm " + mailPath;
 //           kVision
-//            CliOperations.runCommand(rootGenericLinuxServerCli, delCliuser);
-            /* this for peer = host2*/
-            String peerHost = restTestBase.getVisionServerHA().getHost_2();
-            RadwareServerCli peerServerCli = new RadwareServerCli(peerHost, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
-            peerServerCli.init();
-            /* **********************/
-            HAHandler.setConfigSyncMode(restTestBase.getRadwareServerCli(), "active", 1000 * sec, "YES");
+
+            HAHandler.setConfigSyncMode(radwareServerCli, "active", 1000 * sec, "YES");
 //           system config-sync peer set host2
-            HAHandler.setConfigSyncPeer(restTestBase.getRadwareServerCli(), peerHost, restTestBase.getVisionServerHA());
+            HAHandler.setConfigSyncPeer(radwareServerCli);
 //            system config-sync interval set 10
-            HAHandler.setConfigSyncInterval(restTestBase.getRadwareServerCli(), interval1);
+            HAHandler.setConfigSyncInterval(radwareServerCli, interval1);
 
 //            HAHandler.setConfigSyncMode(peerServerCli, "standby", 1000 * sec, "YES");
-            HAHandler.setConfigSyncModeWithoutServices(peerServerCli, "standby", 1000 * sec, "YES");
+            HAHandler.setConfigSyncModeWithoutServices(radwareServerCli, "standby", 1000 * sec, "YES");
 //            system config-sync peer set host1
-            HAHandler.setConfigSyncPeer(peerServerCli, restTestBase.getRadwareServerCli().getHost(), restTestBase.getVisionServerHA());
+            HAHandler.setConfigSyncPeer(radwareServerCli);
 //            system config-sync interval set 1
-            HAHandler.setConfigSyncInterval(peerServerCli, interval2);
+            HAHandler.setConfigSyncInterval(radwareServerCli, interval2);
 //           kVision
 //            CliOperations.runCommand(peerServerCli, "system config-sync mail_recipients set " + mail);
             int missedSyncs = 1;
@@ -141,7 +135,7 @@ public class ConfigSyncFailureSteps extends VisionUITestBase {
             configMailViaUi(smtpAddress, "APSolute Vision");
 
 //           system config-sync manual
-            HAHandler.manualSync(restTestBase.getRadwareServerCli());
+            HAHandler.manualSync(radwareServerCli);
 
             BasicOperationsHandler.delay(60);
             String commandToExecuteInGenericLinux = "cat " + mailPath;

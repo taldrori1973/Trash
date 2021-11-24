@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.cli;
+package com.radware.vision;
 
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;

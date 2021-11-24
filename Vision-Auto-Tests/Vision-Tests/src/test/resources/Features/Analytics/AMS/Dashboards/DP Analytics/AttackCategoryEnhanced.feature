@@ -21,6 +21,7 @@ Feature: Attack Category Enhanced
   Scenario: Login and navigate
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then Sleep "15"
 
   @SID_4
   Scenario: Validate Attacks by Threat Category Pie Chart data
@@ -39,8 +40,8 @@ Feature: Attack Category Enhanced
   Scenario: Validate Top Attack Sources Pie Chart data
     Then UI Validate Pie Chart data "Top Attack Sources"
       | label       | data |
-      | Multiple    | 14   |
-      | 149.85.1.2  | 7    |
+      | Multiple    | 12   |
+      | 149.85.1.2  | 6    |
       | 2.2.2.1     | 3    |
       | 192.85.1.7  | 2    |
       | 190.85.1.2  | 1    |
@@ -116,6 +117,7 @@ Feature: Attack Category Enhanced
   Scenario: send ErtFeed_GeoFeed attack
     Given CLI simulate 1 attacks of type "ErtFeed_GeoFeed" on SetId "DefensePro_Set_1" and wait 250 seconds
     * CLI kill all simulator attacks on current vision
+    Then Sleep "15"
 
 
   @SID_10
