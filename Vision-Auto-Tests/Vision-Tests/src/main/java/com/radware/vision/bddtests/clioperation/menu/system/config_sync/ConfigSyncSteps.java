@@ -5,10 +5,12 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.Deploy.VisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.ConfigSyncMode;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.LastConfiguration;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.YesNo;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.enums.ConfigSyncMode;
-import com.radware.vision.enums.LastConfiguration;
-import com.radware.vision.enums.YesNo;
+import com.radware.vision.highavailability.HAHandler;
 import com.radware.vision.system.ConfigSync;
 import cucumber.api.java.en.Given;
 
@@ -16,7 +18,7 @@ public class ConfigSyncSteps extends TestBase {
 
     private String peer;
     private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
-
+    private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
     @Given("^CLI set target vision \"(active|standby|disabled)\"$")
     public void setTargetVision(String mode) {
@@ -28,7 +30,7 @@ public class ConfigSyncSteps extends TestBase {
             } catch (IllegalArgumentException e) {
                 throw new Exception("there is no mode called: " + mode + " please enter active, standby or disabled mode!");
             }
-            restTestBase.getHaManager().setHost(configSyncMode);
+            HAHandler.setTargetVision(mode, radwareServerCli, rootServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

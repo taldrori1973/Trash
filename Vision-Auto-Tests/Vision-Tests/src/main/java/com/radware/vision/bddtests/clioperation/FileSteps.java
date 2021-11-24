@@ -5,7 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.LinuxFileServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.infra.testhandlers.cli.FilesHandler;
+import com.radware.vision.FilesHandler;
 import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
