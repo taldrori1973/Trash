@@ -1,6 +1,7 @@
 {
   "setupFile": "fullSetup.json",
   "serverName": "uVision",
+  "defenseFlow": "DF_172.17.154.50",
   "deployConfigurations": {
     "snapshot": "Current-1",
     "setupMode": "upgrade",

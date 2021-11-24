@@ -51,6 +51,7 @@ public class DevicesDao {
         allDevices.addAll(devicesPojo.getTreeDevices().getLinkProofs());
         allDevices.addAll(devicesPojo.getTreeDevices().getDefensePros());
         allDevices.addAll(devicesPojo.getTreeDevices().getAppWalls());
+        allDevices.addAll(devicesPojo.getNonTreeDevices().getDefenseFlows());
     }
 
     public static DevicesDao get_instance() {

@@ -6,4 +6,6 @@ import lombok.Data;
 public class DeviceSetup {
 
     private DeviceAccess deviceAccess;
+    private String snapshot;
+    private String environment;
 }
