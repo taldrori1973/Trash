@@ -38,7 +38,7 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy140 | 3089 | 10%              |
       | Policy16  | 2885 | 10%              |
       | Policy160 | 2885 | 10%              |
-#      | Policy18  | 2512 | 10%              |
+      | Policy18  | 2512 | 10%              |
 #The last policy was ignored becuase of run time data change
 
   @SID_3
@@ -85,7 +85,7 @@ Feature: VRM Real Time Status Bar BW by Policy
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | Policy15 |
-    And Sleep "3"
+    And Sleep "5"
 #Then UI Total Pie Chart data "Bandwidth per Policy"
 #| size | offset |
 #| 0    | 0      |
@@ -104,7 +104,7 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy RBAC device
     Given UI Login with user "sec_mon_all_pol" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    And Sleep "2"
+    And Sleep "5"
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
       | 10   | 0      |
