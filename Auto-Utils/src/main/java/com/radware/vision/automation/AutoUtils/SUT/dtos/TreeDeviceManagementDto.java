@@ -28,6 +28,8 @@ public class TreeDeviceManagementDto {
     private String verifyHttpCredentials;
     private String verifyHttpsCredentials;
     private String visionMgtPort;
+    private String snapshot;
+    private String environment;
 
     public HashMap<String, String> getDeviceSetupData()
     {
