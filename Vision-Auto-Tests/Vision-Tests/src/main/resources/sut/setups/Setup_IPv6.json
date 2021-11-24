@@ -1,0 +1,46 @@
+{
+  "setupId": "AMS_1",
+  "tree": {
+    "sites": [
+      {
+        "parentSite": "Default",
+        "name": "RealDPs_Version_8_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "VA_DPs_Version_8_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "Alteons-IPv6"
+      }
+    ],
+    "devices": [
+      {
+        "deviceId": "DefensePro_172.16.22.50",
+        "parentSite": "RealDPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.51",
+        "parentSite": "RealDPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.55",
+        "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_50.50.7.1",
+        "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_50.50.7.2",
+        "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
+        "deviceId": "Alteon_200a::172:17:164:19",
+        "parentSite": "Alteons-IPv6"
+      }
+    ]
+  },
+  "defenseFlowId": null
+}
