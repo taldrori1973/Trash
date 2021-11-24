@@ -769,6 +769,41 @@
     ]
   },
   "nonTreeDevices": {
-    "defenseFlows": []
+    "defenseFlows": [
+      {
+        "deviceId": "DF_10.205.172.201",
+        "deviceSetId": "DF_10.205.172.201",
+        "configurations": {
+          "name": "DefenseFlow_10.205.172.201",
+          "parentOrmID": null,
+          "deviceSetup": {
+            "deviceAccess": {
+              "managementIp": "10.205.172.201",
+              "cliUsername": "radware",
+              "cliPassword": "radware"
+            },
+            "snapshot": "3.6.0.0",
+            "environment": "OVA-220"
+          }
+        }
+      },
+      {
+        "deviceId": "DF_172.17.154.50",
+        "deviceSetId": "DF_172.17.154.50",
+        "configurations": {
+          "name": "DefenseFlow_172.17.154.50",
+          "parentOrmID": null,
+          "deviceSetup": {
+            "deviceAccess": {
+              "managementIp": "172.17.154.50",
+              "cliUsername": "radware",
+              "cliPassword": "radware"
+            },
+            "snapshot": "4.3.0.0",
+            "environment": "OVA-220"
+          }
+        }
+      }
+    ]
   }
 }
