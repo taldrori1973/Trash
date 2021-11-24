@@ -10,6 +10,8 @@ public interface SUTManager {
 
     String getServerName();
 
+    Optional<TreeDeviceManagementDto> getDefenseFlow();
+
     PairDto getpair();
 
     String getSetupId();
@@ -40,6 +42,8 @@ public interface SUTManager {
     Optional<EnvironmentDto> getEnviorement();
 
     Optional<EnvironmentDto> getPairEnviorement();
+
+    Optional<EnvironmentDto> getDefenseFlowEnviorement();
 
     /**
      * @param deviceId deviceId as on devices file

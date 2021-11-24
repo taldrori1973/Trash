@@ -117,7 +117,9 @@ public class SutService {
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpVersion(), TreeDeviceManagementDto::setSnmpVersion)
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVerifyHttpCredentials(), TreeDeviceManagementDto::setVerifyHttpCredentials)
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVerifyHttpsCredentials(), TreeDeviceManagementDto::setVerifyHttpsCredentials)
-                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVisionMgtPort(), TreeDeviceManagementDto::setVisionMgtPort);
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVisionMgtPort(), TreeDeviceManagementDto::setVisionMgtPort)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getEnvironment(), TreeDeviceManagementDto::setEnvironment)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getSnapshot(), TreeDeviceManagementDto::setSnapshot);
 
         treeDeviceManagementDtos = modelMapper.map(setupDevices, listType);
 
@@ -156,7 +158,9 @@ public class SutService {
                     .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getSnmpVersion(), TreeDeviceManagementDto::setSnmpVersion)
                     .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVerifyHttpCredentials(), TreeDeviceManagementDto::setVerifyHttpCredentials)
                     .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVerifyHttpsCredentials(), TreeDeviceManagementDto::setVerifyHttpsCredentials)
-                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVisionMgtPort(), TreeDeviceManagementDto::setVisionMgtPort);
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getVisionMgtPort(), TreeDeviceManagementDto::setVisionMgtPort)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getEnvironment(), TreeDeviceManagementDto::setEnvironment)
+                    .addMapping(device -> device.getConfigurations().getDeviceSetup().getSnapshot(), TreeDeviceManagementDto::setSnapshot);
 
             List<Device> setupDevices = allDevices.stream().filter(device -> deviceId.equals(device.getDeviceId())).collect(Collectors.toList());
             List<TreeDeviceManagementDto> treeDeviceManagementDtos = modelMapper.map(setupDevices, listType);
@@ -164,6 +168,11 @@ public class SutService {
         }
         catch (Exception e){}
         return null;
+    }
+
+    public Optional<TreeDeviceManagementDto> getDefenseFlow()
+    {
+        return getTreeDeviceManagementBySetIdFromDevices(sutDao.getDefenseFlowID());
     }
 
     public Optional<ServerDto> getServerById(String serverId) {

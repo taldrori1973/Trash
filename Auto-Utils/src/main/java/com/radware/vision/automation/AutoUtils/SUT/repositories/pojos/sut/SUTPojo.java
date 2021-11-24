@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class SUTPojo {
     private String serverName;
+    private String defenseFlow;
     private Pair pair;
     private String setupFile;
     private DeployConfigurations deployConfigurations;

@@ -34,6 +34,10 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getVMName();
     }
 
+    @Override
+    public Optional<TreeDeviceManagementDto> getDefenseFlow() {
+        return this.sutService.getDefenseFlow();
+    }
 
     public PairDto getpair() {
         return this.sutService.getpair();
@@ -100,6 +104,10 @@ public class SUTManagerImpl implements SUTManager {
 
     public Optional<EnvironmentDto> getPairEnviorement() {
         return this.sutService.getEnviorement(getpair().getEnvironment());
+    }
+
+    public Optional<EnvironmentDto> getDefenseFlowEnviorement() {
+        return this.sutService.getEnviorement(getDefenseFlow().get().getEnvironment());
     }
 
     public List<TreeDeviceManagementDto> getVisionSetupTreeDevices() {
