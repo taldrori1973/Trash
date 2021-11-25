@@ -9,7 +9,7 @@ Feature: Exclude DP Attacks Dashboard
 
   @SID_2
   Scenario: Run DP simulator - ErtFeed_GeoFeed
-    Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
 
   @SID_3
   Scenario:  login to vision
@@ -30,11 +30,11 @@ Feature: Exclude DP Attacks Dashboard
   Scenario:  Validate data before Exclude Malicious IP Addresses
     Then UI Validate the attribute "data-debug-checked" Of Label "Exclude Malicious IP Addresses Checkbox" is "EQUALS" to "false"
     Then UI Validate "Attacks Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 0
+    Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 1
       | columnName      | value                  |
       | Attack Category | Malicious IP Addresses |
 
-    Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 1
+    Then UI Validate Table record values by columns with elementLabel "Attacks Table" findBy index 0
       | columnName      | value       |
       | Attack Category | Geolocation |
 
@@ -55,7 +55,7 @@ Feature: Exclude DP Attacks Dashboard
 
   @SID_8
   Scenario: Run DP simulator -IP_FEED_Modified
-    Given CLI simulate 1000 attacks of type "IP_FEED_Modified" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "IP_FEED_Modified" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
 
   @SID_9
   Scenario:  navigate to attacks dashboard
@@ -73,7 +73,7 @@ Feature: Exclude DP Attacks Dashboard
 
   @SID_11
   Scenario: Run DP simulator - HTTPS
-    Given CLI simulate 1000 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "HTTPS" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
 
   @SID_12
   Scenario:  navigate to attack dashboard
