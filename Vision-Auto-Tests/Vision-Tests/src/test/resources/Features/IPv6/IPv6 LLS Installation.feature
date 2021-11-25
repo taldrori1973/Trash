@@ -75,4 +75,5 @@ Feature: IPv6 LLS-GEL Installation
     Then CLI Check if logs contains
       | logType | expression          | isExpected   |
       | LLS     | fatal\| error\|fail | NOT_EXPECTED |
-      | LLS     | Setup complete! | EXPECTED     |
+      | LLS     | Setup complete for UAT | EXPECTED  |
+      | LLS     | Setup complete for offline | EXPECTED  |
