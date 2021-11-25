@@ -90,7 +90,8 @@ public class RemoteSshCommandsTests extends TestBase {
     }
 
     public enum Variables {
-        visionIP(clientConfigurations.getHostIp());
+        visionIP(clientConfigurations.getHostIp()),
+        dfIP(sutManager.getDefenseFlow().get().getManagementIp());
         String variable;
 
         Variables(String variable) {
