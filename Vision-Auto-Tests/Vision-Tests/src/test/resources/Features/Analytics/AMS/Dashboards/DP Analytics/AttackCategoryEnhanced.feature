@@ -40,8 +40,8 @@ Feature: Attack Category Enhanced
   Scenario: Validate Top Attack Sources Pie Chart data
     Then UI Validate Pie Chart data "Top Attack Sources"
       | label       | data |
-      | Multiple    | 12   |
-      | 149.85.1.2  | 6    |
+      | Multiple    | 14   |
+      | 149.85.1.2  | 7    |
       | 2.2.2.1     | 3    |
       | 192.85.1.7  | 2    |
       | 190.85.1.2  | 1    |
