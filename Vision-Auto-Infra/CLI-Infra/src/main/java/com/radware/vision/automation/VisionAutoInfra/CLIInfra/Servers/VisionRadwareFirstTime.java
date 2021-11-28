@@ -236,10 +236,16 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("The root user password was not changed.");
+        p.setPrompt("Do you want to disable ssh login for root user account (recommended)? [y/N]");
+        p.setStringToSend("n");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Starting APSolute Vision services...");
         p.setDontWaitForScrollEnd(true);
         p.setCommandEnd(true);
         prompts.add(p);
+
 
         p = new Prompt();
         p.setPrompt("[y/N]? ");
