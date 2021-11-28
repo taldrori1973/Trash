@@ -9,6 +9,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.invocation.InvokeMethod;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
@@ -80,27 +81,13 @@ public class RemoteSshCommandsTests extends TestBase {
                     break;
                 }
                 case '#': {
-                    targetCommand.append(Variables.valueOf(commandPart.substring(1)).getVariable());
+                    targetCommand.append((String) InvokeMethod.invokeMethod(String.format("#%s(%s);", "getSUTValue", commandPart.substring(1))));
                     break;
                 }
             }
         }
 
         return targetCommand.toString();
-    }
-
-    public enum Variables {
-        visionIP(clientConfigurations.getHostIp()),
-        dfIP(sutManager.getDefenseFlow().get().getManagementIp());
-        String variable;
-
-        Variables(String variable) {
-            this.variable = variable;
-        }
-
-        public String getVariable() {
-            return variable;
-        }
     }
 
     @When("^Verify ADC Network index aggregation on device \"(.*)\"(?: with timeOut (\\d+))?$")
