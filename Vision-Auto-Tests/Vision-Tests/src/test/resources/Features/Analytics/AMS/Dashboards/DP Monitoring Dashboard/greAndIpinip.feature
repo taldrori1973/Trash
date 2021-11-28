@@ -10,8 +10,8 @@ Feature: GRE and Ip in Ip
 
   @SID_2
   Scenario: Run PCAP
-    Given CLI simulate 100 attacks of type "gre" on "DefensePro" 10 with loopDelay 15000
-    Given CLI simulate 100 attacks of type "ipinip" on "DefensePro" 10 with loopDelay 15000 and wait 50 seconds
+    Given CLI simulate 100 attacks of type "gre" on SetId "DefensePro_Set_1" with loopDelay 15000
+    Given CLI simulate 100 attacks of type "ipinip" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 50 seconds
 
   @SID_3
   Scenario: Login
