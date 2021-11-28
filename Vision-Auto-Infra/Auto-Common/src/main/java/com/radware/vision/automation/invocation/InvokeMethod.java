@@ -31,12 +31,16 @@ public class InvokeMethod {
     public static Object invokeMethod(String method){
         Object[] parameters = method.substring(method.indexOf("(") + 1, method.indexOf(");")).trim().split(",");
         method = method.substring(method.indexOf("#") + 1, method.indexOf("("));
+        String className;
         switch (method){
             //converts from device set_id -> IP to hex
             case "convertIpToHexa":
-                String className = "com.radware.vision.bddtests.utils.SimulatorUtils";
+                className = "com.radware.vision.bddtests.utils.SimulatorUtils";
                 Optional<TreeDeviceManagementDto> deviceOpt= sutManager.getTreeDeviceManagement((String) parameters[0]);
                 return generate(className, method, deviceOpt.get().getManagementIp());
+            case "getSUTValue":
+                className = "com.radware.vision.bddtests.utils.Variables";
+                return generate(className, method, parameters[0]);
             default:
                 break;
         }
