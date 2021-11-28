@@ -254,6 +254,19 @@ public class RadwareServerCli extends ServerCliBase {
         p.setCommandEnd(true);
         prompts.add(p);
 
+        p = new Prompt();
+        p.setPrompt("Are you sure you want to continue with the reboot anyway? (y/N)");
+        p.setStringToSend("y");
+        p.setCommandEnd(false);
+        p.setAddEnter(true);
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Sleeping 30 seconds before reboot.");
+        p.setCommandEnd(true);
+        prompts.add(p);
+
+
 
         //Keep the simple prompts AFTER last to avoid catching them first
         p = new Prompt();
