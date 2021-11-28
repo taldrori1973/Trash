@@ -1,9 +1,9 @@
 {
   "setupFile": "fullSetup.json",
-  "serverName": "uVision",
+  "serverName": "uvision_auto",
   "defenseFlow": "DF_172.17.154.50",
   "deployConfigurations": {
-    "snapshot": "Current-1",
+    "snapshot": "",
     "setupMode": "upgrade",
     "environment": "KVM-210"
   },

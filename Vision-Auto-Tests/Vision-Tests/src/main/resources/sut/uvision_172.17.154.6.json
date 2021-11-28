@@ -1,8 +1,8 @@
 {
   "setupFile": "fullSetup.json",
-  "serverName": "uVision",
+  "serverName": "uvision_auto",
   "deployConfigurations": {
-    "snapshot": "Current-1",
+    "snapshot": "",
     "setupMode": "upgrade",
     "environment": "KVM-215"
   },

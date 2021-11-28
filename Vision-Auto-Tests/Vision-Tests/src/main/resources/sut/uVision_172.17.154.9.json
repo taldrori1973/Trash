@@ -1,5 +1,5 @@
 {
-  "serverName": "uVision_fresh_ova",
+  "serverName": "uvision_fresh_ova",
   "setupFile": "fullSetup.json",
   "pair": {
     "pairIp": "172.17.164.148",
@@ -7,7 +7,7 @@
   },
   "deployConfigurations": {
     "setupMode": "fresh install",
-    "snapshot": "Current-1",
+    "snapshot": "",
     "environment": "OVA-220"
   },
   "clientConfiguration": {
