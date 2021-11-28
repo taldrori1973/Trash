@@ -319,6 +319,7 @@ public class ForensicsHandler extends VRMBaseUtilies {
         BasicOperationsHandler.clickButton("Views.Forensic", viewName );
     }
 
+
     @Override
     protected List<String> getViewsList(int maxValue) throws TargetWebElementNotFoundException {
         List<String> snapshotsName = new ArrayList<>();
@@ -326,7 +327,11 @@ public class ForensicsHandler extends VRMBaseUtilies {
         for (int i = 0; i < maxValue - 1; i++) {
         //    generateView("validateMaxViews",i);
             BasicOperationsHandler.clickButton("Generate Snapshot Forensics Manually", "validateMaxViews");
-           // BasicOperationsHandler.clickButton("Views.Forensic", "validateMaxViews," + i);
+            try {
+                Thread.sleep(3 * 1000);
+            } catch (InterruptedException e) {
+            }
+            // BasicOperationsHandler.clickButton("Views.Forensic", "validateMaxViews," + i);
             WebElement iGenerationElement = BasicOperationsHandler.getDisplayedWebElement("Views.Forensic", "validateMaxViews," + i);
             if (iGenerationElement == null) {
                 throw new TargetWebElementNotFoundException("No view with name: validateMaxViews_" + i);
