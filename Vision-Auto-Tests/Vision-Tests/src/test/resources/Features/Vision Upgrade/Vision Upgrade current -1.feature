@@ -84,7 +84,7 @@ Feature: Vision Upgrade current -1
   Scenario: Validate server is up after reset
     # Avoid reboot during an active process
     Given CLI Run linux Command "service mgtsrv status |grep 'Local License Server is upgrading in the background and will start after the process ends' |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 600 seconds
-    When CLI Run remote linux Command "reboot" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "reboot" on "RADWARE_SERVER_CLI"
     When Sleep "120"
     When CLI Wait for Vision Re-Connection
     Then validate vision server services is UP
