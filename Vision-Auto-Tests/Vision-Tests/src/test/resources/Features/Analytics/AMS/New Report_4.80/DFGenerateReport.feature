@@ -51,26 +51,26 @@ Feature: DFGenerateReport
   @SID_6
   Scenario: validate count
     Then UI Validate StackBar data with widget "Top Attacks by Count-DefenseFlow Analytics" in report "dfGenerateReport"
-      | label  | value | legendName                 |
-      | PO_100 | 86    | HTTP (recv.pps)            |
-      | PO_200 | 32    | HTTP (recv.pps)            |
-      | PO_300 | 32    | HTTP (recv.pps)            |
+      | label  | value | legendName             |
+      | PO_100 | 86    | HTTP (recv.pps)        |
+      | PO_200 | 32    | HTTP (recv.pps)        |
+      | PO_300 | 32    | HTTP (recv.pps)        |
 
-      | PO_100 | 19    | UDP Port 0 (recv.pps)      |
-      | PO_200 | 7     | UDP Port 0 (recv.pps)      |
-      | PO_300 | 7     | UDP Port 0 (recv.pps)      |
+      | PO_100 | 19    | UDP Port 0 (recv.pps)  |
+      | PO_200 | 7     | UDP Port 0 (recv.pps)  |
+      | PO_300 | 7     | UDP Port 0 (recv.pps)  |
 
-      | PO_100 | 17    | Total (recv.bps)           |
-      | PO_200 | 1     | Total (recv.bps)           |
-      | PO_300 | 1     | Total (recv.bps)           |
+      | PO_100 | 17    | Total (recv.bps)       |
+      | PO_200 | 1     | Total (recv.bps)       |
+      | PO_300 | 1     | Total (recv.bps)       |
 
-      | PO_100 | 6     | network flood IPv6 UDP     |
-      | PO_200 | 6     | network flood IPv6 UDP     |
-      | PO_300 | 6     | network flood IPv6 UDP     |
+      | PO_100 | 6     | network flood IPv6 UDP |
+      | PO_200 | 6     | network flood IPv6 UDP |
+      | PO_300 | 6     | network flood IPv6 UDP |
 
-      | PO_100 | 7     | DOSS-NTP-monlist-flood     |
-      | PO_200 | 5     | DOSS-NTP-monlist-flood     |
-      | PO_300 | 5     | DOSS-NTP-monlist-flood     |
+      | PO_100 | 7     | DOSS-NTP-monlist-flood |
+      | PO_200 | 5     | DOSS-NTP-monlist-flood |
+      | PO_300 | 5     | DOSS-NTP-monlist-flood |
 
   @SID_7
   Scenario: validate protocols
@@ -89,7 +89,6 @@ Feature: DFGenerateReport
       | UDP Port 0 (recv.pps)      | null  | ICMP       |
 
   @SID_8
-  Scenario: validate that generate report exist in UI
   Scenario: create new OWASP Top 10 1
     And UI Navigate to "AMS Reports" page via homePage
     Given UI "Create" Report With Name "DF Report"
@@ -101,7 +100,13 @@ Feature: DFGenerateReport
     Then UI Click Button "Log Preview" with value "DF Report_0"
     Then UI Validate generate report with name "DF Report" is exist
 
-  @SID_9
+  @SID_9 @Sanity
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_10
   Scenario: start IPTABLES
     #Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
 
