@@ -1,10 +1,10 @@
 {
   "setupFile": "fullSetup.json",
-  "serverName": "uVision",
+  "serverName": "uvision_auto",
   "deployConfigurations": {
     "snapshot": "Current-1",
-    "setupMode": "fresh install",
-    "environment": "OVA-232"
+    "setupMode": "upgrade",
+    "environment": "OVA-220"
   },
   "pair": {
     "pairIp": "172.17.164.101",
