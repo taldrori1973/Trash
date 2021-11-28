@@ -204,6 +204,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
                 return;
             }
             String vmName = vmNames[vmNumber - 1];
+            vmName = String.format("%s_%s", vmName, sutManager.getClientConfigurations().getHostIp());
             EsxiInfo esxiInfo = new EsxiInfo(environments[vmNumber - 1].getUrl(), environments[vmNumber - 1].getUser(), environments[vmNumber - 1].getPassword(), environments[vmNumber - 1].getResourcePool());
             BaseTestUtils.report("Reverting to snapshot: " + snapshot, Reporter.PASS_NOR_FAIL);
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
