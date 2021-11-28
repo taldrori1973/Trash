@@ -74,7 +74,7 @@ public class VisionRadwareFirstTime extends ServerCliBase {
 
     @Override
     public Prompt[] getPrompts() {
-        ArrayList<Prompt> prompts = new ArrayList<Prompt>();
+        ArrayList<Prompt> prompts = new ArrayList<>();
         Prompt p = new Prompt();
         p.setCommandEnd(true);
         p.setPrompt("$ ");
@@ -246,7 +246,6 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         p.setCommandEnd(true);
         prompts.add(p);
 
-
         p = new Prompt();
         p.setPrompt("[y/N]? ");
         p.setCommandEnd(true);
@@ -292,18 +291,6 @@ public class VisionRadwareFirstTime extends ServerCliBase {
 
         return prompts.toArray(new Prompt[prompts.size()]);
     }
-
-//    public String getStringCounter(String key) throws Exception {
-//
-//        GetTextCounter counter = new GetTextCounter(key);
-//        analyze(counter);
-//        return counter.getCounter();
-//    }
-//
-//    public void sendCommand(String command) throws Exception {
-//        InvokeUtils.invokeCommand(null, command, this);
-//        BaseTestUtils.reporter.report(getTestAgainstObject().toString());
-//    }
 
     public String getNetMask() {
         return netMask;
