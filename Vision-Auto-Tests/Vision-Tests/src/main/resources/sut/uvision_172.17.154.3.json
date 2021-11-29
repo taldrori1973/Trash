@@ -33,5 +33,7 @@
       "userName": "root",
       "password": "radware"
     }
-  }
+  },
+  "simulatorSet" : "",
+  "loadSimulators" : "false"
 }
