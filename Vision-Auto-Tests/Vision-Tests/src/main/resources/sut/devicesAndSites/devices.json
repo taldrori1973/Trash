@@ -803,6 +803,23 @@
             "environment": "OVA-220"
           }
         }
+      },
+      {
+        "deviceId": "DF_172.17.154.55",
+        "deviceSetId": "DF_172.17.154.55",
+        "configurations": {
+          "name": "DefenseFlow_172.17.154.55",
+          "parentOrmID": null,
+          "deviceSetup": {
+            "deviceAccess": {
+              "managementIp": "172.17.154.55",
+              "cliUsername": "radware",
+              "cliPassword": "radware"
+            },
+            "snapshot": "4.3.0.0",
+            "environment": "OVA-220"
+          }
+        }
       }
     ]
   }
