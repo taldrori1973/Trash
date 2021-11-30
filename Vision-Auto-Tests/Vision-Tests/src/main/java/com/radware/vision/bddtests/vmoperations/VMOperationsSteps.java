@@ -1,5 +1,6 @@
 package com.radware.vision.bddtests.vmoperations;
 
+import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
@@ -9,13 +10,13 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServer
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
+import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.*;
 import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.setup.SetupImpl;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.junit.FeatureRunner;
@@ -24,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-import static com.radware.vision.automation.Deploy.UvisionServer.*;
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
 
@@ -219,8 +219,14 @@ public class VMOperationsSteps extends VisionUITestBase {
             switch (setupMode.toLowerCase()) {
                 case "kvm_upgrade":
                 case "upgrade":
-                    RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
-                    RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+                    RadwareServerCli radwareServerCli = null;
+                    RootServerCli rootServerCli = null;
+                    if (serversManagement.getRadwareServerCli().isPresent())
+                        radwareServerCli = serversManagement.getRadwareServerCli().get();
+                    if (serversManagement.getRootServerCLI().isPresent())
+                        rootServerCli = serversManagement.getRootServerCLI().get();
+                    assert rootServerCli != null;
+                    assert radwareServerCli != null;
                     Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
                     upgrade.deploy();
                     break;
@@ -232,8 +238,9 @@ public class VMOperationsSteps extends VisionUITestBase {
                 case "serial iso_fresh install":
                 case "fresh install":
                     String[] setupModeSplit = setupMode.split("_");
-                    String fileType = (setupModeSplit.length==2)?setupModeSplit[0]:"ova";
+                    String fileType = (setupModeSplit.length == 2) ? setupModeSplit[0] : "ova";
                     FreshInstall freshInstall = FreshInstallFactory.getFreshInstall(fileType, true, null);
+                    assert freshInstall != null;
                     freshInstall.deploy();
                     break;
 //                case "fresh install_inparallel":
@@ -250,7 +257,7 @@ public class VMOperationsSteps extends VisionUITestBase {
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
 //        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         } catch (Exception e) {
-            e.getMessage();
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -322,17 +329,21 @@ public class VMOperationsSteps extends VisionUITestBase {
      * Relevant to be used after revert to snapshot and upgrade
      */
     public static void updateVersionVar() {
-        //kVision
-//        VisionInfo visionInfo = new VisionInfo(getRestTestBase().getGenericRestClient().getDeviceIp());
-//        String version = visionInfo.getVisionVersion();
-//        String featureBranch = visionInfo.getVisionBranch();
-//        String build = visionInfo.getVisionBuild();
+        VisionInfo visionInfo = new VisionInfo(sutManager.getClientConfigurations().getHostIp());
+        String version = visionInfo.getVisionVersion();
+        String featureBranch = visionInfo.getVisionBranch();
+        String build = visionInfo.getVisionBuild();
         //update runtime variables
-//        restTestBase.getRootServerCli().setVersionNumebr(version);
-//        restTestBase.getRootServerCli().setBuildNumber(build);
+        RootServerCli rootServerCli = null;
+        if (serversManagement.getRootServerCLI().isPresent()) {
+            rootServerCli = serversManagement.getRootServerCLI().get();
+            rootServerCli.setVersionNumebr(version);
+            rootServerCli.setBuildNumber(build);
+        } else
+            BaseTestUtils.report("Optional: RootServerCli is empty", Reporter.FAIL);
         //Update portal
-//        FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
-//        FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
+        FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
+        FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
 
     }
 }
