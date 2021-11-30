@@ -509,10 +509,10 @@ public class RemoteSshCommandsTests extends TestBase {
     public static void resetPassword() {
         if (serversManagement.getRootServerCLI().get().isConnected()) {
             FileSteps f = new FileSteps();
-            f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh",
+            f.scp("/home/radware/Scripts/restore_radware_user_uvision.sh",
                     ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/");
             CliOperations.runCommand(serversManagement.getRootServerCLI().get(),
-                    "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
+                    "yes | /restore_radware_user_uvision.sh", CliOperations.DEFAULT_TIME_OUT);
         }
     }
 
