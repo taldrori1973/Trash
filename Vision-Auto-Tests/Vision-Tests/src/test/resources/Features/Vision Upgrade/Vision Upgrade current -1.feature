@@ -4,7 +4,7 @@ Feature: Vision Upgrade current -1
   @SID_1
   Scenario: preparations for upgrade release -1
     Given Prerequisite for Setup force
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "mysql vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
 
    ######################################################################################
 
@@ -24,7 +24,7 @@ Feature: Vision Upgrade current -1
   Scenario: Do any pre-upgrade changes
     Given REST Login with activation with user "sys_admin" and password "radware"
       # extract MySql create partition number
-    Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "echo "Before " $(mysql vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
 
   @SID_5
   Scenario: Change TED configuration
@@ -182,7 +182,7 @@ Feature: Vision Upgrade current -1
 
   @SID_19
   Scenario: Validate TED status
-    Then CLI Run linux Command "echo $(mysql -prad123 vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
+    Then CLI Run linux Command "echo $(mysql vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
     Then CLI Run linux Command "curl -ks -o null -w 'RESP_CODE:%{response_code}\n' -XGET https://localhost:443/ted/api/data" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
 
   @SID_20
@@ -202,7 +202,7 @@ Feature: Vision Upgrade current -1
 
   @SID_23
   Scenario: Validate MySql version
-    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+    Then CLI Run linux Command "mysql --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.5.8-MariaDB,"
 
   @SID_24
   Scenario: Validate vdirect listener
@@ -222,7 +222,7 @@ Feature: Vision Upgrade current -1
       | logType | expression                                                           | isExpected   |
       | LLS     | fatal\| error\|fail                                                  | NOT_EXPECTED |
       #rollback to the original values
-    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "mysql vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system lls service stop"
     When CLI Operations - Run Radware Session command "y" timeout 180
 
@@ -232,7 +232,7 @@ Feature: Vision Upgrade current -1
 
   @SID_27
   Scenario: Validate Changed MySql partitioning number
-    Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "echo "After " $(mysql vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result NOT_EQUALS "0"
 
@@ -267,8 +267,8 @@ Feature: Vision Upgrade current -1
 
   @SID_32
   Scenario: Verify number of tables in vision schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+    Then CLI Run linux Command "mysql -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
 
   @SID_33
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+    Then CLI Run linux Command "mysql -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
