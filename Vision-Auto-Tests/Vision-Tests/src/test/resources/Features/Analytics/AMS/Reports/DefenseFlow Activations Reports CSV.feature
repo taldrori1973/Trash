@@ -337,8 +337,9 @@ Feature: DefenseFlow Activations Reports CSV
 
   @SID_17
   Scenario: keep reports copy on file system
-    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Service "config_kvision-collector_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
 
   @SID_18
   Scenario: Clear data
@@ -374,6 +375,7 @@ Feature: DefenseFlow Activations Reports CSV
 
   @SID_23
   Scenario: VRM report unzip local CSV file
+    Then CLI Copy files contains name "VRM_report_*.zip" from container "config_kvision-reporter_1" from path "/usr/local/tomcat" to path "/opt/radware/mgt-server/third-party/tomcat/bin/"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
   @SID_24
