@@ -75,7 +75,7 @@ Feature: Forensics Edit Definition
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Test Edit,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
     Then UI Delete Forensics With Name "Test Edit"
 
   @SID_9
