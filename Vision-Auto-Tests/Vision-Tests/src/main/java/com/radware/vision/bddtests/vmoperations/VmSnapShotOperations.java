@@ -170,13 +170,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "chkconfig --level 345 rsyslog on", 2 * 60 * 1000);
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         resetPassword();
-        //if (VisionServer.waitForVisionServerReadinessForUpgrade(radwareServerCli, 45 * 60 * 1000))
-        // ToDo kvision replace UvisionServer.UVISON_DEFAULT_SERVICES to what services are needed for upgrade
-        if(UvisionServer.isUvisionReady(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES))
-            BaseTestUtils.report("All services up", Reporter.PASS);
-        else {
-            BaseTestUtils.report("Not all services up.", Reporter.FAIL);
-        }
+        UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_SERVICES_READY_FOR_UPGRADE, 30 * 60);
     }
 
     public String getSnapshotTypeBySetupMode(boolean snapshotFromSut) throws Exception {
