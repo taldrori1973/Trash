@@ -42,6 +42,21 @@ public class UvisionServer {
         put(DockerServices.CONFIG_KVISION_INFRA_FLUENTD, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
     }};
 
+    public static final HashMap<DockerServices, DockerServiceStatus> UVISON_SERVICES_READY_FOR_UPGRADE = new HashMap<DockerServices, DockerServiceStatus>() {{
+        put(DockerServices.CONFIG_KVISION_FORMATTER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_REPORTER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_COLLECTOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_SCHEDULER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_CONFIGURATION_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_ALERTS, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_LLS, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
+        put(DockerServices.CONFIG_KVISION_INFRA_MARIADB, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_INFRA_AUTOHEAL, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_INFRA_IPV6NAT, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
+        put(DockerServices.CONFIG_KVISION_INFRA_RABBITMQ, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
+        put(DockerServices.CONFIG_KVISION_INFRA_FLUENTD, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
+    }};
+
     /**
      * Docker state and Health state
      */
