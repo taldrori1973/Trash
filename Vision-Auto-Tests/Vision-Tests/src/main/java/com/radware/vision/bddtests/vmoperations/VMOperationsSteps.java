@@ -230,10 +230,12 @@ public class VMOperationsSteps extends VisionUITestBase {
                     Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
                     upgrade.deploy();
                     break;
+
                 case "upgrade_inparallel":
                 case "kvm_upgrade_inparallel":
                     UpgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
                     break;
+
                 case "qcow2_fresh install":
                 case "serial iso_fresh install":
                 case "fresh install":
@@ -243,6 +245,7 @@ public class VMOperationsSteps extends VisionUITestBase {
                     assert freshInstall != null;
                     freshInstall.deploy();
                     break;
+
 //                case "fresh install_inparallel":
 //                    freshInstallInParallel();
 //                    break;
