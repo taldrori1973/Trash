@@ -385,6 +385,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         if (!BasicOperationsHandler.isElementExists("My " + getType(), false, Name)) {
             BaseTestUtils.report("Failed to delete " + getType() + " name: " + Name, Reporter.FAIL);
         }
+        BasicOperationsHandler.setTextField("Search "+getType(), "");
 
     }
 

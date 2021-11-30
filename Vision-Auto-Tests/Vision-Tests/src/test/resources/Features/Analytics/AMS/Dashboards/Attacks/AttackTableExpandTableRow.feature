@@ -144,7 +144,7 @@ Feature: Attack Table - Expand Table Row
   Scenario:  validate tables for Https
     Then UI search row table in searchLabel "tableSearch" with text "Https"
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy index 1 findBy columnName "Policy Name" findBy cellValue "pol1"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy table "Info" with label "Attack ID" Equals to "33-19"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
 
@@ -315,7 +315,7 @@ Feature: Attack Table - Expand Table Row
       | parameter | 6     | packet-size     |
       | value     | 6     | 124             |
       | operator  | 7     | AND             |
-      | parameter | 7     | Sequence Number |
+      | parameter | 7     | sequence-number |
       | value     | 7     | 123456          |
 
 #  @SID_25
