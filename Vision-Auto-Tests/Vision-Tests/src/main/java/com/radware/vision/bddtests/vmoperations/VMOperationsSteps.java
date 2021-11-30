@@ -165,7 +165,7 @@ public class VMOperationsSteps extends VisionUITestBase {
 
         } catch (Exception e) {
             e.printStackTrace();
-            BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -346,7 +346,7 @@ public class VMOperationsSteps extends VisionUITestBase {
             BaseTestUtils.report("Optional: RootServerCli is empty", Reporter.FAIL);
         //Update portal
         FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
-        FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
+        FeatureRunner.update_station_sutName(clientConfigurations.getHostIp(), System.getProperty("SUT"));
 
     }
 }
