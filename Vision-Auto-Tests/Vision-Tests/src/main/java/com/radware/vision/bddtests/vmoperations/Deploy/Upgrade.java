@@ -58,7 +58,6 @@ public class Upgrade extends Deploy {
             VisionServer.upgradeServerFile(this.radwareServerCli, this.rootServerCli
                     , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
             UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
-            //UpgradeSteps.validateVisionServerServicesUP(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

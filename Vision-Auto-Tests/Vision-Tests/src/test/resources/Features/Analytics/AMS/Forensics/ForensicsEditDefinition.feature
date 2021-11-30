@@ -13,11 +13,11 @@ Feature: Forensics Edit Definition
     * REST Delete ES index "forensics-*"
     * REST Delete ES index "dpforensics-*"
     * CLI Clear vision logs
-  
+
   @SID_2
   Scenario: Run DP simulator
-    And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "vrm_bdos" on "DefensePro" 11 and wait 80 seconds
+    And CLI simulate 1 attacks of type "rest_black_ip46" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "vrm_bdos" on SetId "DefensePro_Set_2" and wait 80 seconds
 
   
   @SID_3
@@ -75,7 +75,7 @@ Feature: Forensics Edit Definition
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Test Edit,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
     Then UI Delete Forensics With Name "Test Edit"
 
   @SID_9

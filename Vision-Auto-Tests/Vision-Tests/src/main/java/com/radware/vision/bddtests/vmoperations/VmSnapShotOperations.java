@@ -6,7 +6,7 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
 import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
-import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
@@ -14,10 +14,6 @@ import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.utils.RegexUtils;
-//import com.radware.vision.vision_handlers.system.VisionServer;
-import com.radware.vision.automation.Deploy.VisionServer;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
-
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -170,13 +166,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "chkconfig --level 345 rsyslog on", 2 * 60 * 1000);
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         resetPassword();
-        //if (VisionServer.waitForVisionServerReadinessForUpgrade(radwareServerCli, 45 * 60 * 1000))
-        // ToDo kvision replace UvisionServer.UVISON_DEFAULT_SERVICES to what services are needed for upgrade
-        if(UvisionServer.isUvisionReady(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES))
-            BaseTestUtils.report("All services up", Reporter.PASS);
-        else {
-            BaseTestUtils.report("Not all services up.", Reporter.FAIL);
-        }
+        UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_SERVICES_READY_FOR_UPGRADE, 30 * 60);
     }
 
     public String getSnapshotTypeBySetupMode(boolean snapshotFromSut) throws Exception {
