@@ -7,6 +7,7 @@ import com.radware.restcore.utils.enums.DeviceType;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.vision.topologytree.TopologyTreeDeviceNotExistException;
+import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -35,10 +36,23 @@ public class TopologyTreeRestHandler extends TestBase {
     public static void addDeviceToTopologyTree(String deviceType, String deviceName, String deviceIp, String site, List<Data> optionalValues) {
 
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
+        String parentOrmID = "";
 
-
-        String parentOrmID = getParentOrmID(site);
-        if (parentOrmID == null) return;
+        try {
+            parentOrmID = getParentOrmID(site);
+            if (parentOrmID == null) return;
+        }
+        catch (Exception e)
+        {
+            if(e.getMessage().contains(String.format("There is no device with name %s configured in APSolute Vision.", site)))
+            {
+                // create site
+                TopologyTreeImpl topologyTree = new TopologyTreeImpl();
+                topologyTree.addSite(site);
+                parentOrmID = getParentOrmID(site);
+                if (parentOrmID == null) return;
+            }
+        }
 
 
         String bodyParams = buildBodyParams(deviceType, deviceName, deviceIp, parentOrmID, optionalValues);

@@ -479,7 +479,7 @@ public class BasicRestOperationsSteps extends TestBase {
         RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
         rootServerCli.init();
         rootServerCli.connect();
-        String commandToExecute = "for i in {1.." + loop + "}; do curl -XPOST localhost:9200/aw-web-application/aw-web-application?pretty -H \"Content-Type: application/json\" -d '{\"enrichmentContainer\": { },\"timeStamp\": \"1569429855341\",\"id\": \"" + appWallIp + "%My_Application-'$i'\",\"deviceIp\": \"" + appWallIp + "\",\"webApplication\":\"" + appPrefix + "-'$i'\"}'; done";
+        String commandToExecute = "for i in {1.." + loop + "}; do curl -XPOST localhost:9200/aw-web-application/_doc?pretty -H \"Content-Type: application/json\" -d '{\"enrichmentContainer\": { },\"timeStamp\": \"1569429855341\",\"id\": \"" + appWallIp + "%My_Application-'$i'\",\"deviceIp\": \"" + appWallIp + "\",\"webApplication\":\"" + appPrefix + "-'$i'\"}'; done";
         timeout *= 1000;
         CliOperations.runCommand(rootServerCli, commandToExecute, timeout);
     }
