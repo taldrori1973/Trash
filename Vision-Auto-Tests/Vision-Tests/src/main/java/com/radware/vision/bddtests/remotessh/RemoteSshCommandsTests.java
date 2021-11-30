@@ -520,7 +520,7 @@ public class RemoteSshCommandsTests extends TestBase {
     public static void waitForVisionReConnection(Integer timeOut) {
         try {
             timeOut = timeOut == null ? 300 : timeOut;
-            waitForServerConnection(timeOut * 1000, serversManagement.getRootServerCLI().get());
+            waitForServerConnection(timeOut * 1000L, serversManagement.getRootServerCLI().get());
         } catch (InterruptedException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
