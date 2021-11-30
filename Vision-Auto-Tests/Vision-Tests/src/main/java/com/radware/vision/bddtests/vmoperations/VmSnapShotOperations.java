@@ -6,7 +6,7 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
 import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
-import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
@@ -14,10 +14,6 @@ import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.utils.RegexUtils;
-//import com.radware.vision.vision_handlers.system.VisionServer;
-import com.radware.vision.automation.Deploy.VisionServer;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
-
 
 import java.math.BigDecimal;
 import java.util.HashMap;
