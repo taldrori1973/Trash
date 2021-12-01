@@ -1,12 +1,14 @@
 @Functional @TC114371
 Feature: RBAC Menu
 
+  
   @SID_1
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
 
+  
     @SID_2
   Scenario Outline: Create users and verify
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
@@ -29,6 +31,7 @@ Feature: RBAC Menu
       | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$ |
       | system_user           | System User                   | [ALL] | Radware1234!@#$ |
 
+  
     @SID_3
   Scenario Outline: Scope "All" is required for User Definition
     When Scope Is "<enabled or disabled>" For Role "<Role>"
@@ -50,6 +53,7 @@ Feature: RBAC Menu
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
+  
   @SID_4
   Scenario: Edit User Management Settings
     Given That Current Vision is Logged In With Username "radware" and Password "radware"
@@ -64,8 +68,6 @@ Feature: RBAC Menu
     When UI Login with user "adc_admin_certificate" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -88,8 +90,6 @@ Feature: RBAC Menu
     When UI Login with user "adc_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -113,8 +113,6 @@ Feature: RBAC Menu
     When UI Login with user "adc_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -137,8 +135,6 @@ Feature: RBAC Menu
     When UI Login with user "radware" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -161,8 +157,6 @@ Feature: RBAC Menu
     When UI Login with user "certificate_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -185,8 +179,6 @@ Feature: RBAC Menu
     When UI Login with user "device_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -209,8 +201,6 @@ Feature: RBAC Menu
     When UI Login with user "device_configurator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -233,8 +223,6 @@ Feature: RBAC Menu
     When UI Login with user "device_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -258,8 +246,6 @@ Feature: RBAC Menu
     When UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -284,8 +270,6 @@ Feature: RBAC Menu
     When UI Login with user "real_server_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -303,13 +287,12 @@ Feature: RBAC Menu
       | VISION SETTINGS                             | yes      |
     * UI logout and close browser
 
+    
   @SID_15
   Scenario: Security Administrator
     When UI Login with user "security_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -332,8 +315,6 @@ Feature: RBAC Menu
     When UI Login with user "security_monitor" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -356,8 +337,6 @@ Feature: RBAC Menu
     When UI Login with user "user_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -380,8 +359,6 @@ Feature: RBAC Menu
     When UI Login with user "vision_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -404,8 +381,6 @@ Feature: RBAC Menu
     When UI Login with user "vision_reporter" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
