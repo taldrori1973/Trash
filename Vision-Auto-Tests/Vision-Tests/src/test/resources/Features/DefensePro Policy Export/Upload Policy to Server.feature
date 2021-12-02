@@ -4,7 +4,7 @@ Feature: DefensePro Network Policy Upload to Server
   @SID_1
   Scenario: Delete Network template from vision if exists
     Given CLI Reset radware password
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision_ng -e "delete from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI"
     Then CLI copy "/home/radware/Scripts/Delete_network_Policy.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI copy "/home/radware/Scripts/Download_network_Template.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI Run remote linux Command "rm -f /download" on "ROOT_SERVER_CLI"
@@ -18,7 +18,7 @@ Feature: DefensePro Network Policy Upload to Server
 
   @SID_3
   Scenario: Verify Network policy in vision
-    Then CLI Run linux Command "mysql -prad123 vision_ng -BNe "select dev_type,file_type from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "DefensePro	1"
+    Then CLI Run linux Command "vision_ng -BNe "select dev_type,file_type from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "DefensePro	1"
     Then REST Request "GET" for "Vision DP Policies->Network Policies Table"
       | type                 | value                                            |
       | params               | filter=name:auto_import                          |
@@ -42,4 +42,4 @@ Feature: DefensePro Network Policy Upload to Server
 
   @SID_7
   Scenario: Verify Network policy deleted in vision
-    Then CLI Run linux Command "mysql -prad123 vision_ng -BNe "select count(*) from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then CLI Run linux Command "vision_ng -BNe "select count(*) from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
