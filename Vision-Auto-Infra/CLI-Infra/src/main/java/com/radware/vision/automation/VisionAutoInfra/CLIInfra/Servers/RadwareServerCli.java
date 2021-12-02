@@ -236,7 +236,8 @@ public class RadwareServerCli extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("Starting APSolute Vision server upgrade from version 4.98.0 to version 4.98.0.");
+        p.setPrompt("Starting APSolute Vision server upgrade from version \\d+.\\d+.\\d+ to version \\d+.\\d+.\\d+.");
+        p.setRegularExpression(true);
         p.setCommandEnd(true);
         p.setDontWaitForScrollEnd(true);
         prompts.add(p);
