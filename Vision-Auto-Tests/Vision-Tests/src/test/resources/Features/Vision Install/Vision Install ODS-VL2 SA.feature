@@ -19,7 +19,7 @@ Feature: Vision Install ODS-VL2 SA
   Scenario: Validate server is up after reset
     When CLI Operations - Run Root Session command "reboot"
     Then Sleep "180"
-    When validate vision server services is UP
+    When validate vision server services are UP
 
   @SID_4
   Scenario: Login and install license

@@ -45,8 +45,6 @@ Feature: Vision Upgrade current -1
 
   @SID_7
   Scenario: Check upgrade logs
-    Then CLI Run remote linux Command "/copyUpgradeLog.sh" on "ROOT_SERVER_CLI"
-
     Then CLI Check if logs contains
       | logType | expression                                                             | isExpected   |
       | UPGRADE | fatal                                                                  | NOT_EXPECTED |
@@ -87,7 +85,7 @@ Feature: Vision Upgrade current -1
     When CLI Run remote linux Command "reboot" on "RADWARE_SERVER_CLI"
     When Sleep "120"
     When CLI Wait for Vision Re-Connection
-    Then validate vision server services is UP
+    Then validate vision server services are UP
 
   @SID_9
   Scenario: Check firewall settings

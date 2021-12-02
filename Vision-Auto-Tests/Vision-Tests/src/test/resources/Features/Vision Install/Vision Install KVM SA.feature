@@ -21,7 +21,7 @@ Feature: Vision Install KVM SA
     Given CLI Run linux Command "service mgtsrv status |grep 'Local License Server is upgrading in the background and will start after the process ends' |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 600 seconds
     When CLI Run remote linux Command "reboot" on "ROOT_SERVER_CLI"
     Then Sleep "180"
-    When validate vision server services is UP
+    When validate vision server services are UP
 
   @SID_4
   Scenario: Login with activation and install licenses

@@ -76,7 +76,7 @@ Feature: Vision APM Upgrade current +1
     When CLI Run remote linux Command "reboot" on "ROOT_SERVER_CLI"
     When Sleep "120"
     When CLI Wait for Vision Re-Connection
-    Then validate vision server services is UP
+    Then validate vision server services are UP
 
   @SID_7
   Scenario: Check firewall settings

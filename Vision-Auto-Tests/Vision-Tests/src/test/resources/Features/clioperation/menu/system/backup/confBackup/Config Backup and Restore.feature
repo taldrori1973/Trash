@@ -13,8 +13,8 @@ Feature: Backup and Restore
 
   @SID_2
   Scenario: validate services is UP in the two machines before backup and restore
-    Given validate vision server services is UP
-    Given validate vision server services is UP on vision 2
+    Given validate vision server services are UP
+    Given validate vision server services are UP on vision 2
     # Wait for lls to run before restore
     Then CLI LLS validate installation with expected: "Local License Server is running", timeout 1200 on vision 2
 
@@ -29,8 +29,8 @@ Feature: Backup and Restore
 
   @SID_5
   Scenario: validate services UP
-    When validate vision server services is UP
-    Then validate vision server services is UP on vision 2
+    When validate vision server services are UP
+    Then validate vision server services are UP on vision 2
 
   @SID_6
   Scenario: Add License to the target device

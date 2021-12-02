@@ -86,13 +86,13 @@ Feature: Vision Upgrade current +1
     When CLI Run remote linux Command "reboot" on "ROOT_SERVER_CLI"
     When Sleep "120"
     When CLI Wait for Vision Re-Connection
-    Then validate vision server services is UP
+    Then validate vision server services are UP
 
   @SID_9
   Scenario: Validate server is up after reset
     When CLI Operations - Run Root Session command "reboot"
     Then Sleep "180"
-    When validate vision server services is UP
+    When validate vision server services are UP
 
   @SID_10
   Scenario: Check firewall settings

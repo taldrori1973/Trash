@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.clioperation.system.upgrade;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.Deploy.VisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
@@ -39,21 +40,24 @@ public class UpgradeSteps extends TestBase {
         }
     }
 
-    @When("^validate vision server services is UP$")
+    @When("^validate vision server services are UP$")
     public void validateVisionServerServicesUPStep() {
         try {
-            validateVisionServerServicesUP(serversManagement.getRadwareServerCli().get());
+            UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(),
+                    UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
-    @When("^validate vision server services is UP on vision 2$")
+    @When("^validate vision server services are UP on vision 2$")
     public void validateVisionServerServicesUPStepVision2() {
         try {
-            String sourceIP = restTestBase.getVisionServerHA().getHost_2();
-            RadwareServerCli radwareServerCli = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
-            validateVisionServerServicesUP(radwareServerCli);
+            String sourceIP = sutManager.getpair().getPairIp();
+            RadwareServerCli radwareServerCli = new RadwareServerCli(sourceIP,
+                    serversManagement.getRadwareServerCli().get().getUser(),
+                    serversManagement.getRadwareServerCli().get().getPassword());
+            UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
