@@ -253,7 +253,7 @@ Feature: Vision Upgrade current -1
     Then CLI Operations - Verify that output contains regex "config_kvision-reporter_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-collector_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-configuration-service_1\s+.*\(healthy\)"
-    Then CLI Operations - Verify that output contains regex "config_kvision-infra-rabbitmq_1\s+.*\Up"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-rabbitmq_1\s+.*Up"
     Then CLI Operations - Verify that output contains regex "config_kvision-infra-efk_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-infra-mariadb_1\s+.*\(healthy\)"
 
