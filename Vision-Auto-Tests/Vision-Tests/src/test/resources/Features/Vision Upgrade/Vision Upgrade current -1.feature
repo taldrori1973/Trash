@@ -150,7 +150,7 @@ Feature: Vision Upgrade current -1
 
   @SID_15
   Scenario: validate Edit Threshold script exist in vision
-    Then CLI Run linux Command "ll /opt/radware/storage/vdirect/database/templates/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "ll /var/lib/docker/volumes/config_vdirect/_data/templates/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "ll /opt/radware/ConfigurationTemplatesRepository/actionable/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_16
@@ -248,12 +248,12 @@ Feature: Vision Upgrade current -1
     Then CLI Operations - Verify that output contains regex "config_kvision-ted_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-webui_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-help_1\s+.*\(healthy\)"
-    Then CLI Operations - Verify that output contains regex "config_kvision-infra-fluentd_1\s+.*\(healthy\)"
-    Then CLI Operations - Verify that output contains regex "config_kvision-infra-ipv6nat_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-fluentd_1\s+.*Up"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-ipv6nat_1\s+.*Up"
     Then CLI Operations - Verify that output contains regex "config_kvision-reporter_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-collector_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-configuration-service_1\s+.*\(healthy\)"
-    Then CLI Operations - Verify that output contains regex "config_kvision-infra-rabbitmq_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-rabbitmq_1\s+.*\Up"
     Then CLI Operations - Verify that output contains regex "config_kvision-infra-efk_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-infra-mariadb_1\s+.*\(healthy\)"
 
