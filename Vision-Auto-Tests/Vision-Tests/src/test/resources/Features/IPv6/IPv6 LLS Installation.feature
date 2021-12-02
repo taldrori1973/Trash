@@ -1,5 +1,6 @@
 @TC111604
 Feature: IPv6 LLS-GEL Installation
+
   @SID_1
   Scenario: verify lls service status is Not running
     Given CLI Reset radware password
@@ -73,7 +74,7 @@ Feature: IPv6 LLS-GEL Installation
   @SID_16
   Scenario: Check logs
     Then CLI Check if logs contains
-      | logType | expression          | isExpected   |
-      | LLS     | fatal\| error\|fail | NOT_EXPECTED |
-      | LLS     | Setup complete for UAT | EXPECTED  |
-      | LLS     | Setup complete for offline | EXPECTED  |
+      | logType | expression                 | isExpected   |
+      | LLS     | fatal\| error\|fail        | NOT_EXPECTED |
+      | LLS     | Setup complete for UAT     | EXPECTED     |
+      | LLS     | Setup complete for offline | EXPECTED     |

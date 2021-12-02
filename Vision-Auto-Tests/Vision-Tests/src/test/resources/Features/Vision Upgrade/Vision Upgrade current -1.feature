@@ -216,7 +216,7 @@ Feature: Vision Upgrade current -1
 
   @SID_26
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.5.0-2"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result CONTAINS "2.6.0"
 
   @SID_27
   Scenario: Validate Changed MySql partitioning number

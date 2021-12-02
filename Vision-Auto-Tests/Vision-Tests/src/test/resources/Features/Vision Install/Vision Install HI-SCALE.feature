@@ -17,7 +17,7 @@ Feature: Vision Install HI SCALE
   Scenario: Validate server is up after reset
     # Avoid reboot during an active process
     Given CLI Run linux Command "service mgtsrv status |grep 'Local License Server is upgrading in the background and will start after the process ends' |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 600 seconds
-    When CLI Operations - Run Root Session command "reboot"
+    When CLI Run remote linux Command "reboot" on "ROOT_SERVER_CLI"
     Then Sleep "180"
     When validate vision server services are UP
 
@@ -123,7 +123,7 @@ Feature: Vision Install HI SCALE
 
   @SID_14
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.5.0-2"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result CONTAINS "2.6.0"
 
   @SID_15
   Scenario: Validate IPv6 Hostname in /etc/hosts
