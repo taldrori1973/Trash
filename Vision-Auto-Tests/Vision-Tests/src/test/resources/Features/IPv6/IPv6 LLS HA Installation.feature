@@ -11,8 +11,8 @@ Feature: LLS-GEL HA Installation
   @SID_2
   Scenario: Pre LLS Install
     Given CLI Reset radware password
-    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
-    Given CLI Run remote linux Command on Vision 2 "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command on Vision 2 "vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
     Given CLI Run remote linux Command on Vision 2 "echo 'cleared' $(date)|tee /opt/radware/storage/maintenance/logs/lls/lls_install_display.log" on "ROOT_SERVER_CLI"
     Then REST Login with user "radware" and password "radware"
     Then CLI Clear vision logs
@@ -92,7 +92,7 @@ Feature: LLS-GEL HA Installation
     Then CLI set target vision Host_2 "disabled"
 #  @SID_22
 #  Scenario: revert back requiered memmory
-#    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+#    Given CLI Run remote linux Command "vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
 #
 
 
