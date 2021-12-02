@@ -89,28 +89,18 @@ Feature: Vision Upgrade current -1
 
   @SID_9
   Scenario: Check firewall settings
-    Then CLI Run remote linux Command "iptables -L -n > /tmp/Upgrade-1.txt" on "ROOT_SERVER_CLI"
-    Then CLI copy "/tmp/Upgrade-1.txt" from "ROOT_SERVER_CLI" to "GENERIC_LINUX_SERVER" "/tmp/Upgrade-1.txt"
-    Then CLI Run linux Command "iptables -L -n | grep -w "REJECT     all"" on "ROOT_SERVER_CLI" and validate result CONTAINS "reject-with icmp-host-prohibited"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:1443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:5672"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:5671"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:9443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:2189"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:2215"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w udp |grep -w "dpt:2215"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:2214"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w udp |grep -w "dpt:2214"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w udp |grep -w "dpt:2088"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w udp |grep -w "dpt:162"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:9216"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:80"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:22"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w icmp |grep -w 17" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
-    Then CLI Run linux Command "iptables -L -n | grep -w DROP |grep -w icmp |grep -w 13" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
-    Then CLI Run linux Command "iptables -L -n |grep "ACCEPT"|grep "state NEW" |wc -l" on "ROOT_SERVER_CLI" and validate result LTE "18"
-    Then CLI Run linux Command "iptables -L -n |grep "dpt:161" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    When CLI Operations - Run Radware Session command "net firewall open-port list"
+    Then CLI Operations - Verify that output contains regex "tcp\s+80"
+    Then CLI Operations - Verify that output contains regex "tcp\s+443"
+    Then CLI Operations - Verify that output contains regex "tcp\s+2215"
+    Then CLI Operations - Verify that output contains regex "tcp\s+2189"
+    Then CLI Operations - Verify that output contains regex "tcp\s+3000"
+    Then CLI Operations - Verify that output contains regex "tcp\s+5671"
+    Then CLI Operations - Verify that output contains regex "tcp\s+7070"
+    Then CLI Operations - Verify that output contains regex "tcp\s+3306"
+    Then CLI Operations - Verify that output contains regex "tcp\s+9200"
+
+    When CLI Run linux Command "iptables -L -n | grep tcp | grep -v 10.10 |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "13"
 
   @SID_10
   Scenario: Check firewall6 settings
