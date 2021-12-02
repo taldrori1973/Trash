@@ -1,7 +1,7 @@
 @VRM_Report2 @TC106001
 
 Feature: Forensics Edit Definition
-
+  
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -13,7 +13,7 @@ Feature: Forensics Edit Definition
     * REST Delete ES index "forensics-*"
     * REST Delete ES index "dpforensics-*"
     * CLI Clear vision logs
-
+  
   @SID_2
   Scenario: Run DP simulator
     And CLI simulate 1 attacks of type "rest_black_ip46" on SetId "DefensePro_Set_1"
@@ -64,7 +64,7 @@ Feature: Forensics Edit Definition
     Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Test Edit,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-
+  
   @SID_8
   Scenario: Validate forensics definition edit time definition
     # move one attack 48 hours backwards
@@ -75,7 +75,7 @@ Feature: Forensics Edit Definition
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Test Edit,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     Then UI Delete Forensics With Name "Test Edit"
 
   @SID_9
