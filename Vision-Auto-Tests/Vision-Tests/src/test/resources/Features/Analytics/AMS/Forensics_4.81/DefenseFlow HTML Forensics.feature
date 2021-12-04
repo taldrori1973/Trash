@@ -269,6 +269,12 @@ Feature: DefenseFlow HTML Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow"
 
   @SID_25
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_26
   Scenario: Logout
     Then UI logout and close browser
 

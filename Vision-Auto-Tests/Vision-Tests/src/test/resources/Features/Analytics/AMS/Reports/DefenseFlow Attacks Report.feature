@@ -267,6 +267,12 @@ Feature: DefenseFlow Attacks Reports
       | ALL     | error      | NOT_EXPECTED |
 
   @SID_30
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_32
   Scenario: Cleanup
     When UI Open "Configurations" Tab
     Then UI logout and close browser

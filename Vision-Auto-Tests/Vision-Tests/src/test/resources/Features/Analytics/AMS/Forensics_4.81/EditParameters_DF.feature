@@ -162,6 +162,12 @@ Feature: Edit DefenseFlow Parameters
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics DefenseFlow Updated"
 
   @SID_22
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_23
   Scenario: Logout
     Then UI logout and close browser
 
