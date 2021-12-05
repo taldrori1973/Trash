@@ -10,7 +10,7 @@ Feature: Vision Upgrade current -1
   @SID_2
   Scenario: Start LLS service
     Given CLI Run linux Command "system lls service start" on "RADWARE_SERVER_CLI" and validate result CONTAINS "This will start the LLS service. Continue? (y/n):" in any line
-    When CLI Run linux Command "y" on "RADWARE_SERVER_CLI" and validate result CONTAINS "Creating config_kvision-lls_1 ... done" in any line
+    When CLI Run remote linux Command "y" on "ROOT_SERVER_CLI"
     Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "FailOverRole: MAIN" in any line Retry 180 seconds
 
 #  @SID_3
