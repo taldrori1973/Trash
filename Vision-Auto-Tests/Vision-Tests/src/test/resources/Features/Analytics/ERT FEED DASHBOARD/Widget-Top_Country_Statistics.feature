@@ -41,19 +41,21 @@ Feature: EAAF Widget - Top Country Statistics
 # Validate Num of attacks per IP
     Then UI Click Button "Events" with value "Top-Attacking-Geolocations"
     Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "192"
-    Then UI Validate Text field "TOTAL Country Events value" with params "1" EQUALS "103"
+    Then UI Validate Text field "TOTAL Country Events value" with params "1" EQUALS "134"
+    Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "103"
     Then UI Validate Text field "TOTAL Country Events value" with params "3" EQUALS "96"
-    Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "22"
+    Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "22"
+    Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "15"
 
   @SID_6
   Scenario: alidate Num of attacks per IP
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Costa Rica"
-    Then UI Text of "Country bar" with extension "1" equal to "Colombia"
-    Then UI Text of "Country bar" with extension "2" equal to "Cuba"
+    Then UI Text of "Country bar" with extension "1" equal to "United States"
+    Then UI Text of "Country bar" with extension "2" equal to "Colombia"
     Then UI Text of "Country bar" with extension "3" equal to "Argentina"
-    Then UI Text of "Country bar" with extension "4" equal to "United States"
-    Then UI Text of "Country bar" with extension "5" equal to "Spain"
+    Then UI Text of "Country bar" with extension "4" equal to "Spain"
+    Then UI Text of "Country bar" with extension "5" equal to "Mexico"
 
 # validate values ordering
     Then UI Validate elements "TOTAL Country Events value" with params "" are sorting Descending by "Numerical"
@@ -63,7 +65,7 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Click Button "Packets" with value "Top-Attacking-Geolocations"
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "1" is "EQUALS" to "51%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "1" is "EQUALS" to "55.14%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "3" is "EQUALS" to "49%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "4" is "EQUALS" to "28%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "5" is "EQUALS" to "4%" with offset 2
@@ -80,11 +82,11 @@ Feature: EAAF Widget - Top Country Statistics
   Scenario: Validate IP addresses correctness
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Costa Rica"
-    Then UI Text of "Country bar" with extension "1" equal to "Colombia"
-    Then UI Text of "Country bar" with extension "2" equal to "Cuba"
+    Then UI Text of "Country bar" with extension "1" equal to "United States"
+    Then UI Text of "Country bar" with extension "2" equal to "Colombia"
     Then UI Text of "Country bar" with extension "3" equal to "Argentina"
     Then UI Text of "Country bar" with extension "4" equal to "Mexico"
-    Then UI Text of "Country bar" with extension "5" equal to "United States"
+    Then UI Text of "Country bar" with extension "5" equal to "Zimbabwe"
 
   # validate values ordering
     Then UI Validate elements "TOTAL Country Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
@@ -95,8 +97,8 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Click Button "Volume" with value "Top-Attacking-Geolocations"
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "1" is "EQUALS" to "52%" with offset 2
-    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "2" is "EQUALS" to "50%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "1" is "EQUALS" to "56.38%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "2" is "EQUALS" to "52.19%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "3" is "EQUALS" to "49%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "4" is "EQUALS" to "22%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "5" is "EQUALS" to "5%" with offset 2
@@ -115,11 +117,11 @@ Feature: EAAF Widget - Top Country Statistics
   Scenario: Validate IP addresses correctness
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Costa Rica"
-    Then UI Text of "Country bar" with extension "1" equal to "Colombia"
-    Then UI Text of "Country bar" with extension "2" equal to "Cuba"
+    Then UI Text of "Country bar" with extension "1" equal to "United States"
+    Then UI Text of "Country bar" with extension "2" equal to "Colombia"
     Then UI Text of "Country bar" with extension "3" equal to "Argentina"
     Then UI Text of "Country bar" with extension "4" equal to "Mexico"
-    Then UI Text of "Country bar" with extension "5" equal to "United States"
+    Then UI Text of "Country bar" with extension "5" equal to "Zimbabwe"
 
   # validate values ordering
     Then UI Validate elements "TOTAL Country Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
@@ -217,8 +219,8 @@ Feature: EAAF Widget - Top Country Statistics
   Scenario: Validate data correctness after clearing IP selection on Top Attacking Countries Widget
     Then UI clear 15 characters in "ipFilter"
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "1" is "EQUALS" to "52%" with offset 2
-    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "2" is "EQUALS" to "50%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "1" is "EQUALS" to "56.38%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Country bar" With Params "2" is "EQUALS" to "52.19%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "3" is "EQUALS" to "49%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "4" is "EQUALS" to "22%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "5" is "EQUALS" to "5%" with offset 2
@@ -237,11 +239,11 @@ Feature: EAAF Widget - Top Country Statistics
   Scenario: Validate Volume amount per IP on Top Attacking Countries Widget -Validate IP addresses correctness
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Costa Rica"
-    Then UI Text of "Country bar" with extension "1" equal to "Colombia"
-    Then UI Text of "Country bar" with extension "2" equal to "Cuba"
+    Then UI Text of "Country bar" with extension "1" equal to "United States"
+    Then UI Text of "Country bar" with extension "2" equal to "Colombia"
     Then UI Text of "Country bar" with extension "3" equal to "Argentina"
     Then UI Text of "Country bar" with extension "4" equal to "Mexico"
-    Then UI Text of "Country bar" with extension "5" equal to "United States"
+    Then UI Text of "Country bar" with extension "5" equal to "Zimbabwe"
 
   # validate values ordering
     Then UI Validate elements "TOTAL Country Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
