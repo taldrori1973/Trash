@@ -19,7 +19,7 @@ Feature: Vision Install ODS-VL2 SA
   Scenario: Validate server is up after reset
     When CLI Operations - Run Root Session command "reboot"
     Then Sleep "180"
-    When validate vision server services is UP
+    When validate vision server services are UP
 
   @SID_4
   Scenario: Login and install license
@@ -89,7 +89,7 @@ Feature: Vision Install ODS-VL2 SA
 
   @SID_8
   Scenario: Validate TED status
-    Then CLI Run linux Command "echo $(mysql -prad123 vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
+    Then CLI Run linux Command "echo $(vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
     Then CLI Run linux Command "curl -ks -o null -w 'RESP_CODE:%{response_code}\n' -XGET https://localhost:443/ted/api/data" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
 
   @SID_9
@@ -130,7 +130,7 @@ Feature: Vision Install ODS-VL2 SA
 
   @SID_15
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.5.0-2"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result CONTAINS "2.6.0"
 
   @SID_16
   Scenario: Validate Radware MAC addresses

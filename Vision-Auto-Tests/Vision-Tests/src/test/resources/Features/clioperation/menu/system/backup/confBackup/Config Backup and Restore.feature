@@ -13,8 +13,8 @@ Feature: Backup and Restore
 
   @SID_2
   Scenario: validate services is UP in the two machines before backup and restore
-    Given validate vision server services is UP
-    Given validate vision server services is UP on vision 2
+    Given validate vision server services are UP
+    Given validate vision server services are UP on vision 2
     # Wait for lls to run before restore
     Then CLI LLS validate installation with expected: "Local License Server is running", timeout 1200 on vision 2
 
@@ -29,8 +29,8 @@ Feature: Backup and Restore
 
   @SID_5
   Scenario: validate services UP
-    When validate vision server services is UP
-    Then validate vision server services is UP on vision 2
+    When validate vision server services are UP
+    Then validate vision server services are UP on vision 2
 
   @SID_6
   Scenario: Add License to the target device
@@ -49,7 +49,7 @@ Feature: Backup and Restore
 
   @SID_8
   Scenario: Restore validation number of devices
-    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "16"
+    Then CLI Run linux Command "vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "16"
 
   @SID_9
   Scenario: Check logs for errors
@@ -122,8 +122,8 @@ Feature: Backup and Restore
 
 #  @SID_18
 #  Scenario: Restore validation Scheduled tasks triggers
-#    Then CLI Run linux Command "mysql -prad123 quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%AttackDesc%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 30 1 ? * *"
-#    Then CLI Run linux Command "mysql -prad123 quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%OperatorToolbox%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 1 12 ? * 2"
+#    Then CLI Run linux Command "quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%AttackDesc%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 30 1 ? * *"
+#    Then CLI Run linux Command "quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%OperatorToolbox%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 1 12 ? * 2"
 
   @SID_19
   Scenario: Restore validation SSL certificate
@@ -142,7 +142,7 @@ Feature: Backup and Restore
 
   @SID_22
   Scenario: Restore Validate TED status
-    Then CLI Run linux Command "echo $(mysql -prad123 vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep -w "51400"|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
+    Then CLI Run linux Command "echo $(vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep -w "51400"|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
     Then CLI Run linux Command "curl -ks -o null -w 'RESP_CODE:%{response_code}\n' -XGET https://localhost:443/ted/api/data" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
 
   @SID_23
@@ -160,8 +160,8 @@ Feature: Backup and Restore
 
   @SID_26
   Scenario: Verify number of tables in vision schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+    Then CLI Run linux Command "-NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
 
   @SID_27
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+    Then CLI Run linux Command "-NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"

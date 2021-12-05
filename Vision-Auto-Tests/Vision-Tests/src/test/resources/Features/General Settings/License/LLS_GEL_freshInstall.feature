@@ -1,14 +1,14 @@
 @TC111692
 Feature: LLS_GEL_freshInstall
 
-  @SID_1
-  Scenario: FreshInstallIn parallel
-    Then Fresh Install In Parallel
+#  @SID_1
+#  Scenario: FreshInstallIn parallel
+#    Then Fresh Install In Parallel
 
   @SID_2
   Scenario: verify lls service status is Not running
-    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
-    Given CLI Run remote linux Command on Vision 2 "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command on Vision 2 "vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
     Given CLI Run remote linux Command on Vision 2 "echo 'cleared' $(date)|tee /opt/radware/storage/maintenance/logs/lls/lls_install_display.log" on "ROOT_SERVER_CLI"
     Then REST Login with activation with user "radware" and password "radware"
 #    Then CLI Clear vision logs
@@ -34,7 +34,7 @@ Feature: LLS_GEL_freshInstall
 
   @SID_6
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.5.0-2"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result CONTAINS "2.6.0"
     When CLI Operations - Run Radware Session command "system lls version"
     Then CLI Operations - Verify that output contains regex ".*2.5.0-1*"
 

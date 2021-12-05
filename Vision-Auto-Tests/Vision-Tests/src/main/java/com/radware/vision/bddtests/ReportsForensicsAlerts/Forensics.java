@@ -79,6 +79,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             selectScopeSelection(map);
             createForensicsParam(name, map);
             BasicOperationsHandler.clickButton("save");
+            WebUIUtils.sleep(3);
             if (WebUiTools.getWebElement("Error message description") != null)
             {
                 String internalErrorMessage = WebUiTools.getWebElement("Error message description").getText();
