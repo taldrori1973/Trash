@@ -47,51 +47,41 @@ Feature: Vision Install OVA SA
 
   @SID_6
   Scenario: Validate iptables settings
-    #there are 25 open ports without LLS and ElasticSearch
-    Then CLI Run linux Command "iptables -n -L RH-Firewall-1-INPUT|grep "ACCEPT "|wc -l" on "ROOT_SERVER_CLI" and validate result LTE "27"
-    Then CLI Run linux Command "iptables -L -n | grep -w "REJECT     all"" on "ROOT_SERVER_CLI" and validate result CONTAINS "reject-with icmp-host-prohibited"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:1443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:5672"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:5671"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:9443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:2189"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:2215"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w udp |grep -w "dpt:2215"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:2214"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w udp |grep -w "dpt:2214"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w udp |grep -w "dpt:2088"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w udp |grep -w "dpt:162"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:9216"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:80"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:22"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "iptables -L -n |grep -w icmp |grep -w 17" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
-    Then CLI Run linux Command "iptables -L -n | grep -w DROP |grep -w icmp |grep -w 13" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
-    Then CLI Run linux Command "iptables -L -n |grep "ACCEPT"|grep "state NEW" |wc -l" on "ROOT_SERVER_CLI" and validate result LTE "18"
+    When CLI Operations - Run Radware Session command "net firewall open-port list"
+    Then CLI Operations - Verify that output contains regex "tcp\s+80"
+    Then CLI Operations - Verify that output contains regex "tcp\s+443"
+    Then CLI Operations - Verify that output contains regex "tcp\s+2215"
+    Then CLI Operations - Verify that output contains regex "tcp\s+2189"
+    Then CLI Operations - Verify that output contains regex "tcp\s+3000"
+    Then CLI Operations - Verify that output contains regex "tcp\s+5671"
+    Then CLI Operations - Verify that output contains regex "tcp\s+7070"
+    Then CLI Operations - Verify that output contains regex "tcp\s+3306"
+    Then CLI Operations - Verify that output contains regex "tcp\s+9200"
+
+    When CLI Run linux Command "iptables -L -n | grep tcp | grep -v 10.10 |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "13"
 
 
-  @SID_7
-  Scenario: Validate ip6tables settings
-    Then CLI Run linux Command "ip6tables -L -n | grep -w "REJECT     all"" on "ROOT_SERVER_CLI" and validate result CONTAINS "reject-with icmp6-adm-prohibited"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:1443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:5672"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:5671"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:9443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:2189"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:2215"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w udp |grep -w "dpt:2215"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:2214"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w udp |grep -w "dpt:2214"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w udp |grep -w "dpt:2088"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w udp |grep -w "dpt:162"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:9216"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:80"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    Then CLI Run linux Command "ip6tables -L -n |grep "dpt:161" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+#  @SID_7
+#  Scenario: Validate ip6tables settings
+#    Then CLI Run linux Command "ip6tables -L -n | grep -w "REJECT     all"" on "ROOT_SERVER_CLI" and validate result CONTAINS "reject-with icmp6-adm-prohibited"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:1443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:5672"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:5671"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:9443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:2189"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:2215"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w udp |grep -w "dpt:2215"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:2214"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w udp |grep -w "dpt:2214"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w udp |grep -w "dpt:2088"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w udp |grep -w "dpt:162"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:9216"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:80"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Then CLI Run linux Command "ip6tables -L -n |grep "dpt:161" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
   @SID_8
   Scenario: Validate TED status
-    Then CLI Run linux Command "echo $(vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
     Then CLI Run linux Command "curl -ks -o null -w 'RESP_CODE:%{response_code}\n' -XGET https://localhost:443/ted/api/data" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
 
   @SID_9
@@ -118,8 +108,8 @@ Feature: Vision Install OVA SA
   Scenario: Validate vdirect listener
     Then CLI Run linux Command "netstat -nlt |grep 2188|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result EQUALS ":::2188" Retry 120 seconds
     Then CLI Run linux Command "netstat -nlt |grep 2189|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result EQUALS ":::2189" Retry 120 seconds
-    Then CLI Run linux Command "curl -ks -o null -XGET https://localhost6:2189 -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
-    Then CLI Run linux Command "curl -ks -o null -XGET https://localhost4:2189 -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
+    Then CLI Run remote linux Command "curl -ks -o null -XGET https://localhost:2189 -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
+    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
   @SID_14
   Scenario: Validate LLS version
@@ -146,35 +136,29 @@ Feature: Vision Install OVA SA
 
   @SID_19
   Scenario: Verify services are running
-    Then CLI validate service "CONFIG_KVISION_DC_NGINX" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_FORMATTER" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_RT_ALERT" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_REPORTER" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_COLLECTOR" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_VRM" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_CONFIG_SYNC_SERVICE" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_VDIRECT" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_SCHEDULER" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_TOR_FEED" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_CONFIGURATION_SERVICE" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_ALERTS" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_INFRA_AVR" status is "UP" and health is "NONE"
-    Then CLI validate service "CONFIG_KVISION_LLS" status is "UP" and health is "NONE"
-    Then CLI validate service "CONFIG_KVISION_TED" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_HELP" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_INFRA_EFK" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_WEBUI" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_INFRA_MARIADB" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_INFRA_AUTOHEAL" status is "UP" and health is "HEALTHY"
-    Then CLI validate service "CONFIG_KVISION_INFRA_IPV6NAT" status is "UP" and health is "NONE"
-    Then CLI validate service "CONFIG_KVISION_INFRA_RABBITMQ" status is "UP" and health is "NONE"
-    Then CLI validate service "CONFIG_KVISION_INFRA_FLUENTD" status is "UP" and health is "NONE"
-    Then CLI validate service "NODE_EXPORTER" status is "UP" and health is "NONE"
-    Then CLI validate service "MYSQK_EXPORTER" status is "UP" and health is "NONE"
-    Then CLI validate service "PROMETHEUS" status is "UP" and health is "NONE"
-    Then CLI validate service "ES_EXPORTER" status is "UP" and health is "NONE"
-    Then CLI validate service "GRAFANA" status is "UP" and health is "NONE"
-    Then CLI validate service "PROCESS_EXPORTER" status is "UP" and health is "NONE"
+    When CLI Operations - Run Radware Session command "system vision-server status"
+    Then CLI Operations - Verify that output contains regex "config_kvision-lls_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-dc-nginx_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-rt-alert_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-formatter_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-vdirect_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-scheduler_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-vrm_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-tor-feed_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-alerts_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-config-sync-service_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-autoheal_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-ted_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-webui_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-help_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-fluentd_1\s+.*Up"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-ipv6nat_1\s+.*Up"
+    Then CLI Operations - Verify that output contains regex "config_kvision-reporter_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-collector_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-configuration-service_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-rabbitmq_1\s+.*Up"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-efk_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-mariadb_1\s+.*\(healthy\)"
 
   @SID_20
   Scenario: Verify 32GB RAM
