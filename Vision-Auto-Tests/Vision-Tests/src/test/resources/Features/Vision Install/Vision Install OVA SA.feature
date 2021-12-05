@@ -3,7 +3,7 @@ Feature: Vision Install OVA SA
 
   @SID_1
   Scenario: Fresh Install VM
-#    Given Prerequisite for Setup force
+    Given Prerequisite for Setup force
     Then Upgrade or Fresh Install Vision
 
   @SID_2
