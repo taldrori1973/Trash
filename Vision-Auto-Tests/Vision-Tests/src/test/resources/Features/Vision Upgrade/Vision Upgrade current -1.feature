@@ -13,12 +13,12 @@ Feature: Vision Upgrade current -1
     When CLI Run linux Command "y" on "RADWARE_SERVER_CLI" and validate result CONTAINS "Creating config_kvision-lls_1 ... done" in any line
     Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "FailOverRole: MAIN" in any line Retry 180 seconds
 
-  @SID_3
-  Scenario: Fill partitions to max limit
-    Given CLI Reset radware password
-    Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 75" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/fill_my_disk.sh / 75" on "ROOT_SERVER_CLI"
+#  @SID_3
+#  Scenario: Fill partitions to max limit
+#    Given CLI Reset radware password
+#    Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+#    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 75" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "/fill_my_disk.sh / 75" on "ROOT_SERVER_CLI"
 
   @SID_4
   Scenario: Do any pre-upgrade changes
