@@ -8,7 +8,8 @@ Feature: Defense Flow Forensic Wizard
     * REST Delete ES index "forensics-*"
     And REST Delete ES index "dfforensics*"
     And REST Delete ES index "df-attack-raw*"
-    And CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
+    Then CLI Service "config_kvision-collector_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
     And CLI Reset radware password
 
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
@@ -161,6 +162,12 @@ Feature: Defense Flow Forensic Wizard
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 
   @SID_19 @Sanity
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_20
   Scenario: Logout
     When UI logout and close browser
     Then CLI Check if logs contains
