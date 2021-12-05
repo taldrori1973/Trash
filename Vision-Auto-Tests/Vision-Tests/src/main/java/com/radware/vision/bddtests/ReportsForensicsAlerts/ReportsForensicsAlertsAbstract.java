@@ -9,25 +9,24 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectScheduleHandlers;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.How;
 
-import java.time.LocalDateTime;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools.getWebElement;
-import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectScheduleHandlers;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.How;
 
 
 abstract public class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
@@ -380,9 +379,14 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         WebUiTools.check("My " + getType() + " Tab", "", true);
         BasicOperationsHandler.setTextField("Search "+getType(), Name);
         BasicOperationsHandler.clickButton("Delete " + getType(), Name);
+        long end = System.currentTimeMillis() + 5 * 1000;
+        while (!BasicOperationsHandler.isElementExists("My " + getType(), false, Name) &&
+                end > System.currentTimeMillis())
+        {
+            WebUIUtils.sleep(1);
+        }
         confirmDeleteReport("confirm Delete " + getType(), Name);
         clearSavedReportInMap(Name);
-        WebUIUtils.sleep(3);
         if (!BasicOperationsHandler.isElementExists("My " + getType(), false, Name)) {
             BaseTestUtils.report("Failed to delete " + getType() + " name: " + Name, Reporter.FAIL);
         }
