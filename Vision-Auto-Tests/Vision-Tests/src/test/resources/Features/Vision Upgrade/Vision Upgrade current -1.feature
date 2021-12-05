@@ -4,21 +4,21 @@ Feature: Vision Upgrade current -1
   @SID_1
   Scenario: preparations for upgrade release -1
     Given Prerequisite for Setup force
-    Then CLI Run remote linux Command "mysql vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
 
    ######################################################################################
 
   @SID_2
-  Scenario: change fluentd listening port
-    Then CLI Run remote linux Command "dos2unix /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
+  Scenario: Start LLS service
+    Given CLI Run linux Command "system lls service start" on "RADWARE_SERVER_CLI" and validate result CONTAINS "This will start the LLS service. Continue? (y/n):"
+    When CLI Run linux Command "y" on "RADWARE_SERVER_CLI" and validate result CONTAINS "Creating config_kvision-lls_1 ... done" in any line
+    Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "FailOverRole: MAIN" in any line Retry 180 seconds
 
-#  @SID_3
-#  Scenario: Fill partitions to max limit
-#    Given CLI Reset radware password
-#    Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-#    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 84" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "/fill_my_disk.sh / 84" on "ROOT_SERVER_CLI"
+  @SID_3
+  Scenario: Fill partitions to max limit
+    Given CLI Reset radware password
+    Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 75" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/fill_my_disk.sh / 75" on "ROOT_SERVER_CLI"
 
   @SID_4
   Scenario: Do any pre-upgrade changes
@@ -39,44 +39,47 @@ Feature: Vision Upgrade current -1
    ######################################################################################
   @SID_6
   Scenario: Upgrade vision from release -1
-    # Saving upgrade log to Generic server /home/radware/UpgradeLogs/
     Given CLI Clear vision logs
     Then Upgrade or Fresh Install Vision
 
   @SID_7
   Scenario: Check upgrade logs
     Then CLI Check if logs contains
-      | logType | expression                                                             | isExpected   |
-      | UPGRADE | fatal                                                                  | NOT_EXPECTED |
-      | UPGRADE | fail to\|failed to                                                     | NOT_EXPECTED |
-      | UPGRADE | The upgrade of APSolute Vision server has completed successfully       | EXPECTED     |
-      | UPGRADE | Vision Reporter upgrade finished                                       | EXPECTED     |
-      | UPGRADE | Successfully upgraded from AVR                                         | EXPECTED     |
-      | UPGRADE | Upgrading vDirect services ended                                       | EXPECTED     |
-      | UPGRADE | APSolute Vision ELASTICSEARCH upgrade finished                         | EXPECTED     |
-      | UPGRADE | APSolute Vision AMQP upgrade finished                                  | EXPECTED     |
-      | UPGRADE | APSolute Vision Appwall upgrade finished                               | EXPECTED     |
-      | UPGRADE | APSolute Vision Workflows upgrade finished                             | EXPECTED     |
-      | UPGRADE | APSolute Vision Databse upgrade finished                               | EXPECTED     |
-      | UPGRADE | APSolute Vision CLI upgrade finished                                   | EXPECTED     |
-      | UPGRADE | APSolute Vision Web upgrade finished                                   | EXPECTED     |
-      | UPGRADE | APSolute Vision DP upgrade finished                                    | EXPECTED     |
-      | UPGRADE | APSolute Vision Configuration upgrade finished                         | EXPECTED     |
-      | UPGRADE | APSolute Vision Device upgrade finished                                | EXPECTED     |
-      | UPGRADE | APSolute Vision Online upgrade finished                                | EXPECTED     |
-      | UPGRADE | APSolute Vision WEB upgrade finished                                   | EXPECTED     |
-      | UPGRADE | APSolute Vision Application upgrade finished                           | EXPECTED     |
-      | UPGRADE | APSolute Vision System upgrade finished                                | EXPECTED     |
-      | UPGRADE | APSolute Vision OS upgrade finished                                    | EXPECTED     |
-      | UPGRADE | APSolute Vision FluentD upgrade finished                               | EXPECTED     |
-      | UPGRADE | APSolute Vision TED upgrade finished                                   | EXPECTED     |
-      | UPGRADE | ERROR                                                                  | NOT_EXPECTED |
-      | UPGRADE | error: package MySQL-                                                  | IGNORE       |
-      | UPGRADE | *.svg                                                                  | IGNORE       |
-      | UPGRADE | *.png                                                                  | IGNORE       |
-      | UPGRADE | inflating:                                                             | IGNORE       |
-      | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
-      | UPGRADE | No such image or container: *                                          | IGNORE       |
+      | logType | expression                                                                                    | isExpected   |
+      | UPGRADE | fatal                                                                                         | NOT_EXPECTED |
+      | UPGRADE | fail to\|failed to                                                                            | NOT_EXPECTED |
+      | UPGRADE | The upgrade of APSolute Vision server has completed successfully                              | EXPECTED     |
+      | UPGRADE | Failed to connect to localhost port 8009: Connection refused                                  | IGNORE       |
+      | UPGRADE | NOTE1: Some changes will not take effect untill next login.                                   | EXPECTED     |
+      | UPGRADE | [ERROR]   WARNING: The script pysemver is installed in '/usr/local/bin' which is not on PATH. | IGNORE       |
+
+#      | UPGRADE | Vision Reporter upgrade finished                                                              | EXPECTED     |
+#      | UPGRADE | Successfully upgraded from AVR                                                                | EXPECTED     |
+#      | UPGRADE | Upgrading vDirect services ended                                                              | EXPECTED     |
+#      | UPGRADE | APSolute Vision ELASTICSEARCH upgrade finished                                                | EXPECTED     |
+#      | UPGRADE | APSolute Vision AMQP upgrade finished                                                         | EXPECTED     |
+#      | UPGRADE | APSolute Vision Appwall upgrade finished                                                      | EXPECTED     |
+#      | UPGRADE | APSolute Vision Workflows upgrade finished                                                    | EXPECTED     |
+#      | UPGRADE | APSolute Vision Databse upgrade finished                                                      | EXPECTED     |
+#      | UPGRADE | APSolute Vision CLI upgrade finished                                                          | EXPECTED     |
+#      | UPGRADE | APSolute Vision Web upgrade finished                                                          | EXPECTED     |
+#      | UPGRADE | APSolute Vision DP upgrade finished                                                           | EXPECTED     |
+#      | UPGRADE | APSolute Vision Configuration upgrade finished                                                | EXPECTED     |
+#      | UPGRADE | APSolute Vision Device upgrade finished                                                       | EXPECTED     |
+#      | UPGRADE | APSolute Vision Online upgrade finished                                                       | EXPECTED     |
+#      | UPGRADE | APSolute Vision WEB upgrade finished                                                          | EXPECTED     |
+#      | UPGRADE | APSolute Vision Application upgrade finished                                                  | EXPECTED     |
+#      | UPGRADE | APSolute Vision System upgrade finished                                                       | EXPECTED     |
+#      | UPGRADE | APSolute Vision OS upgrade finished                                                           | EXPECTED     |
+#      | UPGRADE | APSolute Vision FluentD upgrade finished                                                      | EXPECTED     |
+#      | UPGRADE | APSolute Vision TED upgrade finished                                                          | EXPECTED     |
+#      | UPGRADE | ERROR                                                                                         | NOT_EXPECTED |
+#      | UPGRADE | error: package MySQL-                                                                         | IGNORE       |
+#      | UPGRADE | *.svg                                                                                         | IGNORE       |
+#      | UPGRADE | *.png                                                                                         | IGNORE       |
+#      | UPGRADE | inflating:                                                                                    | IGNORE       |
+#      | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/*                        | IGNORE       |
+#      | UPGRADE | No such image or container: *                                                                 | IGNORE       |
 
   @SID_8
   Scenario: Validate server is up after reset
@@ -101,26 +104,6 @@ Feature: Vision Upgrade current -1
     Then CLI Operations - Verify that output contains regex "tcp\s+9200"
 
     When CLI Run linux Command "iptables -L -n | grep tcp | grep -v 10.10 |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "13"
-
-#  @SID_10
-#  Scenario: Check firewall6 settings
-#    Then CLI Run linux Command "ip6tables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:1443" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:5672" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:5671" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:9443" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:2189" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:2215" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep udp|grep dpt:2215" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:2214" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep udp|grep dpt:2214" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep udp|grep dpt:2088" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep udp|grep dpt:162" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:9216" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:443" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:80" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:22" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep "dpt:161" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
   @SID_11
   Scenario: Login with activation
@@ -164,10 +147,6 @@ Feature: Vision Upgrade current -1
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.2.1.0-DD-1.00-110.jar" on "ROOT_SERVER_CLI" with timeOut 240
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
 
-  @SID_18
-  Scenario: Validate fluentd configuration
-    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk '{print $NF}'" on "ROOT_SERVER_CLI" and validate result CONTAINS "51400" in any line
-
   @SID_19
   Scenario: Validate TED status
     Then CLI Run linux Command "curl -ks -o null -w 'RESP_CODE:%{response_code}\n' -XGET https://localhost:443/ted/api/data" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
@@ -203,10 +182,10 @@ Feature: Vision Upgrade current -1
     Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "Local License Server is running." in any line Retry 600 seconds
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" Retry 300 seconds
     Then CLI Check if logs contains
-      | logType | expression                                                           | isExpected   |
-      | LLS     | fatal\| error\|fail                                                  | NOT_EXPECTED |
+      | logType | expression          | isExpected   |
+      | LLS     | fatal\| error\|fail | NOT_EXPECTED |
       #rollback to the original values
-    Given CLI Run remote linux Command "mysql vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+#    Given CLI Run remote linux Command "mysql vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system lls service stop"
     When CLI Operations - Run Radware Session command "y" timeout 180
 
