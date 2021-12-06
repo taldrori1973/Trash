@@ -379,14 +379,9 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         WebUiTools.check("My " + getType() + " Tab", "", true);
         BasicOperationsHandler.setTextField("Search "+getType(), Name);
         BasicOperationsHandler.clickButton("Delete " + getType(), Name);
-        long end = System.currentTimeMillis() + 5 * 1000;
-        while (!BasicOperationsHandler.isElementExists("My " + getType(), false, Name) &&
-                end > System.currentTimeMillis())
-        {
-            WebUIUtils.sleep(1);
-        }
         confirmDeleteReport("confirm Delete " + getType(), Name);
         clearSavedReportInMap(Name);
+        WebUIUtils.sleep(3);
         if (!BasicOperationsHandler.isElementExists("My " + getType(), false, Name)) {
             BaseTestUtils.report("Failed to delete " + getType() + " name: " + Name, Reporter.FAIL);
         }

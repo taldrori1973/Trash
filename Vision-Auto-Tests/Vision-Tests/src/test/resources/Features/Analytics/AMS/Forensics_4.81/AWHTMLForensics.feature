@@ -154,7 +154,7 @@ Feature: AW HTML Forensics
     Then Sleep "5"
     Then UI Click Button "My Forensics" with value "Forensics_MAIL"
     And UI Click Button "Views.Forensic" with value "Forensics_MAIL,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 30
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 29
 
   @SID_17
   Scenario: Delete Forensics
