@@ -62,7 +62,7 @@ Feature: DefenseFlow Traffic Reports
   @SID_7
   Scenario: Generate Report
     Then UI "Generate" Report With Name "DF_Traffic"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
   @SID_8
   Scenario: Validate Report Email received content
