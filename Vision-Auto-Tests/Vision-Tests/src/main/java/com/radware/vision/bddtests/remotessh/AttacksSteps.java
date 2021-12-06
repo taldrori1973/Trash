@@ -156,7 +156,8 @@ public class AttacksSteps extends TestBase {
                 .append(" -ld ").append(loopDelay)
                 .append(withAttackId ? " -ai 1 " : "")
                 .append(" -f ").append(fileName).append(".pcap")
-                .append(isNet_17 ? "" : (" -dm " + gwMacAdress));
+                .append(isNet_17 ? "" : (" -dm " + gwMacAdress))
+                .append(" &");
 
         return buildCommand.toString();
     }
