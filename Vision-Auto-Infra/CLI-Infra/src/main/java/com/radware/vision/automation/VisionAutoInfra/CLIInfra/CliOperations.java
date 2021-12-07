@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public final class CliOperations {
-    public static final int DEFAULT_TIME_OUT = 60 * 1000;
+    public static final int DEFAULT_TIME_OUT = 80 * 1000;
     public static String lastOutput;
     public static ArrayList<String> resultLines;
     public static String lastRow;

@@ -52,7 +52,9 @@ public class Ip {
         BaseTestUtils.reporter.startLevel("Set Net Ip " + Arrays.toString(new String[]{IpAddress, netMask, iface}));
         String sendParams = StringParametersUtils.stringArrayParamsToString(new String[] { IpAddress, netMask, iface });
         CliOperations.runCommand(radwareServerCli, Menu.net().ip().set().build() + sendParams,  CliOperations.DEFAULT_TIME_OUT, false,
-                false, true, "Failed setting IP Address");
+                false, false, "Failed setting IP Address");
+        Thread.sleep(5 * 1000);
+        CliOperations.runCommand(radwareServerCli, "y", CliOperations.DEFAULT_TIME_OUT);
         BaseTestUtils.reporter.stopLevel();
     }
 
