@@ -10,8 +10,10 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
 
   @SID_2
   Scenario: Run DP simulator PCAPs
-    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 0 seconds
-    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000 and wait 90 seconds
+#    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 0 seconds
+#    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000 and wait 90 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_1" and wait 0 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" and wait 90 seconds
 
 
   @SID_3
@@ -67,8 +69,8 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
   Scenario: Validate Dashboards "Concurrent Connections" Chart data for 172.16.22.51
     Given UI Click Button "Device Selection"
     When UI Select device from dashboard device type "DefensePro"
-      | index |
-      | 11    |
+      | SetId            |
+      | DefensePro_Set_2 |
     Then UI Click Button "SaveDPScopeSelection"
     Then UI Validate Line Chart data "Concurrent Connections" with Label "Concurrent Connections"
       | value  | min |
@@ -79,8 +81,8 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
   Scenario: VRM - Validate Dashboards "Concurrent Connections" Chart data for 172.16.22.50
     Given UI Click Button "Device Selection"
     When UI Select device from dashboard device type "DefensePro"
-      | index |
-      | 10    |
+      | SetId            |
+      | DefensePro_Set_2 |
     Then UI Click Button "SaveDPScopeSelection"
     Then UI Validate Line Chart data "Concurrent Connections" with Label "Concurrent Connections"
       | value  | min |
