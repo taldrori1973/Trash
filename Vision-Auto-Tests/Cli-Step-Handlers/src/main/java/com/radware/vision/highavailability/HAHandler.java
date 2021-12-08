@@ -19,7 +19,7 @@ public class HAHandler extends TestBase {
     public static String peer;
     public static VisionServerHA visionServerHA;
     
-    private static void setHosts() {
+    public static void setHosts() {
         visionServerHA = new VisionServerHA();
         visionServerHA.setHost_1(sutManager.getClientConfigurations().getHostIp());
         visionServerHA.setHost_2(sutManager.getpair().getPairIp());

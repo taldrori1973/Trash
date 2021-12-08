@@ -50,6 +50,15 @@ public class HASteps extends TestBase {
         }
     }
 
+    @When("^CLI Set Config Sync Hosts$")
+    public void setConfigSyncHosts(){
+        try{
+            HAHandler.setHosts();
+        }catch (Exception e){
+            BaseTestUtils.report(e.getMessage() , Reporter.FAIL);
+        }
+    }
+
     @When("^CLI Switch to \"(.*)\" vision$")
     public void setTargetVision(String mode) {
         try {

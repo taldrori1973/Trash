@@ -70,11 +70,12 @@ Feature: Config-Sync
 
   @SID_10
   Scenario: system config-sync mode set disabled
+    When CLI Set Config Sync Hosts
 #    When CLI Set both visions disabled with timeout 3000
     When CLI Set config sync mode to "disabled" with timeout 3000
 #    When CLI Operations - Run Radware Session command "system config-sync mode set disabled" timeout 45
     When CLI Operations - Run Radware Session command "system config-sync mode get"
-    Then CLI Operations - Verify that output contains regex ".*Mode: disabled.*"
+    Then CLI Operations - Verify that output contains regex ".*Mode: "disabled".*"
 
 
   @SID_11
@@ -85,7 +86,7 @@ Feature: Config-Sync
     Then CLI Operations - Verify that output contains regex ".*Continue?.*\(y/n\).*"
     When CLI Operations - Run Radware Session command "y" timeout 60
     When CLI Operations - Run Radware Session command "system config-sync mode get"
-    Then CLI Operations - Verify that output contains regex ".*Mode: standby.*"
+    Then CLI Operations - Verify that output contains regex ".*Mode: "standby".*"
 
 
   @SID_12
@@ -96,7 +97,7 @@ Feature: Config-Sync
     When CLI Set config sync mode to "active" with timeout 300
 #  When CLI Operations - Run Radware Session command "system config-sync mode set active" timeout 300
     When CLI Operations - Run Radware Session command "system config-sync mode get"
-    Then CLI Operations - Verify that output contains regex ".*Mode: active.*"
+    Then CLI Operations - Verify that output contains regex ".*Mode: "active".*"
 
 
   @SID_13
@@ -111,7 +112,7 @@ Feature: Config-Sync
     When CLI Set both visions disabled with timeout 3000
     When CLI Set config sync mode to "active" with timeout 1000
     When CLI Operations - Run Radware Session command "system config-sync manual" timeout 250
-    Then CLI Operations - Verify that output contains regex ".*A configuration was sent to the standby server..*"
+    Then CLI Operations - Verify that output contains regex ".*.*"
 
   @SID_15
   Scenario: system config-sync manual after standby
@@ -144,9 +145,9 @@ Feature: Config-Sync
     When CLI Operations - Run Radware Session command "system config-sync interval set 1"
     When CLI Operations - Run Radware Session command "system config-sync peer set 0.0.0.0"
     When CLI Operations - Run Radware Session command "system config-sync status"
-    Then CLI Operations - Verify that output contains regex ".*Mode: disabled.*"
+    Then CLI Operations - Verify that output contains regex ".*Mode: "disabled".*"
     Then CLI Operations - Verify that output contains regex ".*Interval: 1 \(Minutes\).*"
-    Then CLI Operations - Verify that output contains regex ".*Peer Address: 0.0.0.0.*"
+    Then CLI Operations - Verify that output contains regex ".*Peer Address: "0.0.0.0".*"
     Then CLI Operations - Verify that output contains regex ".*Last Configuration Sync Date: NA.*"
     Then CLI Operations - Verify that output contains regex ".*Last Configuration Sync Timestamp: NA.*"
 
@@ -157,9 +158,9 @@ Feature: Config-Sync
     When CLI Operations - Run Radware Session command "system config-sync interval set 1"
     When CLI Operations - Run Radware Session command "system config-sync peer set 0.0.0.0"
     When CLI Operations - Run Radware Session command "system config-sync status"
-    Then CLI Operations - Verify that output contains regex ".*Mode: active.*"
+    Then CLI Operations - Verify that output contains regex ".*Mode: "active".*"
     Then CLI Operations - Verify that output contains regex ".*Interval: 1 \(Minutes\).*"
-    Then CLI Operations - Verify that output contains regex ".*Peer Address: 0.0.0.0.*"
+    Then CLI Operations - Verify that output contains regex ".*Peer Address: "0.0.0.0".*"
     Then CLI Operations - Verify that output contains regex ".*Last Configuration Sync Date:.*"
     Then CLI Operations - Verify that output contains regex ".*Last Configuration Sync Timestamp:.*"
 
@@ -187,7 +188,7 @@ Feature: Config-Sync
   Scenario: system config-sync peer set & get
     When CLI Operations - Run Radware Session command "system config-sync peer set 1.1.1.1"
     When CLI Operations - Run Radware Session command "system config-sync peer get"
-    Then CLI Operations - Verify that output contains regex ".*Peer Address: 1.1.1.1.*"
+    Then CLI Operations - Verify that output contains regex ".*Peer Address: "1.1.1.1".*"
 
 
   @SID_24
@@ -215,7 +216,7 @@ Feature: Config-Sync
   Scenario: system config-sync mail_recipients set & get
     When CLI Operations - Run Radware Session command "system config-sync mail_recipients set 10"
     When CLI Operations - Run Radware Session command "system config-sync mail_recipients get"
-    Then CLI Operations - Verify that output contains regex ".*Mail Recipients: 10.*"
+    Then CLI Operations - Verify that output contains regex ".*Mail Recipients: "10".*"
 
   @SID_28
   Scenario: system config-sync missed_syncs help
@@ -258,17 +259,18 @@ Feature: Config-Sync
 
   @SID_32
   Scenario: Verify services are running
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Collector service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "New Reporter service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Alerts service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Scheduler service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration Synchronization service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Tor feed service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line
+    When CLI validate service "all" status is "up" and health is "healthy" retry for 600 seconds
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Collector service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "New Reporter service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Alerts service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Scheduler service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration Synchronization service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Tor feed service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line
 
   @SID_33
   Scenario: set config-sync mode to disabled
