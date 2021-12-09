@@ -1,0 +1,82 @@
+{
+  "setupId": "fullSetup",
+  "tree": {
+    "sites": [
+      {
+        "parentSite": "Default",
+        "name": "Alteon_for_DPM"
+      },
+      {
+        "parentSite": "Default",
+        "name": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "parentSite": "Default",
+        "name": "AW_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "RealDPs_Version_8_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "VA_DPs_Version_8_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "Alteons-IPv6"
+      },
+      {
+        "parentSite": "Default",
+        "name": "VA_LP_site"
+      }
+    ],
+    "devices": [
+      {
+        "deviceId": "Alteon_172.16.100.103",
+        "parentSite": "Alteon_for_DPM"
+      },
+      {
+        "deviceId": "Alteon_172.16.101.103",
+        "parentSite": "Alteon_for_DPM"
+      },
+      {
+        "deviceId": "Alteon_Fake_0",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_Fake_1",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_Fake_2",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.50",
+        "parentSite": "RealDPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.51",
+        "parentSite": "RealDPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.55",
+        "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.25",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "DefensePro_10.185.2.85",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "AppWall_172.17.164.30",
+        "parentSite": "AW_site"
+      }
+    ]
+  },
+  "defenseFlowId": null
+}
