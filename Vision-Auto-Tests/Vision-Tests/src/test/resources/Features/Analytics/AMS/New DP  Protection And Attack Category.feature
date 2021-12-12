@@ -37,7 +37,7 @@ Feature: New DP  Protection & Attack Category (Layer-7 Signature)
 #   <<<<<<<<<<<<<<<<<<<<< Attack >>>>>>>>>>>>>>>>>>>>
   @SID_4
   Scenario: Run DP simulator - snmp_l7apsig
-    Given CLI simulate 1000 attacks of type "snmp_l7apsig" on "DefensePro" 11 with loopDelay 15000 and wait 70 seconds
+    Given CLI simulate 1 attacks of type "snmp_l7apsig" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 70 seconds
 
 
 
@@ -134,7 +134,7 @@ Feature: New DP  Protection & Attack Category (Layer-7 Signature)
      Then UI Click Button "Cancel Delete Forensics"
      Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Encrypted_Flood"
      Then UI Delete Forensics With Name "Encrypted_Flood"
-     And Sleep "1"
+     And Sleep "5"
      Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Encrypted_Flood"
      Then Sleep "5"
 

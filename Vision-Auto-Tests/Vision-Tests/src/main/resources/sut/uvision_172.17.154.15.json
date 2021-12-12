@@ -3,7 +3,7 @@
   "serverName": "uVision",
   "deployConfigurations": {
     "snapshot": "Current-1",
-    "setupMode": "upgrade",
+    "setupMode": "fresh install",
     "environment": "OVA-232"
   },
   "pair": {
@@ -11,7 +11,7 @@
     "environment": "KVM-217"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.154.13",
+    "hostIp": "172.17.154.15",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
