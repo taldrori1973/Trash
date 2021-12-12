@@ -47,7 +47,6 @@ Feature: DPM - Report Wizard Creation
   @SID_4
   Scenario: Stop simulators
     Given Stop Simulators
-#    Then REST Delete Simulators
 
 
 
