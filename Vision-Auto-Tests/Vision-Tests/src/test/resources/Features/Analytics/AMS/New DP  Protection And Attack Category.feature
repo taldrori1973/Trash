@@ -23,11 +23,11 @@ Feature: New DP  Protection & Attack Category (Layer-7 Signature)
   @SID_3
   Scenario: navigate to alert and Create Alert Category with name Encrypted_Flood    Encrypted Flood
     Given UI Navigate to "AMS Alerts" page via homePage
-    Then Sleep "5"
+    Then Sleep "10"
     Then UI "Create" Alerts With Name "Encrypted_Flood"
       | Product    | DefensePro                                                                                                                     |
       | Basic Info | Description:New Threat category name Encrypted Flood,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical |
-      | Criteria   | Event Criteria:Threat Category,Operator:Equals,Value:[Encrypted Flood];                                                           |
+      | Criteria   | Event Criteria:Threat Category,Operator:Equals,Value:Encrypted Flood;                                                           |
       | Schedule   | checkBox:Trigger,alertsPerHour:10                                                                                                |
 #       | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body      |
 #     And Sleep "120"
@@ -37,7 +37,7 @@ Feature: New DP  Protection & Attack Category (Layer-7 Signature)
 #   <<<<<<<<<<<<<<<<<<<<< Attack >>>>>>>>>>>>>>>>>>>>
   @SID_4
   Scenario: Run DP simulator - snmp_l7apsig
-    Given CLI simulate 1 attacks of type "snmp_l7apsig" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 70 seconds
+    Given CLI simulate 1 attacks of type "snmp_l7apsig" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 120 seconds
 
 
 

@@ -263,6 +263,7 @@ public class ForensicsHandler extends VRMBaseUtilies {
                     valueEntries.add(aValuesArray.trim());
                 }
                 selectMultiActionSelectItemFromDropDown("Criteria.ValueNew", valueEntries);
+                break;
             }
 
             case "RADWARE ID":
