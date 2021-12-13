@@ -3,14 +3,11 @@ Feature: DPM - ADC Reports RBAC
 
   @SID_1
   Scenario: Clean system data and Prepare simulators
-#    * CLI kill all simulator attacks on current vision
-#    * REST Delete ES index "vrm-scheduled-report-*"
     * CLI Clear vision logs
     Given Init Simulators
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given REST Login with user "radware" and password "radware"
     Then CLI Upload Device Driver For "Alteon" Version "32.4.0.0"
-    Then REST Add Simulators
     When CLI validate service "all" status is "up" and health is "healthy" retry for 600 seconds
 
   @SID_2
@@ -65,4 +62,3 @@ Feature: DPM - ADC Reports RBAC
   @SID_4
   Scenario: Stop and delete simulators
     Given Stop Simulators
-    Then REST Delete Simulators

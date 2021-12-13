@@ -16,7 +16,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Action                                                                         |
       | Criteria              | Event Criteria:Max pps,Operator:Greater than,RateValue:500,Unit:M              |
-      | devices               | index:10                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -24,7 +24,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Action                                                                         |
       | Criteria              | Event Criteria:Max pps,Operator:Greater than,RateValue:500,Unit:M              |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -98,7 +98,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Source Port                                                                    |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP]                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -107,7 +107,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Source Port                                                                    |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP]                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -180,7 +180,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Protocol                                                                       |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IGMP]                           |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -189,7 +189,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Protocol                                                                       |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IGMP]                           |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -268,7 +268,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Max pps                                                                        |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[Other]                          |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Quick:This Month                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -276,7 +276,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Max pps                                                                        |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[Other]                          |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Quick:This Month                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -288,7 +288,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                    |
       | Output                | Total Mbits Dropped                                                                           |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]  |
-      | devices               | index:10                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                |
       | Format                | Select: HTML                                                                                  |
@@ -296,7 +296,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                    |
       | Output                | Total Mbits Dropped                                                                           |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]  |
-      | devices               | index:10                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                |
       | Format                | Select: HTML                                                                                  |
@@ -352,7 +352,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Risk                                                                           |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPv6,Other]                   |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Quick:This Month                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -360,7 +360,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Risk                                                                           |
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPv6,Other]                   |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Quick:This Month                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -372,7 +372,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                        |
       | Output                | VLAN Tag                                                                                          |
       | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]  |
-      | devices               | index:10                                                                                          |
+      | devices               | SetId:DefensePro_Set_1                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                    |
       | Format                | Select: HTML                                                                                      |
@@ -380,7 +380,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                        |
       | Output                | VLAN Tag                                                                                          |
       | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]  |
-      | devices               | index:10                                                                                          |
+      | devices               | SetId:DefensePro_Set_1                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                    |
       | Format                | Select: HTML                                                                                      |
@@ -430,7 +430,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                             |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps |
       | Criteria              | Event Criteria:Risk,Operator:Equals,Value:[Medium]                                                     |
-      | devices               | index:10                                                                                               |
+      | devices               | SetId:DefensePro_Set_1                                                                                               |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
@@ -439,7 +439,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                             |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps |
       | Criteria              | Event Criteria:Risk,Operator:Equals,Value:[Medium]                                                     |
-      | devices               | index:10                                                                                               |
+      | devices               | SetId:DefensePro_Set_1                                                                                               |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
@@ -512,7 +512,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                                                                                                                                                                                                                         |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
       | Criteria              | Event Criteria:Risk,Operator:Equals,Value:[Low,Medium]                                                                                                                                                                                                                                             |
-      | devices               | index:10                                                                                                                                                                                                                                                                                           |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                     |
@@ -521,7 +521,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                                                                                                                                                                                                                         |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
       | Criteria              | Event Criteria:Risk,Operator:Equals,Value:[Low,Medium]                                                                                                                                                                                                                                             |
-      | devices               | index:10                                                                                                                                                                                                                                                                                           |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                     |
@@ -598,7 +598,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Threat Category                                                                |
       | Criteria              | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:2.2.2.2           |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -607,7 +607,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Threat Category                                                                |
       | Criteria              | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:2.2.2.2           |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -686,7 +686,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                           |
       | Output                | Attack ID                                                                                            |
       | Criteria              | Event Criteria:Source IP,Operator:Equals,IPType:IPv6,IPValue:2001:0db8:3c4d:0015:0000:0000:1a2f:1a2b |
-      | devices               | index:10                                                                                             |
+      | devices               | SetId:DefensePro_Set_1                                                                                             |
       | Time Definitions.Date | Quick:This Month                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                       |
       | Format                | Select: HTML                                                                                         |
@@ -694,7 +694,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                           |
       | Output                | Attack ID                                                                                            |
       | Criteria              | Event Criteria:Source IP,Operator:Equals,IPType:IPv6,IPValue:2001:0db8:3c4d:0015:0000:0000:1a2f:1a2b |
-      | devices               | index:10                                                                                             |
+      | devices               | SetId:DefensePro_Set_1                                                                                             |
       | Time Definitions.Date | Quick:This Month                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                       |
       | Format                | Select: HTML                                                                                         |
@@ -706,7 +706,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                               |
       | Output                | Policy Name                                                                              |
       | Criteria              | Event Criteria:Source IP,Operator:Equals,IPType:IPv6,IPValue:2001:db8:3c4d:15::1a2f:1a2b |
-      | devices               | index:10                                                                                 |
+      | devices               | SetId:DefensePro_Set_1                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                          |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body           |
       | Format                | Select: HTML                                                                             |
@@ -714,7 +714,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                               |
       | Output                | Policy Name                                                                              |
       | Criteria              | Event Criteria:Source IP,Operator:Equals,IPType:IPv6,IPValue:2001:db8:3c4d:15::1a2f:1a2b |
-      | devices               | index:10                                                                                 |
+      | devices               | SetId:DefensePro_Set_1                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                          |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body           |
       | Format                | Select: HTML                                                                             |
@@ -764,7 +764,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Destination IP Address                                                         |
       | Criteria              | Event Criteria:Source Port,Operator:Equals,portType:Single,portValue:53        |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -773,7 +773,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Destination IP Address                                                         |
       | Criteria              | Event Criteria:Source Port,Operator:Equals,portType:Single,portValue:53        |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -846,7 +846,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Radware ID                                                                     |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anti Scanning]            |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -855,7 +855,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Radware ID                                                                     |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anti Scanning]            |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -932,7 +932,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Total Mbits Dropped                                                            |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HTTPS Flood]                   |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -941,7 +941,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Total Mbits Dropped                                                            |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HTTPS Flood]                   |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -1016,7 +1016,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | VLAN Tag                                                                       |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anomalies]               |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Relative:[Days,2]                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -1025,7 +1025,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | VLAN Tag                                                                       |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anomalies]               |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Relative:[Days,2]                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -1104,14 +1104,14 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                     |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action       |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Traffic Filters]          |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     Then UI "Validate" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Threat Category Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action       |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Traffic Filters]          |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Threat Category Equal"
@@ -1186,7 +1186,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                                                                                                                                                        |
       | Output                | Start Time                                                                                                                                                                                                                        |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,HTTPS Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Bandwidth Management,Traffic Filters,Malicious IP Addresses,Geolocation,Connection PPS] |
-      | devices               | index:10                                                                                                                                                                                                                          |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                  |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                                                                                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                    |
@@ -1195,7 +1195,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                                                                                                                                                        |
       | Output                | Start Time                                                                                                                                                                                                                        |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,HTTPS Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Bandwidth Management,Traffic Filters,Malicious IP Addresses,Geolocation,Connection PPS] |
-      | devices               | index:10                                                                                                                                                                                                                          |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                  |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                                                                                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                    |
@@ -1270,7 +1270,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                                                                                                                                                             |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                                                                                                                 |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Traffic Filters] |
-      | devices               | index:10                                                                                                                                                                                                                               |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                         |
       | Format                | Select: HTML                                                                                                                                                                                                                           |
@@ -1278,7 +1278,7 @@ Feature:Create DefensePro Part3
       | Product               | DefensePro                                                                                                                                                                                                                             |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                                                                                                                 |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Traffic Filters] |
-      | devices               | index:10                                                                                                                                                                                                                               |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                         |
       | Format                | Select: HTML                                                                                                                                                                                                                           |
@@ -1304,7 +1304,7 @@ Feature:Create DefensePro Part3
       | Format                | Select: CSV                                                                                                                                            |
     Then UI Delete Forensics With Name "Output Attack Name2_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Custom"
 
-  
+
   @SID_64
   Scenario: create new Output Start Time,End Time,Device IP Address,Action,Source IP Address,Source Port,Destination IP Address,Destination Port Custom
     Given UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Action_Source IP Address_Source Port_Destination IP Address_Destination Port Custom"
@@ -1328,72 +1328,3 @@ Feature:Create DefensePro Part3
   @SID_65
   Scenario: Logout
     Then UI logout and close browser
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
