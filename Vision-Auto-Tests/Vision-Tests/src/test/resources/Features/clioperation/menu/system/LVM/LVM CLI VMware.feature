@@ -16,30 +16,32 @@ Feature: LVM CLI VMware
 
   @SID_4
   Scenario: verify storage partition size increased by 20GB
-    When CLI Run linux Command "df -P /opt/radware/storage |tail -1|awk '{print$2}'" on "ROOT_SERVER_CLI" and validate result GTE "200000000"
+    When CLI Run linux Command "df -P /var/lib/docker |tail -1|awk '{print$2}'" on "ROOT_SERVER_CLI" and validate result GTE "200000000"
 
   @SID_5
   Scenario: reboot
     Then CLI Operations - Run Root Session command "service mysql stop" timeout 30
     Then CLI Operations - Run Root Session command "service elasticsearch stop" timeout 30
-    Then CLI Operations - Run Root Session command "reboot"
+   # Then CLI Operations - Run Root Session command "reboot"
+    When CLI Run remote linux Command "reboot" on "RADWARE_SERVER_CLI"
     Then Sleep "720"
     Then CLI Connect Root
 
   @SID_6
   Scenario: verify storage partition size
-    When CLI Run linux Command "df -P /opt/radware/storage |tail -1|awk '{print$2}'" on "ROOT_SERVER_CLI" and validate result GTE "200000000"
+    When CLI Run linux Command "df -P /opt/radware/storage |tail -1|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result GTE "200000000"
 
   @SID_7
   Scenario: Verify services are running
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Collector service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "New Reporter service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Alerts service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Scheduler service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration Synchronization service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Tor feed service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line Retry 300 seconds
+     When CLI validate service "all" status is "up" and health is "healthy" retry for 600 seconds
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Collector service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "New Reporter service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Alerts service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Scheduler service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration Synchronization service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Tor feed service is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line
+#    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line Retry 300 seconds
