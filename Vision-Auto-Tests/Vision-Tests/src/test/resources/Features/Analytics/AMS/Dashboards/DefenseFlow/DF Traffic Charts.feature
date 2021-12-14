@@ -1,5 +1,4 @@
-
-@lolo1111
+@TC124351
 Feature: Traffic Bandwidth \Traffic Rate Charts
 
   @SID_1
