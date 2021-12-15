@@ -29,7 +29,7 @@ Feature: LVM CLI VMware
 
   @SID_6
   Scenario: verify storage partition size
-    When CLI Run linux Command "df -P /opt/radware/storage |tail -1|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result GTE "200000000"
+    When CLI Run linux Command "df -P /var/lib/docker |tail -1|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result GTE "200000000"
 
   @SID_7
   Scenario: Verify services are running
