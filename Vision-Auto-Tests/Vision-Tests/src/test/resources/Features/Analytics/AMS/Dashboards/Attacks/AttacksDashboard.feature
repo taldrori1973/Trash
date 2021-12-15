@@ -166,8 +166,8 @@ Feature: Attacks Dashboard Traffic Widget
   Scenario: select devices
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 11    |       |          |
+      | setId            | ports | policies |
+      | DefensePro_Set_2 |       |          |
 
 
   @SID_15

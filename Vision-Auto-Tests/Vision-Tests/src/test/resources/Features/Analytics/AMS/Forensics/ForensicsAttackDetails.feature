@@ -48,7 +48,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Action |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_6
   Scenario: Validate attack details refine by Attack ID
