@@ -77,7 +77,7 @@ Feature: Attacks Table
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 35
+    When UI Validate the attribute "id" Of Label "Attacks Table Total Items" With Params "35" is "EQUALS" to "attacksTableCount"
 
 
   @SID_7
