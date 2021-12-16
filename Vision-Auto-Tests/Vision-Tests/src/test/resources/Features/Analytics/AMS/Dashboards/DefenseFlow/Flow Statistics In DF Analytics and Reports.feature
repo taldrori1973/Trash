@@ -20,7 +20,7 @@ Feature: Flow Statistics In DF Analytics and Reports
 
   @SID_3
   Scenario: Generate DefenseFlow traffic events
-    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 120 seconds and wait for prompt "False"
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 250 seconds and wait for prompt "False"
       | "nohup /home/radware/curl_DF_traffic_auto2.sh " |
       | #visionIP                                       |
       | " PO_101 20"                                    |
