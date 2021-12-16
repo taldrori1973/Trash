@@ -289,5 +289,10 @@ public class VRMSteps {
         vrmHandler.validatePieChartPercents(chart,percent,label,offset);
     }
 
+    @Then("^UI Validate Sum Of Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" Equals to \"([^\"]*)\"$")
+    public void uiValidateSumOfLineChartDataWithLabelEqualsTo(String chart, String label, String sum) throws Throwable {
+
+        vrmHandler.uiValidateSumOfLineChartData(chart,label,sum);
+    }
 }
 

@@ -132,7 +132,7 @@ Feature: Vision Install OVA SA
 
   @SID_18
   Scenario: Verify number of tables in vision_ng schema
-    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 166
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 169
 
   @SID_19
   Scenario: Verify services are running
