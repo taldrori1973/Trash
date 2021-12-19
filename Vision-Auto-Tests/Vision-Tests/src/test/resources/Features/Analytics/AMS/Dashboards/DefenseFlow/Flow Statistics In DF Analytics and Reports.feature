@@ -122,7 +122,7 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Delete Report With Name "Flow statistics Report"
 
 
-  @SID_5
+  @SID_11
   Scenario: Show only Flow Statistics Chart in DF Analytics
     And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button "Widget Selection"
@@ -133,7 +133,7 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Click Button "Widget Selection"
 
 
-  @SID_6
+  @SID_12
   Scenario: Check disable checkbox with no data in chart
     Then UI Click Button "Attribute CheckBox" with value "0Inbound"
     Then UI Click Button "Attribute CheckBox" with value "1Inbound Dropped"
@@ -145,7 +145,7 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Validate the attribute "data-debug-checked" Of Label "Attribute CheckBox" With Params "3Outbound Dropped" is "EQUALS" to "false"
 
 
-  @SID_7
+  @SID_13
   Scenario: Check enable checkbox with no data in chart
     Then UI Click Button "Attribute CheckBox" with value "0Inbound"
     Then UI Click Button "Attribute CheckBox" with value "1Inbound Dropped"
@@ -157,7 +157,7 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Validate the attribute "data-debug-checked" Of Label "Attribute CheckBox" With Params "3Outbound Dropped" is "EQUALS" to "true"
 
 
-  @SID_20
+  @SID_14
   Scenario: Validate traffic bandwidth all DP Only
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Inbound" Equals to "3840.0"
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Inbound Dropped" Equals to "1920"
@@ -165,7 +165,7 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Outbound Dropped" Equals to "384"
 
 
-  @SID_9
+  @SID_15
   Scenario: Validate Flow Statistics Chart data in 15 min time range with Pps tab
     Then UI Click Button "Switch Tab" with value "pps"
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Inbound" Equals to "160000"
@@ -175,7 +175,7 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Click Button "Switch Tab" with value "bps"
 
 
-  @SID_10
+  @SID_16
   Scenario: Validate Flow Statistics Chart data in 30 min time range with BBS tab
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "30m"
@@ -186,7 +186,7 @@ Feature: Flow Statistics In DF Analytics and Reports
 
 
 
-  @SID_11
+  @SID_17
   Scenario: Validate Flow Statistics Chart data in 30 min time range with PPS tab
     Then UI Click Button "Switch Tab" with value "pps"
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Inbound" Equals to "160000"
@@ -196,7 +196,7 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Click Button "Switch Tab" with value "bps"
 
 
-  @SID_12
+  @SID_18
   Scenario: Validate Flow Statistics Chart data in 6 hours time range with BBS tab
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "6H"
@@ -206,7 +206,7 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Outbound Dropped" Equals to "384"
 
 
-  @SID_11
+  @SID_19
   Scenario: Validate Flow Statistics Chart data in 6 hours time range with PPS tab
     Then UI Click Button "Switch Tab" with value "pps"
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Inbound" Equals to "160000"
@@ -215,6 +215,6 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Outbound Dropped" Equals to "16000"
 
 
-  @SID_12
+  @SID_20
   Scenario: Cleanup
     Then UI logout and close browser
