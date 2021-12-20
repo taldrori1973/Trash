@@ -52,6 +52,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import java.lang.Math;
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
@@ -172,7 +173,21 @@ public class VRMHandler {
         }
         reportErrors();
     }
+    public void uiValidateSumOfLineChartData(String chart,String label,String sum){
 
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        Objects.requireNonNull(label, "Label is equal to null");
+        getObjectFromDataSets(chart, label, null);
+        JSONArray data = (JSONArray) foundObject.get(DATA);
+        double DataSum = 0;
+        for(int i =0;i<data.length();i++){
+           DataSum +=Double.parseDouble(data.get(i).toString());
+        }
+        if(Math.round(DataSum)!=Double.parseDouble(sum)){
+            scrollAndTakeScreenshot(chart);
+            BaseTestUtils.report("The expected Value is "+sum+ "not equal to actual Value " + Math.round(DataSum),Reporter.FAIL);
+        }
+    }
     public void validateVirticalStackBarData(String chart, List<StackBarData> entries) {
         Objects.requireNonNull(chart, "Chart is equal to null");
         JSONArray legends = getLabelsFromData(chart);
