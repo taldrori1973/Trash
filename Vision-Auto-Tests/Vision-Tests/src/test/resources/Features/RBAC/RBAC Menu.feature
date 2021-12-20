@@ -262,16 +262,16 @@ Feature: RBAC Menu
       | AVR                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | no       |
-      | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
-      | DefensePro Analytics Dashboard              | no       |
-      | DefensePro Monitoring Dashboard             | no       |
-      | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | no       |
-      | AMS Reports                                 | no       |
-      | AMS Forensics                               | no       |
-      | AMS Alerts                                  | no       |
+      | ANALYTICS AMS                               | yes      |
+      | DefensePro Behavioral Protections Dashboard | yes       |
+      | HTTPS Flood Dashboard                       | yes       |
+      | DefensePro Analytics Dashboard              | yes       |
+      | DefensePro Monitoring Dashboard             | yes       |
+      | DefenseFlow Analytics Dashboard             | yes       |
+      | AppWall Dashboard                           | yes       |
+      | AMS Reports                                 | yes       |
+      | AMS Forensics                               | yes       |
+      | AMS Alerts                                  | yes       |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no      |
