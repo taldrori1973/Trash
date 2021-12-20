@@ -44,7 +44,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         templateWidgets.put("DefensePro Analytics", 21);
         templateWidgets.put("DefensePro Behavioral Protections", 20);
         templateWidgets.put("HTTPS Flood", 1);
-        templateWidgets.put("DefenseFlow Analytics", 13);
+        templateWidgets.put("DefenseFlow Analytics", 16);
         templateWidgets.put("AppWall", 7);
         templateWidgets.put("ERT Active Attackers Feed", 5);
         templateWidgets.put("System and Network", 1);
