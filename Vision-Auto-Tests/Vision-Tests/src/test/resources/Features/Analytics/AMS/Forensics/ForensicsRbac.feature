@@ -260,7 +260,7 @@ Feature: Forensics RBAC
     Given UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AMS Forensics                               | no       |
+      | AMS Forensics                               | yes      |
     * UI Logout
 
 
