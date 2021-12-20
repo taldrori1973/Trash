@@ -1,6 +1,6 @@
 @VRM_Report2 @TC106003
 Feature: Forensics RBAC
-
+  
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -108,7 +108,7 @@ Feature: Forensics RBAC
       | Policy Name | Policy14 |
     * UI logout and close browser
 
-  @MAH
+
   @SID_10
   Scenario: Validate DF not appears for sec_mon_all_pol
     Given UI Login with user "sec_mon_all_pol" and password "radware"
@@ -119,7 +119,7 @@ Feature: Forensics RBAC
       | Product   | DefenseFlow | false |
     * UI logout and close browser
 
-  @MAH
+
   @SID_11
   Scenario: Validate DF not appears for sec_mon
     Given UI Login with user "sec_mon" and password "radware"
@@ -130,7 +130,7 @@ Feature: Forensics RBAC
       | Product   | DefenseFlow | false |
     * UI logout and close browser
 
-  @MAH
+  
   @SID_13
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
@@ -182,7 +182,7 @@ Feature: Forensics RBAC
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
-
+  
   @SID_16
   Scenario: Edit User Management Settings
     Then UI Navigate to page "System->User Management->Authentication Mode"
@@ -257,13 +257,13 @@ Feature: Forensics RBAC
       | Product   | DefensePro  | true  |
       | Product   | AppWall     | true  |
     * UI logout and close browser
-
+  
   @SID_24
   Scenario: Validate DF not appears for device_viewer
     Given UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AMS Forensics                               | no       |
+      | AMS Forensics                               | yes      |
     * UI logout and close browser
 
 
