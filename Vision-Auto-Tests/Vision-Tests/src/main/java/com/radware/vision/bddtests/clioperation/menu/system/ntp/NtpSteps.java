@@ -11,14 +11,17 @@ import cucumber.api.java.en.Given;
 import static com.radware.vision.automation.Deploy.VisionServer.waitForServerConnection;
 
 public class NtpSteps  extends TestBase {
-    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().isPresent()?
+            serversManagement.getRadwareServerCli().get() : null;
+
+    private final int operationTimeOut = 10 * 60 * 1000;
 
     @Given("^CLI Operations - system ntp servers add \"(.*)\"$")
     public void systemNtpServersAdd(String server){
         try {
             radwareServerCli.setyOrn("y");
             CliOperations.runCommand(radwareServerCli, Menu.system().ntp().servers().add().build() + " " + server,
-                    CliOperations.DEFAULT_TIME_OUT,true,false,true);
+                    operationTimeOut,true,false,true);
             waitForServerConnection(2700000L, radwareServerCli);
         }
         catch (Exception e){
@@ -31,7 +34,7 @@ public class NtpSteps  extends TestBase {
         try {
             radwareServerCli.setyOrn("y");
             CliOperations.runCommand(radwareServerCli, Menu.system().ntp().servers().delete().build() + " " + server,
-                    CliOperations.DEFAULT_TIME_OUT,true,false,true);
+                    operationTimeOut,true,false,true);
             waitForServerConnection(2700000L, radwareServerCli);
         }
         catch (Exception e){
@@ -49,7 +52,7 @@ public class NtpSteps  extends TestBase {
             else
                 command = Menu.system().ntp().service().stop().build();
             CliOperations.runCommand(radwareServerCli, command,
-                    CliOperations.DEFAULT_TIME_OUT,true,false,true);
+                    operationTimeOut,true,false,true);
             waitForServerConnection(2700000L, radwareServerCli);
         }
         catch (Exception e){
