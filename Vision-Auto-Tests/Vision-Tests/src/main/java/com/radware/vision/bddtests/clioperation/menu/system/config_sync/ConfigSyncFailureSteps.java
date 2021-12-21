@@ -148,8 +148,6 @@ public class ConfigSyncFailureSteps extends VisionUITestBase {
 //                CliOperations.verifyLastOutputByRegex(subject);
                 try {
                  //   CliOperations.verifyLastOutputByRegexWithoutFail(content);
-                 //   CliOperations.runCommand(rootGenericLinuxServerCli, commandToExecuteInGenericLinux);
-
                  //   CliOperations.verifyLastOutputByRegexWithoutFail(subject);
                 } catch (Exception e) {
                     failedCounter++;
