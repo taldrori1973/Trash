@@ -3,8 +3,10 @@ Feature: Config-Sync failure mail
 
   @SID_4
   Scenario: Mail Failure
+    When CLI Set Config Sync Hosts
     Given CLI Reset radware password
     Then CLI Verify Config Sync Failure Mail
+
 
   @SID_5
   Scenario: set config-sync mode to disabled
