@@ -40,7 +40,7 @@
             <visionSetup>
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
-                <setupMode>Upgrade</setupMode>
+                <setupMode>KVM_Upgrade</setupMode>
                 <snapshot>Current-2</snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
@@ -89,7 +89,7 @@
         <user>radware</user>
         <password>radware</password>
         <connectOnInit>false</connectOnInit>
-        <host>172.17.164.103</host>
+        <host>10.205.200.208</host>
         <dnsServerIp>10.221.1.47</dnsServerIp>
         <ip>172.17.164.103</ip>
         <netMask>255.255.0.0</netMask>
