@@ -441,7 +441,7 @@ public class BasicOperationsHandler {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(param);
         String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
-        if (actualValue.contains(expectedValue)) {
+        if (actualValue!=null && actualValue.contains(expectedValue)) {
             BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue, Reporter.PASS);
         } else {
             BaseTestUtils.report("Failed to validate element value: " + label + " ,Expected result is: " + expectedValue + " but Actual value is: " + actualValue, Reporter.FAIL);

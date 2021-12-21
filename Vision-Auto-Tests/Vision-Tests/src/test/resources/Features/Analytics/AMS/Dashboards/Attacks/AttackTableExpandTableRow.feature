@@ -1,7 +1,6 @@
 @TC114854
 Feature: Attack Table - Expand Table Row
 
-
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -9,15 +8,14 @@ Feature: Attack Table - Expand Table Row
     * REST Delete ES index "dp-atta*"
     * CLI Clear vision logs
 
-
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
+    Then CLI simulate 1 attacks of type "test_pcap" on "DefensePro" 11 and wait 200 seconds
     Then CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 11
     Given CLI simulate 1 attacks of type "HTTPS" on "DefensePro" 11
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
     Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
-
 
   @SID_3
   Scenario:  login
@@ -48,7 +46,6 @@ Feature: Attack Table - Expand Table Row
   @SID_5
   Scenario Outline:  validate date of Info table - BehavioralDOS
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label              | value         |
       | Risk               | High          |
@@ -65,7 +62,6 @@ Feature: Attack Table - Expand Table Row
   @SID_6
   Scenario Outline:  validate date of Characteristics table - BehavioralDOS
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label               | value    |
       | Flow Label          | 0        |
@@ -96,7 +92,6 @@ Feature: Attack Table - Expand Table Row
   @SID_9
   Scenario Outline:  validate date of Info table - DNS
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label              | value         |
       | Risk               | High          |
@@ -114,7 +109,6 @@ Feature: Attack Table - Expand Table Row
   @SID_10
   Scenario Outline:  validate date of Characteristics table - DNS
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label             | value                |
       | DNS Query         | -                    |
@@ -151,7 +145,6 @@ Feature: Attack Table - Expand Table Row
   @SID_13
   Scenario Outline:  validate date of Info table - Https
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label              | value   |
       | Risk               | High    |
@@ -169,7 +162,6 @@ Feature: Attack Table - Expand Table Row
   @SID_14
   Scenario Outline:  validate date of Characteristics table - Https
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label                             | value                          |
       | Detection Method                  | By Rate of HTTPS Requests      |
@@ -200,7 +192,6 @@ Feature: Attack Table - Expand Table Row
   @SID_16
   Scenario Outline:  validate date of Info table - SynFlood
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label              | value          |
       | Risk               | Medium         |
@@ -217,7 +208,6 @@ Feature: Attack Table - Expand Table Row
   @SID_17
   Scenario Outline:  validate date of Characteristics table - SynFlood
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label                | value                |
       | Activation Threshold | 2500                 |
@@ -239,7 +229,6 @@ Feature: Attack Table - Expand Table Row
   @SID_19
   Scenario Outline:  validate date of Info table - DOS
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label              | value         |
       | Risk               | Medium        |
@@ -495,7 +484,6 @@ Feature: Attack Table - Expand Table Row
   @SID_36
   Scenario Outline:  validate date of Info table - Intrusions
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-
     Examples:
       | label              | value              |
       | Risk               | High               |
@@ -510,6 +498,76 @@ Feature: Attack Table - Expand Table Row
       | Source port        | 26505              |
 
 
+
+
+
+
+
+       ####################  QDos attack tables ####################################################
   @SID_37
+  Scenario:  validate tables for QDos
+    Then UI search row table in searchLabel "tableSearch" with text "QuantileDoS"
+    Then Sleep "3"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "p1"
+    Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics,realTimeSignature"
+
+    @SID_38
+  Scenario Outline:  validate date of Info table - QDos
+    Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
+    Examples:
+      | label              | value         |
+      | Risk               | High          |
+      | Radware ID         | 900           |
+      | Direction          | Unknown       |
+      | Action Type        | Drop          |
+      | Attack ID          | 35-1637605817 |
+      | Physical Port      | 0             |
+      | Total Packet Count | 0             |
+      | VLAN               | N/A           |
+      | MPLS RD            | N/A           |
+      | Source port        | 0             |
+      | Packet Type        | Regular       |
+
+    @SID_39
+  Scenario Outline:  validate date of Characteristics table - QDos
+    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
+    Examples:
+      | label                              | value                                                                   |
+      | Quantile Number                    | 1                                                                       |
+      | Attacked Quantile IP Address Range | 0:0:0:0:0:0:0:0 - 192.0.4.244                                           |
+      | Current Policy Bandwidth           | 330.6 Mbps                                                              |
+      | Detection Sensitivity              | 2%                                                                      |
+      | Peacetime Quantile Bandwidth       | 6.2 Mbps                                                                |
+      | Dropped Quantile Bandwidth         | 12.5 Mbps                                                               |
+      | Current Quantile Bandwidth         | 24.7 Mbps                                                               |
+      | Quantile Rate Limit                | Strict 100%, 10 Mbps                                                    |
+      | Mitigation Method                  | Quantile Top Talkers, Quantile Rate-Limit, Quantile Real-Time Signature |
+
+  @SID_40
+  Scenario:  validate date of Real Time Signature table - QDos
+    Then Validate Expand  "Real Time Signature" table
+      | Name      | index | value            |
+      | operator  | 0     | [                |
+      | operator  | 1     | OR               |
+      | parameter | 1     | destination-port |
+      | value     | 1     | 5555             |
+      | operator  | 2     | OR               |
+      | parameter | 2     | TTL              |
+      | value     | 2     | 3,4              |
+      | operator  | 3     | OR               |
+      | parameter | 3     | context-tag      |
+      | value     | 3     | 13,14,15         |
+      | operator  | 4     | ]                |
+      | operator  | 5     | AND              |
+      | operator  | 6     | [                |
+      | operator  | 7     | AND              |
+      | parameter | 7     | sequence-number  |
+      | value     | 7     | 1234567,9876,55  |
+      | operator  | 8     | AND              |
+      | parameter | 8     | source-port      |
+      | value     | 8     | 1024,2048        |
+      | operator  | 9     | ]                |
+
+  @SID_41
   Scenario: Traffic Cleanup
     Given UI logout and close browser

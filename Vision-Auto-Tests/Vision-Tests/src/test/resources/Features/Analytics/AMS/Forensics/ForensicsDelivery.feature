@@ -80,7 +80,7 @@ Feature: Forensics Delivery
     Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $2}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "Start Time"
     Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $2}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "(\d{2})/(\d{2})/(\d{4}) (\d{2}):(\d{2}):(\d{2})"
+    Then CLI Operations - Verify that output contains regex "(\d{2}).(\d{2}).(\d{4}) (\d{2}):(\d{2}):(\d{2})"
 
     Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $4}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "Device IP"
