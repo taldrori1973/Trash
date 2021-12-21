@@ -48,7 +48,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Action |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_6
   Scenario: Validate attack details refine by Attack ID
@@ -57,7 +57,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Attack ID |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_7
   Scenario: Validate attack details refine by Start Time
@@ -67,7 +67,7 @@ Feature: Forensic Attack details Tests
       | Start Time |
     #  move to manual because refine by time is not absolute
       # Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_8
   Scenario: Validate attack details refine by Source IP Address
@@ -90,7 +90,7 @@ Feature: Forensic Attack details Tests
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "78-1526381752"
       | columnName | value |
       | Action     | Drop  |
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_9
   Scenario: Validate attack details refine by Source Port
@@ -99,7 +99,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Source Port |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 8
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_10
   Scenario: Validate attack details refine by Destination IP Address
@@ -108,7 +108,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Destination IP Address |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 4
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_11
   Scenario: Validate attack details refine by Destination Port
@@ -117,7 +117,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Destination Port |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_12
   Scenario: Validate attack details refine by Direction
@@ -126,7 +126,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Direction |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_13
   Scenario: Validate attack details refine by Protocol
@@ -135,7 +135,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Protocol |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 19
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_14
   Scenario: Validate attack details refine by Threat Category
@@ -144,7 +144,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Threat Category |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 6
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_15
   Scenario: Validate attack details refine by Radware ID
@@ -153,7 +153,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Radware ID |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_16
   Scenario: Validate attack details refine by Attack Name
@@ -162,7 +162,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Attack Name |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_17
   Scenario: Validate attack details refine by Device IP Address
@@ -171,7 +171,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Device IP Address |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 35
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_18
   Scenario: Validate attack details refine by End Time
@@ -180,7 +180,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | End Time |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_19
   Scenario: Validate attack details refine by Duration
@@ -189,7 +189,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Duration |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 3 with offset 2
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
 #  @SID_20
 #  Scenario: Validate attack details refine by pps
@@ -198,7 +198,7 @@ Feature: Forensic Attack details Tests
 #    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
 #      | pps |
 #    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-#    * UI Click Button "Forensics.Clear Refine"
+#    * UI Click Button "Clear Refine"
 
 #  @SID_21
 #  Scenario: Validate attack details refine by Mbps
@@ -207,7 +207,7 @@ Feature: Forensic Attack details Tests
 #    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
 #      | Mbps |
 #    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-#    * UI Click Button "Forensics.Clear Refine"
+#    * UI Click Button "Clear Refine"
 
   @SID_22
   Scenario: Validate attack details refine by Physical Port
@@ -216,7 +216,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Physical Port |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_23
   Scenario: Validate attack details refine by Policy Name
@@ -225,7 +225,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Policy Name |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_24
   Scenario: Validate attack details refine by Risk
@@ -234,7 +234,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | Risk |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 10
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_25
   Scenario: Validate attack details refine by VLAN Tag
@@ -243,7 +243,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
       | VLAN Tag |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 33
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   @SID_26
   Scenario: Validate attack details refine by group 1
@@ -253,7 +253,7 @@ Feature: Forensic Attack details Tests
       | VLAN Tag |
       | Risk     |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 10
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
   
   @SID_27
@@ -267,7 +267,7 @@ Feature: Forensic Attack details Tests
       | Duration          |
       | Risk              |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-    * UI Click Button "Forensics.Clear Refine"
+    * UI Click Button "Clear Refine"
 
 ##################################################### Attack PCAP file ####################################################################
   
