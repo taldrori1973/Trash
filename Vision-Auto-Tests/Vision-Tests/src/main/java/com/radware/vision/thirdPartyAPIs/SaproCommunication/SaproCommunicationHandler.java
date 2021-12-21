@@ -4,12 +4,11 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.sapcnsl.api.SaproCommunication;
 import com.sapcnsl.api.SaproCommunicationFactory;
-import com.sapcnsl.api.returntypes.*;
+import com.sapcnsl.api.returntypes.CommandMessage;
+import com.sapcnsl.api.returntypes.DirectoryData;
 import com.sapcnsl.exception.SaproException;
-import com.sapcnsl.api.returntypes.MapListInfo;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class SaproCommunicationHandler {
     private final String mapDirectoryName;
@@ -67,6 +66,7 @@ public class SaproCommunicationHandler {
     public void startDevicesFromMap(String mapName, String... devNames) {
         try {
             this.initConnect();
+           // startMap(mapName);
             mapName = this.getFullMapName(mapName);
 //            List<MapListInfo> l = saproObj.getMapListFromServer();
             for (String devName : devNames) {
@@ -179,11 +179,11 @@ public class SaproCommunicationHandler {
      */
     private String getFullMapName(String mapName) {
         try {
-            String m = mapName + ".map";
+            String mapPath = mapName + ".map";
             List<DirectoryData> list = saproObj.listFiles(mapDirectoryName, mapName);
             for (DirectoryData map : list) {
-                if (m.equals(map.getFileName())) {
-                    return mapDirectoryName + m;
+                if (mapPath.equals(map.getFileName())) {
+                    return mapDirectoryName + mapPath;
                 }
             }
         } catch (SaproException e) {
