@@ -30,7 +30,7 @@ Feature: IPv6 CLI - NTP test
     Given CLI Operations - system ntp servers delete "200a::1001:1001:1001:1001"
     When validate vision server services are UP
     #Verify NTP service is stopped when no servers are defined
-    Then CLI Run linux Command "system ntp service status" on "RADWARE_SERVER_CLI" and validate result EQUALS "NTP service is stopped" in any line
+    Then CLI Run linux Command "system ntp service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "NTP service is stopped" in any line
     Then CLI Run linux Command "systemctl status ntp | grep Active:" on "ROOT_SERVER_CLI" and validate result CONTAINS "Active"
 
 
