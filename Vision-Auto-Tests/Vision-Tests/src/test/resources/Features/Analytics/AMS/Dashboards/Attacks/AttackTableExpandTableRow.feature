@@ -1,6 +1,7 @@
 @TC114854
 Feature: Attack Table - Expand Table Row
 
+   
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -8,15 +9,16 @@ Feature: Attack Table - Expand Table Row
     * REST Delete ES index "dp-atta*"
     * CLI Clear vision logs
 
+   
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
-    Then CLI simulate 1 attacks of type "test_pcap" on "DefensePro" 11 and wait 200 seconds
+    Then CLI simulate 1 attacks of type "test_pcap_new1" on "DefensePro" 11 and wait 200 seconds
     Then CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 11
     Given CLI simulate 1 attacks of type "HTTPS" on "DefensePro" 11
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
     Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
-
+   
   @SID_3
   Scenario:  login
     Given UI Login with user "radware" and password "radware"
@@ -504,6 +506,7 @@ Feature: Attack Table - Expand Table Row
 
 
        ####################  QDos attack tables ####################################################
+   
   @SID_37
   Scenario:  validate tables for QDos
     Then UI search row table in searchLabel "tableSearch" with text "QuantileDoS"
@@ -511,6 +514,7 @@ Feature: Attack Table - Expand Table Row
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "p1"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics,realTimeSignature"
 
+   
     @SID_38
   Scenario Outline:  validate date of Info table - QDos
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
@@ -528,6 +532,7 @@ Feature: Attack Table - Expand Table Row
       | Source port        | 0             |
       | Packet Type        | Regular       |
 
+   
     @SID_39
   Scenario Outline:  validate date of Characteristics table - QDos
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
@@ -538,11 +543,12 @@ Feature: Attack Table - Expand Table Row
       | Current Policy Bandwidth           | 330.6 Mbps                                                              |
       | Detection Sensitivity              | 2%                                                                      |
       | Peacetime Quantile Bandwidth       | 6.2 Mbps                                                                |
-      | Dropped Quantile Bandwidth         | 12.5 Mbps                                                               |
+      | Dropped Quantile Bandwidth         | 3.1 Mbps                                                                |
       | Current Quantile Bandwidth         | 24.7 Mbps                                                               |
       | Quantile Rate Limit                | Strict 100%, 10 Mbps                                                    |
       | Mitigation Method                  | Quantile Top Talkers, Quantile Rate-Limit, Quantile Real-Time Signature |
 
+   
   @SID_40
   Scenario:  validate date of Real Time Signature table - QDos
     Then Validate Expand  "Real Time Signature" table
