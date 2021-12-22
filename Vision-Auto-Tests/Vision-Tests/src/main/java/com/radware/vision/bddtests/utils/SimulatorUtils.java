@@ -18,7 +18,10 @@ public class SimulatorUtils {
             if (temp > 0 && temp <= 255) {
                 if (temp < 10) {
                     hexa.append(0).append(temp);
-                } else {
+                }
+                else {
+                    if(temp < 16)
+                        hexa.append(0);
                     hexa.append(Integer.toHexString(temp));
                 }
             }
