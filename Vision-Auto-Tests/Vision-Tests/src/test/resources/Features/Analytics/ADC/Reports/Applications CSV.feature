@@ -5,12 +5,9 @@ Feature: ADC Applications Generate CSV Report
   @SID_1
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
-#    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Service "config_kvision-collector_1" do action RESTART
-#    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
-    Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
+    Then CLI Service "config_kvision-reporter_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
 
  
   @SID_2
@@ -28,22 +25,22 @@ Feature: ADC Applications Generate CSV Report
   Scenario: Create and validate ADC Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC Applications Report"
-      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[Rejith_32326515:88] |
+      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:88] |
       | Time Definitions.Date | Quick:1H                                                                  |
       | Format                | Select:  CSV                                                              |
     Then UI "Validate" Report With Name "ADC Applications Report"
-      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[Rejith_32326515:88] |
+      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:88] |
       | Time Definitions.Date | Quick:1H                                                                  |
       | Format                | Select: CSV                                                               |
 
   @SID_5
   Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "ADC Applications Report"
-    Then UI Click Button "Generate Report Manually" with value "ADC Applications Report"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "ADC Applications Report"
+      | timeOut | 90 |
 
   @SID_6
   Scenario: VRM report unzip local CSV file
+    Then CLI Copy files contains name "VRM_report_*.zip" from container "config_kvision-reporter_1" from path "/usr/local/tomcat" to path "/opt/radware/mgt-server/third-party/tomcat/bin/"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
   @SID_7
