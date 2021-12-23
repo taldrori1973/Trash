@@ -111,7 +111,7 @@ Feature: AppWall Reports
   @SID_9
   Scenario: Generate Report Validation
     Then UI "Generate" Report With Name "OverAllAppWallReport"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
   @SID_10
   Scenario: Delete Report Validation
@@ -130,7 +130,7 @@ Feature: AppWall Reports
       | Share           | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject AW |
 
     Then UI "Generate" Report With Name "deliveryAW"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
   @SID_12
   Scenario: Validate Report Email Recieved Content
@@ -185,7 +185,7 @@ Feature: AppWall Reports
 
     # validate scheduleDailyAW schedule regex matchs in CLI
     When CLI Run remote linux Command "/get_scheduled_report_value.sh scheduleDailyAW" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "0 (\d{2}) (\d{2}) \? \* \*"
+    Then CLI Operations - Verify that output contains regex "0 (\d{2}) (\d{2}) (\d{1,2}) (\d{1,2}) \? \*"
 
   @SID_16
   Scenario: Validate Time Selection - Quick Range - Report
@@ -199,7 +199,7 @@ Feature: AppWall Reports
       | Format                | Select: CSV       |
 
     Then UI "Generate" Report With Name "1HourBeforeReport"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
 
   @SID_17
@@ -214,7 +214,7 @@ Feature: AppWall Reports
       | Format                | Select: CSV                            |
 
     Then UI "Generate" Report With Name "2DaysBeforeReport"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
   @SID_18
   Scenario: Validate Credential of sec_mon User
