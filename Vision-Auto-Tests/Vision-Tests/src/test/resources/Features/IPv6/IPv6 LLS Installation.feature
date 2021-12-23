@@ -26,7 +26,7 @@ Feature: IPv6 LLS-GEL Installation
   Scenario: Validate LLS version
     Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result CONTAINS "2.6.0"
     When CLI Operations - Run Radware Session command "system lls version"
-    Then CLI Operations - Verify that output contains regex ".*2.5.0-1*"
+    Then CLI Operations - Verify that output contains regex ".*2.6.0-1*"
 
   @SID_6
   Scenario: verify lls disable
