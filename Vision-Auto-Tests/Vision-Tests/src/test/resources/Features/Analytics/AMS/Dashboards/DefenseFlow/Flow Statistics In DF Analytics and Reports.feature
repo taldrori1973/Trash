@@ -43,6 +43,7 @@ Feature: Flow Statistics In DF Analytics and Reports
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
+    Given Clear email history for user "setup"
     And UI Navigate to "AMS Reports" page via homePage
 
 ############################### tests for Reports ###############################
