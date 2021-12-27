@@ -38,7 +38,7 @@ public class SelectTimeHandlers {
 
 
     private static void selectAbsoluteTimeNew(JSONArray absoluteJArray, Map<String, JSONObject> timeAbsoluteDates, String name) throws TargetWebElementNotFoundException {
-        String absoluteTimeFormatter = "dd.MM.YYYY HH:mm";
+        String absoluteTimeFormatter = "dd.MM.yyyy HH:mm";
         String toDate, fromDate = WebUiTools.getWebElement("Absolute From").getAttribute("value");
         DateTimeFormatter absoluteFormat = DateTimeFormatter.ofPattern(absoluteTimeFormatter);
         if (absoluteJArray.length() == 1) {
