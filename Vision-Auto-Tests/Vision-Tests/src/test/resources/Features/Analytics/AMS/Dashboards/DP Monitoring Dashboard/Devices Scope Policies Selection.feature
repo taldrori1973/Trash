@@ -13,11 +13,11 @@ Feature: Device Scope Policies Selection
     Given UI Click Button "Device Selection"
 
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS] |
+      | devices | type:DefensePro Analytics,index:10,policies:[pol_1,BDOS] |
     Given UI Click Button "Device Selection"
     Given UI Click Button "Devices Policies"
     Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "RealDPs_Version_8_site,DefensePro_172.16.22.50,BDOS" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "RealDPs_Version_8_site,DefensePro_172.16.22.50,pol1" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "RealDPs_Version_8_site,DefensePro_172.16.22.50,pol_1" is "EQUALS" to "true"
 
   @SID_3
   Scenario: unselect all device and select spicific policy then validate in policy
@@ -28,11 +28,11 @@ Feature: Device Scope Policies Selection
     Given UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "false"
     Given UI Click Button "Device Selection.Save Filter"
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS] |
+      | devices | type:DefensePro Analytics,index:10,policies:[pol_1,BDOS] |
     Given UI Click Button "Device Selection"
     Given UI Click Button "Devices Policies"
     Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "RealDPs_Version_8_site,DefensePro_172.16.22.50,BDOS" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "RealDPs_Version_8_site,DefensePro_172.16.22.50,pol1" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "RealDPs_Version_8_site,DefensePro_172.16.22.50,pol_1" is "EQUALS" to "true"
 
     Given UI Click Button "Device Selection.Save Filter"
 
@@ -112,7 +112,7 @@ Feature: Device Scope Policies Selection
     Given UI Click Button "Device Selection"
 
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS] |
+      | devices | type:DefensePro Analytics,index:10,policies:[pol_1,BDOS] |
     Given UI Click Button "Device Selection"
     Given UI Click Button "Devices Policies"
     Then UI validate Checkbox by label "Device Selection.All Devices Selection" with extension "" if Selected "false"
