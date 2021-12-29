@@ -829,7 +829,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Policy Name Equals"
       | Product               | DefensePro                                                                                                       |
       | Output                | Policy Name                                                                                                      |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Http 200 Ok                                                          |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK                                                          |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                                  |
@@ -838,7 +838,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Policy Name Equals"
       | Product               | DefensePro                                                                                                       |
       | Output                | Policy Name                                                                                                      |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Http 200 Ok                                                          |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK                                                          |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                                  |
@@ -851,7 +851,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Source IP Address Equals"
       | Product               | DefensePro                                                                     |
       | Output                | Source IP Address                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Http 200 Ok Reset Dest             |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination             |
       | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
@@ -860,7 +860,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Source IP Address Equals"
       | Product               | DefensePro                                                                     |
       | Output                | Source IP Address                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Http 200 Ok Reset Dest             |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination             |
       | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
@@ -873,7 +873,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Source Port Equals"
       | Product  | DefensePro                                                                                                       |
       | Output   | Source Port                                                                                                      |
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:Http 403 Forbidden                                                   |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden                                                   |
       | devices  | All                                                                                                              |
       | Schedule | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -881,7 +881,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Source Port Equals"
       | Product  | DefensePro                                                                                                       |
       | Output   | Source Port                                                                                                      |
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:Http 403 Forbidden                                                   |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden                                                   |
       | devices  | All                                                                                                              |
       | Schedule | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -893,7 +893,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Destination IP Address Equals"
       | Product  | DefensePro                                                                     |
       | Output   | Destination IP Address                                                         |
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:Http 403 Forbidden Reset Dest      |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden and Reset Destination      |
       | devices  | All                                                                            |
       | Schedule | Run Every:once, On Time:+6H                                                    |
       | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -901,7 +901,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Destination IP Address Equals"
       | Product  | DefensePro                                                                     |
       | Output   | Destination IP Address                                                         |
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:Http 403 Forbidden Reset Dest      |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden and Reset Destination      |
       | devices  | All                                                                            |
       | Schedule | Run Every:once, On Time:+6H                                                    |
       | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -913,7 +913,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Destination Port Equals"
       | Product               | DefensePro                                                                                                                                 |
       | Output                | Destination Port                                                                                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                        |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                           |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                           |
@@ -921,7 +921,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Destination Port Equals"
       | Product               | DefensePro                                                                                                                                 |
       | Output                | Destination Port                                                                                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                        |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                           |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                           |
@@ -933,7 +933,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Direction Equals"
       | Product               | DefensePro                                                                                                                                                                                                                           |
       | Output                | Direction                                                                                                                                                                                                                            |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,Http 200 Ok,Http 200 Ok Reset Dest,Http 403 Forbidden,Http 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
       | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                       |
@@ -941,7 +941,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Direction Equals"
       | Product               | DefensePro                                                                                                                                                                                                                           |
       | Output                | Direction                                                                                                                                                                                                                            |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,Http 200 Ok,Http 200 Ok Reset Dest,Http 403 Forbidden,Http 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
       | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                       |
@@ -1017,7 +1017,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Total Packets Dropped Not Equals"
       | Product               | DefensePro                                                                     |
       | Output                | Total Packets Dropped                                                          |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 200 Ok                    |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK                    |
       | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Months,4]                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -1025,7 +1025,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Total Packets Dropped Not Equals"
       | Product               | DefensePro                                                                     |
       | Output                | Total Packets Dropped                                                          |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 200 Ok                    |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK                    |
       | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Months,4]                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -1037,7 +1037,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Max pps Not Equals"
       | Product  | DefensePro                                                                                                       |
       | Output   | Max pps                                                                                                          |
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 200 Ok Reset Dest                                           |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK and Reset Destination                                           |
       | devices  | All                                                                                                              |
       | Schedule | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
       | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -1045,7 +1045,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Max pps Not Equals"
       | Product  | DefensePro                                                                                                       |
       | Output   | Max pps                                                                                                          |
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 200 Ok Reset Dest                                           |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK and Reset Destination                                          |
       | devices  | All                                                                                                              |
       | Schedule | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
       | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
