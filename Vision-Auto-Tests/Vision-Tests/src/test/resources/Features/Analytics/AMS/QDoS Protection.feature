@@ -48,7 +48,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "QDoS"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "QuantileDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "Quantile DoS"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination IP Address" equal to "Multiple"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination Port" equal to "1024"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Device IP Address" equal to "172.16.22.51"
@@ -195,7 +195,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "QDoS"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "QuantileDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "Quantile DoS"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination IP Address" equal to "Multiple"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination Port" equal to "1024"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Device IP Address" equal to "172.16.22.51"
@@ -397,7 +397,7 @@ Feature: QDoS Protection & Attack Category
     Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
     Then UI Validate Table record values by columns with elementLabel "Alert details" findBy index 0
       | columnName             | value       |
-      | Threat Category        | QuantileDoS |
+      | Threat Category        | Quantile DoS |
       | Attack Name            | QDoS        |
       | Policy Name            | p1          |
       | Source IP Address      | 192.85.1.2  |

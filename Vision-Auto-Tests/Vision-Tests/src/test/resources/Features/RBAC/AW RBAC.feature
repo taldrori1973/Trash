@@ -16,7 +16,7 @@ Feature: AW RBAC - New AW roles
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                       |
       | #visionIP                                                           |
-      | " 172.17.154.19 1 "/home/radware/AW_Attacks/AppwallAttackTypes/""   |
+      | " 172.17.154.19 1 "/home/radware/AW_Attacks/Integrated_AW_Attack/""   |
 
   @SID_3
   Scenario: Navigate User Management
@@ -32,7 +32,7 @@ Feature: AW RBAC - New AW roles
     Examples:
       | User Name             | Role                             | Scope | Password         |
       | AW_Viewer             | Integrated AppWall Viewer        | [ALL] | Radware1234!@#$5 |
-      | AW_admin              | Integrated AppWall Administrator | [ALL] | Radware1234!@#$5 |
+      | aw-admin              | Integrated AppWall Administrator | [ALL] | Radware1234!@#$5 |
 
   @SID_5
   Scenario: Edit User Management Settings
@@ -90,7 +90,7 @@ Feature: AW RBAC - New AW roles
   @SID_9
   Scenario: Validate delivery card and generate report
     Then UI "Generate" Report With Name "OverAllAppWallReport"
-      | timeOut | 60 |
+      | timeOut | 120 |
 
   @SID_10
   Scenario: Delete Report Validation
@@ -118,8 +118,9 @@ Feature: AW RBAC - New AW roles
   @SID_13
   Scenario: Validate Forensics.Table
     And UI Click Button "Views.Forensic" with value "Forensics_AW,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 30
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     Then UI Delete Forensics With Name "Forensics_AW"
+    Then Sleep "10"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics_AW"
 
 
@@ -129,19 +130,19 @@ Feature: AW RBAC - New AW roles
     When UI "Create" Alerts With Name "Alert Delivery"
       | Product    | Appwall  |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
-      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Modified];      |
+      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Blocked];      |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                                                                                           |
       | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
     And Sleep "120"
 
 
-  @SID_15 @KH
+  @SID_15
   Scenario: Run AW simulator VRM_Alert_Severity
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
       | #visionIP                                                         |
-      | " 172.17.154.19 1 "/home/radware/AW_Attacks/AWAlertTest/""        |
+      | " 172.17.154.19 1 "/home/radware/AW_Attacks/Integrated_AW_Attack/""        |
     And Sleep "95"
 
 
@@ -160,13 +161,14 @@ Feature: AW RBAC - New AW roles
   @SID_17
   Scenario: validate Delete Alert
     And UI Navigate to "AMS Alerts" page via homePage
-    When UI Delete Alerts With Name "Application_Protection"
-    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Application_Protection"
+    When UI Delete Alerts With Name "Alert Delivery"
+    Then Sleep "10"
+    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert Delivery"
     * UI Logout
 
   @SID_18
   Scenario: AppWall_Administrator
-    When UI Login with user "AW_admin" and password "Radware1234!@#$5"
+    When UI Login with user "aw-admin" and password "Radware1234!@#$5"
     And Sleep "10"
     Then UI Validate user rbac
       | operations                                  | accesses |
@@ -220,7 +222,7 @@ Feature: AW RBAC - New AW roles
   @SID_21
   Scenario: Validate delivery card and generate report
     Then UI "Generate" Report With Name "OverAllAppWallReport"
-      | timeOut | 60 |
+      | timeOut | 120 |
 
   @SID_22
   Scenario: Delete Report Validation
@@ -249,7 +251,7 @@ Feature: AW RBAC - New AW roles
   @SID_25
   Scenario: Validate Forensics.Table
     And UI Click Button "Views.Forensic" with value "Forensics_AW,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 30
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     Then UI Delete Forensics With Name "Forensics_AW"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics_AW"
 
@@ -259,7 +261,7 @@ Feature: AW RBAC - New AW roles
     When UI "Create" Alerts With Name "Alert Delivery"
       | Product | Appwall |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
-      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Modified];     |
+      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Blocked];     |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                                                                                           |
       | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
     And Sleep "120"
@@ -270,7 +272,7 @@ Feature: AW RBAC - New AW roles
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
       | #visionIP                                                         |
-      | " 172.17.154.19 1 "/home/radware/AW_Attacks/AWAlertTest/""        |
+      | " 172.17.154.19 1 "/home/radware/AW_Attacks/Integrated_AW_Attack/""        |
     And Sleep "95"
 
 
@@ -278,8 +280,9 @@ Feature: AW RBAC - New AW roles
   @SID_28
   Scenario: validate Delete Alert
     And UI Navigate to "AMS Alerts" page via homePage
-    When UI Delete Alerts With Name "Application_Protection"
-    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Application_Protection"
+    When UI Delete Alerts With Name "Alert Delivery"
+    Then Sleep "10"
+    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert Delivery"
     * UI Logout
 
 
@@ -292,7 +295,7 @@ Feature: AW RBAC - New AW roles
     Examples:
       | User Name   |
       | AW_Viewer   |
-      | AW_admin    |
+      | aw-admin    |
 
   @SID_30
   Scenario: Login And Go to Vision
