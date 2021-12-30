@@ -1,6 +1,7 @@
 @TC119794
 
 Feature: DefenseFlow HTML Forensics
+
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -12,12 +13,6 @@ Feature: DefenseFlow HTML Forensics
     * CLI Clear vision logs
 
   @SID_2
-  Scenario: Change DF management IP to IP of Generic Linux
-    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
-    When CLI Operations - Run Radware Session command "system df management-ip get"
-    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
-
-  @SID_3
   Scenario: Run DF simulator
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/curl_DF_attacks-auto_PO_100.sh " |
@@ -33,7 +28,7 @@ Feature: DefenseFlow HTML Forensics
       | " Terminated"                                   |
 
 
-  @SID_4
+  @SID_3
   Scenario: VRM - Login to VRM "Wizard" Test and enable emailing
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "VISION SETTINGS" page via homePage
@@ -53,33 +48,33 @@ Feature: DefenseFlow HTML Forensics
     And UI Click Button "Submit"
     Then UI Navigate to "AMS Forensics" page via homepage
 
-  @SID_5
+  @SID_4
   Scenario: create new Forensics_DefenseFlow and validate
     When UI "Create" Forensics With Name "Forensics_DefenseFlow"
-      | Product               | DefenseFlow                                                                                                                                                                                                                                                                                                   |
-      | Protected Objects     | All                                                                                                                                                                                                                                                                                                           |
+      | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
+      | Protected Objects     | All                                                                                                                                                                                                                                                                                               |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                   |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                                                                                                                                                                                                                            |
-      | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                  |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                                                                                                                                                                                                                |
+      | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                       |
 
-  @SID_6
+  @SID_5
   Scenario: Clear FTP server logs and generate the report
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow*.zip /home/radware/ftp/Forensics_DefenseFlow*.csv" on "GENERIC_LINUX_SERVER"
 
-  @SID_7
+  @SID_6
   Scenario: Validate delivery card and generate Forensics
     Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
     Then Sleep "35"
 
-  @SID_8
+  @SID_7
   Scenario: Validate Forensics.Table
     And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
 
-  @SID_9
+  @SID_8
   Scenario: Validate Threat Category
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Threat Category" findBy cellValue "Behavioral DoS"
     And UI Click Button "Refine View"
@@ -89,7 +84,7 @@ Feature: DefenseFlow HTML Forensics
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
     And UI Click Button "Clear Refine"
 
-  @SID_10
+  @SID_9
   Scenario: Validate Attack Name
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "HTTP (recv.pps)"
     And UI Click Button "Refine View"
@@ -162,7 +157,7 @@ Feature: DefenseFlow HTML Forensics
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 17
     And UI Click Button "Clear Refine"
 
-  @SID_11
+  @SID_10
   Scenario: Validate Action
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Action" findBy cellValue "Drop"
     And UI Click Button "Refine View"
@@ -172,7 +167,7 @@ Feature: DefenseFlow HTML Forensics
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
     And UI Click Button "Clear Refine"
 
-  @SID_12
+  @SID_11
   Scenario: Validate Protocol
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "IP"
     And UI Click Button "Refine View"
@@ -189,67 +184,67 @@ Feature: DefenseFlow HTML Forensics
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 76
     And UI Click Button "Clear Refine"
 
-  @SID_13
+  @SID_12
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow"
 
-  @SID_14
+  @SID_13
   Scenario: create new Forensics_DefenseFlow and validate
     When UI "Create" Forensics With Name "Forensics_DefenseFlow"
-      | Product               | DefenseFlow                                                                                                                                                                                                                                                                                                   |
-      | Protected Objects     | All                                                                                                                                                                                                                                                                                                           |
+      | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
+      | Protected Objects     | All                                                                                                                                                                                                                                                                                               |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                   |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                                                                                                                                                                                                                            |
-      | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                   |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                  |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                                                                                                                                                                                                                |
+      | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                       |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                       |
 
-  @SID_15
+  @SID_14
   Scenario: Clear FTP server logs and generate the report
     Then Sleep "100"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow*.zip /home/radware/ftp/Forensics_DefenseFlow*.csv" on "GENERIC_LINUX_SERVER"
 
-  @SID_16
+  @SID_15
   Scenario: Validate Forensics.Table
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
     And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
 
-  @SID_17
+  @SID_16
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow"
 
-  @SID_18
+  @SID_17
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_19
+  @SID_18
   Scenario: create new Forensics_DefenseFlow and validate
     When UI "Create" Forensics With Name "Forensics_DefenseFlow"
-      | Product               | DefenseFlow                                                                                                                                                                                                                                                                                                   |
-      | Protected Objects     | All                                                                                                                                                                                                                                                                                                           |
+      | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
+      | Protected Objects     | All                                                                                                                                                                                                                                                                                               |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                   |
-      | Share                 | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                                                                                                                                                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                                                                                                                                                                                                                            |
-      | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                      |
+      | Share                 | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                                                                                                                                                                               |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                                                                                                                                                                                                                |
+      | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                       |
 
-  @SID_20
+  @SID_19
   Scenario: Validate delivery card and generate Forensics
     Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
     Then Sleep "35"
 
-  @SID_21
+  @SID_20
   Scenario: Validate Forensics.Table
     And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
 
-  @SID_22
+  @SID_21
   Scenario: Validate Report Forensics received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -260,21 +255,21 @@ Feature: DefenseFlow HTML Forensics
     #To
     Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "1"
 
-  @SID_23
+  @SID_22
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_24
+  @SID_23
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow"
 
-  @SID_25
+  @SID_24
   Scenario: Change DF management IP to IP of DefenseFlow
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
       | #dfIP                          |
 
-  @SID_26
+  @SID_25
   Scenario: Logout
     Then UI logout and close browser
 
