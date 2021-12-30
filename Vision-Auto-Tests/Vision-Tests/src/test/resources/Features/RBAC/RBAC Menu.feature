@@ -267,7 +267,7 @@ Feature: RBAC Menu
       | HTTPS Flood Dashboard                       | yes       |
       | DefensePro Analytics Dashboard              | yes       |
       | DefensePro Monitoring Dashboard             | yes       |
-      | DefenseFlow Analytics Dashboard             | yes       |
+      | DefenseFlow Analytics Dashboard             | no       |
       | AppWall Dashboard                           | yes       |
       | AMS Reports                                 | yes       |
       | AMS Forensics                               | yes       |

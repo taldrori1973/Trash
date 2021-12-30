@@ -228,7 +228,7 @@ Feature: QDoS Protection & Attack Category
 
   @SID_29
   Scenario: Run DP simulator - QDos_Ahlam4 attack
-    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 250 seconds
     * CLI kill all simulator attacks on current vision
 
     
@@ -260,7 +260,7 @@ Feature: QDoS Protection & Attack Category
       | Status                 | Ongoing      |
       | Protocol               | TCP          |
       | Device IP Address      | 172.16.22.51 |
-      | Volume                 | 394.61 MB    |
+      | Volume                 |   2.94 Gbit  |
       | Source IP Address      | 192.85.1.2   |
       | Destination IP Address | Multiple     |
       | Destination Port       | 1024         |
@@ -276,7 +276,7 @@ Feature: QDoS Protection & Attack Category
       | Status                 | Ongoing      |
       | Protocol               | TCP          |
       | Device IP Address      | 172.16.22.51 |
-      | Volume                 | 396.45 MB    |
+      | Volume                 | 2.95 Gbit    |
       | Source IP Address      | 192.85.1.2   |
       | Destination IP Address | Multiple     |
       | Destination Port       | 1024         |
