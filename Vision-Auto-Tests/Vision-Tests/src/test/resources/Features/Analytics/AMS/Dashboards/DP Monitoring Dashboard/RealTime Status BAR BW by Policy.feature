@@ -40,7 +40,7 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy190 | 3099 | 10%              |
       | Policy14  | 3089 | 10%              |
       | Policy140 | 3089 | 10%              |
-      | Policy16  | 2885 | 10%              |
+      #| Policy16  | 2885 | 10%              |
       | Policy160 | 2885 | 10%              |
 #      | Policy18  | 2512 | 10%              |
 #The last policy was ignored becuase of run time data change
@@ -65,9 +65,9 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy190 | 3099 | 10%              |
       | Policy14  | 3089 | 10%              |
       | Policy140 | 3089 | 10%              |
-      | Policy16  | 2885 | 10%              |
+      #| Policy16  | 2885 | 10%              |
       | Policy160 | 2885 | 10%              |
-      | Policy18  | 2512 | 10%              |
+      #| Policy18  | 2512 | 10%              |
 
   @SID_4
   Scenario: BW by policy filter by policy in
@@ -95,7 +95,7 @@ Feature: VRM Real Time Status Bar BW by Policy
 #| 0    | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
       | label    | exist |
-      | Policy15 | false |
+      | Policy15 | true |
 
 #    The Policy14 is not exist in WebUI but exit on Session Storage , the test will always fail.
 #    Then UI Validate Pie Chart data "Bandwidth per Policy"
@@ -121,9 +121,9 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy190 | 3099 | 10%              |
       | Policy14  | 3089 | 10%              |
       | Policy140 | 3089 | 10%              |
-      | Policy16  | 2885 | 10%              |
+     # | Policy16  | 2885 | 10%              |
       | Policy160 | 2885 | 10%              |
-      | Policy18  | 2512 | 10%              |
+      #| Policy18  | 2512 | 10%              |
     And UI Logout
 
   @SID_7
@@ -147,6 +147,7 @@ Feature: VRM Real Time Status Bar BW by Policy
   @SID_8
   Scenario: BW by policy clean and new
     And CLI kill all simulator attacks on current vision
+    * REST Delete ES index "dp-*"
     Given CLI simulate 14 attacks of type "Maxim31_30" on "DefensePro" 10 with loopDelay 15000 and wait 120 seconds
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
