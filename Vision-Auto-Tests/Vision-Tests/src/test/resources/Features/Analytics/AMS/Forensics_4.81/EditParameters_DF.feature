@@ -4,11 +4,6 @@ Feature: Edit DefenseFlow Parameters
 
   @SID_1
   Scenario: Login and Navigate
-    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
-    When CLI Operations - Run Radware Session command "system df management-ip get"
-    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
-
-
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
@@ -137,9 +132,9 @@ Feature: Edit DefenseFlow Parameters
   @SID_19
   Scenario: Edit Criteria
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden |
 
   @SID_20
   Scenario: Edit Forensics Product
