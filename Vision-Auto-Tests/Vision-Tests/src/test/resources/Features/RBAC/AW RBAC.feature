@@ -113,7 +113,7 @@ Feature: AW RBAC - New AW roles
   Scenario: Validate delivery card and generate Forensics
     Then UI Click Button "My Forensics" with value "Forensics_AW"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_AW"
-    Then Sleep "25"
+    Then Sleep "35"
 
   @SID_13
   Scenario: Validate Forensics.Table
@@ -246,7 +246,7 @@ Feature: AW RBAC - New AW roles
   Scenario: Validate delivery card and generate Forensics
     Then UI Click Button "My Forensics" with value "Forensics_AW"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_AW"
-    Then Sleep "25"
+    Then Sleep "35"
 
   @SID_25
   Scenario: Validate Forensics.Table
