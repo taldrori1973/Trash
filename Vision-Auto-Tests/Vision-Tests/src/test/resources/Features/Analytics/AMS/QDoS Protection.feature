@@ -114,7 +114,7 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_15
-  Scenario: Create Forensics with  QDos Attack and CSV Format
+  Scenario: Create Forensics with  QDOS-Attack and CSV Format
     Given UI "Create" Forensics With Name "CSVWithDetails QDos Attack"
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format | Select: CSVWithDetails                                                                                           |
@@ -132,19 +132,19 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_17
-  Scenario: Unzip CSV file
+  Scenario: Unzip CSV files
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
 
   @SID_18
-  Scenario: Validate Forensics.Table of QDos Attack1
+  Scenario: Validate Forensics Table of QDos Attack1
     And UI Click Button "Views.Forensic" with value "CSVWithDetails QDos Attack,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
 
 
   @SID_19
-  Scenario: Validate The number of rows attacks , numberOfRecords
+  Scenario: Validate The number of rows attacks and numberOfRecords
     Then CLI Run linux Command "cat /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.csv |grep 'S.No,Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.csv |grep 'QuantileDoS,QDoS,p1,0.0.0.0,0.0.0.0,0,In,IP' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
@@ -170,7 +170,7 @@ Feature: QDoS Protection & Attack Category
     Then Sleep "35"
 
   @SID_23
-  Scenario: Validate Forensics.Table of QDos Attack1
+  Scenario: Validate Forensics Table of QDOS-Attack1
     And UI Click Button "Views.Forensic" with value "QDos Attack1,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 27
 
@@ -326,7 +326,7 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_38
-  Scenario Outline:  validate date of Info table
+  Scenario Outline:  validate date of Info table - Expanded
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
     Examples:
       | label              | value   |
@@ -342,7 +342,7 @@ Feature: QDoS Protection & Attack Category
       | Packet Type        | Regular |
 
   @SID_39
-  Scenario Outline:  validate data of Characteristics table
+  Scenario Outline:  validate data of Characteristics table - Expanded
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
     Examples:
       | label                              | value                        |
@@ -378,7 +378,7 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_43
-  Scenario: Run DP simulator - QDos_Ahlam4
+  Scenario: Run DP simulator  QDos_Ahlam4
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
       * CLI kill all simulator attacks on current vision
 
@@ -427,7 +427,7 @@ Feature: QDoS Protection & Attack Category
     * CLI Clear vision logs
 
   @SID_48
-  Scenario: Run DP simulator - QDos_Ahlam4
+  Scenario: Run DP simulator - QDos_Ahlam4 pcap
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     * CLI kill all simulator attacks on current vision
 
@@ -479,14 +479,14 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_54
-  Scenario: Navigate to DefensePro Monitoring Dashboard
+  Scenario: Navigate to DP Monitoring
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "38-1630605835"
 
   @SID_55
-  Scenario: Validate Characteristics card data -monitoring
+  Scenario: Validate Characteristics card data - monitoring
     Then UI Validate Text field "Characteristics Labels" with params "1" EQUALS "1"
     Then UI Validate Text field "Characteristics Labels" with params "0:0:0:0:0:0:0:0 - 192.0.5.47" EQUALS "0:0:0:0:0:0:0:0 - 192.0.5.47"
     Then UI Validate Text field "Characteristics Labels" with params "164 Mbps" EQUALS "164 Mbps"
