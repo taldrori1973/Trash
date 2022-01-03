@@ -1289,7 +1289,7 @@ Feature:Create DefensePro Part3
     Given UI "Create" Forensics With Name "Output Attack Name2_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Custom"
       | Product               | DefensePro                                                                                                                                             |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                                 |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2    |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2    |
       | devices               | All                                                                                                                                                    |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                            |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                       |
@@ -1297,7 +1297,7 @@ Feature:Create DefensePro Part3
     Then UI "Validate" Forensics With Name "Output Attack Name2_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Custom"
       | Product               | DefensePro                                                                                                                                             |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                                 |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2    |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2    |
       | devices               | All                                                                                                                                                    |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                            |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                       |
