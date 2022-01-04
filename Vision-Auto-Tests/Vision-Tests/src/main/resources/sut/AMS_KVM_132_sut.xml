@@ -100,6 +100,20 @@
         <vmName>vision_auto_</vmName>
     </visionRadwareFirstTime>
 
+    <defenseFlowDevice>
+        <class>com.radware.vision.bddtests.defenseFlow.defenseFlowDevice</class>
+        <vmName>DefenseFlow_172.17.154.54</vmName>
+        <deviceIp>172.17.154.54</deviceIp>
+        <snapshot>3.6.0.0</snapshot>
+        <username>radware</username>
+        <password>radware</password>
+        <vCenterURL>https://10.205.172.220/sdk</vCenterURL>
+        <vCenterIP>10.205.172.220</vCenterIP>
+        <vCenterUserName>root</vCenterUserName>
+        <vCenterPassword>radware</vCenterPassword>
+        <resourcePool>RP1</resourcePool>
+    </defenseFlowDevice>
+
     <devices>
         <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.Devices</class>
         <defenseProDevices index="0">

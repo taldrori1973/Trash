@@ -137,9 +137,9 @@ Feature: Edit DefenseFlow Parameters
   @SID_19
   Scenario: Edit Criteria
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden |
 
   @SID_20
   Scenario: Edit Forensics Product
