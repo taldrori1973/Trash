@@ -1,21 +1,21 @@
 @TC122558 @Test12
 
 Feature: QDoS Protection & Attack Category
-
+  
   @SID_1
   Scenario: Clean data before sending Qdos attack
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-
+  
   @SID_2
   Scenario: Run DP simulator - QDos_Ahlam4
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
-
+  
   @SID_3
   Scenario:  login to vision
     Given UI Login with user "radware" and password "radware"
@@ -260,7 +260,7 @@ Feature: QDoS Protection & Attack Category
       | Status                 | Ongoing      |
       | Protocol               | TCP          |
       | Device IP Address      | 172.16.22.51 |
-      | Volume                 |   2.94 Gbit  |
+      | Volume                 |   6.25 Gbit  |
       | Source IP Address      | 192.85.1.2   |
       | Destination IP Address | Multiple     |
       | Destination Port       | 1024         |
@@ -276,7 +276,7 @@ Feature: QDoS Protection & Attack Category
       | Status                 | Ongoing      |
       | Protocol               | TCP          |
       | Device IP Address      | 172.16.22.51 |
-      | Volume                 | 2.95 Gbit    |
+      | Volume                 | 6.28 Gbit    |
       | Source IP Address      | 192.85.1.2   |
       | Destination IP Address | Multiple     |
       | Destination Port       | 1024         |
@@ -296,7 +296,7 @@ Feature: QDoS Protection & Attack Category
       | Direction          | In      |
       | Action Type        | Drop    |
       | Physical Port      | 1       |
-      | Total Packet Count | 263,774 |
+      | Total Packet Count | 560,486 |
       | VLAN               | N/A     |
       | MPLS RD            | N/A     |
       | Source port        | 0       |
@@ -335,7 +335,7 @@ Feature: QDoS Protection & Attack Category
       | Direction          | In      |
       | Action Type        | Drop    |
       | Physical Port      | 1       |
-      | Total Packet Count | 265,008 |
+      | Total Packet Count | 563,097 |
       | VLAN               | N/A     |
       | MPLS RD            | N/A     |
       | Source port        | 0       |
@@ -431,13 +431,13 @@ Feature: QDoS Protection & Attack Category
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     * CLI kill all simulator attacks on current vision
 
-
+  
   @SID_49
   Scenario:  Navigate to DefensePro Monitoring Dashboard
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "30"
 
-
+  
   @SID_50
   Scenario: Validate first under attack policy - attacks
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
@@ -451,11 +451,11 @@ Feature: QDoS Protection & Attack Category
       | Drop Rate             | 52.74 Mbps              |
       | Attack Category       | Quantile DoS            |
 
-
+  
   @SID_51
   Scenario: Entering to the under attack policy 
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
-
+  
   @SID_52
   Scenario: validate events
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
@@ -465,7 +465,7 @@ Feature: QDoS Protection & Attack Category
       | Drop Rate       | 51.53 Mbps   |
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "39-1630605835"
-
+  
   @SID_53
   Scenario: Validate Characteristics card data -monitoring
     Then UI Validate Text field "Characteristics Labels" with params "40" EQUALS "40"
@@ -473,18 +473,16 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate Text field "Characteristics Labels" with params "164 Mbps" EQUALS "164 Mbps"
     Then UI Validate Text field "Characteristics Labels" with params "2%" EQUALS "2%"
     Then UI Validate Text field "Characteristics Labels" with params "3.3 Mbps" EQUALS "3.3 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "25.6 Mbps" EQUALS "25.6 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "25.8 Mbps" EQUALS "25.8 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "Quantile Top Talkers" EQUALS "Quantile Top Talkers"
 
 
+  
   @SID_54
   Scenario: Navigate to DP Monitoring
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "38-1630605835"
-
+  
   @SID_55
   Scenario: Validate Characteristics card data - monitoring
     Then UI Validate Text field "Characteristics Labels" with params "1" EQUALS "1"
@@ -492,9 +490,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate Text field "Characteristics Labels" with params "164 Mbps" EQUALS "164 Mbps"
     Then UI Validate Text field "Characteristics Labels" with params "2%" EQUALS "2%"
     Then UI Validate Text field "Characteristics Labels" with params "3.3 Mbps" EQUALS "3.3 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "25.9 Mbps" EQUALS "25.9 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "25.5 Mbps" EQUALS "25.5 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "Quantile Top Talkers" EQUALS "Quantile Top Talkers"
+
 
   @SID_56
   Scenario: click and validate Quantile Status chart
