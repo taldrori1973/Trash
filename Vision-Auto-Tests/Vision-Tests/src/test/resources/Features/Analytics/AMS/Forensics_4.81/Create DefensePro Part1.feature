@@ -1,6 +1,6 @@
 @TC119590
 Feature:DefensePro Part1
-
+@MMM
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     * REST Delete ES index "forensics-*"
@@ -823,7 +823,7 @@ Feature:DefensePro Part1
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Attack ID Equals"
-
+  @MMM
   @SID_41
   Scenario: create new Output Policy Name Equals
     Given UI "Create" Forensics With Name "Output Policy Name Equals"
