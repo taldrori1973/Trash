@@ -49,7 +49,6 @@ public class UvisionServer {
         put(DockerServices.CONFIG_KVISION_SCHEDULER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_CONFIGURATION_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_ALERTS, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_KVISION_LLS, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_INFRA_MARIADB, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_INFRA_AUTOHEAL, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_INFRA_IPV6NAT, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
