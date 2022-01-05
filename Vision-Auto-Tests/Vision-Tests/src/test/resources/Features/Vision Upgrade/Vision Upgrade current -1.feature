@@ -183,10 +183,6 @@ Feature: Vision Upgrade current -1
     Then CLI Check if logs contains
       | logType | expression          | isExpected   |
       | LLS     | fatal\| error\|fail | NOT_EXPECTED |
-      #rollback to the original values
-#    Given CLI Run remote linux Command "mysql vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
-    When CLI Operations - Run Radware Session command "system lls service stop"
-    When CLI Operations - Run Radware Session command "y" timeout 180
 
   @SID_26
   Scenario: Validate LLS version
