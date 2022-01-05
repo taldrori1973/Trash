@@ -18,6 +18,9 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
+import jsystem.framework.system.SystemManagerImpl;
+import jsystem.framework.system.SystemObject;
+import jsystem.framework.system.SystemObjectManager;
 import testutils.RemoteProcessExecutor;
 
 import java.util.List;
@@ -28,6 +31,7 @@ import static enums.SUTEntryType.ROOT_SERVER_CLI;
 import static java.lang.Integer.parseInt;
 
 public class RemoteSshCommandsTests extends BddCliTestBase {
+    public static SystemObjectManager system = SystemManagerImpl.getInstance();
 
     @When("^run Remote Script \"(.*)\" at scriptPath \"(.*)\" on IP \"(.*)\" with script params \"(.*)\"$")
     public void runRemoteScript(String scriptName, String scriptPath, String remoteServerIP, String scriptParams) {
@@ -82,6 +86,14 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
                     targetCommand.append(Variables.valueOf(commandPart.substring(1)).getVariable());
                     break;
                 }
+                case '@': {
+                    try {
+                        String[] classMethod = commandPart.split("\\.");
+                        targetCommand.append(Variables.getSUTVariable(classMethod[0].substring(1), classMethod[1]));
+                    }
+                    catch (Exception ignored){}
+                    break;
+                }
             }
         }
 
@@ -99,6 +111,19 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
 
         public String getVariable() {
             return variable;
+        }
+
+        public static String getSUTVariable(String className, String method, Object... args) throws Exception {
+            SystemObject obj = system.getSystemObject(className);
+            Class<?> classObj = obj.getClass();
+            java.lang.reflect.Method[] allMethods = classObj.getDeclaredMethods();
+            for (java.lang.reflect.Method m : allMethods) {
+                String methodName = m.getName();
+                if (methodName.equals(method)) {
+                    return (String) m.invoke(obj, args);
+                }
+            }
+            return null;
         }
     }
 
