@@ -170,4 +170,3 @@ Feature: Defense Flow Forensic Wizard
       | JBOSS       | fatal        | NOT_EXPECTED |
       | TOMCAT      | fatal        | NOT_EXPECTED |
       | TOMCAT2     | fatal\|error | NOT_EXPECTED |
-
