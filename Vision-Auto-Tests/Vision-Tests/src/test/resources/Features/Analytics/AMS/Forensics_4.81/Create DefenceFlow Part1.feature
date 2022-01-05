@@ -829,7 +829,7 @@ Feature:Create DefenseFlow Part1
     Given UI "Create" Forensics With Name "Output Policy Name Equals"
       | Product               | DefenseFlow                                                                    |
       | Output                | Policy Name                                                                    |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 Ok                        |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK                        |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1D                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                   |
@@ -838,7 +838,7 @@ Feature:Create DefenseFlow Part1
     When UI "Validate" Forensics With Name "Output Policy Name Equals"
       | Product               | DefenseFlow                                                                    |
       | Output                | Policy Name                                                                    |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 Ok                        |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK                        |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1D                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                   |
@@ -851,7 +851,7 @@ Feature:Create DefenseFlow Part1
     Given UI "Create" Forensics With Name "Output Source IP Address Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source IP Address                                                                                                |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 Ok Reset Dest                                               |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination                                               |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:once, On Time:+6H                                                                                      |
@@ -860,7 +860,7 @@ Feature:Create DefenseFlow Part1
     When UI "Validate" Forensics With Name "Output Source IP Address Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source IP Address                                                                                                |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 Ok Reset Dest                                               |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination                                              |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:once, On Time:+6H                                                                                      |
@@ -891,7 +891,7 @@ Feature:Create DefenseFlow Part1
     Given UI "Create" Forensics With Name "Output Destination IP Address Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address                                                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden Reset Dest                                        |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden and Reset Destination                                        |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -900,7 +900,7 @@ Feature:Create DefenseFlow Part1
     When UI "Validate" Forensics With Name "Output Destination IP Address Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address                                                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden Reset Dest                                        |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden and Reset Destination                                        |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -913,7 +913,7 @@ Feature:Create DefenseFlow Part1
     Given UI "Create" Forensics With Name "Output Destination Port Equals"
       | Product               | DefenseFlow                                                                                                                                |
       | Output                | Destination Port                                                                                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 Ok,HTTP 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                        |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                             |
@@ -921,7 +921,7 @@ Feature:Create DefenseFlow Part1
     When UI "Validate" Forensics With Name "Output Destination Port Equals"
       | Product               | DefenseFlow                                                                                                                                |
       | Output                | Destination Port                                                                                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 Ok,HTTP 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                        |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                             |
@@ -933,7 +933,7 @@ Feature:Create DefenseFlow Part1
     Given UI "Create" Forensics With Name "Output Direction Equals"
       | Product               | DefenseFlow                                                                                                                                                                                                                          |
       | Output                | Direction                                                                                                                                                                                                                            |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 Ok,HTTP 200 Ok Reset Dest,HTTP 403 Forbidden,HTTP 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                                                                                                                  |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                   |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                         |
@@ -942,7 +942,7 @@ Feature:Create DefenseFlow Part1
     When UI "Validate" Forensics With Name "Output Direction Equals"
       | Product               | DefenseFlow                                                                                                                                                                                                                          |
       | Output                | Direction                                                                                                                                                                                                                            |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 Ok,HTTP 200 Ok Reset Dest,HTTP 403 Forbidden,HTTP 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                                                                                                                  |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                   |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                         |
@@ -1017,7 +1017,7 @@ Feature:Create DefenseFlow Part1
     Given UI "Create" Forensics With Name "Output Total Packets Dropped Not Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Packets Dropped                                                                                            |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 Ok                                                      |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK                                                      |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
@@ -1026,7 +1026,7 @@ Feature:Create DefenseFlow Part1
     When UI "Validate" Forensics With Name "Output Total Packets Dropped Not Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Packets Dropped                                                                                            |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 Ok                                                      |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK                                                      |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
@@ -1039,7 +1039,7 @@ Feature:Create DefenseFlow Part1
     Given UI "Create" Forensics With Name "Output Max pps Not Equals"
       | Product               | DefenseFlow                                                                    |
       | Output                | Max pps                                                                        |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 Ok Reset Dest         |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK and Reset Destination         |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -1047,7 +1047,7 @@ Feature:Create DefenseFlow Part1
     When UI "Validate" Forensics With Name "Output Max pps Not Equals"
       | Product               | DefenseFlow                                                                    |
       | Output                | Max pps                                                                        |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 Ok Reset Dest         |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK and Reset Destination        |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
