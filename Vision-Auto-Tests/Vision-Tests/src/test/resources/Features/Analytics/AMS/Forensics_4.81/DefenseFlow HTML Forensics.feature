@@ -269,7 +269,11 @@ Feature: DefenseFlow HTML Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow"
 
   @SID_25
+  Scenario: Change DF management IP to IP of Vision DF
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "system df management-ip set " |
+      | @defenseFlowDevice.getDeviceIp |
+
+  @SID_26
   Scenario: Logout
     Then UI logout and close browser
-
-
