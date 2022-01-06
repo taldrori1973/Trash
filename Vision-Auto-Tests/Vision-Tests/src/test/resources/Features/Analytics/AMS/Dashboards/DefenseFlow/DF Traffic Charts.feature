@@ -28,6 +28,9 @@ Feature: Traffic Bandwidth \Traffic Rate Charts
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Go To Vision
+    And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->AMS Analytics"
+    Then UI Select "24H" from Vision dropdown by Id "gwt-debug-amsShortTermQueryWindow_Widget-input"
+    Then UI Click Button "Submit"
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
     Then UI Set Checkbox "Enable" To "true"
@@ -36,11 +39,14 @@ Feature: Traffic Bandwidth \Traffic Rate Charts
     Then UI Set Text Field "From Header" To "Automation system"
     Then UI Set Checkbox "Enable" To "false"
     Then UI Click Button "Submit"
+    And UI Navigate to "AMS Reports" page via homePage
+    And UI Go To Vision
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "true"
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
+    Given Clear email history for user "setup"
     And UI Navigate to "AMS Reports" page via homePage
 
 ############################### tests for Reports ###############################
