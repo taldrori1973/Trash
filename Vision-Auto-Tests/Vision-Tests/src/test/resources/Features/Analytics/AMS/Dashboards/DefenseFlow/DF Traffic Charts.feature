@@ -289,10 +289,13 @@ Feature: Traffic Bandwidth \Traffic Rate Charts
     Then UI Validate the attribute "data-debug-checked" Of Label "Attribute CheckBox" With Params "2Clean" is "EQUALS" to "true"
     Then UI Validate the attribute "data-debug-checked" Of Label "Attribute CheckBox" With Params "3Diverted" is "EQUALS" to "true"
 
-
-
-
   @SID_31
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_32
   Scenario: Cleanup
     Then UI logout and close browser
 

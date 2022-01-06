@@ -216,5 +216,11 @@ Feature: Flow Statistics In DF Analytics and Reports
 
 
   @SID_12
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_13
   Scenario: Cleanup
     Then UI logout and close browser
