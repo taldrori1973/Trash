@@ -49,7 +49,6 @@ public class UvisionServer {
         put(DockerServices.CONFIG_KVISION_SCHEDULER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_CONFIGURATION_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_ALERTS, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_KVISION_LLS, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_INFRA_MARIADB, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_INFRA_AUTOHEAL, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_INFRA_IPV6NAT, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
@@ -291,9 +290,9 @@ public class UvisionServer {
         StringBuilder command = new StringBuilder();
         command.append("docker ").append(dockerServiceAction.action).append(" ").append(service);
         CliOperations.runCommand(rootServerCli, command.toString(), 120 * 1000);
-        ArrayList<String> response = rootServerCli.getCmdOutput();
+        //ArrayList<String> response = rootServerCli.getCmdOutput();
 
-        if(response.stream().filter(a->a.contains(service)).count() != 1)
+        if(!CliOperations.lastRow.equals(service))
             BaseTestUtils.report("Test ERROR", Reporter.FAIL);
     }
 

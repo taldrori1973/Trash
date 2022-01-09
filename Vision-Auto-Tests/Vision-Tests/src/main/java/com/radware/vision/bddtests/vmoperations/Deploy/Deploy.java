@@ -3,7 +3,6 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
-import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.RepositoryService;
@@ -25,7 +24,7 @@ public abstract class Deploy {
     String repositoryName;
     JFrogFileModel buildFileInfo;
     public boolean isSetupNeeded;
-    private String ipaddress;
+    private final String ipaddress;
     protected FileType type;
     private static final Map<String, String> Respository_types = new HashMap<String, String>() {{
         put("Snapshot", "kvision-images-snapshot-local");

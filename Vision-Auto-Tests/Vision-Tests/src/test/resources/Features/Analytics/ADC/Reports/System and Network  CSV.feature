@@ -5,8 +5,8 @@ Feature: ADC System and Network Generate CSV Report
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Service "config_kvision-collector_1" do action RESTART
-    Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
+    Then CLI Service "config_kvision-reporter_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
 
   @SID_2
   Scenario: old reports on file-system
@@ -22,21 +22,22 @@ Feature: ADC System and Network Generate CSV Report
   Scenario: Create and validate ADC Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC System and Network Report"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
       | Time Definitions.Date | Quick:1H                                                                                                 |
       | Format                | Select:  CSV                                                                                             |
     Then UI "Validate" Report With Name "ADC System and Network Report"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
       | Time Definitions.Date | Quick:1H                                                                                                 |
       | Format                | Select: CSV                                                                                              |
 
   @SID_5
   Scenario: Validate delivery card and generate report
     Then UI "Generate" Report With Name "ADC System and Network Report"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
   @SID_6
   Scenario: VRM report unzip local CSV file
+    Then CLI Copy files contains name "VRM_report_*.zip" from container "config_kvision-reporter_1" from path "/usr/local/tomcat" to path "/opt/radware/mgt-server/third-party/tomcat/bin/"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
   @SID_7

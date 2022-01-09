@@ -9,8 +9,7 @@ Feature: Vision Upgrade current -1
 
   @SID_2
   Scenario: Start LLS service
-    Given CLI Run linux Command "system lls service start" on "RADWARE_SERVER_CLI" and validate result CONTAINS "This will start the LLS service. Continue? (y/n)" in any line
-    When CLI Run remote linux Command "y" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "system lls service start" on "RADWARE_SERVER_CLI"
     Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "FailOverRole: MAIN" in any line Retry 180 seconds
 
 #  @SID_3
@@ -184,10 +183,6 @@ Feature: Vision Upgrade current -1
     Then CLI Check if logs contains
       | logType | expression          | isExpected   |
       | LLS     | fatal\| error\|fail | NOT_EXPECTED |
-      #rollback to the original values
-#    Given CLI Run remote linux Command "mysql vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
-    When CLI Operations - Run Radware Session command "system lls service stop"
-    When CLI Operations - Run Radware Session command "y" timeout 180
 
   @SID_26
   Scenario: Validate LLS version

@@ -90,7 +90,15 @@ public class HAHandler extends TestBase {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
+    public static void setConfigSyncPeer2(RadwareServerCli radwareServerCli) {
+        try {
+            peer = visionServerHA.getHost_1();
+            ConfigSync.setPeer(radwareServerCli, peer);
 
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
     public static void setBothVisionsDisabled(int timeout, RadwareServerCli radwareServerCli) {
         try {
             RadwareServerCli serverCli = getSessionByIp(visionServerHA.getHost_1(), radwareServerCli);

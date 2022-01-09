@@ -30,6 +30,9 @@ Feature: Flow Statistics In DF Analytics and Reports
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Go To Vision
+    And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->AMS Analytics"
+    Then UI Select "24H" from Vision dropdown by Id "gwt-debug-amsShortTermQueryWindow_Widget-input"
+    Then UI Click Button "Submit"
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
     Then UI Set Checkbox "Enable" To "true"
@@ -38,13 +41,15 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Set Text Field "From Header" To "Automation system"
     Then UI Set Checkbox "Enable" To "false"
     Then UI Click Button "Submit"
+    And UI Navigate to "AMS Reports" page via homePage
+    And UI Go To Vision
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "true"
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
+    Given Clear email history for user "setup"
     And UI Navigate to "AMS Reports" page via homePage
-
 ############################### tests for Reports ###############################
 
   @SID_5
@@ -216,5 +221,11 @@ Feature: Flow Statistics In DF Analytics and Reports
 
 
   @SID_12
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_13
   Scenario: Cleanup
     Then UI logout and close browser

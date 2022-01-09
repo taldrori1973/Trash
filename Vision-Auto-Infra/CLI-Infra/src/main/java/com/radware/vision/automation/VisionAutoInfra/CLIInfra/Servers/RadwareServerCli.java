@@ -19,6 +19,7 @@ public class RadwareServerCli extends ServerCliBase {
     private ArrayList<Prompt> newPromptObjects = new ArrayList<Prompt>();
     private String upgradePassword;
     private boolean isBeginningTheAPSoluteVisionUpgradeProcessEndsCommand = true;
+    private String yOrn = "y";
 
     public RadwareServerCli() {
         super();
@@ -267,6 +268,17 @@ public class RadwareServerCli extends ServerCliBase {
         p.setCommandEnd(true);
         prompts.add(p);
 
+        p = new Prompt();
+        p.setPrompt("Setting the NTP requires restarting the APSolute Vision server. Restart? (y/n)");
+        p.setStringToSend(this.yOrn);
+        p.setCommandEnd(false);
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("This will start the LLS service. Continue? (y/n)");
+        p.setStringToSend(this.yOrn);
+        p.setCommandEnd(false);
+        prompts.add(p);
 
 
         //Keep the simple prompts AFTER last to avoid catching them first
@@ -353,4 +365,7 @@ public class RadwareServerCli extends ServerCliBase {
         isBeginningTheAPSoluteVisionUpgradeProcessEndsCommand = beginningTheAPSoluteVisionUpgradeProcessEndsCommand;
     }
 
+    public void setyOrn(String yOrn) {
+        this.yOrn = yOrn;
+    }
 }
