@@ -580,11 +580,12 @@ public class DeployOva {
         conn.setRequestProperty("Content-Type", "application/x-vnd.vmware-streamVmdk");
         conn.setRequestProperty("Content-Length", Long.toString(new File(diskFilePath).length()));
         BufferedOutputStream bos = new BufferedOutputStream(conn.getOutputStream());
+        BaseTestUtils.reporter.report(String.format("Connected to %s", urlStr));
         BufferedInputStream diskis = new BufferedInputStream(new FileInputStream(diskFilePath));
         int bytesAvailable = diskis.available();
         int bufferSize = Math.min(bytesAvailable, CHUCK_LEN);
         byte[] buffer = new byte[bufferSize];
-
+        BaseTestUtils.reporter.report(String.format("Start Uploading Vmdk File to %s", diskFilePath));
         long totalBytesWritten = 0;
         while (true) {
             int bytesRead = diskis.read(buffer, 0, bufferSize);
@@ -598,6 +599,7 @@ public class DeployOva {
             int progressPercent = (int) (((bytesAlreadyWritten + totalBytesWritten) * 100) / totalBytes);
             leaseUpdater.setPercent(progressPercent);
         }
+        BaseTestUtils.reporter.report(String.format("Done Uploading Vmdk File"));
         diskis.close();
         bos.flush();
         bos.close();
