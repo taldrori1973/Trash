@@ -4,6 +4,7 @@ Feature: DPM - ADC Reports RBAC
   @SID_1
   Scenario: Clean system data and Prepare simulators
     * CLI Clear vision logs
+    * CLI Clear vision  docker logs
     Given Init Simulators
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given REST Login with user "radware" and password "radware"
