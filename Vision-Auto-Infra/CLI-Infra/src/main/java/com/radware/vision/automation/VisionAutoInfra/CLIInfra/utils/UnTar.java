@@ -28,8 +28,7 @@ public class UnTar {
     }
 
     public static void untarTarFileLocally(String filePath, String destFolder) throws IOException {
-        BaseTestUtils.reporter.startLevel("Download OVA File");
-        Runtime.getRuntime().exec(String.format("cd %s", destFolder));
+        BaseTestUtils.reporter.startLevel(String.format("Download OVA File to %s", destFolder));
         Runtime.getRuntime().exec(String.format("wget %s", filePath));
 
         BaseTestUtils.reporter.startLevel("Untar OVA File");
