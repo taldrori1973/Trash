@@ -172,7 +172,7 @@ public class DeployOva {
             throws Exception {
 
         ServiceInstance si = new ServiceInstance(new URL(targetUrl), userName, password, true);
-        UnTar.untarTarFileLocally(ovaUrl, ovfDestFolder.getAbsolutePath());
+        UnTar.untarTarFile(ovaUrl, ovfDestFolder.getAbsolutePath());
         final String fileName = FilenameUtils.getBaseName(ovaUrl);
         String ovfPath = ovfDestFolder + "/" + fileName + ".ovf";
 
