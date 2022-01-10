@@ -586,18 +586,21 @@ public class DeployOva {
         int bufferSize = Math.min(bytesAvailable, CHUCK_LEN);
         byte[] buffer = new byte[bufferSize];
         byte[] bufferCopy = new byte[bufferSize];
-        BaseTestUtils.reporter.report(String.format("Start Uploading Vmdk File from %s", diskFilePath));
+        BaseTestUtils.reporter.report(String.format("Start Uploading Vmdk File (%d size) from %s", bufferSize, diskFilePath));
         long totalBytesWritten = 0;
+        int count = 0;
         while (true) {
             int bytesRead = diskis.read(buffer, 0, bufferSize);
             if (bytesRead == -1) {
                 break;
             }
-            if (buffer.length != 0) {
+            if(count < 5)
+            {
                 BaseTestUtils.reporter.report(String.format("Buffer is %sEquel to bufferCopy", (buffer==bufferCopy)?"":"Not "));
+                BaseTestUtils.reporter.report(String.format("Uploaded %f", (double)totalBytesWritten/(double)bytesAvailable));
+                count++;
             }
             System.arraycopy(buffer,0,bufferCopy,0,bufferSize);
-            BaseTestUtils.reporter.report(String.format("Uploaded %f", (double)bytesRead/(double)bytesAvailable));
             totalBytesWritten += bytesRead;
             bos.write(buffer, 0, bufferSize);
             bos.flush();
