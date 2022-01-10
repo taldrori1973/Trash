@@ -172,7 +172,7 @@ public class DeployOva {
             throws Exception {
 
         ServiceInstance si = new ServiceInstance(new URL(targetUrl), userName, password, true);
-        UnTar.untarTarUrl(ovaUrl, ovfDestFolder.getAbsolutePath());
+        UnTar.untarTarFileLocally(ovaUrl, ovfDestFolder.getAbsolutePath());
         final String fileName = FilenameUtils.getBaseName(ovaUrl);
         String ovfPath = ovfDestFolder + "/" + fileName + ".ovf";
 
@@ -593,12 +593,6 @@ public class DeployOva {
             int bytesRead = diskis.read(buffer, 0, bufferSize);
             if (bytesRead == -1) {
                 break;
-            }
-            if(count < 5)
-            {
-                BaseTestUtils.reporter.report(String.format("Buffer is %sEquel to bufferCopy", (buffer==bufferCopy)?"":"Not "));
-                BaseTestUtils.reporter.report(String.format("Uploaded %f", (double)totalBytesWritten/(double)bytesAvailable));
-                count++;
             }
             System.arraycopy(buffer,0,bufferCopy,0,bufferSize);
             totalBytesWritten += bytesRead;
