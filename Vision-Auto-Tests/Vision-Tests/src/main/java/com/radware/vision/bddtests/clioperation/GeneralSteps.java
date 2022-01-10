@@ -38,10 +38,18 @@ public class GeneralSteps extends TestBase {
                 "/tmp/logs/Vision_install.log " +
                 "/var/log/td-agent/td-agent.log " +
                 "/opt/radware/storage/maintenance/logs/lls/lls_install_display.log " +
-                "/opt/radware/storage/maintenance/logs/jboss_watchdog.log";
+                "/opt/radware/storage/maintenance/logs/jboss_watchdog.log " +
+                "docker exec -it config_kvision-configuration-service_1 sh -c \"cat /opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/sc-dashboard.log\"";
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), clearAllLogs);
 
     }
+
+    @Given("^CLI Clear vision  docker logs$")
+    public static void clearDockerLogs() {
+        final String clearAllLogs = "docker exec -it config_kvision-configuration-service_1 sh -c" + "\"echo 'cleared' $(date) > /opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/sc-dashboard.log\"";
+        CliOperations.runCommand(serversManagement.getRootServerCLI().get(), clearAllLogs);
+    }
+
 
     /**
      * search if an expression exists in server logs by types
@@ -97,6 +105,9 @@ public class GeneralSteps extends TestBase {
         ExecuteShellCommands executeShellCommands = ExecuteShellCommands.getInstance();
         executeShellCommands.runRemoteShellCommand(rootCredentials, command);
         String output = executeShellCommands.getShellCommandOutput();
+        if(object.logType.name().equals("JBOSS")){
+                output = CliOperations.lastOutput;
+        }
         if (output.equals("") && object.isExpected.equals(MessageAction.EXPECTED))
             addErrorMessage(object.logType.toString() + ": does not contain -> " + object.expression);
         else if (!output.equals("") && object.isExpected.equals(MessageAction.NOT_EXPECTED)) {
@@ -152,7 +163,7 @@ public class GeneralSteps extends TestBase {
         ALL(""),
         TOMCAT("/opt/radware/mgt-server/third-party/tomcat/logs/*.log"),
         MAINTENANCE("/opt/radware/storage/maintenance/logs/*.log"),
-        JBOSS("/opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/*.log"),
+        JBOSS("docker exec -it config_kvision-configuration-service_1 sh -c \"cat /opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/sc-dashboard.log\" | grep framework"),
         TOMCAT2("/opt/radware/storage/mgt-server/third-party/tomcat2/logs/*.log"),
         UPGRADE("/opt/radware/storage/maintenance/upgrade/upgrade.log"),
         BACKUP("/opt/radware/storage/maintenance/logs/backups/*.*"),
