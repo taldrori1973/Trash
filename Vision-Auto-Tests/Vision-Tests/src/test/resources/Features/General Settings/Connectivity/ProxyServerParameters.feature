@@ -4,8 +4,7 @@ Feature: Connectivity Proxy Server Parameters Functionality
   @SID_1
   Scenario: Login and navigate to Connectivity page
     * CLI Clear vision logs
-    * CLI Clear vision  docker logs
-   # Given CLI Reset radware password
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Connectivity"
@@ -73,8 +72,8 @@ Feature: Connectivity Proxy Server Parameters Functionality
     Then CLI Run remote linux Command "docker exec -it config_kvision-configuration-service_1 sh -c \"cat /opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/sc-dashboard.log\" | grep framework " on "ROOT_SERVER_CLI"
 
     * CLI Check if logs contains
-      | logType | expression                          | isExpected |
-      | JBOSS   | framework                            | EXPECTED   |
+      | logType | expression                          | isExpected   |
+      | JBOSS   | fatal                               | NOT_EXPECTED |
 
 #  @SID_8
 #  Scenario: Validate proxy by IP address - proxy server logs
@@ -101,7 +100,6 @@ Feature: Connectivity Proxy Server Parameters Functionality
   @SID_11
   Scenario: Validate proxy by Name - functionality
     * CLI Clear vision logs
-    * CLI Clear vision  docker logs
     When UI Go To Vision
     Then UI Click vision dashboards
     Then UI Click security control center

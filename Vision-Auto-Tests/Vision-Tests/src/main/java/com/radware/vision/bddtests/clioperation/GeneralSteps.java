@@ -29,7 +29,6 @@ public class GeneralSteps extends TestBase {
         final String clearAllLogs = "echo 'cleared' $(date)|tee " +
                 "/opt/radware/mgt-server/third-party/tomcat/logs/*.log" +
                 " /opt/radware/storage/maintenance/logs/*.log " +
-                "/opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/*.log " +
                 "/opt/radware/storage/mgt-server/third-party/tomcat2/logs/*.log " +
                 "/opt/radware/storage/maintenance/upgrade/upgrade.log " +
                 "/opt/radware/storage/maintenance/logs/backups/*.* " +
@@ -38,15 +37,15 @@ public class GeneralSteps extends TestBase {
                 "/tmp/logs/Vision_install.log " +
                 "/var/log/td-agent/td-agent.log " +
                 "/opt/radware/storage/maintenance/logs/lls/lls_install_display.log " +
-                "/opt/radware/storage/maintenance/logs/jboss_watchdog.log " +
-                "docker exec -it config_kvision-configuration-service_1 sh -c \"cat /opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/sc-dashboard.log\"";
+                "/opt/radware/storage/maintenance/logs/jboss_watchdog.log ";
+                clearDockerLogs();
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), clearAllLogs);
 
     }
 
-    @Given("^CLI Clear vision  docker logs$")
     public static void clearDockerLogs() {
-        final String clearAllLogs = "docker exec -it config_kvision-configuration-service_1 sh -c " + "\"echo 'cleared' $(date) > /opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/sc-dashboard.log\"";
+        final String clearAllLogs = "docker exec -it config_kvision-configuration-service_1 sh -c " +
+                "\"echo 'cleared' $(date) > /opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/sc-dashboard.log\"";
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), clearAllLogs);
     }
 
@@ -160,7 +159,7 @@ public class GeneralSteps extends TestBase {
         ALL(""),
         TOMCAT("/opt/radware/mgt-server/third-party/tomcat/logs/*.log"),
         MAINTENANCE("/opt/radware/storage/maintenance/logs/*.log"),
-        JBOSS("/opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/*.log "),
+        JBOSS("docker exec -it config_kvision-configuration-service_1 sh -c \"/opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/sc-dashboard.log "),
         TOMCAT2("/opt/radware/storage/mgt-server/third-party/tomcat2/logs/*.log"),
         UPGRADE("/opt/radware/storage/maintenance/upgrade/upgrade.log"),
         BACKUP("/opt/radware/storage/maintenance/logs/backups/*.*"),
