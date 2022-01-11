@@ -27,6 +27,14 @@ public class UnTar {
         tis.close();
     }
 
+    public static void untarTarFileLocally(String filePath, String destFolder) throws IOException {
+        BaseTestUtils.reporter.startLevel(String.format("Download OVA File to %s", destFolder));
+        Runtime.getRuntime().exec(String.format("wget %s", filePath));
+
+        BaseTestUtils.reporter.startLevel("Untar OVA File");
+        Runtime.getRuntime().exec(String.format("tar xvf %s", filePath.substring(filePath.lastIndexOf("/")+1)));
+    }
+
     public static void untarTarFile(String filePath, String destFolder) throws IOException {
         File zf = new File(filePath);
 
