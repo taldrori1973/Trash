@@ -13,10 +13,7 @@ import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
-import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
-import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallOVA;
-import com.radware.vision.bddtests.vmoperations.Deploy.Physical;
-import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
+import com.radware.vision.bddtests.vmoperations.Deploy.*;
 import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.vision_handlers.NewVmHandler;
@@ -121,7 +118,7 @@ public class VMOperationsSteps extends BddUITestBase {
             visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
             if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
             snapshot = getVisionSetupAttributeFromSUT("snapshot");
-            if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
+            if (!isActionNeeded(snapshot, setupMode, force)) {
                 BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
                 return;
             }
@@ -167,6 +164,23 @@ public class VMOperationsSteps extends BddUITestBase {
             e.printStackTrace();
             BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
         }
+    }
+
+    private boolean isActionNeeded(String snapshot, String setup, String force)
+    {
+        if(!setup.contains("upgrade"))
+            return true;
+
+        if((snapshot == null || snapshot.equals("")))
+            return false;
+
+        if(force != null)
+            return true;
+        // ToDo - need to build Singleton to get Deploy object
+        Deploy deploy = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
+        deploy.isSetupNeeded();
+
+        return deploy.isSetupNeeded;
     }
 
     private void afterUpgrade() {
