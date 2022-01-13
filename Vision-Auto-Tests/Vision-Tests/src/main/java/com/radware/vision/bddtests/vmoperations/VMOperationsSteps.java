@@ -168,7 +168,7 @@ public class VMOperationsSteps extends BddUITestBase {
 
     private boolean isActionNeeded(String snapshot, String setup, String force)
     {
-        if(!setup.contains("upgrade"))
+        if(!setup.toLowerCase().contains("upgrade"))
             return true;
 
         if((snapshot == null || snapshot.equals("")))
