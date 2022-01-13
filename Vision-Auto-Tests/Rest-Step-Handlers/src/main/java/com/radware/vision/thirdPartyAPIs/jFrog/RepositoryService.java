@@ -121,21 +121,11 @@ public class RepositoryService {
     private ArtifactFolderPojo getFile(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
         if (build != 0) {//specific build
             Integer buildID = getBuildIDByDeployID(buildParent, fileType, build, jenkinsJob);
-            if(buildID == null)
+            if (buildID == null)
                 throw new Exception(String.format("The Build \"%s\" is building or failed", build));
             String path = buildParent.getPath().getPath().substring(1) + "/" + buildID;
-//            if (isChildExistByUri(buildParent.getChildren(), build.toString()) && containsFileType(fileType, path)) {//build exist and contains the the file type
-                //ArtifactFolderPojo buildsFolderPojo = getBranch(buildParent, fileType.toString());
-                Integer parentBuildNumber = getParentBuildNumber(path);
-//                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
-                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(String.format(JENKINS_JOB_TEMPLATE, jenkinsJob), parentBuildNumber);
-//                if the build still building or finish building not successfully
-                if (buildInfo.isBuilding() || !buildInfo.getResult().equals("SUCCESS"))
-                    throw new Exception(String.format("The Build \"%s\" is building or failed", build));
 
-                return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
-//            } else
-//                throw new Exception(String.format("The Build \"%s\" not found under %s OR the build not contains \"%s\" file type", build, buildParent.getPath().getPath(), fileType.getExtension()));
+            return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
         } else {//latest build
             build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
             String path = buildParent.getPath().getPath().substring(1) + "/" + build;
@@ -143,8 +133,7 @@ public class RepositoryService {
         }
     }
 
-    private Integer getBuildIDByDeployID(ArtifactFolderPojo buildParent, FileType fileType, Integer deployID, String jenkinsJob)
-    {
+    private Integer getBuildIDByDeployID(ArtifactFolderPojo buildParent, FileType fileType, Integer deployID, String jenkinsJob) {
         Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
         Stack<Integer> builds = countingSort(buildsNumbers);
 
@@ -161,11 +150,11 @@ public class RepositoryService {
                 Matcher m = p.matcher(filePojo.getPath().getPath());
                 while (m.find()) {
                     Integer buildDeployID = Integer.parseInt(m.group(1));
-                    if(buildDeployID.equals(deployID))
+                    if (buildDeployID.equals(deployID))
                         return last;
                 }
+            } catch (Exception e) {
             }
-            catch (Exception e){}
         }
         //throw new Exception("No Success Build was found ");
 
@@ -298,19 +287,18 @@ public class RepositoryService {
                 ArtifactFilePojo filePojo = getFile(buildPojo, FileType.valueOf(fileType.toUpperCase()));
                 Pattern p = Pattern.compile(String.format("%d-%s-D-([\\d]+)-", last, jenkinsJob));
                 Matcher m = p.matcher(filePojo.getPath().getPath());
-                while(m.find()) {
+                while (m.find()) {
                     try {
                         return Integer.parseInt(m.group(1));
+                    } catch (Exception e) {
                     }
-                    catch (Exception e){}
                 }
             }
         }
         throw new Exception("No Success Build was found ");
     }
 
-    private Integer getLastParentSuccessfulBuild(String jenkinsJob)
-    {
+    private Integer getLastParentSuccessfulBuild(String jenkinsJob) {
         Integer lastParentBuildNumber = null;
 
         try {
@@ -323,8 +311,7 @@ public class RepositoryService {
         return lastParentBuildNumber;
     }
 
-    private Integer getParentBuildNumber(String buildPath)
-    {
+    private Integer getParentBuildNumber(String buildPath) {
         try {
             Map<String, String> queryParams = new HashMap<>();
             queryParams.put("repoKey", jFrogRestAPI.getRepoName());
@@ -333,10 +320,10 @@ public class RepositoryService {
             String key = "\"build.parentNumber\",\"value\":\"";
             String jsonAsString = restResponse.getBody().getBodyAsString();
             Integer i = jsonAsString.indexOf(key);
-            if(i<0) return null;
-            Integer j = jsonAsString.indexOf("\"", i + key.length()+1);
-            if(j<0) return null;
-            String parentBuildNumberString = jsonAsString.substring(i+key.length(), j);
+            if (i < 0) return null;
+            Integer j = jsonAsString.indexOf("\"", i + key.length() + 1);
+            if (j < 0) return null;
+            String parentBuildNumberString = jsonAsString.substring(i + key.length(), j);
             return Integer.parseInt(parentBuildNumberString);
         } catch (Exception e) {
             e.printStackTrace();
@@ -377,7 +364,7 @@ public class RepositoryService {
 
     public int getLastExtendedDeployNumberFromBranch(String branch, String setupMode) throws Exception {
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
-        String artifactPojoPtah = artifactPojo.getPath().getPath() + ((setupMode!=null)?setupMode.toUpperCase():"");
+        String artifactPojoPtah = artifactPojo.getPath().getPath() + ((setupMode != null) ? setupMode.toUpperCase() : "");
         ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
         Integer lastSuccessfulExtendedBuild = getLastSuccessfulExtendedDeployID(branchPojo, branch);
