@@ -889,6 +889,8 @@ public class VRMHandler {
             VisionDebugIdsManager.setLabel("Widget Selection.Add Selected Widgets");
             WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
         }
+        VisionDebugIdsManager.setLabel("Widget Selection");
+        WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
     }
 
     void uiVRMDragAndDropWidgets(List<String> entries) throws TargetWebElementNotFoundException { /// change to drag and drop
