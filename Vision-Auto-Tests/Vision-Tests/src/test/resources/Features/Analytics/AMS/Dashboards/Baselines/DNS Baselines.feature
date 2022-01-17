@@ -123,7 +123,7 @@ Feature: VRM DNS baselines
 
   @SID_4
   Scenario: DNS baseline DNS-TXT IPv6 In QPS data
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-TXT,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-TXT,IPv6"
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-TXT" with Label "Suspected Edge"
       | value | count | offset |
@@ -245,7 +245,7 @@ Feature: VRM DNS baselines
 
   @SID_6
   Scenario: BDoS baseline DNS-A IPv6 In QPS data
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-A,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-A,IPv6"
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-A" with Label "Suspected Edge"
       | value | count | offset |
@@ -366,7 +366,7 @@ Feature: VRM DNS baselines
 
   @SID_8
   Scenario: DNS baseline DNS-AAAA IPv6 In QPS data
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-AAAA,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-AAAA,IPv6"
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-AAAA" with Label "Suspected Edge"
       | value | count | offset |
@@ -488,7 +488,7 @@ Feature: VRM DNS baselines
 
   @SID_10
   Scenario: DNS baseline DNS-Other IPv6 In QPS data
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-Other,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-Other,IPv6"
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-Other" with Label "Suspected Edge"
       | value | count | offset |
@@ -610,7 +610,7 @@ Feature: VRM DNS baselines
 
   @SID_12
   Scenario: DNS baseline DNS-MX IPv6 In QPS data
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-MX,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-MX,IPv6"
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-MX" with Label "Suspected Edge"
       | value | count | offset |
@@ -732,7 +732,7 @@ Feature: VRM DNS baselines
 
   @SID_14
   Scenario: DNS baseline DNS-NAPTR IPv6 In QPS data
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-NAPTR,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-NAPTR,IPv6"
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Suspected Edge"
       | value | count | offset |
@@ -855,7 +855,7 @@ Feature: VRM DNS baselines
 
   @SID_16
   Scenario: DNS baseline DNS-PTR IPv6 In QPS data
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-PTR,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-PTR,IPv6"
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-PTR" with Label "Suspected Edge"
       | value | count | offset |
@@ -977,7 +977,7 @@ Feature: VRM DNS baselines
 
   @SID_18
   Scenario: DNS baseline DNS-SOA IPv6 In QPS data
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-SOA,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SOA,IPv6"
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-SOA" with Label "Suspected Edge"
       | value | count | offset |
@@ -1098,7 +1098,7 @@ Feature: VRM DNS baselines
 
   @SID_20
   Scenario: DNS baseline DNS-SRV IPv6 In QPS data
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-SRV,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SRV,IPv6"
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-SRV" with Label "Suspected Edge"
       | value | count | offset |
@@ -1277,7 +1277,7 @@ Feature: VRM DNS baselines
     Then UI VRM Select Widgets
       | DNS-A |
 
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-A-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-A-1,IPv6"
     Then UI Validate Line Chart data "DNS-A-2" with Label "Suspected Edge"
       | value | count | offset |
       | 7253  | 13    | 6      |
@@ -1324,14 +1324,13 @@ Feature: VRM DNS baselines
       | DNS-SRV   |
       | DNS-Other |
 
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-TXT-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-AAAA-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-MX-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-PTR-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-SOA-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-SRV-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Charts" with value "DNS-Other-1,IPv6"
-
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-TXT-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-AAAA-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-MX-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-PTR-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SOA-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SRV-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-Other-1,IPv6"
 
 #    Then UI Open "Configurations" Tab
     Then UI logout and close browser
