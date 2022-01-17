@@ -23,7 +23,7 @@ public class LLSHandler {
     public static final String LLS_STATE_CMD = "system lls state";
     public static final String SERVICE_START_CMD = "system lls service start";
     public static final String SERVICE_STOP_CMD = "system lls service stop";
-    public static final String LLS_IS_RUNNING = "Creating config_kvision-lls_1 ... done";
+    public static final String LLS_IS_RUNNING = "Local License Server is running";
     public static final String LLS_STOPPED_SUCCESS = "Removing config_kvision-lls_1 ... done";
     public static final String BACkUP_INSTALL = "system lls install backup -peer-host ";
     public static final String MAIN_INSTALL = "system lls install main -peer-host ";
@@ -175,7 +175,7 @@ public class LLSHandler {
         long startTime = System.currentTimeMillis();
 
         CliOperations.runCommand(radwareServerCli, SERVICE_START_CMD);
-        if (CliOperations.lastOutput.contains("LLS service is already started/running")){
+        if (CliOperations.lastOutput.contains("FailOverRole: MAIN")){
             BaseTestUtils.reporter.report("LLS Service is already running", Reporter.PASS);
             return;
         }
@@ -183,15 +183,14 @@ public class LLSHandler {
 
         while (System.currentTimeMillis() - startTime < timeout) {
             try {
-//               kVision
-                CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(LLS_IS_RUNNING, CliOperations.lastOutput);
-                return;
+                CliOperations.runCommand(radwareServerCli,SERVICE_STATUS);
+                if(CliOperations.lastOutput.contains("FailOverRole: MAIN"))
+                    return;
+                Thread.sleep(10000);
             } catch (Exception e) {
-                Thread.sleep(30000);
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
         }
-//       kVision
-//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
         BaseTestUtils.reporter.report("timeout pass with no success, LLS Service is Not running.", Reporter.FAIL);
     }
 
