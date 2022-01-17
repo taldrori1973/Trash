@@ -772,7 +772,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
         String date = String.format("01 %s", WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdtSwitch']")).getText());
         String[] date_s = date.split(" ");
         int monthNumber = Arrays.asList("january", "february", "march", "april","may", "june", "july", "august", "september", "october", "november", "december").indexOf(date_s[1].toLowerCase())+1;
-        date_s[1] = String.valueOf(monthNumber);
+        date_s[1] = String.format("%s%s",(monthNumber<=9)?"0":"",monthNumber);
         LocalDate actualLocalDate = LocalDate.parse(String.join(" ", date_s), DateTimeFormatter.ofPattern("dd MM yyyy"));
         int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
         while (monthsDifference != 0) {
