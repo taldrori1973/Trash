@@ -8,7 +8,6 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareSer
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.LLSStateCMDs;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.automation.systemManagement.visionConfigurations.ManagementInfo;
 import com.radware.vision.system.ConfigSync;
 
 import java.util.Locale;
@@ -28,8 +27,7 @@ public class LLSHandler {
     public static final String BACkUP_INSTALL = "system lls install backup -peer-host ";
     public static final String MAIN_INSTALL = "system lls install main -peer-host ";
 
-    private static ManagementInfo managementInfo = TestBase.getVisionConfigurations().getManagementInfo();
-    private static ClientConfigurationDto clientConfigurations = TestBase.getSutManager().getClientConfigurations();
+    private static final ClientConfigurationDto clientConfigurations = TestBase.getSutManager().getClientConfigurations();
 
     public static void HAbackupInstall(String mode, int timeout) throws Exception {
 
