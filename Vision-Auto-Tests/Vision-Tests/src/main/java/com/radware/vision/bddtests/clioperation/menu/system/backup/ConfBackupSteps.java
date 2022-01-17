@@ -3,61 +3,64 @@ package com.radware.vision.bddtests.clioperation.menu.system.backup;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.test_parameters.ImportExport;
 import com.radware.vision.test_parameters.ImportExport.ImportExportType;
-import com.radware.vision.test_parameters.VisionServerConstants;
-import com.radware.vision.vision_handlers.common.InvokeCommon;
-import com.radware.vision.vision_handlers.file_server.LinuxFileServerVerifications;
-import com.radware.vision.vision_handlers.root.RootVerifications;
-import com.radware.vision.vision_handlers.system.ConfBackup;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_tests.CliTests;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.TestParameters.VisionServerconstants;
+import com.radware.vision.system.ConfBackup;
 import cucumber.api.java.en.When;
 
+
 public class ConfBackupSteps extends TestBase {
-    private static String confB0 = "confB0" + CliTests.backupFileSufix;
-    private static String confB1 = "confB1" + CliTests.backupFileSufix;
-    private static String confB2 = "confB2" + CliTests.backupFileSufix;
-    private static String confB3 = "confB3" + CliTests.backupFileSufix;
-    private static String confB4 = "confB4" + CliTests.backupFileSufix;
-    private static String confB5 = "confB5" + CliTests.backupFileSufix;
-    private static String confB6 = "confB6" + CliTests.backupFileSufix;
+    private static final String confB0 = "confB0" + ConfBackup.backupFileSufix;
+    private static final String confB1 = "confB1" + ConfBackup.backupFileSufix;
+    private static final String confB2 = "confB2" + ConfBackup.backupFileSufix;
+    private static final String confB3 = "confB3" + ConfBackup.backupFileSufix;
+    private static final String confB4 = "confB4" + ConfBackup.backupFileSufix;
+    private static final String confB5 = "confB5" + ConfBackup.backupFileSufix;
+    private static final String confB6 = "confB6" + ConfBackup.backupFileSufix;
+    private static final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+    private static final RootServerCli rootServerCLI = serversManagement.getRootServerCLI().get();
+    private static final LinuxFileServer linuxFileServer = serversManagement.getLinuxFileServer().get();
     String path = "/tmp/";
 
     @When("^CLI Create configuration backup with name \"(.*)\"$")
     public void createConfigurationBackup(String backupName) {
-        ConfBackup.createConfigurationBackup(backupName, "created_by_automation", restTestBase.getRadwareServerCli());
+        ConfBackup.createConfigurationBackup(backupName, "created_by_automation", radwareServerCli);
     }
 
     @When("^CLI Delete configuration backup with name \"(.*)\"$")
     public void deleteConfigurationBackup(String backupName) {
-        ConfBackup.deleteConfigurationBackup(backupName, restTestBase.getRadwareServerCli());
+        ConfBackup.deleteConfigurationBackup(backupName, radwareServerCli);
     }
 
     @When("^CLI Restore configuration backup with name \"(.*)\"$")
     public void restoreConfigurationBackup(String backupName) {
-        ConfBackup.restoreConfigurationBackup(backupName, restTestBase.getRadwareServerCli());
+        ConfBackup.restoreConfigurationBackup(backupName, radwareServerCli);
     }
 
     @When("^CLI Export configuration backup with name \"(.*)\" to remote server using \"(.*)\" protocol$")
     public void exportConfigurationBackup(String backupName, String protocol) {
         ImportExportType importExportType = ImportExportType.valueOf(protocol);
-        ConfBackup.exportConfigurationBackup(backupName, restTestBase.getRadwareServerCli(),
+        ConfBackup.exportConfigurationBackup(backupName, radwareServerCli,
                 importExportType.toString() + "://root@"
-                        + restTestBase.getLinuxFileServer().getHost() + ":"
+                        + linuxFileServer.getHost() + ":"
                         + ImportExport.getPath(importExportType) + backupName
-                , restTestBase.getLinuxFileServer().getPassword());
+                , linuxFileServer.getPassword());
     }
 
     @When("^CLI Import configuration backup with name \"(.*)\" from remote server using \"(.*)\" protocol$")
     public void importConfigurationBackup(String backupName, String protocol) {
         ImportExportType importExportType = ImportExportType.valueOf(protocol);
-        ConfBackup.importConfigurationBackup(backupName, restTestBase.getRadwareServerCli(),
+        ConfBackup.importConfigurationBackup(backupName, radwareServerCli,
                 importExportType.toString() + "://root@"
-                        + restTestBase.getLinuxFileServer().getHost() + ":"
+                        + linuxFileServer.getHost() + ":"
                         + ImportExport.getPath(importExportType)
-                , restTestBase.getLinuxFileServer().getPassword());
+                , linuxFileServer.getPassword());
     }
 
     /**
@@ -68,7 +71,7 @@ public class ConfBackupSteps extends TestBase {
     public void systemConfBackupSubMenu() {
 
         try {
-            ConfBackup.systemConfBackupSubMenuCheck(restTestBase.getRadwareServerCli());
+            ConfBackup.systemConfBackupSubMenuCheck(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -81,10 +84,10 @@ public class ConfBackupSteps extends TestBase {
     public void confBackupCreateMaxNumber() {
         try {
             afterMethod();
-            ConfBackup.confBackupCreate(confB0, "0created_by_automation", restTestBase.getRadwareServerCli());
-            RootVerifications.verifyDirectoryExists(VisionServerConstants.VISION_CONFBACKUP_PATH + confB0 + "/", restTestBase.getRootServerCli());
-            ConfBackup.confBackupInfo(confB0, "0created_by_automation", VisionServerConstants.VISION_CONFBACKUP_PATH + confB0 + "/", restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
-            ConfBackup.confBackupRestore(confB0, restTestBase.getRadwareServerCli());
+            ConfBackup.confBackupCreate(confB0, "0created_by_automation", radwareServerCli);
+            CliOperations.verifyDirectoryExists(VisionServerconstants.VISION_CONFBACKUP_PATH + confB0 + "/", rootServerCLI);
+            ConfBackup.confBackupInfo(confB0, "0created_by_automation", VisionServerconstants.VISION_CONFBACKUP_PATH + confB0 + "/", radwareServerCli, rootServerCLI);
+            ConfBackup.confBackupRestore(confB0, radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -98,15 +101,15 @@ public class ConfBackupSteps extends TestBase {
     public void confBackupSaveTest() {
         try {
             afterMethod();
-            ConfBackup.confBackupCreate(confB1, "1created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB2, "2created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB3, "3created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB4, "4created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB5, "5created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB6, "6created_by_automation", restTestBase.getRadwareServerCli());
+            ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
+            ConfBackup.confBackupCreate(confB2, "2created_by_automation", radwareServerCli);
+            ConfBackup.confBackupCreate(confB3, "3created_by_automation", radwareServerCli);
+            ConfBackup.confBackupCreate(confB4, "4created_by_automation", radwareServerCli);
+            ConfBackup.confBackupCreate(confB5, "5created_by_automation", radwareServerCli);
+            ConfBackup.confBackupCreate(confB6, "6created_by_automation", radwareServerCli);
             String[] confBackupNames = {confB2, confB3, confB4, confB5, confB6};
-            ConfBackup.verifyConfBackupListRadware(confBackupNames, restTestBase.getRadwareServerCli());
-            ConfBackup.verifyConfBackupListRoot(confBackupNames, restTestBase.getRootServerCli());
+            ConfBackup.verifyConfBackupListRadware(confBackupNames, radwareServerCli);
+            ConfBackup.verifyConfBackupListRoot(confBackupNames, rootServerCLI);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -122,10 +125,10 @@ public class ConfBackupSteps extends TestBase {
     @When("^CLI Conf Backup Info$")
     public void confBackupInfo() {
         try {
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB1, "1created_by_automation", restTestBase.getRadwareServerCli());
-            RootVerifications.verifyDirectoryExists(VisionServerConstants.VISION_CONFBACKUP_PATH + confB1 + "/", restTestBase.getRootServerCli());
-            ConfBackup.confBackupInfo(confB1, "1created_by_automation", VisionServerConstants.VISION_CONFBACKUP_PATH + confB1 + "/", restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
+            ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
+            CliOperations.verifyDirectoryExists(VisionServerconstants.VISION_CONFBACKUP_PATH + confB1 + "/", rootServerCLI);
+            ConfBackup.confBackupInfo(confB1, "1created_by_automation", VisionServerconstants.VISION_CONFBACKUP_PATH + confB1 + "/", radwareServerCli, rootServerCLI);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -146,11 +149,11 @@ public class ConfBackupSteps extends TestBase {
             afterMethod();
             String[] confBackupNames = {confB2, confB3, confB4, confB5, confB6};
             for (int i = 0; i < confBackupNames.length; i++) {
-                ConfBackup.confBackupCreate(confBackupNames[i], Integer.toString(i + 2) + "created_by_automation", restTestBase.getRadwareServerCli());
+                ConfBackup.confBackupCreate(confBackupNames[i], Integer.toString(i + 2) + "created_by_automation", radwareServerCli);
             }
-            ConfBackup.confBackupList(restTestBase.getRadwareServerCli(), confBackupNames);
-            RootVerifications.verifyLinuxOSParamsViaRootText("ll " + VisionServerConstants.VISION_STORAGE_BACKUP_DIR + " | grep ConfBackup", confBackupNames, restTestBase.getRootServerCli());
-            RootVerifications.verifyLinuxOSParamsViaRootText("ll " + VisionServerConstants.VISION_STORAGE_BACKUP_DIR + " | grep ConfBackup -c ", "5", restTestBase.getRootServerCli());
+            ConfBackup.confBackupList(radwareServerCli, confBackupNames);
+              ConfBackup.verifyLinuxOSParamsViaRootText("ll " + VisionServerconstants.VISION_STORAGE_BACKUP_DIR + " | grep ConfBackup", confBackupNames, rootServerCLI);
+              ConfBackup.verifyLinuxOSParamsViaRootText("ll " + VisionServerconstants.VISION_STORAGE_BACKUP_DIR + " | grep ConfBackup -c ", "5", rootServerCLI);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -183,10 +186,10 @@ public class ConfBackupSteps extends TestBase {
     private void systemConfBackupExport(ImportExportType importExportType, String username) {
 
         try {
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB1, "1created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.exportConfBackup(confB1, restTestBase.getRadwareServerCli(), importExportType.toString() + "://" + username + "@" + restTestBase.getLinuxFileServer().getHost() + ":" + ImportExport.getPath(importExportType) + confB1, restTestBase.getLinuxFileServer().getPassword());
-            LinuxFileServerVerifications.verifyDirectoryExists("ls " + ImportExport.getPath(importExportType) + confB1 + ".tar", restTestBase.getLinuxFileServer());
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
+            ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
+            ConfBackup.exportConfBackup(confB1, radwareServerCli, importExportType.toString() + "://" + username + "@" + linuxFileServer.getHost() + ":" + ImportExport.getPath(importExportType) + confB1, linuxFileServer.getPassword());
+            CliOperations.verifyDirectoryExists("ls " + ImportExport.getPath(importExportType) + confB1 + ".tar", linuxFileServer);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -197,30 +200,17 @@ public class ConfBackupSteps extends TestBase {
     @When("^CLI System backup Export \"(.*)\" Protocol$")
     public void systemBackupTwoMachines(String protocol) {
         try {
-            String targetIP = restTestBase.getRootServerCli().getHost();
-            String sourceIP = restTestBase.getVisionServerHA().getHost_2();
-            RadwareServerCli sourceServerCli = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            String targetIP = clientConfigurations.getHostIp();
+            String sourceIP = sutManager.getpair().getPairIp();
+            RadwareServerCli radwareServerCli = ConfBackupSteps.radwareServerCli;
+            RadwareServerCli sourceServerCli = new RadwareServerCli(sourceIP, radwareServerCli.getUser(), radwareServerCli.getPassword());
             sourceServerCli.disconnect();
             sourceServerCli.init();
             sourceServerCli.connect();
-            ConfBackup.deleteConfBackup(confB1, sourceServerCli);
+            ConfBackup.deleteConfBackup(confB1,  sourceServerCli);
             ConfBackup.confBackupCreate(confB1, "1created_by_automation", sourceServerCli);
             sourceServerCli.connect();
-            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, restTestBase.getRadwareServerCli().getPassword());
-
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-        afterMethod();
-    }
-
-    @When("^CLI System restore backup \"(.*)\" Protocol$")
-    public void systemBackupRestoreTwoMachines(String protocol) {
-        try {
-            String targetIP = restTestBase.getRootServerCli().getHost();
-            restTestBase.getRadwareServerCli().connect();
-            ConfBackup.importConfigurationBackup(confB1, restTestBase.getRadwareServerCli(), protocol + "://" + "root" + "@" + targetIP + ":" + path , "radware");
-            ConfBackup.confBackupRestore(confB1, restTestBase.getRadwareServerCli());
+            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, ConfBackupSteps.radwareServerCli.getPassword());
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -228,20 +218,34 @@ public class ConfBackupSteps extends TestBase {
 //        afterMethod();
     }
 
+    @When("^CLI System restore backup \"(.*)\" Protocol$")
+    public void systemBackupRestoreTwoMachines(String protocol) {
+        try {
+            String targetIP = rootServerCLI.getHost();
+            radwareServerCli.connect();
+            ConfBackup.importConfigurationBackup(confB1, radwareServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path , "radware");
+            ConfBackup.confBackupRestore(confB1, radwareServerCli);
+
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+        afterMethod();
+    }
+
 
     @When("^CLI Verify Backup and Restore two machines with \"(.*)\" Protocol$")
     public void systemBackupAndRestoreTwoMachines(String protocol) {
         try {
-            String targetIP = restTestBase.getRootServerCli().getHost();
-            String sourceIP = restTestBase.getVisionServerHA().getHost_2();
-            RadwareServerCli sourceServerCli = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            String targetIP = radwareServerCli.getHost();
+            String sourceIP = sutManager.getpair().getPairIp();
+            RadwareServerCli sourceServerCli = new RadwareServerCli(sourceIP, radwareServerCli.getUser(), radwareServerCli.getPassword());
             sourceServerCli.init();
             ConfBackup.deleteConfBackup(confB1, sourceServerCli);
             ConfBackup.confBackupCreate(confB1, "1created_by_automation", sourceServerCli);
-            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, restTestBase.getLinuxFileServer().getPassword());
-            restTestBase.getRadwareServerCli().connect();
-            ConfBackup.importConfigurationBackup(confB1, restTestBase.getRadwareServerCli(), protocol + "://" + "root" + "@" + targetIP + ":" + path , "radware");
-            ConfBackup.confBackupRestore(confB1, restTestBase.getRadwareServerCli());
+            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, linuxFileServer.getPassword());
+            radwareServerCli.connect();
+            ConfBackup.importConfigurationBackup(confB1, radwareServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path , "radware");
+            ConfBackup.confBackupRestore(confB1, radwareServerCli);
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -269,9 +273,9 @@ public class ConfBackupSteps extends TestBase {
     public void systemConfBackupExportFile() {
 
         try {
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB1, "1created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.exportConfBackupFile(confB1, restTestBase.getRadwareServerCli());
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
+            ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
+            ConfBackup.exportConfBackupFile(confB1, radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -286,9 +290,9 @@ public class ConfBackupSteps extends TestBase {
     @When("^CLI Verify System Conf Backup Create$")
     public void systemConfBackupCreate() {
         try {
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB1, "1created_by_automation", restTestBase.getRadwareServerCli());
-            RootVerifications.verifyDirectoryExists(VisionServerConstants.VISION_CONFBACKUP_PATH + confB1 + "/", restTestBase.getRootServerCli());
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
+            ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
+            CliOperations.verifyDirectoryExists(VisionServerconstants.VISION_CONFBACKUP_PATH + confB1 + "/", rootServerCLI);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -304,14 +308,14 @@ public class ConfBackupSteps extends TestBase {
     @When("^CLI Verify System Conf Backup Restore$")
     public void systemConfBackupRestore() throws Exception {
         try {
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB1, "1created_by_automation", restTestBase.getRadwareServerCli());
-            RootVerifications.verifyDirectoryExists(VisionServerConstants.VISION_CONFBACKUP_PATH + confB1 + "/", restTestBase.getRootServerCli());
-            ConfBackup.confBackupRestore(confB1, restTestBase.getRadwareServerCli());
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
+            ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
+            CliOperations.verifyDirectoryExists(VisionServerconstants.VISION_CONFBACKUP_PATH + confB1 + "/", radwareServerCli);
+            ConfBackup.confBackupRestore(confB1, radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         } finally {
-            InvokeCommon.repairTheRestore(restTestBase.getRadwareServerCli(), "10.205.1.1");
+            ConfBackup.repairTheRestore(radwareServerCli, "10.205.1.1");
             afterMethod();
         }
 
@@ -328,18 +332,17 @@ public class ConfBackupSteps extends TestBase {
     public void systemConfBackupDelete() {
         try {
             afterMethod();
-            ConfBackup.confBackupCreate(confB2, "2created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB3, "3created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB4, "4created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB5, "5created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB6, "6created_by_automation", restTestBase.getRadwareServerCli());
-
+            ConfBackup.confBackupCreate(confB2, "2created_by_automation", radwareServerCli);
+            ConfBackup.confBackupCreate(confB3, "3created_by_automation", radwareServerCli);
+            ConfBackup.confBackupCreate(confB4, "4created_by_automation", radwareServerCli);
+            ConfBackup.confBackupCreate(confB5, "5created_by_automation", radwareServerCli);
+            ConfBackup.confBackupCreate(confB6, "6created_by_automation", radwareServerCli);
             String[] confBackupNames = {confB2, confB3, confB4, confB5, confB6};
-            ConfBackup.verifyConfBackupListRadware(confBackupNames, restTestBase.getRadwareServerCli());
+            ConfBackup.verifyConfBackupListRadware(confBackupNames, radwareServerCli);
 
-            ConfBackup.deleteConfBackup(confB3, restTestBase.getRadwareServerCli());
+            ConfBackup.deleteConfBackup(confB3, radwareServerCli);
             String[] confBackupNamesAfterDelete = {confB2, confB4, confB5, confB6};
-            ConfBackup.verifyConfBackupListRoot(confBackupNamesAfterDelete, restTestBase.getRootServerCli());
+            ConfBackup.verifyConfBackupListRoot(confBackupNamesAfterDelete, rootServerCLI);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -350,15 +353,15 @@ public class ConfBackupSteps extends TestBase {
     private void systemBackupImport(ImportExportType importExportType, String username) {
 
         try {
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB1, "1created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.exportConfBackup(confB1, restTestBase.getRadwareServerCli(), importExportType.toString() + "://" + username + "@" + restTestBase.getLinuxFileServer().getHost() + ":" + ImportExport.getPath(importExportType) + confB1, restTestBase.getLinuxFileServer().getPassword());
-            LinuxFileServerVerifications.getLsString(ImportExport.getPath(importExportType) + confB1 + ".tar", confB1, restTestBase.getLinuxFileServer());
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
+            ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
+            ConfBackup.exportConfBackup(confB1, radwareServerCli, importExportType.toString() + "://" + username + "@" + linuxFileServer.getHost() + ":" + ImportExport.getPath(importExportType) + confB1, linuxFileServer.getPassword());
+            ConfBackup.getLsString(ImportExport.getPath(importExportType) + confB1 + ".tar", confB1, linuxFileServer);
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
             String[] confBackupNameArr = {confB1};
-            ConfBackup.verifyConfBackupNotInListRadware(confBackupNameArr, restTestBase.getRadwareServerCli());
-            ConfBackup.importConfBackup(confB1, restTestBase.getRadwareServerCli(), importExportType.toString() + "://" + username + "@" + restTestBase.getLinuxFileServer().getHost() + ":" + ImportExport.getPath(importExportType), restTestBase.getLinuxFileServer().getPassword());
-            ConfBackup.verifyConfBackupListRadware(confBackupNameArr, restTestBase.getRadwareServerCli());
+            ConfBackup.verifyConfBackupNotInListRadware(confBackupNameArr, radwareServerCli);
+            ConfBackup.importConfBackup(confB1, radwareServerCli, importExportType.toString() + "://" + username + "@" + linuxFileServer.getHost() + ":" + ImportExport.getPath(importExportType), linuxFileServer.getPassword());
+            ConfBackup.verifyConfBackupListRadware(confBackupNameArr, radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -406,14 +409,14 @@ public class ConfBackupSteps extends TestBase {
     public void systemBackupImportFile() {
 
         try {
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.confBackupCreate(confB1, "1created_by_automation", restTestBase.getRadwareServerCli());
-            ConfBackup.exportConfBackupFile(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
+            ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
+            ConfBackup.exportConfBackupFile(confB1, radwareServerCli);
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
             String[] confBackupNameArr = {confB1};
-            ConfBackup.verifyConfBackupNotInListRadware(confBackupNameArr, restTestBase.getRadwareServerCli());
-            ConfBackup.importConfBackupFile(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.verifyConfBackupListRadware(confBackupNameArr, restTestBase.getRadwareServerCli());
+            ConfBackup.verifyConfBackupNotInListRadware(confBackupNameArr, radwareServerCli);
+            ConfBackup.importConfBackupFile(confB1, radwareServerCli);
+            ConfBackup.verifyConfBackupListRadware(confBackupNameArr, radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -424,13 +427,13 @@ public class ConfBackupSteps extends TestBase {
     //***********************************After methods**********************************************************
     private void afterMethod() {
         try {
-            ConfBackup.deleteConfBackup(confB0, restTestBase.getRadwareServerCli());
-            ConfBackup.deleteConfBackup(confB1, restTestBase.getRadwareServerCli());
-            ConfBackup.deleteConfBackup(confB2, restTestBase.getRadwareServerCli());
-            ConfBackup.deleteConfBackup(confB3, restTestBase.getRadwareServerCli());
-            ConfBackup.deleteConfBackup(confB4, restTestBase.getRadwareServerCli());
-            ConfBackup.deleteConfBackup(confB5, restTestBase.getRadwareServerCli());
-            ConfBackup.deleteConfBackup(confB6, restTestBase.getRadwareServerCli());
+            ConfBackup.deleteConfBackup(confB0, radwareServerCli);
+            ConfBackup.deleteConfBackup(confB1, radwareServerCli);
+            ConfBackup.deleteConfBackup(confB2, radwareServerCli);
+            ConfBackup.deleteConfBackup(confB3, radwareServerCli);
+            ConfBackup.deleteConfBackup(confB4, radwareServerCli);
+            ConfBackup.deleteConfBackup(confB5, radwareServerCli);
+            ConfBackup.deleteConfBackup(confB6, radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
