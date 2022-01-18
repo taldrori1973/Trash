@@ -12,6 +12,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
 import com.radware.vision.infra.enums.*;
+import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.deviceoperations.DeviceOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import cucumber.api.java.en.Given;
@@ -90,7 +91,7 @@ public class DeviceOperationSteps extends VisionUITestBase {
     @When("^UI verify Device Status( physical)? \"(.*)\" if Expected device Status \"(.*)\"(?: set timeout (\\d+) seconds)?$")
     public void verifyDeviceStatusSites(String treeTab, String deviceSetId, String expectedDeviceStatus, Integer timeout) {
         try {
-            timeout = timeout == null? 60 : timeout;
+            timeout = timeout == null ? 60 * 1000 : timeout * 1000;
             TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
             String deviceStatus = "";
             long startTime = System.currentTimeMillis();
@@ -99,17 +100,17 @@ public class DeviceOperationSteps extends VisionUITestBase {
                 try {
                     deviceStatus = (treeTab != null) ? TopologyTreeHandler.getDeviceStatusPhysical(deviceInfo.getDeviceName()) : TopologyTreeHandler.getDeviceStatusSites(deviceInfo.getDeviceName());
                     if (DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus) == DeviceStatusEnum.UP_OR_MAINTENANCE) {
-                        if ( deviceStatus.equals(DeviceStatusEnum.UP.getStatus() ) || deviceStatus.equals(DeviceStatusEnum.MAINTENANCE.getStatus() ) ) {
+                        if (deviceStatus.equals(DeviceStatusEnum.UP.getStatus()) || deviceStatus.equals(DeviceStatusEnum.MAINTENANCE.getStatus()))
                             return;
-                        }
                     } else {
-                        if (deviceStatus.equals(DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus).getStatus() ) ) {
+                        if (deviceStatus.equals(DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus).getStatus()))
                             return;
-                        }
                     }
-                } catch (Exception var6) {
-                    Thread.sleep(10000L);
+                } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
                 }
+                Thread.sleep(10000L);
+                BasicOperationsHandler.refresh();
             }
             BaseTestUtils.report("Device " + deviceInfo.getDeviceName() + " " + "did not reach status: " +
                     expectedDeviceStatus + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
