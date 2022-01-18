@@ -36,38 +36,37 @@ Feature: Defense Flow Forensic Wizard
   @SID_4 @Sanity
   Scenario: Run DF attacks
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "/home/radware/curl_DF_attacks-auto_PO_101.sh "                     |
-      | #visionIP |
-      | " Terminated" |
+      | "/home/radware/curl_DF_attacks-auto_PO_101.sh " |
+      | #visionIP                                       |
+      | " Terminated"                                   |
 
-  
+
   @SID_5 @Sanity
   Scenario: create forensic definition Wizard_test
     Given UI "Create" Forensics With Name "Wizard_test"
-      | Product | DefenseFlow |
-      | Output  | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps |
-      | Time Definitions.Date | Quick:1D |
-      | Format | Select: CSV |
-      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps       |
+      | Time Definitions.Date | Quick:1D                                                                                                         |
+      | Format                | Select: CSV                                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
 
-  
   @SID_6 @Sanity
   Scenario: create forensic definition Second_view
     Given UI "Create" Forensics With Name "Source_Address"
-      | Product | DefenseFlow |
-      | Criteria | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:100.100.100.103; |
-      | Output  | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps |
-      | Time Definitions.Date | Quick:1D |
-      | Format | Select: CSV |
-      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Product               | DefenseFlow                                                                                                      |
+      | Criteria              | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:100.100.100.103;                                    |
+      | Output                | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps       |
+      | Time Definitions.Date | Quick:1D                                                                                                         |
+      | Format                | Select: CSV                                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
-  
+
   @SID_7 @Sanity
   Scenario: Forensic wizard test Validate ForensicsView
     Then UI Click Button "My Forensics" with value "Wizard_test"
     Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Wizard_test"
-  
+
   @SID_8 @Sanity
   Scenario: Forensic wizard test Generate Wizard_test
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Wizard_test"
@@ -92,29 +91,29 @@ Feature: Defense Flow Forensic Wizard
     And Sleep "1"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Wizard_test"
 
-  
+
   @SID_11 @Sanity
   Scenario: Forensic Source_Address Validate ForensicsView
     Then UI Click Button "My Forensics" with value "Source_Address"
     Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Source_Address"
 
-  
+
   @SID_12 @Sanity
   Scenario: Forensic wizard test Generate Source_Address
     When UI Click Button "Generate Snapshot Forensics Manually" with value "Source_Address"
     When UI Click Button "Views.Forensic" with value "Source_Address,0"
 
-  
+
   @SID_13
   Scenario: Forensic wizard test Validate Table
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
-      | columnName | value |
-      | Source IP Address     | 100.100.100.103  |
+      | columnName        | value           |
+      | Source IP Address | 100.100.100.103 |
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy index 0
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
     Then UI Click Button "Forensics.Attack Details.Close"
 
-  
+
   @SID_14
   Scenario: Validate attack details refine by Action
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "HTTP (recv.pps)"
@@ -123,6 +122,7 @@ Feature: Defense Flow Forensic Wizard
       | Attack Name |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
     * UI Click Button "Clear Refine"
+
   @SID_15
   Scenario: VRM - Validate Forensic "Source_Address" Delete Wizard
     Then UI Click Button "Delete Forensics" with value "Source_Address"
@@ -135,24 +135,24 @@ Feature: Defense Flow Forensic Wizard
 
 #    ------------------- Ahlam - Add test for Connection PPS  -----------------
 
-  
+
   @SID_16
   Scenario: create forensic definition Category_ConnectionPPS
     Given UI "Create" Forensics With Name "Category_ConnectionPPS"
-      | Product | DefenseFlow |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]                       |
-      | Output  | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps |
-      | Time Definitions.Date | Quick:1D |
-      | Format | Select: CSV |
-      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Product               | DefenseFlow                                                                                                      |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]                                            |
+      | Output                | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps       |
+      | Time Definitions.Date | Quick:1D                                                                                                         |
+      | Format                | Select: CSV                                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
-  
+
   @SID_17
   Scenario: Forensic Category_ConnectionPPS Validate ForensicsView
     Then UI Click Button "My Forensics" with value "Category_ConnectionPPS"
     Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Category_ConnectionPPS"
 
-  
+
   @SID_18
   Scenario: Forensic wizard test Generate Category_ConnectionPPS
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category_ConnectionPPS"
@@ -161,6 +161,12 @@ Feature: Defense Flow Forensic Wizard
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 
   @SID_19 @Sanity
+  Scenario: Change DF management IP to IP of Vision DF
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "system df management-ip set " |
+      | @defenseFlowDevice.getDeviceIp |
+
+  @SID_20 @Sanity
   Scenario: Logout
     When UI logout and close browser
     Then CLI Check if logs contains
