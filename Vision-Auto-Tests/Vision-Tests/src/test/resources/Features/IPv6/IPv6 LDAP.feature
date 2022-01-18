@@ -39,7 +39,7 @@ Feature: IPv6 LDAP Login
     And UI Logout
     #LDAP setting - set Authentication Mode LDAP
     When CLI Operations - Run Radware Session command "system user authentication-mode set LDAP"
-    Then UI Login with user "ldapAuto" and password "radware"
+    Then UI Login with user "shaytest" and password "radware"
 
   @SID_4
   Scenario: LDAP setting - set Authentication Mode LOCAL
