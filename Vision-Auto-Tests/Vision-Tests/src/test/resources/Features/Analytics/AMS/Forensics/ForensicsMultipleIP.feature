@@ -26,7 +26,7 @@ Feature: Forensics Multiple IP
   @SID_4
   Scenario: VRM - Add New Forensics Report criteria - Destination IP - Equals
     When UI "Create" Forensics With Name "Destination IP Criteria"
-      | devices  | SetId:DefensePro_Set_1                                                                     |
+      | SetId    | DefensePro_Set_1                                                             |
       | Criteria | Event Criteria:Destination IP,Operator:Equals,IPType:IPv4,IPValue:10.0.0.18; |
       | Output   | Attack Name,Attack ID,Source IP Address,Destination IP Address,Protocol      |
 #    When UI Generate and Validate Forensics With Name "Destination IP Criteria" with Timeout of 180 Seconds
@@ -51,7 +51,7 @@ Feature: Forensics Multiple IP
   @SID_5
   Scenario: VRM - Add New Forensics Report criteria - Destination IP - Not Equals
     When UI "Create" Forensics With Name "Not Equals Destination IP Criteria"
-      | devices  | SetId:DefensePro_Set_1                                                                         |
+      | SetId    | DefensePro_Set_1                                                             |
       | Criteria | Event Criteria:Destination IP,Operator:Not Equals,IPType:IPv4,IPValue:10.0.0.18; |
       | Output   | Attack Name,Attack ID,Source IP Address,Destination IP Address                   |
 #    When UI Generate and Validate Forensics With Name "Not Equals Destination IP Criteria" with Timeout of 180 Seconds
@@ -66,7 +66,7 @@ Feature: Forensics Multiple IP
   @SID_6
   Scenario: VRM - Add New Forensics Report criteria - Source IP - Equals
     When UI "Create" Forensics With Name "Source IP Criteria"
-      | devices  | SetId:DefensePro_Set_1                                                                 |
+      | SetId    | DefensePro_Set_1                                                         |
       | Criteria | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:192.85.1.2; |
       | Output   | Attack Name,Attack ID,Source IP Address,Destination IP Address           |
 #    When UI Generate and Validate Forensics With Name "Source IP Criteria" with Timeout of 180 Seconds
@@ -90,7 +90,7 @@ Feature: Forensics Multiple IP
   @SID_7
   Scenario: VRM - Add New Forensics Report criteria - Source IP - Not Equals
     When UI "Create" Forensics With Name "Not Equals Source IP Criteria"
-      | devices  | SetId:DefensePro_Set_1                                                                     |
+      | SetId    | DefensePro_Set_1                                                             |
       | Criteria | Event Criteria:Source IP,Operator:Not Equals,IPType:IPv4,IPValue:192.85.1.2; |
       | Output   | Attack Name,Attack ID,Source IP Address,Destination IP Address               |
 #    When UI Generate and Validate Forensics With Name "Not Equals Source IP Criteria" with Timeout of 180 Seconds
@@ -105,7 +105,7 @@ Feature: Forensics Multiple IP
   @SID_8
   Scenario: VRM - Add New Forensics Report criteria - All Criteria
     When UI "Create" Forensics With Name "All Criteria"
-      | devices | SetId:DefensePro_Set_1                                                       |
+      | SetId    | DefensePro_Set_1                                              |
       | Output  | Attack Name,Attack ID,Source IP Address,Destination IP Address |
 #    When UI Generate and Validate Forensics With Name "All Criteria" with Timeout of 180 Seconds
     And UI Click Button "My Forensics" with value "All Criteria"

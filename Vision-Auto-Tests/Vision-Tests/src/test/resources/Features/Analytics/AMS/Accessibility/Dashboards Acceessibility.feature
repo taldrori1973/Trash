@@ -43,7 +43,7 @@ Feature: VRM AMS dashboard Accessibility
     Given UI Click Button "Accessibility Open Menu"
     Then UI Click Button "Accessibility Auto Refresh" with value "Stop Auto-Refresh"
     Then UI Click Button "Accessibility Close"
-    Then CLI simulate 80 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 35 seconds
+    Then CLI simulate 80 attacks of type "baselines_pol_1" on SetId "DefensePro_set_1" with loopDelay 15000 and wait 35 seconds
     Then UI Validate Element Existence By Label "Peace Time" if Exists "true"
     Then Sleep "63"
     Then UI Validate Element Existence By Label "Peace Time" if Exists "true"

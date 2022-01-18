@@ -20,7 +20,7 @@ Feature: DefensePro Behavioral CSV report
     Given CLI kill all simulator attacks on current vision
     Given CLI Clear vision logs
     Then REST Delete ES index "dp-*"
-    Given CLI simulate 200 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
+    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_4
   Scenario: Navigate to NEW REPORTS page
