@@ -1310,32 +1310,9 @@ Feature: VRM DNS baselines
       | value | count | offset |
       | 110   | 13    | 6      |
 
-  @SID_26
-  Scenario: DNS baselines add all baselines types
-    When UI VRM Clear All Widgets
-    And UI VRM Select Widgets
-      | DNS-A     |
-      | DNS-TXT   |
-      | DNS-AAAA  |
-      | DNS-MX    |
-      | DNS-NAPTR |
-      | DNS-PTR   |
-      | DNS-SOA   |
-      | DNS-SRV   |
-      | DNS-Other |
-
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-TXT-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-AAAA-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-MX-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-PTR-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SOA-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SRV-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-Other-1,IPv6"
-
-#    Then UI Open "Configurations" Tab
     Then UI logout and close browser
 
-  @SID_27
+  @SID_26
   Scenario: DNS baselines check logs
     Then CLI kill all simulator attacks on current vision
     Then CLI Check if logs contains
