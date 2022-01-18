@@ -17,7 +17,7 @@
     Then Sleep "60"
     @SID_4
     Scenario: Lock and verify Alteon status
-      Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 2 with timeout 300
+      Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 2 with timeout 300 seconds
       Then UI verify Device Status "Alteon_Set_5" if Expected device Status "Up or Maintenance"
       Then UI Lock Device "Alteon_Set_5" under "Sites And Devices"
     @SID_5
