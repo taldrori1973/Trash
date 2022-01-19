@@ -1262,10 +1262,11 @@ Feature: VRM DNS baselines
     Then Sleep "1"
     Then UI Click Button "Behavioral Tab" with value "DNS"
    # Then UI Open "DP DNS Baseline" Sub Tab
-    Then UI Do Operation "Select" item "Global Time Filter"
-    Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
-    Then UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
+    When UI Do Operation "Select" item "Global Time Filter"
+    Then Sleep "1"
+    When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
+    And UI Do Operation "Select" item "Device Selection"
+    And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       | pol_1    |
     Then UI VRM Clear All Widgets
