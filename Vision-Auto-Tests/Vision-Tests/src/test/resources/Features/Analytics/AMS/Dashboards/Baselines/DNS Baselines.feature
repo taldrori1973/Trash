@@ -1102,23 +1102,23 @@ Feature: VRM DNS baselines
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-SRV" with Label "Suspected Edge"
       | value | count | offset |
-      | 184   | 13    | 9      |
+      | 184   | 13    | 10     |
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Normal Edge"
       | value | count | offset |
-      | 190   | 13    | 9      |
+      | 190   | 13    | 10     |
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Attack Edge"
       | value | count | offset |
-      | 189   |   13  | 9      |
+      | 189   |   13  | 10     |
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 240   | 13    | 9      |
+      | 240   | 13    | 10     |
 
     And UI Validate Line Chart data "DNS-SRV" with Label "Total Traffic"
       | value | count | offset |
-      | 260   | 13    | 9      |
+      | 260   | 13    | 10     |
 
   # END DNS SRV
 
@@ -1262,10 +1262,11 @@ Feature: VRM DNS baselines
     Then Sleep "1"
     Then UI Click Button "Behavioral Tab" with value "DNS"
    # Then UI Open "DP DNS Baseline" Sub Tab
-    Then UI Do Operation "Select" item "Global Time Filter"
-    Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
-    Then UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
+    When UI Do Operation "Select" item "Global Time Filter"
+    Then Sleep "1"
+    When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
+    And UI Do Operation "Select" item "Device Selection"
+    And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       | pol_1    |
     Then UI VRM Clear All Widgets
@@ -1310,32 +1311,9 @@ Feature: VRM DNS baselines
       | value | count | offset |
       | 110   | 13    | 6      |
 
-  @SID_26
-  Scenario: DNS baselines add all baselines types
-    When UI VRM Clear All Widgets
-    And UI VRM Select Widgets
-      | DNS-A     |
-      | DNS-TXT   |
-      | DNS-AAAA  |
-      | DNS-MX    |
-      | DNS-NAPTR |
-      | DNS-PTR   |
-      | DNS-SOA   |
-      | DNS-SRV   |
-      | DNS-Other |
-
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-TXT-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-AAAA-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-MX-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-PTR-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SOA-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SRV-1,IPv6"
-    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-Other-1,IPv6"
-
-#    Then UI Open "Configurations" Tab
     Then UI logout and close browser
 
-  @SID_27
+  @SID_26
   Scenario: DNS baselines check logs
     Then CLI kill all simulator attacks on current vision
     Then CLI Check if logs contains

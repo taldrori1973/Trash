@@ -126,13 +126,15 @@ Feature: DefensePro Behavioral DNS General Tests
 #      | value | count | offset |
 #      | 110   | 13    | 6      |
 
+  @SID_6
+  Scenario: Remove DNS Widgets
     Then UI Click Button "Widget remove" with value "DNS-TXT"
     Then UI Click Button "Widget remove" with value "DNS-MX"
     Then UI Click Button "Widget remove" with value "DNS-AAAA"
     Then UI Click Button "Widget remove" with value "DNS-SRV"
 
 
-  @SID_8
+  @SID_7
   Scenario: Validate Charts existence
     Then UI Click Button "Behavioral Tab" with value "BDoS"
     Then Sleep "2"
@@ -147,15 +149,21 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-PTR"
 
-  @SID_9
+  @SID_8
   Scenario: Settings label for DNS-A Chart
     And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-A,IPv4"
     And UI Click Button "Chart Settings" with value "DNS-A"
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
+    Then UI validate Checkbox by label "DPPolicycheck" if Selected "false"
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,19_Characters_19_Ch"
     Then UI Click Button "Widget Settings Save"
+    And UI Click Button "Chart Settings" with value "DNS-A"
+    Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
+    Then UI validate Checkbox by label "DPPolicycheck" if Selected "true"
+    Then UI Click Button "Widget Settings Cancel"
 
-  @SID_10
+
+  @SID_9
   Scenario: Validate DNS Widget Repository
     Then UI Click Button "Widget Selection"
     Then UI Validate Element Existence By Label "Repository Widget" if Exists "true" with value "DNS-A"
@@ -173,11 +181,71 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Repository Widget" if Exists "false" with value "BDoS-TCP_SYN_ACK"
     Then UI Validate Element Existence By Label "Repository Widget" if Exists "false" with value "BDoS-TCP_RST"
     Then UI Validate Element Existence By Label "Repository Widget" if Exists "false" with value "BDoS-TCP_FIN_ACK"
+    Then UI Validate Element Existence By Label "Repository Widget" if Exists "false" with value "BDoS-TCP_Fragmented"
+    Then UI Validate Element Existence By Label "Repository Widget" if Exists "false" with value "BDoS-UDP_Fragmented"
+    Then UI Validate Element Existence By Label "Repository Widget" if Exists "false" with value "BDoS-ICMP"
+    Then UI Validate Element Existence By Label "Repository Widget" if Exists "false" with value "BDoS-IGMP"
+    Then UI Validate Element Existence By Label "Repository Widget" if Exists "false" with value "Excluded_UDP_Traffic"
     Then UI Click Button "Widget Selection"
 
 
-  @SID_11
+  @SID_10
   Scenario: Validate DNS Default form
+    Then UI Navigate to "Application Dashboard" page via homePage
+    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-TXT"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-MX"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-AAAA"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-SRV"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-SOA"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-Other"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-NAPTR"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-PTR"
+
+  @SID_11
+  Scenario: DNS baselines add all baselines types
+    When UI VRM Clear All Widgets
+    And UI VRM Select Widgets
+      | DNS-A     |
+      | DNS-TXT   |
+      | DNS-AAAA  |
+      | DNS-MX    |
+      | DNS-NAPTR |
+      | DNS-PTR   |
+      | DNS-SOA   |
+      | DNS-SRV   |
+      | DNS-Other |
+
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-TXT-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-AAAA-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-MX-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-PTR-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SOA-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SRV-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-Other-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-NAPTR-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-A-1,IPv6"
+
+  @SID_11
+  Scenario: Validate Default Widgets
+    Then UI Navigate to "Application Dashboard" page via homePage
+    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-TXT"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-MX"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-AAAA"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-SRV"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-SOA"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-Other"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-NAPTR"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-PTR"
+
+  @SID_11
+  Scenario: Validate Default Widgets After Clear ALL
+    When UI VRM Clear All Widgets
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button "Behavioral Tab" with value "DNS"
