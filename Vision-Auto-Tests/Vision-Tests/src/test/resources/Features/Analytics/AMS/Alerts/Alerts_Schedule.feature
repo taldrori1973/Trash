@@ -12,7 +12,7 @@ Feature: VRM Alerts Schedule
 
   @SID_2
   Scenario: Run DP simulator before configuring alerts
-    Given CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10
+    Given CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_set_1"
 
   @SID_3
   Scenario: VRM - Login to VRM "Wizard" Test
@@ -87,7 +87,7 @@ Feature: VRM Alerts Schedule
 
   @SID_12
   Scenario: Run DP simulator
-    Given CLI simulate 1 attacks of type "VRM_Alerts_Schedule" on "DefensePro" 10 and wait 250 seconds
+    Given CLI simulate 1 attacks of type "VRM_Alerts_Schedule" on SetId "DefensePro_set_1" and wait 250 seconds
 
   @SID_13
   Scenario: Validate Alert schedule every minute

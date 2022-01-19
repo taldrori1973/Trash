@@ -16,8 +16,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
   @SID_2
   Scenario: Run DP simulator PCAPs for "Protection Policies" - just traffic
     Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 20 with loopDelay 15000
-    And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000
-    And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000 and wait 60 seconds
+    And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_set_1" with loopDelay 15000
+    And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_set_2" with loopDelay 15000 and wait 60 seconds
 
   @SID_3
   Scenario: Login and navigate to VRM
@@ -257,10 +257,10 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
 
   @SID_17
     Scenario: generate attack for peace time and move it back
-       * CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000
-       * CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10
-       * CLI simulate 1 attacks of type "rest_intrusion_port0" on "DefensePro" 10
-       * CLI simulate 1 attacks of type "Ascan_Policy14" on "DefensePro" 10 and wait 30 seconds
+       * CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_set_1" with loopDelay 15000
+       * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_set_1"
+       * CLI simulate 1 attacks of type "rest_intrusion_port0" on SetId "DefensePro_set_1"
+       * CLI simulate 1 attacks of type "Ascan_Policy14" on SetId "DefensePro_set_1" and wait 30 seconds
        # Move the attacks endTime 23 hours and startTime 36 hours backwards
        Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"physicalPort": "0"}},"script": {"inline": "ctx._source.startTime = 'ctx._source.startTime-129600000';ctx._source.endTime = 'ctx._source.endTime-82800000'"}}'" on "ROOT_SERVER_CLI"
        And Sleep "7"

@@ -8,8 +8,8 @@ Feature: Create DP Cluster
     Then UI open Topology Tree view "SitesAndClusters" site
     Then UI Add "DefensePro" with index 7 on "Default" site
     Then UI Add "DefensePro" with index 6 on "Default" site
-    Then UI Wait For Device To Show Up In The Topology Tree "DefensePro" device with index 7 with timeout 300
-    Then UI Wait For Device To Show Up In The Topology Tree "DefensePro" device with index 6 with timeout 300
+    Then UI Wait For Device To Show Up In The Topology Tree "DefensePro" device with index 7 with timeout 300 seconds
+    Then UI Wait For Device To Show Up In The Topology Tree "DefensePro" device with index 6 with timeout 300 seconds
     Then UI Logout
 
   @SID_2

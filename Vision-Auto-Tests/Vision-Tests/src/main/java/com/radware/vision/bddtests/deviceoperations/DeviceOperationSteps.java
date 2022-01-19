@@ -12,6 +12,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
 import com.radware.vision.infra.enums.*;
+import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.deviceoperations.DeviceOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import cucumber.api.java.en.Given;
@@ -87,20 +88,32 @@ public class DeviceOperationSteps extends VisionUITestBase {
         }
     }
 
-    @When("^UI verify Device Status( physical)? \"(.*)\" if Expected device Status \"(.*)\"$")
-    public void verifyDeviceStatusSites(String treeTab, String deviceSetId, String expectedDeviceStatus) {
+    @When("^UI verify Device Status( physical)? \"(.*)\" if Expected device Status \"(.*)\"(?: set timeout (\\d+) seconds)?$")
+    public void verifyDeviceStatusSites(String treeTab, String deviceSetId, String expectedDeviceStatus, Integer timeout) {
         try {
+            timeout = timeout == null ? 60 * 1000 : timeout * 1000;
             TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
-            String deviceStatus = (treeTab != null) ? TopologyTreeHandler.getDeviceStatusPhysical(deviceInfo.getDeviceName()) : TopologyTreeHandler.getDeviceStatusSites(deviceInfo.getDeviceName());
-            if (DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus) == DeviceStatusEnum.UP_OR_MAINTENANCE) {
-                if (!((deviceStatus.equals(DeviceStatusEnum.UP.getStatus())) || (deviceStatus.equals(DeviceStatusEnum.MAINTENANCE.getStatus())))) {
-                    BaseTestUtils.report("Device " + deviceInfo.getDeviceName() + " " + "did not reach status: " + expectedDeviceStatus + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
+            String deviceStatus = "";
+            long startTime = System.currentTimeMillis();
+
+            while (System.currentTimeMillis() - startTime < timeout) {
+                try {
+                    deviceStatus = (treeTab != null) ? TopologyTreeHandler.getDeviceStatusPhysical(deviceInfo.getDeviceName()) : TopologyTreeHandler.getDeviceStatusSites(deviceInfo.getDeviceName());
+                    if (DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus) == DeviceStatusEnum.UP_OR_MAINTENANCE) {
+                        if (deviceStatus.equals(DeviceStatusEnum.UP.getStatus()) || deviceStatus.equals(DeviceStatusEnum.MAINTENANCE.getStatus()))
+                            return;
+                    } else {
+                        if (deviceStatus.equals(DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus).getStatus()))
+                            return;
+                    }
+                } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
                 }
-            } else {
-                if (!(deviceStatus.equals(DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus).getStatus()))) {
-                    BaseTestUtils.report("Device " + deviceInfo.getDeviceName() + " " + "did not reach status: " + expectedDeviceStatus + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
-                }
+                Thread.sleep(10000L);
+                BasicOperationsHandler.refresh();
             }
+            BaseTestUtils.report("Device " + deviceInfo.getDeviceName() + " " + "did not reach status: " +
+                    expectedDeviceStatus + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
         } catch (Exception e) {
             BaseTestUtils.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }

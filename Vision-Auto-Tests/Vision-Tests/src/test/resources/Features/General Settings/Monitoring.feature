@@ -8,7 +8,7 @@ Feature: Monitoring basic Functionality
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI Add "DefensePro" with index 5 on "Default" site
-    Then UI Wait For Device To Show Up In The Topology Tree "DefensePro" device with index 5 with timeout 300
+    Then UI Wait For Device To Show Up In The Topology Tree "DefensePro" device with index 5 with timeout 300 seconds
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Monitoring"
 

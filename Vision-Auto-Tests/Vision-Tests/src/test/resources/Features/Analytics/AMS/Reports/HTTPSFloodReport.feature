@@ -34,7 +34,7 @@ Feature: HTTPS Flood Report
 
   @SID_5
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
-    Given CLI simulate 1 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 15000 and wait 60 seconds
+    Given CLI simulate 1 attacks of type "HTTPS" on SetId "DefensePro_set_2" with loopDelay 15000 and wait 60 seconds
 
 
 # =============================================Create Reports===========================================================

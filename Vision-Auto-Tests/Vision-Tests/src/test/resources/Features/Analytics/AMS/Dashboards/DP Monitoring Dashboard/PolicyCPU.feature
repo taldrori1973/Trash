@@ -14,7 +14,7 @@ Feature: Policy CPU
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
-    Given CLI simulate 1000 attacks of type "dp_two_policies" on "DefensePro" 10 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "dp_two_policies" on SetId "DefensePro_set_1" and wait 120 seconds
 
 
 

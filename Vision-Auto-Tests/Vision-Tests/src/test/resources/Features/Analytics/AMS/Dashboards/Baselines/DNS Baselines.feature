@@ -12,7 +12,7 @@ Feature: VRM DNS baselines
   #  Given REST Delete ES index "dp-dns*"
     #Given CLI simulate 100 attacks of type "dns_fuzzy_pol_1" on "DefensePro" 10 with loopDelay 60000
     #Given CLI simulate 100 attacks of type "DNS_baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 120 seconds
-    Given CLI simulate 200 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
+    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_2
   Scenario: login and select device

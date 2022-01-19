@@ -14,7 +14,7 @@ Feature: Manage vADC device Physical Functionality
 #    Then UI Add physical "Alteon" with index 6 on "Default (Physical)" site
     Then UI open Topology Tree view "SitesAndClusters" site
     Then UI open Topology Tree view "PhysicalContainers" site
-#    Then UI Wait For Device To Show Up In The Topology Tree physical "Alteon" device with index 6 with timeout 180
+#    Then UI Wait For Device To Show Up In The Topology Tree physical "Alteon" device with index 6 with timeout 180 seconds
   @SID_3
   Scenario: Manage single vADC
     Then UI manage single vADC with index 6 from topology tree

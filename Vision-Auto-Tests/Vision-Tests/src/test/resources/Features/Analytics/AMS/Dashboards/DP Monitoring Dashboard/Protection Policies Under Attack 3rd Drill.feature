@@ -27,7 +27,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @runSetup
   @SID_3
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - BDOS
-    Given CLI simulate 1 attacks of type "vrm_bdos" on "DefensePro" 10 and wait 70 seconds
+    Given CLI simulate 1 attacks of type "vrm_bdos" on SetId "DefensePro_set_1" and wait 70 seconds
   @runSetup
   @SID_4
   Scenario: Navigate to DP dashboard
