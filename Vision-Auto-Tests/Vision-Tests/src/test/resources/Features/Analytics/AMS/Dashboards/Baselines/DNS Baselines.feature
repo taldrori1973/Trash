@@ -1102,23 +1102,23 @@ Feature: VRM DNS baselines
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-SRV" with Label "Suspected Edge"
       | value | count | offset |
-      | 184   | 13    | 9      |
+      | 184   | 13    | 10     |
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Normal Edge"
       | value | count | offset |
-      | 190   | 13    | 9      |
+      | 190   | 13    | 10     |
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Attack Edge"
       | value | count | offset |
-      | 189   |   13  | 9      |
+      | 189   |   13  | 10     |
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 240   | 13    | 9      |
+      | 240   | 13    | 10     |
 
     And UI Validate Line Chart data "DNS-SRV" with Label "Total Traffic"
       | value | count | offset |
-      | 260   | 13    | 9      |
+      | 260   | 13    | 10     |
 
   # END DNS SRV
 
