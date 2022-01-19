@@ -232,6 +232,7 @@ Feature: DefensePro Behavioral DNS General Tests
   Scenario: Validate Default Widgets
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button "Behavioral Tab" with value "DNS"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-AAAA"
@@ -247,6 +248,7 @@ Feature: DefensePro Behavioral DNS General Tests
     When UI VRM Clear All Widgets
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button "Behavioral Tab" with value "DNS"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-AAAA"
