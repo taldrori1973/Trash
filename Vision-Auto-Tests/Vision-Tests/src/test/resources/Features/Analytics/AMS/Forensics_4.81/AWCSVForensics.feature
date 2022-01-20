@@ -20,13 +20,7 @@ Feature: AW CSV Forensics
 
   @SID_3 @Sanity
   Scenario: configure the AW in vision
-    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value  |
-      | httpPassword  | kavado |
-      | httpsPassword | kavado |
-      | httpsUsername | admin  |
-      | httpUsername  | admin  |
-      | visionMgtPort | G1     |
+    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
     And Sleep "100"
     * Browser Refresh Page
     * CLI Clear vision logs
