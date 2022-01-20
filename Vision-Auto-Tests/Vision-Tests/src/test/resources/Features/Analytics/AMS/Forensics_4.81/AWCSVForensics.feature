@@ -27,7 +27,8 @@ Feature: AW CSV Forensics
       | httpsUsername | admin  |
       | httpUsername  | admin  |
       | visionMgtPort | G1     |
-    And Sleep "10"
+    And Sleep "100"
+    * Browser Refresh Page
     * CLI Clear vision logs
 
   @SID_4
