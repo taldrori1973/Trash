@@ -76,7 +76,7 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-1"
 
 
-  @SID_7
+  @SID_8
   Scenario: CLEAR ALL And Validate Default Form
     And UI VRM Select Widgets
       | Quantile Status  |
@@ -98,7 +98,7 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI Click Button "Behavioral Tab" with value "QDoS"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status"
 
-  @SID_8
+  @SID_9
   Scenario: Validate Chart Settings
     And UI Click Button "Chart Settings" with value "Quantile Status"
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
@@ -110,7 +110,10 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI validate Checkbox by label "DPPolicycheck" if Selected "true"
     Then UI Click Button "Widget Settings Cancel"
 
-
+  @SID_10
+  Scenario: kill all simulator attacks and logout
+    Then UI logout and close browser
+    Then CLI kill all simulator attacks on current vision
 
 
 
