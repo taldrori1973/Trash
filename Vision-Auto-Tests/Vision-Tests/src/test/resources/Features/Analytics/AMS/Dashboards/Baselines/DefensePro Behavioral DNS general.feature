@@ -320,15 +320,15 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Click Button "Behavioral Tab" with value "DNS"
     When UI VRM Clear All Widgets
     And UI VRM Select Widgets
-      | Quantile Status  |
+      |   DNS-A   |
     And UI VRM Select Widgets
-      | Quantile Status  |
+      |   DNS-A   |
     And UI VRM Select Widgets
-      | Quantile Status  |
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-3"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-2"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-1"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
+      |   DNS-A   |
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-3"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-2"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-1"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-A"
 
   @SID_17
   Scenario: kill all simulator attacks and logout
