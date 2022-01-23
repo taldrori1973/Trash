@@ -18,8 +18,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
   @SID_2
   Scenario: Run DP simulator PCAPs for "Protection Policies" - just traffic
     Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 20 with loopDelay 15000
-    And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000
-    And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000 and wait 50 seconds
+    And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_set_1" with loopDelay 15000
+    And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_set_2" with loopDelay 15000 and wait 50 seconds
 
   
   @SID_3

@@ -28,9 +28,9 @@ Feature: EAAF CSV Report
   @SID_4
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
     # run EAAF attacks PCAP - this PCAP is the ONLY RELEVANT PCAP FOR THIS TEST FILE
-    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 100 seconds
+    * CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_set_1" and wait 100 seconds
     # run NON EAAF attacks PCAP - this made in order to check whether system distinguish between EAAF and NON EAAF attacks
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 100 seconds
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_set_1" and wait 100 seconds
 
   
   @SID_5

@@ -26,9 +26,9 @@ Feature: topNAttacks
 
   @SID_4
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
-    * CLI simulate 1 attacks of type "many_attacks" on "DefensePro" 10
-    * CLI simulate 2 attacks of type "IP_FEED_Modified" on "DefensePro" 11
-    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 80 seconds
+    * CLI simulate 1 attacks of type "many_attacks" on SetId "DefensePro_set_1"
+    * CLI simulate 2 attacks of type "IP_FEED_Modified" on SetId "DefensePro_set_2"
+    * CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_set_1" and wait 80 seconds
 
 
   @SID_5
@@ -61,7 +61,7 @@ Feature: topNAttacks
   @SID_10
   Scenario: validate Rbac
     Then UI Logout
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 100 seconds
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_set_1" and wait 100 seconds
     Given UI Login with user "userWithPolicy" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Validate "Protection Policies.Table" Table rows count EQUALS to 0

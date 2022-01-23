@@ -27,7 +27,7 @@ Feature: Actionable Black And White List
 
   @SID_3
   Scenario: run attacks
-    Given CLI simulate 1000 attacks of type "baselines_pol_1_dynamic" on "DefensePro" 10 and wait 20 seconds
+    Given CLI simulate 1000 attacks of type "baselines_pol_1_dynamic" on SetId "DefensePro_set_1" and wait 20 seconds
 
   @SID_4
   Scenario: Delete black white list if exist

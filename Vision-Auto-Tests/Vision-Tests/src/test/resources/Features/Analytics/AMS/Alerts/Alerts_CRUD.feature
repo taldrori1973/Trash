@@ -49,7 +49,7 @@ Feature: VRM Alerts CRUD
 
   @SID_7
   Scenario: generate attack to trigger alert
-    Given CLI simulate 1 attacks of type "VRM_Alert_Severity" on "DefensePro" 10 and wait 90 seconds
+    Given CLI simulate 1 attacks of type "VRM_Alert_Severity" on SetId "DefensePro_set_1" and wait 90 seconds
 
   @SID_8
   Scenario: validate results for edit Alert fields

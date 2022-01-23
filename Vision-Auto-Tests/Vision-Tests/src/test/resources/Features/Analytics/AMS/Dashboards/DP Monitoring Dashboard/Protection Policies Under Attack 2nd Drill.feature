@@ -15,7 +15,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 2nd Drill
 
   @SID_2
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 2nd drill - attack rate
-    Given CLI simulate 1000 attacks of type "attack_rate" on "DefensePro" 10 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "attack_rate" on SetId "DefensePro_set_1" with loopDelay 15000 and wait 120 seconds
 
 
   @SID_3
@@ -232,7 +232,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 2nd Drill
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
 
-    Given CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 10 and wait 45 seconds
+    Given CLI simulate 1 attacks of type "rest_black_ip46" on SetId "DefensePro_set_1" and wait 45 seconds
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
