@@ -55,29 +55,24 @@ Feature: DefenseFlow Attacks Reports
   @SID_5
   Scenario: Navigate to AMS report
     And UI Navigate to "AMS Reports" page via homePage
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+    Then UI Validate Element Existence By Label "New Report Tab" if Exists "true"
 
   # =============================================Overall===========================================================
   @SID_6
   Scenario: Create DefenseFlow report
     When UI "Create" Report With Name "OverallDFReport"
-      | reportType         | DefenseFlow Analytics Dashboard                                              |
-      | projectObjects     | All                                                                          |
-      | Design             | Add:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Customized Options | addLogo: reportLogoPNG.png                                                   |
+      | Template | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All] |
+      | Logo     | reportLogoPNG.png                                                                                                                         |
     Then UI "Validate" Report With Name "OverallDFReport"
-      | reportType         | DefenseFlow Analytics Dashboard                                                  |
-      | projectObjects     | PO_100,PO_200,PO_300                                                             |
-      | Design             | Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Customized Options | addLogo: reportLogoPNG.png                                                       |
+      | Template | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All] |
+      | Logo     | reportLogoPNG.png                                                                                                                         |
     Then UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "OverallDFReport"
 
   @SID_7
   Scenario: Edit report
     When UI "Edit" Report With Name "OverallDFReport"
-      | reportType            | DefenseFlow Analytics Dashboard                                  |
-      | projectObjects        | PO_300                                                           |
-      | Customized Options    | addLogo:unselected                                               |
+      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_300],     |
+      | Logo                  | unselected                                                       |
       | Time Definitions.Date | Quick:15m                                                        |
       | Share                 | Email:[DF_attack@report.local],Subject:DefenseFlow Attack report |
       | Format                | Select: CSV                                                      |
@@ -106,30 +101,29 @@ Feature: DefenseFlow Attacks Reports
   @SID_12
   Scenario: Create New Report with Default Values
     When UI "Create" Report With Name "deliveryDF"
-      | reportType     | DefenseFlow Analytics Dashboard                                                              |
-      | projectObjects | All                                                                                          |
-      | Share          | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject DF |
+      | reportType | DefenseFlow Analytics,Protected Objects:[All]                                                |
+      | Share      | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject DF |
     Then UI Generate and Validate Report With Name "deliveryDF" with Timeout of 100 Seconds
 
   @SID_13
   Scenario: Create New Report with Monthly schedule
     When UI "Create" Report With Name "scheduleMonthlyDF"
-      | reportType | DefenseFlow Analytics Dashboard |
-      | Schedule   | Run Every:Monthly,On Time:+2m   |
+      | reportType | DefenseFlow Analytics         |
+      | Schedule   | Run Every:Monthly,On Time:+2m |
 
     Then UI "Validate" Report With Name "scheduleMonthlyDF"
-      | reportType | DefenseFlow Analytics Dashboard |
-      | Schedule   | Run Every:Monthly,On Time:+2m   |
+      | reportType | DefenseFlow Analytics         |
+      | Schedule   | Run Every:Monthly,On Time:+2m |
 
   @SID_14
   Scenario: Create New Report with With daily schedule
     When UI "Create" Report With Name "scheduleDailyDF"
-      | reportType | DefenseFlow Analytics Dashboard |
-      | Schedule   | Run Every:Daily,On Time:+2m     |
+      | reportType | DefenseFlow Analytics       |
+      | Schedule   | Run Every:Daily,On Time:+2m |
 
     Then UI "Validate" Report With Name "scheduleDailyDF"
-      | reportType | DefenseFlow Analytics Dashboard |
-      | Schedule   | Run Every:Daily,On Time:+2m     |
+      | reportType | DefenseFlow Analytics       |
+      | Schedule   | Run Every:Daily,On Time:+2m |
 
   @SID_15
   Scenario: validation if reports generated after the expected time
@@ -172,15 +166,13 @@ Feature: DefenseFlow Attacks Reports
   @SID_18
   Scenario: validate time selection -Quick range- Report
     Given UI "Create" Report With Name "1WeakBeforeReport"
-      | reportType            | DefenseFlow Analytics Dashboard |
-      | projectObjects        | PO_300                          |
-      | Time Definitions.Date | Quick:1W                        |
-      | Format                | Select: CSV                     |
+      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_300] |
+      | Time Definitions.Date | Quick:1W                                         |
+      | Format                | Select: CSV                                      |
     Then UI "Validate" Report With Name "1WeakBeforeReport"
-      | reportType            | DefenseFlow Analytics Dashboard |
-      | projectObjects        | PO_300                          |
-      | Time Definitions.Date | Quick:1W                        |
-      | Format                | Select: CSV                     |
+      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_300] |
+      | Time Definitions.Date | Quick:1W                                         |
+      | Format                | Select: CSV                                      |
     Then UI Generate and Validate Report With Name "1WeakBeforeReport" with Timeout of 100 Seconds
 
   @SID_19
@@ -196,17 +188,13 @@ Feature: DefenseFlow Attacks Reports
   @SID_21
   Scenario: validate time selection -Absolute- report
     Given UI "Create" Report With Name "100DaysBeforeReport"
-      | reportType            | DefenseFlow Analytics Dashboard                                              |
-      | projectObjects        | PO_200,PO_100                                                                |
-      | Design                | Add:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                        |
-      | Format                | Select: CSV                                                                  |
+      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_200,PO_100],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                      |
+      | Format                | Select: CSV                                                                                                                              |
     Then UI "Validate" Report With Name "100DaysBeforeReport"
-      | reportType            | DefenseFlow Analytics Dashboard                                                  |
-      | projectObjects        | PO_200,PO_100                                                                    |
-      | Design                | Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                            |
-      | Format                | Select: CSV                                                                      |
+      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_200,PO_100],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                      |
+      | Format                | Select: CSV                                                                                                                              |
     Then UI Generate and Validate Report With Name "100DaysBeforeReport" with Timeout of 100 Seconds
 
   @SID_22
@@ -236,14 +224,14 @@ Feature: DefenseFlow Attacks Reports
   Scenario: non-admin user can't select DF in report
     When UI Click Button "Add New"
     And UI Click Button "Template" with value ""
-    Then UI Validate Element Existence By Label "Template" if Exists "false" with value "DefenseFlow Analytics Dashboard"
+    Then UI Validate Element Existence By Label "Template" if Exists "false" with value "DefenseFlow Analytics"
     And UI Click Button "Cancel"
 
   @SID_26
   Scenario: non-admin user can't navigate to DF dashboard
     Then UI Validate user rbac
-      | operations                      | accesses |
-      | DefenseFlow Analytics Dashboard | no       |
+      | operations            | accesses |
+      | DefenseFlow Analytics | no       |
 
   @SID_27
   Scenario: can't see the admins report
