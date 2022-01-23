@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 
 import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
 import static com.radware.vision.vision_handlers.NewVmHandler.waitForServerConnection;
+import static com.radware.vision.vision_tests.CliTests.rootServerCli;
 import static java.lang.Integer.parseInt;
 
 public class RemoteSshCommandsTests extends TestBase {
@@ -143,15 +144,23 @@ public class RemoteSshCommandsTests extends TestBase {
         }
     }
 
-    @When("^CLI Copy files contains name \"(.*)\" from container \"(.*)\" from path \"(.*)\" to path \"(.*)\"$")
-    public void copyFilesFromContainer(String fileName, String containerName, String fromPath, String toPath)
+    @When("^CLI Copy files contains name \"(.*)\" from container \"(.*)\" from path \"(.*)\" to path \"(.*)\"(?: with timeout (\\d+))?$")
+    public void copyFilesFromContainer(String fileName, String containerName, String fromPath, String toPath, Integer timeOut)
     {
         String commandToExecute = String.format("docker exec -it %s sh -c \"ls %s | grep %s | tr '\n' ';' && echo '\n'\"", containerName, fromPath, fileName);
 
         try {
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), String.format("mkdir -p %s", toPath));
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute);
-            List<String> files = Arrays.stream(CliOperations.lastRow.split(";")).filter(x->!x.isEmpty() && !x.contains("'")).collect(Collectors.toList());
+            List<String> files;
+            long startTime=System.currentTimeMillis();
+            if(timeOut==null)
+                timeOut=60*1000;
+            else
+                timeOut*=1000;
+            do {
+                CliOperations.runCommand(serversManagement.getRootServerCLI().get(), String.format("mkdir -p %s", toPath));
+                CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute);
+                files = Arrays.stream(CliOperations.lastRow.split(";")).filter(x->!x.isEmpty() && !x.contains("'")).collect(Collectors.toList());
+            }while (files.size()==0 && System.currentTimeMillis() - startTime < timeOut);
             int filesNotFoundCount = 0;
             for (String fn:files
                  ) {
@@ -160,6 +169,7 @@ public class RemoteSshCommandsTests extends TestBase {
                 if(CliOperations.lastRow != null)
                     filesNotFoundCount++;
             }
+
             if(filesNotFoundCount > 0)
                 BaseTestUtils.report(String.format("%d Files Not Found", filesNotFoundCount), Reporter.FAIL);
 

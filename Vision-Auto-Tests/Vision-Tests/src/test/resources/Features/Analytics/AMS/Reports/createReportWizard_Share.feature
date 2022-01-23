@@ -17,8 +17,8 @@ Feature:  Report Delivery Wizard
 
   @SID_3
   Scenario: generate two attacks
-    Given CLI simulate 2 attacks of type "rest_anomalies" on "DefensePro" 10 with attack ID
-    Given CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
+    Given CLI simulate 2 attacks of type "rest_anomalies" on SetId "DefensePro_set_1" with attack ID
+    Given CLI simulate 1 attacks of type "rest_dos" on SetId "DefensePro_set_1"
 
   @SID_4
   Scenario: VRM - enabling emailing and go to VRM Reports Tab

@@ -720,4 +720,4 @@ Feature: DefensePro Analytics Part 2
 
   @SID_44
   Scenario: Logout
-    Then UI logout and close browser
+   

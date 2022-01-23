@@ -38,8 +38,8 @@ Feature: VRM Alerts Criteria HTTPS Flood
   @SID_5
   Scenario: Clear alert browser and Run DP simulator
     Then REST Delete ES index "alert"
-    And CLI simulate 1 attacks of type "https_new2" on "DefensePro" 11
-    And CLI simulate 1 attacks of type "https_new2_trap" on "DefensePro" 11 and wait 60 seconds
+    And CLI simulate 1 attacks of type "https_new2" on SetId "DefensePro_set_2"
+    And CLI simulate 1 attacks of type "https_new2_trap" on SetId "DefensePro_set_2" and wait 60 seconds
     Then UI Open "Forensics" Tab
     Then UI Open "Alerts" Tab
 

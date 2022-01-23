@@ -376,12 +376,13 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
 
-    @When("^UI Wait For Device To Show Up In The Topology Tree( physical)? \"(.*)\" with timeout (\\d+)$")
-    public void waitForDeviceToShowUp(String treeTabType, String deviceSetId, String timeout) {
+    @When("^UI Wait For Device To Show Up In The Topology Tree( physical)? \"(.*)\" with timeout (\\d+) seconds$")
+    public void waitForDeviceToShowUp(String treeTabType, String deviceSetId, Integer timeout) {
         try {
+            timeout = timeout * 1000;
             TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-            TopologyTreeHandler.waitForDeviceToShowUp(topologyTreeTab, deviceInfo.getDeviceName(), Integer.parseInt(timeout));
+            TopologyTreeHandler.waitForDeviceToShowUp(topologyTreeTab, deviceInfo.getDeviceName(), timeout);
         } catch (Exception e) {
             BaseTestUtils.report(
                     "Device Failed to show up: \n" + "\n" + "Error: " + e.getCause() + parseExceptionBody(e),

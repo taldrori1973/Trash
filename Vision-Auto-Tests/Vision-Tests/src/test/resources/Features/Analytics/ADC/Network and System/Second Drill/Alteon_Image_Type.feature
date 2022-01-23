@@ -26,7 +26,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_3
  Scenario: validate Alteon image and ports status - 5208
-  Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+  Then UI Validate Element Existence By Label "No data available" if Exists "false"
   Then UI validate port number "01" for alteon name "alteon image" with params "5208" with status "UP"
   Then UI validate port number "02" for alteon name "alteon image" with params "5208" with status "UP"
   Then UI validate port number "03" for alteon name "alteon image" with params "5208" with status "UP"
@@ -67,7 +67,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_8
   Scenario: validate Alteon image and ports status - 8820
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "8820" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "8820" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "8820" with status "UP"
@@ -127,7 +127,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_13
   Scenario: validate Alteon image and ports status - 9800
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "9800" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "9800" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "9800" with status "UP"
@@ -168,7 +168,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_18
   Scenario: validate Alteon image and ports status - 4208
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "4208" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "4208" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "4208" with status "UP"
@@ -210,7 +210,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_23
   Scenario: validate Alteon image and ports status - 7220
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No aata available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "7220" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "7220" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "7220" with status "UP"
@@ -264,7 +264,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_28
   Scenario: validate Alteon image and ports status - 6024
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "6024" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "6024" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "6024" with status "UP"
@@ -321,7 +321,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_33
   Scenario: validate Alteon image and ports status - 4024
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "4024" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "4024" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "4024" with status "UP"
@@ -363,7 +363,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_38
   Scenario: validate Alteon image and ports status - 7612
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "7612" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "7612" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "7612" with status "UP"
@@ -413,7 +413,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_43
   Scenario: validate Alteon image and ports status - 8420
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "8420" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "8420" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "8420" with status "UP"
@@ -469,7 +469,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_48
   Scenario: validate Alteon image and ports status - 6420
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "6420" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "6420" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "6420" with status "UP"
@@ -525,7 +525,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_53
   Scenario: validate Alteon image and ports status - 5224
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "5224" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "5224" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "5224" with status "UP"
@@ -583,7 +583,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_58
   Scenario: validate Alteon image and ports status - VA
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "VA" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "VA" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "VA" with status "UP"
@@ -631,7 +631,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_63
   Scenario: validate Alteon image and ports status - 5424
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "5424" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "5424" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "5424" with status "UP"
@@ -691,7 +691,7 @@ Feature:Network Dashboard - Alteon Image Type
 
   @SID_68
   Scenario: validate Alteon image and ports status - 5820
-    Then UI Validate Element Existence By Label "No Data Available" if Exists "false"
+    Then UI Validate Element Existence By Label "No data available" if Exists "false"
     Then UI validate port number "01" for alteon name "alteon image" with params "5820" with status "UP"
     Then UI validate port number "02" for alteon name "alteon image" with params "5820" with status "UP"
     Then UI validate port number "03" for alteon name "alteon image" with params "5820" with status "UP"

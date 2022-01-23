@@ -20,8 +20,8 @@ Feature: ADC dashboard Current Totals Widget
     Then UI Login with user "sys_admin" and password "radware"
     Then REST Add device with SetId "Alteon_Set_50.50.101.31" into site "Alteons_for_DPM-Fakes"
     Then REST Add device with SetId "Alteon_Set_50.50.101.32" into site "Alteons_for_DPM-Fakes"
-    Then UI Wait For Device To Show Up In The Topology Tree "Alteon_Set_50.50.101.31" with timeout 300
-    Then UI Wait For Device To Show Up In The Topology Tree "Alteon_Set_50.50.101.32" with timeout 300
+    Then UI Wait For Device To Show Up In The Topology Tree "Alteon_Set_50.50.101.31" with timeout 300 seconds
+    Then UI Wait For Device To Show Up In The Topology Tree "Alteon_Set_50.50.101.32" with timeout 300 seconds
 
 
     When UI Navigate to "System and Network Dashboard" page via homePage

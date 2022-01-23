@@ -82,10 +82,10 @@ Feature: AMS Report Schedule Wizard
       | Time Definitions.Date | Quick:30m                                                                                        |
       | Schedule              | Run Every:Daily,On Time:+5m                  |
 
-  @SID_8
-  Scenario: validate Scheduling Hour
-#    Then CLI Run remote linux Command "/get_scheduled_report_value.sh day2ScheduleReport" on "ROOT_SERVER_CLI"
-#    Then CLI Operations - Verify that output contains regex "0 (\d{2}) (\d{2}) \? \* \*"
+#  @SID_8
+#  Scenario: validate Scheduling Hour
+##    Then CLI Run remote linux Command "/get_scheduled_report_value.sh day2ScheduleReport" on "ROOT_SERVER_CLI"
+##    Then CLI Operations - Verify that output contains regex "0 (\d{2}) (\d{2}) \? \* \*"
 
   @SID_9
   Scenario: Sleep and verify daily report were generated

@@ -7,7 +7,7 @@ Feature: Connectivity Inactivity Timeouts Functionality
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI Add "Alteon" with index 2 on "Default" site
-    Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 2 with timeout 300
+    Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 2 with timeout 300 seconds
     Then UI Add "DefensePro" with index 11 on "Default" site
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Connectivity"

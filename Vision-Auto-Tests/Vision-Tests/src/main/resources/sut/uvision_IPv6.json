@@ -2,7 +2,7 @@
   "setupFile": "Setup_IPv6.json",
   "serverName": "uVision",
   "deployConfigurations": {
-    "snapshot": "Current-1",
+    "snapshot": "",
     "setupMode": "upgrade",
     "environment": "KVM-215"
   },

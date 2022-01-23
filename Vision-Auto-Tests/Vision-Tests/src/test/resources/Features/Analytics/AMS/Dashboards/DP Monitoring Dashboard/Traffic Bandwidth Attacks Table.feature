@@ -17,7 +17,7 @@ Feature: AMS Monitoring Dashboard - Attacks table
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
-    Given CLI simulate 1 attacks of type "many_attacks" on "DefensePro" 10 and wait 250 seconds
+    Given CLI simulate 1 attacks of type "many_attacks" on SetId "DefensePro_set_1" and wait 250 seconds
 
 
   @SID_3

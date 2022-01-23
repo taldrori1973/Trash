@@ -9,8 +9,8 @@ Feature: Baselines Widget Settings
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 #    Given REST Delete ES index "dp-bdos-baseline*"
 #    Given REST Delete ES index "dp-baseline*"
-    Given CLI simulate 100 attacks of type "rest_bdosdns" on "DefensePro" 11 with loopDelay 15000
-    Given CLI simulate 100 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
+    Given CLI simulate 100 attacks of type "rest_bdosdns" on SetId "DefensePro_set_2" with loopDelay 15000
+    Given CLI simulate 100 attacks of type "baselines_pol_1" on SetId "DefensePro_set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_2
   Scenario: Login into VRM and select device and policy

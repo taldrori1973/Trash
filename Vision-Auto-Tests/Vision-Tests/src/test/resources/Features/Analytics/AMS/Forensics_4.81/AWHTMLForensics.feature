@@ -20,7 +20,8 @@ Feature: AW HTML Forensics
   @SID_3 @Sanity
   Scenario: configure the AW in vision
     Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
-    And Sleep "10"
+    And Sleep "100"
+    * Browser Refresh Page
     * CLI Clear vision logs
 
   @SID_4

@@ -51,7 +51,7 @@ Feature: VRM Alerts Severity
 
   @SID_4
   Scenario: Run DP simulator VRM_Alert_Severity
-    Given CLI simulate 1 attacks of type "VRM_Alert_Severity" on "DefensePro" 10 and wait 95 seconds
+    Given CLI simulate 1 attacks of type "VRM_Alert_Severity" on SetId "DefensePro_set_1" and wait 95 seconds
 
   @SID_5
   Scenario: refresh Alerts View
