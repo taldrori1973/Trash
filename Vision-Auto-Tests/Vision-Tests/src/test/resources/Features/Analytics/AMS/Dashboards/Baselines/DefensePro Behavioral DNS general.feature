@@ -6,6 +6,11 @@ Feature: DefensePro Behavioral DNS General Tests
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param  | value |
+      | Behavioral Tab  |  BDoS  | true  |
+      | Behavioral Tab  |  DNS   | false |
+      | Behavioral Tab  |  QDoS  | false |
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-AAAA"
@@ -40,6 +45,27 @@ Feature: DefensePro Behavioral DNS General Tests
       | 10    |       | pol_1    |
 
   @SID_4
+  Scenario: Validate Scope Selection Stability
+    Then UI Click Button "Behavioral Tab" with value "BDoS"
+    Then Sleep "2"
+    And UI Do Operation "Select" item "Device Selection"
+    Then UI Validate the attribute of "Class" are "EQUAL" to
+      | label                                      | param          | value   |
+      | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  | checked |
+      | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  |         |
+      | DefensePro Analytics_RationScopeSelection  |  172.16.22.55  |         |
+    Then UI Click Button "Device Selection.Cancel"
+    Then UI Click Button "Behavioral Tab" with value "DNS"
+    And UI Do Operation "Select" item "Device Selection"
+    Then UI Validate the attribute of "Class" are "EQUAL" to
+      | label                                      | param          | value   |
+      | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  | checked |
+      | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  |         |
+      | DefensePro Analytics_RationScopeSelection  |  172.16.22.55  |         |
+    Then UI Click Button "Device Selection.Cancel"
+
+
+  @SID_5
   Scenario: Validate Min/Max buttons Disabled by default
     Then UI Validate Element Existence By Label "Max button" if Exists "false" with value "DNS-A"
     Then UI Validate Element Existence By Label "Max button" if Exists "false" with value "DNS-AAAA"
@@ -60,7 +86,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Min button" if Exists "false" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Min button" if Exists "false" with value "DNS-SRV"
 
-  @SID_5
+  @SID_6
   Scenario: Validate Min/Max buttons
     And UI Do Operation "Select" item "Max Min"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-A"
@@ -82,6 +108,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-SRV"
 
+#    Then UI Validate Text field "Max Button" with params "DNS-AAAA" EQUALS "4680"
 
 #  @SID_6
 #  Scenario: DNS baseline DNS-A IPv4 In QPS data
@@ -126,7 +153,7 @@ Feature: DefensePro Behavioral DNS General Tests
 #      | value | count | offset |
 #      | 110   | 13    | 6      |
 
-  @SID_6
+  @SID_7
   Scenario: Remove DNS Widgets
     Then UI Click Button "Widget remove" with value "DNS-TXT"
     Then UI Click Button "Widget remove" with value "DNS-MX"
@@ -134,7 +161,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Click Button "Widget remove" with value "DNS-SRV"
 
 
-  @SID_7
+  @SID_8
   Scenario: Validate Charts existence
     Then UI Click Button "Behavioral Tab" with value "BDoS"
     Then Sleep "2"
@@ -149,7 +176,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-PTR"
 
-  @SID_8
+  @SID_9
   Scenario: Settings label for DNS-A Chart
     And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-A,IPv4"
     And UI Click Button "Chart Settings" with value "DNS-A"
@@ -163,7 +190,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Click Button "Widget Settings Cancel"
 
 
-  @SID_9
+  @SID_10
   Scenario: Validate DNS Widget Repository
     Then UI Click Button "Widget Selection"
     Then UI Validate Element Existence By Label "Repository Widget" if Exists "true" with value "DNS-A"
@@ -189,7 +216,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Click Button "Widget Selection"
 
 
-  @SID_10
+  @SID_11
   Scenario: Validate DNS Default form
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
@@ -204,7 +231,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-PTR"
 
-  @SID_11
+  @SID_12
   Scenario: DNS baselines add all baselines types
     When UI VRM Clear All Widgets
     And UI VRM Select Widgets
@@ -228,7 +255,8 @@ Feature: DefensePro Behavioral DNS General Tests
     And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-NAPTR-1,IPv6"
     And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-A-1,IPv6"
 
-  @SID_11
+
+  @SID_13
   Scenario: Validate Default Widgets
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
@@ -243,9 +271,18 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-PTR"
 
-  @SID_11
+  @SID_14
   Scenario: Validate Default Widgets After Clear ALL
     When UI VRM Clear All Widgets
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-TXT"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-MX"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-AAAA"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-SRV"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-A"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-SOA"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-Other"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-NAPTR"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-PTR"
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button "Behavioral Tab" with value "DNS"
@@ -259,8 +296,41 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-PTR"
 
+  @SID_15
+  Scenario: Validate Information Message After Clear ALL
+    When UI VRM Clear All Widgets
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-TXT"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-MX"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-AAAA"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-SRV"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-A"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-SOA"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-Other"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-NAPTR"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-PTR"
 
-  @SID_12
+    # Need to Add validation of info message " missing charts on the dashboard "
+
+  @SID_16
+  Scenario: Validate Chart Number Reset
+    Then UI logout and close browser
+    Given UI Login with user "sys_admin" and password "radware"
+    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button "Behavioral Tab" with value "DNS"
+    When UI VRM Clear All Widgets
+    And UI VRM Select Widgets
+      | Quantile Status  |
+    And UI VRM Select Widgets
+      | Quantile Status  |
+    And UI VRM Select Widgets
+      | Quantile Status  |
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-3"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-2"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-1"
+    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
+
+  @SID_17
   Scenario: kill all simulator attacks and logout
     Then UI logout and close browser
     Then CLI kill all simulator attacks on current vision
