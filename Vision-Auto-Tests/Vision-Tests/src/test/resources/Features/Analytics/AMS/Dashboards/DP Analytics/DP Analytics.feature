@@ -543,9 +543,8 @@ Feature: DP ANALYTICS
       | DefensePro_Set_3 |       |          |
     Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
-      | 0.0.0.0                                 | 15   |
       | 1.1.1.10                                | 15   |
-      | Multiple                                | 12   |
+      | Multiple                                | 27   |
       | 1234:1234:1234:1234:1234:1234:1234:1235 | 12   |
       | 1.1.1.8                                 | 6    |
       | ::                                      | 6    |
@@ -563,9 +562,8 @@ Feature: DP ANALYTICS
       | DefensePro_Set_1 |       |          |
     Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
-      | 0.0.0.0                                 | 5    |
       | 1.1.1.10                                | 5    |
-      | Multiple                                | 4    |
+      | Multiple                                | 9    |
       | 1234:1234:1234:1234:1234:1234:1234:1235 | 4    |
       | 1.1.1.8                                 | 2    |
       | ::                                      | 2    |
@@ -614,7 +612,6 @@ Feature: DP ANALYTICS
     Then UI Validate Pie Chart data "Top Attack Destinations"
       | label   | data |
       | 1.1.1.1 | 1    |
-      | 0.0.0.0 | 1    |
       | 1.1.1.8 | 2    |
       | 1.1.1.9 | 1    |
 
@@ -626,7 +623,6 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1     | Policy15 |
     Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No data available"
-
 
 
   @SID_45
@@ -1165,8 +1161,7 @@ Feature: DP ANALYTICS
     Then UI Validate Pie Chart data "Top Attack Sources"
       | label                                   | data |
       | 192.85.1.2                              | 24   |
-      | 0.0.0.0                                 | 18   |
-      | Multiple                                | 18   |
+      | Multiple                                | 36   |
       | 1234:1234:1234:1234:1234:1234:1234:1234 | 12   |
       | 192.85.1.8                              | 6    |
       | ::                                      | 6    |
@@ -1181,8 +1176,7 @@ Feature: DP ANALYTICS
     Then UI Validate Pie Chart data "Top Attack Sources"
       | label                                   | data |
       | 192.85.1.2                              | 8    |
-      | 0.0.0.0                                 | 6    |
-      | Multiple                                | 6    |
+      | Multiple                                | 12   |
       | 1234:1234:1234:1234:1234:1234:1234:1234 | 4    |
       | 192.85.1.8                              | 2    |
       | ::                                      | 2    |
