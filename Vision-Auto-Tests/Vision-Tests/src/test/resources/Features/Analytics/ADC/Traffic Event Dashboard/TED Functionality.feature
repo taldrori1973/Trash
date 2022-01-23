@@ -38,7 +38,7 @@ Feature: TED Functionality
   Scenario: validate filter bar is empty and no data exists in the tedEvents Table
     Then UI Validate Text field by id "tedSearchBarInput" EQUALS ""
     Then UI Validate "tedEvent Table" Table rows count EQUALS to 0
-  #TODO validate the correct "No Data Available" image appears in the table
+  #TODO validate the correct "No data available" image appears in the table
 
   @SID_4
   Scenario: After Sending events - verify no data appears until refresh and refresh maintains filter bar value
