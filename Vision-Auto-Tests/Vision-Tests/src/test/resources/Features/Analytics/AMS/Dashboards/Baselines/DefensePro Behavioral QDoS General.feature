@@ -136,7 +136,7 @@ Feature: DefensePro Behavioral QDoS General Tests
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "QDoS"
     When UI VRM Clear All Widgets
     And UI VRM Select Widgets
       | Quantile Status  |
