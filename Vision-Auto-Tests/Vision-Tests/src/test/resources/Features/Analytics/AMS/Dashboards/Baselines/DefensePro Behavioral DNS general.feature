@@ -331,6 +331,17 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-A"
 
   @SID_17
+  Scenario: Validate No Widgets Selected Message
+    When UI VRM Clear All Widgets
+    Then UI Validate Element Existence By Label "Repo button" if Exists "true"
+    Then UI Click Button "Repo button"
+    Then UI Click Button "Repository Widget" with value "DNS-A"
+    Then UI Click Button "Widget Selection.Add Selected Widgets"
+    Then UI Click Button "Widget Selection"
+    Then UI Validate Element Existence By Label "Repo button" if Exists "false"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-1"
+
+  @SID_18
   Scenario: kill all simulator attacks and logout
     Then UI logout and close browser
     Then CLI kill all simulator attacks on current vision
