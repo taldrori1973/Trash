@@ -158,7 +158,7 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI Click Button "Widget Selection.Add Selected Widgets"
     Then UI Click Button "Widget Selection"
     Then UI Validate Element Existence By Label "Repo button" if Exists "false"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-1"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-4"
 
   @SID_14
   Scenario: kill all simulator attacks and logout
