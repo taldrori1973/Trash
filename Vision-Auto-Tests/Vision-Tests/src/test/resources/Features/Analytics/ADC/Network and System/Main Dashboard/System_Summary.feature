@@ -384,8 +384,8 @@ Feature:System and Network Dashboard - System Summary
     Then UI Validate element "TopByCPUUsage_progress" attribute with param "0"
       | name  | value     |
       | style | width: 2% |
-#   Validate "Top Devices by Throughput Usage" Chart No Data Available
-    Then UI Text of "No Data Available" equal to "!No Data Available"
+#   Validate "Top Devices by Throughput Usage" Chart No data available
+    Then UI Text of "No data available" equal to "!No data available"
 
 #===============================================Tear Down===============================================================
 

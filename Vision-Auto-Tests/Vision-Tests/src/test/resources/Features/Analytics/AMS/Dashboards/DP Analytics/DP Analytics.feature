@@ -160,7 +160,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 | 4     | BDOS     |
-    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No Data Available"
+    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No data available"
 
   @SID_12
   Scenario: Attacks by Mitigation Action Cleanup
@@ -288,7 +288,7 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1     | pol_1    |
       | DefensePro_Set_2 | 1     | pol_1    |
-    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "No Data Available"
+    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "No data available"
 
 
   @SID_21
@@ -543,9 +543,8 @@ Feature: DP ANALYTICS
       | DefensePro_Set_3 |       |          |
     Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
-      | 0.0.0.0                                 | 15   |
       | 1.1.1.10                                | 15   |
-      | Multiple                                | 12   |
+      | Multiple                                | 27   |
       | 1234:1234:1234:1234:1234:1234:1234:1235 | 12   |
       | 1.1.1.8                                 | 6    |
       | ::                                      | 6    |
@@ -563,9 +562,8 @@ Feature: DP ANALYTICS
       | DefensePro_Set_1 |       |          |
     Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
-      | 0.0.0.0                                 | 5    |
       | 1.1.1.10                                | 5    |
-      | Multiple                                | 4    |
+      | Multiple                                | 9    |
       | 1234:1234:1234:1234:1234:1234:1234:1235 | 4    |
       | 1.1.1.8                                 | 2    |
       | ::                                      | 2    |
@@ -614,7 +612,6 @@ Feature: DP ANALYTICS
     Then UI Validate Pie Chart data "Top Attack Destinations"
       | label   | data |
       | 1.1.1.1 | 1    |
-      | 0.0.0.0 | 1    |
       | 1.1.1.8 | 2    |
       | 1.1.1.9 | 1    |
 
@@ -625,8 +622,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1     | Policy15 |
-    Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
-
+    Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No data available"
 
 
   @SID_45
@@ -635,7 +631,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1     | Policy15 |
-    Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
+    Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No data available"
 
 
   @SID_46
@@ -769,7 +765,7 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 2     |          |
       | DefensePro_Set_2 | 2     |          |
-    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No Data Available"
+    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No data available"
 
 
   @SID_55
@@ -1165,8 +1161,7 @@ Feature: DP ANALYTICS
     Then UI Validate Pie Chart data "Top Attack Sources"
       | label                                   | data |
       | 192.85.1.2                              | 24   |
-      | 0.0.0.0                                 | 18   |
-      | Multiple                                | 18   |
+      | Multiple                                | 36   |
       | 1234:1234:1234:1234:1234:1234:1234:1234 | 12   |
       | 192.85.1.8                              | 6    |
       | ::                                      | 6    |
@@ -1181,8 +1176,7 @@ Feature: DP ANALYTICS
     Then UI Validate Pie Chart data "Top Attack Sources"
       | label                                   | data |
       | 192.85.1.2                              | 8    |
-      | 0.0.0.0                                 | 6    |
-      | Multiple                                | 6    |
+      | Multiple                                | 12   |
       | 1234:1234:1234:1234:1234:1234:1234:1234 | 4    |
       | 192.85.1.8                              | 2    |
       | ::                                      | 2    |
@@ -1233,7 +1227,7 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 3     | BDOS     |
       | DefensePro_Set_2 | 3     | BDOS     |
-    Then UI Validate Text field by id "5a981b30-3fb1-4592-a69b-d9cf2278c96e" CONTAINS "No Data Available"
+    Then UI Validate Text field by id "5a981b30-3fb1-4592-a69b-d9cf2278c96e" CONTAINS "No data available"
 
 
   @SID_86
@@ -1384,7 +1378,7 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 8     |          |
       | DefensePro_Set_2 | 8     |          |
-    Then UI Validate Text field by id "a3e8335b-b6a8-4d10-8ea0-0f02b46e8d30" CONTAINS "No Data Available"
+    Then UI Validate Text field by id "a3e8335b-b6a8-4d10-8ea0-0f02b46e8d30" CONTAINS "No data available"
 
 
   @SID_101
