@@ -66,13 +66,13 @@ Feature: DefenseFlow Attacks Reports
     Then UI "Validate" Report With Name "OverallDFReport"
       | Template | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All] |
       | Logo     | reportLogoPNG.png                                                                                                                         |
-    Then UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "OverallDFReport"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverallDFReport"
 
   @SID_7
   Scenario: Edit report
     When UI "Edit" Report With Name "OverallDFReport"
-      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_300],     |
-      | Logo                  | unselected                                                       |
+      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_300]      |
+      | Logo                  | reportLogoPNG.png                                                |
       | Time Definitions.Date | Quick:15m                                                        |
       | Share                 | Email:[DF_attack@report.local],Subject:DefenseFlow Attack report |
       | Format                | Select: CSV                                                      |
@@ -84,13 +84,14 @@ Feature: DefenseFlow Attacks Reports
 
   @SID_9
   Scenario: Generate Report
-    Then UI Generate and Validate Report With Name "OverallDFReport" with Timeout of 120 Seconds
+    Then UI "Generate" Report With Name "OverallDFReport"
+      | timeOut | 60 |
 
   @SID_10
   Scenario: Delete report
     When UI Click Button "Delete" with value "OverallDFReport"
     When UI Click Button "Delete.Approve"
-    Then UI Validate Element Existence By Label "Reports List Item" if Exists "false" with value "OverallDFReport"
+    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "OverallDFReport"
 
   @SID_11
   Scenario: Validate Report Email received content
@@ -129,11 +130,11 @@ Feature: DefenseFlow Attacks Reports
   Scenario: validation if reports generated after the expected time
     When Sleep "150"
     # validate if scheduleMonthlyDF generated in UI
-    When UI Click Button "Reports List Item" with value "scheduleMonthlyDF"
+    When UI Click Button "My Report" with value "scheduleMonthlyDF"
     Then UI Validate Element Existence By Label "Logs List Items" if Exists "true" with value "scheduleMonthlyDF"
 
     # validate if scheduleDailyDF generated in UI
-    When UI Click Button "Reports List Item" with value "scheduleDailyDF"
+    When UI Click Button "My Report" with value "scheduleDailyDF"
     Then UI Validate Element Existence By Label "Logs List Items" if Exists "true" with value "scheduleDailyDF"
 
     # validate scheduleMonthlyDF schedule regex matchs in CLI
