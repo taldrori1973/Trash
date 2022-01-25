@@ -18,7 +18,7 @@ Feature: VRM DNS baselines
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
@@ -1141,7 +1141,7 @@ Feature: VRM DNS baselines
     Given UI Login with user "sec_admin_allDPs_pol_1_policy" and password "radware"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
    # Then UI Open "DP DNS Baseline" Sub Tab
     When UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
@@ -1245,7 +1245,7 @@ Feature: VRM DNS baselines
     Given UI Login with user "sec_admin_DP50_policy1" and password "radware"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
    # Then UI Open "DP DNS Baseline" Sub Tab
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1260,7 +1260,7 @@ Feature: VRM DNS baselines
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
    # Then UI Open "DP DNS Baseline" Sub Tab
     When UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
