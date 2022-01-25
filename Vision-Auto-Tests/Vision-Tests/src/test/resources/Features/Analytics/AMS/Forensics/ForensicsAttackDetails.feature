@@ -34,9 +34,8 @@ Feature: Forensic Attack details Tests
   Scenario: VRM - Add New Forensics Report Attack details1
     When UI "Create" Forensics With Name "Attack Details1"
       | Output | Action,Attack ID,Threat Category,Duration |
-    Then UI Click Button "My Forensics" with value "Attack Details1"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack Details1"
-    Then Sleep "35"
+    Then UI "Generate" Forensics With Name "Attack Details1"
+      | timeOut | 90 |
     And UI Click Button "Views.Forensic" with value "Attack Details1,0"
 
  ######################################################### Refine ########################################################################
@@ -300,9 +299,8 @@ Feature: Forensic Attack details Tests
 
   @SID_31
   Scenario: VRM - open forensic "Attack details" table
-    Then UI Click Button "My Forensics" with value "Attack_Details"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack_Details"
-    Then Sleep "35"
+    Then UI "Generate" Forensics With Name "Attack_Details"
+      | timeOut | 90 |
     And UI Click Button "Views.Forensic" with value "Attack_Details,0"
 
 
