@@ -1,6 +1,6 @@
 @VRM_Report2 @TC106003
 Feature: Forensics RBAC
-  
+
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -27,7 +27,7 @@ Feature: Forensics RBAC
     When UI "Create" Forensics With Name "AllDevAllPol"
       |  |  |
     When UI "Create" Forensics With Name "Device10_Policy15"
-      | devices               | SetId:DefensePro_Set_1,policies:[Policy15];|
+      | devices | SetId:DefensePro_Set_1,policies:[Policy15] |
     * UI logout and close browser
 
   @SID_4
@@ -55,10 +55,10 @@ Feature: Forensics RBAC
     Given UI Login with user "sec_mon_all_pol" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "Only Device 10"
-    | | |
+      |  |  |
     Then UI Click Button "My Forensics" with value "Only Device 10"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Only Device 10"
-    Then Sleep "35"
+    Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Only Device 10,0"
     And Sleep "3"
 
@@ -97,11 +97,11 @@ Feature: Forensics RBAC
     Given UI Login with user "sec_mon_Policy14" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "Only Policy14"
-      | | |
+      |  |  |
     Then UI Click Button "My Forensics" with value "Only Policy14"
     Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Only Policy14"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Only Policy14"
-    Then Sleep "35"
+    Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Only Policy14,0"
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName  | value    |
@@ -115,8 +115,8 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
-      | label     | param       | value |
-      | Product   | DefenseFlow | false |
+      | label   | param       | value |
+      | Product | DefenseFlow | false |
     * UI logout and close browser
 
 
@@ -126,11 +126,11 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
-      | label     | param       | value |
-      | Product   | DefenseFlow | false |
+      | label   | param       | value |
+      | Product | DefenseFlow | false |
     * UI logout and close browser
 
-  
+
   @SID_13
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
@@ -182,37 +182,36 @@ Feature: Forensics RBAC
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
-  
+
   @SID_16
   Scenario: Edit User Management Settings
-    Then UI Navigate to page "System->User Management->Authentication Mode"
-    Then UI Select "Local" from Vision dropdown "Authentication Mode"
-    Then UI Click Button "Submit"
-    * UI logout and close browser
+    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value   |
+      | $.authenticationMode | "Local" |
 
 
   @SID_17
   Scenario: Validate DF not appears for adc_admin_certificate
     Given UI Login with user "adc_admin_certificate" and password "Radware1234!@#$"
     Then UI Validate user rbac
-      | operations                                  | accesses |
-      | AMS Forensics                               | no       |
+      | operations    | accesses |
+      | AMS Forensics | no       |
     * UI logout and close browser
 
   @SID_18
   Scenario: Validate DF not appears for adc_admin
     Given UI Login with user "adc_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
-      | operations                                  | accesses |
-      | AMS Forensics                               | no       |
+      | operations    | accesses |
+      | AMS Forensics | no       |
     * UI logout and close browser
 
   @SID_19
   Scenario: Validate DF not appears for adc_operator
     Given UI Login with user "adc_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
-      | operations                                  | accesses |
-      | AMS Forensics                               | no       |
+      | operations    | accesses |
+      | AMS Forensics | no       |
     * UI logout and close browser
 
 
@@ -220,10 +219,9 @@ Feature: Forensics RBAC
   Scenario: Validate DF not appears for certificate_admin
     Given UI Login with user "certificate_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
-      | operations                                  | accesses |
-      | AMS Forensics                               | no       |
+      | operations    | accesses |
+      | AMS Forensics | no       |
     * UI logout and close browser
-
 
 
   @SID_21
@@ -232,18 +230,18 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
-      | label     | param       | value |
-      | Product   | DefenseFlow | false |
-      | Product   | DefensePro  | true  |
-      | Product   | AppWall     | true  |
+      | label   | param       | value |
+      | Product | DefenseFlow | false |
+      | Product | DefensePro  | true  |
+      | Product | AppWall     | true  |
     * UI logout and close browser
 
   @SID_22
   Scenario: Validate DF not appears for device_configurator
     Given UI Login with user "device_configurator" and password "Radware1234!@#$"
     Then UI Validate user rbac
-      | operations                                  | accesses |
-      | AMS Forensics                               | no       |
+      | operations    | accesses |
+      | AMS Forensics | no       |
     * UI logout and close browser
 
   @SID_23
@@ -252,18 +250,18 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
-      | label     | param       | value |
-      | Product   | DefenseFlow | false |
-      | Product   | DefensePro  | true  |
-      | Product   | AppWall     | true  |
+      | label   | param       | value |
+      | Product | DefenseFlow | false |
+      | Product | DefensePro  | true  |
+      | Product | AppWall     | true  |
     * UI logout and close browser
-  
+
   @SID_24
   Scenario: Validate DF not appears for device_viewer
     Given UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
-      | operations                                  | accesses |
-      | AMS Forensics                               | yes      |
+      | operations    | accesses |
+      | AMS Forensics | yes      |
     * UI logout and close browser
 
 
@@ -271,8 +269,8 @@ Feature: Forensics RBAC
   Scenario: Validate DF not appears for real_server_operator
     Given UI Login with user "real_server_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
-      | operations                                  | accesses |
-      | AMS Forensics                               | no       |
+      | operations    | accesses |
+      | AMS Forensics | no       |
     * UI logout and close browser
 
   @SID_26
@@ -281,10 +279,10 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
-      | label     | param       | value |
-      | Product   | DefenseFlow | true |
-      | Product   | DefensePro  | true  |
-      | Product   | AppWall     | true  |
+      | label   | param       | value |
+      | Product | DefenseFlow | true  |
+      | Product | DefensePro  | true  |
+      | Product | AppWall     | true  |
     * UI logout and close browser
 
   @SID_27
@@ -293,18 +291,18 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
-      | label     | param       | value |
-      | Product   | DefenseFlow | false |
-      | Product   | DefensePro  | true  |
-      | Product   | AppWall     | true  |
+      | label   | param       | value |
+      | Product | DefenseFlow | false |
+      | Product | DefensePro  | true  |
+      | Product | AppWall     | true  |
     * UI logout and close browser
 
   @SID_28
   Scenario: Validate DF not appears for user_admin
     Given UI Login with user "user_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
-      | operations                                  | accesses |
-      | AMS Forensics                               | no       |
+      | operations    | accesses |
+      | AMS Forensics | no       |
     * UI logout and close browser
 
   @SID_29
@@ -313,10 +311,10 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
-      | label     | param       | value |
-      | Product   | DefenseFlow | true |
-      | Product   | DefensePro  | true  |
-      | Product   | AppWall     | true  |
+      | label   | param       | value |
+      | Product | DefenseFlow | true  |
+      | Product | DefensePro  | true  |
+      | Product | AppWall     | true  |
     * UI logout and close browser
 
   @SID_30
@@ -325,21 +323,18 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
-      | label     | param       | value |
-      | Product   | DefenseFlow | true |
-      | Product   | DefensePro  | true  |
-      | Product   | AppWall     | true  |
+      | label   | param       | value |
+      | Product | DefenseFlow | true  |
+      | Product | DefensePro  | true  |
+      | Product | AppWall     | true  |
     * UI logout and close browser
-
 
 
   @SID_31
   Scenario: Login And Go to Vision
-    Given UI Login with user "radware" and password "radware"
-    Given UI Go To Vision
-    Then UI Navigate to page "System->User Management->Authentication Mode"
-    Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
-    Then UI Click Button "Submit"
+    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value    |
+      | $.authenticationMode | "TACACS" |
 
 
   @SID_12
