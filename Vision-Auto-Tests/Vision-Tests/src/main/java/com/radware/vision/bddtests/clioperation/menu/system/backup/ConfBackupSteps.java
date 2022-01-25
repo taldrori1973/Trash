@@ -16,13 +16,13 @@ import cucumber.api.java.en.When;
 
 
 public class ConfBackupSteps extends TestBase {
-    private static final String confB0 = "confB0" + ConfBackup.backupFileSufix;
-    private static final String confB1 = "confB1" + ConfBackup.backupFileSufix;
-    private static final String confB2 = "confB2" + ConfBackup.backupFileSufix;
-    private static final String confB3 = "confB3" + ConfBackup.backupFileSufix;
-    private static final String confB4 = "confB4" + ConfBackup.backupFileSufix;
-    private static final String confB5 = "confB5" + ConfBackup.backupFileSufix;
-    private static final String confB6 = "confB6" + ConfBackup.backupFileSufix;
+    private static final String confB0 = "confB0" + ConfBackup.backupFileSuffix;
+    private static final String confB1 = "confB1" + ConfBackup.backupFileSuffix;
+    private static final String confB2 = "confB2" + ConfBackup.backupFileSuffix;
+    private static final String confB3 = "confB3" + ConfBackup.backupFileSuffix;
+    private static final String confB4 = "confB4" + ConfBackup.backupFileSuffix;
+    private static final String confB5 = "confB5" + ConfBackup.backupFileSuffix;
+    private static final String confB6 = "confB6" + ConfBackup.backupFileSuffix;
     private static final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
     private static final RootServerCli rootServerCLI = serversManagement.getRootServerCLI().get();
     private static final LinuxFileServer linuxFileServer = serversManagement.getLinuxFileServer().get();
@@ -30,33 +30,33 @@ public class ConfBackupSteps extends TestBase {
 
     @When("^CLI Create configuration backup with name \"(.*)\"$")
     public void createConfigurationBackup(String backupName) {
-        ConfBackup.createConfigurationBackup(backupName, "created_by_automation", radwareServerCli);
+        ConfBackup.confBackupCreate(backupName, "created_by_automation", radwareServerCli);
     }
 
     @When("^CLI Delete configuration backup with name \"(.*)\"$")
     public void deleteConfigurationBackup(String backupName) {
-        ConfBackup.deleteConfigurationBackup(backupName, radwareServerCli);
+        ConfBackup.deleteConfBackup(backupName, radwareServerCli);
     }
 
     @When("^CLI Restore configuration backup with name \"(.*)\"$")
     public void restoreConfigurationBackup(String backupName) {
-        ConfBackup.restoreConfigurationBackup(backupName, radwareServerCli);
+        ConfBackup.confBackupRestore(backupName, radwareServerCli);
     }
 
     @When("^CLI Export configuration backup with name \"(.*)\" to remote server using \"(.*)\" protocol$")
     public void exportConfigurationBackup(String backupName, String protocol) {
         ImportExportType importExportType = ImportExportType.valueOf(protocol);
-        ConfBackup.exportConfigurationBackup(backupName, radwareServerCli,
+        ConfBackup.exportConfBackup(backupName, radwareServerCli,
                 importExportType.toString() + "://root@"
                         + linuxFileServer.getHost() + ":"
                         + ImportExport.getPath(importExportType) + backupName
-                , linuxFileServer.getPassword());
+                , linuxFileServer.getPassword(),rootServerCLI);
     }
 
     @When("^CLI Import configuration backup with name \"(.*)\" from remote server using \"(.*)\" protocol$")
     public void importConfigurationBackup(String backupName, String protocol) {
         ImportExportType importExportType = ImportExportType.valueOf(protocol);
-        ConfBackup.importConfigurationBackup(backupName, radwareServerCli,
+        ConfBackup.importConfBackup(backupName, radwareServerCli,
                 importExportType.toString() + "://root@"
                         + linuxFileServer.getHost() + ":"
                         + ImportExport.getPath(importExportType)
@@ -188,7 +188,7 @@ public class ConfBackupSteps extends TestBase {
         try {
             ConfBackup.deleteConfBackup(confB1, radwareServerCli);
             ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
-            ConfBackup.exportConfBackup(confB1, radwareServerCli, importExportType.toString() + "://" + username + "@" + linuxFileServer.getHost() + ":" + ImportExport.getPath(importExportType) + confB1, linuxFileServer.getPassword());
+            ConfBackup.exportConfBackup(confB1, radwareServerCli, importExportType.toString() + "://" + username + "@" + linuxFileServer.getHost() + ":" + ImportExport.getPath(importExportType) + confB1, linuxFileServer.getPassword(),rootServerCLI);
             CliOperations.verifyDirectoryExists("ls " + ImportExport.getPath(importExportType) + confB1 + ".tar", linuxFileServer);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -203,6 +203,7 @@ public class ConfBackupSteps extends TestBase {
             String targetIP = clientConfigurations.getHostIp();
             String sourceIP = sutManager.getpair().getPairIp();
             RadwareServerCli radwareServerCli = ConfBackupSteps.radwareServerCli;
+            RootServerCli rootServerCli = ConfBackupSteps.rootServerCLI;
             RadwareServerCli sourceServerCli = new RadwareServerCli(sourceIP, radwareServerCli.getUser(), radwareServerCli.getPassword());
             sourceServerCli.disconnect();
             sourceServerCli.init();
@@ -210,7 +211,7 @@ public class ConfBackupSteps extends TestBase {
             ConfBackup.deleteConfBackup(confB1,  sourceServerCli);
             ConfBackup.confBackupCreate(confB1, "1created_by_automation", sourceServerCli);
             sourceServerCli.connect();
-            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, ConfBackupSteps.radwareServerCli.getPassword());
+            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, ConfBackupSteps.radwareServerCli.getPassword(),rootServerCli);
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -223,7 +224,7 @@ public class ConfBackupSteps extends TestBase {
         try {
             String targetIP = rootServerCLI.getHost();
             radwareServerCli.connect();
-            ConfBackup.importConfigurationBackup(confB1, radwareServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path , "radware");
+            ConfBackup.importConfBackup(confB1, radwareServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path , "radware");
             ConfBackup.confBackupRestore(confB1, radwareServerCli);
 
         } catch (Exception e) {
@@ -242,9 +243,9 @@ public class ConfBackupSteps extends TestBase {
             sourceServerCli.init();
             ConfBackup.deleteConfBackup(confB1, sourceServerCli);
             ConfBackup.confBackupCreate(confB1, "1created_by_automation", sourceServerCli);
-            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, linuxFileServer.getPassword());
+            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, linuxFileServer.getPassword(),rootServerCLI);
             radwareServerCli.connect();
-            ConfBackup.importConfigurationBackup(confB1, radwareServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path , "radware");
+            ConfBackup.importConfBackup(confB1, radwareServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path , "radware");
             ConfBackup.confBackupRestore(confB1, radwareServerCli);
 
         } catch (Exception e) {
@@ -275,7 +276,7 @@ public class ConfBackupSteps extends TestBase {
         try {
             ConfBackup.deleteConfBackup(confB1, radwareServerCli);
             ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
-            ConfBackup.exportConfBackupFile(confB1, radwareServerCli);
+            ConfBackup.exportConfBackup(confB1, radwareServerCli, "1created_by_automation", ConfBackupSteps.radwareServerCli.getPassword(),rootServerCLI);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -355,7 +356,7 @@ public class ConfBackupSteps extends TestBase {
         try {
             ConfBackup.deleteConfBackup(confB1, radwareServerCli);
             ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
-            ConfBackup.exportConfBackup(confB1, radwareServerCli, importExportType.toString() + "://" + username + "@" + linuxFileServer.getHost() + ":" + ImportExport.getPath(importExportType) + confB1, linuxFileServer.getPassword());
+            ConfBackup.exportConfBackup(confB1, radwareServerCli, importExportType.toString() + "://" + username + "@" + linuxFileServer.getHost() + ":" + ImportExport.getPath(importExportType) + confB1, linuxFileServer.getPassword(),rootServerCLI);
             ConfBackup.getLsString(ImportExport.getPath(importExportType) + confB1 + ".tar", confB1, linuxFileServer);
             ConfBackup.deleteConfBackup(confB1, radwareServerCli);
             String[] confBackupNameArr = {confB1};
@@ -411,11 +412,11 @@ public class ConfBackupSteps extends TestBase {
         try {
             ConfBackup.deleteConfBackup(confB1, radwareServerCli);
             ConfBackup.confBackupCreate(confB1, "1created_by_automation", radwareServerCli);
-            ConfBackup.exportConfBackupFile(confB1, radwareServerCli);
+            ConfBackup.exportConfBackup(confB1, radwareServerCli, "1created_by_automation", ConfBackupSteps.radwareServerCli.getPassword(),rootServerCLI);
             ConfBackup.deleteConfBackup(confB1, radwareServerCli);
             String[] confBackupNameArr = {confB1};
             ConfBackup.verifyConfBackupNotInListRadware(confBackupNameArr, radwareServerCli);
-            ConfBackup.importConfBackupFile(confB1, radwareServerCli);
+            ConfBackup.importConfBackup(confB1, radwareServerCli, "://" + "root" + "@" + radwareServerCli.getHost() + ":" + path ,ConfBackupSteps.radwareServerCli.getPassword());
             ConfBackup.verifyConfBackupListRadware(confBackupNameArr, radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

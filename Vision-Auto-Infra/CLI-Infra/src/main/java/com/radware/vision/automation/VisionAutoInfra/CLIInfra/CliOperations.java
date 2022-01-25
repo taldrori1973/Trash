@@ -1,7 +1,7 @@
 package com.radware.vision.automation.VisionAutoInfra.CLIInfra;
 
 
-import ch.ethz.ssh2.log.Logger;
+import com.aqua.sysobj.conn.CliCommand;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
@@ -9,7 +9,6 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareSer
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.RegexUtils;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -224,5 +223,24 @@ public final class CliOperations {
 
     }
 
+    public static void verifyDirectoryExists(String dirStr, RootServerCli userCli) throws Exception{
+
+        try{
+            BaseTestUtils.reporter.startLevel("Verify directory exists");
+            InvokeUtils.invokeCommand(null, "cd " + dirStr, userCli, CliCommand.getDefaultTimeout(), false, false, true, "No such file or directory");
+            InvokeUtils.invokeCommand(null, "cd ~", userCli, CliCommand.getDefaultTimeout(), false, false, true, "No such file or directory");//IzikP: setting prompt back to home dir
+        }
+        finally{
+            BaseTestUtils.reporter.stopLevel();
+        }
+
+    }
+
+    public static void verifyDirectoryExists(String dirStr, ServerCliBase fileServer) throws Exception{
+        fileServer.connect();
+        InvokeUtils.invokeCommand(null, dirStr, fileServer, CliCommand.getDefaultTimeout(), false, false, true, "No such file or directory");
+        fileServer.disconnect();
+
+    }
 }
 
