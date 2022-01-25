@@ -9,7 +9,7 @@ Feature: RBAC Menu
     Given UI Navigate to page "System->User Management->Local Users"
 
   
-    @SID_2
+  @SID_2
   Scenario Outline: Create users and verify
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
@@ -32,7 +32,7 @@ Feature: RBAC Menu
       | system_user           | System User                   | [ALL] | Radware1234!@#$ |
 
   
-    @SID_3
+  @SID_3
   Scenario Outline: Scope "All" is required for User Definition
     When Scope Is "<enabled or disabled>" For Role "<Role>"
     Examples:
@@ -398,7 +398,7 @@ Feature: RBAC Menu
       | VISION SETTINGS                             | yes      |
     * UI logout and close browser
 
-    @SID_20
+  @SID_20
   Scenario Outline: Delete All Users
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
