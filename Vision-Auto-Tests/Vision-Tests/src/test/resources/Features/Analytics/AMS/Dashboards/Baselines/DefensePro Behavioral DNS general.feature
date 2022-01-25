@@ -24,7 +24,7 @@ Feature: DefensePro Behavioral DNS General Tests
 
   @SID_2
   Scenario: DNS baseline pre-requisite
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     Given CLI kill all simulator attacks on current vision
     Given CLI Clear vision logs
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
@@ -55,7 +55,7 @@ Feature: DefensePro Behavioral DNS General Tests
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  |         |
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.55  |         |
     Then UI Click Button "Device Selection.Cancel"
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     And UI Do Operation "Select" item "Device Selection"
     Then UI Validate the attribute of "Class" are "EQUAL" to
       | label                                      | param          | value   |
@@ -165,7 +165,7 @@ Feature: DefensePro Behavioral DNS General Tests
   Scenario: Validate Charts existence
     Then UI Click Button "Behavioral Tab" with value "BDoS"
     Then Sleep "2"
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-AAAA"
@@ -220,7 +220,7 @@ Feature: DefensePro Behavioral DNS General Tests
   Scenario: Validate DNS Default form
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-AAAA"
@@ -260,7 +260,7 @@ Feature: DefensePro Behavioral DNS General Tests
   Scenario: Validate Default Widgets
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-AAAA"
@@ -285,7 +285,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-PTR"
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-AAAA"
@@ -317,7 +317,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "DNS"
+    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     When UI VRM Clear All Widgets
     And UI VRM Select Widgets
       |   DNS-A   |
