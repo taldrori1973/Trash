@@ -57,6 +57,7 @@ public class UpgradeSteps extends TestBase {
             RadwareServerCli radwareServerCli = new RadwareServerCli(sourceIP,
                     serversManagement.getRadwareServerCli().get().getUser(),
                     serversManagement.getRadwareServerCli().get().getPassword());
+            radwareServerCli.connect();
             UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

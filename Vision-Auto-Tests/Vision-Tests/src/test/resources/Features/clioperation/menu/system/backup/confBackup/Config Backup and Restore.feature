@@ -5,18 +5,14 @@ Feature: Backup and Restore
   @SID_1
   Scenario: Pre upgrade changes
     * CLI Clear vision logs
-    # TED Configuration
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionInDays\":.*,/\"elasticRetentionInDays\":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionMaxPercent\":.*,/\"elasticRetentionMaxPercent\":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command on Vision 2 "sed -i '1,5s/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Run Radware Session command "net firewall open-port set 9200 open" on vision 2, timeout 5
+
 
   @SID_2
   Scenario: validate services is UP in the two machines before backup and restore
     Given validate vision server services are UP
     Given validate vision server services are UP on vision 2
-    # Wait for lls to run before restore
-    Then CLI LLS validate installation with expected: "Local License Server is running", timeout 1200 on vision 2
 
   @SID_3
   Scenario: Backup from source vision, and export to target vision
@@ -49,7 +45,7 @@ Feature: Backup and Restore
 
   @SID_8
   Scenario: Restore validation number of devices
-    Then CLI Run linux Command "vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "16"
+    Then CLI Run linux Command "mysql vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "7"
 
   @SID_9
   Scenario: Check logs for errors
@@ -71,97 +67,72 @@ Feature: Backup and Restore
     Given UI Login with user "radware" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI "Validate" Report With Name "Report_backup_restore"
-      | Template              | reportType:DefensePro Analytics, Widgets:[Traffic Bandwidth, Connections Rate, Concurrent Connections, Top Attacks, Top Attacks by Volume, Top Attacks by Protocol, Critical Attacks by Mitigation Action, Attacks by Threat Category, Attacks by Mitigation Action, Top Attack Destinations, Top Attack Sources, Top Scanners, Top Probed IP Addresses, Attacks by Protection Policy, Attack Categories by Bandwidth, Top Allowed Attackers, Top Attacks by Duration, Top Attacks by Signature], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
+      | Template              | reportType:DefensePro Analytics, Widgets:[Traffic Bandwidth, Connections Rate, Concurrent Connections, Top Attacks, Top Attacks by Volume, Top Attacks by Protocol, Critical Attacks by Mitigation Action, Attacks by Threat Category, Attacks by Mitigation Action, Top Attack Destinations, Top Attack Sources, Top Scanners, Top Probed IP Addresses, Attacks by Protection Policy, Attack Categories by Bandwidth, Top Allowed Attackers, Top Attacks by Duration, Top Attacks by Signature], devices:[All] |
       | Time Definitions.Date | Quick:1W                                                                                          |
       | Format                | Select: HTML                                                                                      |
 
   @SID_12
-  Scenario: Restore validation AMS report schedule
-    Then CLI copy "/home/radware/Scripts/get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI Run linux Command "/get_scheduled_report_value.sh Report_backup_restore" on "ROOT_SERVER_CLI" and validate result EQUALS "0 00 12 ? * 1"
-
-  @SID_13
-  Scenario: Restore validation AMS report results
-
-  @SID_14
   Scenario: Restore validation AMS alerts
     And UI Navigate to "AMS Alerts" page via homePage
-    Then UI validate Checkbox by label "SwitchOff" with extension "Alert backup restore" if Selected "false"
-
     Then UI "Validate" Alerts With Name "Alert backup restore"
       | Basic Info | Description:description backup restore,Impact:impact backup restore, Remedy:remedy backup restore, Severity:Major |
       | Criteria   | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:100,Unit:M;                                     |
       | Schedule   | triggerThisRule:2,Within:10,selectTimeUnit:minutes,alertsPerHour:2                                                |
-      | devices    | index:10, policies:[pol_1];                                                                                       |
+      | devices    | index:10                                                                                       |
       | Share      | Email:[nobody@alert.local],Subject:subject alert backup restore,Body:message alert backup restore                 |
 
-  @SID_15
+  @SID_13
   Scenario: Restore validation AMS forensic definition
     And UI Navigate to "AMS Forensics" page via homePage
     Then UI "Validate" Forensics With Name "Forensic backup restore"
-      | Time Definitions.Date | Quick:This Month                                                                                                 |
-      | Criteria              | Event Criteria:Attack ID,Operator:Not Equals,Value:123; Event Criteria:Attack ID,Operator:Not Equals,Value:1234; |
-#      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
-      | Format                | Select: HTML                                                                                                     |
-#      | Share                 | FTP:checked, FTP.Location:my.ftp.server, FTP.Path:/backup, FTP.Username:user1, FTP.Password:1234                                                                                                                                             |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Drop,devices:[All] |
+      | Output   | Start Time,Attack ID,Action                          |
 
-  @SID_16
+  @SID_14
   Scenario: Restore validation AMS forensic results
     Then UI Click Button "My Forensics" with value "Forensic backup restore"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic backup restore"
     Then Sleep "35"
     Then UI Logout
 
-
-  @SID_17
+  @SID_15
   Scenario: Restore validation local user
     When CLI Operations - Run Radware Session command "system user authentication-mode set Local"
     Then UI Login with user "user_backup_restore" and password "12345678"
     Then UI Logout
     Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 
-#  @SID_18
-#  Scenario: Restore validation Scheduled tasks triggers
-#    Then CLI Run linux Command "quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%AttackDesc%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 30 1 ? * *"
-#    Then CLI Run linux Command "quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%OperatorToolbox%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 1 12 ? * 2"
+  @SID_16
+  Scenario: Restore validation Scheduled tasks triggers
+    Then CLI Run linux Command "mysql quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%AttackDesc%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 0 12 ? * 1"
+    Then CLI Run linux Command "mysql quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%OperatorToolbox%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 0 12 ? * 1"
 
-  @SID_19
+  @SID_17
   Scenario: Restore validation SSL certificate
-    When CLI Operations - Run Radware Session command "system ssl show | grep Name"
-    Then CLI Operations - Verify that output contains regex ".*APSolute Vision Server.*"
+    When CLI Operations - Run Radware Session command "system ssl show | grep subject"
+    Then CLI Operations - Verify that output contains regex "APSolute Vision Server"
     When CLI Operations - Run Radware Session command "system ssl show | grep Unit"
     Then CLI Operations - Verify that output contains regex ".*NA*"
 
-  @SID_20
-  Scenario: Restore validation fluentd listening port
-    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk 'NR==1{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400"
 
-  @SID_21
-  Scenario: Restore validation td-agent service
-    Then CLI Run linux Command "service td-agent status" on "ROOT_SERVER_CLI" and validate result CONTAINS "td-agent is running"
-
-  @SID_22
+  @SID_18
   Scenario: Restore Validate TED status
-    Then CLI Run linux Command "echo $(vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep -w "51400"|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
     Then CLI Run linux Command "curl -ks -o null -w 'RESP_CODE:%{response_code}\n' -XGET https://localhost:443/ted/api/data" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
 
-  @SID_23
+  @SID_19
   Scenario: Restore validation LLS running
     Then CLI LLS validate installation with expected: "Local License Server is running", timeout 1200
 
-  @SID_24
-  Scenario: Restore Validate td-agent configuration
-    Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk 'NR==1{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400"
 
-  @SID_25
+  @SID_20
   Scenario: Restore Validate TED configuration
-    Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionInDays\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "7"
+    Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionInDays\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "14"
     Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionMaxPercent\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "75"
 
-  @SID_26
+  @SID_21
   Scenario: Verify number of tables in vision schema
-    Then CLI Run linux Command "-NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+    Then CLI Run linux Command "mysql -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
 
-  @SID_27
+  @SID_22
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "-NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+    Then CLI Run linux Command "mysql -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "169"

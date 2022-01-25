@@ -234,6 +234,18 @@ public class RadwareServerCli extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
+        p.setPrompt("Are you sure you want to delete this backup (Y/N)");
+        p.setStringToSend("Y");
+        p.setCommandEnd(false);
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Continue with the restore operation? (Y/N)");
+        p.setStringToSend("Y");
+        p.setCommandEnd(false);
+        prompts.add(p);
+
+        p = new Prompt();
         p.setPrompt("Continue with the upgrade anyway? [y/n]");
 //        p.setPrompt("The APSolute Vision upgrade process has identified that the virtual machine hosting APSolute Vision has less than \\d+ GB RAM. Radware recommends increasing the APSolute Vision RAM to at least \\d+ GB before starting the upgrade. Continue with the upgrade anyway? [Y/n]");
         p.setStringToSend("y");
