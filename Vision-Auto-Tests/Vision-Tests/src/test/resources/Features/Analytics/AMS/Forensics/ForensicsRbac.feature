@@ -332,9 +332,11 @@ Feature: Forensics RBAC
 
   @SID_31
   Scenario: Login And Go to Vision
-    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
-      | jsonPath             | value    |
-      | $.authenticationMode | "TACACS" |
+    Given UI Login with user "radware" and password "radware"
+    Given UI Go To Vision
+    Then UI Navigate to page "System->User Management->Authentication Mode"
+    Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
+    Then UI Click Button "Submit"
 
 
   @SID_12
