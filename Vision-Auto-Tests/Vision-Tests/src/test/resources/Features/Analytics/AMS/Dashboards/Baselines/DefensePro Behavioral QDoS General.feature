@@ -18,10 +18,10 @@ Feature: DefensePro Behavioral QDoS General Tests
       | Behavioral Tab  |  DNS   | false |
       | Behavioral Tab  |  QDoS  | false |
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
-
+    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
   @SID_3
   Scenario: Validate Tab Switch
-    Then UI Click Button "Behavioral Tab" with value "QDoS"
+    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label           | param  | value |
@@ -46,7 +46,7 @@ Feature: DefensePro Behavioral QDoS General Tests
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  | checked |
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.55  |         |
     Then UI Click Button "Device Selection.Cancel"
-    Then UI Click Button "Behavioral Tab" with value "QDoS"
+    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     And UI Do Operation "Select" item "Device Selection"
     Then UI Validate the attribute of "Class" are "EQUAL" to
       | label                                      | param          | value   |
@@ -84,7 +84,7 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-1"
     Then UI Click Button "Behavioral Tab" with value "BDoS"
     Then Sleep "2"
-    Then UI Click Button "Behavioral Tab" with value "QDoS"
+    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-1"
 
@@ -92,7 +92,7 @@ Feature: DefensePro Behavioral QDoS General Tests
   Scenario: Validate Default Form of QDoS Tab
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "QDoS"
+    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-1"
 
@@ -115,7 +115,7 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "QDoS"
+    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status"
 
   @SID_11
@@ -136,7 +136,7 @@ Feature: DefensePro Behavioral QDoS General Tests
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "QDoS"
+    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     When UI VRM Clear All Widgets
     And UI VRM Select Widgets
       | Quantile Status  |
