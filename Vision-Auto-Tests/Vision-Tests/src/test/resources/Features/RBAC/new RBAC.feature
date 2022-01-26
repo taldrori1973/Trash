@@ -53,17 +53,17 @@ Feature: RBAC Menu
     When UI Login with user "ADC_ANALYTICS" and password "Radware1234!@#$"
     And Sleep "10"
     Then UI Validate user rbac
-      | operations        | accesses               |
-      | HOME              | yes                    |
-      | VISION SETTINGS   | no                     |
+      | operations          | accesses |
+      | HOME                | yes      |
+      | VISIONSETTINGS_ITEM | no       |
   #ANALYTICS ADC
-      | ANALYTICS ADC     | yes                    |
+      | ANALYTICS ADC       | yes      |
 #      | ADC_APPLICATION_ITEM                        | yes      |
 #      | ADC_NETWORK_AND_SYSTEM_ITEM                 | yes      |
 #      | ALTEON_EAAF_ITEM                            | yes      |
 #      | ADC_REPORTS_ITEM                            | yes      |
 #ANALYTICS AMS
-      | ANALYTICS AMS     | no                     |
+      | ANALYTICS AMS       | no       |
 #      | AMS Reports                                 | no      |
 #      | AMS Forensics                               | no      |
 #      | AMS Alerts                                  | no      |
@@ -76,18 +76,18 @@ Feature: RBAC Menu
 #      | DefenseFlow Analytics Dashboard             | no       |
 
 #APPLICATIONS
-      | APPLICATIONS_ITEM | no                     |
+      | APPLICATIONS_ITEM   | no       |
 #      | vDirect                                     | no       |
 #      | GEL Dashboard                               | no       |
 #      | AVR                                         | no       |
 #      | DPM                                         | no       |
 
 #AUTOMATION
-      | AUTOMATION_ITEM   | no                     |
+      | AUTOMATION_ITEM     | no       |
 #DEFENSEFLOW
-      | DEFENSEFLOW_ITEM  | no                     |
+      | DEFENSEFLOW_ITEM    | no       |
 #SCHEDULER
-      | SCHEDULER_ITEM    | no                     |
+      | SCHEDULER_ITEM      | no       |
 
 
   @SID_////////
@@ -95,17 +95,17 @@ Feature: RBAC Menu
     When UI Login with user "AMS_ANALYTICS" and password "Radware1234!@#$"
     And Sleep "10"
     Then UI Validate user rbac
-      | operations        | accesses |
-      | HOME              | yes      |
-      | VISION SETTINGS   | no       |
+      | operations          | accesses |
+      | HOME                | yes      |
+      | VISIONSETTINGS_ITEM | no       |
   #ANALYTICS ADC
-      | ANALYTICS ADC     | no       |
+      | ANALYTICS ADC       | no       |
 #      | ADC_APPLICATION_ITEM                        | no      |
 #      | ADC_NETWORK_AND_SYSTEM_ITEM                 | no      |
 #      | ALTEON_EAAF_ITEM                            | no      |
 #      | ADC_REPORTS_ITEM                            | no      |
 #ANALYTICS AMS
-      | ANALYTICS AMS     | yes      |
+      | ANALYTICS AMS       | yes      |
 #      | AMS Reports                                 | yes      |
 #      | AMS Forensics                               | yes      |
 #      | AMS Alerts                                  | yes      |
@@ -114,39 +114,39 @@ Feature: RBAC Menu
 #      | HTTPS Flood Dashboard                       | yes       |
 #      | DefensePro Analytics Dashboard              | yes       |
 #      | DefensePro Monitoring Dashboard             | yes       |
-      | AppWall Dashboard | no       |
+      | AppWall Dashboard   | no       |
 #      | DefenseFlow Analytics Dashboard             | yes       |
 
 #APPLICATIONS
-      | APPLICATIONS_ITEM | no       |
+      | APPLICATIONS_ITEM   | no       |
 #      | vDirect                                     | no       |
 #      | GEL Dashboard                               | no       |
 #      | AVR                                         | no       |
 #      | DPM                                         | no       |
 
 #AUTOMATION
-      | AUTOMATION_ITEM   | no       |
+      | AUTOMATION_ITEM     | no       |
 #DEFENSEFLOW
-      | DEFENSEFLOW_ITEM  | no       |
+      | DEFENSEFLOW_ITEM    | no       |
 #SCHEDULER
-      | SCHEDULER_ITEM    | no       |
+      | SCHEDULER_ITEM      | no       |
 
   @SID_////////
   Scenario: ADC_ANALYTICS_Viewer RBAC Validation
     When UI Login with user "APPWALL_ANALYTICS" and password "Radware1234!@#$"
     And Sleep "10"
     Then UI Validate user rbac
-      | operations        | accesses |
-      | HOME              | yes      |
-      | VISION SETTINGS   | no       |
+      | operations          | accesses |
+      | HOME                | yes      |
+      | VISIONSETTINGS_ITEM | no       |
   #ANALYTICS ADC
-      | ANALYTICS ADC     | yes      |
+      | ANALYTICS ADC       | yes      |
 #      | ADC_APPLICATION_ITEM                        | yes      |
 #      | ADC_NETWORK_AND_SYSTEM_ITEM                 | yes      |
 #      | ALTEON_EAAF_ITEM                            | yes      |
 #      | ADC_REPORTS_ITEM                            | yes      |
 #ANALYTICS AMS
-      | ANALYTICS AMS     | yes       |
+      | ANALYTICS AMS       | yes      |
 #      | AMS Reports                                 | no      |
 #      | AMS Forensics                               | no      |
 #      | AMS Alerts                                  | no      |
@@ -159,18 +159,18 @@ Feature: RBAC Menu
 #      | DefenseFlow Analytics Dashboard             | no       |
 
 #APPLICATIONS
-      | APPLICATIONS_ITEM | no       |
+      | APPLICATIONS_ITEM   | no       |
 #      | vDirect                                     | no       |
 #      | GEL Dashboard                               | no       |
 #      | AVR                                         | no       |
 #      | DPM                                         | no       |
 
 #AUTOMATION
-      | AUTOMATION_ITEM   | no       |
+      | AUTOMATION_ITEM     | no       |
 #DEFENSEFLOW
-      | DEFENSEFLOW_ITEM  | no       |
+      | DEFENSEFLOW_ITEM    | no       |
 #SCHEDULER
-      | SCHEDULER_ITEM    | no       |
+      | SCHEDULER_ITEM      | no       |
 
 
   @SID_////
