@@ -2,6 +2,7 @@
 Feature: DefenseFlow Attacks Reports
 
   #  ==========================================Setup================================================
+
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -11,11 +12,13 @@ Feature: DefenseFlow Attacks Reports
     * REST Delete ES index "vrm-scheduled-report-result-*"
     * CLI Clear vision logs
 
+
   @SID_31
   Scenario: Change DF managment IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+
 
   @SID_2
   Scenario: Run DF simulator
@@ -32,11 +35,13 @@ Feature: DefenseFlow Attacks Reports
       | #visionIP                                       |
       | " Terminated"                                   |
 
+  @Test12
   @SID_3
   Scenario:Login and copy get_scheduled_report_value.sh file to server
     Given UI Login with user "sys_admin" and password "radware"
     Then CLI copy "/home/radware/Scripts/get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
 
+  @Test12
   @SID_4
   Scenario: Email configuration
     And UI Go To Vision
@@ -52,50 +57,50 @@ Feature: DefenseFlow Attacks Reports
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
 
+  @Test12
   @SID_5
   Scenario: Navigate to AMS report
     And UI Navigate to "AMS Reports" page via homePage
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+    Then UI Validate Element Existence By Label "New Report Tab" if Exists "true"
 
   # =============================================Overall===========================================================
+  @Test12
   @SID_6
   Scenario: Create DefenseFlow report
     When UI "Create" Report With Name "OverallDFReport"
-      | reportType         | DefenseFlow Analytics Dashboard                                              |
-      | projectObjects     | All                                                                          |
-      | Design             | Add:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Customized Options | addLogo: reportLogoPNG.png                                                   |
-    Then UI "Validate" Report With Name "OverallDFReport"
-      | reportType         | DefenseFlow Analytics Dashboard                                                  |
-      | projectObjects     | PO_100,PO_200,PO_300                                                             |
-      | Design             | Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Customized Options | addLogo: reportLogoPNG.png                                                       |
-    Then UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "OverallDFReport"
+      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All], showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                        |
 
+    Then UI "Validate" Report With Name "OverallDFReport"
+      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All], showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                        |
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverallDFReport"
+
+  @Test12
   @SID_7
   Scenario: Edit report
     When UI "Edit" Report With Name "OverallDFReport"
-      | reportType            | DefenseFlow Analytics Dashboard                                  |
-      | projectObjects        | PO_300                                                           |
-      | Customized Options    | addLogo:unselected                                               |
+      | Template              | reportType:DefenseFlow Analytics,AddWidgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[PO_300], showTable:true |
       | Time Definitions.Date | Quick:15m                                                        |
       | Share                 | Email:[DF_attack@report.local],Subject:DefenseFlow Attack report |
       | Format                | Select: CSV                                                      |
 
-
+  @Test12
   @SID_8
   Scenario: Clear SMTP server log files
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
 
+  @Test12
   @SID_9
   Scenario: Generate Report
-    Then UI Generate and Validate Report With Name "OverallDFReport" with Timeout of 120 Seconds
+    Then UI "Generate" Report With Name "OverallDFReport"
+      | timeOut | 60 |
 
+  @Test12
   @SID_10
   Scenario: Delete report
-    When UI Click Button "Delete" with value "OverallDFReport"
-    When UI Click Button "Delete.Approve"
-    Then UI Validate Element Existence By Label "Reports List Item" if Exists "false" with value "OverallDFReport"
+    Then UI Delete Report With Name "OverallDFReport"
+    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "OverallDFReport"
 
   @SID_11
   Scenario: Validate Report Email received content
@@ -265,6 +270,12 @@ Feature: DefenseFlow Attacks Reports
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
+
+  @SID_31
+  Scenario: Change DF management IP to IP of Vision DF
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "system df management-ip set " |
+      | @defenseFlowDevice.getDeviceIp |
 
   @SID_30
   Scenario: Cleanup
