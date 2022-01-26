@@ -736,23 +736,23 @@ Feature: VRM DNS baselines
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Suspected Edge"
       | value | count | offset |
-      | 184   | 16    | 7      |
+      | 184   | 16    | 9      |
 
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Normal Edge"
       | value | count | offset |
-      | 185   | 16    | 7      |
+      | 185   | 16    | 9      |
 
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Attack Edge"
       | value | count | offset |
-      | 189   | 16    | 7      |
+      | 189   | 16    | 9      |
 
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 220   | 16    | 7      |
+      | 220   | 16    | 9      |
 
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Total Traffic"
       | value | count | offset |
-      | 240   | 16    | 7      |
+      | 240   | 16    | 9      |
 
   # END DNS NAPTR
 
@@ -859,23 +859,23 @@ Feature: VRM DNS baselines
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-PTR" with Label "Suspected Edge"
       | value | count | offset |
-      | 3806  | 16    | 7      |
+      | 3806  | 16    | 9      |
 
     Then UI Validate Line Chart data "DNS-PTR" with Label "Normal Edge"
       | value | count | offset |
-      | 3600  | 16    | 7      |
+      | 3600  | 16    | 9      |
 
     Then UI Validate Line Chart data "DNS-PTR" with Label "Attack Edge"
       | value | count | offset |
-      | 4024  | 16    | 7      |
+      | 4024  | 16    | 9      |
 
     Then UI Validate Line Chart data "DNS-PTR" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 140   | 16    | 7      |
+      | 140   | 16    | 9      |
 
     Then UI Validate Line Chart data "DNS-PTR" with Label "Total Traffic"
       | value | count | offset |
-      | 150   | 16    | 7      |
+      | 150   | 16    | 9      |
 
   # END DNS PTR
 
@@ -981,23 +981,23 @@ Feature: VRM DNS baselines
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-SOA" with Label "Suspected Edge"
       | value | count | offset |
-      | 184   | 17    | 6      |
+      | 184   | 17    | 9      |
 
     Then UI Validate Line Chart data "DNS-SOA" with Label "Normal Edge"
       | value | count | offset |
-      | 180   | 17    | 6      |
+      | 180   | 17    | 9      |
 
     Then UI Validate Line Chart data "DNS-SOA" with Label "Attack Edge"
       | value | count | offset |
-      | 189   | 17    | 6      |
+      | 189   | 17    | 9      |
 
     Then UI Validate Line Chart data "DNS-SOA" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 200   | 17    | 6      |
+      | 200   | 17    | 9      |
 
     Then UI Validate Line Chart data "DNS-SOA" with Label "Total Traffic"
       | value | count | offset |
-      | 220   | 17    | 6      |
+      | 220   | 17    | 9      |
 
   # END DNS SOA
 
