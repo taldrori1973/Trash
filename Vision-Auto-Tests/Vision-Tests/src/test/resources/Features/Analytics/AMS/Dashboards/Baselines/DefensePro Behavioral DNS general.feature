@@ -7,10 +7,10 @@ Feature: DefensePro Behavioral DNS General Tests
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label           | param  | value |
-      | Behavioral Tab  |  BDoS  | true  |
-      | Behavioral Tab  |  DNS   | false |
-      | Behavioral Tab  |  QDoS  | false |
+      | label          | param        | value |
+      | Behavioral Tab | BDoS         | true  |
+      | Behavioral Tab | DNS Flood    | false |
+      | Behavioral Tab | Quantile DoS | false |
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-AAAA"
@@ -339,7 +339,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Click Button "Widget Selection.Add Selected Widgets"
     Then UI Click Button "Widget Selection"
     Then UI Validate Element Existence By Label "Repo button" if Exists "false"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-3"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-4"
 
   @SID_18
   Scenario: kill all simulator attacks and logout
