@@ -96,7 +96,7 @@ public class HomePage {
             VisionDebugIdsManager.setLabel(item);
             WebElement itemElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.SHORT_WAIT_TIME);
             if (itemElement == null) {
-                navigateFromHomePage("VISION SETTINGS");
+                navigateFromHomePage("Vision Overview");
                 return "The Navigator " + item + " should be exist, But it doesn't";
             }
             if(itemElement.findElement(By.xpath("./..")).getAttribute("class").contains("sub-menu-children")){
@@ -105,7 +105,7 @@ public class HomePage {
                 }
             }
         }
-        navigateFromHomePage("VISION SETTINGS");
+        navigateFromHomePage("Vision Overview");
         return "";
     }
 
