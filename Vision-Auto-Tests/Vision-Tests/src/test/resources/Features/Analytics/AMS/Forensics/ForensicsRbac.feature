@@ -188,6 +188,7 @@ Feature: Forensics RBAC
     * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
       | jsonPath             | value   |
       | $.authenticationMode | "Local" |
+    * UI logout and close browser
 
 
   @SID_17
