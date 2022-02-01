@@ -638,10 +638,10 @@
         }
       },
       {
-        "deviceId": "DefensePro_172.16.22.55",
+        "deviceId": "DefensePro_172.17.22.55",
         "deviceSetId": "DefensePro_Set_3",
         "configurations": {
-          "name": "DefensePro_172.16.22.55",
+          "name": "DefensePro_172.17.22.55",
           "parentOrmID": null,
           "type": "DefensePro",
           "deviceSetup": {
