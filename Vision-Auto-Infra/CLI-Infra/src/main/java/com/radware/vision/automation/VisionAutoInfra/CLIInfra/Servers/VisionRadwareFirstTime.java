@@ -1,9 +1,5 @@
 package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers;
 
-import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
-import com.radware.automation.tools.utils.InvokeUtils;
-import jsystem.extensions.analyzers.text.GetTextCounter;
 import systemobject.terminal.Prompt;
 
 
@@ -119,7 +115,19 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("login as: ");
+        p.setPrompt("Domain creation completed. You can restart your domain by running");
+        p.setCommandEnd(true);
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Escape character is ^]");
+        p.setStringToSend("");
+        p.setDontWaitForScrollEnd(true);
+        p.setCommandEnd(false);
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("login:");
         p.setStringToSend(getUser());
         prompts.add(p);
 
@@ -129,28 +137,13 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("s' password: ");
-        p.setStringToSend(getPassword());
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Password: ");
+        p.setPrompt("Password:");
         p.setStringToSend(getPassword());
         prompts.add(p);
 
         p = new Prompt();
         p.setPrompt("IP Address: ");
         p.setStringToSend(getIp());
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("IP address: ");
-        p.setStringToSend(getIp());
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Netmask: ");
-        p.setStringToSend(getNetMask());
         prompts.add(p);
 
         p = new Prompt();
@@ -204,18 +197,6 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("Physical Management Interface \\[G3 G5 G7\\]  \\(Active links on:.*\\): ");
-        p.setRegularExpression(true);
-        p.setStringToSend(getPhysicalManagement());
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Physical Management Interface \\[G1 ens4 ens5\\] \\(Active links on:.*\\): ");
-        p.setRegularExpression(true);
-        p.setStringToSend(getPhysicalManagement());
-        prompts.add(p);
-
-        p = new Prompt();
         p.setPrompt("Apply these settings [y/N]? ");
         p.setStringToSend("y");
         prompts.add(p);
@@ -226,24 +207,13 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("Do you want to change the root user password [y/N]?");
-        p.setStringToSend("n");
-        prompts.add(p);
-
-        p = new Prompt();
         p.setPrompt("Do you want to change the root user password? [y/N]");
         p.setStringToSend("n");
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("Do you want to disable ssh login for root user account (recommended)? [y/N]");
+        p.setPrompt("Do you want to disable ssh login for root user account (recommended)? [Y/n]");
         p.setStringToSend("n");
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Starting APSolute Vision services...");
-        p.setDontWaitForScrollEnd(true);
-        p.setCommandEnd(true);
         prompts.add(p);
 
         p = new Prompt();
@@ -281,11 +251,6 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         p = new Prompt();
         p.setPrompt("Password: ");
         p.setStringToSend(getVm().getPassword());
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Password :");
-        p.setStringToSend("PASS");
         prompts.add(p);
 
 
