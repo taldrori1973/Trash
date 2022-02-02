@@ -12,7 +12,7 @@
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.12",
-    "userName": "root",
+    "userName": "radware",
     "password": "radware",
     "restConnection": {
       "defaultPort": 443,
