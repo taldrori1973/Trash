@@ -13,21 +13,22 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label           | param  | value |
-      | Behavioral Tab  |  BDoS  | true  |
-      | Behavioral Tab  |  DNS   | false |
-      | Behavioral Tab  |  QDoS  | false |
+      | label          | param        | value |
+      | Behavioral Tab | BDoS         | true  |
+      | Behavioral Tab | DNS Flood    | false |
+      | Behavioral Tab | Quantile DoS | false |
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
     Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
+
   @SID_3
   Scenario: Validate Tab Switch
     Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label           | param  | value |
-      | Behavioral Tab  |  BDoS  | false |
-      | Behavioral Tab  |  DNS   | false |
-      | Behavioral Tab  |  QDoS  | true  |
+      | label          | param        | value |
+      | Behavioral Tab | BDoS         | false |
+      | Behavioral Tab | DNS Flood    | false |
+      | Behavioral Tab | Quantile DoS | true  |
 
   @SID_4
   Scenario:Navigate to DefensePro Behavioral Protections Dashboard And Select Scope
