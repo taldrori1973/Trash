@@ -40,10 +40,7 @@ public abstract class TestBase {
         try {
             sutManager = SUTManagerImpl.getInstance();
             if (connectOnInit()) {
-                visionConfigurations = new VisionConfigurations();
-                LicenseGenerator.MAC_ADDRESS = visionConfigurations.getManagementInfo().getMacAddress();
-                managementInfo = getVisionConfigurations().getManagementInfo();
-
+                setManagementInfo();
             }
             serversManagement = new ServersManagement();
             clientConfigurations = getSutManager().getClientConfigurations();
@@ -75,6 +72,13 @@ public abstract class TestBase {
 
     public static LocalDateTime getTestStartTime() {
         return testStartTime;
+    }
+
+    public static void setManagementInfo(){
+        visionConfigurations = new VisionConfigurations();
+        LicenseGenerator.MAC_ADDRESS = visionConfigurations.getManagementInfo().getMacAddress();
+        managementInfo = getVisionConfigurations().getManagementInfo();
+
     }
 
 
