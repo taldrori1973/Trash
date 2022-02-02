@@ -654,7 +654,7 @@
               "httpsPassword": "radware1",
               "httpsUsername": "radware",
               "httpUsername": "radware",
-              "managementIp": "172.16.22.55",
+              "managementIp": "172.17.22.55",
               "registerDeviceEvents": true,
               "snmpV1ReadCommunity": "public",
               "snmpV1WriteCommunity": "public",
