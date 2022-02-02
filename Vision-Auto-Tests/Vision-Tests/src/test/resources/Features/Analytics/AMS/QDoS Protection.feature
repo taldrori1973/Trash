@@ -1,4 +1,4 @@
-@TC122558 @Test12
+@TC122558
 
 Feature: QDoS Protection & Attack Category
   

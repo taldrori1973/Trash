@@ -2,7 +2,7 @@
 Feature: BDoS General Behavioral Tests
 
   # to ask about scenario "increase inactivity timeout to maximum"
-   
+
   @SID_1
   Scenario: BDoS baseline pre-requisite
     Given CLI kill all simulator attacks on current vision
@@ -11,7 +11,7 @@ Feature: BDoS General Behavioral Tests
 #    Given REST Delete ES index "dp-baseline*"
     Given CLI simulate 1 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 2 seconds
 
-   
+
   @SID_2
   Scenario: Login into VRM and select device in DefensePro Behavioral Protections Dashboard
     Given UI Login with user "radware" and password "radware"
@@ -38,16 +38,17 @@ Feature: BDoS General Behavioral Tests
 
 
     # By default only "BDoS" tab will be selected
-  @SID_3
+  @SID_4
   Scenario: validate that BDoS is the default button clicked
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label          | param | value |
-      | Behavioral Tab | BDoS  | true  |
-      | Behavioral Tab | DNS   | false |
-      | Behavioral Tab | QDoS  | false |
+      | label          | param        | value |
+      | Behavioral Tab | BDoS         | true  |
+      | Behavioral Tab | DNS Flood    | false |
+      | Behavioral Tab | Quantile DoS | false |
+      | Behavioral Tab | HTTPS Flood  | false |
     Then UI Click Button "Widget Selection"
 
-#  @SID_3 
+#  @SID_5
 #  Scenario: validate that min/max is the default button clicked
 #    Then UI Click Button "Max Min"
 #    Then UI Validate the attribute of "checked " are "CONTAINS" to
@@ -55,7 +56,7 @@ Feature: BDoS General Behavioral Tests
 #      | Max Min | false |
 
 
-  @SID_44
+  @SID_6
   Scenario Outline: Validate repository item exists
     Then UI Validate Element Existence By Label "Repository Widget" if Exists "true" with value "<ChartName>"
     Examples:
@@ -72,7 +73,7 @@ Feature: BDoS General Behavioral Tests
       | BDoS-IGMP                        |
       | Excluded_UDP_Traffic             |
 
-  @SID_44
+  @SID_7
   Scenario Outline: Validate repository item Not exists
     Then UI Validate Element Existence By Label "Repository Widget" if Exists "false" with value "<ChartName>"
     Examples:
@@ -89,12 +90,12 @@ Feature: BDoS General Behavioral Tests
       | Quantile_Status |
 
 
-  @SID_4
+  @SID_8
   Scenario: close the repository widgets and then clear all
     When UI Click Button "Widget Selection"
     Then UI VRM Clear All Widgets
 
-  @SID_4
+  @SID_9
   Scenario Outline: Validate chart existance false
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "<ChartName>"
     Examples:
@@ -112,7 +113,7 @@ Feature: BDoS General Behavioral Tests
       | Excluded UDP Traffic             |
 
 
-  @SID_5
+  @SID_10
   Scenario: add all BDoS widgets
     Then UI VRM Select Widgets
       | BDoS-UDP                         |
@@ -127,7 +128,7 @@ Feature: BDoS General Behavioral Tests
       | BDoS-IGMP                        |
       | Excluded UDP Traffic             |
 
-  @SID_6
+  @SID_11
   Scenario Outline: Validate chart existance true
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "<ChartName>"
     Examples:
@@ -148,7 +149,7 @@ Feature: BDoS General Behavioral Tests
 
 # ****************************************************************************************************
 # screen configuration saved when switching between tabs
-  @SID_6
+  @SID_12
   Scenario Outline:: remove first  4 widgets
     Then UI Click Button "Widget remove" with value "<ChartName>"
     Examples:
@@ -158,13 +159,13 @@ Feature: BDoS General Behavioral Tests
       | BDoS-TCP SYN-1                     |
       | BDoS-TCP SYN ACK-1                 |
 
-  @SID_6
+  @SID_13
   Scenario: switch tab
-    When UI Click Button "Behavioral Tab" with value "DNS"
+    When UI Click Button "Behavioral Tab" with value "DNS Flood"
     Then Sleep "2"
     Then UI Click Button "Behavioral Tab" with value "BDoS"
 
-  @SID_6
+  @SID_14
   Scenario Outline: Validate deleted charts still not exist after switching tabs
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "<ChartName>"
     Examples:
@@ -174,8 +175,8 @@ Feature: BDoS General Behavioral Tests
       | BDoS-TCP SYN-1                     |
       | BDoS-TCP SYN ACK-1                 |
 
-  @SID_6
-  Scenario Outline: Validate chart existance true
+  @SID_15
+  Scenario Outline: Validate chart existance
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "<ChartName>"
     Examples:
       | ChartName              |
@@ -187,13 +188,13 @@ Feature: BDoS General Behavioral Tests
       | BDoS-IGMP-1            |
       | Excluded UDP Traffic-1 |
 
-  @SID_3
-  Scenario:
+  @SID_16
+  Scenario: navigate between Dashboards
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "3"
     And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
 
-  @SID_3
+  @SID_17
   Scenario Outline: switch buttons for the first 4 charts
     Then UI Do Operation "Select" item "Behavioral Chart" with value "<ChartName>"
     Examples:
@@ -203,7 +204,6 @@ Feature: BDoS General Behavioral Tests
       | BDoS-UDP,Outbound                         |
 
       | BDoS-Advanced-UDP Rate-Invariant,IPv6     |
-      | BDoS-Advanced-UDP Rate-Invariant,pps      |
       | BDoS-Advanced-UDP Rate-Invariant,Outbound |
 
       | BDoS-TCP SYN,IPv6                         |
@@ -214,17 +214,17 @@ Feature: BDoS General Behavioral Tests
       | BDoS-TCP SYN ACK,pps                      |
       | BDoS-TCP SYN ACK,Outbound                 |
 
-  @SID_3
+  @SID_18
   Scenario Outline:Scope selection need to be kept between tabs
     Then Sleep "1"
     Then UI Click Button "Behavioral Tab" with value "<ChartName>"
     Examples:
       | ChartName |
-      | DNS       |
-      | QDoS      |
+      | DNS Flood    |
+      | Quantile DoS |
       | BDoS      |
 
-  @SID_3
+  @SID_19
   Scenario: validate switch buttons still save the last changing
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label            | param                                     | value |
@@ -233,7 +233,6 @@ Feature: BDoS General Behavioral Tests
       | Behavioral Chart | BDoS-UDP,Outbound                         | true  |
 
       | Behavioral Chart | BDoS-Advanced-UDP Rate-Invariant,IPv6     | true  |
-      | Behavioral Chart | BDoS-Advanced-UDP Rate-Invariant,pps      | true  |
       | Behavioral Chart | BDoS-Advanced-UDP Rate-Invariant,Outbound | true  |
 
       | Behavioral Chart | BDoS-TCP SYN,IPv6                         | true  |
@@ -249,14 +248,14 @@ Feature: BDoS General Behavioral Tests
 # *************************************************************
 # Scope selection need to be kept between tabs
 
-
+#  @SID_20
 #  Scenario: switch tab
 #    When UI Click Button "Behavioral Tab" with value "DNS"
 #    Then Sleep "2"
 #    Then UI Click Button "Behavioral Tab" with value "BDoS"
 
 #   
-#  @SID_8
+#  @SID_21
 #  Scenario: Scope selection need to be kept between tabs
 #    Then UI "Validate" Scope Polices
 #      | devices | type:DEVICES,index:10,policies:[pol_1] |
@@ -272,15 +271,20 @@ Feature: BDoS General Behavioral Tests
 #    Then UI "Validate" Scope Polices
 #      | devices | type:DEVICES,index:10,policies:[pol_1] |
 
-   
-    @SID_8
-  Scenario Outline:Scope selection need to be kept between tabs
+
+  @SID_22
+  Scenario Outline:Scope selection need to be saved between tabs
     Then Sleep "2"
     Then UI "Validate" Scope Polices
       | devices | type:DEVICES,index:10,policies:[pol_1] |
     Then UI Click Button "Behavioral Tab" with value "<ChartName>"
     Examples:
-      | ChartName |
-      | DNS       |
-      | QDoS      |
-      | BDoS      |
+      | ChartName    |
+      | DNS Flood    |
+      | Quantile DoS |
+      | BDoS         |
+
+  @SID_23
+  Scenario: kill all simulator attacks and logout
+    Then UI logout and close browser
+    Then CLI kill all simulator attacks on current vision
