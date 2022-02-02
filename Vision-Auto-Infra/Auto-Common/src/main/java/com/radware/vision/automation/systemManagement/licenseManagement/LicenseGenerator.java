@@ -2,6 +2,7 @@ package com.radware.vision.automation.systemManagement.licenseManagement;
 
 
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.ReflectionUtils;
+import com.radware.vision.automation.base.TestBase;
 
 /**
  * Created by ashrafa on 7/4/2017.
@@ -40,9 +41,11 @@ public class LicenseGenerator {
      * @return licenseKeyPrefix License Key by the default MAC Address from TestBase.getVisionConfigurations().getManagementInfo().getMacAddress()
      */
     public static String generateLicense(String licenseKeyPrefix) {
+        if(MAC_ADDRESS == null)
+            TestBase.setManagementInfo();
+
         return generateLicense(MAC_ADDRESS, licenseKeyPrefix);
     }
-
     /**
      *
      * @param macAddress        Vision Mac Address
