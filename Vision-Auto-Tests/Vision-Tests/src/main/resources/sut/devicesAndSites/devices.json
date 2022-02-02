@@ -429,6 +429,72 @@
             }
           }
         }
+      },
+      {
+        "deviceId": "Alteon_172.17.164.17",
+        "deviceSetId": "Alteon_Set_172.17.164.17",
+        "configurations": {
+          "name": "Alteon_172.17.164.17",
+          "parentOrmID": null,
+          "type": "Alteon",
+          "deviceSetup": {
+            "deviceAccess": {
+              "cliPassword": "admin",
+              "cliPort": 22,
+              "cliUsername": "admin",
+              "exclusivelyReceiveDeviceEvents": false,
+              "httpPassword": "admin",
+              "httpsPassword": "admin",
+              "httpsUsername": "admin",
+              "httpUsername": "admin",
+              "managementIp": "172.17.164.17",
+              "registerDeviceEvents": true,
+              "snmpV1ReadCommunity": "public",
+              "snmpV1WriteCommunity": "private",
+              "snmpV2ReadCommunity": "public",
+              "snmpV2WriteCommunity": "private",
+              "snmpV3AuthenticationProtocol": "SHA",
+              "snmpV3PrivacyProtocol": "DES",
+              "snmpVersion": "SNMP_V2",
+              "verifyHttpCredentials": true,
+              "verifyHttpsCredentials": true,
+              "visionMgtPort": "G1"
+            }
+          }
+        }
+      },
+      {
+        "deviceId": "Alteon_172.17.164.18",
+        "deviceSetId": "Alteon_Set_172.17.164.18",
+        "configurations": {
+          "name": "Alteon_172.17.164.18",
+          "parentOrmID": null,
+          "type": "Alteon",
+          "deviceSetup": {
+            "deviceAccess": {
+              "cliPassword": "admin",
+              "cliPort": 22,
+              "cliUsername": "admin",
+              "exclusivelyReceiveDeviceEvents": false,
+              "httpPassword": "admin",
+              "httpsPassword": "admin",
+              "httpsUsername": "admin",
+              "httpUsername": "admin",
+              "managementIp": "172.17.164.18",
+              "registerDeviceEvents": true,
+              "snmpV1ReadCommunity": "public",
+              "snmpV1WriteCommunity": "private",
+              "snmpV2ReadCommunity": "public",
+              "snmpV2WriteCommunity": "private",
+              "snmpV3AuthenticationProtocol": "SHA",
+              "snmpV3PrivacyProtocol": "DES",
+              "snmpVersion": "SNMP_V2",
+              "verifyHttpCredentials": true,
+              "verifyHttpsCredentials": true,
+              "visionMgtPort": "G1"
+            }
+          }
+        }
       }
     ],
     "linkProofs": [
@@ -572,10 +638,10 @@
         }
       },
       {
-        "deviceId": "DefensePro_172.16.22.55",
+        "deviceId": "DefensePro_172.17.22.55",
         "deviceSetId": "DefensePro_Set_3",
         "configurations": {
-          "name": "DefensePro_172.16.22.55",
+          "name": "DefensePro_172.17.22.55",
           "parentOrmID": null,
           "type": "DefensePro",
           "deviceSetup": {
@@ -588,7 +654,7 @@
               "httpsPassword": "radware1",
               "httpsUsername": "radware",
               "httpUsername": "radware",
-              "managementIp": "172.16.22.55",
+              "managementIp": "172.17.22.55",
               "registerDeviceEvents": true,
               "snmpV1ReadCommunity": "public",
               "snmpV1WriteCommunity": "public",
@@ -813,6 +879,23 @@
           "deviceSetup": {
             "deviceAccess": {
               "managementIp": "172.17.154.55",
+              "cliUsername": "radware",
+              "cliPassword": "radware"
+            },
+            "snapshot": "4.3.0.0",
+            "environment": "OVA-220"
+          }
+        }
+      },
+      {
+        "deviceId": "DF_172.17.154.56",
+        "deviceSetId": "DF_172.17.154.56",
+        "configurations": {
+          "name": "DefenseFlow_172.17.154.56",
+          "parentOrmID": null,
+          "deviceSetup": {
+            "deviceAccess": {
+              "managementIp": "172.17.154.56",
               "cliUsername": "radware",
               "cliPassword": "radware"
             },

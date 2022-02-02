@@ -4,7 +4,7 @@
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",
-    "environment": "OVA-232"
+    "environment": "OVA-235"
   },
   "pair": {
     "pairIp": "172.17.154.30",

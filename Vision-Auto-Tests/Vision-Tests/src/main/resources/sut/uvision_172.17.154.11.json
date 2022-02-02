@@ -34,6 +34,6 @@
       "password": "radware"
     }
   },
-  "simulatorSet" : "sim_set_2",
-  "loadSimulators" : "true"
+  "simulatorSet" : "",
+  "loadSimulators" : "false"
 }
