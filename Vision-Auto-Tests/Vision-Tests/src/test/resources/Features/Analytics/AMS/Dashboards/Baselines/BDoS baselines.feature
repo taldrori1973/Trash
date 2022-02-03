@@ -1,7 +1,8 @@
-@VRM_BDoS_Baseline @TC105987
+@VRM_BDoS_Baseline @TC105987 
 
 Feature: VRM BDoS baselines
 
+  @Test12
   @SID_1
   Scenario: increase inactivity timeout to maximum
     Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
@@ -16,14 +17,16 @@ Feature: VRM BDoS baselines
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
 
+  @Test12
   @SID_2
   Scenario: BDoS baseline pre-requisite
     Given CLI kill all simulator attacks on current vision
     Given CLI Clear vision logs
-#    Given REST Delete ES index "dp-bdos-baseline*"
+    Given REST Delete ES index "dp-*"
 #    Given REST Delete ES index "dp-baseline*"
-    Given CLI simulate 1 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 30 seconds
+    Given CLI simulate 400 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
 
+  
   @SID_3
   Scenario: Login into VRM and select device
     Given UI Login with user "sys_admin" and password "radware"
@@ -38,6 +41,7 @@ Feature: VRM BDoS baselines
       | index | ports | policies |
       | 10    |       | pol_1    |
 
+  
   @SID_4
   Scenario: BDoS baseline TCP-SYN IPv4 In bps
     Then Sleep "2"
@@ -2732,7 +2736,7 @@ Feature: VRM BDoS baselines
     Then UI Navigate to "VISION SETTINGS" page via homePage
     And UI logout and close browser
 
-
+  @Test12
   @SID_77
   Scenario: BDoS baseline TCP-SYN RBAC negative
     Given UI Login with user "sec_admin_DP50_policy1" and password "radware"
