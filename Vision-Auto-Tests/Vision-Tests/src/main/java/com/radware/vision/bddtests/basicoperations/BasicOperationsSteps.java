@@ -663,7 +663,12 @@ public class BasicOperationsSteps extends BddUITestBase {
     public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare) {
         for (ParameterSelected parameter : listParamters) { //all the parameters that selected to compare with values
             VisionDebugIdsManager.setLabel(parameter.label);
-            VisionDebugIdsManager.setParams(parameter.param);
+
+            if(parameter.param != null){
+                VisionDebugIdsManager.setParams(parameter.param.split(","));
+            }
+            else
+                VisionDebugIdsManager.setParams(parameter.param);
 
             WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
             if (element == null) {

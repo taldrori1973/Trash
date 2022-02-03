@@ -1,4 +1,4 @@
-@TC107643 
+@TC107643
 Feature: HTTPS Server Dashboard
 
 
@@ -14,44 +14,44 @@ Feature: HTTPS Server Dashboard
     Given REST Login with user "radware" and password "radware"
     Then REST Update Policies for All DPs
 
-  
+
   @SID_3
   Scenario:Login and Navigate to Behavioral Protections Dashboard
     Given UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
 
-  
+
   @SID_3
   Scenario: Validate Default View
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label          | param       | value |
-      | Behavioral Tab | BDoS        | true  |
-      | Behavioral Tab | DNS         | false |
-      | Behavioral Tab | QDoS        | false |
-      | Behavioral Tab | HTTPS Flood | false |
+      | label          | param        | value |
+      | Behavioral Tab | BDoS         | true  |
+      | Behavioral Tab | DNS Flood    | false |
+      | Behavioral Tab | Quantile DoS | false |
+      | Behavioral Tab | HTTPS Flood  | false |
     Then UI Validate Element Existence By Label "Device Selection" if Exists "true"
     Then UI Validate Text field "Device Selection" CONTAINS "DEVICES"
     Then UI Validate Element Existence By Label "Widget Selection" if Exists "true"
     Then UI Validate Element Existence By Label "Max Min" if Exists "true"
 
-  
+
   @SID_3
   Scenario: Move to HTTPS Flood and Validate Default View
     When UI Click Button "Behavioral Tab" with value "HTTPS Flood"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label          | param       | value |
-      | Behavioral Tab | BDoS        | false |
-      | Behavioral Tab | DNS         | false |
-      | Behavioral Tab | QDoS        | false |
-      | Behavioral Tab | HTTPS Flood | true  |
+      | label          | param        | value |
+      | Behavioral Tab | BDoS         | false |
+      | Behavioral Tab | DNS Flood    | false |
+      | Behavioral Tab | Quantile DoS | false |
+      | Behavioral Tab | HTTPS Flood  | true  |
     Then UI Validate Element Existence By Label "Servers Button" if Exists "true"
     Then UI Validate Text field "Servers Button" EQUALS "SERVERS"
     Then UI Validate Element Existence By Label "Widget Selection" if Exists "false"
     Then UI Validate Element Existence By Label "Max Min" if Exists "false"
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
-  
+
   @SID_3
   Scenario Outline: Validate Widgets
 
