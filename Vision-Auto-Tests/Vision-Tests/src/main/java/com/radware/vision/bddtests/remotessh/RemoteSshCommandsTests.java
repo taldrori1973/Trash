@@ -18,15 +18,12 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
 import testutils.RemoteProcessExecutor;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
-import static com.radware.vision.vision_handlers.NewVmHandler.waitForServerConnection;
-import static com.radware.vision.vision_tests.CliTests.rootServerCli;
+import static com.radware.vision.automation.Deploy.VisionServer.waitForServerConnection;
 import static java.lang.Integer.parseInt;
 
 public class RemoteSshCommandsTests extends TestBase {
