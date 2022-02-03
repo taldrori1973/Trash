@@ -1,6 +1,8 @@
 package com.radware.vision.automation.systemManagement.licenseManagement;
 
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.ReflectionUtils;
 import com.radware.vision.automation.base.TestBase;
 
@@ -21,7 +23,6 @@ public class LicenseGenerator {
     /**
      * @param macAddress Vision Mac Address
      * @return Vision Activation License Key
-     * @throws Exception
      */
     public static String generateVisionActivationLicenseKey(String macAddress) {
 
@@ -41,10 +42,16 @@ public class LicenseGenerator {
      * @return licenseKeyPrefix License Key by the default MAC Address from TestBase.getVisionConfigurations().getManagementInfo().getMacAddress()
      */
     public static String generateLicense(String licenseKeyPrefix) {
-        if(MAC_ADDRESS == null)
-            TestBase.setManagementInfo();
+        String license = null;
+        try {
+            if(MAC_ADDRESS == null)
+                TestBase.setManagementInfo();
 
-        return generateLicense(MAC_ADDRESS, licenseKeyPrefix);
+            license = generateLicense(MAC_ADDRESS, licenseKeyPrefix);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+        return license;
     }
     /**
      *
