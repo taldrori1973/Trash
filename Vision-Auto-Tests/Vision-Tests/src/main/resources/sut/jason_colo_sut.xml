@@ -81,7 +81,7 @@
             <class>com.radware.automation.tools.cli.LinuxFileServer</class>
             <host>172.17.164.10</host>
             <user>root</user>
-            <password>radware</password>
+            <password>radware123</password>
             <connectOnInit>false</connectOnInit>
         </genericLinuxServer>
         <visionVMs>
