@@ -70,50 +70,8 @@ Feature: DefensePro Behavioral QDoS General Tests
      | 40    | 2211  | Peacetime    |
      | 45    | 2417  | Peacetime    |
 
-  @SID_7
-  Scenario: Add Quantile Status and validate
-    And UI VRM Select Widgets
-      | Quantile Status   |
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-1"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status"
-
-  @SID_8
-  Scenario: Remove QDoS Widgets AND Validate existance
-    Then UI Click Button "Widget remove" with value "Quantile Status"
-    Then UI Click Button "Widget remove" with value "Quantile Status-1"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-1"
-    Then UI Click Button "Behavioral Tab" with value "BDoS"
-    Then Sleep "2"
-    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-1"
-
   @SID_9
   Scenario: Validate Default Form of QDoS Tab
-    Then UI Navigate to "Application Dashboard" page via homePage
-    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-1"
-
-  @SID_10
-  Scenario: CLEAR ALL And Validate Default Form
-    And UI VRM Select Widgets
-      | Quantile Status  |
-    And UI VRM Select Widgets
-      | Quantile Status  |
-    And UI VRM Select Widgets
-      | Quantile Status  |
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-4"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-3"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-2"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status"
-    When UI VRM Clear All Widgets
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-4"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-3"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status-2"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
@@ -130,36 +88,6 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
     Then UI validate Checkbox by label "DPPolicycheck" if Selected "true"
     Then UI Click Button "Widget Settings Cancel"
-
-  @SID_12
-  Scenario: Validate Chart Number Reset
-    Then UI logout and close browser
-    Given UI Login with user "sys_admin" and password "radware"
-    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
-    When UI VRM Clear All Widgets
-    And UI VRM Select Widgets
-      | Quantile Status  |
-    And UI VRM Select Widgets
-      | Quantile Status  |
-    And UI VRM Select Widgets
-      | Quantile Status  |
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-3"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-2"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-1"
-    Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "Quantile Status"
-
-  @SID_13
-  Scenario: Validate No Widgets Selected Message
-    When UI VRM Clear All Widgets
-    Then UI Validate Element Existence By Label "Repo button" if Exists "true"
-    Then UI Click Button "Repo button"
-    Then UI Click Button "Repository Widget" with value "Quantile_Status"
-    Then UI Click Button "Widget Selection.Add Selected Widgets"
-    Then UI Click Button "Widget Selection"
-    Then UI Validate Element Existence By Label "Repo button" if Exists "false"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status-4"
 
   @SID_14
   Scenario: kill all simulator attacks and logout
