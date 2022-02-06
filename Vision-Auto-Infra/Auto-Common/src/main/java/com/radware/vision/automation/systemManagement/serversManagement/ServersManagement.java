@@ -39,7 +39,8 @@ public class ServersManagement {
 
             }
         } catch (NullPointerException e) {
-            BaseTestUtils.report("Field genericLinuxID is missing, connecting to default: " + ServerIds.GENERIC_LINUX_SERVER, Reporter.PASS_NOR_FAIL);
+            // TODO - check case that SUT file didnt contins genericLinuxID field
+            //BaseTestUtils.report("Field genericLinuxID is missing, connecting to default: " + ServerIds.GENERIC_LINUX_SERVER, Reporter.PASS_NOR_FAIL);
             return ServerIds.GENERIC_LINUX_SERVER;
         }
         return null;
