@@ -4,13 +4,23 @@
     "host": "172.17.164.10",
     "user": "radware",
     "password": "radware",
-    "connectOnInit": true
+    "connectOnInit": true,
+    "gwMacAddress": "00:14:69:4c:70:42"
   },
   {
     "serverId": "deploymentServer",
     "host": "172.17.164.10",
     "user": "radware",
     "password": "radware",
-    "connectOnInit": true
+    "connectOnInit": true,
+    "gwMacAddress": "00:14:69:4c:70:42"
+  },
+  {
+    "serverId": "linuxFileServerVanc",
+    "host": "10.25.80.4",
+    "user": "radware",
+    "password": "radware",
+    "connectOnInit": true,
+    "gwMacAddress": "00:0d:9d:f7:c7:c0"
   }
 ]

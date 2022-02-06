@@ -49,6 +49,8 @@ public class SutService {
     }
 
 
+    public String getLinuxServerID(){return this.sutDao.getLinuxServerID();}
+
     public String getSetupId() {
         return setupDao.getSetupId();
     }

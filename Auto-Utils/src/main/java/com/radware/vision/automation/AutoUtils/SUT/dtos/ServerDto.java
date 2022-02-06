@@ -9,5 +9,6 @@ public class ServerDto {
     private String user;
     private String password;
     private boolean connectOnInit;
+    private String gwMacAddress;
 
 }

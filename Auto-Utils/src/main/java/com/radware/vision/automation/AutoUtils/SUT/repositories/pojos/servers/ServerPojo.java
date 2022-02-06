@@ -10,5 +10,6 @@ public class ServerPojo {
     private String user;
     private String password;
     private boolean connectOnInit;
+    private String gwMacAddress;
 
 }

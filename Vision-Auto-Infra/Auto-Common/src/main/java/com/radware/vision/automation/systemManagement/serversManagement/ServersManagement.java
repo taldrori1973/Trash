@@ -16,24 +16,42 @@ import java.util.Optional;
 public class ServersManagement {
 
 
-    private LinuxFileServer linuxFileServer;
-    private RadwareServerCli radwareServerCli;
-    private RootServerCli rootServerCli;
+    private final LinuxFileServer linuxFileServer;
+    private final RadwareServerCli radwareServerCli;
+    private final RootServerCli rootServerCli;
 
 
     public ServersManagement() {
-        this.linuxFileServer = this.createAndInitServer(ServerIds.GENERIC_LINUX_SERVER, LinuxFileServer.class);
+        this.linuxFileServer = this.createAndInitServer(getServerId(TestBase.getSutManager().getLinuxServerID()), LinuxFileServer.class);
         this.radwareServerCli = this.createAndInitServer(RadwareServerCli.class);
         this.rootServerCli = this.createAndInitServer(RootServerCli.class);
     }
 
+    private ServerIds getServerId(String ServerID) {
+        try {
+            switch (ServerID) {
+                case "linuxFileServer":
+                    return ServerIds.GENERIC_LINUX_SERVER;
+                case "linuxFileServerVanc":
+                    return ServerIds.GENERIC_LINUX_SERVER_VANC;
+                default:
+                    BaseTestUtils.report("ServerID: " + ServerID + ", is not valid.", Reporter.FAIL);
+
+            }
+        } catch (NullPointerException e) {
+            BaseTestUtils.report("Field genericLinuxID is missing, connecting to default: " + ServerIds.GENERIC_LINUX_SERVER, Reporter.PASS_NOR_FAIL);
+            return ServerIds.GENERIC_LINUX_SERVER;
+        }
+        return null;
+    }
+
     private <SERVER extends ServerCliBase> SERVER createAndInitServer(ServerIds serverId, Class<SERVER> clazz) {
         try {
-            Constructor<SERVER> constructor = clazz.getConstructor(String.class, String.class, String.class);
+            Constructor<SERVER> constructor = clazz.getConstructor(String.class, String.class, String.class, String.class);
             Optional<ServerDto> serverById = TestBase.getSutManager().getServerById(serverId.getServerId());
             if (!serverById.isPresent()) return null;
             ServerDto serverDto = serverById.get();
-            SERVER server = constructor.newInstance(serverDto.getHost(), serverDto.getUser(), serverDto.getPassword());
+            SERVER server = constructor.newInstance(serverDto.getHost(), serverDto.getUser(), serverDto.getPassword(), serverDto.getGwMacAddress());
             server.setConnectOnInit(serverDto.isConnectOnInit());
             server.init();
             return server;
@@ -77,6 +95,7 @@ public class ServersManagement {
 
     public enum ServerIds {
         GENERIC_LINUX_SERVER("linuxFileServer"),
+        GENERIC_LINUX_SERVER_VANC("linuxFileServerVanc"),
         RADWARE_SERVER_CLI("radwareServerCli"),
         ROOT_SERVER_CLI("rootServerCli"),
         DEPLOYMENT_SERVER("deploymentServer");

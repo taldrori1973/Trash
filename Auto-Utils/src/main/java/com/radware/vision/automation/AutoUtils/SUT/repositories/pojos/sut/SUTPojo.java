@@ -13,4 +13,5 @@ public class SUTPojo {
     private CliConfiguration cliConfiguration;
     private String simulatorSet;
     private boolean loadSimulators;
+    private String genericLinuxID;
 }
