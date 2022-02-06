@@ -70,14 +70,14 @@ Feature: DefensePro Behavioral QDoS General Tests
      | 40    | 2211  | Peacetime    |
      | 45    | 2417  | Peacetime    |
 
-  @SID_9
+  @SID_7
   Scenario: Validate Default Form of QDoS Tab
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "Quantile Status"
 
-  @SID_11
+  @SID_8
   Scenario: Validate Chart Settings
     And UI Click Button "Chart Settings" with value "Quantile Status"
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
@@ -89,7 +89,7 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI validate Checkbox by label "DPPolicycheck" if Selected "true"
     Then UI Click Button "Widget Settings Cancel"
 
-  @SID_14
+  @SID_9
   Scenario: kill all simulator attacks and logout
     Then UI logout and close browser
     Then CLI kill all simulator attacks on current vision
