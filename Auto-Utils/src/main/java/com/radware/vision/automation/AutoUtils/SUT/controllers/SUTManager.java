@@ -16,6 +16,7 @@ public interface SUTManager {
 
     String getSetupId();
 
+    String getLinuxServerID();
 
     ClientConfigurationDto getClientConfigurations();
 

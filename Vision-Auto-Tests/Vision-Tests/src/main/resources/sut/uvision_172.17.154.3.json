@@ -1,6 +1,9 @@
 {
   "setupFile": "fullSetup.json",
   "serverName": "uvision_auto",
+  "simulatorSet" : "",
+  "loadSimulators" : "false",
+  "genericLinuxID":"linuxFileServer",
   "deployConfigurations": {
     "snapshot": "Current-1",
     "setupMode": "upgrade",
@@ -33,7 +36,5 @@
       "userName": "root",
       "password": "radware"
     }
-  },
-  "simulatorSet" : "",
-  "loadSimulators" : "false"
+  }
 }

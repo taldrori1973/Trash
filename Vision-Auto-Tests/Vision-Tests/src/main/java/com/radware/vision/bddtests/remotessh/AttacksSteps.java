@@ -47,33 +47,6 @@ public class AttacksSteps extends TestBase {
         }
     }
 
-//    /**
-//     * Kill all the attacks process from the device to the current vision
-//     *
-//     * @param deviceType  - SUTDeviceType enum
-//     * @param deviceIndex - SUT index
-//     */
-//
-//    @Given("^CLI kill simulator attack on \"(.*)\" (\\d+)")
-//    public void KillAllAttackFromDevice(SUTDeviceType deviceType, int deviceIndex) {
-//        try {
-//
-//            String fakeIpPrefix = "50.50";
-//            String deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
-//            String visionIP = clientConfigurations.getHostIp();
-//            if (deviceIp.startsWith(fakeIpPrefix)) {
-//                visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
-//            }
-//            String commandToExecute = "/home/radware/run-kill_all_DP_attacks.sh stop " + deviceIp + " " + visionIP;
-//            Optional<LinuxFileServer> genericLinuxServerOpt = TestBase.serversManagement.getLinuxFileServer();
-//            if (!genericLinuxServerOpt.isPresent()) {
-//                throw new Exception("The genericLinuxServer Not found!");
-//            }
-//            InvokeUtils.invokeCommand(commandToExecute, genericLinuxServerOpt.get());
-//        } catch (Exception e) {
-//            BaseTestUtils.report("Failed to kill attack", Reporter.FAIL);
-//        }
-//    }
 
     /**
      * kills all the attacks process to the current vision
@@ -100,13 +73,12 @@ public class AttacksSteps extends TestBase {
         String fakeIpPrefix = "50.50";
         String deviceIp;
         String visionIP = clientConfigurations.getHostIp();
-        boolean isNet_17 = visionIP.startsWith("172.17"); // Subnet 172.17.x.x doesn't need GW mac
         String interFace;
-        String gwMacAdress = "00:14:69:4c:70:42"; //172.19.1.1 GW mac
+        String gwMacAdress = getServersManagement().getLinuxFileServer().get().getGwMacAddress();//"00:14:69:4c:70:42"; //172.19.1.1 GW mac
         String commandToExecute = "";
         Optional<LinuxFileServer> genericLinuxServer = TestBase.serversManagement.getLinuxFileServer();
         SUTManager sutManager = TestBase.getSutManager();
-        Optional<TreeDeviceManagementDto> deviceOpt= sutManager.getTreeDeviceManagement(deviceSetId);
+        Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagement(deviceSetId);
         try {
             if (!genericLinuxServer.isPresent()) {
                 throw new Exception("The genericLinuxServer Not found!");
@@ -139,24 +111,24 @@ public class AttacksSteps extends TestBase {
             CliOperations.runCommand(genericLinuxServer.get(), commandToExecute);
             interFace = CliOperations.lastRow;
 
-            commandToExecute = buildCommandToExecute(interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, gwMacAdress, isNet_17, withAttackId);
-            
+            commandToExecute = buildCommandToExecute(interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, gwMacAdress, withAttackId);
+
             //for the next generations
             genericLinuxServer.get().connect();
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to simulate attack: " + fileName +  e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to simulate attack: " + fileName + e.getMessage(), Reporter.FAIL);
         }
         return commandToExecute;
     }
 
-    private String buildCommandToExecute(String interFace, String visionIP, String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, String gwMacAdress, boolean isNet_17, boolean withAttackId){
+    private String buildCommandToExecute(String interFace, String visionIP, String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, String gwMacAdress, boolean withAttackId) {
         StringBuilder buildCommand = new StringBuilder();
         buildCommand.append("sudo perl sendfile.pl ").append("-i ").append(interFace).append(" -d ").append(visionIP)
                 .append(" -si ").append(deviceIp).append(" -s ").append(numOfAttacks)
                 .append(" -ld ").append(loopDelay)
                 .append(withAttackId ? " -ai 1 " : "")
                 .append(" -f ").append(fileName).append(".pcap")
-                .append(isNet_17 ? "" : (" -dm " + gwMacAdress))
+                .append(" -dm " + gwMacAdress)
                 .append(" &");
 
         return buildCommand.toString();

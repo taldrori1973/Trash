@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class LinuxFileServer extends ServerCliBase {
 
+    private String gwMacAddress;
 
     public LinuxFileServer() {
         super();
@@ -11,6 +12,17 @@ public class LinuxFileServer extends ServerCliBase {
 
     public LinuxFileServer(String host, String user, String password) {
         super(host, user, password);
+    }
+
+
+    public LinuxFileServer(String host, String user, String password, String gwMacAddress) {
+        super(host, user, password);
+        this.gwMacAddress = gwMacAddress;
+    }
+
+    public String getGwMacAddress()
+    {
+        return this.gwMacAddress;
     }
 
     @Override

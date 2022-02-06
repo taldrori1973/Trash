@@ -59,6 +59,9 @@ public class SutDao {
     }
 
     //    DAO
+
+    public String getLinuxServerID(){return this.sutPojo.getGenericLinuxID();}
+
     public String getSetupFileName() {
         return this.sutPojo.getSetupFile();
     }

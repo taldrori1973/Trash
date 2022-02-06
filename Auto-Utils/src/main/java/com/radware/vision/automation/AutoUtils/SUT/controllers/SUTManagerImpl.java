@@ -49,6 +49,11 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     @Override
+    public String getLinuxServerID() {
+        return this.sutService.getLinuxServerID();
+    }
+
+    @Override
     public ClientConfigurationDto getClientConfigurations() {
         return this.sutService.getVisionConfigurations();
     }

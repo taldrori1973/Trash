@@ -11,5 +11,6 @@ public class SutDto {
     private CliConfigurationDto cliConfiguration;
     private List<Site> sites;
     private List<TreeDeviceManagementDto> treeDevices;
+    private String genericLinuxID;
 
 }
