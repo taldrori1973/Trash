@@ -1,8 +1,8 @@
 package com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
-import org.apache.tools.tar.TarEntry;
-import org.apache.tools.tar.TarInputStream;
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 
 import java.io.*;
 import java.net.URL;
@@ -16,8 +16,7 @@ public class UnTar {
         URL url = new URL(urlStr);
 
         BaseTestUtils.reporter.startLevel("Downloading OVA File From URL - "+urlStr);
-        TarInputStream tis = new TarInputStream(new BufferedInputStream(
-                url.openStream()));
+        TarArchiveInputStream tis = new TarArchiveInputStream(url.openStream());
         BaseTestUtils.reporter.stopLevel();
 
         BaseTestUtils.reporter.startLevel("Untar OVA File to OVF format");
@@ -27,19 +26,10 @@ public class UnTar {
         tis.close();
     }
 
-    public static void untarTarFileLocally(String filePath, String destFolder) throws IOException {
-        BaseTestUtils.reporter.startLevel(String.format("Download OVA File to %s", destFolder));
-        Runtime.getRuntime().exec(String.format("wget %s", filePath));
-
-        BaseTestUtils.reporter.startLevel("Untar OVA File");
-        Runtime.getRuntime().exec(String.format("tar xvf %s", filePath.substring(filePath.lastIndexOf("/")+1)));
-    }
-
     public static void untarTarFile(String filePath, String destFolder) throws IOException {
-        File zf = new File(filePath);
+        URL zf = new URL(filePath);
+        TarArchiveInputStream tis = new TarArchiveInputStream(zf.openStream());
 
-        TarInputStream tis = new TarInputStream(new BufferedInputStream(
-                new FileInputStream(zf)));
         try{
             untar(tis, destFolder);
         }catch(Exception e){
@@ -49,12 +39,12 @@ public class UnTar {
         }
     }
 
-    private static void untar(TarInputStream tis, String destFolder)
+    private static void untar(TarArchiveInputStream tis, String destFolder)
             throws IOException {
         BufferedOutputStream dest = null;
 
-        TarEntry entry;
-        while ((entry = tis.getNextEntry()) != null) {
+        TarArchiveEntry entry;
+        while ((entry = tis.getNextTarEntry()) != null) {
             BaseTestUtils.reporter.report("Extracting: " + entry.getName());
             int count;
             byte data[] = new byte[BUFFER];
