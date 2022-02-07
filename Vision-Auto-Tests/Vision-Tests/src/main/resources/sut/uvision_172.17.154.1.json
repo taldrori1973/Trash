@@ -2,6 +2,8 @@
   "setupFile": "fullSetup.json",
   "serverName": "uvision_auto",
   "defenseFlow": "DF_172.17.154.55",
+  "simulatorSet" : "sim_set_2",
+  "loadSimulators" : "true",
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",
@@ -34,7 +36,5 @@
       "userName": "root",
       "password": "radware"
     }
-  },
-  "simulatorSet" : "sim_set_2",
-  "loadSimulators" : "true"
+  }
 }
