@@ -597,7 +597,6 @@ public class DeployOva {
             bos.flush();
             int progressPercent = (int) (((bytesAlreadyWritten + totalBytesWritten) * 100) / totalBytes);
             leaseUpdater.setPercent(progressPercent);
-            BaseTestUtils.reporter.report(String.format("uploaded %s/100", progressPercent));
         }
         BaseTestUtils.reporter.report(String.format("Done Uploading Vmdk File"));
         diskis.close();
