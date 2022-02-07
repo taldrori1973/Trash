@@ -171,10 +171,9 @@ Feature: DP ANALYTICS
 
       # ================= ATTACKS BY PROTECTION POLICY ================= #
 
-
   @SID_13
   Scenario: Login
-    When UI Login with user "radware" and password "radware"
+    When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
@@ -228,7 +227,6 @@ Feature: DP ANALYTICS
       | network flood IPv6 UDP         | 1     | POL_IPV6         |
     Then UI Total "Attacks by Protection Policy" legends equal to 10
 
-
   @SID_16
   Scenario:  VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for selected port
     When UI Do Operation "Select" item "Device Selection"
@@ -244,7 +242,6 @@ Feature: DP ANALYTICS
       | tim                            | 2     | BDOS       |
       | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
     Then UI Total "Attacks by Protection Policy" legends equal to 2
-
 
   @SID_17
   Scenario: VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for selected policies
@@ -290,8 +287,7 @@ Feature: DP ANALYTICS
       | DefensePro_Set_2 | 1     | pol_1    |
     Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "No data available"
 
-
-  @SID_21
+  @SID_20
   Scenario: Attacks by Protection Policy Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -406,7 +402,8 @@ Feature: DP ANALYTICS
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
     * Sleep "5"
 
-  @SID_30
+
+  @SID_29
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -750,7 +747,7 @@ Feature: DP ANALYTICS
       | BDOS  | 2     | tim                            |
       | BDOS  | 2     | network flood IPv4 TCP-SYN-ACK |
 
-  @SID_53
+  @SID_52
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks" Chart data doesn't exist for policy without relevant data
     Then UI Validate StackBar data with widget "Top Attacks"
       | label    | value | legendName                     | exist | legendNameExist |
@@ -1033,7 +1030,6 @@ Feature: DP ANALYTICS
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-    * Sleep "5"
 
   @SID_73
   Scenario: VRM - Validate Dashboards "Top Attacks by Protocol" Chart data for all DP machines
@@ -1133,7 +1129,7 @@ Feature: DP ANALYTICS
       | TCP        | 1     | tim                            | true  |
 
 
-  @SID_78
+  @SID_77
   Scenario: Top Attacks by Protocol Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |

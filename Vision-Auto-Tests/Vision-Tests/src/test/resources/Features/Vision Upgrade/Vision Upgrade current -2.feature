@@ -62,7 +62,7 @@ Feature: Vision Upgrade current -2
     Given Validate that the Number of the Mapping Attributes at Index "<Index Name Prefix>" with Week Slice <Week Slice> Equals to <Expected Number of Mapping Attributes>
     Examples:
       | Index Name Prefix | Week Slice | Expected Number of Mapping Attributes |
-      | dp-sampled-data-* | 2          | 14                                    |
+      | dp-sampled-data-* | 2          | 18                                    |
 
   @SID_8
   Scenario: Check upgrade logs

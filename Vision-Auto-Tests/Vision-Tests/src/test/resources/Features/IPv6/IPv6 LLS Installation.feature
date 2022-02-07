@@ -1,6 +1,5 @@
 @TC111604
 Feature: IPv6 LLS-GEL Installation
-
   @SID_1
   Scenario: verify lls service status is Not running
     Given CLI Reset radware password
@@ -13,6 +12,11 @@ Feature: IPv6 LLS-GEL Installation
   @SID_2
   Scenario: start lls service
     Then CLI LLS Service Start,with timeout 780
+
+  @SID_3
+  Scenario: verify lls service status is running
+    When CLI Operations - Run Radware Session command "system lls service status"
+    Then CLI Operations - Verify that output contains regex ".*Local License Server is running.*"
 
   @SID_4
   Scenario: verify lls state is enabled

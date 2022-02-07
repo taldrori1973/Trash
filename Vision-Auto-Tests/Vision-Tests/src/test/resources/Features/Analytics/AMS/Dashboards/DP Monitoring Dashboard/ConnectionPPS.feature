@@ -1,4 +1,4 @@
-@TC114242 @Test12
+@TC114242
 Feature: ConnectionPPS
 
 

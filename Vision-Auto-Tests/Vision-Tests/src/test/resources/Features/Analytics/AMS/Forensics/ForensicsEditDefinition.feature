@@ -50,7 +50,7 @@ Feature: Forensics Edit Definition
     When UI "Edit" Forensics With Name "Test Edit"
       | Basic Info            | Description:desc                                                   |
       | Time Definitions.Date | Quick:1M                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden |
       | Output                | Start Time,Action,Attack ID,Risk                                   |
 #      | Schedule              | Run Every:Daily,On Time:+2m                                        |
       | Delivery              | Email:[automation.vision1@radware.com],Subject:mySubject           |

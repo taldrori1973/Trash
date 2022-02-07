@@ -10,7 +10,7 @@ Feature: Attack Level "Mitigation Lifecycle"
    
   @SID_2
   Scenario: Run DP simulator - QDos_Ahlam4
-    Given CLI simulate 1 attacks of type "QDos_Ahlam4" on SetId "DefensePro_Set_1_NEED_VERSION_8.28" with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 85 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
@@ -83,7 +83,7 @@ Feature: Attack Level "Mitigation Lifecycle"
 
   @SID_2
   Scenario: Run DP simulator - test_pcap
-    Given CLI simulate 1 attacks of type "test_pcap" on SetId "DefensePro_Set_1_NEED_VERSION_8.28" with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1 attacks of type "test_pcap" on "DefensePro" 85 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
@@ -169,7 +169,7 @@ Feature: Attack Level "Mitigation Lifecycle"
   @SID_8
   Scenario: Stop generating attacks and Logout
     Then CLI kill all simulator attacks on current vision
-    Then UI logout and close browser
+#    Then UI logout and close browser
 
 
 

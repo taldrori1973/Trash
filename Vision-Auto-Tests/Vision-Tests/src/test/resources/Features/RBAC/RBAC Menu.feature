@@ -1,14 +1,14 @@
 @Functional @TC114371
 Feature: RBAC Menu
 
-  
+
   @SID_1
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
 
-  
+
   @SID_2
   Scenario Outline: Create users and verify
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
@@ -31,7 +31,7 @@ Feature: RBAC Menu
       | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$ |
       | system_user           | System User                   | [ALL] | Radware1234!@#$ |
 
-  
+
   @SID_3
   Scenario Outline: Scope "All" is required for User Definition
     When Scope Is "<enabled or disabled>" For Role "<Role>"
@@ -53,7 +53,7 @@ Feature: RBAC Menu
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
-  
+
   @SID_4
   Scenario: Edit User Management Settings
     Given That Current Vision is Logged In With Username "radware" and Password "radware"
@@ -238,7 +238,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI logout and close browser
+    * UI Logout
 
      #  Vdirect should not be display as  mentioned in table from user Guid
   @SID_13
@@ -246,13 +246,15 @@ Feature: RBAC Menu
     When UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
+      | AVR                                         | yes      |
+      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | yes       |
+      | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes       |
       | HTTPS Flood Dashboard                       | yes       |
       | DefensePro Analytics Dashboard              | yes       |
       | DefensePro Monitoring Dashboard             | yes       |
-      | DefenseFlow Analytics Dashboard             | yes       |
+      | DefenseFlow Analytics Dashboard             | no       |
       | AppWall Dashboard                           | yes       |
       | AMS Reports                                 | yes       |
       | AMS Forensics                               | yes       |
@@ -287,7 +289,7 @@ Feature: RBAC Menu
       | VISION SETTINGS                             | yes      |
     * UI logout and close browser
 
-    
+
   @SID_15
   Scenario: Security Administrator
     When UI Login with user "security_admin" and password "Radware1234!@#$"

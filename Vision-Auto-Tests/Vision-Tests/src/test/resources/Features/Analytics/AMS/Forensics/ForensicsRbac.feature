@@ -241,9 +241,9 @@ Feature: Forensics RBAC
   Scenario: Validate DF not appears for device_configurator
     Given UI Login with user "device_configurator" and password "Radware1234!@#$"
     Then UI Validate user rbac
-      | operations    | accesses |
-      | AMS Forensics | no       |
-    * UI logout and close browser
+      | operations                                  | accesses |
+      | AMS Forensics                               | no       |
+    * UI Logout
 
   @SID_23
   Scenario: Validate DF not appears for device_operator

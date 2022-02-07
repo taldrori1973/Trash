@@ -1294,7 +1294,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Attack Name2_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Custom"
       | Product               | DefenseFlow                                                                                                                                         |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2 |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2 |
       | devices               | index:10                                                                                                                                            |
       | Time Definitions.Date | Quick:1D                                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                                                                                        |
@@ -1303,7 +1303,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Attack Name2_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Custom"
       | Product               | DefenseFlow                                                                                                                                         |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2 |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2 |
       | devices               | index:10                                                                                                                                            |
       | Time Definitions.Date | Quick:1D                                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                                                                                        |

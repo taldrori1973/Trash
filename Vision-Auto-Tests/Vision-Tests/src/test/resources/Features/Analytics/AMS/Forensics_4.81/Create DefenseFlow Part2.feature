@@ -15,7 +15,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Total Mbits Dropped Action Not Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Mbits Dropped                                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                               |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                               |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -23,7 +23,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Total Mbits Dropped Action Not Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Mbits Dropped                                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                               |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                               |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -35,7 +35,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Max bps Action Not Equals"
       | Product               | DefenseFlow                                                                    |
       | Output                | Max bps                                                                        |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden Reset Dest  |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden and Reset Destination  |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1Y                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -43,7 +43,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Max bps Action Not Equals"
       | Product               | DefenseFlow                                                                    |
       | Output                | Max bps                                                                        |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden Reset Dest  |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden and Reset Destination  |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1Y                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -55,7 +55,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Physical Port Action Not Equals"
       | Product               | DefenseFlow                                                                                                                                    |
       | Output                | Physical Port                                                                                                                                  |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                            |
       | Time Definitions.Date | Quick:This Month                                                                                                                               |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                    |
@@ -64,7 +64,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Physical Port Action Not Equals"
       | Product               | DefenseFlow                                                                                                                                    |
       | Output                | Physical Port                                                                                                                                  |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                            |
       | Time Definitions.Date | Quick:This Month                                                                                                                               |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                    |
@@ -77,7 +77,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Risk Action Not Equals"
       | Product               | DefenseFlow                                                                                                                                                                                                                              |
       | Output                | Risk                                                                                                                                                                                                                                     |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,Http 200 Ok,Http 200 Ok Reset Dest,Http 403 Forbidden,Http 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK Reset Dest,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
       | devices               | index:10                                                                                                                                                                                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                          |
@@ -86,7 +86,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Risk Action Not Equals"
       | Product               | DefenseFlow                                                                                                                                                                                                                              |
       | Output                | Risk                                                                                                                                                                                                                                     |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,Http 200 Ok,Http 200 Ok Reset Dest,Http 403 Forbidden,Http 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK Reset Dest,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
       | devices               | index:10                                                                                                                                                                                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                          |

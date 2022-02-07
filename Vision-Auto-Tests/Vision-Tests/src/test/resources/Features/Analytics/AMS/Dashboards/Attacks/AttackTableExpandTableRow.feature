@@ -1,6 +1,7 @@
 @TC114854
 Feature: Attack Table - Expand Table Row
 
+
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -74,7 +75,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_7
   Scenario:  validate date of Real Time Signature table - BehavioralDOS
-    Then Validate Expand "Real Time Signature" table
+    Then Validate Expand  "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
       | parameter | 1     | fragment-offset |
@@ -127,7 +128,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_11
   Scenario:  validate date of Real Time Signature table - DNS
-    Then Validate Expand "Real Time Signature" table
+    Then Validate Expand  "Real Time Signature" table
       | Name      | index | value         |
       | operator  | 1     | OR            |
       | parameter | 1     | dns-subdomain |
@@ -301,7 +302,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_24
   Scenario:  validate date of Real Time Signature table - AntiScanning
-    Then Validate Expand "Real Time Signature" table
+    Then Validate Expand  "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
       | parameter | 1     | destination-ip  |
@@ -511,6 +512,73 @@ Feature: Attack Table - Expand Table Row
    ####################  QDos attack tables ####################################################
 
   @SID_37
+  Scenario:  validate tables for QDos
+    Then UI search row table in searchLabel "tableSearch" with text "QuantileDoS"
+    Then Sleep "3"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "p1"
+    Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics,realTimeSignature"
+
+
+    @SID_38
+  Scenario Outline:  validate date of Info table - QDos
+    Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
+    Examples:
+      | label              | value         |
+      | Risk               | High          |
+      | Radware ID         | 900           |
+      | Direction          | Unknown       |
+      | Action Type        | Drop          |
+      | Attack ID          | 35-1637605817 |
+      | Physical Port      | 0             |
+      | Total Packet Count | 0             |
+      | VLAN               | N/A           |
+      | MPLS RD            | N/A           |
+      | Source port        | 0             |
+      | Packet Type        | Regular       |
+
+
+    @SID_39
+  Scenario Outline:  validate date of Characteristics table - QDos
+    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
+    Examples:
+      | label                              | value                                                                   |
+      | Quantile Number                    | 1                                                                       |
+      | Attacked Quantile IP Address Range | 0:0:0:0:0:0:0:0 - 192.0.4.244                                           |
+      | Current Policy Bandwidth           | 330.6 Mbps                                                              |
+      | Detection Sensitivity              | 2%                                                                      |
+      | Peacetime Quantile Bandwidth       | 6.2 Mbps                                                                |
+      | Dropped Quantile Bandwidth         | 3.1 Mbps                                                                |
+      | Current Quantile Bandwidth         | 24.7 Mbps                                                               |
+      | Quantile Rate Limit                | Strict 100%, 10 Mbps                                                    |
+      | Mitigation Method                  | Quantile Top Talkers, Quantile Rate-Limit, Quantile Real-Time Signature |
+
+
+  @SID_40
+  Scenario:  validate date of Real Time Signature table - QDos
+    Then Validate Expand  "Real Time Signature" table
+      | Name      | index | value            |
+      | operator  | 0     | [                |
+      | operator  | 1     | OR               |
+      | parameter | 1     | destination-port |
+      | value     | 1     | 5555             |
+      | operator  | 2     | OR               |
+      | parameter | 2     | TTL              |
+      | value     | 2     | 3,4              |
+      | operator  | 3     | OR               |
+      | parameter | 3     | context-tag      |
+      | value     | 3     | 13,14,15         |
+      | operator  | 4     | ]                |
+      | operator  | 5     | AND              |
+      | operator  | 6     | [                |
+      | operator  | 7     | AND              |
+      | parameter | 7     | sequence-number  |
+      | value     | 7     | 1234567,9876,55  |
+      | operator  | 8     | AND              |
+      | parameter | 8     | source-port      |
+      | value     | 8     | 1024,2048        |
+      | operator  | 9     | ]                |
+
+  @SID_41
   Scenario:  validate tables for QDos
     Then UI search row table in searchLabel "tableSearch" with text "QuantileDoS"
     Then Sleep "3"

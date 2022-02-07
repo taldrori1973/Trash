@@ -27,7 +27,7 @@ Feature: Edit Criteria Testes
     When UI "Create" Forensics With Name "DefenseFlow Forensics"
       | Product           | DefenseFlow                                                        |
       | Protected Objects | All                                                                |
-      | Criteria          | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+      | Criteria          | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden |
 
   @SID_3
   Scenario: Edit the First condition on Criteria

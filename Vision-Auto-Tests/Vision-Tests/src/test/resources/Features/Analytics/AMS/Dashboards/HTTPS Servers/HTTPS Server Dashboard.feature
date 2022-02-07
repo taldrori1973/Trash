@@ -1,4 +1,4 @@
-@TC107643 
+@TC107643
 Feature: HTTPS Server Dashboard
 
 
@@ -6,10 +6,6 @@ Feature: HTTPS Server Dashboard
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
-#    * REST Delete ES index "dp-traffic-*"
-#    * REST Delete ES index "dp-https-stats-*"
-#    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
 
 
@@ -18,16 +14,81 @@ Feature: HTTPS Server Dashboard
     Given REST Login with user "radware" and password "radware"
     Then REST Update Policies for All DPs
 
-  
+
   @SID_3
-  Scenario:Login and Navigate to HTTPS Server Dashboard
+  Scenario:Login and Navigate to Behavioral Protections Dashboard
     Given UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Navigate to "HTTPS Flood Dashboard" page via homePage
+    And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+
+
+  @SID_3
+  Scenario: Validate Default View
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label          | param        | value |
+      | Behavioral Tab | BDoS         | true  |
+      | Behavioral Tab | DNS Flood    | false |
+      | Behavioral Tab | Quantile DoS | false |
+      | Behavioral Tab | HTTPS Flood  | false |
+    Then UI Validate Element Existence By Label "Device Selection" if Exists "true"
+    Then UI Validate Text field "Device Selection" CONTAINS "DEVICES"
+    Then UI Validate Element Existence By Label "Widget Selection" if Exists "true"
+    Then UI Validate Element Existence By Label "Max Min" if Exists "true"
+
+
+  @SID_3
+  Scenario: Move to HTTPS Flood and Validate Default View
+    When UI Click Button "Behavioral Tab" with value "HTTPS Flood"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label          | param        | value |
+      | Behavioral Tab | BDoS         | false |
+      | Behavioral Tab | DNS Flood    | false |
+      | Behavioral Tab | Quantile DoS | false |
+      | Behavioral Tab | HTTPS Flood  | true  |
+    Then UI Validate Element Existence By Label "Servers Button" if Exists "true"
+    Then UI Validate Text field "Servers Button" EQUALS "SERVERS"
+    Then UI Validate Element Existence By Label "Widget Selection" if Exists "false"
+    Then UI Validate Element Existence By Label "Max Min" if Exists "false"
+    Then UI Validate Text field "header HTTPS" EQUALS "DefensePro Behavioral Protections"
+
+
+  @SID_3
+  Scenario Outline: Validate Widgets
+
+    Then UI Validate Element Existence By Label "Chart" if Exists "<isExist>" with value "<widget>"
+
+    Examples:
+      | widget                           | isExist |
+      | Inbound Traffic                  | true    |
+      | Quantile Status                  | false   |
+      | DNS-A                            | false   |
+      | DNS-AAAA                         | false   |
+      | DNS-MX                           | false   |
+      | DNS-TXT                          | false   |
+      | DNS-SOA                          | false   |
+      | DNS-SRV                          | false   |
+      | DNS-PTR                          | false   |
+      | DNS-NAPTR                        | false   |
+      | DNS-Other                        | false   |
+      | BDoS-UDP                         | false   |
+      | BDoS-Advanced-UDP Rate-Invariant | false   |
+      | BDoS-TCP SYN                     | false   |
+      | BDoS-TCP SYN ACK                 | false   |
+      | BDoS-TCP RST                     | false   |
+      | BDoS-TCP FIN ACK                 | false   |
+      | BDoS-TCP Fragmented              | false   |
+      | BDoS-UDP Fragmented              | false   |
+      | BDoS-ICMP                        | false   |
+      | BDoS-IGMP                        | false   |
+      | Excluded UDP Traffic             | false   |
+
+
+  @SID_3
+  Scenario: Add Policy
     Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
     And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
 
-  
+
   @SID_4
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
 #    Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
@@ -36,15 +97,15 @@ Feature: HTTPS Server Dashboard
   @SID_5
   Scenario: Select Server
     When UI Select Server and save
-      | name | device                  | policy        |
-      | test | DefensePro_172.16.22.51 | pol1          |
+      | name | device                  | policy |
+      | test | DefensePro_172.16.22.51 | pol1   |
     * Sleep "60"
 
       ##Https Flood - Info Card
 
   @SID_6
   Scenario: Validate title tool bar
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "header HTTPS" EQUALS "DefensePro Behavioral Protections"
     Then UI Validate Text field "Selected Server" CONTAINS "Server Name"
     Then UI Validate Text field "Selected Server" CONTAINS "test"
     Then UI Validate Text field "Selected Device" CONTAINS "Device Name:"
@@ -315,23 +376,24 @@ Feature: HTTPS Server Dashboard
       | color                 | #9ec3cb |
 
 # verify 1. refresh occurred 2. new data displayed
-  
+
   @SID_27
   Scenario: Run DP simulator PCAPs for Https Flood - Make Change
 #    Given CLI simulate 2 attacks of type "HTTPS-Twist" on "DefensePro" 11 with loopDelay 5000 and wait 180 seconds
     Given CLI simulate 2 attacks of type "HTTPS-Twist" on SetId "DefensePro_Set_2" with loopDelay 5000 and wait 180 seconds
 
-  
+
   @SID_28
   Scenario: Re-Select Server
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    And UI Navigate to "HTTPS Flood Dashboard" page via homePage
+    And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    When UI Click Button "Behavioral Tab" with value "HTTPS Flood"
     When UI Click Button "Servers Button"
     When UI Set Text Field "Server Selection.Search" To "test"
     Then UI Click Button "Server Selection.Server Name" with value "test,DefensePro_172.16.22.51,pol1"
     Then UI Click Button "Server Selection.Save"
 
-  
+
   @SID_29
   Scenario: Validate Https Flood distributed size graph data - Real Time Traffic - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Real-Time Traffic"
@@ -342,7 +404,7 @@ Feature: HTTPS Server Dashboard
       | 0.81       | 1     | 4     | 0      |
       | 0.5        | 1     | 49    | 0      |
 
-  
+
   @SID_30
   Scenario: Validate Https Flood distributed size graph data - Attack Edge - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Attack Edge"

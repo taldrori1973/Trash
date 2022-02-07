@@ -1,21 +1,21 @@
-@TC122558 @Test12
+@TC122558
 
 Feature: QDoS Protection & Attack Category
-
+  
   @SID_1
   Scenario: Clean data before sending Qdos attack
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-
+  
   @SID_2
   Scenario: Run DP simulator - QDos_Ahlam4
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
-
+  
   @SID_3
   Scenario:  login to vision
     Given UI Login with user "radware" and password "radware"
@@ -48,7 +48,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "QDoS"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "QuantileDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "Quantile DoS"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination IP Address" equal to "Multiple"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination Port" equal to "1024"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Device IP Address" equal to "172.16.22.51"
@@ -114,7 +114,7 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_15
-  Scenario: Create Forensics with  QDos Attack and CSV Format
+  Scenario: Create Forensics with  QDOS-Attack and CSV Format
     Given UI "Create" Forensics With Name "CSVWithDetails QDos Attack"
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format | Select: CSVWithDetails                                                                                           |
@@ -132,19 +132,19 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_17
-  Scenario: Unzip CSV file
+  Scenario: Unzip CSV files
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
 
   @SID_18
-  Scenario: Validate Forensics.Table of QDos Attack1
+  Scenario: Validate Forensics Table of QDos Attack1
     And UI Click Button "Views.Forensic" with value "CSVWithDetails QDos Attack,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
 
 
   @SID_19
-  Scenario: Validate The number of rows attacks , numberOfRecords
+  Scenario: Validate The number of rows attacks and numberOfRecords
     Then CLI Run linux Command "cat /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.csv |grep 'S.No,Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/CSVWithDetails\ QDos\ Attack_*.csv |grep 'QuantileDoS,QDoS,p1,0.0.0.0,0.0.0.0,0,In,IP' |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
@@ -170,7 +170,7 @@ Feature: QDoS Protection & Attack Category
     Then Sleep "35"
 
   @SID_23
-  Scenario: Validate Forensics.Table of QDos Attack1
+  Scenario: Validate Forensics Table of QDOS-Attack1
     And UI Click Button "Views.Forensic" with value "QDos Attack1,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 27
 
@@ -195,7 +195,7 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "QDoS"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "QuantileDoS"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "Quantile DoS"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination IP Address" equal to "Multiple"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Destination Port" equal to "1024"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Device IP Address" equal to "172.16.22.51"
@@ -228,7 +228,7 @@ Feature: QDoS Protection & Attack Category
 
   @SID_29
   Scenario: Run DP simulator - QDos_Ahlam4 attack
-    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 250 seconds
     * CLI kill all simulator attacks on current vision
 
     
@@ -260,7 +260,7 @@ Feature: QDoS Protection & Attack Category
       | Status                 | Ongoing      |
       | Protocol               | TCP          |
       | Device IP Address      | 172.16.22.51 |
-      | Volume                 | 394.61 MB    |
+      | Volume                 |   6.25 Gbit  |
       | Source IP Address      | 192.85.1.2   |
       | Destination IP Address | Multiple     |
       | Destination Port       | 1024         |
@@ -276,7 +276,7 @@ Feature: QDoS Protection & Attack Category
       | Status                 | Ongoing      |
       | Protocol               | TCP          |
       | Device IP Address      | 172.16.22.51 |
-      | Volume                 | 396.45 MB    |
+      | Volume                 | 6.28 Gbit    |
       | Source IP Address      | 192.85.1.2   |
       | Destination IP Address | Multiple     |
       | Destination Port       | 1024         |
@@ -296,7 +296,7 @@ Feature: QDoS Protection & Attack Category
       | Direction          | In      |
       | Action Type        | Drop    |
       | Physical Port      | 1       |
-      | Total Packet Count | 263,774 |
+      | Total Packet Count | 560,486 |
       | VLAN               | N/A     |
       | MPLS RD            | N/A     |
       | Source port        | 0       |
@@ -326,7 +326,7 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_38
-  Scenario Outline:  validate date of Info table
+  Scenario Outline:  validate date of Info table - Expanded
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
     Examples:
       | label              | value   |
@@ -335,14 +335,14 @@ Feature: QDoS Protection & Attack Category
       | Direction          | In      |
       | Action Type        | Drop    |
       | Physical Port      | 1       |
-      | Total Packet Count | 265,008 |
+      | Total Packet Count | 563,097 |
       | VLAN               | N/A     |
       | MPLS RD            | N/A     |
       | Source port        | 0       |
       | Packet Type        | Regular |
 
   @SID_39
-  Scenario Outline:  validate data of Characteristics table
+  Scenario Outline:  validate data of Characteristics table - Expanded
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
     Examples:
       | label                              | value                        |
@@ -378,7 +378,7 @@ Feature: QDoS Protection & Attack Category
 
 
   @SID_43
-  Scenario: Run DP simulator - QDos_Ahlam4
+  Scenario: Run DP simulator  QDos_Ahlam4
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
       * CLI kill all simulator attacks on current vision
 
@@ -397,7 +397,7 @@ Feature: QDoS Protection & Attack Category
     Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
     Then UI Validate Table record values by columns with elementLabel "Alert details" findBy index 0
       | columnName             | value       |
-      | Threat Category        | QuantileDoS |
+      | Threat Category        | Quantile DoS |
       | Attack Name            | QDoS        |
       | Policy Name            | p1          |
       | Source IP Address      | 192.85.1.2  |
@@ -427,17 +427,17 @@ Feature: QDoS Protection & Attack Category
     * CLI Clear vision logs
 
   @SID_48
-  Scenario: Run DP simulator - QDos_Ahlam4
+  Scenario: Run DP simulator - QDos_Ahlam4 pcap
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     * CLI kill all simulator attacks on current vision
 
-
+  
   @SID_49
   Scenario:  Navigate to DefensePro Monitoring Dashboard
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "30"
 
-
+  
   @SID_50
   Scenario: Validate first under attack policy - attacks
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
@@ -451,11 +451,11 @@ Feature: QDoS Protection & Attack Category
       | Drop Rate             | 52.74 Mbps              |
       | Attack Category       | Quantile DoS            |
 
-
+  
   @SID_51
   Scenario: Entering to the under attack policy 
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
-
+  
   @SID_52
   Scenario: validate events
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
@@ -465,7 +465,7 @@ Feature: QDoS Protection & Attack Category
       | Drop Rate       | 51.53 Mbps   |
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "39-1630605835"
-
+  
   @SID_53
   Scenario: Validate Characteristics card data -monitoring
     Then UI Validate Text field "Characteristics Labels" with params "40" EQUALS "40"
@@ -473,28 +473,24 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate Text field "Characteristics Labels" with params "164 Mbps" EQUALS "164 Mbps"
     Then UI Validate Text field "Characteristics Labels" with params "2%" EQUALS "2%"
     Then UI Validate Text field "Characteristics Labels" with params "3.3 Mbps" EQUALS "3.3 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "25.6 Mbps" EQUALS "25.6 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "25.8 Mbps" EQUALS "25.8 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "Quantile Top Talkers" EQUALS "Quantile Top Talkers"
 
 
+  
   @SID_54
-  Scenario: Navigate to DefensePro Monitoring Dashboard
+  Scenario: Navigate to DP Monitoring
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "38-1630605835"
-
+  
   @SID_55
-  Scenario: Validate Characteristics card data -monitoring
+  Scenario: Validate Characteristics card data - monitoring
     Then UI Validate Text field "Characteristics Labels" with params "1" EQUALS "1"
     Then UI Validate Text field "Characteristics Labels" with params "0:0:0:0:0:0:0:0 - 192.0.5.47" EQUALS "0:0:0:0:0:0:0:0 - 192.0.5.47"
     Then UI Validate Text field "Characteristics Labels" with params "164 Mbps" EQUALS "164 Mbps"
     Then UI Validate Text field "Characteristics Labels" with params "2%" EQUALS "2%"
     Then UI Validate Text field "Characteristics Labels" with params "3.3 Mbps" EQUALS "3.3 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "25.9 Mbps" EQUALS "25.9 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "25.5 Mbps" EQUALS "25.5 Mbps"
-    Then UI Validate Text field "Characteristics Labels" with params "Quantile Top Talkers" EQUALS "Quantile Top Talkers"
+
 
   @SID_56
   Scenario: click and validate Quantile Status chart

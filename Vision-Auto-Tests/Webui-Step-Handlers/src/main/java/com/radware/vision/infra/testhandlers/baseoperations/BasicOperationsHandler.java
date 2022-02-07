@@ -10,6 +10,7 @@ import com.radware.automation.react.widgets.impl.enums.WebElementType;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.FileUtils;
+import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.tools.utils.PropertiesFilesUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
@@ -209,7 +210,13 @@ public class BasicOperationsHandler {
     public static void doOperation(String operation, String label, String params) throws NoSuchOperationException {
         params = replaceParams(label, params);
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params);
+
+        if(params != null){
+            VisionDebugIdsManager.setParams(params.split(","));
+        }
+        else
+            VisionDebugIdsManager.setParams(params);
+
         if (!Operation.getEnum(operation).equals(Operation.HOVER)) {
             Widget w = WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(label);
             //TODO find a better way to make sure element is ready to be clicked

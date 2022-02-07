@@ -119,7 +119,7 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy140 | 3089 | 10%              |
       | Policy16  | 2885 | 10%              |
       | Policy160 | 2885 | 10%              |
-      | Policy15  | 3089 | 10%              |
+      | Policy18  | 2512 | 10%              |
     And UI Logout
 
   @SID_7

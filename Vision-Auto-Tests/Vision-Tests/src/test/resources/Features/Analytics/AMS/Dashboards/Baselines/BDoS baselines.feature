@@ -21,7 +21,7 @@ Feature: VRM BDoS baselines
 
   @SID_3
   Scenario: Login into VRM and select device
-    Given UI Login with user "radware" and password "radware"
+    Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
 #    Then Sleep "1"
@@ -125,7 +125,7 @@ Feature: VRM BDoS baselines
 
   @SID_5
   Scenario: BDoS baseline TCP-SYN IPv6 In bps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv6"
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
       | 464   | 13    | 6      |
@@ -148,8 +148,8 @@ Feature: VRM BDoS baselines
 
   @SID_6
   Scenario: BDoS baseline TCP-SYN IPv4 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,Outbound"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
@@ -175,7 +175,7 @@ Feature: VRM BDoS baselines
 
   @SID_7
   Scenario: BDoS baseline TCP-SYN IPv6 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv6"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
@@ -199,9 +199,9 @@ Feature: VRM BDoS baselines
 
   @SID_8
   Scenario: BDoS baseline TCP-SYN IPv4 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,pps"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
@@ -225,7 +225,7 @@ Feature: VRM BDoS baselines
 
   @SID_9
   Scenario: BDoS baseline TCP-SYN IPv6 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv6"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
@@ -252,8 +252,8 @@ Feature: VRM BDoS baselines
 
   @SID_10
   Scenario: BDoS baseline TCP-SYN IPv4 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,Outbound"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
@@ -277,7 +277,7 @@ Feature: VRM BDoS baselines
 
   @SID_11
   Scenario: BDoS baseline TCP-SYN IPv6 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv6"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value   | count | offset |
@@ -307,22 +307,22 @@ Feature: VRM BDoS baselines
 
   @SID_12
   Scenario: BDoS baseline TCP FIN ACK IPv4 In bps
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK bps"
-    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,bps"
+#    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP FIN ACK" with Label "Suspected Edge"
       | value | count | offset |
       | 464   | 13    | 6      |
@@ -400,7 +400,7 @@ Feature: VRM BDoS baselines
   @SID_13
   Scenario: BDoS baseline TCP FIN ACK IPv6 In bps
     Then Sleep "2"
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,IPv6"
 #    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK Inbound"
 #    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK bps"
     Then Sleep "2"
@@ -430,8 +430,8 @@ Feature: VRM BDoS baselines
 
   @SID_14
   Scenario: BDoS baseline TCP FIN ACK IPv4 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,Outbound"
 #    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK bps"
     Then Sleep "2"
 
@@ -459,7 +459,7 @@ Feature: VRM BDoS baselines
 
   @SID_15
   Scenario: BDoS baseline TCP FIN ACK IPv6 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,IPv6"
 #    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK Outbound"
 #    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK bps"
     Then Sleep "2"
@@ -488,9 +488,9 @@ Feature: VRM BDoS baselines
 
   @SID_16
   Scenario: BDoS baseline TCP FIN ACK IPv4 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,pps"
 
     Then UI Validate Line Chart data "BDoS-TCP FIN ACK" with Label "Suspected Edge"
       | value | count | offset |
@@ -516,7 +516,7 @@ Feature: VRM BDoS baselines
 
   @SID_17
   Scenario: BDoS baseline TCP FIN ACK IPv6 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,IPv6"
 
     Then UI Validate Line Chart data "BDoS-TCP FIN ACK" with Label "Suspected Edge"
       | value | count | offset |
@@ -540,8 +540,8 @@ Feature: VRM BDoS baselines
 
   @SID_18
   Scenario: BDoS baseline TCP FIN ACK IPv4 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,Outbound"
 
     Then UI Validate Line Chart data "BDoS-TCP FIN ACK" with Label "Suspected Edge"
       | value   | count | offset |
@@ -565,7 +565,7 @@ Feature: VRM BDoS baselines
 
   @SID_19
   Scenario: BDoS baseline TCP FIN ACK IPv6 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK,IPv6"
 
     Then UI Validate Line Chart data "BDoS-TCP FIN ACK" with Label "Suspected Edge"
       | value  | count | offset |
@@ -592,22 +592,22 @@ Feature: VRM BDoS baselines
 
   @SID_20
   Scenario: BDoS baseline TCP Fragmented IPv4 In bps
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented bps"
-    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,bps"
+#    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
       | 232   | 13    | 6      |
@@ -684,7 +684,7 @@ Feature: VRM BDoS baselines
 
   @SID_21
   Scenario: BDoS baseline TCP Fragmented IPv6 In bps
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,IPv6"
 
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -709,8 +709,8 @@ Feature: VRM BDoS baselines
 
   @SID_22
   Scenario: BDoS baseline TCP Fragmented IPv4 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,Outbound"
 
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -736,7 +736,7 @@ Feature: VRM BDoS baselines
 
   @SID_23
   Scenario: BDoS baseline TCP Fragmented IPv6 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,IPv6"
 
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -763,9 +763,9 @@ Feature: VRM BDoS baselines
 
   @SID_24
   Scenario: BDoS baseline TCP Fragmented IPv4 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,pps"
 
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -792,7 +792,7 @@ Feature: VRM BDoS baselines
 
   @SID_25
   Scenario: BDoS baseline TCP Fragmented IPv6 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,IPv6"
 
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Suspected Edge"
       | value  | count | offset |
@@ -820,8 +820,8 @@ Feature: VRM BDoS baselines
 
   @SID_26
   Scenario: BDoS baseline TCP Fragmented IPv4 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,Outbound"
 
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -848,7 +848,7 @@ Feature: VRM BDoS baselines
 
   @SID_27
   Scenario: BDoS baseline TCP Fragmented IPv6 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented,IPv6"
 #    Then UI Do Operation "Select" item "BDoS-TCP Fragmented Outbound"
 #    Then UI Do Operation "Select" item "BDoS-TCP Fragmented pps"
 
@@ -878,22 +878,22 @@ Feature: VRM BDoS baselines
 
   @SID_28
   Scenario: BDoS baseline TCP RST IPv4 In bps
-    Then UI Do Operation "Select" item "BDoS-TCP RST IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP RST Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP RST bps"
-    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,bps"
+#    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP RST" with Label "Suspected Edge"
       | value | count | offset |
       | 929   | 13    | 6      |
@@ -950,27 +950,27 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 44640 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP RST" with Label "Total Traffic"
       | value | count | offset |
       | 46480 | 13    | 6      |
 
   @SID_29
   Scenario: BDoS baseline TCP RST IPv6 In bps
-    Then UI Do Operation "Select" item "BDoS-TCP RST IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,IPv6"
 #    Then UI Do Operation "Select" item "BDoS-TCP RST Inbound"
 #    Then UI Do Operation "Select" item "BDoS-TCP RST bps"
 
@@ -998,8 +998,8 @@ Feature: VRM BDoS baselines
 
   @SID_30
   Scenario: BDoS baseline TCP RST IPv4 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP RST IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP RST Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,Outbound"
 #    Then UI Do Operation "Select" item "BDoS-TCP RST bps"
 
     Then UI Validate Line Chart data "BDoS-TCP RST" with Label "Suspected Edge"
@@ -1027,7 +1027,7 @@ Feature: VRM BDoS baselines
 
   @SID_31
   Scenario: BDoS baseline TCP RST IPv6 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP RST IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,IPv6"
 #    Then UI Do Operation "Select" item "BDoS-TCP RST Outbound"
 #    Then UI Do Operation "Select" item "BDoS-TCP RST bps"
 
@@ -1056,9 +1056,9 @@ Feature: VRM BDoS baselines
 
   @SID_32
   Scenario: BDoS baseline TCP RST IPv4 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP RST IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP RST Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP RST pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,pps"
 
     Then UI Validate Line Chart data "BDoS-TCP RST" with Label "Suspected Edge"
       | value | count | offset |
@@ -1085,7 +1085,7 @@ Feature: VRM BDoS baselines
 
   @SID_33
   Scenario: BDoS baseline TCP RST IPv6 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP RST IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,IPv6"
 #    Then UI Do Operation "Select" item "BDoS-TCP RST Inbound"
 #    Then UI Do Operation "Select" item "BDoS-TCP RST pps"
 
@@ -1114,9 +1114,9 @@ Feature: VRM BDoS baselines
 
   @SID_34
   Scenario: BDoS baseline TCP RST IPv4 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP RST IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP RST Outbound"
-    Then UI Do Operation "Select" item "BDoS-TCP RST pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,pps"
 
     Then UI Validate Line Chart data "BDoS-TCP RST" with Label "Suspected Edge"
       | value | count | offset |
@@ -1143,9 +1143,9 @@ Feature: VRM BDoS baselines
 
   @SID_35
   Scenario: BDoS baseline TCP RST IPv6 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP RST IPv6"
-    Then UI Do Operation "Select" item "BDoS-TCP RST Outbound"
-    Then UI Do Operation "Select" item "BDoS-TCP RST pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST,pps"
 
     Then UI Validate Line Chart data "BDoS-TCP RST" with Label "Suspected Edge"
       | value | count | offset |
@@ -1175,22 +1175,22 @@ Feature: VRM BDoS baselines
 
   @SID_36
   Scenario: BDoS baseline TCP-SYN ACK IPv4 In bps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK bps"
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,bps"
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
       | 464   | 13    | 6      |
@@ -1267,9 +1267,9 @@ Feature: VRM BDoS baselines
 
   @SID_37
   Scenario: BDoS baseline TCP-SYN ACK IPv6 In bps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK IPv6"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,bps"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
@@ -1296,9 +1296,9 @@ Feature: VRM BDoS baselines
 
   @SID_38
   Scenario: BDoS baseline TCP-SYN ACK IPv4 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK Outbound"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,bps"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
@@ -1325,9 +1325,9 @@ Feature: VRM BDoS baselines
 
   @SID_39
   Scenario: BDoS baseline TCP-SYN ACK IPv6 Out bps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK IPv6"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK Outbound"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,bps"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
@@ -1353,9 +1353,9 @@ Feature: VRM BDoS baselines
 
   @SID_40
   Scenario: BDoS baseline TCP-SYN ACK IPv4 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,pps"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
@@ -1382,9 +1382,9 @@ Feature: VRM BDoS baselines
 
   @SID_41
   Scenario: BDoS baseline TCP-SYN ACK IPv6 In pps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK IPv6"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK Inbound"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,pps"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value  | count | offset |
@@ -1412,8 +1412,8 @@ Feature: VRM BDoS baselines
 
   @SID_42
   Scenario: BDoS baseline TCP-SYN ACK IPv4 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK IPv4"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,Outbound"
     # Then UI Do Operation "Select" item "BDoS-TCP SYN ACK pps"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
@@ -1441,9 +1441,9 @@ Feature: VRM BDoS baselines
 
   @SID_43
   Scenario: BDoS baseline TCP-SYN ACK IPv6 Out pps
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK IPv6"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK Outbound"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK,pps"
 
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value  | count | offset |
@@ -1470,22 +1470,22 @@ Feature: VRM BDoS baselines
 
   @SID_44
   Scenario: BDoS baseline UDP IPv4 In bps
-    Then UI Do Operation "Select" item "BDoS-UDP IPv4"
-    Then UI Do Operation "Select" item "BDoS-UDP Inbound"
-    Then UI Do Operation "Select" item "BDoS-UDP bps"
-    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,bps"
+#    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Suspected Edge"
       | value | count | offset |
       | 2575  | 13    | 6      |
@@ -1562,9 +1562,9 @@ Feature: VRM BDoS baselines
 
   @SID_45
   Scenario: BDoS baseline UDP IPv6 In bps
-    Then UI Do Operation "Select" item "BDoS-UDP IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP Inbound"
-    Then UI Do Operation "Select" item "BDoS-UDP bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,bps"
 
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Suspected Edge"
       | value | count | offset |
@@ -1588,9 +1588,9 @@ Feature: VRM BDoS baselines
 
   @SID_46
   Scenario: BDoS baseline UDP IPv4 Out bps
-    Then UI Do Operation "Select" item "BDoS-UDP IPv4"
-    Then UI Do Operation "Select" item "BDoS-UDP Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,bps"
 
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Suspected Edge"
       | value | count | offset |
@@ -1614,9 +1614,9 @@ Feature: VRM BDoS baselines
 
   @SID_47
   Scenario: BDoS baseline UDP IPv6 Out bps
-    Then UI Do Operation "Select" item "BDoS-UDP IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,bps"
 
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Suspected Edge"
       | value | count | offset |
@@ -1640,9 +1640,9 @@ Feature: VRM BDoS baselines
 
   @SID_48
   Scenario: BDoS baseline UDP IPv4 In pps
-    Then UI Do Operation "Select" item "BDoS-UDP IPv4"
-    Then UI Do Operation "Select" item "BDoS-UDP Inbound"
-    Then UI Do Operation "Select" item "BDoS-UDP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,pps"
 
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Suspected Edge"
       | value | count | offset |
@@ -1667,9 +1667,9 @@ Feature: VRM BDoS baselines
 
   @SID_49
   Scenario: BDoS baseline UDP IPv6 In pps
-    Then UI Do Operation "Select" item "BDoS-UDP IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP Inbound"
-    Then UI Do Operation "Select" item "BDoS-UDP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,pps"
 
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Suspected Edge"
       | value | count | offset |
@@ -1694,9 +1694,9 @@ Feature: VRM BDoS baselines
 
   @SID_50
   Scenario: BDoS baseline UDP IPv4 Out pps
-    Then UI Do Operation "Select" item "BDoS-UDP IPv4"
-    Then UI Do Operation "Select" item "BDoS-UDP Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,pps"
 
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Suspected Edge"
       | value | count | offset |
@@ -1722,9 +1722,9 @@ Feature: VRM BDoS baselines
 
   @SID_51
   Scenario: BDoS baseline UDP IPv6 Out pps
-    Then UI Do Operation "Select" item "BDoS-UDP IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP,pps"
 
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Suspected Edge"
       | value  | count | offset |
@@ -1751,22 +1751,22 @@ Feature: VRM BDoS baselines
 
   @SID_52
   Scenario: BDoS baseline UDP-Fragmented IPv4 In bps
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented IPv4"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented Inbound"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented bps"
-    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,bps"
+#    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
       | 1037  | 13    | 6      |
@@ -1843,9 +1843,9 @@ Feature: VRM BDoS baselines
 
   @SID_53
   Scenario: BDoS baseline UDP-Fragmented IPv6 In bps
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented Inbound"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,bps"
 
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -1869,9 +1869,9 @@ Feature: VRM BDoS baselines
 
   @SID_54
   Scenario: BDoS baseline UDP-Fragmented IPv4 Out bps
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented IPv4"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,bps"
 
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -1896,9 +1896,9 @@ Feature: VRM BDoS baselines
 
   @SID_55
   Scenario: BDoS baseline UDP-Fragmented IPv6 Out bps
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,bps"
 
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -1924,9 +1924,9 @@ Feature: VRM BDoS baselines
 
   @SID_56
   Scenario: BDoS baseline UDP-Fragmented IPv4 In pps
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented IPv4"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented Inbound"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,pps"
 
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -1953,9 +1953,9 @@ Feature: VRM BDoS baselines
 
   @SID_57
   Scenario: BDoS baseline UDP-Fragmented IPv6 In pps
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented Inbound"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,pps"
 
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -1979,9 +1979,9 @@ Feature: VRM BDoS baselines
 
   @SID_58
   Scenario: BDoS baseline UDP-Fragmented IPv4 Out pps
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented IPv4"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,pps"
 
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -2008,9 +2008,9 @@ Feature: VRM BDoS baselines
 
   @SID_59
   Scenario: BDoS baseline UDP-Fragmented IPv6 Out pps
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented,pps"
 
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Suspected Edge"
       | value | count | offset |
@@ -2038,22 +2038,22 @@ Feature: VRM BDoS baselines
 
   @SID_60
   Scenario: BDoS baseline BDoS-ICMP IPv4 In bps
-    Then UI Do Operation "Select" item "BDoS-ICMP IPv4"
-    Then UI Do Operation "Select" item "BDoS-ICMP Inbound"
-    Then UI Do Operation "Select" item "BDoS-ICMP bps"
-    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,bps"
+#    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Suspected Edge"
       | value | count | offset |
       | 182   | 13    | 6      |
@@ -2130,9 +2130,9 @@ Feature: VRM BDoS baselines
 
   @SID_61
   Scenario: BDoS baseline BDoS-ICMP IPv6 In bps
-    Then UI Do Operation "Select" item "BDoS-ICMP IPv6"
-    Then UI Do Operation "Select" item "BDoS-ICMP Inbound"
-    Then UI Do Operation "Select" item "BDoS-ICMP bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,bps"
 
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2156,9 +2156,9 @@ Feature: VRM BDoS baselines
 
   @SID_62
   Scenario: BDoS baseline BDoS-ICMP IPv4 Out bps
-    Then UI Do Operation "Select" item "BDoS-ICMP IPv4"
-    Then UI Do Operation "Select" item "BDoS-ICMP Outbound"
-    Then UI Do Operation "Select" item "BDoS-ICMP bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,bps"
 
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2182,9 +2182,9 @@ Feature: VRM BDoS baselines
 
   @SID_63
   Scenario: BDoS baseline BDoS-ICMP IPv6 Out bps
-    Then UI Do Operation "Select" item "BDoS-ICMP IPv6"
-    Then UI Do Operation "Select" item "BDoS-ICMP Outbound"
-    Then UI Do Operation "Select" item "BDoS-ICMP bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,bps"
 
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2208,9 +2208,9 @@ Feature: VRM BDoS baselines
 
   @SID_64
   Scenario: BDoS baseline BDoS-ICMP IPv4 In pps
-    Then UI Do Operation "Select" item "BDoS-ICMP IPv4"
-    Then UI Do Operation "Select" item "BDoS-ICMP Inbound"
-    Then UI Do Operation "Select" item "BDoS-ICMP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,pps"
 
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2234,9 +2234,9 @@ Feature: VRM BDoS baselines
 
   @SID_65
   Scenario: BDoS baseline BDoS-ICMP IPv6 In pps
-    Then UI Do Operation "Select" item "BDoS-ICMP IPv6"
-    Then UI Do Operation "Select" item "BDoS-ICMP Inbound"
-    Then UI Do Operation "Select" item "BDoS-ICMP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,pps"
 
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2260,9 +2260,9 @@ Feature: VRM BDoS baselines
 
   @SID_66
   Scenario: BDoS baseline BDoS-ICMP IPv4 Out pps
-    Then UI Do Operation "Select" item "BDoS-ICMP IPv4"
-    Then UI Do Operation "Select" item "BDoS-ICMP Outbound"
-    Then UI Do Operation "Select" item "BDoS-ICMP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,pps"
 
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2286,9 +2286,9 @@ Feature: VRM BDoS baselines
 
   @SID_67
   Scenario: BDoS baseline BDoS-ICMP IPv6 Out pps
-    Then UI Do Operation "Select" item "BDoS-ICMP IPv6"
-    Then UI Do Operation "Select" item "BDoS-ICMP Outbound"
-    Then UI Do Operation "Select" item "BDoS-ICMP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP,pps"
 
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2315,22 +2315,22 @@ Feature: VRM BDoS baselines
 
   @SID_68
   Scenario: BDoS baseline IGMP IPv4 In bps
-    Then UI Do Operation "Select" item "BDoS-IGMP IPv4"
-    Then UI Do Operation "Select" item "BDoS-IGMP Inbound"
-    Then UI Do Operation "Select" item "BDoS-IGMP bps"
-    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,bps"
+#    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
       | 182   | 13    | 6      |
@@ -2408,9 +2408,9 @@ Feature: VRM BDoS baselines
 
   @SID_69
   Scenario: BDoS baseline IGMP IPv6 In bps
-    Then UI Do Operation "Select" item "BDoS-IGMP IPv6"
-    Then UI Do Operation "Select" item "BDoS-IGMP Inbound"
-    Then UI Do Operation "Select" item "BDoS-IGMP bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,bps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2439,9 +2439,9 @@ Feature: VRM BDoS baselines
 
   @SID_70
   Scenario: BDoS baseline IGMP IPv4 Out bps
-    Then UI Do Operation "Select" item "BDoS-IGMP IPv4"
-    Then UI Do Operation "Select" item "BDoS-IGMP Outbound"
-    Then UI Do Operation "Select" item "BDoS-IGMP bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP, bps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2466,9 +2466,9 @@ Feature: VRM BDoS baselines
 
   @SID_71
   Scenario: BDoS baseline IGMP IPv6 Out bps
-    Then UI Do Operation "Select" item "BDoS-IGMP IPv6"
-    Then UI Do Operation "Select" item "BDoS-IGMP Outbound"
-    Then UI Do Operation "Select" item "BDoS-IGMP bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,bps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2495,9 +2495,9 @@ Feature: VRM BDoS baselines
 
   @SID_72
   Scenario: BDoS baseline IGMP IPv4 In pps
-    Then UI Do Operation "Select" item "BDoS-IGMP IPv4"
-    Then UI Do Operation "Select" item "BDoS-IGMP Inbound"
-    Then UI Do Operation "Select" item "BDoS-IGMP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,pps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2524,9 +2524,9 @@ Feature: VRM BDoS baselines
 
   @SID_73
   Scenario: BDoS baseline IGMP IPv6 In pps
-    Then UI Do Operation "Select" item "BDoS-IGMP IPv6"
-    Then UI Do Operation "Select" item "BDoS-IGMP Inbound"
-    Then UI Do Operation "Select" item "BDoS-IGMP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,pps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2551,9 +2551,9 @@ Feature: VRM BDoS baselines
 
   @SID_74
   Scenario: BDoS baseline IGMP IPv4 Out pps
-    Then UI Do Operation "Select" item "BDoS-IGMP IPv4"
-    Then UI Do Operation "Select" item "BDoS-IGMP Outbound"
-    Then UI Do Operation "Select" item "BDoS-IGMP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv4"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,pps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2578,9 +2578,9 @@ Feature: VRM BDoS baselines
 
   @SID_75
   Scenario: BDoS baseline IGMP IPv6 Out pps
-    Then UI Do Operation "Select" item "BDoS-IGMP IPv6"
-    Then UI Do Operation "Select" item "BDoS-IGMP Outbound"
-    Then UI Do Operation "Select" item "BDoS-IGMP pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP, pps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2768,9 +2768,9 @@ Feature: VRM BDoS baselines
   Scenario: BDoS baselines use duplicate widgets
     When UI VRM Select Widgets
       | BDoS-TCP SYN |
-    And UI Do Operation "Select" item "BDoS-TCP SYN-1 IPv6"
-    And UI Do Operation "Select" item "BDoS-TCP SYN-1 Outbound"
-    And UI Do Operation "Select" item "BDoS-TCP SYN-1 pps"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN-1,IPv6"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN-1,Outbound"
+    And UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN-1,pps"
     And UI VRM Select Widgets
       | BDoS-TCP SYN |
 
@@ -2817,37 +2817,37 @@ Feature: VRM BDoS baselines
       | BDoS-UDP Fragmented |
       | BDoS-ICMP           |
       | BDoS-IGMP           |
-    Then UI Do Operation "Select" item "BDoS-IGMP-1 IPv6"
-    Then UI Do Operation "Select" item "BDoS-IGMP-1 Outbound"
-    Then UI Do Operation "Select" item "BDoS-IGMP-1 pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP-1,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP-1,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP-1,pps"
 
-    Then UI Do Operation "Select" item "BDoS-ICMP-1 IPv6"
-    Then UI Do Operation "Select" item "BDoS-ICMP-1 Outbound"
-    Then UI Do Operation "Select" item "BDoS-ICMP-1 pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP-1,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP-1,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-ICMP-1,pps"
 
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented-1 IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented-1 Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP Fragmented-1 pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented-1,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented-1,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP Fragmented-1,pps"
 
-    Then UI Do Operation "Select" item "BDoS-TCP RST-1 IPv6"
-    Then UI Do Operation "Select" item "BDoS-TCP RST-1 Outbound"
-    Then UI Do Operation "Select" item "BDoS-TCP RST-1 pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST-1,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST-1,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP RST-1,pps"
 
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented-1 IPv6"
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented-1 Outbound"
-    Then UI Do Operation "Select" item "BDoS-TCP Fragmented-1 pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented-1,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented-1,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP Fragmented-1,pps"
 
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK-1 IPv6"
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK-1 Outbound"
-    Then UI Do Operation "Select" item "BDoS-TCP FIN ACK-1 pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK-1,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK-1,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP FIN ACK-1,pps"
 
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK-1 IPv6"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK-1 Outbound"
-    Then UI Do Operation "Select" item "BDoS-TCP SYN ACK-1 pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK-1,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK-1,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN ACK-1,pps"
 
-    Then UI Do Operation "Select" item "BDoS-UDP-1 IPv6"
-    Then UI Do Operation "Select" item "BDoS-UDP-1 Outbound"
-    Then UI Do Operation "Select" item "BDoS-UDP-1 pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP-1,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP-1,Outbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-UDP-1,pps"
 
     Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser

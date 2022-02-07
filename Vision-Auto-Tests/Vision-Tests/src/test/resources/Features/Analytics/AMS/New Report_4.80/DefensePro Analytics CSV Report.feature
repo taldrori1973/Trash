@@ -170,7 +170,7 @@ Feature: DefensePro Analytics CSV Report
   @SID_18
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION content
     #################### fail
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Destinations-DefensePro Analytics.csv"|head -3 |tail -1|grep -oP "AU,1.1.1.8,1,100"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Attack Destinations-DefensePro Analytics.csv"|head -3 |tail -1|grep -oP "AU,1.1.1.8,1,33.3333"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
     ############################################       TOP ATTACK SOURCES       ###############################################################################

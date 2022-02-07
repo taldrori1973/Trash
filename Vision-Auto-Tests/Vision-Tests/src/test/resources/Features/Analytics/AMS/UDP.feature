@@ -18,7 +18,7 @@ Feature: UDP widgets
     When CLI Clear vision logs
 
 #    Given CLI simulate 100 attacks of type "testUDPAttack" on "DefensePro" 185 with loopDelay 15000 and wait 120 seconds
-    Given CLI simulate 100 attacks of type "testUDPAttack" on SetId "DefensePro_Set_7" with loopDelay 15000 and wait 120 seconds with attack ID
+    Given CLI simulate 100 attacks of type "UDP_itr" on SetId "DefensePro_Set_7" with loopDelay 15000 and wait 120 seconds with attack ID
 
   @SID_3
   Scenario: Login and navigate to BDOS behavioral dashboard
@@ -28,6 +28,8 @@ Feature: UDP widgets
     Then UI VRM Select device from dashboard and Save Filter
       | setId | ports | policies |
       | DefensePro_Set_7   |       | test     |
+      | index | ports | policies |
+      | 13   |       | Policy_4993@000010-00005-0     |
     Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
       | value | min |
       | 0     | 5   |
