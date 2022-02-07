@@ -585,16 +585,13 @@ public class DeployOva {
         int bytesAvailable = diskis.available();
         int bufferSize = Math.min(bytesAvailable, CHUCK_LEN);
         byte[] buffer = new byte[bufferSize];
-        byte[] bufferCopy = new byte[bufferSize];
-        BaseTestUtils.reporter.report(String.format("Start Uploading Vmdk File (%d size) from %s", bufferSize, diskFilePath));
+        BaseTestUtils.reporter.report(String.format("Start Uploading Vmdk File (%d size) from %s", bytesAvailable, diskFilePath));
         long totalBytesWritten = 0;
-        int count = 0;
         while (true) {
             int bytesRead = diskis.read(buffer, 0, bufferSize);
             if (bytesRead == -1) {
                 break;
             }
-            System.arraycopy(buffer,0,bufferCopy,0,bufferSize);
             totalBytesWritten += bytesRead;
             bos.write(buffer, 0, bufferSize);
             bos.flush();
