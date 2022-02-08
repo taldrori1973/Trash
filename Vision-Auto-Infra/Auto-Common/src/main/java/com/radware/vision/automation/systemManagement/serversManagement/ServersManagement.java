@@ -21,13 +21,19 @@ public class ServersManagement {
     private final RootServerCli rootServerCli;
 
 
-    public ServersManagement() {
+    public ServersManagement() throws Exception {
         this.linuxFileServer = this.createAndInitServer(getServerId(TestBase.getSutManager().getLinuxServerID()), LinuxFileServer.class);
         this.radwareServerCli = this.createAndInitServer(RadwareServerCli.class);
         this.rootServerCli = this.createAndInitServer(RootServerCli.class);
     }
 
-    private ServerIds getServerId(String ServerID) {
+    /***
+     *
+     * @param ServerID
+     * @return for which Linux server to connect depends to ServerID, and if genericLinuxID is null, returns GENERIC_LINUX_SERVER
+     * @throws Exception if ServerID is not valid
+     */
+    private ServerIds getServerId(String ServerID) throws Exception {
         try {
             switch (ServerID) {
                 case "linuxFileServer":
@@ -35,15 +41,11 @@ public class ServersManagement {
                 case "linuxFileServerVanc":
                     return ServerIds.GENERIC_LINUX_SERVER_VANC;
                 default:
-                    BaseTestUtils.report("ServerID: " + ServerID + ", is not valid.", Reporter.FAIL);
-
+                    throw new Exception("ServerID: " + ServerID + ", is not valid.");
             }
         } catch (NullPointerException e) {
-            // TODO - check case that SUT file didnt contins genericLinuxID field
-            //BaseTestUtils.report("Field genericLinuxID is missing, connecting to default: " + ServerIds.GENERIC_LINUX_SERVER, Reporter.PASS_NOR_FAIL);
             return ServerIds.GENERIC_LINUX_SERVER;
         }
-        return null;
     }
 
     private <SERVER extends ServerCliBase> SERVER createAndInitServer(ServerIds serverId, Class<SERVER> clazz) {
