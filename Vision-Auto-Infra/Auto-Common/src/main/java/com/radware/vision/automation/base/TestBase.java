@@ -47,13 +47,9 @@ public abstract class TestBase {
             cliConfigurations = getSutManager().getCliConfigurations();
             testStartTime = LocalDateTime.now();
             restTestBase = new RestManagement();
-            try {
-                restTestBase.init();
-            } catch (Exception e) {
-                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-            }
+            restTestBase.init();
         } catch (Exception e) {
-            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
 
     }
