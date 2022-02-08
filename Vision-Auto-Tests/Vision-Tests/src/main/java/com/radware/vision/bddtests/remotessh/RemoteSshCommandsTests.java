@@ -17,9 +17,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
-import jsystem.framework.system.SystemManagerImpl;
-import jsystem.framework.system.SystemObject;
-import jsystem.framework.system.SystemObjectManager;
 import testutils.RemoteProcessExecutor;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -85,45 +82,10 @@ public class RemoteSshCommandsTests extends TestBase {
                     targetCommand.append((String) InvokeMethod.invokeMethod(String.format("#%s(%s);", "getSUTValue", commandPart.substring(1))));
                     break;
                 }
-                case '@': {
-                    try {
-                        String[] classMethod = commandPart.split("\\.");
-                        targetCommand.append(Variables.getSUTVariable(classMethod[0].substring(1), classMethod[1]));
-                    }
-                    catch (Exception ignored){}
-                    break;
-                }
             }
         }
 
         return targetCommand.toString();
-    }
-
-    public enum Variables {
-
-        visionIP(restTestBase.getRadwareServerCli().getHost());
-        String variable;
-
-        Variables(String variable) {
-            this.variable = variable;
-        }
-
-        public String getVariable() {
-            return variable;
-        }
-
-        public static String getSUTVariable(String className, String method, Object... args) throws Exception {
-            SystemObject obj = system.getSystemObject(className);
-            Class<?> classObj = obj.getClass();
-            java.lang.reflect.Method[] allMethods = classObj.getDeclaredMethods();
-            for (java.lang.reflect.Method m : allMethods) {
-                String methodName = m.getName();
-                if (methodName.equals(method)) {
-                    return (String) m.invoke(obj, args);
-                }
-            }
-            return null;
-        }
     }
 
     @When("^Verify ADC Network index aggregation on device \"(.*)\"(?: with timeOut (\\d+))?$")
@@ -515,7 +477,8 @@ public class RemoteSshCommandsTests extends TestBase {
             user = getSetUpDomain();
 
         try {
-            getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER).connect();
+            ServerCliBase serverCliBase = TestBase.getServersManagement().getLinuxFileServer().get();
+            serverCliBase.connect();
             String commandToExecute = String.format("echo \"cleared\" $(date) > /var/spool/mail/%s", user);
             CliOperations.runCommand(serverCliBase, commandToExecute, 10 * 1000);
         } catch (Exception e) {
@@ -527,7 +490,7 @@ public class RemoteSshCommandsTests extends TestBase {
      * @return setup' IP address for email domain
      */
     private String getSetUpDomain() {
-        return getSUTEntryTypeByServerCliBase(ROOT_SERVER_CLI).getHost();
+        return TestBase.getSutManager().getClientConfigurations().getHostIp();
     }
 
     /**
@@ -542,7 +505,7 @@ public class RemoteSshCommandsTests extends TestBase {
             domain = getSetUpDomain();
         String commandToExecute = String.format("%s /var/spool/mail/%s |wc -l", expression, domain);
         try {
-            runCLICommandAndValidateBiggerOrEqualResult(commandToExecute, GENERIC_LINUX_SERVER,
+            runCLICommandAndValidateBiggerOrEqualResult(commandToExecute, ServersManagement.ServerIds.GENERIC_LINUX_SERVER,
                     operatorsEnum, expectedResult, null, null, 200);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
