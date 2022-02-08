@@ -737,10 +737,10 @@
         }
       },
       {
-        "deviceId": "DefensePro_172.17.22.25",
+        "deviceId": "DefensePro_172.16.22.25",
         "deviceSetId": "DefensePro_Set_6",
         "configurations": {
-          "name": "DefensePro_172.17.22.25",
+          "name": "DefensePro_172.16.22.25",
           "parentOrmID": null,
           "type": "DefensePro",
           "deviceSetup": {
@@ -753,7 +753,7 @@
               "httpsPassword": "radware1",
               "httpsUsername": "radware",
               "httpUsername": "radware",
-              "managementIp": "172.17.22.25",
+              "managementIp": "172.16.22.25",
               "registerDeviceEvents": true,
               "snmpV1ReadCommunity": "public",
               "snmpV1WriteCommunity": "public",
