@@ -250,7 +250,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Repo button" if Exists "false"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-4"
 
-  @SID_5
+  @SID_16
   Scenario: Create Report of DNS baselines IPv4
     And UI Navigate to "AMS Reports" page via homePage
     Given UI "Create" Report With Name "DNS Baselines Report IPv4"
@@ -282,7 +282,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-Other"
 
 
-  @SID_16
+  @SID_17
   Scenario: kill all simulator attacks and logout
     Then UI logout and close browser
     Then CLI kill all simulator attacks on current vision
