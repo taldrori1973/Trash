@@ -5,7 +5,7 @@ Feature: Create Device DP
   Scenario: Open the SitesAndClusters  Containers
     Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
-    Given REST Delete device with SetID "DefensePro_Set_6" from topology tree
+    Given REST Delete device with SetId "DefensePro_Set_6" from topology tree
 
   @SID_2 @Sanity
   Scenario: Add new DefensePro

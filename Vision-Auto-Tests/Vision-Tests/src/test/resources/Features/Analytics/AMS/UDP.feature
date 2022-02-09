@@ -67,5 +67,4 @@ Feature: UDP widgets
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     When CLI Clear vision logs
-#    Then REST Delete Device By IP "10.185.2.85"
-    Then REST Delete device with SetID "DefensePro_Set_7" from topology tree
+    Then REST Delete device with SetId "DefensePro_Set_7" from topology tree
