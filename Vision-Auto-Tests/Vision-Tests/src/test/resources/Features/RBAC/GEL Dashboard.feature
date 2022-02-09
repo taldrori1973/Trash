@@ -30,7 +30,8 @@ Feature: GEL Dashboard RBAC
     Then UI Validate user rbac
       | operations    | accesses |
       | GEL Dashboard | <Access> |
-    Then UI Logout
+#    TODO: this is a workaround until we take care of the defect 71302
+    Then UI logout and close browser
 
     Examples:
       | userName                           | Access |
