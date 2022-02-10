@@ -31,7 +31,7 @@ Feature: VRM BDoS baselines
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
-      | DefensePro_set_1 |       | pol_1    |
+      | DefensePro_Set_1 |       | pol_1    |
 
   @SID_4
   Scenario: BDoS baseline TCP-SYN IPv4 In bps

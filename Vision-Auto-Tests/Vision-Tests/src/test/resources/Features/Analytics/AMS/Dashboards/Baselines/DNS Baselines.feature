@@ -12,7 +12,7 @@ Feature: VRM DNS baselines
   #  Given REST Delete ES index "dp-dns*"
     #Given CLI simulate 100 attacks of type "dns_fuzzy_pol_1" on "DefensePro" 10 with loopDelay 60000
     #Given CLI simulate 100 attacks of type "DNS_baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 120 seconds
-    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_set_1" with loopDelay 15000 and wait 140 seconds
+    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_2
   Scenario: login and select device
@@ -26,7 +26,7 @@ Feature: VRM DNS baselines
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
-      | DefensePro_set_1 |       | pol_1    |
+      | DefensePro_Set_1 |       | pol_1    |
     And UI Do Operation "Select" item "Max Min"
 
   @SID_3
@@ -1203,7 +1203,7 @@ Feature: VRM DNS baselines
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies        |
-      | DefensePro_set_1 |       | policy_1, pol_1 |
+      | DefensePro_Set_1 |       | policy_1, pol_1 |
     Then UI Remove Session Storage "DNS-A"
     Then Sleep "35"
     Then UI Validate Session Storage "DNS-A" exists "false"
@@ -1221,7 +1221,7 @@ Feature: VRM DNS baselines
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
-      | DefensePro_set_1 |       | pol_1    |
+      | DefensePro_Set_1 |       | pol_1    |
     Then UI Validate Line Chart data "DNS-TXT" with Label "Suspected Edge"
       | value | count | offset |
       | 739   | 13    | 6      |
@@ -1321,7 +1321,7 @@ Feature: VRM DNS baselines
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
-      | DefensePro_set_1 |       | policy1  |
+      | DefensePro_Set_1 |       | policy1  |
     #Then UI Validate Session Storage "DNS-A" exists "false"
     #Then UI Validate Session Storage "DNS-TXT" exists "false"
     * UI Open "Configurations" Tab
@@ -1337,7 +1337,7 @@ Feature: VRM DNS baselines
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
-      | DefensePro_set_1 |       | pol_1    |
+      | DefensePro_Set_1 |       | pol_1    |
     Then UI VRM Clear All Widgets
 
   @SID_35

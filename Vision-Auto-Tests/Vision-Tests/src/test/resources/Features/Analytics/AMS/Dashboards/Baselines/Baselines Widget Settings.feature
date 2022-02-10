@@ -9,8 +9,8 @@ Feature: Baselines Widget Settings
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 #    Given REST Delete ES index "dp-bdos-baseline*"
 #    Given REST Delete ES index "dp-baseline*"
-    Given CLI simulate 100 attacks of type "rest_bdosdns" on SetId "DefensePro_set_2" with loopDelay 15000
-    Given CLI simulate 100 attacks of type "baselines_pol_1" on SetId "DefensePro_set_1" with loopDelay 15000 and wait 140 seconds
+    Given CLI simulate 100 attacks of type "rest_bdosdns" on SetId "DefensePro_Set_2" with loopDelay 15000
+    Given CLI simulate 100 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_2
   Scenario: Login into VRM and select device and policy
@@ -22,7 +22,7 @@ Feature: Baselines Widget Settings
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
-      | DefensePro_set_1 |       | pol_1    |
+      | DefensePro_Set_1 |       | pol_1    |
 
   @SID_3
   Scenario: DP baselines widget settings Cancel
@@ -58,7 +58,7 @@ Feature: Baselines Widget Settings
     Then UI Do Operation "select" item "BDoS-TCP SYN ACK Widget Settings"
     Then UI VRM Select device from dashboard
       | setId            | ports | policies |
-      | DefensePro_set_2 |       | BDOS     |
+      | DefensePro_Set_2 |       | BDOS     |
     And UI Do Operation "select" item "Widget Settings Save"
 
   @SID_5

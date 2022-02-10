@@ -32,7 +32,7 @@ Feature: DefensePro Behavioral DNS General Tests
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
 
-    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_set_1" with loopDelay 15000 and wait 140 seconds
+    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_3
   Scenario: select device and Policy
@@ -42,7 +42,7 @@ Feature: DefensePro Behavioral DNS General Tests
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
-      | DefensePro_set_1 |       | pol_1    |
+      | DefensePro_Set_1 |       | pol_1    |
 
   @SID_4
   Scenario: Validate Scope Selection Stability
@@ -256,7 +256,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Given UI "Create" Report With Name "DNS Baselines Report IPv4"
       | reportType            | DefensePro Behavioral Protections Dashboard                                                                                                                                                              |
       | Design                | {"Add":[{"DNS-A":["IPv4"]},{"DNS-AAAA":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
-      | devices               | SetId:DefensePro_set_1,policies:[pol_1]                                                                                                                                                                               |
+      | devices               | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                                                               |
       | Format                | Select: PDF                                                                                                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,1]                                                                                                                                                                                       |
     Then UI "Generate" Report With Name "DNS Baselines Report IPv4"
