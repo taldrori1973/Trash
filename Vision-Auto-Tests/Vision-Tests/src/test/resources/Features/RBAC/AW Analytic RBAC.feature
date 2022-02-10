@@ -7,7 +7,7 @@ Feature: AW Analytics User RBAC
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
     Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
     * REST Delete ES index "dp-*"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
@@ -93,8 +93,8 @@ Feature: AW Analytics User RBAC
     Then UI "Generate" Report With Name "OverAllAppWallReport"
       | timeOut | 120 |
     Then UI Click Button "Log Preview" with value "OverAllAppWallReport_0"
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep VRM_report_*.pdf | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.pdf' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.pdf" on "ROOT_SERVER_CLI"
 
 
   @SID_9
@@ -105,8 +105,8 @@ Feature: AW Analytics User RBAC
       | Format | Select: CSV |
     Then UI "Generate" Report With Name "OverAllAppWallReport"
       | timeOut | 120 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep VRM_report_*.zip | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep VRM_report_.*.zip | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.zip" on "ROOT_SERVER_CLI"
 
 
   @SID_10
@@ -117,8 +117,8 @@ Feature: AW Analytics User RBAC
       | Format | Select: HTML |
     Then UI "Generate" Report With Name "OverAllAppWallReport"
       | timeOut | 120 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep VRM_report_ | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep VRM_report_.*.html | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.html" on "ROOT_SERVER_CLI"
 
   @SID_11
   Scenario: Delete Report Validation

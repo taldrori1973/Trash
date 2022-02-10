@@ -27,6 +27,7 @@ Feature: VRM DNS baselines
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       | pol_1    |
+    And UI Do Operation "Select" item "Max Min"
 
   @SID_3
   Scenario: DNS baseline DNS-TXT IPv4 In QPS styling
@@ -119,7 +120,12 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-TXT" with Label "Total Traffic"
       | value | count | offset |
       | 4360  | 13    | 6      |
-
+    Then UI Validate Line Chart data "DNS-TXT" with Label "Max"
+      | value | count | offset |
+      | 4720  | 1     | 1      |
+    Then UI Validate Line Chart data "DNS-TXT" with Label "Min"
+      | value | count | offset |
+      | 4720  | 1     | 1      |
 
   @SID_5
   Scenario: DNS baseline DNS-TXT IPv6 In QPS data
@@ -244,6 +250,12 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-A" with Label "Total Traffic"
       | value | count | offset |
       | 4200  | 13    | 6      |
+    Then UI Validate Line Chart data "DNS-A" with Label "Max"
+      | value | count | offset |
+      | 4560  | 1     | 1      |
+    Then UI Validate Line Chart data "DNS-A" with Label "Min"
+      | value | count | offset |
+      | 4560  | 1     | 1      |
 
   @SID_8
   Scenario: BDoS baseline DNS-A IPv6 In QPS data
@@ -367,6 +379,12 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-AAAA" with Label "Total Traffic"
       | value | count | offset |
       | 4320  | 13    | 6      |
+    Then UI Validate Line Chart data "DNS-AAAA" with Label "Max"
+      | value | count | offset |
+      | 4680  | 1     | 1      |
+    Then UI Validate Line Chart data "DNS-AAAA" with Label "Min"
+      | value | count | offset |
+      | 4680  | 1     | 1      |
 
   @SID_11
   Scenario: DNS baseline DNS-AAAA IPv6 In QPS data
@@ -393,6 +411,7 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-AAAA" with Label "Total Traffic"
       | value  | count | offset |
       | 844403 | 13    | 6      |
+
 
   # END DNS AAAA
 
@@ -491,6 +510,12 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-Other" with Label "Total Traffic"
       | value | count | offset |
       | 4520  | 13    | 6      |
+    Then UI Validate Line Chart data "DNS-Other" with Label "Max"
+      | value | count | offset |
+      | 4880  | 1     | 1      |
+    Then UI Validate Line Chart data "DNS-Other" with Label "Min"
+      | value | count | offset |
+      | 4880  | 1     | 1      |
 
   @SID_14
   Scenario: DNS baseline DNS-Other IPv6 In QPS data
@@ -615,6 +640,12 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-MX" with Label "Total Traffic"
       | value | count | offset |
       | 4240  | 13    | 6      |
+    Then UI Validate Line Chart data "DNS-MX" with Label "Max"
+      | value | count | offset |
+      | 4600  | 1     | 1      |
+    Then UI Validate Line Chart data "DNS-MX" with Label "Min"
+      | value | count | offset |
+      | 4600  | 1     | 1      |
 
   @SID_17
   Scenario: DNS baseline DNS-MX IPv6 In QPS data
@@ -739,6 +770,12 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Total Traffic"
       | value | count | offset |
       | 4440  | 13    | 6      |
+    Then UI Validate Line Chart data "DNS-NAPTR" with Label "Max"
+      | value | count | offset |
+      | 4800  | 1     | 1      |
+    Then UI Validate Line Chart data "DNS-NAPTR" with Label "Min"
+      | value | count | offset |
+      | 4800  | 1     | 1      |
 
   @SID_20
   Scenario: DNS baseline DNS-NAPTR IPv6 In QPS data
@@ -863,6 +900,12 @@ Feature: VRM DNS baselines
     And UI Validate Line Chart data "DNS-PTR" with Label "Total Traffic"
       | value | count | offset |
       | 4280  | 13    | 6      |
+    Then UI Validate Line Chart data "DNS-PTR" with Label "Max"
+      | value | count | offset |
+      | 4640  | 1     | 1      |
+    Then UI Validate Line Chart data "DNS-PTR" with Label "Min"
+      | value | count | offset |
+      | 4640  | 1     | 1      |
 
 
   @SID_23
@@ -988,6 +1031,13 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-SOA" with Label "Total Traffic"
       | value | count | offset |
       | 4400  | 13    | 6      |
+    Then UI Validate Line Chart data "DNS-SOA" with Label "Max"
+      | value | count | offset |
+      | 4760  | 1     | 1      |
+    Then UI Validate Line Chart data "DNS-SOA" with Label "Min"
+      | value | count | offset |
+      | 4760  | 1     | 1      |
+
 
   @SID_26
   Scenario: DNS baseline DNS-SOA IPv6 In QPS data
@@ -1111,6 +1161,13 @@ Feature: VRM DNS baselines
     And UI Validate Line Chart data "DNS-SRV" with Label "Total Traffic"
       | value | count | offset |
       | 4480  | 13    | 6      |
+    Then UI Validate Line Chart data "DNS-SRV" with Label "Max"
+      | value | count | offset |
+      | 4840  | 1     | 1      |
+    Then UI Validate Line Chart data "DNS-SRV" with Label "Min"
+      | value | count | offset |
+      | 4840  | 1     | 1      |
+
 
   @SID_29
   Scenario: DNS baseline DNS-SRV IPv6 In QPS data

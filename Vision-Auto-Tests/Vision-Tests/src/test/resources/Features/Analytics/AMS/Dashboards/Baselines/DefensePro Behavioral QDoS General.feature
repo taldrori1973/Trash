@@ -90,6 +90,12 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI Click Button "Widget Settings Cancel"
 
   @SID_9
+  Scenario: Validate Min/Max button Disabled
+    Then UI Validate the attribute of "disabled" are "EQUAL" to
+      | label   | param | value |
+      | Max Min |       | true  |
+
+  @SID_10
   Scenario: kill all simulator attacks and logout
     Then UI logout and close browser
     Then CLI kill all simulator attacks on current vision
