@@ -23,7 +23,7 @@ Feature: VRM Alerts Delivery
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
-    Then UI Do Operation "select" item "Email Reporting Configuration"
+    Then UI Do Operation "select" item "Email Reporting Configuration"F
     Then UI Set Checkbox "Enable" To "true"
     Then UI Set Text Field "SMTP User Name" To "qa_test@Radware.com"
     And UI Set Text Field "From Header" To "APSolute Vision"

@@ -3,41 +3,29 @@ package com.radware.vision.bddtests.rest.topologytree;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
-import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testresthandlers.TopologyTreeRestHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import org.apache.tools.ant.taskdefs.Sleep;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import static models.config.DevicesConstants.*;
 
 public class TopologyTreeRestSteps extends TestBase {
 
 
-    @Given("^REST Delete device (\\w+) from topology tree$")
-    public void deleteDeviceByManagementIp(String deviceSetId) {
+    @Given("^REST Delete device with (SetId|DeviceID) \"(.*)\" from topology tree$")
+    public void deleteDeviceByManagementIp(String idType, String id) {
         String deviceIp = "";
         try {
-            deviceIp = sutManager.getTreeDeviceManagement(deviceSetId).get().getManagementIp();
-            TopologyTreeRestHandler.deleteDeviceByManagementIp(restTestBase.getVisionRestClient(), deviceIp);
-        } catch (Exception e) {
-            BaseTestUtils.report("Failed to Delete device: " + deviceIp, e);
-        }
-    }
-
-    @Then("^REST Delete device with SetID \"(\\w+)\" from topology tree$")
-    public void deleteDeviceBySetID(String setID) {
-        String deviceIp = "";
-        try {
-            deviceIp = TestBase.getSutManager().getTreeDeviceManagement(setID).get().getManagementIp();
+            TreeDeviceManagementDto device =
+                    (idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(id).orElse(null) :
+                            (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(id).orElse(null) : null;
+            assert device != null;
+            deviceIp = device.getManagementIp();
+            assert deviceIp != null;
             TopologyTreeRestHandler.deleteDeviceByManagementIp(restTestBase.getVisionRestClient(), deviceIp);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to Delete device: " + deviceIp, e);
@@ -53,12 +41,12 @@ public class TopologyTreeRestSteps extends TestBase {
         try {
             simulators.forEach(sim -> {
                 String setId = sim.getDeviceSetId();
-                String parentSite = TestBase.getSutManager().getDeviceParentSite(sim.getDeviceId());
+                String parentSite = sutManager.getDeviceParentSite(sim.getDeviceId());
                 this.restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues("SetID", setId, parentSite);
             });
             //Todo: KVISION delete this WA when applications issue fixed (sleep added to wait until all simulators are connected)
-            Thread.sleep(60* 1000);
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "docker restart config_kvision-configuration-service_1");
+            Thread.sleep(60 * 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().orElse(null), "docker restart config_kvision-configuration-service_1");
         } catch (Exception e) {
             BaseTestUtils.report("Failed to add Alteon simulators " + e.getMessage(), Reporter.FAIL);
         }
@@ -71,9 +59,7 @@ public class TopologyTreeRestSteps extends TestBase {
             BaseTestUtils.report("No Alteon simulators available, please add set to SUT.", Reporter.FAIL);
         }
         try {
-            simulators.forEach(sim -> {
-                this.restDeleteDeviceByIP(sim.getDeviceName());
-            });
+            simulators.forEach(sim -> this.restDeleteDeviceByIP(sim.getDeviceName()));
         } catch (Exception e) {
             BaseTestUtils.report("Failed to delete Alteon simulators " + e.getMessage(), Reporter.FAIL);
         }
@@ -107,12 +93,12 @@ public class TopologyTreeRestSteps extends TestBase {
      *                  verifyHttpCredentials="true"
      *                  verifyHttpsCredentials="true"
      *                  `   visionMgtPort="G1"
-     * @Example :
-     * Then REST Add "Alteon" Device To topology Tree with Name "Alteon101" and Management IP "50.50.101.35" into site "Default"
-     * | attribute     | value    |
-     * | visionMgtPort | G2       |
-     * | httpPassword  | radware1 |
-     * | httpsPassword | radware1 |
+     *                  Example :
+     *                  Then REST Add "Alteon" Device To topology Tree with Name "Alteon101" and Management IP "50.50.101.35" into site "Default"
+     *                  | attribute     | value    |
+     *                  | visionMgtPort | G2       |
+     *                  | httpPassword  | radware1 |
+     *                  | httpsPassword | radware1 |
      */
 
     @Then("^REST Add \"(.*)\" Device To topology Tree with Name \"(.*)\" and Management IP \"(.*)\" into site \"(.*)\"$")
@@ -123,12 +109,13 @@ public class TopologyTreeRestSteps extends TestBase {
     @Then("^REST Add device with (SetId|DeviceID) \"(.*?)\"(?: into site \"(.*)\")?$")
     public void restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(String idType, String id, String site) {
         TreeDeviceManagementDto device =
-                        (idType.equals("SetId"))?TestBase.getSutManager().getTreeDeviceManagement(id).get():
-                        (idType.equals("DeviceID"))?TestBase.getSutManager().getTreeDeviceManagementFromDevices(id).get():null;
+                (idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(id).orElse(null) :
+                        (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(id).orElse(null) : null;
+        assert device != null;
         String type = device.getDeviceType();
         String name = device.getDeviceName();
         String ip = device.getManagementIp();
-        if (site == null) site = TestBase.getSutManager().getDeviceParentSite(device.getDeviceId());
+        if (site == null) site = sutManager.getDeviceParentSite(device.getDeviceId());
 
         List<TopologyTreeRestHandler.Data> dataTable = new ArrayList<>();
 
@@ -140,7 +127,7 @@ public class TopologyTreeRestSteps extends TestBase {
                 dataTable.add(new TopologyTreeRestHandler.DataAdapter(key, value));
         }
 
-        TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, (site!=null)?site:"Default", dataTable);
+        TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, (site != null) ? site : "Default", dataTable);
     }
 
     @Then("^REST Add \"(.*)\" site To topology Tree under \"(.*)\" site$")
@@ -184,8 +171,8 @@ public class TopologyTreeRestSteps extends TestBase {
      *                   verifyHttpsCredentials
      *                   visionMgtPort
      * @param request    Request from Properties file
-     * @param deviceIp
-     * @param newValue
+     * @param deviceIp   - IP address
+     * @param newValue   - The new scalar
      */
     @Then("^REST Update a scalar \"([^\"]*)\" value of Request \"([^\"]*)\" on the device Ip \"([^\"]*)\" with the new scalar value \"([^\"]*)\"$")
     public void restUpdateAScalarValueOfRequestOnTheDeviceIpWithTheNewScalarValue(String scalarName, String request, String deviceIp, String newValue) {

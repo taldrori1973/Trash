@@ -1008,8 +1008,7 @@ Feature: AppWall
 
   @SID_62
     Scenario: Delete AppWall
-#    Then REST Delete device asd from topology tree
-    Then REST Delete device with SetID "AppWall_Set_1" from topology tree
+    Then REST Delete device with SetId "AppWall_Set_1" from topology tree
 
   @SID_63
   Scenario: Logout
