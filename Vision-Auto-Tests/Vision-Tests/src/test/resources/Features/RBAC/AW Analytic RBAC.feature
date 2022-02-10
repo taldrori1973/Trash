@@ -36,7 +36,7 @@ Feature: AW Analytics User RBAC
       | operations                                  | accesses |
       | AVR                                         | no       |
       | DPM                                         | no       |
-      | ANALYTICS ADC                               | no       |
+      | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | no       |
       | HTTPS Flood Dashboard                       | no       |
