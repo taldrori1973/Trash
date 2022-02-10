@@ -3,7 +3,7 @@ Feature: DefensePro Behavioral QDoS General Tests
 
   @SID_1
   Scenario: Run DP simulator - QDos_Ahlam4
-    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
@@ -33,7 +33,7 @@ Feature: DefensePro Behavioral QDoS General Tests
   @SID_4
   Scenario:Navigate to DefensePro Behavioral Protections Dashboard And Select Scope
     Then UI "Select" Scope Polices
-     | devices | type:DefensePro Behavioral Protections,index:11,policies:[p1] |
+     | devices | type:DefensePro Behavioral Protections,SetId:DefensePro_Set_2,policies:[p1] |
     Then Sleep "10"
 
   @SID_5

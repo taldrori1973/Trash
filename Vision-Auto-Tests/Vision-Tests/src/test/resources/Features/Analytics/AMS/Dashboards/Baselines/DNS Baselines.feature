@@ -25,8 +25,8 @@ Feature: VRM DNS baselines
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_set_1 |       | pol_1    |
     And UI Do Operation "Select" item "Max Min"
 
   @SID_3
@@ -74,19 +74,19 @@ Feature: VRM DNS baselines
       | pointHoverBorderWidth | 1       |
 
     Then UI Validate Line Chart attributes "DNS-TXT" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
 
     Then UI Validate Line Chart attributes "DNS-TXT" with Label "Total Traffic"
       | attribute             | value                    |
@@ -204,19 +204,19 @@ Feature: VRM DNS baselines
       | pointHoverBorderWidth | 1       |
 
     Then UI Validate Line Chart attributes "DNS-A" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
 
     Then UI Validate Line Chart attributes "DNS-A" with Label "Total Traffic"
       | attribute             | value                    |
@@ -333,19 +333,19 @@ Feature: VRM DNS baselines
       | pointHoverBorderWidth | 1       |
 
     Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
 
     Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Total Traffic"
       | attribute             | value                    |
@@ -464,19 +464,19 @@ Feature: VRM DNS baselines
       | pointHoverBorderWidth | 1       |
 
     Then UI Validate Line Chart attributes "DNS-Other" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
 
     Then UI Validate Line Chart attributes "DNS-Other" with Label "Total Traffic"
       | attribute             | value                    |
@@ -594,19 +594,19 @@ Feature: VRM DNS baselines
       | pointHoverBorderWidth | 1       |
 
     Then UI Validate Line Chart attributes "DNS-MX" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
 
     Then UI Validate Line Chart attributes "DNS-MX" with Label "Total Traffic"
       | attribute             | value                    |
@@ -724,19 +724,19 @@ Feature: VRM DNS baselines
       | pointHoverBorderWidth | 1       |
 
     Then UI Validate Line Chart attributes "DNS-NAPTR" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
 
     Then UI Validate Line Chart attributes "DNS-NAPTR" with Label "Total Traffic"
       | attribute             | value                    |
@@ -854,19 +854,19 @@ Feature: VRM DNS baselines
       | pointHoverBorderWidth | 1       |
 
     Then UI Validate Line Chart attributes "DNS-PTR" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
 
     Then UI Validate Line Chart attributes "DNS-PTR" with Label "Total Traffic"
       | attribute             | value                    |
@@ -985,19 +985,19 @@ Feature: VRM DNS baselines
       | pointHoverBorderWidth | 1       |
 
     Then UI Validate Line Chart attributes "DNS-SOA" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
 
     Then UI Validate Line Chart attributes "DNS-SOA" with Label "Total Traffic"
       | attribute             | value                    |
@@ -1115,19 +1115,19 @@ Feature: VRM DNS baselines
       | pointHoverBorderWidth | 1       |
 
     Then UI Validate Line Chart attributes "DNS-SRV" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
 
     Then UI Validate Line Chart attributes "DNS-SRV" with Label "Total Traffic"
       | attribute             | value                    |
@@ -1202,8 +1202,8 @@ Feature: VRM DNS baselines
   Scenario: DNS baseline Filter
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies        |
-      | 10    |       | policy_1, pol_1 |
+      | setId            | ports | policies        |
+      | DefensePro_set_1 |       | policy_1, pol_1 |
     Then UI Remove Session Storage "DNS-A"
     Then Sleep "35"
     Then UI Validate Session Storage "DNS-A" exists "false"
@@ -1220,8 +1220,8 @@ Feature: VRM DNS baselines
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_set_1 |       | pol_1    |
     Then UI Validate Line Chart data "DNS-TXT" with Label "Suspected Edge"
       | value | count | offset |
       | 739   | 13    | 6      |
@@ -1237,6 +1237,7 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-TXT" with Label "Total Traffic"
       | value | count | offset |
       | 4360  | 13    | 6      |
+
   @SID_32
   Scenario: DNS baseline RBAC styling
     Then UI Validate Line Chart attributes "DNS-TXT" with Label "Suspected Edge"
@@ -1279,19 +1280,19 @@ Feature: VRM DNS baselines
       | pointHoverRadius      | 4       |
       | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart attributes "DNS-TXT" with Label "Legitimate Traffic"
-      | attribute             | value                   |
+      | attribute             | value                    |
      #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                       |
-      | fill                  | true                    |
-      | lineTension           | 0.35                    |
-      | borderCapStyle        | butt                    |
-      | borderDashOffset      | 0                       |
-      | borderJoinStyle       | miter                   |
-      | borderWidth           | 1                       |
-      | pointHoverRadius      | 4                       |
-      | pointHoverBorderWidth | 1                       |
-      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-      | borderColor           | rgba(115, 134, 154, 5)  |
+      | pointRadius           | 0                        |
+      | fill                  | true                     |
+      | lineTension           | 0.35                     |
+      | borderCapStyle        | butt                     |
+      | borderDashOffset      | 0                        |
+      | borderJoinStyle       | miter                    |
+      | borderWidth           | 1                        |
+      | pointHoverRadius      | 4                        |
+      | pointHoverBorderWidth | 1                        |
+      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart attributes "DNS-TXT" with Label "Total Traffic"
       | attribute             | value                    |
      #| borderDash            | [4, 6]  |
@@ -1319,8 +1320,8 @@ Feature: VRM DNS baselines
     # Then UI Validate Session Storage "DNS-TXT" exists "false"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | policy1  |
+      | setId            | ports | policies |
+      | DefensePro_set_1 |       | policy1  |
     #Then UI Validate Session Storage "DNS-A" exists "false"
     #Then UI Validate Session Storage "DNS-TXT" exists "false"
     * UI Open "Configurations" Tab
@@ -1335,8 +1336,8 @@ Feature: VRM DNS baselines
     Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_set_1 |       | pol_1    |
     Then UI VRM Clear All Widgets
 
   @SID_35
@@ -1396,7 +1397,7 @@ Feature: VRM DNS baselines
       | DNS-SOA   |
       | DNS-SRV   |
       | DNS-Other |
-    
+
     Then UI Do Operation "Select" item "DNS-TXT-1 IPv6"
     Then UI Do Operation "Select" item "DNS-AAAA-1 IPv6"
     Then UI Do Operation "Select" item "DNS-MX-1 IPv6"

@@ -8,8 +8,8 @@ Feature: VRM BDoS baselines
       | jsonPath             | value    |
       | $.authenticationMode | "TACACS" |
     Given REST Send simple body request from File "Vision/SystemManagement.json" with label "Set connectivity options"
-      | jsonPath             | value    |
-      | $.sessionInactivTimeoutConfiguration | 60 |
+      | jsonPath                             | value |
+      | $.sessionInactivTimeoutConfiguration | 60    |
 
   @SID_2
   Scenario: BDoS baseline pre-requisite
@@ -30,8 +30,8 @@ Feature: VRM BDoS baselines
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_set_1 |       | pol_1    |
 
   @SID_4
   Scenario: BDoS baseline TCP-SYN IPv4 In bps
@@ -2617,8 +2617,8 @@ Feature: VRM BDoS baselines
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
     Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
       | attribute             | value   |
     # | borderDash            | [4, 6]  |
@@ -2758,8 +2758,8 @@ Feature: VRM BDoS baselines
     And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     And UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     When UI VRM Clear All Widgets

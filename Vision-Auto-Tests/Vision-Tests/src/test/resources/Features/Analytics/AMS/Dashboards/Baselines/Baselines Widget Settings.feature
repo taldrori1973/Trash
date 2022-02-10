@@ -21,8 +21,8 @@ Feature: Baselines Widget Settings
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_set_1 |       | pol_1    |
 
   @SID_3
   Scenario: DP baselines widget settings Cancel
@@ -57,8 +57,8 @@ Feature: Baselines Widget Settings
     Then UI Do Operation "hover" item "BDoS-TCP SYN ACK IPv6"
     Then UI Do Operation "select" item "BDoS-TCP SYN ACK Widget Settings"
     Then UI VRM Select device from dashboard
-      | index | ports | policies |
-      | 11    |       | BDOS     |
+      | setId            | ports | policies |
+      | DefensePro_set_2 |       | BDOS     |
     And UI Do Operation "select" item "Widget Settings Save"
 
   @SID_5
