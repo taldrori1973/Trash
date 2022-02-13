@@ -41,24 +41,24 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI Click Button "Behavioral Tab" with value "BDoS"
     Then Sleep "2"
     And UI Do Operation "Select" item "Device Selection"
-    Then UI Validate the attribute of "Class" are "EQUAL" to
+    Then UI Validate the attribute of "class" are "EQUAL" to
       | label                                      | param          | value   |
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  |         |
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  | checked |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.55  |         |
+      | DefensePro Analytics_RationScopeSelection  |  172.16.22.25  |         |
     Then UI Click Button "Device Selection.Cancel"
     Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     And UI Do Operation "Select" item "Device Selection"
-    Then UI Validate the attribute of "Class" are "EQUAL" to
+    Then UI Validate the attribute of "class" are "EQUAL" to
       | label                                      | param          | value   |
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  |         |
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  | checked |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.55  |         |
+      | DefensePro Analytics_RationScopeSelection  |  172.16.22.25  |         |
     Then UI Click Button "Device Selection.Cancel"
 
   @SID_6
   Scenario: Validate QDos chart
-     Then UI Validate Virtical StackBar data with widget "qdosChart"
+    Then UI Validate Virtical StackBar data with widget "qdosChart"
      | label | value | legendName   |
      | 0     | 25852 | Under Attack |
      | 1     | 2430  | Peacetime    |
