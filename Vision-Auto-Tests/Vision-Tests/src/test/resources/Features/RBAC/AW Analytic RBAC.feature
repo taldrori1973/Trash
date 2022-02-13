@@ -25,7 +25,8 @@ Feature: AW Analytics User RBAC
     Then UI Navigate to page "System->User Management->Authentication Mode"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
-    Then UI Logout
+    Then Sleep "10"
+    Then UI logout and close browser
 
   @SID_4
   Scenario: AW_ANALYTICS_User RBAC Validation
