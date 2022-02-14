@@ -7,7 +7,7 @@ Feature: AW Analytics User RBAC
     Then CLI Service "config_kvision-reporter_1" do action RESTART
     Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
     * REST Delete ES index "dp-*"
-    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c \"rm /usr/local/tomcat/VRM_report*\"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
@@ -93,8 +93,8 @@ Feature: AW Analytics User RBAC
     Then UI "Generate" Report With Name "OverAllAppWallReport"
       | timeOut | 120 |
     Then UI Click Button "Log Preview" with value "OverAllAppWallReport_0"
-    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c \"ls /usr/local/tomcat/ | grep "VRM_report.*.pdf" | wc -l\"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c \"rm /usr/local/tomcat/VRM_report*\"" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.pdf' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
 
   @SID_9
@@ -105,8 +105,8 @@ Feature: AW Analytics User RBAC
       | Format | Select: CSV |
     Then UI "Generate" Report With Name "OverAllAppWallReport"
       | timeOut | 120 |
-    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c \"ls /usr/local/tomcat/ | grep "VRM_report.*.zip" | wc -l\"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c \"rm /usr/local/tomcat/VRM_report*\"" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.zip' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
 
   @SID_10
@@ -117,8 +117,8 @@ Feature: AW Analytics User RBAC
       | Format | Select: HTML |
     Then UI "Generate" Report With Name "OverAllAppWallReport"
       | timeOut | 120 |
-    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c \"ls /usr/local/tomcat/ | grep "VRM_report.*.html" | wc -l\"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c \"rm /usr/local/tomcat/VRM_report*\"" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.html' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
   @SID_11
   Scenario: Delete Report Validation
