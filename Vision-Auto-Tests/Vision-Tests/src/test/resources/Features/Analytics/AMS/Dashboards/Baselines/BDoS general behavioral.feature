@@ -228,20 +228,20 @@ Feature: BDoS General Behavioral Tests
   Scenario: validate switch buttons still save the last changing
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label            | param                                     | value |
-      | Behavioral Chart | BDoS-UDP,IPv6                             | true  |
-      | Behavioral Chart | BDoS-UDP,pps                              | true  |
-      | Behavioral Chart | BDoS-UDP,Outbound                         | true  |
+      | Behavioral Chart | BDoS-UDP,IPv4                             | true  |
+      | Behavioral Chart | BDoS-UDP,bps                              | true  |
+      | Behavioral Chart | BDoS-UDP,Inbound                         | true  |
 
-      | Behavioral Chart | BDoS-Advanced-UDP Rate-Invariant,IPv6     | true  |
-      | Behavioral Chart | BDoS-Advanced-UDP Rate-Invariant,Outbound | true  |
+      | Behavioral Chart | BDoS-Advanced-UDP Rate-Invariant,IPv4     | true  |
+      | Behavioral Chart | BDoS-Advanced-UDP Rate-Invariant,Inbound | true  |
 
-      | Behavioral Chart | BDoS-TCP SYN,IPv6                         | true  |
-      | Behavioral Chart | BDoS-TCP SYN,pps                          | true  |
-      | Behavioral Chart | BDoS-TCP SYN,Outbound                     | true  |
+      | Behavioral Chart | BDoS-TCP SYN,IPv4                         | true  |
+      | Behavioral Chart | BDoS-TCP SYN,bps                          | true  |
+      | Behavioral Chart | BDoS-TCP SYN,Inbound                     | true  |
 
-      | Behavioral Chart | BDoS-TCP SYN ACK,IPv6                     | true  |
-      | Behavioral Chart | BDoS-TCP SYN ACK,pps                      | true  |
-      | Behavioral Chart | BDoS-TCP SYN ACK,Outbound                 | true  |
+      | Behavioral Chart | BDoS-TCP SYN ACK,IPv4                     | true  |
+      | Behavioral Chart | BDoS-TCP SYN ACK,bps                      | true  |
+      | Behavioral Chart | BDoS-TCP SYN ACK,Inbound                 | true  |
 
 
 
