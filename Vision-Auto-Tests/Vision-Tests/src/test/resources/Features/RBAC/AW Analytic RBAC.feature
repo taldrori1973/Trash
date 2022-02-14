@@ -199,7 +199,7 @@ Feature: AW Analytics User RBAC
     When UI Delete Alerts With Name "Alert Delivery"
     Then Sleep "5"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert Delivery"
-    Then UI Logout
+    Then UI logout and close browser
 
   @SID_20
   Scenario Outline: Delete All Users
