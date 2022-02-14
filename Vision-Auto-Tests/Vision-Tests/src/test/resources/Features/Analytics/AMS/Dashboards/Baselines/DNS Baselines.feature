@@ -1,6 +1,6 @@
 @VRM_BDoS_Baseline @TC105988
 Feature: VRM DNS baselines
-a
+
   @SID_1
   Scenario: DNS baseline pre-requisite
     Given CLI kill all simulator attacks on current vision
