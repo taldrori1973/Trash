@@ -7,7 +7,7 @@ import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.vision.infra.testresthandlers.DefenseFlowRestHandler;
 import cucumber.api.java.en.Then;
 
-import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
+import static com.radware.vision.automation.base.TestBase.restTestBase;
 
 public class DefenseFlowRestSteps {
 
