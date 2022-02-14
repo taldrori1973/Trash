@@ -31,7 +31,6 @@ Feature: DefensePro Behavioral DNS General Tests
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
-
     Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_3
@@ -218,11 +217,10 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-Other"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-PTR"
-
+    Then UI logout and close browser
 
   @SID_14
   Scenario: Validate Chart Number Reset
-    Then UI logout and close browser
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
