@@ -25,8 +25,8 @@ Feature: VRM DNS baselines
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
     And UI Do Operation "Select" item "Max Min"
 
  # @SID_3
@@ -1167,7 +1167,7 @@ Feature: VRM DNS baselines
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Attack Edge"
       | value | count | offset |
-      | 189   |   13  | 10     |
+      | 189   | 13    | 10     |
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Legitimate Traffic"
       | value | count | offset |
@@ -1184,8 +1184,8 @@ Feature: VRM DNS baselines
   Scenario: DNS baseline Filter
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies        |
-      | 10    |       | policy_1, pol_1 |
+      | SetId            | ports | policies        |
+      | DefensePro_Set_1 |       | policy_1, pol_1 |
     Then UI Remove Session Storage "DNS-A"
     Then Sleep "35"
     Then UI Validate Session Storage "DNS-A" exists "false"
@@ -1306,8 +1306,8 @@ Feature: VRM DNS baselines
    # Then UI Open "DP DNS Baseline" Sub Tab
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | policy1  |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | policy1  |
 
     * UI Open "Configurations" Tab
     * UI Logout
@@ -1324,8 +1324,8 @@ Feature: VRM DNS baselines
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
     Then UI VRM Clear All Widgets
 
   @SID_25
