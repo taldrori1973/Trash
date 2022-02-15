@@ -1184,8 +1184,8 @@ Feature: VRM DNS baselines
   Scenario: DNS baseline Filter
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | SetId            | ports | policies        |
-      | DefensePro_Set_1 |       | policy_1, pol_1 |
+      | SetId            | ports | policies       |
+      | DefensePro_Set_1 |       | policy_1,pol_1 |
     Then UI Remove Session Storage "DNS-A"
     Then Sleep "35"
     Then UI Validate Session Storage "DNS-A" exists "false"
@@ -1205,8 +1205,8 @@ Feature: VRM DNS baselines
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | SetId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-TXT" with Label "Suspected Edge"
       | value | count | offset |
@@ -1295,7 +1295,7 @@ Feature: VRM DNS baselines
 #      | borderColor           | rgba(141, 190, 214, 5)   |
 #
 #    * UI Open "Configurations" Tab
-    * UI Logout
+    Then UI logout and close browser
 
   @SID_23
   Scenario: DNS baseline RBAC negative
@@ -1308,9 +1308,8 @@ Feature: VRM DNS baselines
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | policy1  |
-
     * UI Open "Configurations" Tab
-    * UI Logout
+    Then UI logout and close browser
 
   @SID_24
   Scenario: DNS baselines clear all widgets
