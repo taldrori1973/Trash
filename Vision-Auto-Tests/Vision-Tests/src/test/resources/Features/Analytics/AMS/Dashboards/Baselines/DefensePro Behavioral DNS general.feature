@@ -251,15 +251,14 @@ Feature: DefensePro Behavioral DNS General Tests
   @SID_16
   Scenario: Create Report of DNS baselines IPv4
     And UI Navigate to "AMS Reports" page via homePage
-    Given UI "Create" Report With Name "DNS Baselines Report IPv4"
-      | reportType            | DefensePro Behavioral Protections Dashboard                                                                                                                                                              |
-      | Design                | {"Add":[{"DNS-A":["IPv4"]},{"DNS-AAAA":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
-      | devices               | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                                                               |
-      | Format                | Select: PDF                                                                                                                                                                                              |
-      | Time Definitions.Date | Relative:[Hours,1]                                                                                                                                                                                       |
-    Then UI "Generate" Report With Name "DNS Baselines Report IPv4"
-      | timeOut | 60 |
-    Then UI Click Button "Log Preview" with value "DNS Baselines Report IPv4_0"
+    Given UI "Create" Report With Name "DNS Baselines Report"
+      | reportType | DefensePro Behavioral Protections Dashboard                                                                                                                                                              |
+      | Design     | {"Add":[{"DNS-A":["IPv4"]},{"DNS-AAAA":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
+      | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                                                  |
+      | Format     | Select: PDF                                                                                                                                                                                              |
+    Then UI "Generate" Report With Name "DNS Baselines Report"
+      | timeOut | 120 |
+    Then UI Click Button "Log Preview" with value "DNS Baselines Report_0"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-A"
