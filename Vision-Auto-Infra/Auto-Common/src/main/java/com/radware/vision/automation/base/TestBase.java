@@ -14,12 +14,16 @@ import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.CliConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.systemManagement.licenseManagement.LicenseGenerator;
 import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.automation.systemManagement.visionConfigurations.ManagementInfo;
 import com.radware.vision.automation.systemManagement.visionConfigurations.VisionConfigurations;
+import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.runtime.junit.FeatureRunner;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 
 
@@ -43,6 +47,7 @@ public abstract class TestBase {
                 setManagementInfo();
             }
             serversManagement = new ServersManagement();
+            dBAccessCommand();
             clientConfigurations = getSutManager().getClientConfigurations();
             cliConfigurations = getSutManager().getCliConfigurations();
             testStartTime = LocalDateTime.now();
@@ -52,6 +57,12 @@ public abstract class TestBase {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
 
+    }
+
+    public static void dBAccessCommand() throws UnknownHostException {
+        String localIP = InetAddress.getLocalHost().getHostAddress();
+        String command = Menu.system().database().access().grant().build() + " " + localIP;
+        CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
     }
 
     public static ServersManagement getServersManagement() {
