@@ -47,7 +47,8 @@ public abstract class TestBase {
                 setManagementInfo();
             }
             serversManagement = new ServersManagement();
-            dBAccessCommand();
+            if(connectOnInit())
+                dBAccessCommand();
             clientConfigurations = getSutManager().getClientConfigurations();
             cliConfigurations = getSutManager().getCliConfigurations();
             testStartTime = LocalDateTime.now();
