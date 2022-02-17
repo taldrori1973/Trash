@@ -23,7 +23,6 @@ import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.runtime.junit.FeatureRunner;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 
 
@@ -62,8 +61,11 @@ public abstract class TestBase {
 
     public static void dBAccessCommand() {
         try {
-            String localIP = InetAddress.getLocalHost().getHostAddress();
-            String command = Menu.system().database().access().grant().build() + " " + localIP;
+            BaseTestUtils.report("check IP Address of jenkins slave : ",Reporter.PASS_NOR_FAIL);// Test , remember to delete
+            String HostName = InetAddress.getLocalHost().getHostName();
+            InetAddress addrs = InetAddress.getByName(HostName);
+            BaseTestUtils.report(addrs.toString(),Reporter.PASS_NOR_FAIL);// Test , remember to delete
+            String command = Menu.system().database().access().grant().build() + " " +  addrs.getHostAddress();
             CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
         }
         catch (Exception e)
