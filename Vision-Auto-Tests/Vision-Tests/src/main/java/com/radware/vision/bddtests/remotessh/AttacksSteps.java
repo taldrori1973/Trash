@@ -23,9 +23,18 @@ public class AttacksSteps extends TestBase {
      * @param ld           - OPTIONAL loop delay. delay in mSec between iterations. default 1000loop delay. delay in mSec between iterations. default 1000
      * @param waitTimeout  - OPTIONAL Delay before return default 0
      */
-    @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on SetId \"(.*)\"(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
-    public void runSimulatorFromDevice(int numOfAttacks, String fileName, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId) {
+    @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on (SetId|DeviceID) \"(.*)\"(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
+    public void runSimulatorFromDevice(int numOfAttacks, String fileName, String idType, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId) {
+        String deviceIp = "";
+
         try {
+            TreeDeviceManagementDto device =
+                    (idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(deviceSetId).orElse(null) :
+                            (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(deviceSetId).orElse(null) : null;
+            assert device != null;
+            deviceIp = device.getManagementIp();
+            assert deviceIp != null;
+
             int loopDelay = 1000;
             int wait = 0;
             if (ld != null) {
@@ -34,8 +43,8 @@ public class AttacksSteps extends TestBase {
             if (waitTimeout != null) {
                 wait = waitTimeout;
             }
-            String commandToExecute = getCommandToExecute(deviceSetId, numOfAttacks, loopDelay, fileName, withAttackId != null);
-            Optional<LinuxFileServer> genericLinuxServerOpt = TestBase.serversManagement.getLinuxFileServer();
+            String commandToExecute = getCommandToExecute(deviceIp, numOfAttacks, loopDelay, fileName, withAttackId != null);
+            Optional<LinuxFileServer> genericLinuxServerOpt = serversManagement.getLinuxFileServer();
             if (!genericLinuxServerOpt.isPresent()) {
                 throw new Exception("The genericLinuxServer Not found!");
             }
@@ -69,25 +78,14 @@ public class AttacksSteps extends TestBase {
         }
     }
 
-    private String getCommandToExecute(String deviceSetId, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId) {
+    private String getCommandToExecute(String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId) {
         String fakeIpPrefix = "50.50";
-        String deviceIp;
         String visionIP = clientConfigurations.getHostIp();
         String interFace;
         String gwMacAdress = getServersManagement().getLinuxFileServer().get().getGwMacAddress();//"00:14:69:4c:70:42"; //172.19.1.1 GW mac
         String commandToExecute = "";
         Optional<LinuxFileServer> genericLinuxServer = TestBase.serversManagement.getLinuxFileServer();
-        SUTManager sutManager = TestBase.getSutManager();
-        Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagement(deviceSetId);
         try {
-            if (!genericLinuxServer.isPresent()) {
-                throw new Exception("The genericLinuxServer Not found!");
-            }
-            if (!deviceOpt.isPresent()) {
-                throw new Exception(String.format("No Device with \"%s\" Set ID was found in this setup", deviceSetId));
-            }
-
-            deviceIp = deviceOpt.get().getManagementIp();
             commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
             if (deviceIp.startsWith(fakeIpPrefix)) {
                 visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
