@@ -13,18 +13,18 @@ Feature: DP ANALYTICS
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
     Given REST Login with activation with user "radware" and password "radware"
-    Then REST Add device with SetId "DefensePro_Set_3"
-    Then REST Add device with SetId "DefensePro_Set_4"
-    Then REST Add device with SetId "DefensePro_Set_5"
+    Then REST Add device with DeviceID "DefensePro_172.17.22.55"
+    Then REST Add device with DeviceID "DefensePro_50.50.7.1"
+    Then REST Add device with DeviceID "DefensePro_50.50.7.2"
     Then Sleep "90"
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_3" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_4" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_5" and wait 240 seconds with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on DeviceID "DefensePro_172.17.22.55" with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on DeviceID "DefensePro_50.50.7.1" with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on DeviceID "DefensePro_50.50.7.2" and wait 240 seconds with attack ID
     # Wait to avoid ES issue when running curl one after another
     And Sleep "5"
 
@@ -1413,7 +1413,7 @@ Feature: DP ANALYTICS
 
   @Sanity @SID_104
   Scenario: Cleanup
-    * REST Delete device with SetID "DefensePro_Set_3" from topology tree
-    * REST Delete device with SetID "DefensePro_Set_4" from topology tree
-    * REST Delete device with SetID "DefensePro_Set_5" from topology tree
+    * REST Delete device with DeviceID "DefensePro_172.17.22.55" from topology tree
+    * REST Delete device with DeviceID "DefensePro_50.50.7.1" from topology tree
+    * REST Delete device with DeviceID "DefensePro_50.50.7.2" from topology tree
     Given UI logout and close browser
