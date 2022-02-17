@@ -41,13 +41,15 @@ public abstract class TestBase {
 
     static {
         try {
+            BaseTestUtils.report("Prepare SUT Manager",Reporter.PASS_NOR_FAIL);
             sutManager = SUTManagerImpl.getInstance();
             if (connectOnInit()) {
                 setManagementInfo();
             }
+            BaseTestUtils.report("Prepare Servers Management",Reporter.PASS_NOR_FAIL);
             serversManagement = new ServersManagement();
-            if(connectOnInit())
-                dBAccessCommand();
+            //if(connectOnInit())
+            //    dBAccessCommand();
             clientConfigurations = getSutManager().getClientConfigurations();
             cliConfigurations = getSutManager().getCliConfigurations();
             testStartTime = LocalDateTime.now();
@@ -91,6 +93,7 @@ public abstract class TestBase {
     }
 
     public static void setManagementInfo(){
+        BaseTestUtils.report("Set Management Info",Reporter.PASS_NOR_FAIL);
         visionConfigurations = new VisionConfigurations();
         LicenseGenerator.MAC_ADDRESS = visionConfigurations.getManagementInfo().getMacAddress();
         managementInfo = getVisionConfigurations().getManagementInfo();
