@@ -60,10 +60,16 @@ public abstract class TestBase {
 
     }
 
-    public static void dBAccessCommand() throws UnknownHostException {
-        String localIP = InetAddress.getLocalHost().getHostAddress();
-        String command = Menu.system().database().access().grant().build() + " " + localIP;
-        CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
+    public static void dBAccessCommand() {
+        try {
+            String localIP = InetAddress.getLocalHost().getHostAddress();
+            String command = Menu.system().database().access().grant().build() + " " + localIP;
+            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
+        }
+        catch (Exception e)
+        {
+            BaseTestUtils.report(e.getMessage(), Reporter.PASS_NOR_FAIL);
+        }
     }
 
     public static ServersManagement getServersManagement() {
