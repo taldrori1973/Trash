@@ -45,18 +45,17 @@ public abstract class TestBase {
     static {
         try {
             sutManager = SUTManagerImpl.getInstance();
+            serversManagement = new ServersManagement();
             if (connectOnInit()) {
                 setManagementInfo();
             }
-            serversManagement = new ServersManagement();
-            //if(connectOnInit())
-            //    dBAccessCommand();
             clientConfigurations = getSutManager().getClientConfigurations();
             cliConfigurations = getSutManager().getCliConfigurations();
             testStartTime = LocalDateTime.now();
             restTestBase = new RestManagement();
             restTestBase.init();
         } catch (Exception e) {
+            // ToDo - ERROR: reporter is null
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
 
@@ -82,6 +81,7 @@ public abstract class TestBase {
             CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
         }
         catch (Exception e){
+            // ToDo - ERROR: reporter is null
             //BaseTestUtils.report(e.getMessage(), Reporter.PASS_NOR_FAIL);
         }
     }
@@ -106,7 +106,8 @@ public abstract class TestBase {
         visionConfigurations = new VisionConfigurations();
         LicenseGenerator.MAC_ADDRESS = visionConfigurations.getManagementInfo().getMacAddress();
         managementInfo = getVisionConfigurations().getManagementInfo();
-
+        // ToDo - need to add another function for dBAccessCommand
+        dBAccessCommand();
     }
 
 
