@@ -56,7 +56,7 @@ public class GenericSteps {
     }
 
     @And("^Create Following RUNTIME Parameters by Sending Request Specification from File \"([^\"]*)\" with label \"([^\"]*)\"$")
-    public void createFollowingRUNTIMEParametersBySendingRequestSpecificationFromFileWithLabel(String filePath, String requestLabel, Map<String, String> labelByJsonPath) throws Throwable {
+    public void createFollowingRUNTIMEParametersBySendingRequestSpecificationFromFileWithLabel(String filePath, String requestLabel, Map<String, String> labelByJsonPath) {
         if (filePath.startsWith("/")) filePath = filePath.substring(1);
         if (!filePath.endsWith(".json")) filePath = filePath + ".json";
 
@@ -70,7 +70,7 @@ public class GenericSteps {
                 runTimeParameters.put(label, null);
 
             else if (object instanceof JSONArray) {
-                Object value = null;
+                Object value;
                 List<Object> objects = ((List<Object>) object);
                 if (objects.isEmpty()) {
                     runTimeParameters.put(label, null);
@@ -194,6 +194,4 @@ public class GenericSteps {
         sendRequest();
         validateThatResponseCodeOK(StatusCode.OK);
     }
-
-
 }
