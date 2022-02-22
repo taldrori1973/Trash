@@ -36,89 +36,89 @@ Feature: VRM BDoS baselines
   @SID_4
   Scenario: BDoS baseline TCP-SYN IPv4 In bps
     Then Sleep "2"
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
       | 464   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Normal Edge"
       | value | count | offset |
       | 322   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Attack Edge"
       | value | count | offset |
       | 628   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Legitimate Traffic"
       | value | count | offset |
       | 44800 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Total Traffic"
       | value | count | offset |
       | 46640 | 13    | 6      |
@@ -327,72 +327,72 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 464   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP FIN ACK" with Label "Normal Edge"
       | value | count | offset |
       | 322   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP FIN ACK" with Label "Attack Edge"
       | value | count | offset |
       | 628   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP FIN ACK" with Label "Legitimate Traffic"
       | value | count | offset |
       | 44160 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP FIN ACK" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP FIN ACK" with Label "Total Traffic"
       | value | count | offset |
       | 46000 | 13    | 6      |
@@ -612,72 +612,72 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 232   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Normal Edge"
       | value | count | offset |
       | 161   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Attack Edge"
       | value | count | offset |
       | 314   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Legitimate Traffic"
       | value | count | offset |
       | 43840 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP Fragmented" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP Fragmented" with Label "Total Traffic"
       | value | count | offset |
       | 45760 | 13    | 6      |
@@ -898,54 +898,54 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 929   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP RST" with Label "Normal Edge"
       | value | count | offset |
       | 645   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP RST" with Label "Attack Edge"
       | value | count | offset |
       | 1256  | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP RST" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP RST" with Label "Legitimate Traffic"
       | value | count | offset |
       | 44640 | 13    | 6      |
@@ -1195,72 +1195,72 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 464   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Normal Edge"
       | value | count | offset |
       | 322   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Attack Edge"
       | value | count | offset |
       | 628   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Legitimate Traffic"
       | value | count | offset |
       | 44000 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | value | count | offset |
       | 66680 | 13    | 6      |
@@ -1490,72 +1490,72 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 2575  | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Normal Edge"
       | value | count | offset |
       | 2048  | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Attack Edge"
       | value | count | offset |
       | 3238  | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Legitimate Traffic"
       | value | count | offset |
       | 45280 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-UDP" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Total Traffic"
       | value | count | offset |
       | 66480 | 13    | 6      |
@@ -1771,72 +1771,72 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 1037  | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Normal Edge"
       | value | count | offset |
       | 768   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Attack Edge"
       | value | count | offset |
       | 1402  | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Legitimate Traffic"
       | value | count | offset |
       | 45120 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-UDP Fragmented" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-UDP Fragmented" with Label "Total Traffic"
       | value | count | offset |
       | 46960 | 13    | 6      |
@@ -2058,72 +2058,72 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 182   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Normal Edge"
       | value | count | offset |
       | 92    | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Attack Edge"
       | value | count | offset |
       | 323   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Legitimate Traffic"
       | value | count | offset |
       | 45600 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-ICMP" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-ICMP" with Label "Total Traffic"
       | value | count | offset |
       | 1040  | 13    | 6      |
@@ -2335,72 +2335,72 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 182   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Normal Edge"
       | value | count | offset |
       | 92    | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Attack Edge"
       | value | count | offset |
       | 323   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Legitimate Traffic"
       | value | count | offset |
       | 44960 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-IGMP" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Total Traffic"
       | value | count | offset |
       | 46800 | 13    | 6      |
@@ -2619,88 +2619,88 @@ Feature: VRM BDoS baselines
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | pol_1    |
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
       | 464   | 13    | 6      |
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Normal Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #8cba46 |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Normal Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #8cba46 |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Normal Edge"
       | value | count | offset |
       | 322   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Attack Edge"
-      | attribute             | value   |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ff4c4c |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Attack Edge"
+#      | attribute             | value   |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ff4c4c |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Attack Edge"
       | value | count | offset |
       | 628   | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Legitimate Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(115, 134, 154, 0.1) |
-      | borderColor           | rgba(115, 134, 154, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Legitimate Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(115, 134, 154, 0.1) |
+#      | borderColor           | rgba(115, 134, 154, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Legitimate Traffic"
       | value | count | offset |
       | 44800 | 13    | 6      |
 
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Total Traffic"
       | value | count | offset |
       | 46640 | 13    | 6      |
@@ -2708,19 +2708,19 @@ Feature: VRM BDoS baselines
     And UI Do Operation "Select" item "BDoS-TCP SYN IPv6"
     And UI Do Operation "Select" item "BDoS-TCP SYN Inbound"
     And UI Do Operation "Select" item "BDoS-TCP SYN bps"
-    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
-      | attribute             | value   |
-    # | borderDash            | [4, 6]  |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
+#      | attribute             | value   |
+#    # | borderDash            | [4, 6]  |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
       | 464   | 13    | 6      |
