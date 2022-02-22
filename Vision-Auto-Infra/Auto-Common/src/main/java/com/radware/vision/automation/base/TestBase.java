@@ -120,14 +120,14 @@ public abstract class TestBase {
             status = "Failed";
 
         if (BddReporterManager.getAutoStepId() != null) {
-            updatePoratlVisionBuildAndVersion();
+            updatePortalVisionBuildAndVersion();
             RadAutoDB.getInstance().autoStepTbl.updateStepResult(BddReporterManager.getAutoStepId(), status);
             if (status.equals("Failed"))
                 RadAutoDB.getInstance().autoStepFailReasonTbl.createStepFailReason(BddReporterManager.getAutoStepId(), "Error", BddReporterManager.getAllResult(), "", "", "");
         }
     }
 
-    public void updatePoratlVisionBuildAndVersion() {
+    public void updatePortalVisionBuildAndVersion() {
         try {
             FeatureRunner.update_version_build_mode(managementInfo.getVersion(),
                     managementInfo.getBuild(),
