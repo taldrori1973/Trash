@@ -236,10 +236,10 @@ public class RemoteSshCommandsTests extends TestBase {
         FileSteps scp = new FileSteps();
         RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
-        scp.scp("/home/radware/fetch_num_of_real_alteons_apps.sh", ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/root");
+        scp.scp("/home/radware/uVision_fetch_num_of_real_alteons_apps.sh", ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/root");
 
-        CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "chmod +x /root/fetch_num_of_real_alteons_apps.sh");
-        CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "/root/fetch_num_of_real_alteons_apps.sh");
+        CliOperations.runCommand(rootServerCli, "chmod +x /root/uVision_fetch_num_of_real_alteons_apps.sh");
+        CliOperations.runCommand(rootServerCli, "/root/uVision_fetch_num_of_real_alteons_apps.sh");
         String numOfApps = CliOperations.lastRow;
         runCLICommandAndValidateBiggerOrEqualResult("mysql -pradware vision_ng -e \"select count(*) from dpm_virtual_services\" | grep -v + | tail -1", ServersManagement.ServerIds.ROOT_SERVER_CLI, OperatorsEnum.GTE, numOfApps, "", null, null);
 
@@ -259,10 +259,10 @@ public class RemoteSshCommandsTests extends TestBase {
 
             do {
                 CliOperations.runCommand(TestBase.serversManagement.getServerById(serverId), commandToExecute, waitForPrompt);
-                String actualResult = CliOperations.lastRow.trim();
+                String actualResult = CliOperations.lastRow.replace("|", "").trim();
 
                 if (inAnyLine != null && !inAnyLine.isEmpty()) {
-                    actualResult = CliOperations.lastOutput.trim();
+                    actualResult = CliOperations.lastOutput.replace("|", "").trim();
                 }
 
                 bTestSuccess = compareResults(expectedResult, actualResult, operatorsEnum, null);
