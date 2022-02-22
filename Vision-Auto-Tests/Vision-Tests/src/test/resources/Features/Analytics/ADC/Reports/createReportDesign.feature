@@ -11,11 +11,11 @@ Feature: DPM - Design Report Wizard
   @SID_2
   Scenario: Design the Report - delete all widgets and add one widget
     Given UI "Create" Report With Name "DesignADC"
-      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80] |
+      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
       | Format   | Select: PDF                                                                                                                 |
 
     Then UI "Validate" Report With Name "DesignADC"
-      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80] |
+      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
       | Format   | Select: PDF                                                                                                                 |
 
     Then UI Click Button "My Report" with value "DesignADC"
@@ -25,10 +25,10 @@ Feature: DPM - Design Report Wizard
   @SID_3
   Scenario: Design the Report - edit and delete the top widget
     Given UI "Create" Report With Name "TopWidgetsReport"
-      | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80] |
+      | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
       | Format   | Select: CSV                                                                                             |
     Then UI "Validate" Report With Name "TopWidgetsReport"
-      | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80] |
+      | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
       | Format   | Select: CSV                                                                                             |
 
     Then UI Click Button "My Report" with value "TopWidgetsReport"
