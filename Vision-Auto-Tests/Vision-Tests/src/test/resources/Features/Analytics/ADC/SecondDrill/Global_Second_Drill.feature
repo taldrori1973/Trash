@@ -8,7 +8,7 @@ Feature: ADC Application Second Drill - Global Tests
     Given CLI Reset radware password
     Then REST Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
-    Then CLI copy "/home/radware/Scripts/fetch_num_of_real_alteons_apps.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/root/"
+    Then CLI copy "/home/radware/Scripts/uVision_fetch_num_of_real_alteons_apps.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/root/"
 #    Then REST Login with activation with user "radware" and password "radware"
     Then Validate existence of Real Alteon Apps
     Then CLI Run remote linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -k -XPOST -H "Cookie: JSESSIONID=$jsession" -d '{}' https://localhost:443/mgmt/system/monitor/dpm/alteon/fetch" on "ROOT_SERVER_CLI"
