@@ -48,7 +48,7 @@ Feature: HTTPS Server Dashboard
     Then UI Validate Element Existence By Label "Servers Button" if Exists "true"
     Then UI Validate Text field "Servers Button" EQUALS "SERVERS"
     Then UI Validate Element Existence By Label "Widget Selection" if Exists "false"
-    Then UI Validate Element Existence By Label "Max Min" if Exists "false"
+    Then UI Validate Element Existence By Label "Max Min" if Exists "true"
     Then UI Validate Text field "header HTTPS" EQUALS "DefensePro Behavioral Protections"
 
 
@@ -91,7 +91,6 @@ Feature: HTTPS Server Dashboard
 
   @SID_8
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
-#    Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
   Given CLI simulate 2 attacks of type "HTTPS" on SetId "DefensePro_Set_2" with loopDelay 5000 and wait 60 seconds
 
   @SID_9
@@ -379,7 +378,6 @@ Feature: HTTPS Server Dashboard
 
   @SID_31
   Scenario: Run DP simulator PCAPs for Https Flood - Make Change
-#    Given CLI simulate 2 attacks of type "HTTPS-Twist" on "DefensePro" 11 with loopDelay 5000 and wait 180 seconds
     Given CLI simulate 2 attacks of type "HTTPS-Twist" on SetId "DefensePro_Set_2" with loopDelay 5000 and wait 180 seconds
 
 
@@ -423,6 +421,20 @@ Feature: HTTPS Server Dashboard
       | 0.81       | 1     | 4     | 0      |
       | 0.5        | 1     | 49    | 0      |
 
+
+###################### Min\Max Analytics ###########################################
+
   @SID_36
+  Scenario: Check Min - Max Traffic
+    Then UI Validate Element Existence By Label "Max Traffic" if Exists "false"
+    Then UI Validate Element Existence By Label "Min Traffic" if Exists "false"
+    Then UI Do Operation "Select" item "Max Min"
+    Then UI Validate Text field "Max Traffic" EQUALS "Max 17500"
+    Then UI Validate Text field "Min Traffic" EQUALS "Min 17500"
+    Then UI Validate Element Existence By Label "Max Traffic" if Exists "true"
+    Then UI Validate Element Existence By Label "Min Traffic" if Exists "true"
+
+
+  @SID_37
   Scenario: Logout
     Then UI logout and close browser
