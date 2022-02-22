@@ -51,7 +51,7 @@ Feature: AW Analytics User RBAC
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | no       |
-
+    Then UI Click Button "General Header"
 
   @SID_5
   Scenario: Create a new Report and Validate Exictance

@@ -13,8 +13,8 @@ Feature: HTTPS Flood CSV Report
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Service "config_kvision-collector_1" do action RESTART
-    Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
+    Then CLI Service "config_kvision-reporter_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
 
 
 
