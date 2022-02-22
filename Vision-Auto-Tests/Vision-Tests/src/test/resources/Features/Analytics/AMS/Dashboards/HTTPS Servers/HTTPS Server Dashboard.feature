@@ -48,7 +48,7 @@ Feature: HTTPS Server Dashboard
     Then UI Validate Element Existence By Label "Servers Button" if Exists "true"
     Then UI Validate Text field "Servers Button" EQUALS "SERVERS"
     Then UI Validate Element Existence By Label "Widget Selection" if Exists "false"
-    Then UI Validate Element Existence By Label "Max Min" if Exists "false"
+    Then UI Validate Element Existence By Label "Max Min" if Exists "true"
     Then UI Validate Text field "header HTTPS" EQUALS "DefensePro Behavioral Protections"
 
 
