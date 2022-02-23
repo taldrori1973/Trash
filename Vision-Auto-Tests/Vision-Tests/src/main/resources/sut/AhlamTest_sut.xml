@@ -65,9 +65,9 @@
         </visionServer>
         <genericLinuxServer>
             <class>com.radware.automation.tools.cli.LinuxFileServer</class>
-            <host>172.17.164.10</host>
+            <host>172.17.168.10</host>
             <user>radware</user>
-            <password>radware123</password>
+            <password>radware</password>
             <connectOnInit>false</connectOnInit>
         </genericLinuxServer>
         <visionVMs>

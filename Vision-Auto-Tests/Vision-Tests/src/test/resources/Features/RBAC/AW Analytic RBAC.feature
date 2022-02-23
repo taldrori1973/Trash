@@ -2,7 +2,7 @@
 Feature: AW Analytics User RBAC
 
   @SID_1
-  Scenario: Clear Database and Login And Go to Vision
+  Scenario Outline: Clear Database and Login And Go to Vision
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Service "config_kvision-reporter_1" do action RESTART
     Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
@@ -11,9 +11,6 @@ Feature: AW Analytics User RBAC
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
-
-  @SID_2
-  Scenario Outline: Create users and verify
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
