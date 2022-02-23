@@ -20,9 +20,9 @@ Feature: AMS and ADC Analytics Users
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
-      | User Name       | Role               | Scope | Password        |
-      | ADC_ANALYTICS_1 | ADC Analytics User | [ALL] | Radware1234!@#$ |
-      | AMS_ANALYTICS_1 | AMS Analytics User | [ALL] | Radware1234!@#$ |
+      | User Name     | Role               | Scope | Password        |
+      | ADC_ANALYTICS | ADC Analytics User | [ALL] | Radware1234!@#$ |
+      | AMS_ANALYTICS | AMS Analytics User | [ALL] | Radware1234!@#$ |
 
   @SID_3
   Scenario: Edit User Management Settings
@@ -33,7 +33,7 @@ Feature: AMS and ADC Analytics Users
 
   @SID_4
   Scenario: ADC_ANALYTICS_Viewer RBAC Validation
-    When UI Login with user "ADC_ANALYTICS_1" and password "Radware1234!@#$"
+    When UI Login with user "ADC_ANALYTICS" and password "Radware1234!@#$"
     And Sleep "10"
     Then UI Validate user rbac
       | operations        | accesses |
@@ -54,13 +54,13 @@ Feature: AMS and ADC Analytics Users
     When UI Navigate to "ADC Reports" page via homePage
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC System and Network Report1"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
-      | Time Definitions.Date | Quick:1H                                                                                                   |
-      | Format                | Select:  CSV                                                                                               |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Format                | Select:  CSV                                                                                              |
     Then UI "Validate" Report With Name "ADC System and Network Report1"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
-      | Time Definitions.Date | Quick:1H                                                                                                   |
-      | Format                | Select: CSV                                                                                                |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Format                | Select: CSV                                                                                               |
 
 
   @SID_6
@@ -81,13 +81,13 @@ Feature: AMS and ADC Analytics Users
     When UI Navigate to "ADC Reports" page via homePage
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC System and Network Report2"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
-      | Time Definitions.Date | Quick:1H                                                                                                   |
-      | Format                | Select:  PDF                                                                                               |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Format                | Select:  PDF                                                                                              |
     Then UI "Validate" Report With Name "ADC System and Network Report2"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
-      | Time Definitions.Date | Quick:1H                                                                                                   |
-      | Format                | Select: PDF                                                                                                |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Format                | Select: PDF                                                                                               |
 
   @SID_9
   Scenario: generate ADC report2
@@ -100,15 +100,15 @@ Feature: AMS and ADC Analytics Users
   @SID_10
   Scenario: Edit ADC report2
     Given UI "Edit" Report With Name "ADC System and Network Report2"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
-      | Time Definitions.Date | Quick:1D                                                                                                   |
-      | Format                | Select: HTML                                                                                               |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
+      | Time Definitions.Date | Quick:1D                                                                                                  |
+      | Format                | Select: HTML                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                            |
     Then UI "Validate" Report With Name "ADC System and Network Report2"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
-      | Time Definitions.Date | Quick:1D                                                                                                   |
-      | Format                | Select: HTML                                                                                               |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
+      | Time Definitions.Date | Quick:1D                                                                                                  |
+      | Format                | Select: HTML                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                            |
 
   @SID_11
   Scenario: generate ADC report2 after edit
@@ -129,7 +129,7 @@ Feature: AMS and ADC Analytics Users
   @SID_13
   Scenario: AMS_ANALYTICS_Viewer RBAC Validation
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*" on "ROOT_SERVER_CLI"
-    When UI Login with user "AMS_ANALYTICS_1" and password "Radware1234!@#$"
+    When UI Login with user "AMS_ANALYTICS" and password "Radware1234!@#$"
     And Sleep "10"
     Then UI Validate user rbac
       | operations        | accesses |
@@ -143,7 +143,7 @@ Feature: AMS and ADC Analytics Users
       | SCHEDULER_ITEM    | no       |
       | vDirect           | no       |
       | GEL Dashboard     | no       |
-      | EAAF Dashboard    | no       |
+      | EAAF Dashboard    | yes      |
 
 
   @SID_14
@@ -154,7 +154,7 @@ Feature: AMS and ADC Analytics Users
       | Logo                  | reportLogoPNG.png                                                                              |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                               |
       | Format                | Select: CSV                                                                                    |
-    Then UI "Validate" Report With Name "Top Attack Destinations Report1"
+    Then UI "Validate" Report With Name "AMSReport"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[All],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                              |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                               |
@@ -171,12 +171,13 @@ Feature: AMS and ADC Analytics Users
       | Template | DefenseFlow Analytics             | true  |
       | Template | AppWall                           | false |
       | Template | ERT Active Attackers Feed         | true  |
-
+    Then UI Click Button "Close Edit Tab"
 
   @SID_16
   Scenario: generate report
+    Then Sleep "5"
     Then UI "Generate" Report With Name "AMSReport"
-      | timeOut | 60 |
+      | timeOut | 120 |
     Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.zip' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.zip" on "ROOT_SERVER_CLI"
 
@@ -214,7 +215,7 @@ Feature: AMS and ADC Analytics Users
     When UI "Create" Alerts With Name "Alert Delivery"
       | Product    | DefensePro                                                                                                                  |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
-      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Blocked];                                                                  |
+      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Drop];                                                                     |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                                                                                           |
       | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
     And Sleep "10"
@@ -224,7 +225,7 @@ Feature: AMS and ADC Analytics Users
     Then UI Click Button "Add New"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
       | label          | param      | value |
-      | Product Button | defensepro | ture  |
+      | Product Button | defensepro | true  |
       | Product Button | appwall    | false |
     Then UI Click Button "Close"
 
@@ -239,12 +240,12 @@ Feature: AMS and ADC Analytics Users
   Scenario: create new Forensics_DP and validate
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "Forensics_DP"
-      | Product               | DefensePro                                                                                                                 |
-      | Application           | All                                                                                                                        |
-      | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
-      | Format                | Select: CSV                                                                                                                |
-      | Time Definitions.Date | Quick:Today                                                                                                                |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware           |
+      | Product               | DefensePro                                                                                                       |
+      | Application           | All                                                                                                              |
+      | Output                | Start Time                                                                                                       |
+      | Format                | Select: CSV                                                                                                      |
+      | Time Definitions.Date | Quick:Today                                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
   @SID_24
   Scenario: Forensic New Category Validate ForensicsView
@@ -280,6 +281,7 @@ Feature: AMS and ADC Analytics Users
   Scenario: Delete Forensics and Validation
     Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Forensics_DP"
     Then UI Delete Forensics With Name "Forensics_DP"
+    Then Sleep "5"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics_DP"
     Then UI Logout
 
@@ -290,9 +292,9 @@ Feature: AMS and ADC Analytics Users
     Given UI Navigate to page "System->User Management->Local Users"
     When UI Delete User With User Name "<User Name>"
     Examples:
-      | User Name       |
-      | ADC_ANALYTICS_1 |
-      | AMS_ANALYTICS_1 |
+      | User Name     |
+      | ADC_ANALYTICS |
+      | AMS_ANALYTICS |
 
   @SID_29
   Scenario: Login And Go to Vision
