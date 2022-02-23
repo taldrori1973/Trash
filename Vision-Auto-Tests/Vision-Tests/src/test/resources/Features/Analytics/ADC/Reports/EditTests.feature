@@ -27,7 +27,7 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
 
   @SID_3
   Scenario Outline: Add Template Widget to ADC Report
@@ -38,7 +38,7 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
 
   @SID_4
   Scenario Outline: Delete Template Widget from ADC Report
@@ -49,7 +49,7 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
 
   @SID_5
   Scenario Outline: Edit Template Applications from ADC Report Report
@@ -60,20 +60,20 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName | ApplicationName      |
-      | ADC Report | Alteon_172.17.164.18 |
+      | ADC Report | Alteon_172.17.164.17 |
 
   @SID_6
   Scenario Outline:Add Template to ADC Report Report
     Given UI "Edit" Report With Name "<ReportName>"
-      | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
+      | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
     Then UI "Validate" Report With Name "<ReportName>"
       | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]               |
-      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
-      | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
+      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
 
     Examples:
       | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
 
   @SID_7
   Scenario Outline: Delete Template from ADC Report
@@ -81,11 +81,11 @@ Feature: Edit ADC Report tests
       | Template-3 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "<ReportName>"
       | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]               |
-      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
+      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
 
     Examples:
       | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
 
   @SID_8
   Scenario Outline: Create and validateADC Report2
@@ -107,7 +107,7 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName  | ApplicationName                                      |
-      | ADC Report2 | Rejith_#convertIpToHexa(Alteon_Set_Simulators_3);:80 |
+      | ADC Report2 | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
 
   @SID_9
   Scenario: Edit ADC Report2 report name

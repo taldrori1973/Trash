@@ -28,8 +28,8 @@ Feature: DPM - Report Wizard Creation
     Then UI Delete Report With Name "<ReportName>"
 
     Examples:
-      | ReportName       | ApplicationName                                      |
-      | ADCcreateReport1 | Rejith_#convertIpToHexa(Alteon_Set_Simulators_2);:80 |
+      | ReportName       | ApplicationName                               |
+      | ADCcreateReport1 | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
 
 #    When UI Click Button "Edit" with value "createReport1"
 #    When UI Click Button "Next" with value ""
