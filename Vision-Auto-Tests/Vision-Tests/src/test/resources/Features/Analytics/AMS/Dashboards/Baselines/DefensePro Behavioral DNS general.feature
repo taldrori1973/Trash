@@ -219,7 +219,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-PTR"
 
-
+  
   @SID_14
   Scenario: Validate Chart Number Reset
     Then UI logout and close browser
@@ -239,16 +239,17 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-1"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-A"
 
+  
   @SID_15
   Scenario: Validate No Widgets Selected Message
     When UI VRM Clear All Widgets
-    Then UI Validate Element Existence By Label "Repo button" if Exists "true"
-    Then UI Click Button "Repo button"
+    Then UI Validate Element Existence By Label "Repository button" if Exists "true"
+    Then UI Click Button "Repository button"
     Then UI Click Button "Repository Widget" with value "DNS-A"
     Then UI Click Button "Widget Selection.Add Selected Widgets"
     Then UI Click Button "Widget Selection"
-    Then UI Validate Element Existence By Label "Repo button" if Exists "false"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-4"
+    Then UI Validate Element Existence By Label "Repository button" if Exists "false"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-1"
 
   @SID_16
   Scenario: Create Report of DNS baselines IPv4
