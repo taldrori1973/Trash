@@ -54,7 +54,7 @@ public class BasicValidationsTests extends VisionUITestBase {
     }
 
     /**
-     * @param label - element labal
+     * @param label     - element labal
      * @param isEnabled - element's expected status
      */
     @Then("^UI Validate Element EnableDisable status By Label \"([^\"]*)\"(?: and Value \"([^\"]*)\")? is Enabled \"(true|false)\"$")
@@ -63,7 +63,7 @@ public class BasicValidationsTests extends VisionUITestBase {
     }
 
     /**
-     * @param label - element labal
+     * @param label    - element labal
      * @param isExists - element's existance state
      */
     @Then("^UI Validate Element Existence By Label \"(.*)\" if Exists \"(true|false)\"(?: with value \"(.*)\")?$")
@@ -83,19 +83,18 @@ public class BasicValidationsTests extends VisionUITestBase {
 
     @Then("^UI Validate Text field \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: On Regex \"([^\"]*)\")? (EQUALS|CONTAINS|MatchRegex|GT|GTE|LT|LTE) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
     public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
-            try {
-                if(params!=null && params.contains("#")) {
-                    params = params.replaceAll("#.*;", (String) invokeMethodFromText(params));
-                }
-                if(expectedText.contains("#"))
-                    expectedText = expectedText.replaceAll("#.*;", (String) invokeMethodFromText(expectedText));
-            } catch (Exception e) {
-                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        try {
+            if (params != null) {
+                params = (String) invokeMethodFromText(params);
             }
+            expectedText = (String) invokeMethodFromText(expectedText);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
 
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;//this parameter can be used for equals or contains of String from char 0 until char cutCharsNumber
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, regex, operatorsEnum, Integer.parseInt(cutCharsNumber),offset);
+        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, regex, operatorsEnum, Integer.parseInt(cutCharsNumber), offset);
     }
 
 
@@ -109,7 +108,7 @@ public class BasicValidationsTests extends VisionUITestBase {
     public void validateTextFieldElementbyId(String selectorValue, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber),offset);
+        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber), offset);
     }
 
     @Then("^UI Validate Popup Dialog Box, have value \"(.*)\" with text Type \"(CAPTION|MESSAGE)\"$")
@@ -158,7 +157,7 @@ public class BasicValidationsTests extends VisionUITestBase {
             BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
         assert element != null;
         float actualSum = Float.parseFloat(element.replaceAll("[^\\d.]", ""));
-        if(actualSum !=sum){
+        if (actualSum != sum) {
             addErrorMessage("The total have to be eqaual to " + sum + ", not " + actualSum);
         }
     }
@@ -203,8 +202,8 @@ public class BasicValidationsTests extends VisionUITestBase {
         int rowIndex = index != null ? index : -1;
         try {
             try {
-                if(cellValue!= null && cellValue.contains("#")) {
-                    cellValue = cellValue.replaceAll("#.*;", (String) invokeMethodFromText(cellValue));
+                if (cellValue != null) {
+                    cellValue = (String) invokeMethodFromText(cellValue);
                 }
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -212,7 +211,7 @@ public class BasicValidationsTests extends VisionUITestBase {
 
             if (columnName != null && cellValue != null && columnName.contains(",") && cellValue.contains(","))
                 tableHandler.clickTableRowByKeyValueOrIndex(elementLabel, Arrays.asList(columnName.split(",")), Arrays.asList(cellValue.split(",")), rowIndex);
-            else if(table!=null)
+            else if (table != null)
                 tableHandler.clickTableRowByLabelValue(elementLabel, table, label, labelValue);
             else
                 tableHandler.clickTableRowByKeyValueOrIndex(elementLabel, columnName, cellValue, rowIndex);
@@ -397,10 +396,10 @@ public class BasicValidationsTests extends VisionUITestBase {
     }
 
     @Then("^UI FluentWait For \"([^\"]*)\"(?: With Extension \"([^\"]*)\")? Table Until Rows Number (EQUALS|GTE|GT|LTE|LT) (\\d+)$")
-    public void fluentWaitForTableWithRows(String label, String extension,OperatorsEnum operatorsEnum,int rowsNumber) {
+    public void fluentWaitForTableWithRows(String label, String extension, OperatorsEnum operatorsEnum, int rowsNumber) {
 
         try {
-            if (!tableHandler.fluentWaitTableByRowsNumber(label, extension,operatorsEnum, rowsNumber))
+            if (!tableHandler.fluentWaitTableByRowsNumber(label, extension, operatorsEnum, rowsNumber))
                 BaseTestUtils.reporter.report("Fluent Wait Time Was Ended without find the number of expected rows", Reporter.FAIL);
         } catch (Exception e) {
             BaseTestUtils.reporter.report(e.getMessage(), Reporter.FAIL);
@@ -421,10 +420,10 @@ public class BasicValidationsTests extends VisionUITestBase {
     @Then("^Sort \"([^\"]*)\" rows in Attacks Table By ColName \"([^\"]*)\"$")
     public void sortRowsInAttacksTableByColName(String SortType, String ColName) throws Throwable {
         List<WebElement> elements;
-        if(SortType.equals("DOWN")){
-            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort "+ColName+"\"] i:nth-child(1)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        }else{
-            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort "+ColName+"\"] i:nth-child(2)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        if (SortType.equals("DOWN")) {
+            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort " + ColName + "\"] i:nth-child(1)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        } else {
+            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort " + ColName + "\"] i:nth-child(2)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         }
         elements.get(0).click();
     }
@@ -432,8 +431,8 @@ public class BasicValidationsTests extends VisionUITestBase {
     @Then("^UI Validate Count of Applications scope selection starts with \"([^\"]*)\" in AppWall dashboard equal to \"([^\"]*)\"$")
     public void uiValidateCountOfApplicationsScopeSelectionStartsWithInAppWallDashboardEqualTo(String prefix, String ExpectedCount) throws Throwable {
         int actualCount = basicOperationsByNameIdHandler.ScrollDownAndCountApplications(prefix);
-        if(actualCount != Integer.parseInt(ExpectedCount)){
-            ReportsUtils.reportAndTakeScreenShot("actualCount = "+actualCount+" , not equal to ExpectedCount = "+ExpectedCount, Reporter.FAIL);
+        if (actualCount != Integer.parseInt(ExpectedCount)) {
+            ReportsUtils.reportAndTakeScreenShot("actualCount = " + actualCount + " , not equal to ExpectedCount = " + ExpectedCount, Reporter.FAIL);
         }
     }
 
