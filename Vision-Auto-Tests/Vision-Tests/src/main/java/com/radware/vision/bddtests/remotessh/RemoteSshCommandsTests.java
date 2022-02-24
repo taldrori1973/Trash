@@ -9,7 +9,6 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.automation.invocation.InvokeMethod;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
@@ -18,10 +17,13 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
 import testutils.RemoteProcessExecutor;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
 import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
 import static com.radware.vision.automation.Deploy.VisionServer.waitForServerConnection;
 import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
@@ -95,10 +97,10 @@ public class RemoteSshCommandsTests extends TestBase {
 
         try {
             timeOut = timeOut != null ? timeOut : "180";
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.parseInt(timeOut) * 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().orElse(null), commandToExecute, Integer.parseInt(timeOut) * 1000);
             commandToExecute = "/ADC_networkIndexVerification.sh " + deviceIp;
 
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.parseInt(timeOut) * 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().orElse(null), commandToExecute, Integer.parseInt(timeOut) * 1000);
             String actualResult = CliOperations.lastRow;
             if (!actualResult.equals("Success"))
                 BaseTestUtils.report("ADC Aggregation verification failed on \"" + deviceIp + "\" with the following output \"" + actualResult + "\"", Reporter.FAIL);
@@ -115,7 +117,7 @@ public class RemoteSshCommandsTests extends TestBase {
 
         try {
             timeOut = timeOut != null ? timeOut : "120";
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.parseInt(timeOut) * 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().orElse(null), commandToExecute, Integer.parseInt(timeOut) * 1000);
             String actualResult = CliOperations.lastRow;
             if (!actualResult.equals("Success"))
                 BaseTestUtils.report("ADC retention verification failed for index \"" + indexName + "\" with the following output \"" + actualResult + "\"", Reporter.FAIL);
@@ -128,52 +130,58 @@ public class RemoteSshCommandsTests extends TestBase {
     @When("^Verify AW retention task of index aggregation for index \"([a-z]+[-][v2]+[-][a-z]+[-][a-z]+)\"(?: with timeOut (\\d+))?$")
     public void verifyAWRetention(String indexName, String timeOut) {
         String[] delimiter = indexName.split("-");
-        String commandToExecute = "/retentionVerification_AppWall.sh " + delimiter[0] + " " + delimiter[1] + " " + delimiter[2] + " " + delimiter[3];
-//        String commandToExecute = "/root/bla.sh " + deviceIp;
+        String commandToExecute = "/retentionVerification_AppWall.sh " + delimiter[0] + " " + delimiter[1] +
+                " " + delimiter[2] + " " + delimiter[3];
 
         try {
             timeOut = timeOut != null ? timeOut : "120";
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.parseInt(timeOut) * 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().orElse(null), commandToExecute,
+                    Integer.parseInt(timeOut) * 1000);
             String actualResult = CliOperations.lastRow;
             if (!actualResult.equals("Success"))
-                BaseTestUtils.report("AW retention verification failed for index \"" + indexName + "\" with the following output \"" + actualResult + "\"", Reporter.FAIL);
+                BaseTestUtils.report("AW retention verification failed for index \"" +
+                        indexName + "\" with the following output \"" + actualResult + "\"", Reporter.FAIL);
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + ServersManagement.ServerIds.ROOT_SERVER_CLI + "\n" + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " +
+                    ServersManagement.ServerIds.ROOT_SERVER_CLI + "\n" + e.getMessage(), Reporter.FAIL);
         }
     }
 
     @When("^CLI Copy files contains name \"(.*)\" from container \"(.*)\" from path \"(.*)\" to path \"(.*)\"(?: with timeout (\\d+))?$")
-    public void copyFilesFromContainer(String fileName, String containerName, String fromPath, String toPath, Integer timeOut)
-    {
+    public void copyFilesFromContainer(String fileName, String containerName, String fromPath, String toPath, Integer timeOut) {
         String commandToExecute = String.format("docker exec -it %s sh -c \"ls %s | grep %s | tr '\n' ';' && echo '\n'\"", containerName, fromPath, fileName);
 
         try {
             List<String> files;
-            long startTime=System.currentTimeMillis();
-            if(timeOut==null)
-                timeOut=60*1000;
+            long startTime = System.currentTimeMillis();
+            if (timeOut == null)
+                timeOut = 60 * 1000;
             else
-                timeOut*=1000;
+                timeOut *= 1000;
             do {
-                CliOperations.runCommand(serversManagement.getRootServerCLI().get(), String.format("mkdir -p %s", toPath));
-                CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute);
-                files = Arrays.stream(CliOperations.lastRow.split(";")).filter(x->!x.isEmpty() && !x.contains("'")).collect(Collectors.toList());
-            }while (files.size()==0 && System.currentTimeMillis() - startTime < timeOut);
+                CliOperations.runCommand(serversManagement.getRootServerCLI().orElse(null),
+                        String.format("mkdir -p %s", toPath));
+                CliOperations.runCommand(serversManagement.getRootServerCLI().orElse(null), commandToExecute);
+                files = Arrays.stream(CliOperations.lastRow.split(";")).filter(x -> !x.isEmpty() &&
+                        !x.contains("'")).collect(Collectors.toList());
+            } while (files.size() == 0 && System.currentTimeMillis() - startTime < timeOut);
             int filesNotFoundCount = 0;
-            for (String fn:files
-                 ) {
+            for (String fn : files
+            ) {
                 String copyCommand = String.format("docker cp %s:%s/%s %s", containerName, fromPath, fn, toPath);
-                CliOperations.runCommand(serversManagement.getRootServerCLI().get(), copyCommand);
-                if(CliOperations.lastRow != null)
+                CliOperations.runCommand(serversManagement.getRootServerCLI().orElse(null), copyCommand);
+                if (CliOperations.lastRow != null)
                     filesNotFoundCount++;
             }
 
-            if(filesNotFoundCount > 0)
+            if (filesNotFoundCount > 0)
                 BaseTestUtils.report(String.format("%d Files Not Found", filesNotFoundCount), Reporter.FAIL);
 
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), String.format("docker exec -it %s sh -c \"rm %s/%s\"",containerName,fromPath,fileName));
+            CliOperations.runCommand(serversManagement.getRootServerCLI().orElse(null),
+                    String.format("docker exec -it %s sh -c \"rm %s/%s\"", containerName, fromPath, fileName));
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + ServersManagement.ServerIds.ROOT_SERVER_CLI + "\n" + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " +
+                    ServersManagement.ServerIds.ROOT_SERVER_CLI + "\n" + e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -183,15 +191,15 @@ public class RemoteSshCommandsTests extends TestBase {
             timeOut = timeOut != null ? timeOut : CliOperations.DEFAULT_TIME_OUT;
             CliOperations.runCommand(TestBase.serversManagement.getServerById(serverId), commandToExecute, timeOut * 1000);
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + serverId + "\n" + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + serverId + "\n" +
+                    e.getMessage(), Reporter.FAIL);
         }
     }
 
     @Then("^CLI Service \"(.*)\" do action (START|STOP|RESTART)")
-    public void runActionForService(String service, String action)
-    {
+    public void runActionForService(String service, String action) {
         UvisionServer.doActionForService(
-                TestBase.getServersManagement().getRootServerCLI().get(),
+                TestBase.getServersManagement().getRootServerCLI().orElse(null),
                 service,
                 UvisionServer.DockerServiceAction.valueOf(action)
         );
@@ -215,17 +223,21 @@ public class RemoteSshCommandsTests extends TestBase {
     }
 
     @When("^CLI Run remote linux \"(root|radware)\" Command \"(.*)\" on \"(.*)\"(?: with timeOut (\\d+))?$")
-    public void runCLICommand(String serverCli, String commandToExecute, String sutEntryType, String timeOut) throws Exception {
+    public void runCLICommand(String serverCli, String commandToExecute, String sutEntryType, String timeOut) {
         ServerCliBase server = null;
-        if (serverCli.equals("root")) {
-            serversManagement.getRootServerCLI().get();
-        } else if (serverCli.equals("radware")) {
-            serversManagement.getRadwareServerCli().get();
-        } else {
-            BaseTestUtils.report(serverCli + " is not supported here!", Reporter.FAIL);
+        switch (serverCli) {
+            case "root":
+                server = serversManagement.getRootServerCLI().orElse(null);
+                break;
+            case "radware":
+                server = serversManagement.getRadwareServerCli().orElse(null);
+                break;
+            default:
+                BaseTestUtils.report(serverCli + " is not supported here!", Reporter.FAIL);
         }
         try {
             timeOut = timeOut != null ? timeOut : "30";
+            assert server != null;
             CliOperations.runCommand(server, commandToExecute, Integer.parseInt(timeOut) * 1000);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + sutEntryType + "\n" + e.getMessage(), Reporter.FAIL);
@@ -235,7 +247,7 @@ public class RemoteSshCommandsTests extends TestBase {
     @When("^Validate existence of Real Alteon Apps")
     public void realAlteonsAppsValidation() {
         FileSteps scp = new FileSteps();
-        RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+        RootServerCli rootServerCli = serversManagement.getRootServerCLI().orElse(null);
 
         scp.scp("/home/radware/Scripts/uVision_fetch_num_of_real_alteons_apps.sh", ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/root");
 
@@ -282,34 +294,33 @@ public class RemoteSshCommandsTests extends TestBase {
     }
 
     /**
-     *
-     * @param service - UvisionServer.DockerServices ENUM
-     * @param timeout - timeout to wait
+     * @param service  - UvisionServer.DockerServices ENUM
+     * @param timeout  - timeout to wait
      * @param timeUnit - min or sec
      */
     @When("^CLI Validate service \"(.*)\" is up with timeout \"(\\d+)\" (socend(?:s)?|minute(?:s)?)$")
-    public void runCLICommandAndValidateBiggerOrEqualResulta(String service, Integer timeout, String timeUnit)
-    {
-        timeout *= (timeUnit.startsWith("minute"))?60:1;
+    public void runCLICommandAndValidateBiggerOrEqualResult(String service, Integer timeout, String timeUnit) {
+        timeout *= (timeUnit.startsWith("minute")) ? 60 : 1;
         HashMap<UvisionServer.DockerServices, UvisionServer.DockerServiceStatus> uVision_Service =
                 new HashMap<UvisionServer.DockerServices, UvisionServer.DockerServiceStatus>() {{
                     put(
                             UvisionServer.DockerServices.valueOf(service),
                             new UvisionServer.DockerServiceStatus(UvisionServer.DockerState.UP, UvisionServer.DockerHealthState.HEALTHY)
-                            );
+                    );
 
-        }};
+                }};
 
-        UvisionServer.waitForUvisionServerServicesStatus(TestBase.getServersManagement().getRadwareServerCli().get(), uVision_Service, timeout);
+        UvisionServer.waitForUvisionServerServicesStatus(TestBase.getServersManagement().getRadwareServerCli().orElse(null),
+                uVision_Service, timeout);
     }
 
     @When("^CLI Run remote \"(root|radware)\" Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"$")
-    public void runCLICommandAndValidateBiggerOrEqualResultWithServerCli(String serverCli, String commandToExecute, String sutEntryType, OperatorsEnum operatorsEnum, String expectedResult) throws Exception {
+    public void runCLICommandAndValidateBiggerOrEqualResultWithServerCli(String serverCli, String commandToExecute, String sutEntryType, OperatorsEnum operatorsEnum, String expectedResult) {
         ServerCliBase server = null;
         if (serverCli.equals("root")) {
-            server = serversManagement.getRootServerCLI().get();
+            server = serversManagement.getRootServerCLI().orElse(null);
         } else if (serverCli.equals("radware")) {
-            server = serversManagement.getRadwareServerCli().get();
+            server = serversManagement.getRadwareServerCli().orElse(null);
         } else {
             BaseTestUtils.report(serverCli + " is not supported here!", Reporter.FAIL);
         }
@@ -373,7 +384,7 @@ public class RemoteSshCommandsTests extends TestBase {
         if (commandResult.contains("vrm.scheduled.reports.delete.after.delivery=")) {
             String[] result = commandResult.split("=");
 
-            //validate that there is an value equals to true or false after the "=" , and if yes , update the currentValue
+            //validate that there is a value equals to true or false after the "=" , and if yes , update the currentValue
             if (result.length == 2 && (result[1].equalsIgnoreCase("true") || result[1].equalsIgnoreCase("false")))
                 currentValue = Boolean.parseBoolean(result[1]);
 
@@ -399,12 +410,9 @@ public class RemoteSshCommandsTests extends TestBase {
 
     @Then("^CLI Clear Old Reports on File System$")
     public void cliClearOldReportsOnFileSystem() {
-        SUTEntryType ROOT_SERVER_CLI = SUTEntryType.ROOT_SERVER_CLI;
-
-        runCLICommand("rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.*",
-                ServersManagement.ServerIds.ROOT_SERVER_CLI, null);
-        runCLICommand("rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv",
-                ServersManagement.ServerIds.ROOT_SERVER_CLI, null);
+        RootServerCli rootServerCli = serversManagement.getRootServerCLI().orElse(null);
+        CliOperations.runCommand(rootServerCli, "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.*");
+        CliOperations.runCommand(rootServerCli, "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv");
 
     }
 
@@ -424,7 +432,7 @@ public class RemoteSshCommandsTests extends TestBase {
             commandToExecute = String.format("python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i \"%s\" -p \"5140\" -dir \"/home/radware/TED/automation/%s\" -t", serverIp, filename);
 
             int timeOut = 30;
-            CliOperations.runCommand(serversManagement.getLinuxFileServer().get(),
+            CliOperations.runCommand(serversManagement.getLinuxFileServer().orElse(null),
                     commandToExecute, timeOut * 1000);
 
         } catch (Exception e) {
@@ -440,7 +448,8 @@ public class RemoteSshCommandsTests extends TestBase {
     public void emailSetup() {
 
         try {
-            ServerCliBase serverCliBase = TestBase.getServersManagement().getLinuxFileServer().get();
+            ServerCliBase serverCliBase = TestBase.getServersManagement().getLinuxFileServer().orElse(null);
+            assert serverCliBase != null;
             serverCliBase.connect();
             String domain = getSetUpDomain();
             String file = "/etc/postfix/virtual";
@@ -478,7 +487,8 @@ public class RemoteSshCommandsTests extends TestBase {
             user = getSetUpDomain();
 
         try {
-            ServerCliBase serverCliBase = TestBase.getServersManagement().getLinuxFileServer().get();
+            ServerCliBase serverCliBase = TestBase.getServersManagement().getLinuxFileServer().orElse(null);
+            assert serverCliBase != null;
             serverCliBase.connect();
             String commandToExecute = String.format("echo \"cleared\" $(date) > /var/spool/mail/%s", user);
             CliOperations.runCommand(serverCliBase, commandToExecute, 10 * 1000);
@@ -515,7 +525,7 @@ public class RemoteSshCommandsTests extends TestBase {
 
     @Given("^CLI Reset radware password$")
     public static void resetPassword() {
-        if (serversManagement.getRootServerCLI().get().isConnected()) {
+        if (Objects.requireNonNull(serversManagement.getRootServerCLI().orElse(null)).isConnected()) {
             FileSteps f = new FileSteps();
             f.scp("/home/radware/Scripts/restore_radware_user_uvision.sh",
                     ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/");
@@ -528,7 +538,7 @@ public class RemoteSshCommandsTests extends TestBase {
     public static void waitForVisionReConnection(Integer timeOut) {
         try {
             timeOut = timeOut == null ? 300 : timeOut;
-            waitForServerConnection(timeOut * 1000L, serversManagement.getRootServerCLI().get());
+            waitForServerConnection(timeOut * 1000L, serversManagement.getRootServerCLI().orElse(null));
         } catch (InterruptedException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
