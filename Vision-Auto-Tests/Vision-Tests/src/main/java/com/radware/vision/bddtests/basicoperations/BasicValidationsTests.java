@@ -39,7 +39,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethod;
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.setTextField;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
@@ -85,10 +85,10 @@ public class BasicValidationsTests extends VisionUITestBase {
     public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
             try {
                 if(params!=null && params.contains("#")) {
-                    params = params.replaceAll("#.*;", (String) invokeMethod(params));
+                    params = params.replaceAll("#.*;", (String) invokeMethodFromText(params));
                 }
                 if(expectedText.contains("#"))
-                    expectedText = expectedText.replaceAll("#.*;", (String) invokeMethod(expectedText));
+                    expectedText = expectedText.replaceAll("#.*;", (String) invokeMethodFromText(expectedText));
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
@@ -204,7 +204,7 @@ public class BasicValidationsTests extends VisionUITestBase {
         try {
             try {
                 if(cellValue!= null && cellValue.contains("#")) {
-                    cellValue = cellValue.replaceAll("#.*;", (String) invokeMethod(cellValue));
+                    cellValue = cellValue.replaceAll("#.*;", (String) invokeMethodFromText(cellValue));
                 }
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

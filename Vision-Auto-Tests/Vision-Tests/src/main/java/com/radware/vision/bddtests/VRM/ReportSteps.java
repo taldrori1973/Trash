@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethod;
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 
 public class ReportSteps extends VisionUITestBase {
     private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
@@ -101,7 +101,7 @@ public class ReportSteps extends VisionUITestBase {
                 {
                     int startFromIndex = template.indexOf("#");
                     int endToIndex = template.indexOf(";", startFromIndex);
-                    String applicationName = (String) invokeMethod(template.substring(startFromIndex, endToIndex+1));
+                    String applicationName = (String) invokeMethodFromText(template.substring(startFromIndex, endToIndex+1));
                     template = String.format("%s%s%s",template.substring(0, startFromIndex), applicationName, template.substring(endToIndex+1));
                     newReportEntry.put(key, template);
                 }

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
 import static com.radware.vision.automation.Deploy.VisionServer.waitForServerConnection;
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 import static java.lang.Integer.parseInt;
 
 public class RemoteSshCommandsTests extends TestBase {
@@ -79,7 +80,7 @@ public class RemoteSshCommandsTests extends TestBase {
                     break;
                 }
                 case '#': {
-                    targetCommand.append((String) InvokeMethod.invokeMethod(String.format("#%s(%s);", "getSUTValue", commandPart.substring(1))));
+                    targetCommand.append((String) invokeMethodFromText(String.format("#%s(%s);", "getSUTValue", commandPart.substring(1))));
                     break;
                 }
             }
@@ -236,7 +237,7 @@ public class RemoteSshCommandsTests extends TestBase {
         FileSteps scp = new FileSteps();
         RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
-        scp.scp("/home/radware/uVision_fetch_num_of_real_alteons_apps.sh", ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/root");
+        scp.scp("/home/radware/Scripts/uVision_fetch_num_of_real_alteons_apps.sh", ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/root");
 
         CliOperations.runCommand(rootServerCli, "chmod +x /root/uVision_fetch_num_of_real_alteons_apps.sh");
         CliOperations.runCommand(rootServerCli, "/root/uVision_fetch_num_of_real_alteons_apps.sh");
@@ -264,7 +265,7 @@ public class RemoteSshCommandsTests extends TestBase {
                 if (inAnyLine != null && !inAnyLine.isEmpty()) {
                     actualResult = CliOperations.lastOutput.replace("|", "").trim();
                 }
-
+                expectedResult = (String) invokeMethodFromText(expectedResult);
                 bTestSuccess = compareResults(expectedResult, actualResult, operatorsEnum, null);
 
                 if (bTestSuccess)

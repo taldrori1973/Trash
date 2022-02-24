@@ -6,11 +6,13 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.radware.vision.automation.base.TestBase.sutManager;
 
 public class InvokeMethod {
-    private static Object generate(String className, String method, Object... args){
+    private static Object generate(String className, String method, Object... args) {
         Object returnObj = null;
         try {
             Class<?> myClass = Class.forName(className);
@@ -24,23 +26,28 @@ public class InvokeMethod {
     }
 
     /**
-     *
-     * @param method - String that includes method name and all args
+     * @param originStr - String that includes method name and all args
      * @return - an object of the execution
      */
-    public static Object invokeMethod(String method){
-        Object[] parameters = method.substring(method.indexOf("(") + 1, method.indexOf(");")).trim().split(",");
-        method = method.substring(method.indexOf("#") + 1, method.indexOf("("));
+    public static Object invokeMethodFromText(String originStr) {
+        Pattern pattern = Pattern.compile("#(.*)\\((.*)\\);");
+        Matcher matcher = pattern.matcher(originStr);
+        if (!matcher.find())
+            return originStr;
+        String method = matcher.group(1);
+        Object[] params = matcher.group(2).split(",");
+
         String className;
-        switch (method){
+        switch (method) {
             //converts from device set_id -> IP to hex
             case "convertIpToHexa":
                 className = "com.radware.vision.bddtests.utils.SimulatorUtils";
-                Optional<TreeDeviceManagementDto> deviceOpt= sutManager.getTreeDeviceManagement((String) parameters[0]);
-                return generate(className, method, deviceOpt.get().getManagementIp());
+                Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagement(String.valueOf(params[0]));
+                String replace = (String) generate(className, method, deviceOpt.get().getManagementIp());
+                return originStr.replace(matcher.group(0), replace);
             case "getSUTValue":
                 className = "com.radware.vision.bddtests.utils.Variables";
-                return generate(className, method, parameters[0]);
+                return generate(className, method, params);
             default:
                 break;
         }
