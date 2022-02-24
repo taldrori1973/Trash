@@ -27,7 +27,7 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:80 |
 
   @SID_3
   Scenario Outline: Add Template Widget to ADC Report
@@ -38,7 +38,7 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:80 |
 
   @SID_4
   Scenario Outline: Delete Template Widget from ADC Report
@@ -49,7 +49,7 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:80 |
 
   @SID_5
   Scenario Outline: Edit Template Applications from ADC Report Report
@@ -73,7 +73,7 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName | ApplicationName                                      |
-      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
+      | ADC Report | Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:80 |
 
   @SID_7
   Scenario Outline: Delete Template from ADC Report
@@ -107,7 +107,7 @@ Feature: Edit ADC Report tests
 
     Examples:
       | ReportName  | ApplicationName                                      |
-      | ADC Report2 | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
+      | ADC Report2 | Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:80 |
 
   @SID_9
   Scenario: Edit ADC Report2 report name
