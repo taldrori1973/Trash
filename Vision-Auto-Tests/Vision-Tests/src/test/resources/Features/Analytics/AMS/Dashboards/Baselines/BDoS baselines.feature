@@ -2441,7 +2441,7 @@ Feature: VRM BDoS baselines
   Scenario: BDoS baseline IGMP IPv4 Out bps
     Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv4"
     Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Outbound"
-    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP, bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,bps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2580,7 +2580,7 @@ Feature: VRM BDoS baselines
   Scenario: BDoS baseline IGMP IPv6 Out pps
     Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv6"
     Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Outbound"
-    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP, pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,pps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
