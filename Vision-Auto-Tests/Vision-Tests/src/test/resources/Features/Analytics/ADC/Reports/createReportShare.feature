@@ -44,7 +44,7 @@ Feature: ADC- Create Report share
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
 
   @SID_5
-  Scenario: Create and genearte Report
+  Scenario: Create and generate Report
     Given UI "Create" DPMReport With Name "ADCShare"
       | reportType            | Application Report                                                                            |
       | devices               | virts:[Rejith_32326515:88]                                                                    |
