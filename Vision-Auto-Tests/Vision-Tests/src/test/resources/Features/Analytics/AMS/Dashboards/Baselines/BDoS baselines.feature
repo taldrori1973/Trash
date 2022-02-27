@@ -2705,9 +2705,9 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 46640 | 13    | 6      |
 
-    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv6"
-    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,Inbound"
-    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,bps"
+    When UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv6"
+    When UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,Inbound"
+    When UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,bps"
 
 #    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
 #      | attribute             | value   |
