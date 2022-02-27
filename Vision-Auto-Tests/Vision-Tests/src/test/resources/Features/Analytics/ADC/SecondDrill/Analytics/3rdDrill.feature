@@ -30,15 +30,15 @@ Feature: VRM ADC Application dashboard 3rd Drill
   @SID_5
   Scenario: Navigate to Virtual Service
     Then Sleep "1"
-    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
-    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326515:80" EQUALS "Rejith_32326515:80"
+    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
+    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" EQUALS "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
     Then UI "expand" Table row by keyValue or Index with elementLabel "Virtual Service.Table" findBy columnName "Group ID" findBy cellValue "1"
 
   @SID_6
   Scenario: validate Conetent Rule Expand Row Widgets Titles
-    Then UI Text of "Expand chart title" with extension "Rejith_32326515:80-chart-title-throughput" equal to "Throughput (bps)"
-    Then UI Text of "Expand chart title" with extension "Rejith_32326515:80-chart-title-cps" equal to "Connections per Second"
-    Then UI Text of "Expand chart title" with extension "Rejith_32326515:80-chart-title-concurrentConnections" equal to "Concurrent Connections"
+    Then UI Text of "Expand chart title" with extension "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80-chart-title-throughput" equal to "Throughput (bps)"
+    Then UI Text of "Expand chart title" with extension "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80-chart-title-cps" equal to "Connections per Second"
+    Then UI Text of "Expand chart title" with extension "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80-chart-title-concurrentConnections" equal to "Concurrent Connections"
 
 
   @SID_7
@@ -97,15 +97,15 @@ Feature: VRM ADC Application dashboard 3rd Drill
 
   @SID_10
   Scenario: Validate Validate Content Rule Expand Row Current texts
-    Then UI Text of "Throughput current" with extension "2-Rejith_32326515:80" equal to "Current 259"
-    Then UI Text of "cps current" with extension "2-Rejith_32326515:80" equal to "Current 270"
-    Then UI Text of "Concurrent Connections current" with extension "2-Rejith_32326515:80" equal to "Current 272"
+    Then UI Text of "Throughput current" with extension "2-Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" equal to "Current 259"
+    Then UI Text of "cps current" with extension "2-Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" equal to "Current 270"
+    Then UI Text of "Concurrent Connections current" with extension "2-Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" equal to "Current 272"
 
   @SID_11
   Scenario: Validate Charts after filtering
-    When UI Click Button "filter by" with value "Rejith_32326515:80-legend-list-item-10-filter"
-    Then UI Click Button "filter by" with value "Rejith_32326515:80-legend-list-item-123abc-filter"
-    Then UI Click Button "filter by" with value "Rejith_32326515:80-legend-list-item-Real1-filter"
+    When UI Click Button "filter by" with value "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80-legend-list-item-10-filter"
+    Then UI Click Button "filter by" with value "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80-legend-list-item-123abc-filter"
+    Then UI Click Button "filter by" with value "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80-legend-list-item-Real1-filter"
 
   @SID_12
   Scenario: Validate Content Rule Expand Row THROUGHPUT widget
@@ -154,9 +154,9 @@ Feature: VRM ADC Application dashboard 3rd Drill
 
   @SID_15
   Scenario: Validate Content Rule Expand Row Current texts after filter.
-    Then UI Text of "Throughput current" with extension "2-Rejith_32326515:80" equal to "Current 171"
-    Then UI Text of "cps current" with extension "2-Rejith_32326515:80" equal to "Current 177"
-    Then UI Text of "Concurrent Connections current" with extension "2-Rejith_32326515:80" equal to "Current 180"
+    Then UI Text of "Throughput current" with extension "2-Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" equal to "Current 171"
+    Then UI Text of "cps current" with extension "2-Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" equal to "Current 177"
+    Then UI Text of "Concurrent Connections current" with extension "2-Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" equal to "Current 180"
 
   @SID_16
   Scenario: validate sorting Servers information by Status

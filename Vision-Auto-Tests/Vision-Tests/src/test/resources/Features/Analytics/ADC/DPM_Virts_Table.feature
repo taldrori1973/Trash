@@ -15,9 +15,9 @@ Feature: DPM Virtual Services Table
 
   @SID_2
   Scenario:Validate Table record values
-    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1_32326516:80"
+    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1_#convertIpToHexa(Alteon_Sim_Set_2);:80"
       | columnName             | value         |
-      | Application Name       | 1_32326516:80 |
+      | Application Name       | 1_#convertIpToHexa(Alteon_Sim_Set_2);:80 |
       | Protocol               | http          |
       | IP Address             | 101.41.1.100  |
       | Throughput(bps)        | 2.29          |
@@ -114,28 +114,28 @@ Feature: DPM Virtual Services Table
       | Real Servers(Up/Total) | 0/4               |
       | ConcurrentConnections  | 0                 |
 
-    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_32326515:80"
+    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
       | columnName       | value            |
-      | Application Name | 1234_32326515:80 |
-    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_32326515:80"
+      | Application Name | 1234_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
+    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
       | columnName | value |
       | Protocol   | http  |
-    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_32326515:80"
+    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
       | columnName | value        |
       | IP Address | 101.41.1.100 |
-    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_32326515:80"
+    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
       | columnName      | value |
       | Throughput(bps) | 4 bps |
-    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_32326515:80"
+    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
       | columnName            | value |
       | Connectionsper Second | 6     |
-    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_32326515:80"
+    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
       | columnName                 | value |
       | Groups(Up/Total)(Up/Total) | 1     |
-    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_32326515:80"
+    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
       | columnName             | value |
       | Real Servers(Up/Total) | 1     |
-    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_32326515:80"
+    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
       | columnName            | value |
       | ConcurrentConnections | 0     |
 

@@ -30,8 +30,8 @@ Feature: ADC Application Second Drill - Global Tests
   @SID_5 @Sanity
   Scenario: Navigate to Virtual Service
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
-    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326515:80" EQUALS "Rejith_32326515:80"
+    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
+    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" EQUALS "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
 
     #=====================Start of Validate Time Ranges===============
   @SID_6
@@ -61,8 +61,8 @@ Feature: ADC Application Second Drill - Global Tests
   @SID_8
   Scenario: Navigate to Virtual Service
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:443"
-    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326515:443" EQUALS "Rejith_32326515:443"
+    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:443"
+    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:443" EQUALS "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:443"
   @SID_9
   Scenario: TC105603 Validate Analytics And SSL Toolbar Tabs
     When UI Click Button "Virtual Service.Toolbar Tab" with value "ssl"

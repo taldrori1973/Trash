@@ -10,6 +10,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.TextField;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
+import com.radware.vision.automation.invocation.InvokeMethod;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.base.VisionUITestBase;
@@ -37,6 +38,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
 
@@ -277,7 +279,7 @@ public class GenericSteps extends VisionUITestBase {
                 BaseTestUtils.report(errorMessage, Reporter.FAIL);
                 throw new TargetWebElementNotFoundException(errorMessage);
             }
-            if (!actualValue.trim().equals(expectedValue)) {
+            if (!actualValue.trim().equals(invokeMethodFromText(expectedValue))) {
                 try {
                     VRMHandler.scroll("Table_Attack Details");
                 } catch (Exception e) {

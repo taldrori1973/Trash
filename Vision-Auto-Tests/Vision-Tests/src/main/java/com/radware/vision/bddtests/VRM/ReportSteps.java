@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethod;
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 
 public class ReportSteps extends VisionUITestBase {
     private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
@@ -88,23 +88,17 @@ public class ReportSteps extends VisionUITestBase {
     @Then("^UI \"(Create|Validate|Edit|Generate|Isexist|Delete)\" Report With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName, String negative, Map<String, String> reportsEntry) {
         Map<String, String> newReportEntry = new HashMap<>(reportsEntry);
-        if (!(newReportEntry.get("Application")==null)) {
+        if (!(newReportEntry.get("Application") == null)) {
             newReportEntry = SimulatorUtils.getNewReportTemplate(newReportEntry);
         }
-        if(newReportEntry.keySet().stream().anyMatch(kv->kv.startsWith("Template")))
-        {
-            List<String> keys = newReportEntry.keySet().stream().filter(kv->kv.startsWith("Template")).collect(Collectors.toList());
-            for (String key: keys
-                 ) {
+        if (newReportEntry.keySet().stream().anyMatch(kv -> kv.startsWith("Template"))) {
+            List<String> keys = newReportEntry.keySet().stream().filter(kv -> kv.startsWith("Template")).collect(Collectors.toList());
+            for (String key : keys
+            ) {
                 String template = newReportEntry.get(key);
-                if(template.contains("#"))
-                {
-                    int startFromIndex = template.indexOf("#");
-                    int endToIndex = template.indexOf(";", startFromIndex);
-                    String applicationName = (String) invokeMethod(template.substring(startFromIndex, endToIndex+1));
-                    template = String.format("%s%s%s",template.substring(0, startFromIndex), applicationName, template.substring(endToIndex+1));
-                    newReportEntry.put(key, template);
-                }
+                template = (String) invokeMethodFromText(template);
+                newReportEntry.put(key, template);
+
             }
         }
         try {

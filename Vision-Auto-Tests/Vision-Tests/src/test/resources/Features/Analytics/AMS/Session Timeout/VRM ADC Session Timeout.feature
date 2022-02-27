@@ -26,7 +26,7 @@ Feature: VRM ADC Session Timeout
   Scenario: VRM validate ADC Reports availability while configuration session expired
     Given UI "Create" DPMReport With Name "ADC Timeout report"
       | reportType | Application Report         |
-      | devices    | virts:[Rejith_32326515:80] |
+      | devices    | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
     Then UI Generate and Validate Report With Name "ADC Timeout report" with Timeout of 240 Seconds
     Then UI Click Button "Log Preview" with value "ADC Timeout report"
 
@@ -35,7 +35,7 @@ Feature: VRM ADC Session Timeout
     Given UI Navigate to "Application Dashboard" page via homePage
     Then UI Do Operation "Select" item "Application Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
-      | Rejith_32326515:80 |
+      | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
     Then UI Validate Pie Chart data "VIRTUAL SERVICES"
       | label    | data |
       | Shutdown | 1    |
