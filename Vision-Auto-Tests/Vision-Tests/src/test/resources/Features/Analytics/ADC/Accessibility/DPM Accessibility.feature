@@ -37,7 +37,7 @@ Feature: VRM Application Dashboard Accessibility
 
   @SID_4
   Scenario: VRM ADC validate Accessibility patterns in DPM 1st drill
-    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
+    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
     Then UI Validate Line Chart attributes "End-To-End Time" with Label "Client RTT"
       | attribute       | value   |
       | shapeType       | plus    |

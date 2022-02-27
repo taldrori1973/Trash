@@ -47,7 +47,7 @@ Feature: ADC- Create Report share
   Scenario: Create and generate Report
     Given UI "Create" DPMReport With Name "ADCShare"
       | reportType            | Application Report                                                                            |
-      | devices               | virts:[Rejith_32326515:88]                                                                    |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88]                                                                    |
       | Format                | Select: CSV                                                                                   |
       | Share                 | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject ADC |
       | Time Definitions.Date | Quick:15m                                                                                     |
@@ -63,7 +63,7 @@ Feature: ADC- Create Report share
   Scenario: Validate Report
     Given UI "Validate" DPMReport With Name "ADCShare"
       | reportType            | Application Report                                                                            |
-      | devices               | virts:[Rejith_32326515:88]                                                                    |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88]                                                                    |
       | Format                | Select: CSV                                                                                   |
       | Share                 | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject ADC |
       | Time Definitions.Date | Quick:15m                                                                                     |
@@ -90,11 +90,11 @@ Feature: ADC- Create Report share
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
    Scenario: CSV File Validate number of lines
-#     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Rejith_32326515_88.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "145"
-     Then CLI Run linux Command "awk 'END { print NR }' /opt/radware/mgt-server/third-party/tomcat/bin/Rejith_32326515_88.csv" on "ROOT_SERVER_CLI" and validate result EQUALS "141"
+#     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Rejith_#convertIpToHexa(Alteon_Sim_Set_1);_88.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "145"
+     Then CLI Run linux Command "awk 'END { print NR }' /opt/radware/mgt-server/third-party/tomcat/bin/Rejith_#convertIpToHexa(Alteon_Sim_Set_1);_88.csv" on "ROOT_SERVER_CLI" and validate result EQUALS "141"
 
    Scenario: Validate CSV File contain: Throughput and Connections per second
-     Then CLI Run remote linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Rejith_32326515_88.csv" on "ROOT_SERVER_CLI"
+     Then CLI Run remote linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Rejith_#convertIpToHexa(Alteon_Sim_Set_1);_88.csv" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex ".*\"Throughput \(bps\)\",.*"
 #    Then CLI Operations - Verify that output contains regex ".*\"throughput\",\"applicationId\",\"timestamp\",.*"
 
@@ -102,11 +102,11 @@ Feature: ADC- Create Report share
     Then CLI copy file by user "root" "/root/validateCSVReport.sh" from "genericLinuxServer" to "rootServerCli" "/root/"
 
 Scenario: run Script to validate Connections per Second
-  Then CLI Operations - Run Root Session command "./validateCSVReport.sh "Connections per Second" "/opt/radware/mgt-server/third-party/tomcat/bin/Rejith_32326515_88.csv" 20 13 Rejith_32326515:88"
+  Then CLI Operations - Run Root Session command "./validateCSVReport.sh "Connections per Second" "/opt/radware/mgt-server/third-party/tomcat/bin/Rejith_#convertIpToHexa(Alteon_Sim_Set_1);_88.csv" 20 13 Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88"
   Then CLI Operations - Verify that output contains regex ".*validation succeeded.*"
 
   Scenario: run Script to validate Throughput
-    Then CLI Operations - Run Root Session command "./validateCSVReport.sh "Throughput" "/opt/radware/mgt-server/third-party/tomcat/bin/Rejith_32326515_88.csv" 20 11 Rejith_32326515:88"
+    Then CLI Operations - Run Root Session command "./validateCSVReport.sh "Throughput" "/opt/radware/mgt-server/third-party/tomcat/bin/Rejith_#convertIpToHexa(Alteon_Sim_Set_1);_88.csv" 20 11 Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88"
     Then CLI Operations - Verify that output contains regex ".*validation succeeded.*"
 
   @SID_9

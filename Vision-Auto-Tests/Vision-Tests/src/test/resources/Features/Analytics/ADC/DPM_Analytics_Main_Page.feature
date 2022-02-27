@@ -69,7 +69,7 @@ Feature: DPM Analytics Main Page
     Then  UI Validate element "TopByThroughput_progress" attribute with param "0"
       | name  | value       |
       | style | width: 100% |
-    Then UI Text of "TopByThroughput_virtName" with extension "1" equal to "1_32326515:80"
+    Then UI Text of "TopByThroughput_virtName" with extension "1" equal to "1_#convertIpToHexa(Alteon_Sim_Set_1);:80"
     Then UI Text of "TopByThroughput_value" with extension "1" equal to "2.29 M"
     Then  UI Validate element "TopByThroughput_progress" attribute with param "1"
       | name  | value      |
@@ -86,7 +86,7 @@ Feature: DPM Analytics Main Page
     Then UI Validate element "TopByRPS_progress" attribute with param "0"
       | name  | value       |
       | style | width: 100% |
-    Then UI Text of "TopByRPS_virtName" with extension "1" equal to "1_32326515:80"
+    Then UI Text of "TopByRPS_virtName" with extension "1" equal to "1_#convertIpToHexa(Alteon_Sim_Set_1);:80"
     Then UI Text of "TopByRPS_value" with extension "1" equal to "250"
     Then UI Validate element "TopByRPS_progress" attribute with param "1"
       | name  | value      |
@@ -211,15 +211,15 @@ Feature: DPM Analytics Main Page
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_2);:80"
       | columnName       | value            |
       | Application Name | 1234_#convertIpToHexa(Alteon_Sim_Set_2);:80 |
-    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
+    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
       | columnName       | value              |
-      | Application Name | Rejith_32326515:80 |
-    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:88"
+      | Application Name | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80 |
+    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88"
       | columnName       | value              |
-      | Application Name | Rejith_32326515:88 |
-    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:443"
+      | Application Name | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88 |
+    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:443"
       | columnName       | value               |
-      | Application Name | Rejith_32326515:443 |
+      | Application Name | Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:443 |
 
 # Sort tests
   @SID_13
@@ -250,7 +250,7 @@ Feature: DPM Analytics Main Page
     When UI Do Operation "Select" item "Application Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | 1_#convertIpToHexa(Alteon_Sim_Set_2);:80       |
-      | 1234_32326515:80    |
+      | 1234_#convertIpToHexa(Alteon_Sim_Set_1);:80    |
       | Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:443 |
       | Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:88  |
 #      | virtualserver3:110  |
@@ -278,7 +278,7 @@ Feature: DPM Analytics Main Page
     Then UI Text of "TopByThroughput_value" with extension "1" equal to "38"
     Then UI Text of "TopByThroughput_virtName" with extension "2" equal to "Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:88"
     Then UI Text of "TopByThroughput_value" with extension "2" equal to "31"
-    Then UI Text of "TopByThroughput_virtName" with extension "3" equal to "1234_32326515:80"
+    Then UI Text of "TopByThroughput_virtName" with extension "3" equal to "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
     Then UI Text of "TopByThroughput_value" with extension "3" equal to "4"
     Then UI Validate Element Existence By Label "TopByThroughput_value" if Exists "false" with value "4"
   # Top Application by RPS Chart validation
@@ -297,7 +297,7 @@ Feature: DPM Analytics Main Page
     Then UI Validate element "TopByRPS_progress" attribute with param "2"
       | name  | value      |
       | style | width: 24% |
-    Then UI Text of "TopByRPS_virtName" with extension "3" equal to "1234_32326515:80"
+    Then UI Text of "TopByRPS_virtName" with extension "3" equal to "1234_#convertIpToHexa(Alteon_Sim_Set_1);:80"
     Then UI Text of "TopByRPS_value" with extension "3" equal to "27"
     Then UI Validate element "TopByRPS_progress" attribute with param "3"
       | name  | value     |
