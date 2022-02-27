@@ -2705,9 +2705,10 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 46640 | 13    | 6      |
 
-    And UI Do Operation "Select" item "BDoS-TCP SYN IPv6"
-    And UI Do Operation "Select" item "BDoS-TCP SYN Inbound"
-    And UI Do Operation "Select" item "BDoS-TCP SYN bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv6"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,Inbound"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,bps"
+
 #    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
 #      | attribute             | value   |
 #    # | borderDash            | [4, 6]  |
@@ -2743,8 +2744,8 @@ Feature: VRM BDoS baselines
     # Then UI Validate Session Storage "BDoS-TCP SYN" exists "false"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | policy1  |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | policy1  |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
       | null  | 31    | 31     |
