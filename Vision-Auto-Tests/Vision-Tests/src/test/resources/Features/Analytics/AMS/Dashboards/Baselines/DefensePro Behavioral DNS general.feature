@@ -246,7 +246,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Click Button "Widget Selection.Add Selected Widgets"
     Then UI Click Button "Widget Selection"
     Then UI Validate Element Existence By Label "Repo button" if Exists "false"
-    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-4"
+    Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-1"
 
   @SID_16
   Scenario: Create Report of DNS baselines IPv4
