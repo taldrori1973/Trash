@@ -274,15 +274,14 @@ Feature: BDoS General Behavioral Tests
 
   @SID_22
   Scenario Outline:Scope selection need to be saved between tabs
-    Then Sleep "2"
+    Then UI Click Button "Behavioral Tab" with value "<ChartName>"
     Then UI "Validate" Scope Polices
       | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[pol_1] |
-    Then UI Click Button "Behavioral Tab" with value "<ChartName>"
     Examples:
       | ChartName    |
       | DNS Flood    |
-      | Quantile DoS |
       | BDoS         |
+      | Quantile DoS |
 
   @SID_23
   Scenario: kill all simulator attacks and logout

@@ -65,19 +65,19 @@ Feature: Baselines Widget Settings
   Scenario: DP baselines widget settings Save - validate values
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
-      | 105   | 13    | 6      |
+      | 105   | 14    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Normal Edge"
       | value | count | offset |
-      | 96    | 13    | 6      |
+      | 96    | 14    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Attack Edge"
       | value | count | offset |
-      | 115   | 13    | 6      |
+      | 115   | 14    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 0     | 13    | 6      |
+      | 0     | 14    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | value | count | offset |
-      | 1727  | 13    | 6      |
+      | 1727  | 14    | 6      |
 
   @SID_6
   Scenario: DP baselines widget settings Save - validate values of other widget
@@ -86,19 +86,19 @@ Feature: Baselines Widget Settings
     When UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,bps"
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
-      | 464   | 13    | 5      |
+      | 464   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Normal Edge"
       | value | count | offset |
-      | 322   | 13    | 5      |
+      | 322   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Attack Edge"
       | value | count | offset |
-      | 628   | 13    | 5      |
+      | 628   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 44800 | 13    | 5      |
+      | 44800 | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Total Traffic"
       | value | count | offset |
-      | 46640 | 13    | 5      |
+      | 46640 | 13    | 6      |
 
   @SID_7
   Scenario: DP baselines widget settings Default

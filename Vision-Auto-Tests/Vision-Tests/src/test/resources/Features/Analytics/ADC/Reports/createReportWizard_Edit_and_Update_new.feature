@@ -15,13 +15,13 @@ Feature: DPM - Edit and update Report wizard
     # defualt New report
     Given UI "Create" DPMReport With Name "ADCEdit_and_Update_Test_report"
       | reportType | Application                                                                    |
-      | devices    | virts:[Rejith_32326515:88]                                                     |
+      | devices    | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88]                          |
       | Schedule   | Run Every:Monthly,On Time:+2m                                                  |
       | Share      | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
 
     Then UI "Validate" DPMReport With Name "ADCEdit_and_Update_Test_report"
       | reportType | Application                                                                    |
-      | devices    | virts:[Rejith_32326515:88]                                                     |
+      | devices    | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88]                          |
       | Schedule   | Run Every:Monthly,On Time:+10m                                                 |
       | Share      | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
 
@@ -41,12 +41,12 @@ Feature: DPM - Edit and update Report wizard
   @SID_4
   Scenario: ADC - Two devices Devices Test Edit/Update
     Given UI "Edit" DPMReport With Name "ADCEdit_and_Update_Test_report"
-      | reportType | Application           |
-      | devices    | virts:[1_32326515:80] |
+      | reportType | Application                                      |
+      | devices    | virts:[1_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
 
     Then UI "Validate" DPMReport With Name "ADCEdit_and_Update_Test_report"
-      | reportType | Application           |
-      | devices    | virts:[1_32326515:80] |
+      | reportType | Application                                      |
+      | devices    | virts:[1_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
 
   @SID_5
   Scenario: ADC - Schedule edit

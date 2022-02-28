@@ -28,9 +28,9 @@ Feature: DPM Second Drill - Validate End to End Time Section
   @SID_5
   Scenario: Navigate to Virtual Service
     Then Sleep "3"
-#    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
+#    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
     Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326517:80"
-#    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326515:80" EQUALS "Rejith_32326515:80"
+#    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" EQUALS "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
     Then Sleep "1"
     Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326517:80" EQUALS "Rejith_32326517:80"
 

@@ -2441,7 +2441,7 @@ Feature: VRM BDoS baselines
   Scenario: BDoS baseline IGMP IPv4 Out bps
     Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv4"
     Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Outbound"
-    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP, bps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,bps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2580,7 +2580,7 @@ Feature: VRM BDoS baselines
   Scenario: BDoS baseline IGMP IPv6 Out pps
     Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,IPv6"
     Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,Outbound"
-    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP, pps"
+    Then UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-IGMP,pps"
 
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Suspected Edge"
       | value | count | offset |
@@ -2705,9 +2705,10 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | 46640 | 13    | 6      |
 
-    And UI Do Operation "Select" item "BDoS-TCP SYN IPv6"
-    And UI Do Operation "Select" item "BDoS-TCP SYN Inbound"
-    And UI Do Operation "Select" item "BDoS-TCP SYN bps"
+    When UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,IPv6"
+    When UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,Inbound"
+    When UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,bps"
+
 #    Then UI Validate Line Chart attributes "BDoS-TCP SYN" with Label "Suspected Edge"
 #      | attribute             | value   |
 #    # | borderDash            | [4, 6]  |
@@ -2743,8 +2744,8 @@ Feature: VRM BDoS baselines
     # Then UI Validate Session Storage "BDoS-TCP SYN" exists "false"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | policy1  |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | policy1  |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
       | null  | 31    | 31     |

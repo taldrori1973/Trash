@@ -465,8 +465,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
 
-    public VRMReportsChartsHandler getVRMReportsChartsHandler(String reportName) throws NoSuchFieldException {
-        if (generateReportAndGetReportID(reportName).equalsIgnoreCase("accepted")) {
+    public VRMReportsChartsHandler getVRMReportsChartsHandler(String reportName, String... args) throws NoSuchFieldException {
+        if (generateReportAndGetReportID(reportName, args).equalsIgnoreCase("accepted")) {
             if (generateStatus(getReportID(reportName), 60))
                 return new VRMReportsChartsHandler(getReportGenerateResult(getReportID(reportName)));
         }
@@ -484,10 +484,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
         return new JSONObject(new JSONObject(formatterRestApiResult.sendRequest().getBody().getBodyAsString()).get("jsonResult").toString());
     }
 
-    public String generateReportAndGetReportID(String reportName) {
+    public String generateReportAndGetReportID(String reportName, String... args) {
 
         FormatterRestApi formatterRestApi = new FormatterRestApi("HTTP://" + hostIp, 3002, "Vision/generateReport.json", "Generate Report");
-        formatterRestApi.getRestRequestSpecification().setBody(new ReportsDefinitions().getJsonDefinition(reportName).toString());
+        formatterRestApi.getRestRequestSpecification().setBody(((args == null || args[0] == null)?new ReportsDefinitions():new ReportsDefinitionsSimulators(args[0])).getJsonDefinition(reportName).toString());
         return formatterRestApi.sendRequest().getStatusCode().getReasonPhrase();
     }
 
