@@ -65,19 +65,19 @@ Feature: Baselines Widget Settings
   Scenario: DP baselines widget settings Save - validate values
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
-      | 105   | 13    | 6      |
+      | 105   | 14    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Normal Edge"
       | value | count | offset |
-      | 96    | 13    | 6      |
+      | 96    | 14    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Attack Edge"
       | value | count | offset |
-      | 115   | 13    | 6      |
+      | 115   | 14    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 0     | 13    | 6      |
+      | 0     | 14    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | value | count | offset |
-      | 1727  | 13    | 6      |
+      | 1727  | 14    | 6      |
 
   @SID_6
   Scenario: DP baselines widget settings Save - validate values of other widget
