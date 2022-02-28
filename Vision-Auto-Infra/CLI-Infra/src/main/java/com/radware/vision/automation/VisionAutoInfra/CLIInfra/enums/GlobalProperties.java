@@ -8,6 +8,6 @@ import com.radware.automation.tools.basetest.RuntimePropertiesEnum;
  */
 public class GlobalProperties {
 
-    public static final int VISION_OPERATIONS_TIMEOUT = 20 * 60 * 1000;
+    public static final int VISION_OPERATIONS_TIMEOUT = 25 * 60 * 1000;
     public final static int DEFAULT_TIME_WAIT_FOR_VISION_SERVICES_RESTART = 20 * 60 * 1000;
 }
