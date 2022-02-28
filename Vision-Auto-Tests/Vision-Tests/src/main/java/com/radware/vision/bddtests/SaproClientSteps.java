@@ -2,19 +2,15 @@ package com.radware.vision.bddtests;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.thirdPartyAPIs.SaproCommunication.SaproCommunicationHandler;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.concurrent.TimeUnit;
 
 import static models.config.DevicesConstants.*;
 
@@ -96,6 +92,13 @@ public class SaproClientSteps extends TestBase {
             BaseTestUtils.report("Failed to initialize Alteon simulators " + e.getMessage(), Reporter.FAIL);
         }
     }
+
+    @Given("^From map \"([^\"]*)\" modify device(?:s)?$")
+    public void fromMapModifyDevices(String mapName, List<String> devsNames) {
+        String[] devsNamesArray = devsNames.toArray(new String[0]);
+        sc.modifyDeviceParameters(mapName, devsNamesArray);
+    }
+
     @Given("^Stop Simulators$")
     public void stopSimulators() {
         List<TreeDeviceManagementDto> simulators = sutManager.getSimulators();
@@ -121,6 +124,10 @@ public class SaproClientSteps extends TestBase {
         } catch (Exception e) {
             BaseTestUtils.report("Failed to stop Alteon simulators " + e.getMessage(), Reporter.FAIL);
         }
+    }
+
+    public void testing(){
+
     }
 }
 
