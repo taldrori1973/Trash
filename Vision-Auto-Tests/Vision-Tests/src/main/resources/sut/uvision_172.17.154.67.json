@@ -1,8 +1,8 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_ADC_1.json",
   "serverName": "uVision",
-  "simulatorSet" : "",
-  "loadSimulators" : "false",
+  "simulatorSet" : "sim_set_2",
+  "loadSimulators" : "true",
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",

@@ -25,6 +25,7 @@ import cucumber.runtime.junit.FeatureRunner;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
 
@@ -63,27 +64,33 @@ public abstract class TestBase {
 
     public static void dBAccessCommand() {
         try {
-            String ip = "";
-            Enumeration en = NetworkInterface.getNetworkInterfaces();
-            while (en.hasMoreElements()) {
-                NetworkInterface i = (NetworkInterface) en.nextElement();
-                for (Enumeration en2 = i.getInetAddresses(); en2.hasMoreElements();) {
-                    InetAddress addr = (InetAddress) en2.nextElement();
-                    if (!addr.isLoopbackAddress()) {
-                        if (addr instanceof Inet4Address) {
-                            ip = addr.getHostAddress();
-                            break;
-                        }
-                    }
-                }
-            }
-            String command = Menu.system().database().access().grant().build() + " " +  ip;
+            String ip = "0.0.0.0";
+            //ip = getMyHostIP();
+            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), Menu.system().database().access().revoke().build() + " " + "all");
+            String command = Menu.system().database().access().grant().build() + " " + ip;
             CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             // ToDo - ERROR: reporter is null
             //BaseTestUtils.report(e.getMessage(), Reporter.PASS_NOR_FAIL);
         }
+    }
+
+    public static String getMyHostIP() throws SocketException {
+        String ip = "";
+        Enumeration en = NetworkInterface.getNetworkInterfaces();
+        while (en.hasMoreElements()) {
+            NetworkInterface i = (NetworkInterface) en.nextElement();
+            for (Enumeration en2 = i.getInetAddresses(); en2.hasMoreElements(); ) {
+                InetAddress addr = (InetAddress) en2.nextElement();
+                if (!addr.isLoopbackAddress()) {
+                    if (addr instanceof Inet4Address) {
+                        ip = addr.getHostAddress();
+                        break;
+                    }
+                }
+            }
+        }
+        return ip;
     }
 
     public static ServersManagement getServersManagement() {
