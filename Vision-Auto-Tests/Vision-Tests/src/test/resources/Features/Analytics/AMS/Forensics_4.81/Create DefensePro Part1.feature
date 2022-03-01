@@ -12,21 +12,21 @@ Feature:DefensePro Part1
 
   @SID_2
   Scenario: create new Output Device IP Address
-    Given UI "Create" Forensics With Name " Output Device IP Address"
+    Given UI "Create" Forensics With Name "Output Device IP Address"
       | Product               | DefensePro                                                                     |
       | Output                | Device IP Address                                                              |
       | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV With Attack Details                                                |
-    Then UI "Validate" Forensics With Name " Output Device IP Address"
+    Then UI "Validate" Forensics With Name "Output Device IP Address"
       | Product               | DefensePro                                                                     |
       | Output                | Device IP Address                                                              |
       | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV With Attack Details                                                |
-    Then UI Delete Forensics With Name " Output Device IP Address"
+    Then UI Delete Forensics With Name "Output Device IP Address"
 
   @SID_3
   Scenario: create new Output End Time
@@ -829,7 +829,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Policy Name Equals"
       | Product               | DefensePro                                                                                                       |
       | Output                | Policy Name                                                                                                      |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 Ok                                                          |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK                                                          |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                                  |
@@ -851,7 +851,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Source IP Address Equals"
       | Product               | DefensePro                                                                     |
       | Output                | Source IP Address                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK Reset Destination      |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination      |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |

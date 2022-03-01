@@ -35,7 +35,7 @@ Feature:Create DefensePro Part2
     Given UI "Create" Forensics With Name "Output Max bps Action Not Equals"
       | Product               | DefensePro                                                                                                       |
       | Output                | Max bps                                                                                                          |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden Reset Dest                                    |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden and Reset Destination                                    |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                     |
@@ -57,7 +57,7 @@ Feature:Create DefensePro Part2
     Given UI "Create" Forensics With Name "Output Physical Port Action Not Equals"
       | Product               | DefensePro                                                                                                                                       |
       | Output                | Physical Port                                                                                                                                    |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 Ok,HTTP 403 Forbidden and Reset Destination]   |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination]   |
       | devices               | index:10                                                                                                                                         |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                                                               |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                      |
@@ -66,7 +66,7 @@ Feature:Create DefensePro Part2
     Then UI "Validate" Forensics With Name "Output Physical Port Action Not Equals"
       | Product               | DefensePro                                                                                                                                       |
       | Output                | Physical Port                                                                                                                                    |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 Ok,HTTP 403 Forbidden and Reset Destination]   |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination]   |
       | devices               | index:10                                                                                                                                         |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                                                               |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                      |
@@ -79,7 +79,7 @@ Feature:Create DefensePro Part2
     Given UI "Create" Forensics With Name "Output Risk Action Not Equals"
       | Product               | DefensePro                                                                                                                                                                                                                               |
       | Output                | Risk                                                                                                                                                                                                                                     |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Quick:1M                                                                                                                                                                                                                                 |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                         |
@@ -87,7 +87,7 @@ Feature:Create DefensePro Part2
     Then UI "Validate" Forensics With Name "Output Risk Action Not Equals"
       | Product               | DefensePro                                                                                                                                                                                                                               |
       | Output                | Risk                                                                                                                                                                                                                                     |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 Ok,HTTP 200 OK Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
       | devices               | All                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Quick:1M                                                                                                                                                                                                                                 |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                         |
