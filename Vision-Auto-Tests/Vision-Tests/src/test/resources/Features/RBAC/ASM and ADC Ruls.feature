@@ -165,7 +165,7 @@ Feature: AMS and ADC Analytics Users
       | Logo                  | reportLogoPNG.png                                                                              |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                               |
       | Format                | Select: CSV                                                                                    |
-    Then UI "Validate" Report With Name "Top Attack Destinations Report1"
+    Then UI "Validate" Report With Name "AMSReport"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[All],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                              |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                               |
