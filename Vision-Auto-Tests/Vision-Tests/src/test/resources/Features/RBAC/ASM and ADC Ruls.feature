@@ -3,13 +3,12 @@
 Feature: AMS and ADC Analytics Users
 
   @SID_1
-  Scenario: Login And Go to Vision
-    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
+  Scenario: Clear Database and Login And Go to Vision
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Service "config_kvision-reporter_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
     * REST Delete ES index "dp-*"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
@@ -18,6 +17,7 @@ Feature: AMS and ADC Analytics Users
   @SID_2
   Scenario Outline: Create users
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
+    Then Sleep "15"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
       | User Name       | Role               | Scope | Password        |
@@ -29,7 +29,8 @@ Feature: AMS and ADC Analytics Users
     Then UI Navigate to page "System->User Management->Authentication Mode"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
-    Then UI Logout
+    Then Sleep "15"
+    Then UI logout and close browser
 
   @SID_4
   Scenario: ADC_ANALYTICS_Viewer RBAC Validation
@@ -54,11 +55,11 @@ Feature: AMS and ADC Analytics Users
     When UI Navigate to "ADC Reports" page via homePage
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC System and Network Report1"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1H                                                                                                   |
       | Format                | Select:  CSV                                                                                               |
     Then UI "Validate" Report With Name "ADC System and Network Report1"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1H                                                                                                   |
       | Format                | Select: CSV                                                                                                |
 
@@ -67,8 +68,8 @@ Feature: AMS and ADC Analytics Users
   Scenario: generate ADC report1
     Then UI "Generate" Report With Name "ADC System and Network Report1"
       | timeOut | 60 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.zip' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.zip" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.zip' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
   @SID_7
   Scenario: Delete ADC report1
@@ -81,11 +82,11 @@ Feature: AMS and ADC Analytics Users
     When UI Navigate to "ADC Reports" page via homePage
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC System and Network Report2"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1H                                                                                                   |
       | Format                | Select:  PDF                                                                                               |
     Then UI "Validate" Report With Name "ADC System and Network Report2"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1H                                                                                                   |
       | Format                | Select: PDF                                                                                                |
 
@@ -93,19 +94,19 @@ Feature: AMS and ADC Analytics Users
   Scenario: generate ADC report2
     Then UI "Generate" Report With Name "ADC System and Network Report2"
       | timeOut | 60 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.pdf' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.pdf" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.pdf' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
 
   @SID_10
   Scenario: Edit ADC report2
     Given UI "Edit" Report With Name "ADC System and Network Report2"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1D                                                                                                   |
       | Format                | Select: HTML                                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
     Then UI "Validate" Report With Name "ADC System and Network Report2"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1D                                                                                                   |
       | Format                | Select: HTML                                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
@@ -114,8 +115,8 @@ Feature: AMS and ADC Analytics Users
   Scenario: generate ADC report2 after edit
     Then UI "Generate" Report With Name "ADC System and Network Report2"
       | timeOut | 60 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.html' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.html" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.html' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
   @SID_12
   Scenario: Delete ADC report2
@@ -128,7 +129,7 @@ Feature: AMS and ADC Analytics Users
 
   @SID_13
   Scenario: AMS_ANALYTICS_Viewer RBAC Validation
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
     When UI Login with user "AMS_ANALYTICS_1" and password "Radware1234!@#$"
     And Sleep "10"
     Then UI Validate user rbac
@@ -177,8 +178,8 @@ Feature: AMS and ADC Analytics Users
   Scenario: generate report
     Then UI "Generate" Report With Name "AMSReport"
       | timeOut | 60 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.zip' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.zip" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.zip' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
   @SID_17
   Scenario: Edit report to HTML format and Validate Generated Report
@@ -188,8 +189,8 @@ Feature: AMS and ADC Analytics Users
       | Format | Select: HTML |
     Then UI "Generate" Report With Name "AMSReport"
       | timeOut | 120 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.html' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.html" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.html' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
   @SID_18
   Scenario: Edit report to HTML format and Validate Generated Report
@@ -199,8 +200,8 @@ Feature: AMS and ADC Analytics Users
       | Format | Select: PDF |
     Then UI "Generate" Report With Name "AMSReport"
       | timeOut | 120 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.pdf' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.pdf" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.pdf' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
   @SID_19
   Scenario: Delete Report Validation
