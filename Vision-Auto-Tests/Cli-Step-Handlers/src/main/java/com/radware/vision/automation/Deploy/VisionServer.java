@@ -79,7 +79,7 @@ public class VisionServer {
         //Downloading the file to the target folder
         CliOperations.runCommand(rootServerCli, "cd " + TARGET_UPGRADE_SERVER_FILE_FOLDER);
         BaseTestUtils.report("Starting download image from:" + visionServerUrl, Reporter.PASS_NOR_FAIL);
-        InvokeUtils.invokeCommand(null, "wget" + " " + "\"" + visionServerUrl + "\"" + " " + ".",
+        InvokeUtils.invokeCommand(null, String.format("curl -O \"%s\"",visionServerUrl),
                 rootServerCli, GlobalProperties.VISION_OPERATIONS_TIMEOUT);
         BaseTestUtils.report("Download image completed", Reporter.PASS_NOR_FAIL);
 
