@@ -66,7 +66,7 @@ Feature: AW CSV Forensics
       | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
       | Format                | Select: CSV                                                                                                                |
       | Time Definitions.Date | Quick:Today                                                                                                                |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware           |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123           |
 
   @SID_7
   Scenario: Clear FTP server logs and generate the report
@@ -144,7 +144,7 @@ Feature: AW CSV Forensics
       | Application | All                                                                                                              |
       | Output      | Add All                                                                                                          |
       | Format      | Select: CSV                                                                                                      |
-      | Share       | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share       | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Criteria    | Event Criteria:Action,Operator:Not Equals,Value:Reported                                                         |
       | Schedule    | Run Every:Daily,On Time:+2m                                                                                      |
 
