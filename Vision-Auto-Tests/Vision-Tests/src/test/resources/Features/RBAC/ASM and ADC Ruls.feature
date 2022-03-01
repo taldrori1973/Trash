@@ -124,7 +124,7 @@ Feature: AMS and ADC Analytics Users
     Then UI Delete Report With Name "ADC System and Network Report2"
     Then Sleep "2"
     Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "ADC System and Network Report2"
-    Then UI Logout
+    Then UI logout and close browser
 
 
   @SID_13
