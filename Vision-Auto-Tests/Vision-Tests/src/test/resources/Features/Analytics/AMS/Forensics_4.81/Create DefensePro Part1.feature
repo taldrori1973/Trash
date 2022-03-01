@@ -913,7 +913,7 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Destination Port Equals"
       | Product               | DefensePro                                                                                                                                   |
       | Output                | Destination Port                                                                                                                             |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 Ok,HTTP 403 Forbidden and Reset Destination]   |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination]   |
       | devices               | All                                                                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                             |
@@ -921,7 +921,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Destination Port Equals"
       | Product               | DefensePro                                                                                                                                   |
       | Output                | Destination Port                                                                                                                             |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 Ok,HTTP 403 Forbidden and Reset Destination]   |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination]   |
       | devices               | All                                                                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                             |
