@@ -35,7 +35,7 @@ Feature: Second Drill - Validate General Charts
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     Examples:
       | Function                                   |
-      | #convertIpToHexa(Alteon_Set_Simulators_2); |
+      | #convertIpToHexa(Alteon_Sim_Set_1); |
 
 #Validate Widgets Titles
   @SID_6
