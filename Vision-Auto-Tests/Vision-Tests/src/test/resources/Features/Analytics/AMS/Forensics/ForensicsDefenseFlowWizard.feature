@@ -167,7 +167,7 @@ Feature: Defense Flow Forensic Wizard
       | "system df management-ip set " |
       | #dfIP                          |
 
-  @SID_20
+  @SID_20 @Sanity
   Scenario: Logout
     When UI logout and close browser
     Then CLI Check if logs contains

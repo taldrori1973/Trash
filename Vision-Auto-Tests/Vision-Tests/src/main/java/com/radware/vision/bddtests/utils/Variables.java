@@ -14,9 +14,20 @@ public class Variables extends TestBase {
 
         String value = "";
 
-        switch (variable) {
-            case "dfIP": value = getDfIP(); break;
-            case "visionIP":  value = getVisionIP(); break;
+        if(variable.contains(":"))
+        {
+            String[] varSplit = variable.split(":", 2);
+            switch (varSplit[0].toLowerCase())
+            {
+                case "setid": value=getSutManager().getTreeDeviceManagement(varSplit[1]).get().getManagementIp();break;
+            }
+        }
+        else
+        {
+            switch (variable) {
+                case "dfIP": value = getDfIP(); break;
+                case "visionIP":  value = getVisionIP(); break;
+            }
         }
 
         variablesHash.put(variable, value);
