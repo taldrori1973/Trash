@@ -226,7 +226,7 @@ Feature: AMS and ADC Analytics Users
     When UI "Create" Alerts With Name "Alert Delivery"
       | Product    | DefensePro                                                                                                                  |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
-      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Modified];                                                                  |
+      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Modified];                                                                 |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                                                                                           |
       | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
     And Sleep "10"
@@ -251,11 +251,10 @@ Feature: AMS and ADC Analytics Users
   Scenario: create new Forensics_DP and validate
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "Forensics_DP"
-      | Product               | DefensePro                                                                                                                 |
-      | Application           | All                                                                                                                        |
-      | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
-      | Format                | Select: CSV                                                                                                                |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware           |
+      | Product     | DefensePro                                                                                                          |
+      | Application | All                                                                                                                 |
+      | Format      | Select: CSV                                                                                                         |
+      | Share       | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
 
   @SID_22
   Scenario: Forensic New Category Validate ForensicsView
