@@ -281,6 +281,13 @@ public class RadwareServerCli extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
+        p.setPrompt("Confirm to clear the access list? (y/n)");
+        p.setStringToSend("y");
+        p.setCommandEnd(false);
+        p.setAddEnter(true);
+        prompts.add(p);
+
+        p = new Prompt();
         p.setPrompt("Sleeping 30 seconds before reboot.");
         p.setCommandEnd(true);
         prompts.add(p);

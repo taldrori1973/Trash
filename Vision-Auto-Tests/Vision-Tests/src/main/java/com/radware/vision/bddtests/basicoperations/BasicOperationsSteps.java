@@ -231,6 +231,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
             throw new Exception("Failed to Log Out");
         }
         VisionWebUIUtils.loggedinUser = null;
+        refreshPage();
     }
 
     public static void logoutRestInfra() throws Exception {
@@ -257,9 +258,6 @@ public class BasicOperationsSteps extends VisionUITestBase {
             BaseTestUtils.report("failed to logout" + e.getMessage(), Reporter.FAIL);
         } finally {
             BasicOperationsHandler.delay(1);
-            //todo
-            //temproray until bug resolve (remove closeBrower)
-//            WebUIUtils.closeBrowser();
         }
     }
 

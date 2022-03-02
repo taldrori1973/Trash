@@ -37,20 +37,22 @@ public class InvokeMethod {
         String method = matcher.group(1);
         Object[] params = matcher.group(2).split(",");
 
-        String className;
+        String className, invokeValue = "";
         switch (method) {
             //converts from device set_id -> IP to hex
             case "convertIpToHexa":
                 className = "com.radware.vision.bddtests.utils.SimulatorUtils";
                 Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagement(String.valueOf(params[0]));
-                String replace = (String) generate(className, method, deviceOpt.get().getManagementIp());
-                return originStr.replace(matcher.group(0), replace);
+                invokeValue = (String) generate(className, method, deviceOpt.get().getManagementIp());
+                break;
             case "getSUTValue":
                 className = "com.radware.vision.bddtests.utils.Variables";
-                return generate(className, method, params);
-            default:
+                invokeValue = (String) generate(className, method, params);
                 break;
+            default:
+                return null;
         }
-        return null;
+
+        return originStr.replace(matcher.group(), invokeValue);
     }
 }

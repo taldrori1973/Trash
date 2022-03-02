@@ -45,7 +45,6 @@ public class RbacSteps {
             if (!failuresOutput.isEmpty())
                 BaseTestUtils.report(failuresOutput, Reporter.FAIL);
         }
-
     }
 
     @After("@Logout")

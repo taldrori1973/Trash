@@ -23,7 +23,7 @@ public class LocalUsersSteps {
      * @param scope
      * @throws Throwable
      */
-    @When("^UI Create New User With User Name \"([^\"]*)\" ,Role \"([^\"]*)\" ,Scope \"([^\"]*)\" ,Password \"([^\"]*)\"$")
+    @When("^UI Create New User With User Name \"([^\"]*)\", Role \"([^\"]*)\", Scope \"([^\"]*)\", Password \"([^\"]*)\"$")
     public void createNewUser(String userName, String role, String scope, String pass) throws Throwable {
 
         if (scope.equals("[ALL]")) {

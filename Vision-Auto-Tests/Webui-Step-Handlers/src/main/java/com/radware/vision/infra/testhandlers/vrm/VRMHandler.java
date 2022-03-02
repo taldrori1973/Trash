@@ -55,6 +55,8 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import java.lang.Math;
+
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
@@ -825,7 +827,7 @@ public class VRMHandler {
             } else {
                 for (DpApplicationFilter entry : entries) {
                     VisionDebugIdsManager.setLabel("Device Selection.Available Device CheckBox");
-                    entry.name = entry.name.trim();
+                    entry.name = (String) invokeMethodFromText(entry.name.trim());
                     VisionDebugIdsManager.setParams(entry.name);
                     checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
 //                    checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + entry.name + "_Label"));
