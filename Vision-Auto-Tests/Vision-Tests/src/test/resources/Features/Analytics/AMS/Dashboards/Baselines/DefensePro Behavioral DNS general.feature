@@ -256,6 +256,13 @@ Feature: DefensePro Behavioral DNS General Tests
       | Design     | {"Add":[{"DNS-A":["IPv4"]},{"DNS-AAAA":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
       | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                                                  |
       | Format     | Select: PDF                                                                                                                                                                                              |
+    Then Sleep "5"
+    Given UI "Edit" Report With Name "DNS Baselines Report"
+      | reportType | DefensePro Behavioral Protections Dashboard                                                                                                                                        |
+      | Design     | {"Add":[{"DNS-A":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
+      | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                            |
+      | Format     | Select: PDF                                                                                                                                                                        |
+    Then Sleep "5"
     Then UI "Generate" Report With Name "DNS Baselines Report"
       | timeOut | 120 |
     Then UI Click Button "Log Preview" with value "DNS Baselines Report_0"
@@ -263,8 +270,6 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-A"
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-A"
-    Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-AAAA"
-    Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-AAAA"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-NAPTR"
