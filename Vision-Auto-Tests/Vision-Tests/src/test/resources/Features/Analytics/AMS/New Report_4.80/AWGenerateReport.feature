@@ -5,8 +5,8 @@ Feature: AWGenerateReport
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Service "config_kvision-collector_1" do action RESTART
-    Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
+    Then CLI Service "config_kvision-reporter_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
 
   @SID_2
   Scenario: old reports on file-system
@@ -44,7 +44,6 @@ Feature: AWGenerateReport
   @SID_5
   Scenario: Login And Copy get_scheduled_report_value.sh File To Server
     Given UI Login with user "radware" and password "radware"
-#    And CLI copy "/home/radware/Scripts/get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
 
   @SID_6
   Scenario: Navigate AMS Report
@@ -55,7 +54,6 @@ Feature: AWGenerateReport
 
   @SID_7
   Scenario: validate attacks by action
-#    Then CLI Run remote linux Command "service iptables stop" on "ROOT_SERVER_CLI"
     Then UI Validate Pie Chart data "Attacks by Action-AppWall" in Report "AwReportGeneration"
       | label    | data |
       | Blocked  | 281  |
@@ -81,12 +79,7 @@ Feature: AWGenerateReport
       | A7    | 60   |
       | A6    | 10   |
 
-#  @SID_10
-#  Scenario: start IPTABLES
-#    Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
-
-  @SID_11
-  Scenario: validate that generate report exist in UI
+  @SID_10
   Scenario: create new OWASP Top 10 1
     Given UI "Create" Report With Name "Automation AppWall Report"
       | Template              | reportType:AppWall , Widgets:[ALL],Applications:[All],showTable:true |
@@ -97,3 +90,7 @@ Feature: AWGenerateReport
 
     Then UI Click Button "Log Preview" with value "Automation AppWall Report_0"
     Then UI Validate generate report with name "Automation AppWall Report" is exist
+
+  @SID_11
+  Scenario: close and clean
+    Then UI logout and close browser
