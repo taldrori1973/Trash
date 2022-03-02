@@ -165,7 +165,7 @@ Feature: DefensePro Analytics CSV Report
 
   @SID_17
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -1 |grep "country,address,count,percent" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Destinations-DefensePro\ Analytics.csv|head -1 |grep "Country,Address,Count,Percent" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_18
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION content
@@ -180,7 +180,7 @@ Feature: DefensePro Analytics CSV Report
 
   @SID_20
   Scenario: VRM report validate CSV file TOP ATTACK SOURCES headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -1 |grep "country,address,count,percent" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top\ Attack\ Sources-DefensePro\ Analytics.csv|head -1 |grep "Country,Address,Count,Percent" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_21
   Scenario: VRM report validate CSV file TOP ATTACK SOURCES content
