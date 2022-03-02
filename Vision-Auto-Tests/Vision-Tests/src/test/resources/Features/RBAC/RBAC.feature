@@ -17,7 +17,7 @@ Feature: RBAC
   @SID_3
   Scenario Outline: Create users and verify
     Given UI Navigate to page "System->User Management->Local Users"
-    When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>"
+    When UI Create New User With User Name "<User Name>", Role "<Role>", Scope "<Scope>", Password "radware"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
 
     Examples:
