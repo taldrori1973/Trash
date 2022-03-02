@@ -2,35 +2,35 @@
 
 Feature: AMS and ADC Analytics Users
 
-#  @SID_1
-#  Scenario: Clear Database and Login And Go to Vision
-#    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
-#    Then CLI Service "config_kvision-reporter_1" do action RESTART
-#    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
-#    * REST Delete ES index "dp-*"
-#    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
-#    Given UI Login with user "radware" and password "radware"
-#    Given UI Go To Vision
-#    Given UI Navigate to page "System->User Management->Local Users"
-#
-#
-#  @SID_2
-#  Scenario Outline: Create users
-#    When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
-#    Then Sleep "15"
-#    Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
-#    Examples:
-#      | User Name       | Role               | Scope | Password        |
-#      | ADC_ANALYTICS_1 | ADC Analytics User | [ALL] | Radware1234!@#$ |
-#      | AMS_ANALYTICS_1 | AMS Analytics User | [ALL] | Radware1234!@#$ |
-#
-#  @SID_3
-#  Scenario: Edit User Management Settings
-#    Then UI Navigate to page "System->User Management->Authentication Mode"
-#    Then UI Select "Local" from Vision dropdown "Authentication Mode"
-#    Then UI Click Button "Submit"
-#    Then Sleep "15"
-#    Then UI logout and close browser
+  @SID_1
+  Scenario: Clear Database and Login And Go to Vision
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Service "config_kvision-reporter_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
+    * REST Delete ES index "dp-*"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
+    Given UI Login with user "radware" and password "radware"
+    Given UI Go To Vision
+    Given UI Navigate to page "System->User Management->Local Users"
+
+
+  @SID_2
+  Scenario Outline: Create users
+    When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
+    Then Sleep "15"
+    Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
+    Examples:
+      | User Name       | Role               | Scope | Password        |
+      | ADC_ANALYTICS_1 | ADC Analytics User | [ALL] | Radware1234!@#$ |
+      | AMS_ANALYTICS_1 | AMS Analytics User | [ALL] | Radware1234!@#$ |
+
+  @SID_3
+  Scenario: Edit User Management Settings
+    Then UI Navigate to page "System->User Management->Authentication Mode"
+    Then UI Select "Local" from Vision dropdown "Authentication Mode"
+    Then UI Click Button "Submit"
+    Then Sleep "15"
+    Then UI logout and close browser
 
   @SID_4
   Scenario: ADC_ANALYTICS_Viewer RBAC Validation
