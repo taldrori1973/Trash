@@ -20,9 +20,9 @@ Feature: AMS and ADC Analytics Users
     Then Sleep "15"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
-      | User Name     | Role               | Scope | Password        |
-      | ADC_ANALYTICS | ADC Analytics User | [ALL] | Radware1234!@#$ |
-      | AMS_ANALYTICS | AMS Analytics User | [ALL] | Radware1234!@#$ |
+      | User Name       | Role               | Scope | Password        |
+      | ADC_ANALYTICS_1 | ADC Analytics User | [ALL] | Radware1234!@#$ |
+      | AMS_ANALYTICS_1 | AMS Analytics User | [ALL] | Radware1234!@#$ |
 
   @SID_3
   Scenario: Edit User Management Settings
