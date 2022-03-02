@@ -530,7 +530,7 @@ public class RemoteSshCommandsTests extends TestBase {
             f.scp("/home/radware/Scripts/restore_radware_user_uvision.sh",
                     ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/");
             CliOperations.runCommand(serversManagement.getRootServerCLI().get(),
-                    "yes | /restore_radware_user_uvision.sh", CliOperations.DEFAULT_TIME_OUT);
+                    "yes | ./restore_radware_user_uvision.sh", CliOperations.DEFAULT_TIME_OUT);
         }
     }
 
