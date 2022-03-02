@@ -80,6 +80,8 @@ public class NewVmHandler extends TestBase {
         try {
             // ToDo - check why setConnectOnInit is true
             this.visionRadwareFirstTime.setConnectOnInit(false);
+            this.visionRadwareFirstTime.setUser(sutManager.getEnviorement().get().getUser());
+            this.visionRadwareFirstTime.setPassword(sutManager.getEnviorement().get().getPassword());
             runCommand(this.visionRadwareFirstTime, "rm -rf " + imagesPath + vmName + ".qcow2");
             runCommand(this.visionRadwareFirstTime, "cd " + imagesPath);
             runCommand(this.visionRadwareFirstTime, "curl -o " + vmName + ".qcow2 " + fileUrl, 60 * 60 * 1000);
