@@ -182,12 +182,13 @@ Feature: AMS and ADC Analytics Users
       | Template | DefenseFlow Analytics             | true  |
       | Template | AppWall                           | false |
       | Template | ERT Active Attackers Feed         | true  |
+    Then UI Click Button "Close Edit Tab"
 
 
   @SID_14
   Scenario: generate report
     Then UI "Generate" Report With Name "AMSReport"
-      | timeOut | 60 |
+      | timeOut | 120 |
     Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.zip' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
@@ -203,7 +204,7 @@ Feature: AMS and ADC Analytics Users
     Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
   @SID_16
-  Scenario: Edit report to HTML format and Validate Generated Report
+  Scenario: Edit report to PDF format and Validate Generated Report
     Then UI "Edit" Report With Name "AMSReport"
       | Format | Select: PDF |
     Then UI "Validate" Report With Name "AMSReport"
@@ -225,7 +226,7 @@ Feature: AMS and ADC Analytics Users
     When UI "Create" Alerts With Name "Alert Delivery"
       | Product    | DefensePro                                                                                                                  |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
-      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Blocked];                                                                  |
+      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Modified];                                                                  |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                                                                                           |
       | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
     And Sleep "10"
@@ -235,7 +236,7 @@ Feature: AMS and ADC Analytics Users
     Then UI Click Button "Add New"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
       | label          | param      | value |
-      | Product Button | defensepro | ture  |
+      | Product Button | defensepro | true  |
       | Product Button | appwall    | false |
     Then UI Click Button "Close"
 
@@ -254,7 +255,6 @@ Feature: AMS and ADC Analytics Users
       | Application           | All                                                                                                                        |
       | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
       | Format                | Select: CSV                                                                                                                |
-      | Time Definitions.Date | Quick:Today                                                                                                                |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware           |
 
   @SID_22
