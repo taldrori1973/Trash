@@ -487,7 +487,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     public String generateReportAndGetReportID(String reportName, String... args) {
 
         FormatterRestApi formatterRestApi = new FormatterRestApi("HTTP://" + hostIp, 3002, "Vision/generateReport.json", "Generate Report");
-        formatterRestApi.getRestRequestSpecification().setBody(((args == null || args[0] == null)?new ReportsDefinitions():new ReportsDefinitionsSimulators(args[0])).getJsonDefinition(reportName).toString());
+        formatterRestApi.getRestRequestSpecification().setBody(Objects.requireNonNull(ReportsDefinitionsFactory.getReportsDefinitions(args)).getJsonDefinition(reportName).toString());
         return formatterRestApi.sendRequest().getStatusCode().getReasonPhrase();
     }
 
