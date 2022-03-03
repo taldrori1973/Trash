@@ -20,10 +20,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Report extends ReportsForensicsAlertsAbstract {
