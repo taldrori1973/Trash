@@ -20,10 +20,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Report extends ReportsForensicsAlertsAbstract {
@@ -487,7 +484,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     public String generateReportAndGetReportID(String reportName, String... args) {
 
         FormatterRestApi formatterRestApi = new FormatterRestApi("HTTP://" + hostIp, 3002, "Vision/generateReport.json", "Generate Report");
-        formatterRestApi.getRestRequestSpecification().setBody(((args == null || args[0] == null)?new ReportsDefinitions():new ReportsDefinitionsSimulators(args[0])).getJsonDefinition(reportName).toString());
+        formatterRestApi.getRestRequestSpecification().setBody(Objects.requireNonNull(ReportsDefinitionsFactory.getReportsDefinitions(args)).getJsonDefinition(reportName).toString());
         return formatterRestApi.sendRequest().getStatusCode().getReasonPhrase();
     }
 

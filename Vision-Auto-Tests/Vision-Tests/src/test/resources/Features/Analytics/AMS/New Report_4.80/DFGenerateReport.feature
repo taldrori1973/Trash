@@ -106,10 +106,6 @@ Feature: DFGenerateReport
       | "system df management-ip set " |
       | #dfIP                          |
 
-  @SID_10
-  Scenario: start IPTABLES
-    #Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
-
 
 
 
