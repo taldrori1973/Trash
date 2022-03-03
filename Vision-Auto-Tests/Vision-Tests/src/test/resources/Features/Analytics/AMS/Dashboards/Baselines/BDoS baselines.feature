@@ -1,4 +1,4 @@
-@VRM_BDoS_Baseline @TC105987
+@VRM_BDoS_Baseline @TC105987 
 
 Feature: VRM BDoS baselines
 
@@ -33,6 +33,7 @@ Feature: VRM BDoS baselines
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | pol_1    |
 
+  
   @SID_4
   Scenario: BDoS baseline TCP-SYN IPv4 In bps
     Then Sleep "2"
@@ -3111,8 +3112,8 @@ Feature: VRM BDoS baselines
       | DefensePro_Set_1 |       | policy1  |
     Then Sleep "1"
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
-      | value | count | offset |
-      | null  | 31    | 31     |
+      | value             |
+      | No Data Available |
     # Then UI Validate Session Storage "BDoS-TCP SYN" exists "true"
     Then UI Navigate to "VISION SETTINGS" page via homePage
     And UI logout and close browser
