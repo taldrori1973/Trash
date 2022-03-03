@@ -500,7 +500,13 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_21 @Sanity
+  @SID_21
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_22 @Sanity
   Scenario: Cleanup
     Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
