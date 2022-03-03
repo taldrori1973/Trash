@@ -1,7 +1,6 @@
 {
   "setupFile": "fullSetup.json",
   "serverName": "uvision_auto",
-  "defenseFlow": "DF_172.17.154.50",
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",
