@@ -90,7 +90,7 @@ public class VRMHandler {
     {
 
         jsonMap = new HashMap<String, String>();
-        jsonMap.put("data","No Data Available");
+        jsonMap.put("data",item);
 
     }
 
