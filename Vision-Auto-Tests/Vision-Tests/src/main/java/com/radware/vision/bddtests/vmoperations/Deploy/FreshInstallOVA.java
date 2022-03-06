@@ -25,7 +25,7 @@ public class FreshInstallOVA extends FreshInstall {
     @Override
     public void deploy() {
         // init firstTimeWizardOva parameters
-        String vmName = getSutManager().getServerName();
+        String vmName = String.format("%s_%s", getSutManager().getServerName(), getSutManager().getClientConfigurations().getHostIp());
         if (vmName == null) {
             BaseTestUtils.report("Can't find \"vmPrefix\" at SUT File", Reporter.FAIL);
         }

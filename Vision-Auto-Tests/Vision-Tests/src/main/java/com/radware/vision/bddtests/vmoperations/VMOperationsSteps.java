@@ -189,10 +189,12 @@ public class VMOperationsSteps extends VisionUITestBase {
 
     private void preFreshInstall() {
         NewVmSteps newVmSteps = new NewVmSteps();
+        NewVmHandler handler = new NewVmHandler();
         String vmPrefix = getVisionSetupAttributeFromSUT("vmPrefix");
+        String vmName = String.format("%s_%s", vmPrefix, handler.visionRadwareFirstTime.getIp());
         if (vmPrefix == null) throw new NullPointerException("Can't find \"vmPrefix\" at SUT File");
         List<String> columnName = Collections.singletonList("VmMachinePrefix");
-        List<String> value = Collections.singletonList(vmPrefix);
+        List<String> value = Collections.singletonList(vmName);
         List<List<String>> row = Arrays.asList(columnName, value);
         DataTable dataTable = DataTable.create(row, Locale.getDefault(), "VmMachinePrefix");
         newVmSteps.StopMachine(dataTable);
