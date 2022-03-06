@@ -9,12 +9,13 @@ Feature: AW Analytics User RBAC
     * REST Delete ES index "dp-*"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
-    Given UI Login with user "radware" and password "radware"
-    Given UI Go To Vision
-    Given UI Navigate to page "System->User Management->Local Users"
+
 
   @SID_2
   Scenario Outline: Create users and verify
+    Given UI Login with user "radware" and password "radware"
+    Given UI Go To Vision
+    Given UI Navigate to page "System->User Management->Local Users"
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
@@ -51,7 +52,7 @@ Feature: AW Analytics User RBAC
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | no       |
-
+    Then UI Click Button "General Header"
 
   @SID_5
   Scenario: Create a new Report and Validate Exictance

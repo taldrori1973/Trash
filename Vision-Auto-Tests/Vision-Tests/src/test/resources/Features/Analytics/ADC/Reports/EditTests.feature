@@ -42,18 +42,18 @@ Feature: Edit ADC Report tests
   @SID_5
   Scenario: Edit Template Applications from ADC Report Report
     Given UI "Edit" Report With Name "ADC Report"
-      | Template-2 | reportType:System and Network,Applications:[Alteon_172.17.164.18] |
+      | Template-2 | reportType:System and Network,Applications:[Alteon_172.17.164.17] |
     Then UI "Validate" Report With Name "ADC Report"
-      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
+      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
 
   @SID_6
   Scenario:Add Template to ADC Report Report
     Given UI "Edit" Report With Name "ADC Report"
-      | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
+      | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
     Then UI "Validate" Report With Name "ADC Report"
       | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
-      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
-      | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
+      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Template-3 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
 
   @SID_7
   Scenario: Delete Template from ADC Report
@@ -61,7 +61,7 @@ Feature: Edit ADC Report tests
       | Template-3 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "ADC Report"
       | Template-1 | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326516:80]                             |
-      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.18] |
+      | Template-2 | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
 
   @SID_8
   Scenario: Create and validateADC Report2
