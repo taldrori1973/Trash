@@ -39,7 +39,7 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_5
   Scenario: Validate Num of attacks per IP
 # Validate Num of attacks per IP
-    Then UI Click Button "Events" with value "Top-Attacking-Geolocations"
+    Then UI Click Button "Attacks" with value "Top-Attacking-Geolocations"
     Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "192"
     Then UI Validate Text field "TOTAL Country Events value" with params "1" EQUALS "134"
     Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "103"
@@ -58,7 +58,7 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Text of "Country bar" with extension "5" equal to "Mexico"
 
 # validate values ordering
-    Then UI Validate elements "TOTAL Country Events value" with params "" are sorting Descending by "Numerical"
+    Then UI Validate elements "TOTAL Country Events value" with params "47 K" are sorting Descending by "Numerical"
 
   @SID_7
   Scenario: Validate Top Attacking Countries Widget - Packets
@@ -79,7 +79,7 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "2 K" with offset 2
 
   @SID_9
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness1
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Costa Rica"
     Then UI Text of "Country bar" with extension "1" equal to "United States"
@@ -114,7 +114,7 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "2 M" with offset 2
 
   @SID_12
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness2
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Costa Rica"
     Then UI Text of "Country bar" with extension "1" equal to "United States"
@@ -128,7 +128,7 @@ Feature: EAAF Widget - Top Country Statistics
 
   @SID_13
   Scenario: Validate max amount of 6 Countries exists in Top Attacking Countries Widget
-    Then UI Click Button "Events" with value "Top-Attacking-Geolocations"
+    Then UI Click Button "Attacks" with value "Top-Attacking-Geolocations"
     Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "6"
     Then UI Validate Element Existence By Label "Country bar" if Exists "false" with value "6"
     Then UI Click Button "Packets" with value "Top-Attacking-Geolocations"
@@ -146,13 +146,13 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Validate Element Existence By Label "Country bar" if Exists "false" with value "1"
 
   @SID_15
-  Scenario: Top Attacking Countries check values
+  Scenario: Top Attacking Countries check values1
 # check values
     Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "387 K"
     Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "1"
 
   @SID_16
-  Scenario: Top Attacking Countries Validate IP addresses correctness
+  Scenario: Top Attacking Countries Validate IP addresses correctness1
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Mexico"
     Then UI Validate Element Existence By Label "Country bar" if Exists "false" with value "1"
@@ -166,13 +166,13 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Validate Element Existence By Label "Country bar" if Exists "false" with value "1"
 
   @SID_18
-  Scenario: Top Attacking Countries check values
+  Scenario: Top Attacking Countries check values2
 # check values
     Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "387"
     Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "1"
 
   @SID_19
-  Scenario: Top Attacking Countries check values
+  Scenario: Top Attacking Countries check values3
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Mexico"
     Then UI Validate Element Existence By Label "Country bar" if Exists "false" with value "1"
@@ -180,19 +180,19 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_20
   Scenario: Top Attacking Countries check Events TAB
 #check Events TAB
-    Then UI Click Button "Events" with value "Top-Attacking-Geolocations"
+    Then UI Click Button "Attacks" with value "Top-Attacking-Geolocations"
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Country bar" With Params "0" is "EQUALS" to "100.00%"
     Then UI Validate Element Existence By Label "Country bar" if Exists "false" with value "8"
 
   @SID_21
-  Scenario: Top Attacking Countries check values
+  Scenario: Top Attacking Countries check values4
 # check values
     Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "6"
     Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "1"
 
   @SID_22
-  Scenario: Top Attacking Countries Validate IP addresses correctness
+  Scenario: Top Attacking Countries Validate IP addresses correctness2
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Mexico"
     Then UI Validate Element Existence By Label "Country bar" if Exists "false" with value "1"
