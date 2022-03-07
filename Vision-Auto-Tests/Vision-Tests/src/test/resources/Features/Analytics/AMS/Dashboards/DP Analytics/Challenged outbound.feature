@@ -9,7 +9,7 @@ Feature: Challenged outbound
 
   @SID_2
   Scenario: attack challenged_inbound_test
-    Given CLI simulate 100 attacks of type "challenged_outbound_test" on "DefensePro" 22 with loopDelay 1500 and wait 120 seconds
+    Given CLI simulate 100 attacks of type "challenged_outbound_test" on "DefensePro" 13 with loopDelay 1500 and wait 120 seconds
     Then Sleep "15"
     * CLI kill all simulator attacks on current vision
 #
