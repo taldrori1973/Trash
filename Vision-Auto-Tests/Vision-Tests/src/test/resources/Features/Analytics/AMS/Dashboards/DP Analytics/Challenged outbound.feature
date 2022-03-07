@@ -1,4 +1,4 @@
-@chall
+@TC125659
 Feature: Challenged outbound
 
   @SID_1
@@ -9,7 +9,7 @@ Feature: Challenged outbound
 
   @SID_2
   Scenario: attack challenged_inbound_test
-    Given CLI simulate 100 attacks of type "challenged_outbound_test" on "DefensePro" 22 with loopDelay 1500 and wait 120 seconds
+    Given CLI simulate 100 attacks of type "challenged_outbound_test" on SetId "DefensePro_Set_22" with loopDelay 1500
     Then Sleep "15"
     * CLI kill all simulator attacks on current vision
 #
@@ -26,7 +26,7 @@ Feature: Challenged outbound
     Then Sleep "65"
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "ingress"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
       | value | count | offset |
       | 0     | 8     | 2      |
 
@@ -36,12 +36,12 @@ Feature: Challenged outbound
   @SID_5
   Scenario: check bps with outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "ingress"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
-    Then UI Validate Text field "max monitoring" EQUALS "Max 83.5 M "
-    Then UI Validate Text field "min monitoring" EQUALS "Min 83.42 M "
+    Then UI Validate Text field "max monitoring" EQUALS "83.5 M"
+    Then UI Validate Text field "min monitoring" EQUALS "83.42 M"
 
   @SID_6
   Scenario: check pps with inbound
@@ -56,17 +56,17 @@ Feature: Challenged outbound
   @SID_7
   Scenario: check pps with outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "ingress"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "Max84.17 K"
-    Then UI Validate Text field "min monitoring" EQUALS "Min84.09 K"
+    Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
+    Then UI Validate Text field "min monitoring" EQUALS "84.09 K"
 
   @SID_8
   Scenario: choose device from scope selection
     Given UI Click Button "Device Selection"
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:22 |
+      | devices | type:DefensePro Analytics,setId:DefensePro_Set_22,policies:[Policy_4993@000010-00005-0] |
 
   @SID_9
   Scenario: check bps with inbound
@@ -81,30 +81,31 @@ Feature: Challenged outbound
   @SID_10
   Scenario: check bps with outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "ingress"
-      | value | count | offset |
-      | 83470.0    | 8     | 2      |
-    Then UI Validate Text field "max monitoring" EQUALS "Max83.5M"
-    Then UI Validate Text field "min monitoring" EQUALS "Min83.42M"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 83470.0 | 2     | 5      |
+
+    Then UI Validate Text field "max monitoring" EQUALS "83.5 M"
+    Then UI Validate Text field "min monitoring" EQUALS "83.42 M"
 
   @SID_11
   Scenario: check pps with inbound
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "ingress"
-      | value   | count | offset |
-      | 0 | 8     | 2      |
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 8     | 2      |
     Then UI Validate Text field "max monitoring" EQUALS "Max 0.0"
     Then UI Validate Text field "min monitoring" EQUALS "Min 0.0"
 
   @SID_12
   Scenario: check pps with outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "ingress"
-      | value | count | offset |
-      | 84151.0    | 2     |5      |
-    Then UI Validate Text field "max monitoring" EQUALS "Max84.17K"
-    Then UI Validate Text field "min monitoring" EQUALS "Min84.09 K"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 84151.0 | 2     | 5      |
+    Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
+    Then UI Validate Text field "min monitoring" EQUALS "84.09 K"
 
           ############# second drill of monitoring dashboard ###############
 
@@ -119,48 +120,43 @@ Feature: Challenged outbound
 
   @SID_14
   Scenario: check bps with inbound
-    Given UI Do Operation "Select" item "Global Time Filter"
-    Then Sleep "30"
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
-      | value   | count | offset |
-      | 1459480 | 8     | 2      |
+      | value | count | offset |
+      | 0     | 8     | 2      |
 
-    Then UI Validate Text field "max monitoring" EQUALS "Max 0.0"
-    Then UI Validate Text field "min monitoring" EQUALS "Min 0.0"
+    Then UI Validate Text field "max monitoring" EQUALS "Max 0"
+    Then UI Validate Text field "min monitoring" EQUALS "Min 0"
 
   @SID_15
   Scenario: check bps with outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 0     | 0      |
-    Then UI Validate Text field "max monitoring" EQUALS "Max 0.0"
-    Then UI Validate Text field "min monitoring" EQUALS "Min 0.0"
+      | value   | count | offset |
+      | 83470.0 | 2     | 5      |
+
+    Then UI Validate Text field "max monitoring" EQUALS "83.5 M"
+    Then UI Validate Text field "min monitoring" EQUALS "83.42 M"
 
   @SID_16
   Scenario: check pps with inbound
-    Given UI Do Operation "Select" item "Global Time Filter"
-    Then Sleep "30"
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
-      | value   | count | offset |
-      | 1459480 | 8     | 2      |
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "ingress"
+      | value | count | offset |
+      | 0     | 8     | 2      |
     Then UI Validate Text field "max monitoring" EQUALS "Max 0.0"
     Then UI Validate Text field "min monitoring" EQUALS "Min 0.0"
 
   @SID_17
   Scenario: check pps with outbound
-    Given UI Do Operation "Select" item "Global Time Filter"
-    Then Sleep "30"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 0     | 0      |
-    Then UI Validate Text field "max monitoring" EQUALS "Max 0.0"
-    Then UI Validate Text field "min monitoring" EQUALS "Min 0.0"
+      | value   | count | offset |
+      | 84151.0 | 2     | 5      |
+    Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
+    Then UI Validate Text field "min monitoring" EQUALS "84.09 K"
 
 
 
@@ -188,32 +184,34 @@ Feature: Challenged outbound
   Scenario: validate traffic bandwidth bps+outbound
     When UI Click Button "outboundSwitch"
 
-    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
-      | value | min |
-      | 0     | 5   |
-    Then UI Validate Text field "max attacks" EQUALS "Max 0.0"
-    Then UI Validate Text field "min attacks" EQUALS "Min 0.0"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 83470.0 | 2     | 5      |
+
+    Then UI Validate Text field "max attacks" EQUALS "83.5 M"
+    Then UI Validate Text field "min attacks" EQUALS "83.42 M"
 
   @SID_21
   Scenario: validate traffic bandwidth pps+outbound
     When UI Click Button "outboundSwitch"
     When UI Click Button "ppsSwitch"
 
-    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
-      | value | min |
-      | 0     | 5   |
-
-    Then UI Validate Text field "max attacks" EQUALS "Max 0.0"
-    Then UI Validate Text field "min attacks" EQUALS "Min 0.0"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 84151.0 | 2     | 5      |
+    Then UI Validate Text field "max attacks" EQUALS "84.17 K"
+    Then UI Validate Text field "min attacks" EQUALS "84.09 K"
 
   @SID_22
   Scenario: validate traffic bandwidth pps+inbound
     When UI Click Button "inboundSwitch"
     When UI Click Button "ppsSwitch"
 
-    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
-      | value | min |
-      | 0     | 5   |
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 8     | 2      |
+    Then UI Validate Text field "max attacks" EQUALS "Max 0.0"
+    Then UI Validate Text field "min attacks" EQUALS "Min 0.0"
 
   @SID_23
   Scenario:  validate tables for SYNFlood
@@ -270,104 +268,92 @@ Feature: Challenged outbound
   Scenario: check bps with inbound
     Then UI Do Operation "Select" item "Traffic Bandwidth bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
-      | value   | count | offset |
-      | 83730.0 | 1     | 4      |
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 8     | 2      |
 
-    Then UI Validate Text field "max analytics" EQUALS "Max 83745.0"
-    Then UI Validate Text field "min analytics" EQUALS "Min 0.0"
+    Then UI Validate Text field "max analytics" EQUALS "Max 0"
+    Then UI Validate Text field "min analytics" EQUALS "Min 0"
 
   @SID_28
   Scenario: check bps with outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 0     | 0      |
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 83470.0 | 2     | 5      |
 
-    Then UI Validate Text field "max analytics" EQUALS "Max 0.0"
-    Then UI Validate Text field "min analytics" EQUALS "Min 0.0"
+    Then UI Validate Text field "max analytics" EQUALS "83.5 M"
+    Then UI Validate Text field "min analytics" EQUALS "83.42 M"
 
   @SID_29
   Scenario: check pps with inbound
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
-      | value   | count | offset |
-      | 84164.0 | 1     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "84.31 K"
-    Then UI Validate Text field "min analytics" EQUALS "Min 0.0"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 8     | 2      |
+
+    Then UI Validate Text field "max analytics" EQUALS "Max 0"
+    Then UI Validate Text field "min analytics" EQUALS "Min 0"
 
   @SID_30
   Scenario: check pps with outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 5     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "Max 0.0"
-    Then UI Validate Text field "min analytics" EQUALS "Min 0.0"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 84151.0 | 2     | 5      |
+    Then UI Validate Text field "max analytics" EQUALS "84.17 K"
+    Then UI Validate Text field "min analytics" EQUALS "84.09 K"
 
   @SID_31
   Scenario: choose device and policy from scope selection
     Given UI Click Button "Device Selection"
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:22,policies:[Policy_4993@000010-00005-0] |
+      | devices | type:DefensePro Analytics,setId:DefensePro_Set_22,policies:[Policy_4993@000010-00005-0] |
 
   @SID_32
   Scenario: check bps with inbound
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
-      | value   | count | offset |
-      | 1459480 | 8     | 2      |
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 8     | 2      |
 
-    Then UI Validate Text field "max analytics" EQUALS "Max 83745.0"
-    Then UI Validate Text field "min analytics" EQUALS "Min 0.0"
+    Then UI Validate Text field "max analytics" EQUALS "Max 0"
+    Then UI Validate Text field "min analytics" EQUALS "Min 0"
 
   @SID_33
   Scenario: check bps with outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 0     | 0      |
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 83470.0 | 2     | 5      |
 
-    Then UI Validate Text field "max analytics" EQUALS "Max 83745.0"
-    Then UI Validate Text field "min analytics" EQUALS "Min 0.0"
+    Then UI Validate Text field "max analytics" EQUALS "83.5 M"
+    Then UI Validate Text field "min analytics" EQUALS "83.42 M"
 
   @SID_34
   Scenario: check pps with inbound
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
-      | value   | count | offset |
-      | 1459480 | 8     | 2      |
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 8     | 2      |
 
-    Then UI Validate Text field "max analytics" EQUALS "Max 83745.0"
-    Then UI Validate Text field "min analytics" EQUALS "Min 0.0"
+    Then UI Validate Text field "max analytics" EQUALS "Max 0"
+    Then UI Validate Text field "min analytics" EQUALS "Min 0"
 
   @SID_35
   Scenario: check pps with outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 0     | 0      |
-    Then UI Validate Text field "max analytics" EQUALS "Max 83745.0"
-    Then UI Validate Text field "min analytics" EQUALS "Min 0.0"
+    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 84151.0 | 2     | 5      |
+    Then UI Validate Text field "max analytics" EQUALS "84.17 K"
+    Then UI Validate Text field "min analytics" EQUALS "84.09 K"
 
 
     ############################## AMS Reports #################################
-
-  @SID_36
-  Scenario: Clean data System
-    * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-*"
-    * CLI Clear vision logs
-
-
-  @SID_37
-  Scenario: to be edited when we got the relevant pcap
-    Given CLI simulate 1000 attacks of type "challenged_inbound_test" on "DefensePro" 22 and wait 120 seconds
-    Then Sleep "30"
-
 
   @SID_38
   Scenario: keep reports copy on file system
@@ -399,15 +385,16 @@ Feature: Challenged outbound
   @SID_42
   Scenario: Create and Generate New Report trafficBandwidth report
     Then UI Navigate to "AMS REPORTS" page via homepage
+    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "trafficBandwidth report"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pbs,Inbound,Policy_4993@000010-00005-0]}]}], devices:[deviceIndex:22] |
-      | Format   | Select: PDF                                                                                                     |
-    Then UI "Validate" Report With Name "trafficBandwidth report"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pbs,Inbound,Policy_4993@000010-00005-0]}]}], devices:[deviceIndex:22] |
-      | Format   | Select: PDF                                                                                                     |
+      | Template | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth}], devices:[{setId:DefensePro_Set_22, devicePolicies:[Policy_4993@000010-00005-0]}] |
+      | Format   | Select: PDF                                                                                                                                      |
+    Then UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 2"
+      | Template | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth}], devices:[{setId:DefensePro_Set_22, devicePolicies:[Policy_4993@000010-00005-0]}] |
+      | Format   | Select: PDF                                                                                                                                      |
+
     Then UI Click Button "My Report" with value "trafficBandwidth report"
     Then UI Click Button "Generate Report Manually" with value "trafficBandwidth report"
-    Then Sleep "35"
 
   @SID_43
 
@@ -416,8 +403,8 @@ Feature: Challenged outbound
       | Format | Select:HTML |
 
     Then UI "Validate" Report With Name "trafficBandwidth report"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,Policy_4993@000010-00005-0]}]}], devices:[deviceIndex:10] |
-      | Format   | Select:HTML                                                                                                     |
+      | Template | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth}], devices:[{setId:DefensePro_Set_22, devicePolicies:[Policy_4993@000010-00005-0]}]] |
+      | Format   | Select:HTML                                                                                                                              |
 
     Then UI Click Button "My Report" with value "trafficBandwidth report"
     Then UI Click Button "Generate Report Manually" with value "trafficBandwidth report"
@@ -429,8 +416,8 @@ Feature: Challenged outbound
       | Format | Select: CSV |
 
     Then UI "Validate" Report With Name "trafficBandwidth report"
-      | Template | reportType:DefensePro Analytics,Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,Policy_4993@000010-00005-0]}]}], devices:[deviceIndex:10]|
-      | Format   | Select: CSV                                                                                                     |
+      | Template | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth}], devices:[{setId:DefensePro_Set_22, devicePolicies:[Policy_4993@000010-00005-0]}] |
+      | Format   | Select: CSV                                                                                                                             |
 
     Then UI Click Button "My Report" with value "trafficBandwidth report"
     Then UI Click Button "Generate Report Manually" with value "trafficBandwidth report"
@@ -456,7 +443,6 @@ Feature: Challenged outbound
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "maxTrafficValue"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "policyName"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "maxDiscards"
-
 
 
   @SID_48
