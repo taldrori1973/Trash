@@ -61,6 +61,10 @@
             <name>auto-common-infra-release</name>
             <url>http://bldartifactory:8081/artifactory/list/auto-common-infra-release/</url>
         </repository>
+<!--        <repository>-->
+<!--            <id>maven2</id>-->
+<!--            <url>https://repo.maven.apache.org/maven2/</url>-->
+<!--        </repository>-->
         <repository>
             <id>vision-artifactory</id>
             <name>vision-artifactory-snapshots</name>
@@ -96,6 +100,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <artifactId>APSoluteVision-Automation</artifactId>
+                <groupId>com.radware.vision.automation</groupId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
                 <version>${jackson.version}</version>
@@ -107,9 +116,91 @@
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>2.4.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jsch</artifactId>
+                <version>0.1.54</version>
+                <!--            <scope>compile</scope>-->
+            </dependency>
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>Auto-Utils</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>CLI-Infra</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>Database-Infra</artifactId>
+                <version>${revision}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>Rest-Step-Handlers</artifactId>
+                <version>${revision}</version>
+                <!--            <scope>compile</scope>-->
+            </dependency>
+            <dependency>
+                <groupId>com.radware.vision.automation.rest</groupId>
+                <artifactId>testinfra</artifactId>
+                <version>${rest.base}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.radware.vision.automation.tools</groupId>
+                <artifactId>license-keys-repository</artifactId>
+                <version>DEVELOPMENT-1.0-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.radware.vision.automation.tools</groupId>
+                <artifactId>utils</artifactId>
+                <version>DEVELOPMENT-1.0-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.vmware</groupId>
+                <artifactId>vijava</artifactId>
+                <version>5.1</version>
+                <scope>compile</scope>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.rest-assured</groupId>-->
+<!--                <artifactId>json-schema-validator</artifactId>-->
+<!--                <version>${rest-assured-version}</version>-->
+<!--            </dependency>-->
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>${rest-assured-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>1.21</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.9</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsystemtest</groupId>
+                <artifactId>jsystemCore</artifactId>
+                <version>${jsystem.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsystemtest.systemobjects</groupId>
+                <artifactId>cli</artifactId>
+                <version>${jsystem.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.modelmapper</groupId>
@@ -120,6 +211,18 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.10</version>
+<!--                <scope>provided</scope>-->
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>6.10</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <artifactId>Vision-Auto-Infra</artifactId>
+                <groupId>com.radware.vision.automation</groupId>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

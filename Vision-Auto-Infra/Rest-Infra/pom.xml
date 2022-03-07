@@ -19,14 +19,14 @@
     <repositories>
         <repository>
             <id>maven2</id>
-            <url>https://repo.maven.apache.org/maven2/</url>
+            <url>http://bldartifactory:8081/artifactory/list/alteon-test-auto-rexternals/</url>
         </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>${rest-assured-version}</version>
+<!--            <version>${rest-assured-version}</version>-->
         </dependency>
 
         <dependency>
@@ -40,19 +40,19 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>2.4.0</version>
+<!--            <version>2.4.0</version>-->
         </dependency>
 
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.10</version>
-            <scope>test</scope>
+<!--            <version>6.10</version>-->
+<!--            <scope>test</scope>-->
         </dependency>
     </dependencies>
 

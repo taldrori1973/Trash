@@ -15,14 +15,14 @@
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Utils</artifactId>
-            <version>${revision}</version>
-            <scope>compile</scope>
+<!--            <version>${revision}</version>-->
+<!--            <scope>compile</scope>-->
         </dependency>
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
-            <version>0.1.54</version>
-            <scope>compile</scope>
+<!--            <version>0.1.54</version>-->
+<!--            <scope>compile</scope>-->
         </dependency>
     </dependencies>
 
