@@ -1,8 +1,6 @@
 {
   "setupFile": "Setup_ADC_1.json",
   "serverName": "uvision_auto",
-  "simulatorSet" : "sim_set_1",
-  "loadSimulators" : "true",
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",

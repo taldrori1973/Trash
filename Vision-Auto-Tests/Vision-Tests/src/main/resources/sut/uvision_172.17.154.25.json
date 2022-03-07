@@ -1,8 +1,6 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_Sanity_1.json",
   "serverName": "uvision_auto",
-  "simulatorSet" : "sim_set_4",
-  "loadSimulators" : "true",
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",

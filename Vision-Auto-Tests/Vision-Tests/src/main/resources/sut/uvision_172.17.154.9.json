@@ -1,6 +1,6 @@
 {
   "serverName": "uvision_fresh_ova",
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_AMS_7.json",
   "pair": {
     "pairIp": "172.17.164.101",
     "environment": "OVA-220"
