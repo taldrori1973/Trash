@@ -39,10 +39,13 @@ public class SutService {
         this.modelMapper = new ModelMapper();
         this.devicesDao = DevicesDao.get_instance();
         this.sutDao = SutDao.get_instance();
-        if (this.sutDao.isLoadSimulators()) {
-            this.devicesDao.addSimulatorsBySetId(sutDao.getSimulators());
-        }
+//        if (this.sutDao.isLoadSimulators()) {
+//            this.devicesDao.addSimulatorsBySetId(sutDao.getSimulators());
+//        }
         this.setupDao = SetupDao.get_instance(sutDao.getSetupFileName());
+        if (this.setupDao.isLoadSimulators()) {
+            this.devicesDao.addSimulatorsBySetId(setupDao.getSimulators());
+        }
         serverNameDao = sutDao.getServerName();
         this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
         this.environmentsDao = EnvironmentsDao.get_instance();

@@ -5,7 +5,8 @@ Feature: Sapro Communication
     Given From map "Danny" start devices
       | 50.50.150.200 |
       | 50.50.150.201 |
-
+    Given From map "Automation_Machines" modify devices
+      | 50.50.100.4 |
     Given Play File "Alteon_LP_32.6.5.0_TEST.xmf" in device "50.50.101.101" from map "Automation_Machines" and wait 20 seconds
 #    Given Start all devices from map "DP_8.13[1-20]"
     Given Start map "Alteon_Scale_2"

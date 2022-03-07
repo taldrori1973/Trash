@@ -1,6 +1,6 @@
 {
   "serverName": "uvision_auto",
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_AMS_3.json",
   "pair": {
     "pairIp": "172.17.164.148",
     "environment": "KVM-210"

@@ -1,8 +1,6 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_ADC_2.json",
   "serverName": "uvision_auto",
-  "simulatorSet" : "",
-  "loadSimulators" : "false",
   "genericLinuxID":"linuxFileServer",
   "deployConfigurations": {
     "snapshot": "Current-1",

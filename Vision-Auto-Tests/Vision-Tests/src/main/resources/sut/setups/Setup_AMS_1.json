@@ -1,4 +1,6 @@
 {
+  "simulatorSet" : "sim_set_1",
+  "loadSimulators" : "true",
   "setupId": "AMS_1",
   "tree": {
     "sites": [

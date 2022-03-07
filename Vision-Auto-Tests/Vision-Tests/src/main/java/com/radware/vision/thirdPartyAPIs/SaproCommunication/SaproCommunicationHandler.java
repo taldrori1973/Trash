@@ -9,6 +9,8 @@ import com.sapcnsl.api.returntypes.DirectoryData;
 import com.sapcnsl.exception.SaproException;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 
 public class SaproCommunicationHandler {
     private final String mapDirectoryName;
@@ -171,6 +173,35 @@ public class SaproCommunicationHandler {
         saproObj.getStatsFromMap("/opt/sapro/map/Danny.map");
     }
 
+    public void modifyDeviceParameters(String mapName, String... devNames){
+        try{
+            Integer secondToWait = 2;
+            this.stopDevicesFromMap(mapName, devNames);
+            saproObj.initConnection("172.17.166.8", 2100);
+            //saproObj.setNewVersion(false);
+            mapName = this.getFullMapName(mapName);
+            for (String devName : devNames) {
+                  CommandMessage delDevMsg = saproObj.sendDelDevCmdToMap(mapName,devName);
+                  BaseTestUtils.report(delDevMsg.getMessage(), Reporter.PASS_NOR_FAIL);
+                try {
+                    TimeUnit.SECONDS.sleep(secondToWait);
+                }catch (InterruptedException e) {
+                    BaseTestUtils.report("Interrupted while Sleeping: " + e.getMessage(), Reporter.FAIL);
+                }
+            }
+            CommandMessage addDevMsg=saproObj.sendAddDevCmdToMap(mapName,"/opt/sapro/map/newdev.map");
+            BaseTestUtils.report(addDevMsg.getMessage(), Reporter.PASS_NOR_FAIL);
+            try {
+                TimeUnit.SECONDS.sleep(secondToWait);
+            }catch (InterruptedException e) {
+                BaseTestUtils.report("Interrupted while Sleeping: " + e.getMessage(), Reporter.FAIL);
+            }
+
+            saproObj.closeConnection();
+        }catch (SaproException e){
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
 
     /**
      * @param mapName gets all files from mapDirectoryName and use mapName as filter
