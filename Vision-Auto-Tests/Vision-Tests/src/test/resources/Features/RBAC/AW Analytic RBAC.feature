@@ -11,7 +11,7 @@ Feature: AW Analytics User RBAC
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
-    When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
+    When UI Create New User With User Name "<User Name>", Role "<Role>", Scope "<Scope>", Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
       | User Name              | Role                   | Scope | Password        |

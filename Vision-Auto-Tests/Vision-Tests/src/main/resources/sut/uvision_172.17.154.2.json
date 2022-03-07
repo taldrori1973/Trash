@@ -1,5 +1,5 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_AMS_2.json",
   "serverName": "uvision_auto",
   "simulatorSet" : "sim_set_4",
   "loadSimulators" : "true",

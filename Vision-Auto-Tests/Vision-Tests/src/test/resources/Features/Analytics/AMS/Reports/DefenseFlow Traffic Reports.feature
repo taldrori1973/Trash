@@ -92,12 +92,6 @@ Feature: DefenseFlow Traffic Reports
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_14
-  Scenario: Change DF management IP to IP of Vision DF
-    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "system df management-ip set " |
-      | @defenseFlowDevice.getDeviceIp |
-
   @SID_12
   Scenario: Change DF management IP to IP of DefenseFlow
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
