@@ -1,14 +1,14 @@
 @TC125658
 Feature: Challenged inbound
 
-  @Test12
+  
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
     * REST Delete ES index "dp-*"
 
-    @Test12
+    
   @SID_2
   Scenario: attack challenged_inbound_test
     Given CLI simulate 100 attacks of type "challenged_inbound_test" on "DefensePro" 13 with loopDelay 1500 and wait 120 seconds
@@ -16,13 +16,13 @@ Feature: Challenged inbound
     * CLI kill all simulator attacks on current vision
 
 #    ######################### Monitoring dashboard #####################################
-
+  
   @SID_3
   Scenario: Login and navigate to DP monitoring
     When UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-
+  
   @SID_4
   Scenario: check bps with inbound
     Then Sleep "120"
@@ -32,7 +32,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max monitoring" EQUALS "83.74 M"
+    Then UI Validate Text field "max monitoring" EQUALS "83.74 M" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0"
 
   @SID_5
@@ -52,8 +52,8 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "84.42 K"
-    Then UI Validate Text field "min monitoring" EQUALS "0.0""
+    Then UI Validate Text field "max monitoring" EQUALS "84.42 K" with offset 5
+    Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
   @SID_7
   Scenario: check pps with outbound
@@ -78,7 +78,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max monitoring" EQUALS "83.74 M"
+    Then UI Validate Text field "max monitoring" EQUALS "83.74 M" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0"
 
   @SID_10
@@ -97,7 +97,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "84.42 K"
+    Then UI Validate Text field "max monitoring" EQUALS "84.42 K" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
   @SID_12
@@ -128,7 +128,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max monitoring" EQUALS "83.74 M"
+    Then UI Validate Text field "max monitoring" EQUALS "83.74 M" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0"
 
   @SID_15
@@ -147,7 +147,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "84.42 K"
+    Then UI Validate Text field "max monitoring" EQUALS "84.42 K" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
   @SID_17
@@ -175,7 +175,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max attacks" EQUALS "83.74 M"
+    Then UI Validate Text field "max attacks" EQUALS "83.74 M" with offset 5
     Then UI Validate Text field "min attacks" EQUALS "0"
 
   @SID_20
@@ -208,7 +208,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max attacks" EQUALS "84.42 K"
+    Then UI Validate Text field "max attacks" EQUALS "84.42 K" with offset 5
     Then UI Validate Text field "min attacks" EQUALS "0.0"
 
   @SID_23
@@ -270,7 +270,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max analytics" EQUALS "83.74 M"
+    Then UI Validate Text field "max analytics" EQUALS "83.74 M" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "0"
 
   @SID_28
@@ -290,7 +290,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "84.42 K"
+    Then UI Validate Text field "max analytics" EQUALS "84.42 K" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_30
@@ -316,7 +316,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max analytics" EQUALS "83.74 M"
+    Then UI Validate Text field "max analytics" EQUALS "83.74 M" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "0"
 
   @SID_33
@@ -326,7 +326,7 @@ Feature: Challenged inbound
       | value | count | offset |
       | 0     | 0     | 0      |
 
-    Then UI Validate Text field "max analytics" EQUALS "83745.0"
+    Then UI Validate Text field "max analytics" EQUALS "83745.0" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_34
@@ -336,7 +336,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "84.42 K"
+    Then UI Validate Text field "max analytics" EQUALS "84.42 K" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_35
