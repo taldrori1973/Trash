@@ -238,7 +238,16 @@
             <writeCommunity>public</writeCommunity>
             <macAddress>00:03:b2:sh:f3:00</macAddress>
         </defenseProDevices>
-
+        <defenseProDevices index="22">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.17.50.50</deviceName>
+            <deviceIp>172.17.50.50</deviceIp>
+            <username>radware</username>
+            <password>radware1</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>2c:b6:93:45:fd:00</macAddress>
+        </defenseProDevices>
         <alteonDevices index="0">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_172.17.163.6</deviceName>
