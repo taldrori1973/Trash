@@ -1,20 +1,20 @@
 @TC107643
 Feature: HTTPS Server Dashboard
 
-
+  
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
     * REST Delete ES index "dp-*"
 
-
+  
   @SID_2
   Scenario: Update Policies
     Given REST Login with user "radware" and password "radware"
     Then REST Update Policies for All DPs
 
-
+  
   @SID_3
   Scenario:Login and Navigate to Behavioral Protections Dashboard
     Given UI Login with user "radware" and password "radware"
@@ -35,7 +35,7 @@ Feature: HTTPS Server Dashboard
     Then UI Validate Element Existence By Label "Widget Selection" if Exists "true"
     Then UI Validate Element Existence By Label "Max Min" if Exists "true"
 
-
+  
   @SID_3
   Scenario: Move to HTTPS Flood and Validate Default View
     When UI Click Button "Behavioral Tab" with value "HTTPS Flood"
@@ -48,7 +48,7 @@ Feature: HTTPS Server Dashboard
     Then UI Validate Element Existence By Label "Servers Button" if Exists "true"
     Then UI Validate Text field "Servers Button" EQUALS "SERVERS"
     Then UI Validate Element Existence By Label "Widget Selection" if Exists "false"
-    Then UI Validate Element Existence By Label "Max Min" if Exists "false"
+    Then UI Validate Element Existence By Label "Max Min" if Exists "true"
     Then UI Validate Text field "header HTTPS" EQUALS "DefensePro Behavioral Protections"
 
 
@@ -82,17 +82,18 @@ Feature: HTTPS Server Dashboard
       | BDoS-IGMP                        | false   |
       | Excluded UDP Traffic             | false   |
 
-
+  
   @SID_3
   Scenario: Add Policy
     Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
     And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
 
-
+  
   @SID_4
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
     Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
 
+  
   @SID_5
   Scenario: Select Server
     When UI Select Server and save
@@ -420,6 +421,21 @@ Feature: HTTPS Server Dashboard
       | 0.214519   | 1     | 2     | 0      |
       | 0.81       | 1     | 4     | 0      |
       | 0.5        | 1     | 49    | 0      |
+
+
+
+###################### Min\Max Analytics ###########################################
+  
+  @SID_33
+  Scenario: Check Min - Max Traffic
+    Then UI Validate Element Existence By Label "Max Traffic" if Exists "false"
+    Then UI Validate Element Existence By Label "Min Traffic" if Exists "false"
+    Then UI Do Operation "Select" item "Max Min"
+    Then UI Validate Text field "Max Traffic" EQUALS "Max 17500"
+    Then UI Validate Text field "Min Traffic" EQUALS "Min 17500"
+    Then UI Validate Element Existence By Label "Max Traffic" if Exists "true"
+    Then UI Validate Element Existence By Label "Min Traffic" if Exists "true"
+
 
   @SID_32
   Scenario: Logout

@@ -35,6 +35,7 @@ import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -79,9 +80,36 @@ public class VRMHandler {
 
     public Map getSessionStorage(String chart) throws SessionStorageException {
         Map jsonMap;
-        String item = sessionStorage.getItem(chart);
+        String item = sessionStorage.getItem(chart);// return NO data available
+
+
+        if(isJSONValid(item)){
         jsonMap = JsonUtils.getJsonMap(item);
+
+    }else
+    {
+
+        jsonMap = new HashMap<String, String>();
+        jsonMap.put("data",item);
+
+    }
+
+
         return jsonMap;
+    }
+
+
+    private boolean isJSONValid(String test) {
+        try {
+            new JSONObject(test);
+        } catch (JSONException ex) {
+            try {
+                new JSONArray(test);
+            } catch (JSONException ex1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -304,66 +332,92 @@ public class VRMHandler {
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, columnGraph);
-        JSONArray data = (JSONArray) foundObject.get(DATA);
+        if(!isJSONValid(foundObject.get(DATA).toString()))
+        {
+            entries.forEach(entry -> {
+                entry.value = (entry.value == null) ? null : entry.value;
 
-        entries.forEach(entry -> {
-            entry.count = (entry.count == null) ? -1 : entry.count;
-            entry.exist = entry.exist == null || entry.exist;
-            entry.index = (entry.index == null) ? -1 : entry.index;
-            entry.value = (entry.value == null) ? null : entry.value;
-            entry.valueOffset = (entry.value == null) ? 0 : entry.valueOffset;
+                String actualResult = foundObject.get(DATA).toString();
 
-            if (isLabelExist(chart, label) ^ entry.exist) {
-                return;
-            }
-            if ((!isLabelExist(chart, label)) && !entry.exist) {
-                return;
-            }
+                if(actualResult.equals(entry.value))
+                    return;
 
-            long valueAppearances = StreamSupport.stream(data.spliterator(), false)
-                    .map(String::valueOf)
-                    .filter(s -> isDataMatch(entry, s))
-                    .count();
-            if (entry.min != null) {
-                if (valueAppearances < entry.min) {
-                    addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " of value: " + entry.value + " is " + valueAppearances + " and the EXPECTED minimum is " + entry.min);
-                    scrollAndTakeScreenshot(chart);
+                else
+                    addErrorMessage("The ACTUAL value in the chart " + chart + "  is " + actualResult);
+
+            });
+        }
+
+        else {
+
+            JSONArray data = (JSONArray) foundObject.get(DATA);
+
+            entries.forEach(entry -> {
+                entry.count = (entry.count == null) ? -1 : entry.count;
+                entry.exist = entry.exist == null || entry.exist;
+                entry.index = (entry.index == null) ? -1 : entry.index;
+                entry.value = (entry.value == null) ? null : entry.value;
+                entry.valueOffset = (entry.value == null) ? 0 : entry.valueOffset;
+
+                if (isLabelExist(chart, label) ^ entry.exist) {
+                    return;
                 }
-            } else if (entry.count > 0) {
-                // Value has offset that is not "0"
-                if (entry.offset != null && entry.offset != 0 || entry.valueOffset != 0) {
-                    if (entry.valueOffset != 0) {
-                        double actualValue = (Double) data.get(entry.index);
-                        double maxVal = actualValue + entry.valueOffset;
-                        double minVal = actualValue - entry.valueOffset;
-                        if (actualValue > maxVal || actualValue < minVal) {
-                            addErrorMessage("The ACTUAL value of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
-                                    + " and " + maxVal);
-                            scrollAndTakeScreenshot(chart);
-                        }
-                    } else {
-                        int maxVal = entry.count + entry.offset;
-                        int minVal = entry.count - entry.offset;
-                        if (valueAppearances > maxVal || valueAppearances < minVal) {
-                            addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
-                                    + " and " + maxVal);
-                            scrollAndTakeScreenshot(chart);
+                if ((!isLabelExist(chart, label)) && !entry.exist) {
+                    return;
+                }
+
+                long valueAppearances = StreamSupport.stream(data.spliterator(), false)
+                        .map(String::valueOf)
+                        .filter(s -> isDataMatch(entry, s))
+                        .count();
+                if (entry.min != null) {
+                    if (valueAppearances < entry.min) {
+                        addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " of value: " + entry.value + " is " + valueAppearances + " and the EXPECTED minimum is " + entry.min);
+                        scrollAndTakeScreenshot(chart);
+                    }
+                } else if (entry.count > 0) {
+                    // Value has offset that is not "0"
+                    if (entry.offset != null && entry.offset != 0 || entry.valueOffset != 0) {
+                        if (entry.valueOffset != 0) {
+                            double actualValue = (Double) data.get(entry.index);
+                            double maxVal = actualValue + entry.valueOffset;
+                            double minVal = actualValue - entry.valueOffset;
+                            if (actualValue > maxVal || actualValue < minVal) {
+                                addErrorMessage("The ACTUAL value of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                                        + " and " + maxVal);
+                                scrollAndTakeScreenshot(chart);
+                            }
+                        } else {
+                            int maxVal = entry.count + entry.offset;
+                            int minVal = entry.count - entry.offset;
+                            if (valueAppearances > maxVal || valueAppearances < minVal) {
+                                addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                                        + " and " + maxVal);
+                                scrollAndTakeScreenshot(chart);
+                            }
                         }
                     }
+                    //Value does not have offset or offset is "0"
+                    else if (!(valueAppearances == entry.count)) {
+                        addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is " + entry.count);
+                        scrollAndTakeScreenshot(chart);
+                    }
                 }
-                //Value does not have offset or offset is "0"
-                else if (!(valueAppearances == entry.count)) {
-                    addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is " + entry.count);
-                    scrollAndTakeScreenshot(chart);
+                if (entry.index != -1 && entry.valueOffset == 0) {
+                    if (!data.get(entry.index).toString().trim().equalsIgnoreCase(entry.value.trim())) {
+                        addErrorMessage("The ACTUAL value of the index " + entry.index + " is: " + data.get(entry.index) + " BUT the EXPECTED is " + entry.value);
+                    }
                 }
-            }
-            if (entry.index != -1 && entry.valueOffset == 0) {
-                if (!data.get(entry.index).toString().trim().equalsIgnoreCase(entry.value.trim())) {
-                    addErrorMessage("The ACTUAL value of the index " + entry.index + " is: " + data.get(entry.index) + " BUT the EXPECTED is " + entry.value);
-                }
-            }
-        });
-        reportErrors();
+            });
+            reportErrors();
+
+
+        }
+
+
+
+
+
     }
 
     protected boolean isDataMatch(Data entry, String s) {
@@ -430,14 +484,25 @@ public class VRMHandler {
                 } catch (Exception e) {
                     BaseTestUtils.report("The graph column " + columnGraph + " is not found", Reporter.FAIL);
                 }
-            jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
-            dataArray = (JSONArray) jsonMap.get(DATASETS);
 
-            foundObject = StreamSupport.stream(dataArray.spliterator(), false)
-                    .map(JSONObject.class::cast)
-                    .filter(jsonObject -> jsonObject.getString(LABEL).equals(label))
-                    .findFirst()
-                    .orElseThrow(() -> new NullPointerException(String.join(" ", "Chart :", chart, "With label :", label, "Could not be found")));
+            if(!isJSONValid(jsonMap.get(DATA).toString()))
+            {
+                foundObject =  new JSONObject(jsonMap);
+            }
+
+            else{
+                jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
+                dataArray = (JSONArray) jsonMap.get(DATASETS);
+
+                foundObject = StreamSupport.stream(dataArray.spliterator(), false)
+                        .map(JSONObject.class::cast)
+                        .filter(jsonObject -> jsonObject.getString(LABEL).equals(label))
+                        .findFirst()
+                        .orElseThrow(() -> new NullPointerException(String.join(" ", "Chart :", chart, "With label :", label, "Could not be found")));
+
+            }
+
+
         } catch (SessionStorageException e) {
             BaseTestUtils.report("Failed to get label: " + label + " from chart: " + chart, e);
             foundObject = null;

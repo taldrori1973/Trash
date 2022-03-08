@@ -9,6 +9,8 @@ public enum ProjectRefEnum {
 
     Cloud_And_Managemant("/project/28863967553"),
 
+    AMS_Managemant("/project/627190940399"),
+
     Vision_On_Prem("/project/28863967597"),
 
     Vision_Automation("/project/28863967868"),
