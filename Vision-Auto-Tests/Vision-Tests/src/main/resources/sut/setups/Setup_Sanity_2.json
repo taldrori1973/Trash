@@ -1,6 +1,5 @@
 {
   "simulatorSet" : "sim_set_2",
-  "loadSimulators" : "true",
   "setupId": "fullSetup",
   "tree": {
     "sites": [
