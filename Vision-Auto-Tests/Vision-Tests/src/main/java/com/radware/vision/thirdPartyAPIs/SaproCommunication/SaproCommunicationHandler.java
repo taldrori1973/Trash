@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class SaproCommunicationHandler {
     private final String mapDirectoryName;
     private final String xmlFullPath;
+    private final String varFullPath;
+    private final String cmfFullPath;
     private final SaproCommunication saproObj;
     private final String inetAddress;
     private final int port;
@@ -27,6 +29,8 @@ public class SaproCommunicationHandler {
         this.port = 2100;
         mapDirectoryName = "/opt/sapro/map/";
         xmlFullPath = "/opt/sapro/xml/";
+        varFullPath = "/opt/sapro/var/";
+        cmfFullPath = "/opt/sapro/cmf/";
     }
 
 
@@ -162,6 +166,19 @@ public class SaproCommunicationHandler {
             this.startDevicesFromMap(mapName, deviceName);
             this.initConnect();
             CommandMessage reload = saproObj.sendTclCmdToDevice(this.getFullMapName(mapName), deviceName, "SA_reload_xmlmodfile " + this.xmlFullPath + newXmlFile);
+            BaseTestUtils.report(reload.getMessage(), Reporter.PASS);
+            this.closeConnect();
+        } catch (SaproException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    public void reloadVarFile(String mapName, String deviceName, String newVarFile, String newCmfFile) {
+        try {
+            // making sure the device is on:
+            this.startDevicesFromMap(mapName, deviceName);
+            this.initConnect();
+            CommandMessage reload = saproObj.sendTclCmdToDevice(this.getFullMapName(mapName), deviceName, "SA_reloadvar " + this.varFullPath + newVarFile + " " + this.cmfFullPath + newCmfFile);
             BaseTestUtils.report(reload.getMessage(), Reporter.PASS);
             this.closeConnect();
         } catch (SaproException e) {
