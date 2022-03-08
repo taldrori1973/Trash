@@ -66,6 +66,18 @@ public class SaproClientSteps extends TestBase {
         }
     }
 
+    @Given("Play Var File \"([^\"]*)\" And Mib File \"([^\"]*)\" in device \"([^\"]*)\" from map \"([^\"]*)\"(?: and wait (\\d+) seconds)?$")
+    public void reloadVarFile(String newFile, String mibFile, String deviceName, String mapName, Integer secondsToWait) {
+        sc.reloadVarFile(mapName, deviceName, newFile, mibFile);
+        try {
+            if (secondsToWait != null) {
+                TimeUnit.SECONDS.sleep(secondsToWait);
+            }
+        } catch (InterruptedException e) {
+            BaseTestUtils.report("Interrupted while Sleeping: " + e.getMessage(), Reporter.FAIL);
+        }
+    }
+
     @Given("^Init Simulators$")
     public void initSimulators() {
         List<TreeDeviceManagementDto> simulators = sutManager.getSimulators();
