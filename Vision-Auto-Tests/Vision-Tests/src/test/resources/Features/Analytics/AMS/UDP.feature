@@ -27,9 +27,7 @@ Feature: UDP widgets
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | setId | ports | policies |
-      | DefensePro_Set_7   |       | test     |
-      | index | ports | policies |
-      | 13   |       | Policy_4993@000010-00005-0     |
+      | DefensePro_Set_7   |       | Policy_4993@000010-00005-0     |
     Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
       | value | min |
       | 0     | 5   |

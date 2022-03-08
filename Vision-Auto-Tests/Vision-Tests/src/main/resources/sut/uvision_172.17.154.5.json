@@ -1,8 +1,6 @@
 {
   "setupFile": "Setup_AMS_3.json",
   "serverName": "uvision_auto",
-  "simulatorSet" : "sim_set_3",
-  "loadSimulators" : "true",
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",

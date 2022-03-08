@@ -40,6 +40,10 @@ public class UvisionServer {
         put(DockerServices.CONFIG_KVISION_INFRA_IPV6NAT, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_INFRA_RABBITMQ, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_INFRA_FLUENTD, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
+        put(DockerServices.CONFIG_KVISION_DATA_POLLING_MGR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_DATA_PERSIST_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_DATA_POLLING_SCHEDULER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_KVISION_INFRA_CADVISOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
     }};
 
     public static final HashMap<DockerServices, DockerServiceStatus> UVISON_SERVICES_READY_FOR_UPGRADE = new HashMap<DockerServices, DockerServiceStatus>() {{
@@ -164,6 +168,10 @@ public class UvisionServer {
         CONFIG_KVISION_INFRA_MARIADB("config_kvision-infra-mariadb"),
         CONFIG_KVISION_INFRA_AUTOHEAL("config_kvision-infra-autoheal"),
         CONFIG_KVISION_WEBUI("config_kvision-webui"),
+        CONFIG_KVISION_DATA_POLLING_MGR("config_kvision-data-polling-mgr"),
+        CONFIG_KVISION_DATA_PERSIST_SERVICE("config_kvision-data-persist-service"),
+        CONFIG_KVISION_DATA_POLLING_SCHEDULER("config_kvision-data-polling-scheduler"),
+        CONFIG_KVISION_INFRA_CADVISOR("config_kvision-infra-cadvisor"),
         PROCESS_EXPORTER("process-exporter"),
         PROMETHEUS("prometheus"),
         GRAFANA("grafana"),
