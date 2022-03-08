@@ -44,6 +44,10 @@ public class UvisionServer {
         put(DockerServices.CONFIG_KVISION_DATA_PERSIST_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_DATA_POLLING_SCHEDULER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_INFRA_CADVISOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_POLICY_EDITOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_DFC, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_EXABGP, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_POSTGRES, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
     }};
 
     public static final HashMap<DockerServices, DockerServiceStatus> UVISON_SERVICES_READY_FOR_UPGRADE = new HashMap<DockerServices, DockerServiceStatus>() {{
@@ -172,6 +176,10 @@ public class UvisionServer {
         CONFIG_KVISION_DATA_PERSIST_SERVICE("config_kvision-data-persist-service"),
         CONFIG_KVISION_DATA_POLLING_SCHEDULER("config_kvision-data-polling-scheduler"),
         CONFIG_KVISION_INFRA_CADVISOR("config_kvision-infra-cadvisor"),
+        CONFIG_POLICY_EDITOR("config_policy-editor"),
+        CONFIG_DFC("config_dfc"),
+        CONFIG_EXABGP("config_exabgp"),
+        CONFIG_POSTGRES("config_postgres"),
         PROCESS_EXPORTER("process-exporter"),
         PROMETHEUS("prometheus"),
         GRAFANA("grafana"),
