@@ -53,11 +53,11 @@ Feature: AMS and ADC Analytics Users
   Scenario: Create and validate ADC Report1
     When UI Navigate to "ADC Reports" page via homePage
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "ADC System and Network Report1"
+    Given UI "Create" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
       | Time Definitions.Date | Quick:1H                                                                                                  |
       | Format                | Select:  CSV                                                                                              |
-    Then UI "Validate" Report With Name "ADC System and Network Report1"
+    Then UI "Validate" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
       | Time Definitions.Date | Quick:1H                                                                                                  |
       | Format                | Select: CSV                                                                                               |
@@ -65,46 +65,46 @@ Feature: AMS and ADC Analytics Users
 
   @SID_6
   Scenario: generate ADC report1
-    Then UI "Generate" Report With Name "ADC System and Network Report1"
-      | timeOut | 60 |
+    Then UI "Generate" Report With Name "ADC Report1"
+      | timeOut | 120 |
     Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.zip' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.zip" on "ROOT_SERVER_CLI"
 
   @SID_7
   Scenario: Delete ADC report1
-    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "ADC System and Network Report1"
-    Then UI Delete Report With Name "ADC System and Network Report1"
-    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "ADC System and Network Report1"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "ADC Report1"
+    Then UI Delete Report With Name "ADC Report1"
+    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "ADC Report1"
 
   @SID_8
   Scenario: Create and validate ADC Report2
     When UI Navigate to "ADC Reports" page via homePage
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "ADC System and Network Report2"
+    Given UI "Create" Report With Name "ADC Report2"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
       | Time Definitions.Date | Quick:1H                                                                                                  |
       | Format                | Select:  PDF                                                                                              |
-    Then UI "Validate" Report With Name "ADC System and Network Report2"
+    Then UI "Validate" Report With Name "ADC Report2"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
       | Time Definitions.Date | Quick:1H                                                                                                  |
       | Format                | Select: PDF                                                                                               |
 
   @SID_9
   Scenario: generate ADC report2
-    Then UI "Generate" Report With Name "ADC System and Network Report2"
-      | timeOut | 60 |
+    Then UI "Generate" Report With Name "ADC Report2"
+      | timeOut | 120 |
     Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.pdf' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.pdf" on "ROOT_SERVER_CLI"
 
 
   @SID_10
   Scenario: Edit ADC report2
-    Given UI "Edit" Report With Name "ADC System and Network Report2"
+    Given UI "Edit" Report With Name "ADC Report2"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Format                | Select: HTML                                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                            |
-    Then UI "Validate" Report With Name "ADC System and Network Report2"
+    Then UI "Validate" Report With Name "ADC Report2"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Format                | Select: HTML                                                                                              |
@@ -112,17 +112,17 @@ Feature: AMS and ADC Analytics Users
 
   @SID_11
   Scenario: generate ADC report2 after edit
-    Then UI "Generate" Report With Name "ADC System and Network Report2"
-      | timeOut | 60 |
+    Then UI "Generate" Report With Name "ADC Report2"
+      | timeOut | 120 |
     Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.html' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.html" on "ROOT_SERVER_CLI"
 
   @SID_12
   Scenario: Delete ADC report2
-    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "ADC System and Network Report2"
-    Then UI Delete Report With Name "ADC System and Network Report2"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "ADC Report2"
+    Then UI Delete Report With Name "ADC Report2"
     Then Sleep "2"
-    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "ADC System and Network Report2"
+    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "ADC Report2"
     Then UI Logout
 
 
