@@ -179,7 +179,7 @@ Feature: AMS and ADC Analytics Users
       | Template | DefensePro Analytics              | true  |
       | Template | DefensePro Behavioral Protections | true  |
       | Template | HTTPS Flood                       | true  |
-      | Template | DefenseFlow Analytics             | true  |
+      | Template | DefenseFlow Analytics             | false |
       | Template | AppWall                           | false |
       | Template | ERT Active Attackers Feed         | true  |
     Then UI Click Button "Close Edit Tab"
