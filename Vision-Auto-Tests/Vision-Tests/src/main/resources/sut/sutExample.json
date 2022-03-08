@@ -1,17 +1,18 @@
 {
-  "serverName": "israelExa",
-  "setupFile": "fullSetup.json",
-  "pair": {
-    "pairIp": "172.17.164.148",
-    "environment": "OVA-220"
-  },
+  "setupFile": "[SETUP_FILE_NAME].json",
+  "serverName": "uvision_auto",
+  "defenseFlow": "[DF IP ADDR (not relavant for CyberController)]",
   "deployConfigurations": {
-    "setupMode": "fresh install",
-    "snapshot": "Current-1",
-    "environment": "OVA-220"
+    "snapshot": "",
+    "setupMode": "[DEPLOY MODE]",
+    "environment": "[HOST]"
+  },
+  "pair": {
+    "pairIp": "[PAIR IP]",
+    "environment": "[PAIR HOST]"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.164.101",
+    "hostIp": "[IP ADDR]",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
