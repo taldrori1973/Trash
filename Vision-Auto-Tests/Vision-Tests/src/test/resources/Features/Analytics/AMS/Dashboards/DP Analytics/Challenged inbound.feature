@@ -1,7 +1,6 @@
 @TC125658
 Feature: Challenged inbound
 
-
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -206,42 +205,6 @@ Feature: Challenged inbound
     Then UI Validate Text field "max attacks" EQUALS "84.42 K" with offset 5
     Then UI Validate Text field "min attacks" EQUALS "0.0"
 
-  @SID_23
-  Scenario:  validate tables for SYNFlood
-    Then UI search row table in searchLabel "tableSearch" with text "SYN Flood"
-    Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Attack Category" findBy cellValue "SYN Flood"
-    Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
-
-
-  @SID_24
-  Scenario Outline:  validate date of Info table - SynFlood
-    Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-    Examples:
-      | label              | value          |
-      | Risk               | Medium         |
-      | Radware ID         | 200000         |
-      | Direction          | Unknown        |
-      | Action Type        | Challenge      |
-      | Attack ID          | 137-1414505529 |
-      | Physical Port      | Multiple       |
-      | Total Packet Count | 223,890        |
-      | VLAN               | Multiple       |
-      | MPLS RD            | Multiple       |
-      | Source port        | Multiple       |
-
-  @SID_25
-  Scenario Outline:  validate date of Characteristics table - SynFlood
-    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
-    Examples:
-      | label                | value                |
-      | Activation Threshold | 2500                 |
-      | TCP Challenge        | Transparent Proxy    |
-      | TCP Auth. List       | 0                    |
-      | HTTP Challenge       | Cloud Authentication |
-      | HTTP Auth. List      | 0                    |
-
-
   ############################### Analytics Dashboard ###################################
 
   @SID_26
@@ -438,6 +401,6 @@ Feature: Challenged inbound
     Then UI Delete Report With Name "trafficBandwidth report"
 
 
-  @SID_56
+  @SID_46
   Scenario: Logout and close browser
     Given UI logout and close browser
