@@ -23,27 +23,4 @@ import java.util.Enumeration;
         strict = true,
         tags = {"@Functional"})
 public class RunVisionBddTests {
-    @AfterClass
-    public static void afterFeature() {
-        try
-        {
-            String ip = "";
-            Enumeration en = NetworkInterface.getNetworkInterfaces();
-            while (en.hasMoreElements()) {
-                NetworkInterface i = (NetworkInterface) en.nextElement();
-                for (Enumeration en2 = i.getInetAddresses(); en2.hasMoreElements();) {
-                    InetAddress addr = (InetAddress) en2.nextElement();
-                    if (!addr.isLoopbackAddress()) {
-                        if (addr instanceof Inet4Address) {
-                            ip = addr.getHostAddress();
-                            break;
-                        }
-                    }
-                }
-            }
-            String command = Menu.system().database().access().revoke().build() + " " + ip;
-            CliOperations.runCommand(TestBase.getServersManagement().getRadwareServerCli().get(), command);
-        }
-        catch (Exception ignored){}
-    }
 }
