@@ -54,11 +54,11 @@ Feature: AMS and ADC Analytics Users
   Scenario: Create and validate ADC Report1
     When UI Navigate to "ADC Reports" page via homePage
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "ADC System and Network Report1"
+    Given UI "Create" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1H                                                                                                   |
       | Format                | Select:  CSV                                                                                               |
-    Then UI "Validate" Report With Name "ADC System and Network Report1"
+    Then UI "Validate" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1H                                                                                                   |
       | Format                | Select: CSV                                                                                                |
@@ -66,16 +66,16 @@ Feature: AMS and ADC Analytics Users
 
   @SID_6
   Scenario: generate ADC report1
-    Then UI "Generate" Report With Name "ADC System and Network Report1"
+    Then UI "Generate" Report With Name "ADC Report1"
       | timeOut | 120 |
     Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.zip' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
 #  @SID_7
 #  Scenario: Delete ADC report1
-#    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "ADC System and Network Report1"
-#    Then UI Delete Report With Name "ADC System and Network Report1"
-#    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "ADC System and Network Report1"
+#    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "ADC Report1"
+#    Then UI Delete Report With Name "ADC Report1"
+#    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "ADC Report1"
 
 #  @SID_8
 #  Scenario: Create and validate ADC Report2
@@ -92,17 +92,17 @@ Feature: AMS and ADC Analytics Users
 
   @SID_7
   Scenario: Edit and generate ADC report1
-    Given UI "Edit" Report With Name "ADC System and Network Report1"
+    Given UI "Edit" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1D                                                                                                   |
       | Format                | Select: PDF                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
-    Then UI "Validate" Report With Name "ADC System and Network Report1"
+    Then UI "Validate" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1D                                                                                                   |
       | Format                | Select: PDF                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
-    Then UI "Generate" Report With Name "ADC System and Network Report1"
+    Then UI "Generate" Report With Name "ADC Report1"
       | timeOut | 120 |
     Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.pdf' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
@@ -110,12 +110,12 @@ Feature: AMS and ADC Analytics Users
 
   @SID_8
   Scenario: Edit ADC report1
-    Given UI "Edit" Report With Name "ADC System and Network Report1"
+    Given UI "Edit" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1D                                                                                                   |
       | Format                | Select: HTML                                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
-    Then UI "Validate" Report With Name "ADC System and Network Report1"
+    Then UI "Validate" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.16.100.103] |
       | Time Definitions.Date | Quick:1D                                                                                                   |
       | Format                | Select: HTML                                                                                               |
@@ -123,17 +123,17 @@ Feature: AMS and ADC Analytics Users
 
   @SID_9
   Scenario: generate ADC report2 after edit
-    Then UI "Generate" Report With Name "ADC System and Network Report1"
+    Then UI "Generate" Report With Name "ADC Report1"
       | timeOut | 60 |
     Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.html' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
   @SID_10
   Scenario: Delete ADC report1
-    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "ADC System and Network Report1"
-    Then UI Delete Report With Name "ADC System and Network Report1"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "ADC Report1"
+    Then UI Delete Report With Name "ADC Report1"
     Then Sleep "2"
-    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "ADC System and Network Report1"
+    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "ADC Report1"
     Then UI logout and close browser
 
 
