@@ -184,6 +184,7 @@ Feature: EAAF Widget - Top IP Statistics
   @SID_18
   Scenario: Validate IP filtering data correctness check values
 # check values
+    Then Sleep "10"
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7 M" with offset 1
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7 M" with offset 1
     Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7 M" with offset 1
