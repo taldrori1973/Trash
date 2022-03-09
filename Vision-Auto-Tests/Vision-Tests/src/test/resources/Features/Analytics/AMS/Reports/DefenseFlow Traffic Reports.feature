@@ -12,13 +12,8 @@ Feature: DefenseFlow Traffic Reports
     * REST Delete ES index "vrm-scheduled-report-result-*"
     * CLI Clear vision logs
 
-  @SID_2
-  Scenario: Change DF managment IP to IP of Generic Linux
-    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
-    When CLI Operations - Run Radware Session command "system df management-ip get"
-    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
-  @SID_3
+  @SID_2
   Scenario: Email configuration
     Given UI Login with user "sys_admin" and password "radware"
     And UI Go To Vision
@@ -33,6 +28,12 @@ Feature: DefenseFlow Traffic Reports
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
+
+  @SID_3
+  Scenario: Change DF managment IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
   @SID_4
   Scenario: Run DF traffic simulator
@@ -52,7 +53,7 @@ Feature: DefenseFlow Traffic Reports
     Given UI "Create" Report With Name "DF_Traffic"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[ALL],Protected Objects:[PO_100] |
       | Format                | Select: CSV                                                                                                           |
-      | Share          | Email:[DF_traffic@report.local],Subject:DefenseFlow Traffic report |
+      | Share                 | Email:[DF_traffic@report.local],Subject:DefenseFlow Traffic report |
 
   @SID_7
   Scenario: Clear SMTP server log files
@@ -75,7 +76,7 @@ Feature: DefenseFlow Traffic Reports
   @SID_10
   Scenario: Download CSV from UI page
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 90 seconds
-      | "/home/radware/Scripts/download_report_file.sh " |
+      | "/home/radware/Scripts/uvision_download_report_file.sh " |
       | #visionIP                                        |
       | " DF_Traffic"                                    |
     Then CLI Run remote linux Command "unzip -o /home/radware/Downloads/downloaded.report" on "GENERIC_LINUX_SERVER"
