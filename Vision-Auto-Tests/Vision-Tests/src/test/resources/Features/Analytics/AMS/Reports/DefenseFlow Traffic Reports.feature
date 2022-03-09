@@ -12,13 +12,13 @@ Feature: DefenseFlow Traffic Reports
     * REST Delete ES index "vrm-scheduled-report-result-*"
     * CLI Clear vision logs
 
-  @SID_13
+  @SID_2
   Scenario: Change DF managment IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
-  @SID_2
+  @SID_3
   Scenario: Email configuration
     Given UI Login with user "sys_admin" and password "radware"
     And UI Go To Vision
@@ -34,37 +34,37 @@ Feature: DefenseFlow Traffic Reports
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
 
-  @SID_3
+  @SID_4
   Scenario: Run DF traffic simulator
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 90 seconds
       | "/home/radware/curl_DF_traffic_auto.sh " |
       | #visionIP                                |
       | " PO_100 3"                              |
 
-  @SID_4
+  @SID_5
   Scenario: Navigate to AMS report
     And UI Navigate to "AMS Reports" page via homePage
 
 
   # =============================================Overall===========================================================
-  @SID_5
+  @SID_6
   Scenario: Create DefenseFlow traffic report
     Given UI "Create" Report With Name "DF_Traffic"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[ALL],Protected Objects:[PO_100] |
       | Format                | Select: CSV                                                                                                           |
       | Share          | Email:[DF_traffic@report.local],Subject:DefenseFlow Traffic report |
 
-  @SID_6
+  @SID_7
   Scenario: Clear SMTP server log files
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
     Then CLI Run remote linux Command "rm -f /home/radware/attachments/TC112396/*" on "GENERIC_LINUX_SERVER"
 
-  @SID_7
+  @SID_8
   Scenario: Generate Report
     Then UI "Generate" Report With Name "DF_Traffic"
       | timeOut | 90 |
 
-  @SID_8
+  @SID_9
   Scenario: Validate Report Email received content
     Then CLI Run linux Command "cat /var/spool/mail/reportuser|tr -d "="|tr -d "\n"|grep -o "Subject: DefenseFlow Traffic report" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
@@ -72,7 +72,7 @@ Feature: DefenseFlow Traffic Reports
     Then CLI Run remote linux Command "unzip -o /home/radware/attachments/TC112396/VRM_report_*.zip" on "GENERIC_LINUX_SERVER"
 
 
-  @SID_9
+  @SID_10
   Scenario: Download CSV from UI page
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 90 seconds
       | "/home/radware/Scripts/download_report_file.sh " |
@@ -80,11 +80,11 @@ Feature: DefenseFlow Traffic Reports
       | " DF_Traffic"                                    |
     Then CLI Run remote linux Command "unzip -o /home/radware/Downloads/downloaded.report" on "GENERIC_LINUX_SERVER"
 
-  @SID_10
+  @SID_11
   Scenario: Verify content of downloaded CSV
     When CLI Run linux Command "ll /home/radware/Downloads/downloaded.report |awk '{print$5}'" on "GENERIC_LINUX_SERVER" and validate result GTE "2500"
 
-  @SID_11
+  @SID_12
   Scenario: Search for bad logs
     * CLI kill all simulator attacks on current vision
     * CLI Check if logs contains
@@ -92,13 +92,13 @@ Feature: DefenseFlow Traffic Reports
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_12
+  @SID_13
   Scenario: Change DF management IP to IP of DefenseFlow
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
       | #dfIP                          |
 
-  @SID_13
+  @SID_14
   Scenario: Cleanup
     When UI Open "Configurations" Tab
     Then UI logout and close browser
