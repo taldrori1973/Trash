@@ -11,7 +11,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 # Validate correct number of DPs
-    Then UI Text of "Device Status Up Summary" equal to "5"
+    Then UI Text of "Device Status Up Summary" equal to "3"
 
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
