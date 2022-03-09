@@ -21,6 +21,7 @@ import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.jsonparsers.impl.JsonUtils;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
@@ -961,15 +962,17 @@ public class VRMHandler {
                 String deviceIp = null;
                 String deviceName = null;
                 try {
-                    if (entry.setId != null) {
-                        Optional<TreeDeviceManagementDto> deviceOpt = SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
+                    if (entry.setId != null || entry.deviceId != null) {
+                        SUTManager sutManager = SUTManagerImpl.getInstance();
+                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId!=null)?sutManager.getTreeDeviceManagement(entry.setId):
+                                                                                          sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
                         if (!deviceOpt.isPresent()) {
-                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId!=null)?entry.setId:entry.deviceId));
                         }
                         deviceIp = deviceOpt.get().getManagementIp();
                         deviceName=deviceOpt.get().getDeviceName();
                     } else {
-                        throw new Exception("device setId entry is empty.");
+                        throw new Exception("device setId|deviceId entry is empty.");
                     }
 
                 } catch (Exception e) {
@@ -1472,6 +1475,7 @@ public class VRMHandler {
 
     public static class DpDeviceFilter {
         public String setId;
+        public String deviceId;
         public String ports;
         public String policies;
         String virtualServices;
