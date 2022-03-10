@@ -33,6 +33,13 @@ public interface DevicesConstants {
     String SIMULATOR_XML_FILE_2 = "Alteon_32.2.0.141_jason_xml_output_all_fields.xmf";
     String SIMULATOR_XML_FILE_3 = "Alteon_32.2.0.141_jason_xml_output_all_fields_even.xmf";
 
+    //DP SIMULATORS
+    String DP_SIMULATOR_EAAF_XML = "DP_sim_8.28.xmf";
+    String DP_SIMULATOR_EAAF_XML_EMPTY_JSON = "DP_sim_8.28_empty_json.xmf";
+    String DP_SIMULATOR_NEW_REPORTING_ON = "out_simDP_8.28_new.var";
+    String DP_SIMULATOR_NEW_REPORTING_OFF = " out_simDP_8.28_new_reporting_off.var";
+
+
 
     //    APPWALL
     int APPWALL_DEFAULT_PORT = 443;
