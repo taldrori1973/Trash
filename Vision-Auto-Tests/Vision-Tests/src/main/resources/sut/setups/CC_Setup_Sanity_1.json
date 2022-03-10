@@ -1,6 +1,6 @@
 {
-  "simulatorSet" : "sim_set_2",
-  "setupId": "fullSetup",
+  "simulatorSet" : "sim_set_3",
+  "setupId": "CC_Setup_Sanity_1",
   "tree": {
     "sites": [
       {
@@ -64,14 +64,6 @@
       {
         "deviceId": "DefensePro_172.17.22.55",
         "parentSite": "VA_DPs_Version_8_site"
-      },
-      {
-        "deviceId": "DefensePro_172.16.22.25",
-        "parentSite": "Default"
-      },
-      {
-        "deviceId": "DefensePro_10.185.2.85",
-        "parentSite": "Default"
       },
       {
         "deviceId": "AppWall_172.17.164.30",

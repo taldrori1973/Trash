@@ -66,6 +66,37 @@ public class SaproClientSteps extends TestBase {
         }
     }
 
+    @Given("^Play Var File \"([^\"]*)\" And Mib File \"([^\"]*)\" in device \"([^\"]*)\" from map \"([^\"]*)\"(?: and wait (\\d+) seconds)?$")
+    public void reloadVarFile(String newFile, String mibFile, String deviceName, String mapName, Integer secondsToWait) {
+        sc.reloadVarFile(mapName, deviceName, newFile, mibFile);
+        try {
+            if (secondsToWait != null) {
+                TimeUnit.SECONDS.sleep(secondsToWait);
+            }
+        } catch (InterruptedException e) {
+            BaseTestUtils.report("Interrupted while Sleeping: " + e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    @Given("^Init DP Simulators$")
+    public void initDPSimulators() {
+        List<TreeDeviceManagementDto> simulators = sutManager.getSimulators();
+        if (simulators.isEmpty()){
+            BaseTestUtils.report("No DP simulators available, please add set to SUT.", Reporter.FAIL);
+        }
+        try {
+            simulators.forEach(sim -> {
+                String setId = sim.getDeviceSetId();
+                String name = sim.getDeviceName();
+                if (setId.equals("Alteon_Sim_Set_0")) {
+                    sc.reloadXmlFile(DEFAULT_MAP, name, DP_SIMULATOR_EAAF_XML);
+                }
+            });
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to initialize DP simulators " + e.getMessage(), Reporter.FAIL);
+        }
+    }
+
     @Given("^Init Simulators$")
     public void initSimulators() {
         List<TreeDeviceManagementDto> simulators = sutManager.getSimulators();

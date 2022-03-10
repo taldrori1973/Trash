@@ -1,5 +1,5 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "CC_Setup_Sanity_1.json",
   "serverName": "uVision",
   "deployConfigurations": {
     "snapshot": "",

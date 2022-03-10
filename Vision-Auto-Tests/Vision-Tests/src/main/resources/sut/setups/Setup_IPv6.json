@@ -1,6 +1,5 @@
 {
-  "simulatorSet" : "",
-  "loadSimulators" : "false",
+  "simulatorSet" : "sim_set_4",
   "setupId": "AMS_1",
   "tree": {
     "sites": [

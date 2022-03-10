@@ -1,5 +1,5 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_Sanity_2.json",
   "serverName": "uvision_auto",
   "deployConfigurations": {
     "snapshot": "Current-1",

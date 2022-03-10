@@ -1,17 +1,17 @@
 {
-  "serverName": "israelExa",
-  "setupFile": "fullSetup.json",
-  "pair": {
-    "pairIp": "172.17.164.102",
-    "environment": "OVA-220"
-  },
+  "setupFile": "Setup_EAAF.json",
+  "serverName": "uVision",
   "deployConfigurations": {
-    "setupMode": "fresh install",
     "snapshot": "Current-1",
-    "environment": "OVA-220"
+    "setupMode": "upgrade",
+    "environment": "KVM-215"
+  },
+  "pair": {
+    "pairIp": "172.17.164.101",
+    "environment": "KVM-217"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.164.102",
+    "hostIp": "172.17.154.21",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
@@ -21,7 +21,7 @@
     "sqlDbConnection": {
       "defaultPort": 3306,
       "username": "root",
-      "password": "rad123"
+      "password": "radware"
     }
   },
   "cliConfiguration": {
