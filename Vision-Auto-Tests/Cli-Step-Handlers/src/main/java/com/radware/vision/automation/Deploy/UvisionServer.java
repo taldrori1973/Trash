@@ -40,10 +40,10 @@ public class UvisionServer {
         put(DockerServices.CONFIG_KVISION_INFRA_IPV6NAT, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_INFRA_RABBITMQ, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_INFRA_FLUENTD, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
-        put(DockerServices.CONFIG_KVISION_DATA_POLLING_MGR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_KVISION_DATA_PERSIST_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_KVISION_DATA_POLLING_SCHEDULER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_KVISION_INFRA_CADVISOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+//        put(DockerServices.CONFIG_KVISION_DATA_POLLING_MGR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+//        put(DockerServices.CONFIG_KVISION_DATA_PERSIST_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+//        put(DockerServices.CONFIG_KVISION_DATA_POLLING_SCHEDULER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+//        put(DockerServices.CONFIG_KVISION_INFRA_CADVISOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_POLICY_EDITOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_DFC, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_EXABGP, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
