@@ -119,7 +119,7 @@ Feature: challengeIng outbound
     Then Sleep "65"
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value | count | offset |
       | 0     | 8     | 2      |
 
@@ -129,7 +129,7 @@ Feature: challengeIng outbound
   @SID_16
   Scenario: check bps with outbound Monitoring
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
@@ -140,7 +140,7 @@ Feature: challengeIng outbound
   Scenario: check pps with inbound Monitoring
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value | count | offset |
       | 0     | 8     | 2      |
     Then UI Validate Text field "max monitoring" EQUALS "Max 0.0"
@@ -149,7 +149,7 @@ Feature: challengeIng outbound
   @SID_18
   Scenario: check pps with outbound Monitoring
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
     Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
@@ -165,7 +165,7 @@ Feature: challengeIng outbound
   Scenario: check bps with inbound Monitoring policy
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value | count | offset |
       | 0     | 8     | 2      |
 
@@ -175,7 +175,7 @@ Feature: challengeIng outbound
   @SID_21
   Scenario: check bps with outbound Monitoring policy
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
@@ -186,7 +186,7 @@ Feature: challengeIng outbound
   Scenario: check pps with inbound Monitoring policy
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value | count | offset |
       | 0     | 8     | 2      |
     Then UI Validate Text field "max monitoring" EQUALS "Max 0.0"
@@ -195,7 +195,7 @@ Feature: challengeIng outbound
   @SID_23
   Scenario: check pps with outbound Monitoring policy
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
     Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
@@ -213,7 +213,7 @@ Feature: challengeIng outbound
     Then Sleep "30"
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value | count | offset |
       | 0     | 8     | 2      |
 
@@ -223,7 +223,7 @@ Feature: challengeIng outbound
   @SID_26
   Scenario: check bps with outbound second drill
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
@@ -236,7 +236,7 @@ Feature: challengeIng outbound
     Then Sleep "30"
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value | count | offset |
       | 0     | 8     | 2      |
     Then UI Validate Text field "max drillDown" EQUALS "Max 0.0"
@@ -247,7 +247,7 @@ Feature: challengeIng outbound
     Given UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "30"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
     Then UI Validate Text field "max drillDown" EQUALS "84.17 K"
@@ -265,7 +265,7 @@ Feature: challengeIng outbound
   Scenario: validate one device bps + inbound attacks
     When UI Click Button "inboundSwitch"
     When UI Click Button "bpsSwitch"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
       | value | count | offset |
       | 0     | 8     | 2      |
 
@@ -275,7 +275,7 @@ Feature: challengeIng outbound
   @SID_31
   Scenario: validate traffic bandwidth bps+outbound attacks
     When UI Click Button "outboundSwitch"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
@@ -286,7 +286,7 @@ Feature: challengeIng outbound
   Scenario: validate traffic bandwidth pps+inbound attacks
     When UI Click Button "inboundSwitch"
     When UI Click Button "ppsSwitch"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
       | value | count | offset |
       | 0     | 8     | 2      |
     Then UI Validate Text field "max attacks" EQUALS "Max 0.0"
@@ -296,7 +296,7 @@ Feature: challengeIng outbound
   Scenario: validate traffic bandwidth pps+outbound attacks
     When UI Click Button "outboundSwitch"
     When UI Click Button "ppsSwitch"
-    Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Challenged"
+    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
     Then UI Validate Text field "max attacks" EQUALS "84.17 K"

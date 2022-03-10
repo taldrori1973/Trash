@@ -71,7 +71,7 @@ Feature: challengeIng inbound
 
     Then UI "Validate" Report With Name "trafficBandwidth report"
       | Template | reportType:DefensePro Analytics,Widgets:[Traffic Bandwidth],devices:[{deviceIndex:13}] |
-      | Format   | Select: HTML                                                                           |
+      | Format   | Select: CSV                                                                           |
 
     Then UI "Generate" Report With Name "trafficBandwidth report"
       | timeOut | 90 |
@@ -84,7 +84,7 @@ Feature: challengeIng inbound
 
   @SID_10
   Scenario: VRM report validate CSV file Traffic Bandwidth number of lines
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "60"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "61"
 
 #
 #  @SID_11
