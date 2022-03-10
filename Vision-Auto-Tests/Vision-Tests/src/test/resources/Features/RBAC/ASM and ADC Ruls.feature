@@ -55,12 +55,12 @@ Feature: AMS and ADC Analytics Users
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
-      | Time Definitions.Date | Quick:1H                                                                                                  |
-      | Format                | Select:  CSV                                                                                              |
+      | Time Definitions.Date | Quick:1H                                                                                                 |
+      | Format                | Select:  CSV                                                                                             |
     Then UI "Validate" Report With Name "ADC Report1"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
-      | Time Definitions.Date | Quick:1H                                                                                                  |
-      | Format                | Select: CSV                                                                                               |
+      | Time Definitions.Date | Quick:1H                                                                                                 |
+      | Format                | Select: CSV                                                                                              |
 
 
   @SID_6
@@ -82,12 +82,12 @@ Feature: AMS and ADC Analytics Users
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC Report2"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
-      | Time Definitions.Date | Quick:1H                                                                                                  |
-      | Format                | Select:  PDF                                                                                              |
+      | Time Definitions.Date | Quick:1H                                                                                                 |
+      | Format                | Select:  PDF                                                                                             |
     Then UI "Validate" Report With Name "ADC Report2"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
-      | Time Definitions.Date | Quick:1H                                                                                                  |
-      | Format                | Select: PDF                                                                                               |
+      | Time Definitions.Date | Quick:1H                                                                                                 |
+      | Format                | Select: PDF                                                                                              |
 
   @SID_9
   Scenario: generate ADC report2
@@ -101,14 +101,14 @@ Feature: AMS and ADC Analytics Users
   Scenario: Edit ADC report2
     Given UI "Edit" Report With Name "ADC Report2"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
-      | Time Definitions.Date | Quick:1D                                                                                                  |
-      | Format                | Select: HTML                                                                                              |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                            |
+      | Time Definitions.Date | Quick:1D                                                                                                 |
+      | Format                | Select: HTML                                                                                             |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                           |
     Then UI "Validate" Report With Name "ADC Report2"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_50.50.101.11] |
-      | Time Definitions.Date | Quick:1D                                                                                                  |
-      | Format                | Select: HTML                                                                                              |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                            |
+      | Time Definitions.Date | Quick:1D                                                                                                 |
+      | Format                | Select: HTML                                                                                             |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                           |
 
   @SID_11
   Scenario: generate ADC report2 after edit
@@ -168,7 +168,7 @@ Feature: AMS and ADC Analytics Users
       | Template | DefensePro Analytics              | true  |
       | Template | DefensePro Behavioral Protections | true  |
       | Template | HTTPS Flood                       | true  |
-      | Template | DefenseFlow Analytics             | true  |
+      | Template | DefenseFlow Analytics             | false |
       | Template | AppWall                           | false |
       | Template | ERT Active Attackers Feed         | true  |
     Then UI Click Button "Close Edit Tab"
