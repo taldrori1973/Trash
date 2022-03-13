@@ -43,21 +43,21 @@ public class HttpReportingSteps extends TestBase {
         }
     }
 
-    @Given("^CLI Operations - system http-reporting mode set-on")
-    public void systemHttpReportingModeSetOn() {
-        try {
-            HttpReporting.visionHttpReportingModeSetOn(radwareServerCli);
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-    }
-
-    @Given("^CLI Operations - system http-reporting mode set-on")
-    public void systemHttpReportingModeCheckSunMenu() {
-        try {
-            HttpReporting.httpReportingModeSubMenuCheck(radwareServerCli);
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-    }
+//    @Given("^CLI Operations - system http-reporting mode set-on")
+//    public void systemHttpReportingModeSetOn() {
+//        try {
+//            HttpReporting.visionHttpReportingModeSetOn(radwareServerCli);
+//        } catch (Exception e) {
+//            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+//        }
+//    }
+//
+//    @Given("^CLI Operations - system http-reporting mode set-on")
+//    public void systemHttpReportingModeCheckSunMenu() {
+//        try {
+//            HttpReporting.httpReportingModeSubMenuCheck(radwareServerCli);
+//        } catch (Exception e) {
+//            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+//        }
+//    }
 }
