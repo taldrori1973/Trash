@@ -7,11 +7,11 @@
     "environment": "OVA-232"
   },
   "pair": {
-    "pairIp": "172.17.164.101",
-    "environment": "KVM-217"
+    "pairIp": "172.17.141.49",
+    "environment": "OVA-254"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.141.49",
+    "hostIp": "172.17.154.30",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
