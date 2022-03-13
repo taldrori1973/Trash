@@ -13,6 +13,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.dpm.Dp
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.exporter.Exporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.hardware.Hardware;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.hostname.HostName;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.http_reporting.HttpReporting;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.java.Java;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.ntp.Ntp;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.snmp.Snmp;
@@ -118,6 +119,8 @@ public class System extends Builder {
     }
 
     public Java java() { return new Java(build()); }
+
+    public HttpReporting httpReporting() { return new HttpReporting(build());}
 
     @Override
     public String getCommand() {
