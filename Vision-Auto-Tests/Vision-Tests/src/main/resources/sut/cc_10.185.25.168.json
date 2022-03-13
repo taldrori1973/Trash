@@ -1,5 +1,5 @@
 {
-  "setupFile": "",
+  "setupFile": "CC_Setup_Sanity_1.json",
   "serverName": "cc",
   "defenseFlow": "",
   "deployConfigurations": {
