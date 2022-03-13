@@ -71,7 +71,7 @@ Feature: challengeIng inbound
 
     Then UI "Validate" Report With Name "trafficBandwidth report"
       | Template | reportType:DefensePro Analytics,Widgets:[Traffic Bandwidth],devices:[{deviceIndex:13}] |
-      | Format   | Select: CSV                                                                           |
+      | Format   | Select: CSV                                                                            |
 
     Then UI "Generate" Report With Name "trafficBandwidth report"
       | timeOut | 90 |
@@ -304,7 +304,7 @@ Feature: challengeIng inbound
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
     Then UI Validate Text field "max attacks" EQUALS "84.42 K" with offset 5
-    Then UI Validate Text field "min attacks" EQUALS "0.0"
+    Then UI Validate Text field "min attacks" EQUALS "84.39 K" with offset 5
 
   ############################### Analytics Dashboard ###################################
 
@@ -354,8 +354,8 @@ Feature: challengeIng inbound
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "84.42 K" with offset 5
-    Then UI Validate Text field "min analytics" EQUALS "83.7 K" with offset 5
+    Then UI Validate Text field "max analytics" EQUALS "84.4 K" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "84.4 K" with offset 5
 
   @SID_39
   Scenario: check pps with outbound Analytics
@@ -367,7 +367,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_40
-  Scenario: choose device and policy from scope selection
+  Scenario: choose device and policy from scope selection analytics
     Given UI Click Button "Device Selection"
 
     Then UI "Select" Scope Polices
@@ -375,14 +375,14 @@ Feature: challengeIng inbound
 
   @SID_41
   Scenario: check bps with inbound Analytics policy
-    Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
+    Then UI Do Operation "Select" item "Traffic Bandwidth bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "traffic-bandwidth-1" with Label "Challenged"
+    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max analytics" EQUALS "83.74 M" with offset 5
-    Then UI Validate Text field "min analytics" EQUALS "84.4 M" with offset 5
+    Then UI Validate Text field "max analytics" EQUALS "83.7 M" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "83.7 M" with offset 5
 
   @SID_42
   Scenario: check bps with outbound Analytics policy
@@ -391,14 +391,14 @@ Feature: challengeIng inbound
       | value | count | offset |
       | 0     | 0     | 0      |
 
-    Then UI Validate Text field "max analytics" EQUALS "83745.0" with offset 5
+    Then UI Validate Text field "max analytics" EQUALS "0.0" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_43
   Scenario: check pps with inbound Analytics policy
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "traffic-bandwidth-1" with Label "Challenged"
+    Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
     Then UI Validate Text field "max analytics" EQUALS "84.42 K" with offset 5
@@ -410,7 +410,7 @@ Feature: challengeIng inbound
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
       | 0     | 0     | 0      |
-    Then UI Validate Text field "max analytics" EQUALS "83745.0"
+    Then UI Validate Text field "max analytics" EQUALS "0.0"
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
 
