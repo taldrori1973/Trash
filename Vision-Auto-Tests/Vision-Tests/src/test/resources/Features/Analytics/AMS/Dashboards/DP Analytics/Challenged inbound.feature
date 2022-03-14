@@ -11,8 +11,6 @@ Feature: challengeIng inbound
   @SID_2
   Scenario: attack challengeIng_inbound_test
     Given CLI simulate 100 attacks of type "challenged_inbound_test" on "DefensePro" 13 with loopDelay 1500 and wait 120 seconds
-    Then Sleep "15"
-    * CLI kill all simulator attacks on current vision
 
     ############################## AMS Reports #################################
 
@@ -131,7 +129,7 @@ Feature: challengeIng inbound
       | 83733.0 | 1     | 5      |
 
     Then UI Validate Text field "max monitoring" EQUALS "83.74 M" with offset 5
-    Then UI Validate Text field "min monitoring" EQUALS "83.68 M" with offset 5
+    Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
   @SID_16
   Scenario: check bps with outbound monitoring
@@ -151,7 +149,7 @@ Feature: challengeIng inbound
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
     Then UI Validate Text field "max monitoring" EQUALS "84.42 K" with offset 5
-    Then UI Validate Text field "min monitoring" EQUALS "84.35 K" with offset 5
+    Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
   @SID_18
   Scenario: check pps with outbound monitoring
@@ -178,7 +176,7 @@ Feature: challengeIng inbound
       | 83733.0 | 1     | 5      |
 
     Then UI Validate Text field "max monitoring" EQUALS "83.74 M" with offset 5
-    Then UI Validate Text field "min monitoring" EQUALS "83.66 M" with offset 5
+    Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
   @SID_21
   Scenario: check bps with outbound monitoring device
@@ -197,16 +195,8 @@ Feature: challengeIng inbound
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
     Then UI Validate Text field "max monitoring" EQUALS "84.42 K" with offset 5
-    Then UI Validate Text field "min monitoring" EQUALS "84.34 K" with offset 5
-
-  @SID_23
-  Scenario: check pps with outbound monitoring device
-    And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 0     | 0      |
-    Then UI Validate Text field "max monitoring" EQUALS "0.0"
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
+
 
           ############# second drill of monitoring dashboard ###############
 
@@ -222,17 +212,9 @@ Feature: challengeIng inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max drillDown" EQUALS "83.74 M" with offset 5
-    Then UI Validate Text field "min drillDown" EQUALS "0"
-
-  @SID_26
-  Scenario: check bps with outbound second drill
-    And UI Do Operation "Select" item "Policy Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 0     | 0      |
-    Then UI Validate Text field "max drillDown" EQUALS "0.0"
+    Then UI Validate Text field "max drillDown" EQUALS "83.7 M" with offset 5
     Then UI Validate Text field "min drillDown" EQUALS "0.0"
+
 
   @SID_27
   Scenario: check pps with inbound second drill
@@ -241,25 +223,18 @@ Feature: challengeIng inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max drillDown" EQUALS "84.42 K" with offset 5
+    Then UI Validate Text field "max drillDown" EQUALS "83.7 K" with offset 5
     Then UI Validate Text field "min drillDown" EQUALS "0.0"
-
-  @SID_28
-  Scenario: check pps with outbound second drill
-    And UI Do Operation "Select" item "Policy Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 0     | 0      |
-    Then UI Validate Text field "max drillDown" EQUALS "0.0"
-    Then UI Validate Text field "min drillDown" EQUALS "0.0"
-
 
 
     ########################### Attacks Dashboard ###############################
   @SID_29
   Scenario: navigate dp attacks
     And UI Navigate to "DefensePro Attacks" page via homePage
-    Then Sleep "20"
+    Then Sleep "5"
+    Then UI Click Button "Accessibility Button"
+    Then UI Click Button "Stop AutoRefresh"
+    Then UI Click Button "Close Accessibility"
 
 
   @SID_30
@@ -401,7 +376,7 @@ Feature: challengeIng inbound
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "84.42 K" with offset 5
+    Then UI Validate Text field "max analytics" EQUALS "84.4 K" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "84.4 K" with offset 5
 
   @SID_44
@@ -416,4 +391,5 @@ Feature: challengeIng inbound
 
   @SID_45
   Scenario: Logout and close browser
+    * CLI kill all simulator attacks on current vision
     Given UI logout and close browser
