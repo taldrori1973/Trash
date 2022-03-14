@@ -107,19 +107,19 @@ Feature: challengeIng inbound
 #    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
 
-  @SID_13
+  @SID_11
   Scenario: Delete Added Reports
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Delete Report With Name "trafficBandwidth report"
 
 #    ######################### Monitoring dashboard #####################################
 
-  @SID_14
+  @SID_12
   Scenario:  navigate to DP monitoring
 
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-  @SID_15
+  @SID_13
   Scenario: check bps with inbound monitoring
     Then Sleep "60"
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
@@ -131,7 +131,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max monitoring" EQUALS "83.74 M" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
-  @SID_16
+  @SID_14
   Scenario: check bps with outbound monitoring
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
@@ -141,7 +141,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max monitoring" EQUALS "0.0"
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
-  @SID_17
+  @SID_15
   Scenario: check pps with inbound monitoring
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
@@ -151,7 +151,8 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max monitoring" EQUALS "84.42 K" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
-  @SID_18
+  @SID_16
+
   Scenario: check pps with outbound monitoring
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
@@ -160,14 +161,14 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max monitoring" EQUALS "0.0"
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
-  @SID_19
+  @SID_17
   Scenario: choose device from scope selection
     Given UI Click Button "Device Selection"
     Then UI "Select" Scope Polices
       | devices | type:DefensePro Analytics,index:13 |
     Then Sleep "20"
 
-  @SID_20
+  @SID_18
   Scenario: check bps with inbound monitoring device
     Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
@@ -178,7 +179,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max monitoring" EQUALS "83.74 M" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
-  @SID_21
+  @SID_19
   Scenario: check bps with outbound monitoring device
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
@@ -187,7 +188,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max monitoring" EQUALS "0.0"
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
-  @SID_22
+  @SID_20
   Scenario: check pps with inbound monitoring device
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
@@ -200,11 +201,11 @@ Feature: challengeIng inbound
 
           ############# second drill of monitoring dashboard ###############
 
-  @SID_24
+  @SID_21
   Scenario: choose the first row of downdrill
     And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
 
-  @SID_25
+  @SID_22
   Scenario: check bps with inbound second drill
     Then UI Do Operation "Select" item "Policy Traffic Bandwidth.bps"
     And UI Do Operation "Select" item "Policy Traffic Bandwidth.Inbound"
@@ -216,7 +217,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "min drillDown" EQUALS "0.0"
 
 
-  @SID_27
+  @SID_23
   Scenario: check pps with inbound second drill
     Then UI Do Operation "Select" item "Policy Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Policy Traffic Bandwidth.Inbound"
@@ -228,7 +229,7 @@ Feature: challengeIng inbound
 
 
     ########################### Attacks Dashboard ###############################
-  @SID_29
+  @SID_24
   Scenario: navigate dp attacks
     And UI Navigate to "DefensePro Attacks" page via homePage
     Then Sleep "5"
@@ -237,7 +238,7 @@ Feature: challengeIng inbound
     Then UI Click Button "Close Accessibility"
 
 
-  @SID_30
+  @SID_25
   Scenario: validate one device bps + inbound Attacks
     When UI Click Button "inboundSwitch"
     When UI Click Button "bpsSwitch"
@@ -248,7 +249,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max attacks" EQUALS "83.74 M" with offset 5
     Then UI Validate Text field "min attacks" EQUALS "83.68 M" with offset 5
 
-  @SID_31
+  @SID_26
   Scenario: validate traffic bandwidth bps+outbound Attacks
     When UI Click Button "outboundSwitch"
 
@@ -258,7 +259,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max attacks" EQUALS "0.0"
     Then UI Validate Text field "min attacks" EQUALS "0.0"
 
-  @SID_32
+  @SID_27
   Scenario: validate traffic bandwidth pps+outbound Attacks
     When UI Click Button "outboundSwitch"
     When UI Click Button "ppsSwitch"
@@ -270,7 +271,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max attacks" EQUALS "0.0"
     Then UI Validate Text field "min attacks" EQUALS "0.0"
 
-  @SID_33
+  @SID_28
   Scenario: validate traffic bandwidth pps+inbound Attacks
     When UI Click Button "inboundSwitch"
     When UI Click Button "ppsSwitch"
@@ -283,7 +284,7 @@ Feature: challengeIng inbound
 
   ############################### Analytics Dashboard ###################################
 
-  @SID_34
+  @SID_29
   Scenario: analytics dashboard
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button "Widget Selection"
@@ -294,13 +295,13 @@ Feature: challengeIng inbound
     Then UI Click Button "Widget Selection"
     Then Sleep "30"
 
-  @SID_35
+  @SID_30
   Scenario: select all devices
     Given UI Click Button "Device Selection"
     Given UI Click Button "AllScopeSelection"
     Given UI Click Button "Device Selection.Save Filter"
 
-  @SID_36
+  @SID_31
   Scenario: check bps with inbound Analytics
     Then UI Do Operation "Select" item "Traffic Bandwidth bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
@@ -311,7 +312,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max analytics" EQUALS "83.7 M" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "83.7 M" with offset 5
 
-  @SID_37
+  @SID_32
   Scenario: check bps with outbound Analytics
     Then UI Do Operation "Select" item "Traffic Bandwidth bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
@@ -322,7 +323,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max analytics" EQUALS "0.0"
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
-  @SID_38
+  @SID_33
   Scenario: check pps with inbound Analytics
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
@@ -332,7 +333,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max analytics" EQUALS "84.4 K" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "84.4 K" with offset 5
 
-  @SID_39
+  @SID_34
   Scenario: check pps with outbound Analytics
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
@@ -341,14 +342,14 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max analytics" EQUALS "0.0"
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
-  @SID_40
+  @SID_35
   Scenario: choose device and policy from scope selection analytics
     Given UI Click Button "Device Selection"
 
     Then UI "Select" Scope Polices
       | devices | type:DefensePro Analytics,index:13 |
 
-  @SID_41
+  @SID_36
   Scenario: check bps with inbound Analytics policy
     Then UI Do Operation "Select" item "Traffic Bandwidth bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
@@ -359,7 +360,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max analytics" EQUALS "83.7 M" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "83.7 M" with offset 5
 
-  @SID_42
+  @SID_37
   Scenario: check bps with outbound Analytics policy
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
@@ -369,7 +370,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max analytics" EQUALS "0.0" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
-  @SID_43
+  @SID_38
   Scenario: check pps with inbound Analytics policy
     Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
@@ -379,7 +380,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "max analytics" EQUALS "84.4 K" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "84.4 K" with offset 5
 
-  @SID_44
+  @SID_39
   Scenario: check pps with outbound Analytics policy
     And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
@@ -389,7 +390,7 @@ Feature: challengeIng inbound
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
 
-  @SID_45
+  @SID_40
   Scenario: Logout and close browser
     * CLI kill all simulator attacks on current vision
     Given UI logout and close browser
