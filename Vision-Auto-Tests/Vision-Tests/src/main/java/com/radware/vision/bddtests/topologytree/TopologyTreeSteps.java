@@ -41,13 +41,14 @@ public class TopologyTreeSteps extends VisionUITestBase {
     public TopologyTreeSteps() throws Exception {
     }
 
-    @When("^UI Add( physical)? \"(.*)\" under \"(.*)\" site(?: SNMP Version (V[123]))?( unregister)?(?: expected status \"(.*)\")?$")
-    public void addNewDevice(String treeTabType, String deviceSetId, String parent, String snmpVersion, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) {
+    @When("^UI Add( physical)?(?: with (DeviceID|SetId))? \"(.*)\" under \"(.*)\" site(?: SNMP Version (V[123]))?( unregister)?(?: expected status \"(.*)\")?$")
+    public void addNewDevice(String treeTabType,String idType, String id, String parent, String snmpVersion, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) {
         try {
             String snmpV = snmpVersion == null? "V2" : snmpVersion;
             boolean register = unregister == null;
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-            TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
+            TreeDeviceManagementDto deviceInfo = (idType == null || idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(id).orElse(null) :
+                    (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(id).orElse(null) : null;
             String port = deviceInfo.getVisionMgtPort();
             String visionServerIP = port.concat(" (").concat(getVisionServerIp()).concat(")");
             HashMap<String, String> deviceProperties = new HashMap<>();
@@ -188,12 +189,13 @@ public class TopologyTreeSteps extends VisionUITestBase {
         }
     }
 
-    @When("^UI Delete( physical)? \"(.*)\" from topology tree$")
-    public void deleteDevice(String treeTabType, String deviceSetId) {
+    @When("^UI Delete( physical)?(?: with (DeviceID|SetId))? \"(.*)\" from topology tree$")
+    public void deleteDevice(String treeTabType, String idType, String id) {
         String elementName = "";
         try {
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-            TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
+            TreeDeviceManagementDto deviceInfo = (idType == null || idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(id).orElse(null) :
+                    (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(id).orElse(null) : null;
             elementName = deviceInfo.getDeviceName();
             TopologyTreeHandler.deleteDevice(elementName, topologyTreeTab);
         } catch (NullPointerException e) {
@@ -376,11 +378,12 @@ public class TopologyTreeSteps extends VisionUITestBase {
     }
 
 
-    @When("^UI Wait For Device To Show Up In The Topology Tree( physical)? \"(.*)\" with timeout (\\d+) seconds$")
-    public void waitForDeviceToShowUp(String treeTabType, String deviceSetId, Integer timeout) {
+    @When("^UI Wait For Device To Show Up In The Topology Tree( physical)?(?: with (DeviceID|SetId))? \"(.*)\" with timeout (\\d+) seconds$")
+    public void waitForDeviceToShowUp(String treeTabType,String idType, String id, Integer timeout) {
         try {
             timeout = timeout * 1000;
-            TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
+            TreeDeviceManagementDto deviceInfo = (idType == null || idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(id).orElse(null) :
+                    (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(id).orElse(null) : null;
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
             TopologyTreeHandler.waitForDeviceToShowUp(topologyTreeTab, deviceInfo.getDeviceName(), timeout);
         } catch (Exception e) {
