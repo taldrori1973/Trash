@@ -3,6 +3,7 @@ Feature: challengeIng inbound
 
   @SID_1
   Scenario: Clear data
+    Given CLI Clear vision logs
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
     * REST Delete ES index "dp-*"
@@ -84,28 +85,6 @@ Feature: challengeIng inbound
   Scenario: VRM report validate CSV file Traffic Bandwidth number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "61"
 
-#
-#  @SID_11
-#  Scenario: VRM report validate CSV file Traffic Bandwidth headers
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -1|grep averageTrafficValue,deviceIp,averageDiscards,maxTrafficValue,policyName,maxDiscards|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "averageTrafficValue"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ BandwidthDefensePro\ Analytics.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "deviceIp"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "averageDiscards"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "maxTrafficValue"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "policyName"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "maxDiscards"
-#
-#
-#  @SID_12
-#  Scenario:VRM report validate CSV file Traffic Bandwidth content
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|grep -oP "83625.2814814814,10.185.2.85,0,83781,Policy_4993@000015-00005-0,0" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "83625.2814814814"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10.185.2.85"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "83781"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Policy_4993@000015-00005-0"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-
 
   @SID_11
   Scenario: Delete Added Reports
@@ -116,7 +95,6 @@ Feature: challengeIng inbound
 
   @SID_12
   Scenario:  navigate to DP monitoring
-
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_13
@@ -224,7 +202,7 @@ Feature: challengeIng inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max drillDown" EQUALS "83.7 K" with offset 5
+    Then UI Validate Text field "max drillDown" EQUALS "84.4 K" with offset 5
     Then UI Validate Text field "min drillDown" EQUALS "0.0"
 
 
@@ -247,7 +225,7 @@ Feature: challengeIng inbound
       | 83733.0 | 1     | 5      |
 
     Then UI Validate Text field "max attacks" EQUALS "83.74 M" with offset 5
-    Then UI Validate Text field "min attacks" EQUALS "83.68 M" with offset 5
+    Then UI Validate Text field "min attacks" EQUALS "0.0"
 
   @SID_26
   Scenario: validate traffic bandwidth bps+outbound Attacks
@@ -280,7 +258,7 @@ Feature: challengeIng inbound
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
     Then UI Validate Text field "max attacks" EQUALS "84.42 K" with offset 5
-    Then UI Validate Text field "min attacks" EQUALS "84.39 K" with offset 5
+    Then UI Validate Text field "min attacks" EQUALS "0.0"
 
   ############################### Analytics Dashboard ###################################
 
@@ -310,7 +288,7 @@ Feature: challengeIng inbound
       | 83733.0 | 1     | 5      |
 
     Then UI Validate Text field "max analytics" EQUALS "83.7 M" with offset 5
-    Then UI Validate Text field "min analytics" EQUALS "83.7 M" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_32
   Scenario: check bps with outbound Analytics
@@ -331,7 +309,7 @@ Feature: challengeIng inbound
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
     Then UI Validate Text field "max analytics" EQUALS "84.4 K" with offset 5
-    Then UI Validate Text field "min analytics" EQUALS "84.4 K" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_34
   Scenario: check pps with outbound Analytics
@@ -358,7 +336,7 @@ Feature: challengeIng inbound
       | 83733.0 | 1     | 5      |
 
     Then UI Validate Text field "max analytics" EQUALS "83.7 M" with offset 5
-    Then UI Validate Text field "min analytics" EQUALS "83.7 M" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_37
   Scenario: check bps with outbound Analytics policy
@@ -378,7 +356,7 @@ Feature: challengeIng inbound
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
     Then UI Validate Text field "max analytics" EQUALS "84.4 K" with offset 5
-    Then UI Validate Text field "min analytics" EQUALS "84.4 K" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_39
   Scenario: check pps with outbound Analytics policy
