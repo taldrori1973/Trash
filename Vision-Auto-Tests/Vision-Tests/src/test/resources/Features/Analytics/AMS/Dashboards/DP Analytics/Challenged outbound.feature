@@ -205,8 +205,8 @@ Feature: Challenged outbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "83.5 M" with offset 5
-    Then UI Validate Text field "min monitoring" EQUALS "83.42 M" with offset 5
+    Then UI Validate Text field "max monitoring" EQUALS "84.17 K" with offset 5
+    Then UI Validate Text field "min monitoring" EQUALS "84.09 K" with offset 5
 
 
           ############# second drill of monitoring dashboard ###############
