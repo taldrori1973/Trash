@@ -28,9 +28,10 @@ public class DeviceOperationSteps extends VisionUITestBase {
     public DeviceOperationSteps() throws Exception {
     }
 
-    @When("^UI Lock Device \"([^\"]*)\" under \"([^\"]*)\"$")
-    public void lockDevice(String deviceSetId, String parentTree) {
-        TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
+    @When("^UI Lock Device?(?: with (DeviceID|SetId))? \"([^\"]*)\" under \"([^\"]*)\"$")
+    public void lockDevice(String idType ,String id, String parentTree) {
+        TreeDeviceManagementDto deviceInfo = (idType == null || idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(id).orElse(null) :
+                (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(id).orElse(null) : null;
         DeviceOperationsHandler.lockUnlockDevice(deviceInfo.getDeviceName(), parentTree, DeviceState.Lock.getDeviceState(), false);
     }
 
@@ -88,11 +89,12 @@ public class DeviceOperationSteps extends VisionUITestBase {
         }
     }
 
-    @When("^UI verify Device Status( physical)? \"(.*)\" if Expected device Status \"(.*)\"(?: set timeout (\\d+) seconds)?$")
-    public void verifyDeviceStatusSites(String treeTab, String deviceSetId, String expectedDeviceStatus, Integer timeout) {
+    @When("^UI verify Device Status( physical)?(?: with (DeviceID|SetId))? \"(.*)\" if Expected device Status \"(.*)\"(?: set timeout (\\d+) seconds)?$")
+    public void verifyDeviceStatusSites(String treeTab, String idType, String id, String expectedDeviceStatus, Integer timeout) {
         try {
             timeout = timeout == null ? 60 * 1000 : timeout * 1000;
-            TreeDeviceManagementDto deviceInfo = sutManager.getTreeDeviceManagement(deviceSetId).get();
+            TreeDeviceManagementDto deviceInfo = (idType == null || idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(id).orElse(null) :
+                    (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(id).orElse(null) : null;
             String deviceStatus = "";
             long startTime = System.currentTimeMillis();
 
