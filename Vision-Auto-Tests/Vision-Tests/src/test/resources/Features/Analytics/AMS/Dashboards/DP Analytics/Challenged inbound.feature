@@ -129,7 +129,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max monitoring" EQUALS "83.74 M" with offset 5
+    Then UI Validate Text field "max monitoring" EQUALS "167.39 M" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
   @SID_14
@@ -149,7 +149,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "84.42 K" with offset 5
+    Then UI Validate Text field "max monitoring" EQUALS "168.74 K" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
   @SID_16
@@ -178,7 +178,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max monitoring" EQUALS "83.74 M" with offset 5
+    Then UI Validate Text field "max monitoring" EQUALS "167.39 M" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "83.68 M" with offset 5
 
   @SID_19
@@ -197,7 +197,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "84.42 K" with offset 5
+    Then UI Validate Text field "max monitoring" EQUALS "168.74 K" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "84.35 K" with offset 5
 
 
@@ -215,8 +215,8 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max drillDown" EQUALS "83.7 M" with offset 5
-    Then UI Validate Text field "min drillDown" EQUALS "0.0"
+    Then UI Validate Text field "max drillDown" EQUALS "167.4 M" with offset 5
+    Then UI Validate Text field "min drillDown" EQUALS "83.7 M" with offset 5
 
 
   @SID_23
@@ -226,8 +226,8 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max drillDown" EQUALS "83.7 K" with offset 5
-    Then UI Validate Text field "min drillDown" EQUALS "0.0"
+    Then UI Validate Text field "max drillDown" EQUALS "168.7 K" with offset 5
+    Then UI Validate Text field "min drillDown" EQUALS "84.3 K" with offset 5
 
 
     ########################### Attacks Dashboard ###############################
@@ -248,7 +248,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max attacks" EQUALS "83.74 M" with offset 5
+    Then UI Validate Text field "max attacks" EQUALS "167.39 M" with offset 5
     Then UI Validate Text field "min attacks" EQUALS "83.68 M" with offset 5
 
   @SID_26
@@ -281,7 +281,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max attacks" EQUALS "84.42 K" with offset 5
+    Then UI Validate Text field "max attacks" EQUALS "168.74 K" with offset 5
     Then UI Validate Text field "min attacks" EQUALS "84.39 K" with offset 5
 
   ############################### Analytics Dashboard ###################################
@@ -311,7 +311,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max analytics" EQUALS "83.8 M" with offset 5
+    Then UI Validate Text field "max analytics" EQUALS "167.4 M" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "0" with offset 5
 
   @SID_32
@@ -332,7 +332,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "84.4 K" with offset 5
+    Then UI Validate Text field "max analytics" EQUALS "168.7 K" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "0.0" with offset 5
 
   @SID_34
@@ -359,7 +359,7 @@ Feature: Challenged inbound
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-    Then UI Validate Text field "max analytics" EQUALS "83.7 M" with offset 5
+    Then UI Validate Text field "max analytics" EQUALS "167.4 M" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "83.7 M" with offset 5
 
   @SID_37
@@ -379,7 +379,7 @@ Feature: Challenged inbound
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "84.4 K" with offset 5
+    Then UI Validate Text field "max analytics" EQUALS "168.7 K" with offset 5
     Then UI Validate Text field "min analytics" EQUALS "84.4 K" with offset 5
 
   @SID_39
