@@ -11,6 +11,7 @@ Feature: Challenged outbound
 
   @SID_2
   Scenario: attack challengeIng_inbound_test
+    Then Sleep "10"
     Given CLI simulate 100 attacks of type "challenged_outbound_test" on SetId "DefensePro_Set_13" with loopDelay 1500 and wait 120 seconds
 
 
@@ -207,36 +208,6 @@ Feature: Challenged outbound
       | 83470.0 | 2     | 5      |
     Then UI Validate Text field "max monitoring" EQUALS "84.17 K" with offset 5
     Then UI Validate Text field "min monitoring" EQUALS "84.09 K" with offset 5
-
-
-          ############# second drill of monitoring dashboard ###############
-
-  @SID_22
-  Scenario: choose the first row of downdrill
-    And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
-
-  @SID_23
-  Scenario: check bps with outbound second drill
-    Then UI Do Operation "Select" item "Policy Traffic Bandwidth bps"
-    And UI Do Operation "Select" item "Policy Traffic Bandwidth outbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value   | count | offset |
-      | 83733.0 |       | 0      |
-
-    Then UI Validate Text field "max drillDown" EQUALS "83.7 M" with offset 5
-    Then UI Validate Text field "min drillDown" EQUALS "83.7 M" with offset 5
-
-
-  @SID_24
-  Scenario: check pps with outbound second drill
-    Then UI Do Operation "Select" item "Policy Traffic Bandwidth pps"
-    And UI Do Operation "Select" item "Policy Traffic Bandwidth outbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value   | count | offset |
-      | 84407.0 | 1     | 5      |
-    Then UI Validate Text field "max drillDown" EQUALS "84.4 K" with offset 5
-    Then UI Validate Text field "min drillDown" EQUALS "84.3 K" with offset 5
-
 
     ########################### Attacks Dashboard ###############################
   @SID_25
