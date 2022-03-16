@@ -38,7 +38,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
@@ -53,7 +52,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import java.lang.Math;
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
@@ -83,16 +81,15 @@ public class VRMHandler {
         String item = sessionStorage.getItem(chart);// return NO data available
 
 
-        if(isJSONValid(item)){
-        jsonMap = JsonUtils.getJsonMap(item);
+        if (isJSONValid(item)) {
+            jsonMap = JsonUtils.getJsonMap(item);
 
-    }else
-    {
+        } else {
 
-        jsonMap = new HashMap<String, String>();
-        jsonMap.put("data",item);
+            jsonMap = new HashMap<String, String>();
+            jsonMap.put("data", item);
 
-    }
+        }
 
 
         return jsonMap;
@@ -201,21 +198,23 @@ public class VRMHandler {
         }
         reportErrors();
     }
-    public void uiValidateSumOfLineChartData(String chart,String label,String sum){
+
+    public void uiValidateSumOfLineChartData(String chart, String label, String sum) {
 
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, null);
         JSONArray data = (JSONArray) foundObject.get(DATA);
         double DataSum = 0;
-        for(int i =0;i<data.length();i++){
-           DataSum +=Double.parseDouble(data.get(i).toString());
+        for (int i = 0; i < data.length(); i++) {
+            DataSum += Double.parseDouble(data.get(i).toString());
         }
-        if(Math.round(DataSum)!=Double.parseDouble(sum)){
+        if (Math.round(DataSum) != Double.parseDouble(sum)) {
             scrollAndTakeScreenshot(chart);
-            BaseTestUtils.report("The expected Value is "+sum+ "not equal to actual Value " + Math.round(DataSum),Reporter.FAIL);
+            BaseTestUtils.report("The expected Value is " + sum + "not equal to actual Value " + Math.round(DataSum), Reporter.FAIL);
         }
     }
+
     public void validateVirticalStackBarData(String chart, List<StackBarData> entries) {
         Objects.requireNonNull(chart, "Chart is equal to null");
         JSONArray legends = getLabelsFromData(chart);
@@ -332,23 +331,20 @@ public class VRMHandler {
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, columnGraph);
-        if(!isJSONValid(foundObject.get(DATA).toString()))
-        {
+        if (!isJSONValid(foundObject.get(DATA).toString())) {
             entries.forEach(entry -> {
                 entry.value = (entry.value == null) ? null : entry.value;
 
                 String actualResult = foundObject.get(DATA).toString();
 
-                if(actualResult.equals(entry.value))
+                if (actualResult.equals(entry.value))
                     return;
 
                 else
                     addErrorMessage("The ACTUAL value in the chart " + chart + "  is " + actualResult);
 
             });
-        }
-
-        else {
+        } else {
 
             JSONArray data = (JSONArray) foundObject.get(DATA);
 
@@ -413,9 +409,6 @@ public class VRMHandler {
 
 
         }
-
-
-
 
 
     }
@@ -485,12 +478,9 @@ public class VRMHandler {
                     BaseTestUtils.report("The graph column " + columnGraph + " is not found", Reporter.FAIL);
                 }
 
-            if(!isJSONValid(jsonMap.get(DATA).toString()))
-            {
-                foundObject =  new JSONObject(jsonMap);
-            }
-
-            else{
+            if (!isJSONValid(jsonMap.get(DATA).toString())) {
+                foundObject = new JSONObject(jsonMap);
+            } else {
                 jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
                 dataArray = (JSONArray) jsonMap.get(DATASETS);
 
@@ -1459,6 +1449,35 @@ public class VRMHandler {
         }
     }
 
+    public static class SignatureData{
+        public String type;
+        public String oper;
+        public String param;
+        public String values;
+        public String full_values;
+
+        @Override
+        public String toString() {
+            return "SignatureData{" +
+                    "type='" + type + '\'' +
+                    ", oper=" + oper +
+                    ", param=" + param +
+                    ", values=" + values +
+                    ", full_values=" + full_values +
+                    '}';
+        }
+
+        public boolean compareFullElement(String type, String oper, String param, String full_values) {
+            List<String> l2 = new ArrayList<>(Arrays.asList(full_values.split(",")));
+            return this.type.equals(type) && this.oper.equals(oper) && this.param.equals(param) && l2.contains(this.values);
+        }
+
+
+        public boolean compareTypeOperElement(String type,String oper){
+            return this.type.equals(type) && this.oper.equals(oper);
+        }
+    }
+
     public static class Data {
         public String value;
         Integer count;
@@ -1841,4 +1860,35 @@ public class VRMHandler {
         }
     }
 
+    public void validateAttributeData(String attribute, String index, String chart, List<SignatureData> entries) throws SessionStorageException {
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        Map jsonMap = getSessionStorage(chart);
+        JSONArray jsonArray = (JSONArray) new JSONObject(jsonMap.get("data").toString()).get(attribute);
+        boolean isExist = false;
+        switch (attribute) {
+            case "rts":
+                JSONArray rtsArray = (JSONArray) new JSONObject(new JSONObject(jsonArray.get(Integer.parseInt(index)).toString()).get("value").toString()).get("footprint");
+                for (int i = 0; i < entries.size(); i++) {
+                    isExist = false;
+                    for (int j = 0; j < rtsArray.length(); j++) {
+                        if (entries.get(i).type.equals("OUTER")) {
+                            if (entries.get(i).compareTypeOperElement(rtsArray.getJSONObject(j).get("type").toString(),rtsArray.getJSONObject(j).get("oper").toString()))
+                            {
+                                isExist = true;
+                                break;
+                            }
+                        } else if (entries.get(i).type.equals("INNER")) {
+                            if (rtsArray.getJSONObject(j).has("param") && rtsArray.getJSONObject(j).has("full_values") && entries.get(i).compareFullElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString(), rtsArray.getJSONObject(j).get("param").toString(), rtsArray.getJSONObject(j).get("full_values").toString()))
+                            {
+                                isExist = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isExist)
+                        BaseTestUtils.report("The expected " + attribute + " with Value |"+entries.get(i).type+"|"+entries.get(i).oper+"|"+entries.get(i).param+"|"+entries.get(i).values+"| is not equal to actual " + attribute, Reporter.FAIL);
+                }
+                break;
+        }
+    }
 }
