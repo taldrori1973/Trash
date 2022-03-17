@@ -11,6 +11,7 @@ Feature: Challenged inbound
 
   @SID_2
   Scenario: attack challengeIng_inbound_test
+    Then Sleep "10"
     Given CLI simulate 100 attacks of type "challenged_inbound_test" on SetId "DefensePro_Set_13" with loopDelay 1500 and wait 120 seconds
 
 
