@@ -8,7 +8,7 @@ Feature: VRM AW Alerts
     * REST Delete ES index "alert"
     * REST Delete ES index "appwall-v2-attack-raw*"
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
+    Then CLI Service "config_kvision-configuration-service_1" do action RESTART
     And Sleep "5"
     * CLI Clear vision logs
 
@@ -19,16 +19,10 @@ Feature: VRM AW Alerts
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
-    And Sleep "120"
-    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
-
-    And UI Go To Vision
+    And CLI Validate service "config_kvision-configuration-service_1" is up with timeout "3" minutes
+    When REST Add device with DeviceID "AppWall_172.17.164.30"
+    And Browser Refresh Page
+#    And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
     Then UI Set Checkbox "Enable" To "true"
