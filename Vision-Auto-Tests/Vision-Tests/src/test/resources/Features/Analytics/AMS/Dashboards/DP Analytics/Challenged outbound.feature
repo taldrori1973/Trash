@@ -296,7 +296,7 @@ Feature: challengeIng outbound
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
     Then UI Validate Text field "max attacks" EQUALS "84.17 K"
-    Then UI Validate Text field "min attacks" EQUALS "84.09 K"
+    Then UI Validate Text field "min attacks" EQUALS "0.0"
 
 
   ############################### Analytics Dashboard ###################################
