@@ -174,9 +174,15 @@ Feature: AW Analytics User RBAC
     Then UI Delete Forensics With Name "Forensics_AW"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics_AW"
 
+
+  @SID_22
+  Scenario: Navigate to Alerts
+    And UI Navigate to "AMS Alerts" page via homePage
+
+
+
   @SID_17
   Scenario: Create Alert Delivery
-    And UI Navigate to "AMS Alerts" page via homePage
     When UI "Create" Alerts With Name "Alert Delivery"
       | Product    | Appwall                                                                                                                     |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
