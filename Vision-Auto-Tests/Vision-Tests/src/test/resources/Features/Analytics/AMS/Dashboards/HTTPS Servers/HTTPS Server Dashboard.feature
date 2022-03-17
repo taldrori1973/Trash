@@ -1,20 +1,20 @@
-@TC107643
+@TC107643 @Test12
 Feature: HTTPS Server Dashboard
 
-  
+  @Test12
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
     * REST Delete ES index "dp-*"
 
-  
+  @Test12
   @SID_2
   Scenario: Update Policies
     Given REST Login with user "radware" and password "radware"
     Then REST Update Policies for All DPs
 
-  
+  @Test12
   @SID_3
   Scenario:Login and Navigate to Behavioral Protections Dashboard
     Given UI Login with user "radware" and password "radware"
@@ -35,7 +35,7 @@ Feature: HTTPS Server Dashboard
     Then UI Validate Element Existence By Label "Widget Selection" if Exists "true"
     Then UI Validate Element Existence By Label "Max Min" if Exists "true"
 
-  
+  @Test12
   @SID_3
   Scenario: Move to HTTPS Flood and Validate Default View
     When UI Click Button "Behavioral Tab" with value "HTTPS Flood"
@@ -82,18 +82,18 @@ Feature: HTTPS Server Dashboard
       | BDoS-IGMP                        | false   |
       | Excluded UDP Traffic             | false   |
 
-  
+  @Test12
   @SID_3
   Scenario: Add Policy
     Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
     And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
 
-  
+  @Test12
   @SID_4
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
     Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
 
-  
+  @Test12
   @SID_5
   Scenario: Select Server
     When UI Select Server and save
@@ -431,8 +431,8 @@ Feature: HTTPS Server Dashboard
     Then UI Validate Element Existence By Label "Max Traffic" if Exists "false"
     Then UI Validate Element Existence By Label "Min Traffic" if Exists "false"
     Then UI Do Operation "Select" item "Max Min"
-    Then UI Validate Text field "Max Traffic" EQUALS "Max17.5 K"
-    Then UI Validate Text field "Min Traffic" EQUALS "Min17.5 K"
+    Then UI Validate Text field "Max Traffic" EQUALS "17.5 K"
+    Then UI Validate Text field "Min Traffic" EQUALS "17.5 K"
     Then UI Validate Element Existence By Label "Max Traffic" if Exists "true"
     Then UI Validate Element Existence By Label "Min Traffic" if Exists "true"
 
