@@ -1470,6 +1470,35 @@ public class VRMHandler {
         }
     }
 
+    public static class SignatureData{
+        public String type;
+        public String oper;
+        public String param;
+        public String values;
+        public String full_values;
+
+        @Override
+        public String toString() {
+            return "SignatureData{" +
+                    "type='" + type + '\'' +
+                    ", oper=" + oper +
+                    ", param=" + param +
+                    ", values=" + values +
+                    ", full_values=" + full_values +
+                    '}';
+        }
+
+        public boolean compareFullElement(String type, String oper, String param, String full_values) {
+            List<String> l2 = new ArrayList<>(Arrays.asList(full_values.split(",")));
+            return this.type.equals(type) && this.oper.equals(oper) && this.param.equals(param) && l2.contains(this.values);
+        }
+
+
+        public boolean compareTypeOperElement(String type,String oper){
+            return this.type.equals(type) && this.oper.equals(oper);
+        }
+    }
+
     public static class Data {
         public String value;
         Integer count;
@@ -1856,4 +1885,35 @@ public class VRMHandler {
         }
     }
 
+    public void validateAttributeData(String attribute, String index, String chart, List<SignatureData> entries) throws SessionStorageException {
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        Map jsonMap = getSessionStorage(chart);
+        JSONArray jsonArray = (JSONArray) new JSONObject(jsonMap.get("data").toString()).get(attribute);
+        boolean isExist = false;
+        switch (attribute) {
+            case "rts":
+                JSONArray rtsArray = (JSONArray) new JSONObject(new JSONObject(jsonArray.get(Integer.parseInt(index)).toString()).get("value").toString()).get("footprint");
+                for (int i = 0; i < entries.size(); i++) {
+                    isExist = false;
+                    for (int j = 0; j < rtsArray.length(); j++) {
+                        if (entries.get(i).type.equals("OUTER")) {
+                            if (entries.get(i).compareTypeOperElement(rtsArray.getJSONObject(j).get("type").toString(),rtsArray.getJSONObject(j).get("oper").toString()))
+                            {
+                                isExist = true;
+                                break;
+                            }
+                        } else if (entries.get(i).type.equals("INNER")) {
+                            if (rtsArray.getJSONObject(j).has("param") && rtsArray.getJSONObject(j).has("full_values") && entries.get(i).compareFullElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString(), rtsArray.getJSONObject(j).get("param").toString(), rtsArray.getJSONObject(j).get("full_values").toString()))
+                            {
+                                isExist = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isExist)
+                        BaseTestUtils.report("The expected " + attribute + " with Value |"+entries.get(i).type+"|"+entries.get(i).oper+"|"+entries.get(i).param+"|"+entries.get(i).values+"| is not equal to actual " + attribute, Reporter.FAIL);
+                }
+                break;
+        }
+    }
 }
