@@ -39,7 +39,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Attack ID Max pps Greater than"
       | Product               | DefenseFlow                                                                                                      |
@@ -48,7 +48,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Attack ID Max pps Greater than"
 
@@ -83,7 +83,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Source IP Address Max pps Greater than"
       | Product               | DefenseFlow                                                                                                      |
@@ -92,7 +92,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Source IP Address Max pps Greater than"
 
@@ -127,7 +127,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                  |
     Then UI "Validate" Forensics With Name "Output Destination IP Address Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -136,7 +136,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Output Destination IP Address Protocol Equal"
 
@@ -206,7 +206,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[Non-IP]                                                            |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                                |
     Then UI "Validate" Forensics With Name "Output Radware ID Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -214,7 +214,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[Non-IP]                                                            |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                                 |
     Then UI Delete Forensics With Name "Output Radware ID Protocol Equal"
 
@@ -251,7 +251,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Total Packets Dropped Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -260,7 +260,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Total Packets Dropped Protocol Equal"
 
@@ -290,7 +290,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]                     |
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                |
     Then UI "Validate" Forensics With Name "Output Total Mbits Dropped Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -298,7 +298,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]                     |
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Output Total Mbits Dropped Protocol Equal"
 
@@ -333,7 +333,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Physical Port Protocol Not Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -342,7 +342,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Physical Port Protocol Not Equal"
 
@@ -375,7 +375,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                                |
     Then UI "Validate" Forensics With Name "Output VLAN Tag Protocol Not Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -384,7 +384,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                                |
     Then UI Delete Forensics With Name "Output VLAN Tag Protocol Not Equal"
 
@@ -419,7 +419,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                                                            |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                                   |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                               |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                              |
       | Format                | Select: CSV                                                                                                                                    |
     Then UI "Validate" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Risk Equal"
       | Product               | DefenseFlow                                                                                                                                    |
@@ -428,7 +428,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                                                            |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                                   |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                               |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                               |
       | Format                | Select: CSV                                                                                                                                    |
     Then UI Delete Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Risk Equal"
 
@@ -458,7 +458,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Risk,Operator:Equals,Value:[High]                                                                 |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                               |
     Then UI "Validate" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Risk Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -466,7 +466,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Risk,Operator:Equals,Value:[High]                                                                 |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Risk Equal"
 
@@ -501,7 +501,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Destination IP Address_Destination Port_Direction Risk Not Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -510,7 +510,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Destination IP Address_Destination Port_Direction Risk Not Equal"
 
@@ -540,7 +540,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Risk,Operator:Not Equals,Value:[Info,High]                                                        |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                                  |
     Then UI "Validate" Forensics With Name "Output Device IP Address Risk Not Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -548,7 +548,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Risk,Operator:Not Equals,Value:[Info,High]                                                        |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                                |
     Then UI Delete Forensics With Name "Output Device IP Address Risk Not Equal"
 
@@ -583,7 +583,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Start Time Risk Not Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -592,7 +592,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Start Time Risk Not Equal"
 
@@ -625,7 +625,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                           |
     Then UI "Validate" Forensics With Name "Output Attack Name1 Source IP Not Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -634,7 +634,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                              |
     Then UI Delete Forensics With Name "Output Attack Name1 Source IP Not Equal"
 
@@ -670,7 +670,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Action Source IP Not Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -680,7 +680,7 @@ Feature:Create DefenseFlow Part3
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Action Source IP Not Equal"
 
@@ -693,7 +693,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Attack ID Source IP Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -702,7 +702,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Attack ID Source IP Equal"
 
@@ -737,7 +737,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                                |
     Then UI "Validate" Forensics With Name "Output Source IP Address Source Port Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -746,7 +746,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                               |
     Then UI Delete Forensics With Name "Output Source IP Address Source Port Equal"
 
@@ -776,7 +776,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Destination IP Address Source Port Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -785,7 +785,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Destination IP Address Source Port Equal"
 
@@ -818,7 +818,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                                 |
     Then UI "Validate" Forensics With Name "Output Direction Source Port Not Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -827,7 +827,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: HTML                                                                                |
     Then UI Delete Forensics With Name "Output Direction Source Port Not Equal"
 
@@ -861,7 +861,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anti Scanning]                                              |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Radware ID Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -869,7 +869,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anti Scanning]                                              |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Radware ID Threat Category Equal"
 
@@ -902,7 +902,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                 |
     Then UI "Validate" Forensics With Name "Output Total Packets Dropped Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -911,7 +911,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Output Total Packets Dropped Threat Category Equal"
 
@@ -943,7 +943,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HTTPS Flood]                                                     |
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Total Mbits Dropped Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -951,7 +951,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HTTPS Flood]                                                     |
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Total Mbits Dropped Threat Category Equal"
 
@@ -984,7 +984,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                 |
     Then UI "Validate" Forensics With Name "Output Physical Port Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -993,7 +993,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Output Physical Port Threat Category Equal"
 
@@ -1028,7 +1028,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output VLAN Tag Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -1037,7 +1037,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output VLAN Tag Threat Category Equal"
 
@@ -1067,7 +1067,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS Flood]                                                                                     |
       | devices               | index:10                                                                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                               |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                               |
       | Format                | Select: CSV                                                                                                               |
     Then UI "Validate" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Threat Category Equal"
       | Product               | DefenseFlow                                                                                                                                    |
@@ -1075,7 +1075,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS Flood]                                                                                     |
       | devices               | index:10                                                                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                               |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                               |
       | Format                | Select: CSV                                                                                                               |
     Then UI Delete Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Threat Category Equal"
 
@@ -1110,7 +1110,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -1119,7 +1119,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Threat Category Equal"
 
@@ -1154,7 +1154,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                 |
     Then UI "Validate" Forensics With Name "Output Destination IP Address_Destination Port_Direction Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -1163,7 +1163,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
       | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Output Destination IP Address_Destination Port_Direction Threat Category Equal"
 
@@ -1234,7 +1234,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                         |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware        |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123        |
       | Format                | Select: CSV                                                                                        |
     Then UI "Validate" Forensics With Name "Output Device IP Address Threat Category Not Equal"
       | Product               | DefenseFlow                                                                                                             |
@@ -1243,7 +1243,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                         |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware        |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123        |
       | Format                | Select: CSV                                                                                        |
     Then UI Delete Forensics With Name "Output Device IP Address Threat Category Not Equal"
 
@@ -1277,7 +1277,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Traffic Filters] |
       | devices               | index:10                                                                                                                                                                                          |
       | Time Definitions.Date | Relative:[Months,2]                                                                                                                                                                               |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                  |
       | Format                | Select: CSV                                                                                                                                                                                       |
     Then UI "Validate" Forensics With Name "Output Attack Name1_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Threat Category Not Equal"
       | Product               | DefenseFlow                                                                                                                                                                                       |
@@ -1285,7 +1285,7 @@ Feature:Create DefenseFlow Part3
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Traffic Filters] |
       | devices               | index:10                                                                                                                                                                                          |
       | Time Definitions.Date | Relative:[Months,2]                                                                                                                                                                               |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                  |
       | Format                | Select: CSV                                                                                                                                                                                       |
     Then UI Delete Forensics With Name "Output Attack Name1_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Threat Category Not Equal"
 
@@ -1320,7 +1320,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                                                     |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                             |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                             |
       | Format                | Select: CSV                                                                                                             |
     Then UI "Validate" Forensics With Name "Output Start Time_End Time_Device IP Address_Action_Source IP Address_Source Port_Destination IP Address_Destination Port Custom"
       | Product               | DefenseFlow                                                                                                                                  |
@@ -1329,7 +1329,7 @@ Feature:Create DefenseFlow Part3
       | devices               | index:10                                                                                                                                     |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                             |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                             |
       | Format                | Select: CSV                                                                                                             |
     Then UI Delete Forensics With Name "Output Start Time_End Time_Device IP Address_Action_Source IP Address_Source Port_Destination IP Address_Destination Port Custom"
 
