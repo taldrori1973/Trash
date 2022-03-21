@@ -135,9 +135,9 @@ Feature: Top Attack by GeoLocation
     Then Sleep "30"
 
 
-    Then UI Validate Text field "Country Name" with params "Multiple" EQUALS "Multiple"
-    Then UI Validate Text field "Country Value" with params "Multiple" EQUALS "10%" with offset 1
-    Then UI Validate Text field "Total Events Value" with params "Multiple" EQUALS "1"
+    Then UI Validate Text field "Country Name" with params "Mexico" EQUALS "Mexico"
+    Then UI Validate Text field "Country Value" with params "MX" EQUALS "10%" with offset 1
+    Then UI Validate Text field "Total Events Value" with params "MX" EQUALS "1"
 
     Then UI Validate Text field "Country Name" with params "China" EQUALS "China"
     Then UI Validate Text field "Country Value" with params "CN" EQUALS "10%" with offset 1

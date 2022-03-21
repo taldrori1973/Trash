@@ -47,21 +47,19 @@ Feature: Baselines Widget Settings
     And Sleep "2"
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
-      | 464   | 13    | 5      |
-#      | 179   | 8    | 0      |
-#      | 464   | 10    | 0      |
+      | 464   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Normal Edge"
       | value | count | offset |
-      | 322   | 13    | 5      |
+      | 322   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Attack Edge"
       | value | count | offset |
-      | 628   | 13    | 5      |
+      | 628   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 44000 | 13    | 5      |
+      | 44000 | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | value | count | offset |
-      | 66680 | 13    | 5      |
+      | 66680 | 13    | 6      |
 
   @SID_4
   Scenario: DP baselines widget settings Save
@@ -98,19 +96,19 @@ Feature: Baselines Widget Settings
     When UI Do Operation "Select" item "Behavioral Chart" with value "BDoS-TCP SYN,bps"
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
-      | 464   | 13    | 5      |
+      | 464   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Normal Edge"
       | value | count | offset |
-      | 322   | 13    | 5      |
+      | 322   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Attack Edge"
       | value | count | offset |
-      | 628   | 13    | 5      |
+      | 628   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 44800 | 13    | 5      |
+      | 44800 | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Total Traffic"
       | value | count | offset |
-      | 46640 | 13    | 5      |
+      | 46640 | 13    | 6      |
 
   @SID_7
   Scenario: DP baselines widget settings Default
@@ -124,19 +122,19 @@ Feature: Baselines Widget Settings
   Scenario: DP baselines widget settings Default - validate values
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
-      | 464   | 13    | 5      |
+      | 464   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Normal Edge"
       | value | count | offset |
-      | 322   | 13    | 5      |
+      | 322   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Attack Edge"
       | value | count | offset |
-      | 628   | 13    | 5      |
+      | 628   | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Legitimate Traffic"
       | value | count | offset |
-      | 44000 | 13    | 5      |
+      | 44000 | 13    | 6      |
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | value | count | offset |
-      | 66680 | 13    | 5      |
+      | 66680 | 13    | 6      |
 
   @SID_9
   Scenario: BDoS baselines Widget Settings Clear and check logs

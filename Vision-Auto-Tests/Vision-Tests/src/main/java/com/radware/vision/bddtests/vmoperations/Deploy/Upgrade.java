@@ -12,10 +12,9 @@ import com.radware.vision.vision_project_cli.RootServerCli;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
-
 public class Upgrade extends Deploy {
     private static final Map<String, String> LAST_SUPPORTED_UPGRADE_VERSION = new HashMap<String, String>() {{
+        put("4.86.00", "4.83.00");
         put("4.85.00", "4.82.00");
         put("4.84.00", "4.81.00");
         put("4.83.00", "4.80.00");
