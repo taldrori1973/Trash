@@ -189,7 +189,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value | count | offset |
-      | 0     | 56    | 3      |
+      | 0     | 56    | 5     |
     Then UI Validate Text field "max monitoring" EQUALS "0.0"
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
@@ -358,7 +358,7 @@ Feature: challengeIng outbound
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
   @SID_33
-  Scenario: choose device and policy from scope selection
+  Scenario: choose device from scope selection analytics
     Given UI Click Button "Device Selection"
     Then UI "Select" Scope Polices
       | devices | type:DefensePro Analytics,index:13 |
@@ -369,7 +369,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
-      | 0     | 57    | 3      |
+      | 0     | 57    | 5      |
     Then UI Validate Text field "max analytics" EQUALS "0"
     Then UI Validate Text field "min analytics" EQUALS "0"
 
@@ -389,7 +389,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
-      | 0     | 58    | 3      |
+      | 0     | 58    | 5      |
     Then UI Validate Text field "max analytics" EQUALS "0.0"
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
