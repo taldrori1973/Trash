@@ -83,8 +83,9 @@ Feature: Attacks Table
   @SID_7
   Scenario: validate sampleData
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "Black_IPV6"
+    Then UI Click Button "Auto Refresh"
     Then Sleep "3"
-    Then UI Click Button "Sample Data Button" with value ""
+    Then UI Click Button "Sample Data Button"
     Then UI Validate "SampleDataTable" Table rows count GTE to 2
     Then UI Click Button by Class "anticon anticon-close ant-modal-close-icon"
 #    Then UI Click Button "closeTable"
