@@ -60,9 +60,9 @@ Feature: AWGenerateReport
     And Browser Refresh Page
     And UI Navigate to "AMS Reports" page via homePage
 
-    @SID_7
-    Scenario: validate attacks by action
-      Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
+  @SID_7
+  Scenario: validate attacks by action
+    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
     Then UI Validate Pie Chart data "Attacks by Action-AppWall" in Report "AwReportGeneration"
       | label    | data |
       | Blocked  | 281  |
@@ -87,19 +87,22 @@ Feature: AWGenerateReport
       | A5    | 100  |
       | A7    | 60   |
       | A6    | 10   |
-    @SID_10
-    Scenario: start IPTABLES
-      Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+
+  @SID_10
+  Scenario: start IPTABLES
+    Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
 
   @SID_11
   Scenario: validate that generate report exist in UI
-  Scenario: create new OWASP Top 10 1
     Given UI "Create" Report With Name "Automation AppWall Report"
+      | Template              | reportType:AppWall , Widgets:[ALL],Applications:[All],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                    |
+      | Time Definitions.Date | Quick:15m                                                            |
+    Given UI "Validate" Report With Name "Automation AppWall Report"
       | Template              | reportType:AppWall , Widgets:[ALL],Applications:[All],showTable:true |
       | Logo                  | reportLogoPNG.png                                                    |
       | Time Definitions.Date | Quick:15m                                                            |
     Then UI "Generate" Report With Name "Automation AppWall Report"
       | timeOut | 60 |
-
     Then UI Click Button "Log Preview" with value "Automation AppWall Report_0"
     Then UI Validate generate report with name "Automation AppWall Report" is exist
