@@ -1,4 +1,4 @@
-@TC116609 @Test12
+@TC116609 
 Feature: UDP widgets
 
   @SID_1
@@ -18,6 +18,8 @@ Feature: UDP widgets
       | snmpV1WriteCommunity | public   |
       | snmpV2ReadCommunity  | public   |
       | snmpV2WriteCommunity | public   |
+    
+    Then Sleep "10"
 
   @SID_2
   Scenario: Clear the vision from the attacks and run PCAP
@@ -42,7 +44,7 @@ Feature: UDP widgets
     Then UI Validate Line Chart data "Excluded UDP Traffic" with Label "Excluded Ports"
       | value | min | valueOffset |
       | 0     | 5   | 5           |
-    Then UI Click Button "Excluded UDP Traffic Outbound" with value ""
+    Then UI Click Button "Behavioral Chart" with value "BDoS-Advanced-UDP Rate-Invariant,Outbound"
     Then UI Validate Line Chart data "Excluded UDP Traffic" with Label "Excluded Ports"
       | value | min |
       | 0     | 5   |
@@ -52,27 +54,23 @@ Feature: UDP widgets
 
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "3"
-    And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "Policy_4993@000010-00005-0"
+    And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "Policy_4993@00000e-00005-0"
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Behavioral DoS"
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack Status" findBy cellValue "Ongoing"
-    Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
-      | value | min |
-      | 0     | 10  |
+    Then UI Validate Line Chart data "BDoS Attack Life Cycle" with Label "Real-Time Signature (RTS)"
+      | value  | min |
+      | 325630 | 5   |
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Total Traffic"
-      | value | min | valueOffset |
-      | 83000 | 5   | 1000        |
+      | value  | min | valueOffset |
+      | 333511 | 5   | 1000        |
+      | 331844 | 5   | 1000        |
 
-    Then UI Text of "Detection Method" equal to "Detection Method:Advanced UDP"
     Then UI Text of "Info.Protocol" equal to "Protocol: UDP"
 
 
   @SID_5
   Scenario: Clear  vision
     * CLI kill all simulator attacks on current vision
-#    * REST Delete ES index "dp-traffic-*"
-#    * REST Delete ES index "dp-https-stats-*"
-#    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     When CLI Clear vision logs
     Then REST Delete Device By IP "172.17.50.50"
