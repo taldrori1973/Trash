@@ -11,7 +11,7 @@
     "environment": "KVM-217"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.141.48",
+    "hostIp": "172.17.141.58",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
