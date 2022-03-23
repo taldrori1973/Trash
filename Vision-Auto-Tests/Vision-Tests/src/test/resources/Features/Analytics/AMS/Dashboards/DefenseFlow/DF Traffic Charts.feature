@@ -213,7 +213,7 @@ Feature: Traffic Bandwidth \Traffic Rate Charts
     Then UI Click Button "Widget Selection"
     Then UI Click Button "Widget Selection.Clear Dashboard"
     Then UI Click Button "Widget Selection.Remove All Confirm"
-    Then UI Click Button "New Widget" with value "Traffic_Bandwidth_(Defense_Pro_Only)"
+    Then UI Click Button "New Widget" with value "Traffic_Bandwidth_(DefensePro_Only)"
     Then UI Click Button "Widget Selection.Add Selected Widgets"
     Then UI Click Button "Widget Selection"
 
@@ -257,7 +257,7 @@ Feature: Traffic Bandwidth \Traffic Rate Charts
     Then UI Click Button "Widget Selection"
     Then UI Click Button "Widget Selection.Clear Dashboard"
     Then UI Click Button "Widget Selection.Remove All Confirm"
-    Then UI Click Button "New Widget" with value "Traffic_Rate_(Defense_Pro_Only)"
+    Then UI Click Button "New Widget" with value "Traffic_Rate_(DefensePro_Only)"
     Then UI Click Button "Widget Selection.Add Selected Widgets"
     Then UI Click Button "Widget Selection"
 
