@@ -292,7 +292,7 @@ Feature: Traffic Bandwidth \Traffic Rate Charts
 
   @SID_31
   Scenario: Change DF management IP to IP of Vision DF
-    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
       | @defenseFlowDevice.getDeviceIp |
 
