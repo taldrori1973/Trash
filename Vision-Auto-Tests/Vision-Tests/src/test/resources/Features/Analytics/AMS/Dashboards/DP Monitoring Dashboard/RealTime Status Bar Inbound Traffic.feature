@@ -63,17 +63,17 @@ Feature: VRM Real Time Status Bar Inbound Traffic
       | index | ports | policies |
       | 10    | 1,3,7 |          |
     And Sleep "2"
-    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
+    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "729.74 M"
+    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "5.58 M"
+    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "4.25 K"
     When UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 4     |          |
     And Sleep "2"
-    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
+    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "729.74 M"
+    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "5.58 M"
+    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "4.25 K"
 
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
