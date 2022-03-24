@@ -17,6 +17,7 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.table.AbstractColumn;
 import com.radware.automation.webui.widgets.api.table.AbstractTable;
 import com.radware.automation.webui.widgets.impl.table.BasicTable;
+import com.radware.automation.webui.widgets.impl.table.BasicTableRow;
 import com.radware.automation.webui.widgets.impl.table.BasicTableWithPagination;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
@@ -40,6 +41,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.radware.automation.webui.UIUtils.sleep;
@@ -191,7 +193,9 @@ public class TableHandler {
     private void constructTable(String tableSelector, ComponentLocator tableLocator, WebElement tableElement, boolean withReadAllTable) throws Exception {
         if (tableElement != null) {
             String classValue = WebUIUtils.fluentWaitAttribute(tableLocator.getBy(), WebUIUtils.MAX_RENDER_WAIT_TIME, true, "class", null);
-            if (tableSelector.contains("table_minMaxTable") || classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table") || tableSelector.contains("table_sample-data-table") || tableSelector.equals("summary-table"))
+            if(tableSelector.equals("vrm-generic-table-vrm-dpm-applications-table-list-physical-devices-table"))
+                table = new CustomBasicTable(tableLocator, withReadAllTable);
+            else if (tableSelector.contains("table_minMaxTable") || classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table") || tableSelector.contains("table_sample-data-table") || tableSelector.equals("summary-table"))
                 table = new BasicTable(tableLocator, withReadAllTable);
             else if (tableSelector.contains("table_attacksTable"))
                 table = new BasicTableWithPagination(tableLocator, withReadAllTable);
@@ -416,5 +420,54 @@ public class TableHandler {
     static public class TableValues {
         public String columnName;
         public String value;
+    }
+}
+
+class CustomBasicTable extends BasicTable{
+
+    public CustomBasicTable(ComponentLocator tableLocator, boolean withReadAllTheTable) {
+        super(tableLocator, withReadAllTheTable);
+    }
+
+    @Override
+    public String validateTableRowContent(List<TableDataSets> cellsContentToValidate, String columnName, String cellValue, Integer index) throws Exception {
+        String failures = "";
+        BasicTableRow targetBasicTableRow = null;
+        if (index < 0) {
+            TargetRow targetRow = this.findTargetRow(columnName, cellValue);
+            targetBasicTableRow = new BasicTableRow(targetRow.rowIndex, this.tableLocator, this.headersFieldNames);
+        } else {
+            targetBasicTableRow = new BasicTableRow(index+1, this.tableLocator, this.headersFieldNames);
+        }
+
+        Iterator var10 = cellsContentToValidate.iterator();
+
+        while(var10.hasNext()) {
+            TableDataSets tableDataSet = (TableDataSets)var10.next();
+            String actualCellValue = targetBasicTableRow.cell(tableDataSet.columnName).textValue();
+            if (!actualCellValue.equalsIgnoreCase(tableDataSet.value)) {
+                failures = failures + tableDataSet.columnName + ": Actual value is '" + actualCellValue + "' BUT Expected is " + tableDataSet.value + "\n";
+            }
+        }
+
+        return failures;
+    }
+
+    @Override
+    protected TargetRow findTargetRow(String key, String value) throws Exception {
+        int columnIndex = this.headersFieldNames.indexOf(key);
+        if (columnIndex == -1) {
+            throw new Exception("No column with name " + key);
+        } else {
+            for (int i = 1; i <= getRowCount(); i++) {
+                String targetCellLocator = "(//*" + this.tableLocator.getLocatorValue().replaceFirst("\\[", "[@") + "/tbody//tr["+i+"]/td[" + (columnIndex + 1) + "])[ . = '" + value + "']";
+                WebElement targetCellElement = WebUIUtils.fluentWait((new ComponentLocator(How.XPATH, targetCellLocator)).getBy(),1);
+                if (targetCellElement != null) {
+                    return new TargetRow(targetCellElement, i);
+                }
+            }
+        }
+
+        throw new Exception("No row with key: " + key + " and value: " + value);
     }
 }
