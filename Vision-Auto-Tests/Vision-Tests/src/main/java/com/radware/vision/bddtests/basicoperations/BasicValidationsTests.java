@@ -112,6 +112,11 @@ public class BasicValidationsTests extends BddUITestBase {
 
     }
 
+    @Then("^Validate Expand \"([^\"]*)\" Table with label \"([^\"]*)\" Equals to \"([^\"]*)\" OR \"([^\"]*)\" (?:OR \"([^\"]*))?\"$")
+    public void validateExtendTable(String tableName, String label, String value1, String value2, String value3) {
+        BasicOperationsHandler.isTextEqualValue(label, value1, value2, value3, tableName);
+    }
+
     @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
     public void validateTextFieldElementbyId(String selectorValue, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
