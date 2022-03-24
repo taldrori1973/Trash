@@ -454,6 +454,27 @@ public class BasicOperationsHandler {
         }
     }
 
+    public static void isTextEqualValue(String label, String expectedValue1,String expectedValue2,String expectedValue3, String param) {
+        int flag1=0,flag2=0;
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(param);
+        String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
+        if (actualValue!=null && actualValue.contains(expectedValue1) && flag2==0) {
+            flag1=1;
+            BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue1, Reporter.PASS);
+        }
+        else if (actualValue!=null && actualValue.contains(expectedValue2) && flag1==0) {
+            flag2=1;
+            BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue1, Reporter.PASS);
+        }
+        else if (actualValue!=null && actualValue.contains(expectedValue3) && flag1==flag2) {
+            flag1=flag2=1;
+            BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue1, Reporter.PASS);
+        }
+        else {
+            BaseTestUtils.report("Failed to validate element value: " + label + " ,Expected result is: " + expectedValue1 + " but Actual value is: " + actualValue, Reporter.FAIL);
+        }
+    }
     /**
      * This check will rely on the way that selenium does it
      *
