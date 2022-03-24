@@ -26,6 +26,7 @@ Feature: Second Drill - Validate General Charts
     When UI Navigate to "Application Dashboard" page via homePage
   @SID_5
   Scenario: Navigate to Virtual Service
+    When UI Set Text Field "virts table Search TextBox" To "Rejith_32326515"
     Given Sleep "3"
     When UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
     Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326515:80" EQUALS "Rejith_32326515:80"

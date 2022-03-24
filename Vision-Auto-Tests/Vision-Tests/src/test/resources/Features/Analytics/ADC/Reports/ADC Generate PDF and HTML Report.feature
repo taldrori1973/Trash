@@ -15,7 +15,7 @@ Feature: ADC Generate PDF and HTML Report
   Scenario: validate Ports Traffic Information-System and Network
     Then Validate Line Chart data "Ports Traffic Information-System and Network" with Label "port_20" in report "ADC System and Network Report Definition"
       | value | min |
-      | 205   | 10  |
+      | 202   | 10  |
 
   @SID_4
   Scenario: validate Concurrent Connections-Application
