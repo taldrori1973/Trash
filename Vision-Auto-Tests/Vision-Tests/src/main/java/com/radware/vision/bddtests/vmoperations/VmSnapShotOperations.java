@@ -37,6 +37,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
     int defaultVMWareNumber = 1;
     String vmName = sutManager.getServerName();
     private static final Map<String, String> NEXT_VERSION = new HashMap<String, String>() {{
+        put("4.85.00", "4.86.00");
         put("4.84.00", "4.85.00");
         put("4.83.00", "4.84.00");
         put("4.82.00", "4.83.00");

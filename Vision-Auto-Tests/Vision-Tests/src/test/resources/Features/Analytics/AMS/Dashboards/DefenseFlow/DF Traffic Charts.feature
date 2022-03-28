@@ -54,11 +54,11 @@ Feature: Traffic Bandwidth \Traffic Rate Charts
   @SID_5
   Scenario: create new Report intro_executive summary
     Given UI "Create" Report With Name "Traffic widgets Report"
-      | Template-1       | reportType:DefenseFlow Analytics , Widgets:[Traffic Bandwidth (Defense Pro Only),Traffic Rate (Defense Pro Only),Traffic Bandwidth,Traffic Rate]  ,Protected Objects:[All]                                                                                        |
+      | Template-1       | reportType:DefenseFlow Analytics , Widgets:[Traffic Bandwidth (DefensePro Only),Traffic Rate (DefensePro Only),Traffic Bandwidth,Traffic Rate]  ,Protected Objects:[All]                                                                                        |
       | Format           | Select: PDF                                                                                                                                            |
       | Share            | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                                    |
     Then UI "Validate" Report With Name "Traffic widgets Report"
-      | Template-1       | reportType:DefenseFlow Analytics , Widgets:[Traffic Bandwidth (Defense Pro Only),Traffic Rate (Defense Pro Only),Traffic Bandwidth,Traffic Rate]  ,Protected Objects:[All]                                                                                        |
+      | Template-1       | reportType:DefenseFlow Analytics , Widgets:[Traffic Bandwidth (DefensePro Only),Traffic Rate (DefensePro Only),Traffic Bandwidth,Traffic Rate]  ,Protected Objects:[All]                                                                                        |
       | Format           | Select: PDF                                                                                                                                            |
       | Share            | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                                    |
     Then UI "Generate" Report With Name "Traffic widgets Report"

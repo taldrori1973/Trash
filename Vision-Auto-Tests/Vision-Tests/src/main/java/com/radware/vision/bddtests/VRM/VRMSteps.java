@@ -8,7 +8,6 @@ import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -294,5 +293,12 @@ public class VRMSteps {
 
         vrmHandler.uiValidateSumOfLineChartData(chart,label,sum);
     }
+
+    @Then("^UI Validate Line Chart attribute \"([^\"]*)\" with index \"([^\"]*)\" in data in chart \"([^\"]*)\"$")
+    public void uiValidateLineChartAttributeIntDataInChart(String attribute,String index, String chart, List<SignatureData> entries) throws Throwable {
+        vrmHandler.validateAttributeData( attribute,index,  chart,entries);
+    }
+
+
 }
 

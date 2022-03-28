@@ -268,7 +268,8 @@ public class NewVmHandler extends TestBase {
 
             try {
                 this.visionRadwareFirstTime.setHost(ip);
-                this.visionRadwareFirstTime.connect();
+                //this.visionRadwareFirstTime.connect();
+                runCommand(this.visionRadwareFirstTime, "", 1200000, true, false, false);
                 // ToDo kvision check what for this lines
                 //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
             } catch (Exception var23) {

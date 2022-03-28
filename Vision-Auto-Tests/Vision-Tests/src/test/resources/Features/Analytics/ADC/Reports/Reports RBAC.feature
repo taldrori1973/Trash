@@ -15,10 +15,10 @@ Feature: DPM - ADC Reports RBAC
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
     Given UI "Create" Report With Name "App Report"
-      | Application | Alteon_Set_Simulators_1:80   |
+      | Application | Alteon_Sim_Set_0:80                                    |
       | Template    | reportType:Application , Widgets:[Requests per Second] |
     Then UI "Validate" Report With Name "App Report"
-      | Application | Alteon_Set_Simulators_1:80   |
+      | Application | Alteon_Sim_Set_0:80                                    |
       | Template    | reportType:Application , Widgets:[Requests per Second] |
 
 
@@ -27,10 +27,10 @@ Feature: DPM - ADC Reports RBAC
 #      | devices    | virts:[Rejith:88, Rejith:443]               |
 
     Given UI "Create" Report With Name "Alteon_Sim_Set_2 Report"
-      | Application | Alteon_Set_Simulators_2:80                |
+      | Application | Alteon_Sim_Set_1:80                                          |
       | Template    | reportType:System and Network , Widgets:[Ports Traffic Information] |
     Then UI "Validate" Report With Name "Alteon_Sim_Set_2 Report"
-      | Application | Alteon_Set_Simulators_2:80                |
+      | Application | Alteon_Sim_Set_1:80                                          |
       | Template    | reportType:System and Network , Widgets:[Ports Traffic Information] |
 
 
