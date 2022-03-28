@@ -9,13 +9,110 @@ Feature: challengeIng outbound
     * REST Delete ES index "dp-*"
 
   @SID_2
-  Scenario: attack challengeIng_inbound_test
+  Scenario: attack challengeIng_outbound_test
     Then Sleep "10"
-    Given CLI simulate 100 attacks of type "challenged_outbound_test" on "DefensePro" 13 with loopDelay 1500 and wait 120 seconds
+    Given CLI simulate 100 attacks of type "challenged_outbound_test" on "DefensePro" 13 with loopDelay 1500 and wait 250 seconds
+    * CLI kill all simulator attacks on current vision
+
+    #
+#    ######################### Monitoring dashboard #####################################
+#
+  @SID_3
+  Scenario:navigate to DP monitoring
+    When UI Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+
+  @SID_4
+  Scenario: check bps with inbound Monitoring
+    Then Sleep "10"
+    Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
+    And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 55    | 3      |
+
+    Then UI Validate Text field "max monitoring" EQUALS "0"
+    Then UI Validate Text field "min monitoring" EQUALS "0"
+
+  @SID_5
+  Scenario: check bps with outbound Monitoring
+    And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 83470.0 | 2     | 5      |
+
+    Then UI Validate Text field "max monitoring" EQUALS "83.5 M"
+    Then UI Validate Text field "min monitoring" EQUALS "0"
+
+  @SID_6
+  Scenario: check pps with inbound Monitoring
+    Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
+    And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 57    | 3      |
+    Then UI Validate Text field "max monitoring" EQUALS "0.0"
+    Then UI Validate Text field "min monitoring" EQUALS "0.0"
+
+  @SID_7
+  Scenario: check pps with outbound Monitoring
+    And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 84151.0 | 2     | 5      |
+    Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
+    Then UI Validate Text field "min monitoring" EQUALS "0.0"
+
+  @SID_8
+  Scenario: choose device from scope selection
+    Given UI Click Button "Device Selection"
+    Then UI "Select" Scope Polices
+      | devices | type:DefensePro Analytics,index:13 |
+
+  @SID_9
+  Scenario: check bps with inbound Monitoring policy
+    Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
+    And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 57    | 3      |
+
+    Then UI Validate Text field "max monitoring" EQUALS "0"
+    Then UI Validate Text field "min monitoring" EQUALS "0"
+
+  @SID_10
+  Scenario: check bps with outbound Monitoring policy
+    And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 83470.0 | 2     | 5      |
+
+    Then UI Validate Text field "max monitoring" EQUALS "83.5 M"
+    Then UI Validate Text field "min monitoring" EQUALS "0"
+
+  @SID_11
+  Scenario: check pps with inbound Monitoring policy
+    Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
+    And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
+      | value | count | offset |
+      | 0     | 56    | 5     |
+    Then UI Validate Text field "max monitoring" EQUALS "0.0"
+    Then UI Validate Text field "min monitoring" EQUALS "0.0"
+
+  @SID_12
+  Scenario: check pps with outbound Monitoring policy
+    And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
+    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
+      | value   | count | offset |
+      | 84151.0 | 2     | 5      |
+    Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
+    Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
        ############################## AMS Reports #################################
 
-  @SID_3
+  @SID_13
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
@@ -23,18 +120,17 @@ Feature: challengeIng outbound
     Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
 
 
-  @SID_4
+  @SID_14
   Scenario: Clear old reports on file-system
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
 
-  @SID_5
+  @SID_15
   Scenario: login and navigate to ams reports
-    When UI Login with user "radware" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+
     Then UI Navigate to "AMS REPORTS" page via homepage
 
-  @SID_6
+  @SID_16
   Scenario: Create and Generate New Report trafficBandwidth report
     Given UI "Create" Report With Name "trafficBandwidth report"
       | Template              | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}],devices:[{deviceIndex:13}] |
@@ -46,7 +142,7 @@ Feature: challengeIng outbound
     Then UI "Generate" Report With Name "trafficBandwidth report"
       | timeOut | 90 |
 
-  @SID_7
+  @SID_17
 
   Scenario: edit format to HTML New Report trafficBandwidth report
     Given UI "Edit" Report With Name "trafficBandwidth report"
@@ -58,7 +154,7 @@ Feature: challengeIng outbound
     Then UI "Generate" Report With Name "trafficBandwidth report"
       | timeOut | 90 |
 
-  @SID_8
+  @SID_18
 
   Scenario: edit format to CSV New Report trafficBandwidth report
     Given UI "Edit" Report With Name "trafficBandwidth report"
@@ -71,13 +167,13 @@ Feature: challengeIng outbound
     Then UI "Generate" Report With Name "trafficBandwidth report"
       | timeOut | 90 |
 
-  @SID_9
+  @SID_19
   Scenario: VRM report unzip local CSV file
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then Sleep "15"
 
-  @SID_10
+  @SID_20
   Scenario: VRM report validate CSV file Traffic Bandwidth number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "60"
 
@@ -104,103 +200,11 @@ Feature: challengeIng outbound
 #    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
 
-  @SID_11
+  @SID_21
   Scenario: Delete Added Reports
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Delete Report With Name "trafficBandwidth report"
-#
-#    ######################### Monitoring dashboard #####################################
-#
-  @SID_12
-  Scenario:navigate to DP monitoring
-    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-  @SID_13
-  Scenario: check bps with inbound Monitoring
-    Then Sleep "10"
-    Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
-    And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 55    | 3      |
-
-    Then UI Validate Text field "max monitoring" EQUALS "0"
-    Then UI Validate Text field "min monitoring" EQUALS "0"
-
-  @SID_14
-  Scenario: check bps with outbound Monitoring
-    And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value   | count | offset |
-      | 83470.0 | 2     | 5      |
-
-    Then UI Validate Text field "max monitoring" EQUALS "83.5 M"
-    Then UI Validate Text field "min monitoring" EQUALS "0"
-
-  @SID_15
-  Scenario: check pps with inbound Monitoring
-    Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
-    And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 57    | 3      |
-    Then UI Validate Text field "max monitoring" EQUALS "0.0"
-    Then UI Validate Text field "min monitoring" EQUALS "0.0"
-
-  @SID_16
-  Scenario: check pps with outbound Monitoring
-    And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value   | count | offset |
-      | 84151.0 | 2     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
-    Then UI Validate Text field "min monitoring" EQUALS "0.0"
-
-  @SID_17
-  Scenario: choose device from scope selection
-    Given UI Click Button "Device Selection"
-    Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:13 |
-
-  @SID_18
-  Scenario: check bps with inbound Monitoring policy
-    Then UI Do Operation "Select" item "Traffic Bandwidth.bps"
-    And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 57    | 3      |
-
-    Then UI Validate Text field "max monitoring" EQUALS "0"
-    Then UI Validate Text field "min monitoring" EQUALS "0"
-
-  @SID_19
-  Scenario: check bps with outbound Monitoring policy
-    And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value   | count | offset |
-      | 83470.0 | 2     | 5      |
-
-    Then UI Validate Text field "max monitoring" EQUALS "83.5 M"
-    Then UI Validate Text field "min monitoring" EQUALS "0"
-
-  @SID_20
-  Scenario: check pps with inbound Monitoring policy
-    Then UI Do Operation "Select" item "Traffic Bandwidth.pps"
-    And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value | count | offset |
-      | 0     | 56    | 5     |
-    Then UI Validate Text field "max monitoring" EQUALS "0.0"
-    Then UI Validate Text field "min monitoring" EQUALS "0.0"
-
-  @SID_21
-  Scenario: check pps with outbound Monitoring policy
-    And UI Do Operation "Select" item "Traffic Bandwidth.Outbound"
-    Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
-      | value   | count | offset |
-      | 84151.0 | 2     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
-    Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
           ############# second drill of monitoring dashboard ###############
 
@@ -259,6 +263,8 @@ Feature: challengeIng outbound
 
   @SID_23
   Scenario: validate one device bps + inbound attacks
+    And UI Do Operation "Select" item "Global Time Filter"
+    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
     When UI Click Button "inboundSwitch"
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
@@ -320,6 +326,8 @@ Feature: challengeIng outbound
 
   @SID_29
   Scenario: check bps with inbound Analytics
+    And UI Do Operation "Select" item "Global Time Filter"
+    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
     Then UI Do Operation "Select" item "Traffic Bandwidth bps"
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
