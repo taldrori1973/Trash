@@ -42,8 +42,8 @@ Feature: challengeIng outbound
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
-    Then UI Validate Text field "max monitoring" EQUALS "83.5 M"
-    Then UI Validate Text field "min monitoring" EQUALS "0"
+    Then UI Validate Text field "max monitoring" EQUALS "83.5 M" with offset 5
+    Then UI Validate Text field "min monitoring" EQUALS "83.42 M" with offset 5
 
   @SID_6
   Scenario: check pps with inbound Monitoring
@@ -61,8 +61,8 @@ Feature: challengeIng outbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
-    Then UI Validate Text field "min monitoring" EQUALS "0.0"
+    Then UI Validate Text field "max monitoring" EQUALS "84.17 K" with offset 5
+    Then UI Validate Text field "min monitoring" EQUALS "84.09 K" with offset 5
 
   @SID_8
   Scenario: choose device from scope selection
@@ -88,8 +88,8 @@ Feature: challengeIng outbound
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
-    Then UI Validate Text field "max monitoring" EQUALS "83.5 M"
-    Then UI Validate Text field "min monitoring" EQUALS "0"
+    Then UI Validate Text field "max monitoring" EQUALS "83.5 M" with offset 5
+    Then UI Validate Text field "min monitoring" EQUALS "83.42 M" with offset 5
 
   @SID_11
   Scenario: check pps with inbound Monitoring policy
@@ -107,8 +107,8 @@ Feature: challengeIng outbound
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
-    Then UI Validate Text field "max monitoring" EQUALS "84.17 K"
-    Then UI Validate Text field "min monitoring" EQUALS "0.0"
+    Then UI Validate Text field "max monitoring" EQUALS "84.17 K" with offset 5
+    Then UI Validate Text field "min monitoring" EQUALS "84.09 K" with offset 5
 
        ############################## AMS Reports #################################
 
@@ -269,7 +269,7 @@ Feature: challengeIng outbound
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
       | value | count | offset |
-      | 0     | 56    | 3      |
+      | 0     | 0    | 0     |
 
     Then UI Validate Text field "max attacks" EQUALS "0"
     Then UI Validate Text field "min attacks" EQUALS "0"
@@ -281,8 +281,8 @@ Feature: challengeIng outbound
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
-    Then UI Validate Text field "max attacks" EQUALS "83.5 M"
-    Then UI Validate Text field "min attacks" EQUALS "0"
+    Then UI Validate Text field "max attacks" EQUALS "83.5 M" with offset 5
+    Then UI Validate Text field "min attacks" EQUALS "83.42 M" with offset 5
 
   @SID_25
   Scenario: validate traffic bandwidth pps+inbound attacks
@@ -290,7 +290,7 @@ Feature: challengeIng outbound
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
       | value | count | offset |
-      | 0     | 56    | 3      |
+      | 0     | 0    | 0      |
     Then UI Validate Text field "max attacks" EQUALS "0.0"
     Then UI Validate Text field "min attacks" EQUALS "0.0"
 
@@ -301,14 +301,14 @@ Feature: challengeIng outbound
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
-    Then UI Validate Text field "max attacks" EQUALS "84.17 K"
-    Then UI Validate Text field "min attacks" EQUALS "0.0"
+    Then UI Validate Text field "max attacks" EQUALS "84.17 K" with offset 5
+    Then UI Validate Text field "min attacks" EQUALS "84.09 K" with offset 5
 
 
   ############################### Analytics Dashboard ###################################
 
   @SID_27
-  Scenario: Login and add widgets
+  Scenario:  add Traffic Bandwidth widget widget
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button "Widget Selection"
     Then UI Click Button "Widget Selection.Clear Dashboard"
@@ -332,7 +332,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
-      | 0     | 56    | 3      |
+      | 0     | 0    | 0      |
     Then UI Validate Text field "max analytics" EQUALS "0"
     Then UI Validate Text field "min analytics" EQUALS "0"
 
@@ -343,8 +343,8 @@ Feature: challengeIng outbound
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
-    Then UI Validate Text field "max analytics" EQUALS "83.5 M"
-    Then UI Validate Text field "min analytics" EQUALS "0"
+    Then UI Validate Text field "max analytics" EQUALS "83.5 M" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "83.4 M" with offset 5
 
   @SID_31
   Scenario: check pps with inbound Analytics
@@ -362,8 +362,8 @@ Feature: challengeIng outbound
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "84.2 K"
-    Then UI Validate Text field "min analytics" EQUALS "0.0"
+    Then UI Validate Text field "max analytics" EQUALS "84.2 K" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "84.1 K" with offset 5
 
   @SID_33
   Scenario: choose device from scope selection analytics
@@ -377,7 +377,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
-      | 0     | 57    | 5      |
+      | 0     | 0    | 0      |
     Then UI Validate Text field "max analytics" EQUALS "0"
     Then UI Validate Text field "min analytics" EQUALS "0"
 
@@ -388,8 +388,8 @@ Feature: challengeIng outbound
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
 
-    Then UI Validate Text field "max analytics" EQUALS "84.2 M"
-    Then UI Validate Text field "min analytics" EQUALS "0"
+    Then UI Validate Text field "max analytics" EQUALS "83.5 M" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "83.4 M" with offset 5
 
   @SID_36
   Scenario: check pps with inbound Analytics policy
@@ -397,7 +397,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
-      | 0     | 58    | 5      |
+      | 0     | 0    | 0      |
     Then UI Validate Text field "max analytics" EQUALS "0.0"
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
@@ -407,8 +407,8 @@ Feature: challengeIng outbound
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value   | count | offset |
       | 84151.0 | 2     | 5      |
-    Then UI Validate Text field "max analytics" EQUALS "84.2 K"
-    Then UI Validate Text field "min analytics" EQUALS "0.0"
+    Then UI Validate Text field "max analytics" EQUALS "84.2 K" with offset 5
+    Then UI Validate Text field "min analytics" EQUALS "84.1 K" with offset 5
 
 
   @SID_38
