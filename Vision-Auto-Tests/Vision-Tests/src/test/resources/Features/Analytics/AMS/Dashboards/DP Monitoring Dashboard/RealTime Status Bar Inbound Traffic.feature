@@ -1,11 +1,13 @@
 @TC112254
 Feature: VRM Real Time Status Bar Inbound Traffic
 
+
   @SID_1
   Scenario: Inbound Traffic Basic
   # Written by YL
   # Run pcap from two DPs and validate correct values
     When CLI Clear vision logs
+    * REST Delete ES index "dp-*"
     Given CLI kill all simulator attacks on current vision
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given CLI simulate 30 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000
@@ -123,11 +125,15 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     Then UI Validate Text field "Inbound Traffic CPS" EQUALS "103.88 M"
     And UI Logout
 
+  
   @SID_9
   Scenario: Inbound Traffic Cleared
     Given CLI kill all simulator attacks on current vision
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    Given UI Click Button "Accessibility Menu"
+    Then UI UnSelect Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
+    Given UI Click Button "Accessibility Menu"
     And Sleep "150"
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
