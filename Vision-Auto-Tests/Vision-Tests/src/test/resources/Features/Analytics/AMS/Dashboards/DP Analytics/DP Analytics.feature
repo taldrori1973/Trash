@@ -21,9 +21,9 @@ Feature: DP ANALYTICS
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
     * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
     * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 12 with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 20 with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 21 and wait 240 seconds with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 12 and wait 240 seconds with attack ID
+#    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 20 with attack ID
+#    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 21 and wait 240 seconds with attack ID
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-after-streaming" on "ROOT_SERVER_CLI"
     # Wait to avoid ES issue when running curl one after another
     And Sleep "5"
@@ -115,6 +115,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 1     |          |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attacks by Mitigation Action"
       | label  | value | legendName |
       | shlomi | 5     | Drop       |
@@ -140,6 +141,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies    |
       | 10    | 1     | BDOS,shlomi |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attacks by Mitigation Action"
       | label  | value | legendName |
       | shlomi | 5     | Drop       |
@@ -151,6 +153,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       | BDOS     |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attacks by Mitigation Action"
       | label     | value | legendName | exist |
       | shlomchik | 3     | Drop       | false |
@@ -187,6 +190,7 @@ Feature: DP ANALYTICS
       | 10    |       |          |
       | 11    |       |          |
       | 12    |       |          |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attacks by Protection Policy"
       | label                          | value | legendName       |
       | DNS flood IPv4 DNS-A           | 6     | 1                |
@@ -210,6 +214,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attacks by Protection Policy"
       | label                          | value | legendName       |
       | DNS flood IPv4 DNS-A           | 2     | 1                |
@@ -250,6 +255,7 @@ Feature: DP ANALYTICS
       | index | ports | policies      |
       | 10    |       | BDOS,POL_IPV6 |
       | 11    |       | BDOS,POL_IPV6 |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attacks by Protection Policy"
       | label                          | value | legendName |
       | DOSS-Anomaly-TCP-SYN-RST       | 4     | BDOS       |
@@ -267,6 +273,7 @@ Feature: DP ANALYTICS
       | index | ports | policies      |
       | 10    | 1     | BDOS,POL_IPV6 |
       | 11    | 1     | BDOS,POL_IPV6 |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attacks by Protection Policy"
       | label                          | value | legendName |
       | DOSS-Anomaly-TCP-SYN-RST       | 4     | BDOS       |
@@ -307,6 +314,7 @@ Feature: DP ANALYTICS
       | 10    |       |          |
       | 11    |       |          |
       | 12    |       |          |
+    Then Sleep "3"
     Then UI Validate Pie Chart data "Attacks by Threat Category"
       | label          | data | exist |
       | BehavioralDOS  | 18   | true  |
@@ -328,6 +336,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
+    Then Sleep "3"
     Then UI Validate Pie Chart data "Attacks by Threat Category"
       | label          | data | exist |
       | BehavioralDOS  | 6    | true  |
@@ -375,6 +384,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 1     | shlomi   |
+    Then Sleep "2"
     Then UI Validate Pie Chart data "Attacks by Threat Category"
       | label       | data |
       | StatefulACL | 5    |
@@ -404,6 +414,7 @@ Feature: DP ANALYTICS
       | 10    |       |          |
       | 11    |       |          |
       | 12    |       |          |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
       | label        | value     | legendName     | offset |
       | Black_IPV6   | 154503126 | ACL            | 1000   |
@@ -426,6 +437,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
       | label        | value    | legendName     | offset |
       | Black_IPV6   | 51501042 | ACL            | 1000   |
@@ -448,6 +460,7 @@ Feature: DP ANALYTICS
       | index | ports | policies |
       | 10    | 1     |          |
       | 11    | 1     |          |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
       | label | value  | legendName    |
       | BDOS  | 322056 | BehavioralDOS |
@@ -461,6 +474,7 @@ Feature: DP ANALYTICS
       | index | ports | policies   |
       | 10    |       | Black_IPV4 |
       | 11    |       | Black_IPV4 |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
       | label      | value  | legendName |
       | Black_IPV4 | 874042 | ACL        |
@@ -499,6 +513,7 @@ Feature: DP ANALYTICS
       | index | ports | policies |
       | 10    | 1,3,4 |          |
       | 11    | 1,3,4 |          |
+    Then Sleep "2"
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
       | label      | value     | legendName    | exist | legendNameExist |
       | Black_IPV6 | 103002084 | ACL           | false | false           |
@@ -530,6 +545,7 @@ Feature: DP ANALYTICS
       | 10    |       |          |
       | 11    |       |          |
       | 12    |       |          |
+    Then Sleep "2"
     Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
       | 0.0.0.0                                 | 15   |
@@ -549,6 +565,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
+    Then Sleep "3"
     Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
       | 0.0.0.0                                 | 5    |
@@ -569,6 +586,7 @@ Feature: DP ANALYTICS
       | index | ports | policies |
       | 10    | 1,3   |          |
       | 11    | 1,3   |          |
+    Then Sleep "3"
     Then UI Validate Pie Chart data "Top Attack Destinations"
       | label        | data |
       | 1.1.1.1      | 2    |
@@ -907,22 +925,23 @@ Feature: DP ANALYTICS
       | 10    |       |          |
       | 11    |       |          |
       | 12    |       |          |
+    Then Sleep "3"
     Then UI Validate StackBar data with widget "Top Attacks by Duration-1"
       | label                          | value | legendName      |
       | Black List                     | 9     | Less than 1 min |
       | Incorrect IPv4 checksum        | 12    | Less than 1 min |
       | TCP Mid Flow packet            | 15    | Less than 1 min |
       | BWM Limit Alert                | 9     | Less than 1 min |
-      | DNS flood IPv4 DNS-A           | 9     | Less than 1 min |
+      | DNS flood IPv4 DNS-A           | 9     | 10-30 min       |
       | DOSS-Anomaly-TCP-SYN-RST       | 6     | Less than 1 min |
-      | network flood IPv4 TCP-SYN-ACK | 5     | Less than 1 min |
+      | network flood IPv4 TCP-SYN-ACK | 5     | 10-30 min       |
 #      | HTTP Page Flood Attack         | 3     | Less than 1 min |
-      | network flood IPv6 UDP-FRAG    | 6     | Less than 1 min |
+      | network flood IPv6 UDP-FRAG    | 6     | 10-30 min       |
       | SYN Flood HTTP                 | 3     | 1-5 min         |
       | TCP Scan (vertical)            | 3     | 1-5 min         |
-      | network flood IPv4 TCP-SYN-ACK | 1     | 1-5 min         |
+#      | network flood IPv4 TCP-SYN-ACK | 1     | 1-5 min         |
 
-    Then UI Total "Top Attacks by Duration-1" legends equal to 2
+    Then UI Total "Top Attacks by Duration-1" legends equal to 3
 
   @SID_66
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for one selected DP machine
@@ -931,20 +950,21 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
+    Then Sleep "3"
     Then UI Validate StackBar data with widget "Top Attacks by Duration-1"
       | label                          | value | legendName      |
       | Black List                     | 3     | Less than 1 min |
       | Incorrect IPv4 checksum        | 4     | Less than 1 min |
       | TCP Mid Flow packet            | 5     | Less than 1 min |
       | BWM Limit Alert                | 3     | Less than 1 min |
-      | DNS flood IPv4 DNS-A           | 3     | Less than 1 min |
+      | DNS flood IPv4 DNS-A           | 3     | 10-30 min       |
       | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min |
-      | network flood IPv4 TCP-SYN-ACK | 2     | Less than 1 min |
+      | network flood IPv4 TCP-SYN-ACK | 2     | 10-30 min       |
 #      | HTTP Page Flood Attack         | 1     | Less than 1 min |
-      | network flood IPv6 UDP-FRAG    | 2     | Less than 1 min |
+      | network flood IPv6 UDP-FRAG    | 2     | 10-30 min       |
       | SYN Flood HTTP                 | 1     | 1-5 min         |
       | TCP Scan (vertical)            | 1     | 1-5 min         |
-    Then UI Total "Top Attacks by Duration-1" legends equal to 2
+    Then UI Total "Top Attacks by Duration-1" legends equal to 3
 
   @SID_67
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for one selected port
@@ -952,15 +972,17 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 1,3   |          |
+
+    Then Sleep "3"
     Then UI Validate StackBar data with widget "Top Attacks by Duration-1"
       | label                          | value | legendName      |
       | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min |
-      | network flood IPv4 TCP-SYN-ACK | 1     | Less than 1 min |
+      | network flood IPv4 TCP-SYN-ACK | 1     | 10-30 min       |
       | pkt_rate_lmt_9                 | 1     | Less than 1 min |
       | TCP Mid Flow packet            | 5     | Less than 1 min |
       | tim                            | 1     | Less than 1 min |
       | TCP Scan (vertical)            | 1     | 1-5 min         |
-    Then UI Total "Top Attacks by Duration-1" legends equal to 2
+    Then UI Total "Top Attacks by Duration-1" legends equal to 3
 
   @SID_68
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for one selected policies
@@ -968,13 +990,14 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       | BDOS     |
+    Then Sleep "3"
     Then UI Validate StackBar data with widget "Top Attacks by Duration-1"
       | label                          | value | legendName      |
       | tim                            | 1     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min |
-      | network flood IPv4 TCP-SYN-ACK | 1     | Less than 1 min |
-      | DNS flood IPv4 DNS-A           | 1     | Less than 1 min |
-    Then UI Total "Top Attacks by Duration-1" legends equal to 1
+      | network flood IPv4 TCP-SYN-ACK | 1     | 10-30 min       |
+      | DNS flood IPv4 DNS-A           | 1     | 10-30 min       |
+    Then UI Total "Top Attacks by Duration-1" legends equal to 2
 
   @SID_69
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for selected port and policies
@@ -982,12 +1005,13 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 1     | BDOS     |
+    Then Sleep "3"
     Then UI Validate StackBar data with widget "Top Attacks by Duration-1"
       | label                          | value | legendName      |
       | tim                            | 1     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min |
-      | network flood IPv4 TCP-SYN-ACK | 1     | Less than 1 min |
-    Then UI Total "Top Attacks by Duration-1" legends equal to 1
+      | network flood IPv4 TCP-SYN-ACK | 1     | 10-30 min       |
+    Then UI Total "Top Attacks by Duration-1" legends equal to 2
 
 
   @SID_70
