@@ -97,7 +97,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "traffic-bandwidth" with Label "Challenged"
       | value | count | offset |
-      | 0     | 56    | 5     |
+      | 0     | 56    | 5      |
     Then UI Validate Text field "max monitoring" EQUALS "0.0"
     Then UI Validate Text field "min monitoring" EQUALS "0.0"
 
@@ -175,7 +175,7 @@ Feature: challengeIng outbound
 
   @SID_20
   Scenario: VRM report validate CSV file Traffic Bandwidth number of lines
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "60"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "61"
 
 
 #  @SID_11
@@ -269,7 +269,7 @@ Feature: challengeIng outbound
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
       | value | count | offset |
-      | 0     | 0    | 0     |
+      | 0     | 0     | 0      |
 
     Then UI Validate Text field "max attacks" EQUALS "0"
     Then UI Validate Text field "min attacks" EQUALS "0"
@@ -290,7 +290,7 @@ Feature: challengeIng outbound
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Challenged"
       | value | count | offset |
-      | 0     | 0    | 0      |
+      | 0     | 0     | 0      |
     Then UI Validate Text field "max attacks" EQUALS "0.0"
     Then UI Validate Text field "min attacks" EQUALS "0.0"
 
@@ -332,7 +332,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
-      | 0     | 0    | 0      |
+      | 0     | 0     | 0      |
     Then UI Validate Text field "max analytics" EQUALS "0"
     Then UI Validate Text field "min analytics" EQUALS "0"
 
@@ -352,7 +352,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
-      | 0     | 56    | 3      |
+      | 0     | 0     | 0      |
     Then UI Validate Text field "max analytics" EQUALS "0.0"
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
@@ -377,7 +377,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
-      | 0     | 0    | 0      |
+      | 0     | 0     | 0      |
     Then UI Validate Text field "max analytics" EQUALS "0"
     Then UI Validate Text field "min analytics" EQUALS "0"
 
@@ -397,7 +397,7 @@ Feature: challengeIng outbound
     And UI Do Operation "Select" item "Traffic Bandwidth.Inbound"
     Then UI Validate Line Chart data "Traffic Bandwidth-1" with Label "Challenged"
       | value | count | offset |
-      | 0     | 0    | 0      |
+      | 0     | 0     | 0      |
     Then UI Validate Text field "max analytics" EQUALS "0.0"
     Then UI Validate Text field "min analytics" EQUALS "0.0"
 
