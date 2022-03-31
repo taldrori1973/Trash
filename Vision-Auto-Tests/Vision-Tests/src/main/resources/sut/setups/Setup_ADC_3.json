@@ -1,6 +1,5 @@
 {
-  "simulatorSet" : "sim_set_4",
-  "loadSimulators" : "true",
+  "simulatorSet" : "sim_set_3",
   "setupId": "ADC_3",
   "tree": {
     "sites": [

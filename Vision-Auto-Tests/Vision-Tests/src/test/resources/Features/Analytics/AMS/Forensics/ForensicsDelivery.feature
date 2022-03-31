@@ -214,7 +214,7 @@ Feature: Forensics Delivery
   @SID_15
   Scenario: Create Forensics Report FTP_export by server IP no email
     When UI "Create" Forensics With Name "FTP_export"
-      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                           |
+      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                           |
       | Output | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packet Type,Physical Port,Policy Name,Risk |
       | Format | Select: CSV                                                                                                                                                                                                                                |
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/FTP_export*.zip /home/radware/ftp/FTP_export*.csv" on "GENERIC_LINUX_SERVER"
@@ -276,7 +276,7 @@ Feature: Forensics Delivery
     Then CLI Operations - Run Root Session command "echo "172.17.164.10 myftp" >> /etc/hosts"
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/FTP_export*.zip /home/radware/ftp/FTP_export*.csv" on "GENERIC_LINUX_SERVER"
     When UI "Edit" Forensics With Name "FTP_export"
-      | Share | FTP:checked, FTP.Location:myftp, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Share | FTP:checked, FTP.Location:myftp, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
     Then UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "My Forensics" with value "FTP_export"
@@ -288,7 +288,7 @@ Feature: Forensics Delivery
   @SID_18
   Scenario: validate username digits in FTP
     When UI "Create" Forensics With Name "FTPDigits"
-      | Share | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:123123, FTP.Password:radware |
+      | Share | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:123123, FTP.Password:radware123 |
     Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "FTPDigits"
     Then UI Delete Forensics With Name "Email Validate"
     Then UI Delete Forensics With Name "FTP_export"

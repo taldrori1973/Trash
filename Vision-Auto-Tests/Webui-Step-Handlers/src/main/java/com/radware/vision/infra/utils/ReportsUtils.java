@@ -18,7 +18,7 @@ public class ReportsUtils {
 
     /**
      * method for adding error message's
-     * each time you call it it will append the message to the previous one
+     * each call will append the message to the previous one
      *
      * @param message
      */

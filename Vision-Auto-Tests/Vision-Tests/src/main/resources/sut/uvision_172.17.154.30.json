@@ -1,17 +1,17 @@
 {
-  "serverName": "israelExa",
-  "setupFile": "fullSetup.json",
-  "pair": {
-    "pairIp": "172.17.164.102",
-    "environment": "OVA-220"
-  },
+  "setupFile": "Setup_Sanity_2.json",
+  "serverName": "uvision_auto",
   "deployConfigurations": {
-    "setupMode": "fresh install",
-    "snapshot": "Current-1",
-    "environment": "OVA-220"
+    "snapshot": "",
+    "setupMode": "upgrade_inparallel",
+    "environment": "OVA-232"
+  },
+  "pair": {
+    "pairIp": "172.17.141.49",
+    "environment": "OVA-254"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.164.102",
+    "hostIp": "172.17.154.30",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
@@ -21,7 +21,7 @@
     "sqlDbConnection": {
       "defaultPort": 3306,
       "username": "root",
-      "password": "rad123"
+      "password": "radware"
     }
   },
   "cliConfiguration": {

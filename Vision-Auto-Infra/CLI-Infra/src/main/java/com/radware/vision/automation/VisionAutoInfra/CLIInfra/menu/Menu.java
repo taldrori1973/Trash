@@ -8,6 +8,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.ping.Ping;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.reboot.Reboot;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.shutdown.Shutdown;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.System;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.system.http_reporting.HttpReporting;
 
 /**
  * 
@@ -46,7 +47,7 @@ public class Menu {
 	public static Shutdown shutdown(){
 		return new Shutdown("");
 	}
-	
+
 	public static System system(){
 		return new System("");
 	}

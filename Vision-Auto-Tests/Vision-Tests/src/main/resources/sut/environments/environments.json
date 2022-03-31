@@ -22,7 +22,7 @@
       "resourcePool": "RP1",
       "url": "https://10.205.200.232/sdk",
       "networkName": "Mgmt",
-      "dataStores": "VMFS_00"
+      "dataStores": "VMFS_04"
     },
     {
       "name": "OVA-220",

@@ -72,9 +72,6 @@ public class SetupDao {
         return this.setupPojo.getSimulatorSet();
     }
 
-    public boolean isLoadSimulators() {
-        return this.setupPojo.isLoadSimulators();
-    }
 
 
 }

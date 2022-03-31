@@ -1,6 +1,7 @@
 {
-  "simulatorSet" : "sim_set_4",
-  "setupId": "ADC_4",
+  "simulatorSet" : "sim_dp_set_1",
+  "loadSimulators" : "true",
+  "setupId": "Setup_EAAF",
   "tree": {
     "sites": [
       {

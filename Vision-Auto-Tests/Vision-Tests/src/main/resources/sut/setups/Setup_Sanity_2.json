@@ -1,6 +1,5 @@
 {
   "simulatorSet" : "sim_set_2",
-  "loadSimulators" : "true",
   "setupId": "fullSetup",
   "tree": {
     "sites": [
@@ -76,7 +75,7 @@
       },
       {
         "deviceId": "DefensePro_172.17.50.50",
-        "parentSite": "Default"
+        "parentSite": "default"
       },
       {
         "deviceId": "AppWall_172.17.164.30",

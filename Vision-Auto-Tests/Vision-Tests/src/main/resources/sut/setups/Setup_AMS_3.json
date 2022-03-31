@@ -1,6 +1,5 @@
 {
-  "simulatorSet" : "sim_set_3",
-  "loadSimulators" : "true",
+  "simulatorSet" : "",
   "setupId": "AMS_2",
   "tree": {
     "sites": [
@@ -28,6 +27,10 @@
       {
         "deviceId": "DefensePro_172.17.22.55",
         "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.17.50.50",
+        "parentSite": "default"
       },
       {
         "deviceId": "AppWall_172.17.164.30",

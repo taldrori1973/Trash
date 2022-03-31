@@ -1,7 +1,17 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_Sanity_2.json",
+  "serverName": "uvision_auto",
+  "deployConfigurations": {
+    "snapshot": "Current-1",
+    "setupMode": "upgrade",
+    "environment": "OVA-232"
+  },
+  "pair": {
+    "pairIp": "172.17.164.101",
+    "environment": "KVM-217"
+  },
   "clientConfiguration": {
-    "hostIp": "172.19.221.5",
+    "hostIp": "172.17.141.58",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
@@ -11,7 +21,7 @@
     "sqlDbConnection": {
       "defaultPort": 3306,
       "username": "root",
-      "password": "rad123"
+      "password": "radware"
     }
   },
   "cliConfiguration": {

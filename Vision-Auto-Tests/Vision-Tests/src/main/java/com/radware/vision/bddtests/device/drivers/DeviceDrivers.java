@@ -34,6 +34,7 @@ public class DeviceDrivers {
 
     private void loadDefenseProMap() {
         dpVersionsMap.put("6.14.03", "DefensePro-6.14.03-DD-1.00-28.jar");
+        dpVersionsMap.put("8.29.00", "DefensePro-8.29.0.0-DD-1.00-5.jar");
 
     }
 }

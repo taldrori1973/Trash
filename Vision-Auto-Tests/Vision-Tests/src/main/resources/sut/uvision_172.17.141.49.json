@@ -1,9 +1,9 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_Sanity_2.json",
   "serverName": "uvision_auto",
   "deployConfigurations": {
-    "snapshot": "Current-1",
-    "setupMode": "upgrade",
+    "snapshot": "",
+    "setupMode": "upgrade_inparallel",
     "environment": "OVA-232"
   },
   "pair": {
@@ -11,7 +11,7 @@
     "environment": "KVM-217"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.141.48",
+    "hostIp": "172.17.141.49",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
