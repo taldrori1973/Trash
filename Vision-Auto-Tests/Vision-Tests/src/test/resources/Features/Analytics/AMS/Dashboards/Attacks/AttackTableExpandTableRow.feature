@@ -17,6 +17,7 @@ Feature: Attack Table - Expand Table Row
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_Set_2"
     Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" and wait 210 seconds
     Given CLI simulate 1 attacks of type "test_pcap" on SetId "DefensePro_Set_1" and wait 200 seconds
+    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
 
   @SID_3
   Scenario:  login
@@ -75,7 +76,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_7
   Scenario:  validate date of Real Time Signature table - BehavioralDOS
-    Then Validate Expand  "Real Time Signature" table
+    Then Validate Expand "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
       | parameter | 1     | fragment-offset |
@@ -94,20 +95,19 @@ Feature: Attack Table - Expand Table Row
 
   @SID_9
   Scenario Outline:  validate date of Info table - DNS
-    Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-
+    Then Validate Expand "Info" Table with label "<label>" Equals to "<value1>" OR "<value2>" OR "<value3>"
     Examples:
-      | label              | value         |
-      | Risk               | High          |
-      | Radware ID         | 450           |
-      | Direction          | Unknown       |
-      | Action Type        | Forward       |
-      | Attack ID          | 37-1491757775 |
-      | Physical Port      | 0             |
-      | Total Packet Count | 0             |
-      | VLAN               | N/A           |
-      | MPLS RD            | N/A           |
-      | Source port        | 0             |
+      | label              | value1        | value2        | value3 |
+      | Attack ID          | 36-1491757775 | 37-1491757775 | -      |
+      | Action Type        | Drop          | Forward       | -      |
+      | Risk               | High          | High          | -      |
+      | Radware ID         | 450           | 450           | -      |
+      | Direction          | Unknown       | Unknown       | -      |
+      | Physical Port      | 0             | 0             | -      |
+      | Total Packet Count | 0             | 0             | -      |
+      | VLAN               | N/A           | N/A           | -      |
+      | MPLS RD            | N/A           | N/A           | -      |
+      | Source port        | 0             | 0             | -      |
 
 
   @SID_10
@@ -128,7 +128,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_11
   Scenario:  validate date of Real Time Signature table - DNS
-    Then Validate Expand  "Real Time Signature" table
+    Then Validate Expand "Real Time Signature" table
       | Name      | index | value         |
       | operator  | 1     | OR            |
       | parameter | 1     | dns-subdomain |
@@ -192,38 +192,36 @@ Feature: Attack Table - Expand Table Row
   Scenario:  validate tables for SynFlood
     Then UI search row table in searchLabel "tableSearch" with text "SynFlood"
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Volume" findBy cellValue "13.43 MB"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Volume" findBy cellValue "102.49 Mbit"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
 
   @SID_16
   Scenario Outline:  validate date of Info table - SynFlood
-    Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-
+    Then Validate Expand "Info" Table with label "<label>" Equals to "<value1>" OR "<value2>" OR "<value3>"
     Examples:
-      | label              | value          |
-      | Risk               | Medium         |
-      | Radware ID         | 200000         |
-      | Direction          | Unknown        |
-      | Action Type        | Challenge      |
-      | Attack ID          | 137-1414505529 |
-      | Physical Port      | Multiple       |
-      | Total Packet Count | 223,890        |
-      | VLAN               | Multiple       |
-      | MPLS RD            | Multiple       |
-      | Source port        | Multiple       |
+      | label              | value1         | value2         |
+      | Attack ID          | 137-1414505529 | 137-1424505529 |
+      | Risk               | Medium         | Medium         |
+      | Radware ID         | 200000         | 200000         |
+      | Direction          | Unknown        | Unknown        |
+      | Action Type        | Challenge      | Challenge      |
+      | Physical Port      | Multiple       | Multiple       |
+      | Total Packet Count | 223,890        | 73,877         |
+      | VLAN               | Multiple       | Multiple       |
+      | MPLS RD            | Multiple       | Multiple       |
+      | Source port        | Multiple       | Multiple       |
 
   @SID_17
   Scenario Outline:  validate date of Characteristics table - SynFlood
-    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
-
+    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value1>" OR "<value2>" OR "<value3>"
     Examples:
-      | label                | value                |
-      | Activation Threshold | 2500                 |
-      | TCP Challenge        | Transparent Proxy    |
-      | TCP Auth. List       | 0                    |
-      | HTTP Challenge       | Cloud Authentication |
-      | HTTP Auth. List      | 0                    |
+      | label                | value1               | value2 |
+      | Activation Threshold | 2500                 | -      |
+      | TCP Challenge        | Transparent Proxy    | -      |
+      | TCP Auth. List       | 0                    | -      |
+      | HTTP Challenge       | Cloud Authentication | -      |
+      | HTTP Auth. List      | 0                    | -      |
 
         ####################  DOS attack tables ####################################################
 
@@ -269,7 +267,7 @@ Feature: Attack Table - Expand Table Row
   Scenario:  validate tables for AntiScanning
     Then UI search row table in searchLabel "tableSearch" with text "AntiScanning"
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Volume" findBy cellValue "1.22 MB"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Volume" findBy cellValue "9.33 Mbit"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics,realTimeSignature,top-attacks-sessions"
 
 
@@ -302,7 +300,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_24
   Scenario:  validate date of Real Time Signature table - AntiScanning
-    Then Validate Expand  "Real Time Signature" table
+    Then Validate Expand "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
       | parameter | 1     | destination-ip  |
@@ -464,20 +462,20 @@ Feature: Attack Table - Expand Table Row
 
   @SID_34
   Scenario Outline:  validate date of Info table - Anomalies
-    Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
+    Then Validate Expand "Info" Table with label "<label>" Equals to "<value1>" OR "<value2>" OR "<value3>"
 
     Examples:
-      | label              | value        |
-      | Risk               | Low          |
-      | Radware ID         | 103          |
-      | Direction          | Unknown      |
-      | Action Type        | Drop         |
-      | Attack ID          | 8-1402580209 |
-      | Physical Port      | 0            |
-      | Total Packet Count | 1            |
-      | VLAN               | N/A          |
-      | MPLS RD            | N/A          |
-      | Source port        | 0            |
+      | label              | value1       | value2       |
+      | Attack ID          | 8-1402580209 | 4-1402580209 |
+      | Risk               | Low          | Low          |
+      | Radware ID         | 103          | 103          |
+      | Direction          | Unknown      | Unknown      |
+      | Action Type        | Drop         | Drop         |
+      | Physical Port      | 0            | 0            |
+      | Total Packet Count | 1            | 1            |
+      | VLAN               | N/A          | N/A          |
+      | MPLS RD            | N/A          | N/A          |
+      | Source port        | 0            | 0            |
 
 
 
@@ -496,17 +494,17 @@ Feature: Attack Table - Expand Table Row
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
 
     Examples:
-      | label              | value              |
-      | Risk               | High               |
-      | Radware ID         | 320029             |
-      | Direction          | In                 |
-      | Action Type        | Http200OkResetDest |
-      | Attack ID          | 531-1429625097     |
-      | Physical Port      | MNG-1              |
-      | Total Packet Count | 1                  |
-      | VLAN               | N/A                |
-      | MPLS RD            | N/A                |
-      | Source port        | 26505              |
+      | label              | value                             |
+      | Risk               | High                              |
+      | Radware ID         | 320029                            |
+      | Direction          | In                                |
+      | Action Type        | HTTP 200 OK and Reset Destination |
+      | Attack ID          | 531-1429625097                    |
+      | Physical Port      | MNG-1                             |
+      | Total Packet Count | 1                                 |
+      | VLAN               | N/A                               |
+      | MPLS RD            | N/A                               |
+      | Source port        | 26505                             |
 
 
    ####################  QDos attack tables ####################################################
@@ -519,134 +517,38 @@ Feature: Attack Table - Expand Table Row
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics,realTimeSignature"
 
 
-    @SID_38
+  @SID_38
   Scenario Outline:  validate date of Info table - QDos
-    Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
+    Then Validate Expand "Info" Table with label "<label>" Equals to "<value1>" OR "<value2>" OR "<value3>"
     Examples:
-      | label              | value         |
-      | Risk               | High          |
-      | Radware ID         | 900           |
-      | Direction          | Unknown       |
-      | Action Type        | Drop          |
-      | Attack ID          | 35-1637605817 |
-      | Physical Port      | 0             |
-      | Total Packet Count | 0             |
-      | VLAN               | N/A           |
-      | MPLS RD            | N/A           |
-      | Source port        | 0             |
-      | Packet Type        | Regular       |
+      | label              | value1        | value2        |
+      | Attack ID          | 39-1630605835 | 38-1630605835 |
+      | Risk               | High          | High          |
+      | Radware ID         | 900           | 900           |
+      | Direction          | In            | In            |
+      | Action Type        | Drop          | Drop          |
+      | Physical Port      | 1             | 1             |
+      | Total Packet Count | 395,583       | 298,089       |
+      | VLAN               | N/A           | N/A           |
+      | MPLS RD            | N/A           | N/A           |
+      | Source port        | 0             | 1024          |
+      | Packet Type        | Regular       | Regular       |
 
-
-    @SID_39
+  @SID_39
   Scenario Outline:  validate date of Characteristics table - QDos
-    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
+    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value1>" OR "<value2>" OR "<value3>"
     Examples:
-      | label                              | value                                                                   |
-      | Quantile Number                    | 1                                                                       |
-      | Attacked Quantile IP Address Range | 0:0:0:0:0:0:0:0 - 192.0.4.244                                           |
-      | Current Policy Bandwidth           | 330.6 Mbps                                                              |
-      | Detection Sensitivity              | 2%                                                                      |
-      | Peacetime Quantile Bandwidth       | 6.2 Mbps                                                                |
-      | Dropped Quantile Bandwidth         | 3.1 Mbps                                                                |
-      | Current Quantile Bandwidth         | 24.7 Mbps                                                               |
-      | Quantile Rate Limit                | Strict 100%, 10 Mbps                                                    |
-      | Mitigation Method                  | Quantile Top Talkers, Quantile Rate-Limit, Quantile Real-Time Signature |
-
+      | label                              | value1                        | value2                       |
+      | Quantile Number                    | 40                            | 1                            |
+      | Attacked Quantile IP Address Range | 192.0.199.147 - 192.0.204.157 | 0:0:0:0:0:0:0:0 - 192.0.5.47 |
+      | Current Policy Bandwidth           | 164.6 Mbps                    | 164 Mbps                     |
+      | Detection Sensitivity              | 2%                            | 2%                           |
+      | Peacetime Quantile Bandwidth       | 3.3 Mbps                      | 3.3 Mbps                     |
+      | Dropped Quantile Bandwidth         | 25.6 Mbps                     | 25.9 Mbps                    |
+      | Current Quantile Bandwidth         | 25.8 Mbps                     | 25.5 Mbps                    |
+      | Quantile Rate Limit                | Moderate 150%, 2.2 Mbps       | Moderate 150%, 3.5 Mbps      |
+      | Mitigation Method                  | Quantile Top Talkers          | Quantile Top Talkers         |
 
   @SID_40
-  Scenario:  validate date of Real Time Signature table - QDos
-    Then Validate Expand  "Real Time Signature" table
-      | Name      | index | value            |
-      | operator  | 0     | [                |
-      | operator  | 1     | OR               |
-      | parameter | 1     | destination-port |
-      | value     | 1     | 5555             |
-      | operator  | 2     | OR               |
-      | parameter | 2     | TTL              |
-      | value     | 2     | 3,4              |
-      | operator  | 3     | OR               |
-      | parameter | 3     | context-tag      |
-      | value     | 3     | 13,14,15         |
-      | operator  | 4     | ]                |
-      | operator  | 5     | AND              |
-      | operator  | 6     | [                |
-      | operator  | 7     | AND              |
-      | parameter | 7     | sequence-number  |
-      | value     | 7     | 1234567,9876,55  |
-      | operator  | 8     | AND              |
-      | parameter | 8     | source-port      |
-      | value     | 8     | 1024,2048        |
-      | operator  | 9     | ]                |
-
-  @SID_41
-  Scenario:  validate tables for QDos
-    Then UI search row table in searchLabel "tableSearch" with text "QuantileDoS"
-    Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "p1"
-    Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics,realTimeSignature"
-
-
-    @SID_38
-  Scenario Outline:  validate date of Info table - QDos
-    Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
-
-    Examples:
-      | label              | value         |
-      | Risk               | High          |
-      | Radware ID         | 900           |
-      | Direction          | Unknown       |
-      | Action Type        | Drop          |
-      | Attack ID          | 35-1637605817 |
-      | Physical Port      | 0             |
-      | Total Packet Count | 0             |
-      | VLAN               | N/A           |
-      | MPLS RD            | N/A           |
-      | Source port        | 0             |
-      | Packet Type        | Regular       |
-
-
-    @SID_39
-  Scenario Outline:  validate date of Characteristics table - QDos
-    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
-    Examples:
-      | label                              | value                                                                   |
-      | Quantile Number                    | 1                                                                       |
-      | Attacked Quantile IP Address Range | 0:0:0:0:0:0:0:0 - 192.0.4.244                                           |
-      | Current Policy Bandwidth           | 330.6 Mbps                                                              |
-      | Detection Sensitivity              | 2%                                                                      |
-      | Peacetime Quantile Bandwidth       | 6.2 Mbps                                                                |
-      | Dropped Quantile Bandwidth         | 12.5 Mbps                                                               |
-      | Current Quantile Bandwidth         | 24.7 Mbps                                                               |
-      | Quantile Rate Limit                | Strict 100%, 10 Mbps                                                    |
-      | Mitigation Method                  | Quantile Top Talkers, Quantile Rate-Limit, Quantile Real-Time Signature |
-
-
-  @SID_40
-  Scenario:  validate date of Real Time Signature table - QDos
-    Then Validate Expand "Real Time Signature" table
-      | Name            | index | value            |
-      | operator-outter | 0     | [                |
-      | operator        | 1     | OR               |
-      | parameter       | 1     | destination-port |
-      | value           | 1     | 5555             |
-      | operator        | 2     | OR               |
-      | parameter       | 2     | TTL              |
-      | value           | 2     | 3,4              |
-      | operator        | 3     | OR               |
-      | parameter       | 3     | context-tag      |
-      | value           | 3     | 13,14,15         |
-#      | operator        | 4     | ]                |
-#      | operator        | 5     | AND              |
-#      | operator        | 6     | [                |
-#      | operator        | 7     | AND              |
-      | parameter       | 7     | sequence-number  |
-      | value           | 7     | 1234567,9876,55  |
-#      | operator        | 8     | AND              |
-      | parameter       | 8     | source-port      |
-      | value           | 8     | 1024,2048        |
-#      | operator        | 9     | ]                |
-
-
-  @SID_41
   Scenario: Traffic Cleanup
     Given UI logout and close browser
