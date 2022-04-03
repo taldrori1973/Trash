@@ -273,6 +273,7 @@ public class RemoteSshCommandsTests extends TestBase {
             long startTime = System.currentTimeMillis();
 
             do {
+                commandToExecute = (String) InvokeMethod.invokeMethodFromText(commandToExecute);
                 CliOperations.runCommand(TestBase.serversManagement.getServerById(serverId), commandToExecute, waitForPrompt);
                 String actualResult = CliOperations.lastRow.replace("|", "").trim();
 
