@@ -25,7 +25,7 @@ Feature: AW RBAC - New AW roles
 
   @SID_4
   Scenario Outline: Create users and verify
-    When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
+    When UI Create New User With User Name "<User Name>", Role "<Role>", Scope "<Scope>", Password "<Password>"
     Then Sleep "10"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Then Sleep "10"

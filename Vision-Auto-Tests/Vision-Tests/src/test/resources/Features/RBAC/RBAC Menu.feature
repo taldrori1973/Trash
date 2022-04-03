@@ -1,4 +1,4 @@
-@Functional @TC114371
+@Functional @TC114371 @Test12
 Feature: RBAC Menu
 
 
@@ -11,7 +11,7 @@ Feature: RBAC Menu
 
   @SID_2
   Scenario Outline: Create users and verify
-    When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
+    When UI Create New User With User Name "<User Name>", Role "<Role>", Scope "<Scope>", Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
       | User Name             | Role                          | Scope | Password        |
