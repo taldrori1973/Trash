@@ -12,8 +12,8 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
   Scenario: Run DP simulator PCAPs
 #    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 0 seconds
 #    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000 and wait 90 seconds
-    Given CLI simulate 1000 attacks of type "many_attacks" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 0 seconds
-    Given CLI simulate 1000 attacks of type "many_attacks" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 90 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 0 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 90 seconds
 
 
   @SID_3
@@ -45,19 +45,29 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
       | Device Name | DefensePro_172.16.22.51 |
       | Policy      | All                     |
       | Max         | 425957                  |
+    Then UI Validate Table record values by columns with elementLabel "Top5 Table" findBy index 2
+      | columnName  | value                   |
+      | Device Name | DefensePro_172.17.50.50 |
+      | Policy      | All                     |
+      | Max         | 0                  |
     Then UI Click Button "Min Button Dialog"
 
 
   @SID_6
   Scenario: Validate Min values for each attack
     Then UI Validate Text field "Min Button" with params "label-concurrent-connections" EQUALS "Min"
-    Then UI Validate Text field "Min Button" with params "value-concurrent-connections" EQUALS "80"
+    Then UI Validate Text field "Min Button" with params "value-concurrent-connections" EQUALS "0"
     Then UI Validate Table record values by columns with elementLabel "Top5 Table" findBy index 0
+      | columnName  | value                   |
+      | Device Name | DefensePro_172.17.50.50 |
+      | Policy      | All                     |
+      | Min         | 0                      |
+    Then UI Validate Table record values by columns with elementLabel "Top5 Table" findBy index 1
       | columnName  | value                   |
       | Device Name | DefensePro_172.16.22.50 |
       | Policy      | All                     |
       | Min         | 80                      |
-    Then UI Validate Table record values by columns with elementLabel "Top5 Table" findBy index 1
+    Then UI Validate Table record values by columns with elementLabel "Top5 Table" findBy index 2
       | columnName  | value                   |
       | Device Name | DefensePro_172.16.22.51 |
       | Policy      | All                     |
