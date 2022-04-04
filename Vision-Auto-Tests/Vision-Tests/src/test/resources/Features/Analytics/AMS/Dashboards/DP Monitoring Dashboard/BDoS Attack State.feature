@@ -1,4 +1,4 @@
-@TC108795  @Test12
+@TC108795
 Feature: AMS BDoS Attack State
 
   @SID_1

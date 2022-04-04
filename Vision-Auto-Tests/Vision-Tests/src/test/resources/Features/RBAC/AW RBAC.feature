@@ -47,7 +47,6 @@ Feature: AW RBAC - New AW roles
     And Sleep "10"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
@@ -172,7 +171,6 @@ Feature: AW RBAC - New AW roles
     And Sleep "10"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
