@@ -71,7 +71,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
       | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -93,7 +92,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
       | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -116,7 +114,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
       | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -138,7 +135,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | yes      |
@@ -160,7 +156,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
       | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -182,7 +177,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -204,7 +198,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
       | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -226,7 +219,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -246,12 +238,10 @@ Feature: RBAC Menu
     When UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes       |
-      | HTTPS Flood Dashboard                       | yes       |
       | DefensePro Analytics Dashboard              | yes       |
       | DefensePro Monitoring Dashboard             | yes       |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -275,7 +265,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
       | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -298,7 +287,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -320,7 +308,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -342,7 +329,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
       | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -364,7 +350,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | yes      |
@@ -386,7 +371,6 @@ Feature: RBAC Menu
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | yes      |
