@@ -19,15 +19,16 @@ Feature: DP ANALYTICS RBAC
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_3" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_4" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_5" and wait 240 seconds with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_3" and wait 240 seconds with attack ID
+#    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_4" with attack ID
+#    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_5" and wait 240 seconds with attack ID
 
 
   @SID_3
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then Sleep "5"
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -51,8 +52,8 @@ Feature: DP ANALYTICS RBAC
     Then UI Total "Attacks by Protection Policy" legends equal to 10
 
 
-    Then UI Text of "Device Selection" equal to "DEVICES5/5"
-    Then UI Text of "UpDevices" equal to "5"
+    Then UI Text of "Device Selection" equal to "DEVICES3/3"
+    Then UI Text of "UpDevices" equal to "3"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
     When UI Click Button "Device Selection"
@@ -60,11 +61,11 @@ Feature: DP ANALYTICS RBAC
       | setId            | polices                | total |
       | DefensePro_Set_1 | Policy14,Policy15,BDOS | All   |
       | DefensePro_Set_2 | pol_1,policy_3         | All   |
-      | DefensePro_Set_3 | Ahlam69                | All   |
+
     When UI VRM Select device from dashboard
       | setId |
-    Then UI Text of "Device Selection.Available Devices header" contains "Devices5/5"
-    Then UI VRM Total Available Device's 5
+    Then UI Text of "Device Selection.Available Devices header" contains "Devices3/3"
+    Then UI VRM Total Available Device's 3
     * UI Logout
 
     ### see DE39973 WNBF
@@ -284,7 +285,7 @@ Feature: DP ANALYTICS RBAC
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
       | setId            | polices | total |
-      | DefensePro_Set_2 | pol1 | ALl   |
+      | DefensePro_Set_2 | pol1    | ALl   |
 
     When UI VRM Select device from dashboard
       | setId |

@@ -528,7 +528,7 @@ Feature: Attack Table - Expand Table Row
       | Direction          | In            | In            |
       | Action Type        | Drop          | Drop          |
       | Physical Port      | 1             | 1             |
-      | Total Packet Count | 395,583       | 298,089       |
+      | Total Packet Count | 395,583       | 2,318,458     |
       | VLAN               | N/A           | N/A           |
       | MPLS RD            | N/A           | N/A           |
       | Source port        | 0             | 1024          |
@@ -544,8 +544,8 @@ Feature: Attack Table - Expand Table Row
       | Current Policy Bandwidth           | 164.6 Mbps                    | 164 Mbps                     |
       | Detection Sensitivity              | 2%                            | 2%                           |
       | Peacetime Quantile Bandwidth       | 3.3 Mbps                      | 3.3 Mbps                     |
-      | Dropped Quantile Bandwidth         | 25.6 Mbps                     | 25.9 Mbps                    |
-      | Current Quantile Bandwidth         | 25.8 Mbps                     | 25.5 Mbps                    |
+      | Dropped Quantile Bandwidth         | 25.6 Mbps                     | 25.5 Mbps                    |
+      | Current Quantile Bandwidth         | 25.8 Mbps                     | 25.3 Mbps                    |
       | Quantile Rate Limit                | Moderate 150%, 2.2 Mbps       | Moderate 150%, 3.5 Mbps      |
       | Mitigation Method                  | Quantile Top Talkers          | Quantile Top Talkers         |
 

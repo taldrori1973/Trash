@@ -3,7 +3,7 @@
   "serverName": "uvision_auto",
   "deployConfigurations": {
     "snapshot": "",
-    "setupMode": "kvm_upgrade_inparallel",
+    "setupMode": "kvm_upgrade",
     "environment": "KVM-217"
   },
   "pair": {
