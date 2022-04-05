@@ -1,4 +1,4 @@
-@Functional @TC114371 @Test12
+@Functional @TC114371
 Feature: RBAC Menu
 
 
@@ -238,17 +238,16 @@ Feature: RBAC Menu
     When UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
-      | DefensePro Behavioral Protections Dashboard | yes       |
-      | DefensePro Analytics Dashboard              | yes       |
-      | DefensePro Monitoring Dashboard             | yes       |
+      | DefensePro Behavioral Protections Dashboard | yes      |
+      | DefensePro Analytics Dashboard              | yes      |
+      | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | yes       |
-      | AMS Reports                                 | yes       |
-      | AMS Forensics                               | yes       |
-      | AMS Alerts                                  | yes       |
+      | AppWall Dashboard                           | yes      |
+      | AMS Reports                                 | yes      |
+      | AMS Forensics                               | yes      |
+      | AMS Alerts                                  | yes      |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
