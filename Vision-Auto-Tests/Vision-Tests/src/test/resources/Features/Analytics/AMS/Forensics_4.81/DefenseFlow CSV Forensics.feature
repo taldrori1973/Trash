@@ -392,10 +392,10 @@ Feature: DefenseFlow CSV Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow_with_Share_Email"
 
   @SID_37
-  Scenario: Change DF management IP to IP of Vision DF
+  Scenario: Change DF management IP to IP of DefenseFlow
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
-      | @defenseFlowDevice.getDeviceIp |
+      | #dfIP                          |
 
   @SID_38
   Scenario: Logout

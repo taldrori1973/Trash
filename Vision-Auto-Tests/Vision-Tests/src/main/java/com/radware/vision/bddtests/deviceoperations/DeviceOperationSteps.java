@@ -6,11 +6,13 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.webpages.WebUIBasePage;
 import com.radware.automation.webui.widgets.ComponentLocator;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
 import com.radware.vision.infra.enums.*;
+import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.deviceoperations.DeviceOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import cucumber.api.java.en.Given;
@@ -20,15 +22,16 @@ import org.openqa.selenium.support.How;
 
 import java.util.HashMap;
 
-public class DeviceOperationSteps extends BddUITestBase {
+public class DeviceOperationSteps extends VisionUITestBase {
     DeviceState deviceState = DeviceState.Lock;
 
     public DeviceOperationSteps() throws Exception {
     }
 
-    @When("^UI Lock Device with type \"([^\"]*)\" and Index (\\d+) by Tree Tab \"([^\"]*)\"$")
-    public void lockDevice(SUTDeviceType devicetype, int deviceIndex, String parentTree) throws Exception { ;
-        DeviceInfo deviceInfo = devicesManager.getDeviceInfo(devicetype, deviceIndex);
+    @When("^UI Lock Device?(?: with (DeviceID|SetId))? \"([^\"]*)\" under \"([^\"]*)\"$")
+    public void lockDevice(String idType ,String id, String parentTree) {
+        TreeDeviceManagementDto deviceInfo = (idType == null || idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(id).orElse(null) :
+                (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(id).orElse(null) : null;
         DeviceOperationsHandler.lockUnlockDevice(deviceInfo.getDeviceName(), parentTree, DeviceState.Lock.getDeviceState(), false);
     }
 
@@ -65,11 +68,11 @@ public class DeviceOperationSteps extends BddUITestBase {
     }
 
     @Then("^UI export Alteon DeviceCfg by type \"(.*)\" with index \"(.*)\" with source to upload from \"(Server|Client)\"$")
-    public void exportDeviceCfg(String elementType, String index, String uploadFromSource) throws Exception {
+    public void exportDeviceCfg(String elementType, String index, String uploadFromSource) {
         try {
             SUTDeviceType sutDeviceType = SUTDeviceType.valueOf(elementType);
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, Integer.valueOf(index));
-            HashMap<String, String> properties = new HashMap<String, String>(10);
+            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, Integer.parseInt(index));
+            HashMap<String, String> properties = new HashMap<>(10);
             DeviceState state = DeviceState.Lock;
             properties.put("deviceName", deviceInfo.getDeviceName());
             properties.put("deviceState", state.getDeviceState());
@@ -80,36 +83,51 @@ public class DeviceOperationSteps extends BddUITestBase {
             properties.put("scalarNamesList", "");
             properties.put("scalarValuesToVerify", "");
 
-            DeviceOperationsHandler.exportAlteonOperation(properties, getVisionRestClient());
+            DeviceOperationsHandler.exportAlteonOperation(properties, restTestBase.getVisionRestClient());
         } catch (Exception e) {
             BaseTestUtils.report("export DeviceCfg operation has been executed incorrectly :", Reporter.FAIL);
         }
     }
 
-    @When("^UI verify Device Status( physical)? with deviceType \"(.*)\" with index (\\d+) if Expected device Status \"(.*)\"$")
-    public void verifyDeviceStatusSites(String treeTab, SUTDeviceType elementType, int index, String expectedDeviceStatus) throws Exception {
+    @When("^UI verify Device Status( physical)?(?: with (DeviceID|SetId))? \"(.*)\" if Expected device Status \"(.*)\"(?: set timeout (\\d+) seconds)?$")
+    public void verifyDeviceStatusSites(String treeTab, String idType, String id, String expectedDeviceStatus, Integer timeout) {
         try {
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(elementType, index);
-            String deviceStatus = (treeTab != null) ? TopologyTreeHandler.getDeviceStatusPhysical(deviceInfo.getDeviceName()) : TopologyTreeHandler.getDeviceStatusSites(deviceInfo.getDeviceName());
-            if (DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus) == DeviceStatusEnum.UP_OR_MAINTENANCE) {
-                if (!((deviceStatus.equals(DeviceStatusEnum.UP.getStatus())) || (deviceStatus.equals(DeviceStatusEnum.MAINTENANCE.getStatus())))) {
-                    BaseTestUtils.report("Device " + deviceInfo.getDeviceName() + " " + "did not reach status: " + expectedDeviceStatus + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
+            timeout = timeout == null ? 60 * 1000 : timeout * 1000;
+            TreeDeviceManagementDto deviceInfo = (idType == null || idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(id).orElse(null) :
+                    (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(id).orElse(null) : null;
+            String deviceStatus = "";
+            long startTime = System.currentTimeMillis();
+
+            while (System.currentTimeMillis() - startTime < timeout) {
+                try {
+                    deviceStatus = (treeTab != null) ? TopologyTreeHandler.getDeviceStatusPhysical(deviceInfo.getDeviceName()) : TopologyTreeHandler.getDeviceStatusSites(deviceInfo.getDeviceName());
+                    if (DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus) == DeviceStatusEnum.UP_OR_MAINTENANCE) {
+                        if (deviceStatus.equals(DeviceStatusEnum.UP.getStatus()) || deviceStatus.equals(DeviceStatusEnum.MAINTENANCE.getStatus()))
+                            return;
+                    } else {
+                        if (deviceStatus.equals(DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus).getStatus()))
+                            return;
+                    }
+                } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
                 }
-            } else if (!(deviceStatus.equals(DeviceStatusEnum.getDeviceStatusEnum(expectedDeviceStatus).getStatus()))) {
-                BaseTestUtils.report("Device " + deviceInfo.getDeviceName() + " " + "did not reach status: " + expectedDeviceStatus + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
+                Thread.sleep(10000L);
+                BasicOperationsHandler.refresh();
             }
+            BaseTestUtils.report("Device " + deviceInfo.getDeviceName() + " " + "did not reach status: " +
+                    expectedDeviceStatus + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
         } catch (Exception e) {
             BaseTestUtils.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
     @Then("^UI perform Device ResetShutDown Operation( physical)? with deviceType \"(.*)\" with index (\\d+) by operationToPerform \"(Reset|ShutDown)\"$")
-    public void performDeviceResetShutDownOperation(String treeTab, SUTDeviceType sutDeviceType, int index,ResetShutDownOperations operationToPerform) {
+    public void performDeviceResetShutDownOperation(String treeTab, SUTDeviceType sutDeviceType, int index, ResetShutDownOperations operationToPerform) {
         try {
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, index);
-            if(treeTab != null) {
+            if (treeTab != null) {
                 TopologyTreeHandler.openPhysicalContainers();
-            }else {
+            } else {
                 TopologyTreeHandler.openSitesAndClusters();
             }
             TopologyTreeHandler.clickTreeNode(deviceInfo.getDeviceName());
@@ -121,7 +139,7 @@ public class DeviceOperationSteps extends BddUITestBase {
                 WebUIBasePage.silentPopupclose();
 
             } else {
-                BaseTestUtils.report("Failed to click on the specified button : " + operationToPerform.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Failed to click on the specified button : " + operationToPerform, Reporter.FAIL);
             }
         } catch (Exception e) {
             BaseTestUtils.report("Failed to click on the specified button : " + operationToPerform.toString(), Reporter.FAIL);
@@ -129,11 +147,11 @@ public class DeviceOperationSteps extends BddUITestBase {
     }
 
     @Then("^UI revert Device \"(REVERT|REVERT_APPLY)\"( physical)? with deviceType \"(.*)\" with index (\\d+)$")
-    public void revertDevice(RevertApplyMenuItems revertApplyMenuItem, String treeTab, SUTDeviceType sutDeviceType, int index) throws Exception {
+    public void revertDevice(RevertApplyMenuItems revertApplyMenuItem, String treeTab, SUTDeviceType sutDeviceType, int index) {
         try {
-            if(treeTab != null) {
+            if (treeTab != null) {
                 treeTab = String.valueOf(TopologyTreeTabs.PhysicalContainers);
-            }else {
+            } else {
                 treeTab = String.valueOf(TopologyTreeTabs.SitesAndClusters);
             }
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, index);

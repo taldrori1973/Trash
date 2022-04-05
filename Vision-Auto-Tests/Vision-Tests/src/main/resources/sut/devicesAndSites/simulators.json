@@ -1,0 +1,56 @@
+{
+  "simulatorSets": {
+    "sim_set_1": [
+      "50.50.101.1",
+      "50.50.101.2",
+      "50.50.101.3"
+    ],
+    "sim_set_2" : [
+      "50.50.101.4",
+      "50.50.101.5",
+      "50.50.101.6"
+    ],
+    "sim_set_3" : [
+      "50.50.101.7",
+      "50.50.101.8",
+      "50.50.101.9"
+    ],
+    "sim_set_4" : [
+      "50.50.101.10",
+      "50.50.101.11",
+      "50.50.101.12"
+    ],
+    "sim_dp_set_1" : [
+      "50.50.100.1"
+    ]
+  },
+  "configurations": {
+    "name": "",
+    "parentOrmID": null,
+    "type": "Alteon",
+    "deviceSetup": {
+      "deviceAccess": {
+        "cliPassword": "admin",
+        "cliPort": 22,
+        "cliUsername": "admin",
+        "exclusivelyReceiveDeviceEvents": false,
+        "httpPassword": "admin",
+        "httpsPassword": "admin",
+        "httpsUsername": "admin",
+        "httpUsername": "admin",
+        "managementIp": "",
+        "registerDeviceEvents": true,
+        "snmpV1ReadCommunity": "public",
+        "snmpV1WriteCommunity": "private",
+        "snmpV2ReadCommunity": "public",
+        "snmpV2WriteCommunity": "private",
+        "snmpV3AuthenticationProtocol": "SHA",
+        "snmpV3PrivacyProtocol": "DES",
+        "snmpVersion": "SNMP_V2",
+        "verifyHttpCredentials": true,
+        "verifyHttpsCredentials": true,
+        "visionMgtPort": "G1"
+      }
+    }
+  }
+}

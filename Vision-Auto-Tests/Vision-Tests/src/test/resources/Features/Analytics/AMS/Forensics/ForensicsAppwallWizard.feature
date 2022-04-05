@@ -20,13 +20,7 @@ Feature: Appwall Forensic Wizard
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
-    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
+    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
     Then Browser Refresh Page
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"

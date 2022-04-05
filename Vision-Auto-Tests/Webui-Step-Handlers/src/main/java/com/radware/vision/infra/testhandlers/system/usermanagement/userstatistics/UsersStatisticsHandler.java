@@ -1,13 +1,13 @@
 package com.radware.vision.infra.testhandlers.system.usermanagement.userstatistics;
 
-import java.util.Date;
-import java.util.List;
-
 import com.radware.vision.infra.base.pages.VisionServerMenuPane;
 import com.radware.vision.infra.base.pages.system.usermanagement.UserManagement;
 import com.radware.vision.infra.base.pages.system.usermanagement.userstatistics.ConnectedUserEntry;
 import com.radware.vision.infra.base.pages.system.usermanagement.userstatistics.UserStatisticsEntry;
 import com.radware.vision.infra.base.pages.system.usermanagement.userstatistics.UsersStatistics;
+
+import java.util.Date;
+import java.util.List;
 
 public class UsersStatisticsHandler {
 	

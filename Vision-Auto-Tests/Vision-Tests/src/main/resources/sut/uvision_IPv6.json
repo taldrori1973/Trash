@@ -1,0 +1,38 @@
+{
+  "setupFile": "Setup_IPv6.json",
+  "serverName": "uVision",
+  "defenseFlow": "",
+  "deployConfigurations": {
+    "snapshot": "",
+    "setupMode": "upgrade",
+    "environment": "KVM-215"
+  },
+  "pair": {
+    "pairIp": "172.17.164.101",
+    "environment": "KVM-217"
+  },
+  "clientConfiguration": {
+    "hostIp": "ipv6.uVision.automation",
+    "userName": "radware",
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 443,
+      "defaultProtocol": "https"
+    },
+    "sqlDbConnection": {
+      "defaultPort": 3306,
+      "username": "root",
+      "password": "radware"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
+      "password": "radware"
+    }
+  }
+}

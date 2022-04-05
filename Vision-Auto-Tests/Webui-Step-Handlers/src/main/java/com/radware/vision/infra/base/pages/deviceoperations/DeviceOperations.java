@@ -1,7 +1,7 @@
 package com.radware.vision.infra.base.pages.deviceoperations;
 
-import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.infra.enums.DeviceState;
 import org.openqa.selenium.WebElement;
@@ -15,7 +15,7 @@ public class DeviceOperations{
         ComponentLocator lockButtonLocator = new ComponentLocator(How.ID ,WebUIStrings.getLockUnlockDevice());
         WebUIUtils.fluentWaitClick(lockButtonLocator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
 //        if (lockElement == null) {
-//            RestTestBase.report.report("LockUnlock device operation failure", Reporter.FAIL);
+//            BaseTestUtils.report("LockUnlock device operation failure", Reporter.FAIL);
 //        } else {
 //            lockElement.click();
 //        }

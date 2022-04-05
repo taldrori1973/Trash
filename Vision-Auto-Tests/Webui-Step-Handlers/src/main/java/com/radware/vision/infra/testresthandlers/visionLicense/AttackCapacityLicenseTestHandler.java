@@ -2,9 +2,13 @@ package com.radware.vision.infra.testresthandlers.visionLicense;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
-import com.radware.insite.model.helpers.annotations.PersistantValue;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.databases.mariaDB.GenericCRUD;
+import com.radware.vision.automation.databases.mariaDB.client.VisionDBSchema;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.infra.testresthandlers.visionLicense.pojos.AttackCapacityLicensePojo;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -13,6 +17,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * By MohamadI
@@ -62,7 +67,7 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
 
     private AttackCapacityLicensePojo attackCapacityLicensePojo;
 
-    public AttackCapacityLicenseTestHandler() throws IOException, ParseException {
+    public AttackCapacityLicenseTestHandler() throws IOException, ParseException, NoSuchFieldException {
         super();
         this.attackCapacityLicensePojo = new AttackCapacityLicensePojo();
         setLicenseInfo();
@@ -117,9 +122,8 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
 
     private void setLicenseInfo() throws IOException, ParseException {
 
-        String attackCapacityLicenseResponse = sendRequest(requests.get("Attack Capacity License"));
-
-        String licenseTypesResponse = sendRequest(requests.get("Vision License Info"));
+        String attackCapacityLicenseResponse = requests.get("Attack Capacity License").sendRequest().getBody().getBodyAsString();
+        String licenseTypesResponse = requests.get("Vision License Info").sendRequest().getBody().getBodyAsString();
 
         ObjectMapper mapper = new ObjectMapper();
         attackCapacityLicensePojo = mapper.readValue(attackCapacityLicenseResponse, AttackCapacityLicensePojo.class);
@@ -127,7 +131,7 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
 
         JSONParser parser = new JSONParser();
         JSONObject licenseTypesResponseJson = (JSONObject) parser.parse(licenseTypesResponse);
-        if(licenseTypesResponseJson.get("attackCapacityLicense")!=null && !licenseTypesResponseJson.get("attackCapacityLicense").equals("null")) {
+        if (licenseTypesResponseJson.get("attackCapacityLicense") != null && !licenseTypesResponseJson.get("attackCapacityLicense").equals("null")) {
             licenseTypesResponseJson = (JSONObject) licenseTypesResponseJson.get("attackCapacityLicense");
             licenseTypesResponse = licenseTypesResponseJson.toJSONString();
 
@@ -143,20 +147,29 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
     private static void update_last_server_upgrade_time(LocalDateTime date) {
 
 //        %s=YYYY-MM-DD HH:mm:ss
-        String command = "result=$(mysql -prad123 vision_ng -e \"select count(*) from server_upgrade_status\" | grep -v + | grep -v count); mysql -prad123 vision_ng -e \"update server_upgrade_status set start_time_stamp='%s' where row_id=$result\\G\"\n";
+        String command = "result=$(mysql -pradware vision_ng -e \"select count(*) from server_upgrade_status\" | grep -v + | grep -v count); mysql -pradware vision_ng -e \"update server_upgrade_status set start_time_stamp='%s' where row_id=$result\\G\"\n";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         String dateStr = date.format(formatter);
 
         command = command.replace("%s", dateStr);
-        CliOperations.runCommand(restTestBase.getRootServerCli(), command);
+
+        ServersManagement serversManagement = TestBase.getServersManagement();
+        Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
+
+        CliOperations.runCommand(rootServerCli.get(), command);
     }
 
     public static void update_last_server_upgrade_time(long daysToSubtract) {
         String currentDate = "";
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "date +%F");
+
+        ServersManagement serversManagement = TestBase.getServersManagement();
+        Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
+        RootServerCli rsc = rootServerCli.get();
+
+        CliOperations.runCommand(rsc, "date +%F");
         currentDate = currentDate.concat(CliOperations.lastRow);
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "date +%T");
+        CliOperations.runCommand(rsc, "date +%T");
         currentDate = currentDate.concat(" ").concat(CliOperations.lastRow);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -165,10 +178,11 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
         update_last_server_upgrade_time(localDate);
     }
 
-    public static void update_grace_period_state_at_db(GracePeriodState state) {
-        String command = "mysql -prad123 vision_ng -e \"update ap set ava_grace_period_state='%d'\\G\"";
-        command = String.format(command, state.getValue());
-        CliOperations.runCommand(restTestBase.getRootServerCli(), command);
+    public static void update_grace_period_state_at_db(GracePeriodState state) throws Exception {
+        int updateNumber = GenericCRUD.updateSingleValue(VisionDBSchema.VISION_NG, "ap", null, "ava_grace_period_state", state.getValue());
+        if (updateNumber != 1) {
+            throw new Exception(String.format("ap table grace period value not updated with value: %d", state.getValue()));
+        }
     }
 
 

@@ -9,13 +9,13 @@ Feature: Create and Edit AppWall
 
   @SID_2
   Scenario: Add Appwall 7.4.X device
-    Then UI Add "AppWall" with index 0 on "Default" site
-    Then UI verify Device Status with deviceType "AppWall" with index 0 if Expected device Status "Up"
+    Then UI Add "AppWall_Set_2" under "Default" site
+    Then UI verify Device Status "AppWall_Set_2" if Expected device Status "Up"
 #    Then UI Edit AppWall with DeviceType "AppWall" with index 0 Mgt port "G1"
 
   @SID_3
   Scenario: delete Appwall 7.4.X device
-    Then UI Delete "AppWall" device with index 0 from topology tree
+    Then UI Delete "AppWall_Set_2" from topology tree
 
 #  @SID_4
 #  Scenario: Add Appwall iFrame device

@@ -44,8 +44,7 @@ public class RestClientsFactory {
                 visionRestClients.put(key, (SessionBasedRestClient) RestClientsManagement.getVisionConnection(baseUri, connectionPort, username, password));
 
         } else {
-            if (!visionRestClients.containsKey(key))
-                visionRestClients.put(key, (SessionBasedRestClient) RestClientsManagement.getVisionConnection(baseUri, connectionPort, username, password, license));
+            visionRestClients.put(key, (SessionBasedRestClient) RestClientsManagement.getVisionConnection(baseUri, connectionPort, username, password, license));
         }
         return visionRestClients.get(key);
     }

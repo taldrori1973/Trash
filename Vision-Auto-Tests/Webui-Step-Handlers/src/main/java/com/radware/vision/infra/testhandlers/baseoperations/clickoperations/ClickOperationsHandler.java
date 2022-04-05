@@ -35,7 +35,6 @@ import java.util.regex.Pattern;
 
 import static java.util.Objects.nonNull;
 import static org.apache.commons.lang3.math.NumberUtils.isParsable;
-
 /**
  * Created by AviH on 03-Dec-17.
  */

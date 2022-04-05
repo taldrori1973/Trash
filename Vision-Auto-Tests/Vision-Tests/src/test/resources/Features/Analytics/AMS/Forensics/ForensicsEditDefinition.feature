@@ -1,7 +1,7 @@
 @VRM_Report2 @TC106001
 
 Feature: Forensics Edit Definition
-
+  
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -16,8 +16,8 @@ Feature: Forensics Edit Definition
   
   @SID_2
   Scenario: Run DP simulator
-    And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "vrm_bdos" on "DefensePro" 11 and wait 80 seconds
+    And CLI simulate 1 attacks of type "rest_black_ip46" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "vrm_bdos" on SetId "DefensePro_Set_2" and wait 80 seconds
 
   
   @SID_3
@@ -64,7 +64,7 @@ Feature: Forensics Edit Definition
     Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Test Edit,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-
+  
   @SID_8
   Scenario: Validate forensics definition edit time definition
     # move one attack 48 hours backwards

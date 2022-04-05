@@ -2,10 +2,10 @@ package com.radware.vision.bddtests.rest;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddRestTestBase;
-import com.radware.vision.infra.models.LicenseManagement;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.databases.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.infra.utils.TimeUtils;
-import com.radware.vision.infra.visionDatabase.jdbc.JDBCConnectionException;
+import com.radware.vision.automation.systemManagement.licenseManagement.LicenseManagement;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class LicenseSteps extends BddRestTestBase {
+public class LicenseSteps extends TestBase {
     /**
      * @param licensePrefix - such as ->
      *                      vision-demo
@@ -58,6 +58,8 @@ public class LicenseSteps extends BddRestTestBase {
                     String.format("Can't create \"LicenseManagement\" Object due to the following Exception:\n%s\n\n%s", e.getMessage(), Arrays.toString(e.getStackTrace())),
                     Reporter.FAIL
             );
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -71,28 +73,21 @@ public class LicenseSteps extends BddRestTestBase {
                     String.format("Can't create \"LicenseManagement\" Object due to the following Exception:\n%s\n\n%s", e.getMessage(), Arrays.toString(e.getStackTrace())),
                     Reporter.FAIL
             );
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
     @Then("^REST Vision Install License Request vision-activation with expired date$")
     public void expireActivationLicense() throws Exception {
         String pureActivationLicense = "vision-activation"; // activation license without expired date
-
-        //Generate activation license and add it, after that we delete it
-        LicenseManagement pureActivationLicenseManagement = new LicenseManagement(pureActivationLicense, null, null);
-        pureActivationLicenseManagement.install();
-
         LicenseManagement activationLicenseWithDateEntity = new LicenseManagement(pureActivationLicense, LocalDate.now().minusMonths(4), LocalDate.now().minusDays(1));
         try {
             activationLicenseWithDateEntity.install();
         } catch (Exception e) {
-            //Validation - failed to login with expired date
-            pureActivationLicenseManagement.install();// here we return the license without date
             BaseTestUtils.report("The user can't login with expired activation license", Reporter.PASS);
             return;
         }
-        //login with expired date has succeed, so we should throw error message
-        pureActivationLicenseManagement.install();// here we return the license without date
         BaseTestUtils.report("The user can login with expired activation license", Reporter.FAIL);
     }
 

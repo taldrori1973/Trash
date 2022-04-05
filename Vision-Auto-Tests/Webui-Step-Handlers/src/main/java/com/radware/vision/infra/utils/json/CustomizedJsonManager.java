@@ -1,12 +1,12 @@
 package com.radware.vision.infra.utils.json;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.*;
 
 import static java.util.stream.Collectors.joining;
-
-import org.json.*;
 
 /**
  * Created by MoaadA on 7/30/2018.

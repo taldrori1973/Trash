@@ -6,26 +6,11 @@ Feature: AW Scope Selection
     Given UI Login with user "radware" and password "radware"
     Given REST Vision Install License Request "vision-AVA-AppWall"
     * REST Delete ES index "aw-web-application"
-    
-    Then REST Delete Device By IP "172.17.154.19"
-    
-    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
+    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
     Then REST Delete Device By IP "172.17.164.30"
     And Browser Refresh Page
     And Sleep "60"
-    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
+    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
     And Sleep "60"
     Given add 200 applications with prefix name "app" to appWall ip:"172.17.164.30" with timeout 300
     Given add 200 applications with prefix name "my_app" to appWall ip:"172.17.164.30" with timeout 300
@@ -33,7 +18,7 @@ Feature: AW Scope Selection
     Given add 150 applications with prefix name "radware_application" to appWall ip:"172.17.164.30" with timeout 300
     Given add 50 applications with prefix name "application" to appWall ip:"172.17.164.30" with timeout 300
     And Sleep "90"
-    Then Browser Refresh Page
+    And Browser Refresh Page
     And UI Navigate to "AppWall Dashboard" page via homePage
     And Sleep "5"
     And UI Do Operation "Select" item "Applications"
@@ -93,10 +78,6 @@ Feature: AW Scope Selection
     Given UI Click Button "Applications"
     And UI Select scope from dashboard and Save Filter device type "AppWall"
       | Default Web Application |
-
-    Then REST Add "Alteon" Device To topology Tree with Name "Alteon_172.17.154.19" and Management IP "172.17.154.19" into site "VA_Alteons_site"
-      | attribute     | value    |
-      | visionMgtPort | G1       |
 
   @SID_6
   Scenario: Cleanup

@@ -1,11 +1,11 @@
 package com.radware.vision.infra.base.pages.topologytree.devicecfg;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIDropdown;
 import com.radware.automation.webui.widgets.impl.WebUIReferencedDropdown;
 import com.radware.vision.infra.base.pages.topologytree.DeviceProperties;
-import junit.framework.SystemTestCase4;
 
 public class EventNotification extends DeviceProperties{
 	
@@ -26,7 +26,7 @@ public class EventNotification extends DeviceProperties{
 				webUIReferencedDropdown.selectOptionByText(visionServerIp);
 				break;
 			} catch(Exception ise) {
-				SystemTestCase4.report.report("Failed to find Vision Server IP: " + visionServerIp + " - " + "Iteration: " + i, Reporter.PASS);
+                BaseTestUtils.report("Failed to find Vision Server IP: " + visionServerIp + " - " + "Iteration: " + i, Reporter.PASS);
 				continue;
 			}
 		}

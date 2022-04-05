@@ -5,19 +5,18 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsChartsHandler;
 import com.radware.vision.restAPI.FormatterRestApi;
-import com.radware.vision.restBddTests.utils.SutUtils;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import models.RestResponse;
 import models.StatusCode;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
@@ -25,6 +24,8 @@ import java.util.*;
 
 
 public class Report extends ReportsForensicsAlertsAbstract {
+    private StringBuilder errorMessage = null;
+    private static String hostIp = TestBase.getSutManager().getClientConfigurations().getHostIp();
 
     public void expandReportParameters() throws Exception {
         WebUiTools.check(getType() + " Parameter Menu", "", false);
@@ -54,7 +55,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
         if (negative == null) {
             if (!viewCreated(reportName)) {
-                throw new Exception("The report '" + reportName + "' isn't created!" + errorMessage);
+                throw new Exception("The report '" + reportName + "' wasn't created!" + errorMessage);
             }
         }
 
@@ -79,7 +80,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             isToCancel = true;
             WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
             if (withReadTheMessage)
-                errorMessage += errorMessageElement != null ? "\nbecause:\n" + errorMessageElement.getText() + "\n" : "";
+                errorMessage.append(errorMessageElement != null ? "\nbecause:\n" + errorMessageElement.getText() + "\n" : "");
             WebUiTools.clickWebElement(okWebElement);
         }
         if (isToCancel)
@@ -134,8 +135,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
         expandReportParameters();
         WebUiTools.check("Name Tab", "", true);
         editName(map, reportName);
-//        WebUiTools.check("Executive Summary Tab", "", true);
-//        editExecutiveSummary(map);
         WebUiTools.check("Logo Tab", "", true);
         editLogo(map);
         WebUiTools.check("Time Tab", "", true);
@@ -463,33 +462,34 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
 
-    public VRMReportsChartsHandler getVRMReportsChartsHandler(String reportName) throws NoSuchFieldException {
-        if (generateReportAndGetReportID(reportName).equalsIgnoreCase("accepted")) {
+    public VRMReportsChartsHandler getVRMReportsChartsHandler(String reportName, String... args) throws NoSuchFieldException {
+        if (generateReportAndGetReportID(reportName, args).equalsIgnoreCase("accepted")) {
             if (generateStatus(getReportID(reportName), 60))
                 return new VRMReportsChartsHandler(getReportGenerateResult(getReportID(reportName)));
         }
-        BaseTestUtils.report("The generation of report " + reportName + " doesn't succeed", Reporter.FAIL);
+        BaseTestUtils.report("The generation of report " + reportName + " didn't succeed", Reporter.FAIL);
         return null;
     }
 
 
-    public static JSONObject getReportGenerateResult(String reportID) throws NoSuchFieldException {
-        FormatterRestApi formatterRestApiResult = new FormatterRestApi("HTTP://" + SutUtils.getCurrentVisionIp(), 3002, "Vision/generateReport.json", "Get Result Of Generate Report");
+    public static JSONObject getReportGenerateResult(String reportID) {
+
+        FormatterRestApi formatterRestApiResult = new FormatterRestApi("HTTP://" + hostIp, 3002, "Vision/generateReport.json", "Get Result Of Generate Report");
         HashMap map = new HashMap<>();
         map.put("id", reportID);
         formatterRestApiResult.getRestRequestSpecification().setPathParams(map);
         return new JSONObject(new JSONObject(formatterRestApiResult.sendRequest().getBody().getBodyAsString()).get("jsonResult").toString());
     }
 
-    public String generateReportAndGetReportID(String reportName) throws NoSuchFieldException {
+    public String generateReportAndGetReportID(String reportName, String... args) {
 
-        FormatterRestApi formatterRestApi = new FormatterRestApi("HTTP://" + SutUtils.getCurrentVisionIp(), 3002, "Vision/generateReport.json", "Generate Report");
-        formatterRestApi.getRestRequestSpecification().setBody(new ReportsDefinitions().getJsonDefinition(reportName).toString());
+        FormatterRestApi formatterRestApi = new FormatterRestApi("HTTP://" + hostIp, 3002, "Vision/generateReport.json", "Generate Report");
+        formatterRestApi.getRestRequestSpecification().setBody(Objects.requireNonNull(ReportsDefinitionsFactory.getReportsDefinitions(args)).getJsonDefinition(reportName).toString());
         return formatterRestApi.sendRequest().getStatusCode().getReasonPhrase();
     }
 
-    public boolean generateStatus(String reportID, int secondsTimeOut) throws NoSuchFieldException {
-        FormatterRestApi formatterRestApiStatus = new FormatterRestApi("HTTP://" + SutUtils.getCurrentVisionIp(), 3002, "Vision/generateReport.json", "Get Status Report");
+    public boolean generateStatus(String reportID, int secondsTimeOut) {
+        FormatterRestApi formatterRestApiStatus = new FormatterRestApi("HTTP://" + hostIp, 3002, "Vision/generateReport.json", "Get Status Report");
         HashMap map = new HashMap<>();
         map.put("id", reportID);
         formatterRestApiStatus.getRestRequestSpecification().setPathParams(map);

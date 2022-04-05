@@ -2,20 +2,29 @@ package com.radware.vision.bddtests.clioperation.LLS;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.enums.ConfigSyncMode;
-import com.radware.vision.vision_handlers.system.ConfigSync;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.ConfigSyncMode;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.LLSStateCMDs;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.systemManagement.visionConfigurations.ManagementInfo;
+import com.radware.vision.highavailability.HAHandler;
+import com.radware.vision.lls.LLSHandler;
+import com.radware.vision.system.ConfigSync;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 
-import static com.radware.vision.base.WebUITestBase.restTestBase;
+public class LLSSteps extends TestBase {
 
-public class LLSSteps {
+
+    protected static ManagementInfo managementInfo = TestBase.getVisionConfigurations().getManagementInfo();
+    protected static ClientConfigurationDto clientConfigurations = TestBase.getSutManager().getClientConfigurations();
+    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
 
     @Given("^CLI LLS standalone install, \"(FNO|offline|UAT)\" mode, timeout (\\d+)$")
     public void standbyInstall(String mode, int timeout) {
         try {
-            LLSHandler.standaloneInstall(mode, timeout);
+            LLSHandler.standaloneInstall(radwareServerCli, mode, timeout);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -24,12 +33,29 @@ public class LLSSteps {
     @Given("^CLI LLS Service Start,with timeout (\\d+)$")
     public void llsServiceStart(int timeout) {
         try {
-            LLSHandler.llsServiceStart(timeout);
+            LLSHandler.llsServiceStart(radwareServerCli, timeout);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
+    @Given("^CLI LLS Service Stop with timeout (\\d+)$")
+    public void llsServiceStop(int timeout) {
+        try {
+            LLSHandler.llsServiceStop(radwareServerCli, timeout);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    @Given("^CLI LLS SET State \"(enable|disable)\" with timeout (\\d+)$")
+    public void llsSetState(String cmd, int timeout) {
+        try {
+            LLSHandler.llsSetState(radwareServerCli, timeout, LLSStateCMDs.getConstant(cmd));
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
 
     @Given("^CLI set target vision Host_2 \"(active|standby|disabled)\"$")
     public void setTargetVision(String mode) {
@@ -48,7 +74,7 @@ public class LLSSteps {
     @When("^CLI Set host2 config sync peer$")
     public void setConfigSyncPeer() {
         try {
-            String mainIP = restTestBase.getRootServerCli().getHost();
+            String mainIP = clientConfigurations.getHostIp();
             String backup = restTestBase.getVisionServerHA().getHost_2();
             RadwareServerCli backupServerCli = new RadwareServerCli(backup, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
             backupServerCli.init();
@@ -120,8 +146,7 @@ public class LLSSteps {
     @Given("^CLI LLS HA validate License Activation: \"(.*)\", on the standby machine,timeout (\\d+)$")
     public void waitForLicenseActivation(String entitlementID, int timeout) {
         try {
-            String backup = restTestBase.getVisionServerHA().getHost_2();
-            RadwareServerCli backupServerCli = new RadwareServerCli(backup, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            RadwareServerCli backupServerCli = new RadwareServerCli(HAHandler.visionServerHA.getHost_2(), restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
             backupServerCli.init();
             backupServerCli.disconnect();
             backupServerCli.connect();

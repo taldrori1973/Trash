@@ -29,6 +29,11 @@ import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -44,9 +49,6 @@ import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
 import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.*;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.vision_project_cli.menu.Menu;
 import junit.framework.SystemTestCase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -447,7 +449,7 @@ public class BasicOperationsHandler {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(param);
         String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
-        if (actualValue!=null && actualValue.contains(expectedValue)) {
+        if ( actualValue!=null && actualValue.contains(expectedValue)) {
             BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue, Reporter.PASS);
         } else {
             BaseTestUtils.report("Failed to validate element value: " + label + " ,Expected result is: " + expectedValue + " but Actual value is: " + actualValue, Reporter.FAIL);
@@ -475,6 +477,7 @@ public class BasicOperationsHandler {
             BaseTestUtils.report("Failed to validate element value: " + label + " ,Expected result is: " + expectedValue1 + " but Actual value is: " + actualValue, Reporter.FAIL);
         }
     }
+
     /**
      * This check will rely on the way that selenium does it
      *
@@ -804,13 +807,14 @@ public class BasicOperationsHandler {
 
     public static void appendMyCnfFile(RootServerCli rootServerCli, String varName, String varValue) throws
             Exception {
-        InvokeUtils.invokeCommand("sed -i '30i" + varName + "=" + varValue + "' " + "/etc/my.cnf", rootServerCli);
+        CliOperations.runCommand(rootServerCli, "sed -i '30i" + varName + "=" + varValue + "' " + "/etc/my.cnf");
     }
 
     public static void restartVisionServerServices(RadwareServerCli visionRestClient) throws Exception {
         visionRestClient.connect();
-        InvokeUtils.invokeCommand(null, Menu.system().visionServer().stop().build(), visionRestClient, 600000L);
-        InvokeUtils.invokeCommand(null, Menu.system().visionServer().start().build(), visionRestClient, 600000L, false, true);
+        CliOperations.runCommand(visionRestClient, Menu.system().visionServer().stop().build(), 600000);
+        CliOperations.runCommand(visionRestClient, Menu.system().visionServer().start().build(),
+                600000, false, true);
     }
 
     public static boolean verifyLogout() {
@@ -834,11 +838,6 @@ public class BasicOperationsHandler {
         } catch (InterruptedException ie) {
 //			Ignore
         }
-    }
-
-    public static void runVisionServerDebugMode(CliConnectionImpl cli) throws Exception {
-        cli.connect();
-        InvokeUtils.invokeCommand(null, "start_server_debug", cli, 3 * 60 * 1000);
     }
 
     public static String getVisionClientTime() {
@@ -1171,11 +1170,21 @@ public class BasicOperationsHandler {
     private static void closeAllPopups() {
         ComponentLocator locator = ComponentLocatorFactory.getLocatorByClass("ant-modal-close");
         if ((WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME)) != null && WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME).isDisplayed())
+        {
             try {
                 WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false).click();
             } catch (ElementNotInteractableException ignore) {
             }
+        }
 
+        locator = ComponentLocatorFactory.getLocatorById("gwt-debug-Dialog_Box_Close");
+        if ((WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME)) != null && WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME).isDisplayed())
+        {
+            try {
+                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
+            } catch (ElementNotInteractableException ignore) {
+            }
+        }
     }
 
     public static boolean isNavigationDisabled(String pageName) throws Exception {

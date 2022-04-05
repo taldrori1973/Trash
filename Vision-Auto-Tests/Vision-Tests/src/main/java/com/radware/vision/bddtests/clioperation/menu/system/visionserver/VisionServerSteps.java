@@ -3,39 +3,55 @@ package com.radware.vision.bddtests.clioperation.menu.system.visionserver;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
-import com.radware.vision.vision_handlers.common.InvokeCommon;
-import com.radware.vision.vision_handlers.system.VisionServer;
-import com.radware.vision.vision_project_cli.menu.Menu;
-import com.radware.vision.bddtests.BddCliTestBase;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
-import com.radware.vision.infra.testhandlers.cli.highavailability.HAHandler;
+import com.radware.vision.automation.Deploy.UvisionServer;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.system.VisionServerCli;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import jsystem.extensions.analyzers.text.FindText;
 
-public class VisionServerSteps extends BddCliTestBase {
+import java.util.HashMap;
+
+import static com.radware.vision.automation.Deploy.UvisionServer.*;
+
+public class VisionServerSteps extends TestBase {
+
+    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+    private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+
 
     @When("^CLI wait to vision services up for (\\d+) seconds$")
-    public void waitForVisionServerStarted(int visionServerStartTimeout) throws Exception {
-        long timeout = visionServerStartTimeout * 1000;
-        if (!restTestBase.getRadwareServerCli().isConnected()) {
-            restTestBase.getRadwareServerCli().connect();
+    public void waitForVisionServerStarted(int visionServerStartTimeout) {
+        try {
+            long timeout = visionServerStartTimeout * 1000;
+            if (!radwareServerCli.isConnected()) {
+                radwareServerCli.connect();
+            }
+            waitForUvisionServerServicesStatus(radwareServerCli, UVISON_DEFAULT_SERVICES, timeout);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        if(!VisionServer.waitForVisionServerServicesToStart(restTestBase.getRadwareServerCli(), timeout))
-            BaseTestUtils.report("Not all services are up till timeout", Reporter.FAIL);
     }
 
     @When("^CLI Vision Server SubMenu Test$")
-    public void visionServerSubMenuTest() throws Exception {
-        InvokeCommon.checkSubMenu(restTestBase.getRadwareServerCli(), Menu.system().visionServer().build(), VisionServer.SYSTEM_VISION_SERVER_SUB_MENU);
+    public void visionServerSubMenuTest() {
+        try {
+            CliOperations.checkSubMenu(radwareServerCli, Menu.system().visionServer().build(), VisionServerCli.SYSTEM_VISION_SERVER_SUB_MENU);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @When("^CLI Server Start$")
     public void serverStart() {
         try {
-            returnToStart();
-            VisionServer.visionServerStartAndVerify(restTestBase.getRadwareServerCli());
-            BaseTestUtils.report("", Reporter.PASS);
+            if (!radwareServerCli.isConnected()) {
+                radwareServerCli.connect();
+            }
+            VisionServerCli.visionServerStart(radwareServerCli, rootServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -46,45 +62,13 @@ public class VisionServerSteps extends BddCliTestBase {
     @When("^CLI Server Stop$")
     public void serverStop() {
         try {
-            reStop();
-            VisionServer.visionServerStopAndVerify(restTestBase.getRadwareServerCli());
-            BaseTestUtils.report("", Reporter.PASS);
+            if (!radwareServerCli.isConnected()) {
+                radwareServerCli.connect();
+            }
+            VisionServerCli.visionServerStop(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        returnToStart();
-    }
-
-    /**
-     * Stop vision server
-     * Start vision server
-     *
-     * @throws Exception
-     */
-
-    @When("^CLI vision-server start$")
-    public void visionServerStart() throws Exception {
-        returnToStart();
-        VisionServer.visionServerStartAndVerify(restTestBase.getRadwareServerCli());
-        InvokeUtils.invokeCommand(null, "ps -ef | grep radware", restTestBase.getRootServerCli());
-        restTestBase.getRootServerCli().analyze(new FindText("mgt-server"));
-    }
-
-    /**
-     * Stop vision server
-     *
-     * @throws Exception
-     */
-
-    @When("^CLI vision-server stop$")
-    public void visionServerStop() throws Exception {
-        reStop();
-        VisionServer.visionServerStartAndVerify(restTestBase.getRadwareServerCli());
-        VisionServer.visionServerStopAndVerify(restTestBase.getRadwareServerCli());
-        InvokeUtils.invokeCommand(null, "ps -ef | grep radware", restTestBase.getRootServerCli());
-        restTestBase.getRootServerCli().analyze(new FindText("mysql"));
-        restTestBase.getRootServerCli().analyze(new FindText("hw_monitoring"));
-        returnToStart();
     }
 
     /**
@@ -92,47 +76,43 @@ public class VisionServerSteps extends BddCliTestBase {
      * Check status
      * Start vision server
      * Check status
-     *
-     *
      */
     @When("^CLI vision-server status$")
-    public void visionServerStatus() throws Exception {
-        VisionServer.visionServerStartAndVerify(restTestBase.getRadwareServerCli());
-        VisionServer.visionServerStopAndVerify(restTestBase.getRadwareServerCli());
-        VisionServer.visionServerStartAndVerify(restTestBase.getRadwareServerCli());
-        returnToStart();
-    }
-
-    /**
-     * return the services status
-     */
-    @When("^CLI get vision-server status$")
-    public void getVisionServerStatus() throws Exception {
-        InvokeUtils.invokeCommand(null, Menu.system().visionServer().status().build(), restTestBase.getRadwareServerCli());
-        BaseTestUtils.report(restTestBase.getRadwareServerCli().getOutputStr(), Reporter.PASS);
-    }
-
-    private void returnToStart() {
+    public void visionServerStatus() {
+        //todo: kvision add status when available
         try {
-            int sec = 1000;
-            int timeout = 1000;
-            HAHandler.setConfigSyncMode(restTestBase.getRadwareServerCli(), "active", timeout * sec, "YES");
-            String commandToExecute = "system vision-server start";
-            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute, 420*sec);
-            waitForVisionServerStarted(360);
+            VisionServerCli.visionServerStop(radwareServerCli);
+            VisionServerCli.visionServerStart(radwareServerCli, rootServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
-    private void reStop() {
+    @Then("^CLI validate service \"(\\w+)\"(?: status is \"(\\w+)\")?(?: and health is \"(\\w+)\")?(?: retry for (\\d+) seconds)?$")
+    public void validateUvisionDockerService(String dockerService,
+                                             String dockerState,
+                                             String dockerHealthState,
+                                             Integer timeOut) {
+
+        HashMap<UvisionServer.DockerServices, UvisionServer.DockerServiceStatus> dockerServices = new HashMap<>();
+        UvisionServer.DockerHealthState healthState;
+        UvisionServer.DockerState state;
+        if (timeOut == null)
+            timeOut = 0;
+        if (dockerService.equalsIgnoreCase("all"))
+            dockerServices = UVISON_DEFAULT_SERVICES;
+        else {
+            if (dockerHealthState == null)
+                healthState = UvisionServer.DockerHealthState.NONE;
+            else
+                healthState = UvisionServer.DockerHealthState.valueOf(dockerHealthState);
+
+            state = UvisionServer.DockerState.valueOf(dockerState);
+            dockerServices.put(UvisionServer.DockerServices.valueOf(dockerService),
+                    new UvisionServer.DockerServiceStatus(state, healthState));
+        }
         try {
-            int sec = 1000;
-            int timeout = 1000;
-            HAHandler.setConfigSyncMode(restTestBase.getRadwareServerCli(), "disabled", timeout * sec, "YES");
-            String commandToExecute = "system vision-server stop";
-            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute, 150 *sec);
-            waitForVisionServerStarted(360);
+            waitForUvisionServerServicesStatus(radwareServerCli, dockerServices, timeOut);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

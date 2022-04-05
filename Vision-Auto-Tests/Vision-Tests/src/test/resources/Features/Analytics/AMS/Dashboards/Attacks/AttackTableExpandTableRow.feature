@@ -9,16 +9,15 @@ Feature: Attack Table - Expand Table Row
     * REST Delete ES index "dp-atta*"
     * CLI Clear vision logs
 
-
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
-    Then CLI simulate 1 attacks of type "test_pcap_new1" on "DefensePro" 11 and wait 200 seconds
-    Then CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 11
-    Given CLI simulate 1 attacks of type "HTTPS" on "DefensePro" 11
-    Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
-    Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
-    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_2"
+    Given CLI simulate 1 attacks of type "HTTPS" on SetId "DefensePro_Set_2"
+    Given CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_Set_2"
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" and wait 210 seconds
+    Given CLI simulate 1 attacks of type "test_pcap" on SetId "DefensePro_Set_1" and wait 200 seconds
+    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
 
   @SID_3
   Scenario:  login
@@ -33,7 +32,7 @@ Feature: Attack Table - Expand Table Row
     Given UI Click Button "Accessibility Menu"
     Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
     Then UI Click Button "Accessibility Menu"
-    Then CLI kill all simulator attacks on current vision
+
 
 
 ####################  BehavioralDOS attack tables ####################################################
@@ -49,6 +48,7 @@ Feature: Attack Table - Expand Table Row
   @SID_5
   Scenario Outline:  validate date of Info table - BehavioralDOS
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
+
     Examples:
       | label              | value         |
       | Risk               | High          |
@@ -65,6 +65,7 @@ Feature: Attack Table - Expand Table Row
   @SID_6
   Scenario Outline:  validate date of Characteristics table - BehavioralDOS
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
+
     Examples:
       | label               | value    |
       | Flow Label          | 0        |
@@ -75,7 +76,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_7
   Scenario:  validate date of Real Time Signature table - BehavioralDOS
-    Then Validate Expand  "Real Time Signature" table
+    Then Validate Expand "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
       | parameter | 1     | fragment-offset |
@@ -111,9 +112,10 @@ Feature: Attack Table - Expand Table Row
 
   @SID_10
   Scenario Outline:  validate date of Characteristics table - DNS
-    Then Validate Expand "Info" Table with label "<label>" Equals to "<value1>"
+    Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
+
     Examples:
-      | label             | value1               |
+      | label             | value                |
       | DNS Query         | -                    |
       | DN an Query Count | 0                    |
       | TTL               | 64                   |
@@ -126,7 +128,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_11
   Scenario:  validate date of Real Time Signature table - DNS
-    Then Validate Expand  "Real Time Signature" table
+    Then Validate Expand "Real Time Signature" table
       | Name      | index | value         |
       | operator  | 1     | OR            |
       | parameter | 1     | dns-subdomain |
@@ -148,6 +150,7 @@ Feature: Attack Table - Expand Table Row
   @SID_13
   Scenario Outline:  validate date of Info table - Https
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
+
     Examples:
       | label              | value   |
       | Risk               | High    |
@@ -165,6 +168,7 @@ Feature: Attack Table - Expand Table Row
   @SID_14
   Scenario Outline:  validate date of Characteristics table - Https
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
+
     Examples:
       | label                             | value                          |
       | Detection Method                  | By Rate of HTTPS Requests      |
@@ -187,8 +191,7 @@ Feature: Attack Table - Expand Table Row
   @SID_15
   Scenario:  validate tables for SynFlood
     Then UI search row table in searchLabel "tableSearch" with text "SynFlood"
-#    Then Sleep "1"
-#    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Volume" findBy cellValue "13.43 MB"
+    Then Sleep "3"
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Volume" findBy cellValue "102.49 Mbit"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
@@ -233,6 +236,7 @@ Feature: Attack Table - Expand Table Row
   @SID_19
   Scenario Outline:  validate date of Info table - DOS
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
+
     Examples:
       | label              | value         |
       | Risk               | Medium        |
@@ -263,7 +267,6 @@ Feature: Attack Table - Expand Table Row
   Scenario:  validate tables for AntiScanning
     Then UI search row table in searchLabel "tableSearch" with text "AntiScanning"
     Then Sleep "3"
-#    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Volume" findBy cellValue "1.22 MB"
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Volume" findBy cellValue "9.33 Mbit"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics,realTimeSignature,top-attacks-sessions"
 
@@ -297,7 +300,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_24
   Scenario:  validate date of Real Time Signature table - AntiScanning
-    Then Validate Expand  "Real Time Signature" table
+    Then Validate Expand "Real Time Signature" table
       | Name      | index | value           |
       | operator  | 1     | OR              |
       | parameter | 1     | destination-ip  |
@@ -357,7 +360,7 @@ Feature: Attack Table - Expand Table Row
   @SID_26
   Scenario:  validate tables for Traffic Filter
     Then UI search row table in searchLabel "tableSearch" with text "Traffic"
-#    Then Sleep "3"
+    Then Sleep "3"
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Attack Category" findBy cellValue "Traffic Filters"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
@@ -489,6 +492,7 @@ Feature: Attack Table - Expand Table Row
   @SID_36
   Scenario Outline:  validate date of Info table - Intrusions
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
+
     Examples:
       | label              | value                             |
       | Risk               | High                              |
@@ -503,12 +507,7 @@ Feature: Attack Table - Expand Table Row
       | Source port        | 26505                             |
 
 
-
-
-
-
-
-       ####################  QDos attack tables ####################################################
+   ####################  QDos attack tables ####################################################
 
   @SID_37
   Scenario:  validate tables for QDos
@@ -529,12 +528,11 @@ Feature: Attack Table - Expand Table Row
       | Direction          | In            | In            |
       | Action Type        | Drop          | Drop          |
       | Physical Port      | 1             | 1             |
-      | Total Packet Count | 395,583       | 298,089       |
+      | Total Packet Count | 395,583       | 2,318,458     |
       | VLAN               | N/A           | N/A           |
       | MPLS RD            | N/A           | N/A           |
       | Source port        | 0             | 1024          |
       | Packet Type        | Regular       | Regular       |
-
 
   @SID_39
   Scenario Outline:  validate date of Characteristics table - QDos
@@ -546,11 +544,10 @@ Feature: Attack Table - Expand Table Row
       | Current Policy Bandwidth           | 164.6 Mbps                    | 164 Mbps                     |
       | Detection Sensitivity              | 2%                            | 2%                           |
       | Peacetime Quantile Bandwidth       | 3.3 Mbps                      | 3.3 Mbps                     |
-      | Dropped Quantile Bandwidth         | 25.6 Mbps                     | 25.9 Mbps                    |
-      | Current Quantile Bandwidth         | 25.8 Mbps                     | 25.5 Mbps                    |
+      | Dropped Quantile Bandwidth         | 25.6 Mbps                     | 25.5 Mbps                    |
+      | Current Quantile Bandwidth         | 25.8 Mbps                     | 25.3 Mbps                    |
       | Quantile Rate Limit                | Moderate 150%, 2.2 Mbps       | Moderate 150%, 3.5 Mbps      |
       | Mitigation Method                  | Quantile Top Talkers          | Quantile Top Talkers         |
-
 
   @SID_40
   Scenario: Traffic Cleanup

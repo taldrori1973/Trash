@@ -1,5 +1,4 @@
 package com.radware.vision.infra.testhandlers.vrm;
-
 import com.radware.automation.react.widgets.impl.ReactDateControl;
 import com.radware.automation.react.widgets.impl.ReactSelectControl;
 import com.radware.automation.react.widgets.impl.enums.OnOffStatus;
@@ -14,19 +13,22 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
+import com.radware.vision.utils.SutUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
@@ -42,7 +44,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
-import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
@@ -222,13 +223,13 @@ public class VRMBaseUtilies {
             }
         }
         List<VRMHandler.DpDeviceFilter> devicesEntries = new ArrayList<>();
-        for (int i = 0; i < devicesJsonArray.length(); i++) {
-            VRMHandler.DpDeviceFilter deviceEntry = new VRMHandler.DpDeviceFilter();
-            deviceEntry.index = ((JSONObject) devicesJsonArray.get(i)).getInt("index");
-            deviceEntry.ports = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("ports", "").toString().replaceAll("(])|(\\[)", "");
-            deviceEntry.policies = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("policies", "").toString().replaceAll("(])|(\\[)", "");
-            devicesEntries.add(deviceEntry);
-        }
+//        for (int i = 0; i < devicesJsonArray.length(); i++) {
+//            VRMHandler.DpDeviceFilter deviceEntry = new VRMHandler.DpDeviceFilter();
+//            deviceEntry.setId = ((JSONObject) devicesJsonArray.get(i)).getInt("index");
+//            deviceEntry.ports = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("ports", "").toString().replaceAll("(])|(\\[)", "");
+//            deviceEntry.policies = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("policies", "").toString().replaceAll("(])|(\\[)", "");
+//            devicesEntries.add(deviceEntry);
+//        }
         return devicesEntries;
     }
 
@@ -716,7 +717,8 @@ public class VRMBaseUtilies {
                 List<String> emailList = Arrays.asList(eMails.split(","));
                 emailList.forEach(mail->{
                     if(!mail.contains("@"))
-                        emailList.set(emailList.indexOf(mail),String.format("%s@%s.local",mail,restTestBase.getRootServerCli().getHost()));
+                        emailList.set(emailList.indexOf(mail),String.format("%s@%s.local",mail,
+                                TestBase.getServersManagement().getRootServerCLI().get().getHost()));
                 });
                 eMails = String.join(",",emailList);
                 VisionDebugIdsManager.setLabel("Send Email Enable");
@@ -989,25 +991,32 @@ public class VRMBaseUtilies {
     }
 
     public static void openDevicePort(String host) {
-        RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
-        RootServerCli rootServerCli = restTestBase.getRootServerCli();
-        if (host == null) {
-            host = restTestBase.getRadwareServerCli().getHost();
-        }
-        if (host != null && !host.equals(restTestBase.getRadwareServerCli().getHost())) {
-            try {
-                radwareServerCli = new RadwareServerCli(host, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
-                radwareServerCli.init();
-                rootServerCli = new RootServerCli(host, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
-                rootServerCli.init();
-            } catch (Exception e) {
-                BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
+        ServersManagement serversManagement = TestBase.getServersManagement();
+
+        RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+        RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+        try {
+            if (host == null) {
+                host = SutUtils.getCurrentVisionIp();
             }
+            if (host != null && !host.equals(SutUtils.getCurrentVisionIp())) {
+
+                radwareServerCli = new RadwareServerCli(host, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
+                radwareServerCli.init();
+
+                rootServerCli = new RootServerCli(host, rootServerCli.getUser(), rootServerCli.getPassword());
+                rootServerCli.init();
+            }
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
         }
+        CliOperations.runCommand(rootServerCli, "service iptables stop");
         String commandToExecute = "net firewall open-port 10080 open";
+
         CliOperations.runCommand(radwareServerCli, commandToExecute);
         String port = "10080";
         commandToExecute = "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://" + host + ":" + port + "/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.scheduled.report.vrm.retention.VrmScheduledReportRetentionTask'";
+
         CliOperations.runCommand(rootServerCli, commandToExecute);
     }
 

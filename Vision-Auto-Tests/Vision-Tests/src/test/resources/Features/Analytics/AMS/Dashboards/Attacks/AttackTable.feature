@@ -1,4 +1,4 @@
-@TC114832 
+@TC114832
 Feature: Attacks Table
 
   @SID_1
@@ -10,23 +10,23 @@ Feature: Attacks Table
 
   @SID_2
   Scenario: Run DP simulator
-    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000
-    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000
-    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11
-    And CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 230 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" with loopDelay 15000
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_1" with loopDelay 15000
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2"
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1" and wait 230 seconds
 
     When CLI Run remote linux Command "^C" on "ROOT_SERVER_CLI"
     Then Sleep "10"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.startTime='$(date -d "-2 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.startTime='$(date -d \"-2 hour\" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
     Then Sleep "5"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
 
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST -H "Content-type:application/json" localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
 
 
   @SID_3
@@ -49,16 +49,16 @@ Feature: Attacks Table
   Scenario: validate scope selection with table
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       |          |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       |          |
 #    Then UI Validate "Attacks Table" Table rows count GTE to 12
 #    Then UI Validate "Attacks Table" Table rows count LTE to 13
     Then UI Validate "Attacks Table" Table rows count EQUALS to 0
 
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 11    |       |          |
+      | setId            | ports | policies |
+      | DefensePro_Set_2 |       |          |
     Then UI Validate search in table "Attacks Table" in searchLabel "tableSearch" with text "ACL"
       | columnName  | Value               |
       | Attack Name | Black List          |
@@ -72,21 +72,21 @@ Feature: Attacks Table
     And UI Navigate to "DefensePro Attacks" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
+      | setId | ports | policies |
 
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 35
+    When UI Validate the attribute "id" Of Label "Attacks Table Total Items" With Params "35" is "EQUALS" to "attacksTableCount"
 
 
   @SID_7
   Scenario: validate sampleData
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "Black_IPV6"
+    Then Sleep "3"
     Then UI Click Button "Auto Refresh"
     Then Sleep "3"
-    Then UI Click Button "Sample Data Button"
-    Then Sleep "3"
+    Then UI Click Button "Sample Data Button" with value ""
     Then UI Validate "SampleDataTable" Table rows count GTE to 2
     Then UI Click Button by Class "anticon anticon-close ant-modal-close-icon"
 #    Then UI Click Button "closeTable"

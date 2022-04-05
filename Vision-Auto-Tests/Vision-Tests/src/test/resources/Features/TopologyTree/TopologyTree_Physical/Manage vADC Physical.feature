@@ -14,7 +14,7 @@ Feature: Manage vADC device Physical Functionality
 #    Then UI Add physical "Alteon" with index 6 on "Default (Physical)" site
     Then UI open Topology Tree view "SitesAndClusters" site
     Then UI open Topology Tree view "PhysicalContainers" site
-#    Then UI Wait For Device To Show Up In The Topology Tree physical "Alteon" device with index 6 with timeout 180
+#    Then UI Wait For Device To Show Up In The Topology Tree physical "Alteon" device with index 6 with timeout 180 seconds
   @SID_3
   Scenario: Manage single vADC
     Then UI manage single vADC with index 6 from topology tree
@@ -44,9 +44,9 @@ Feature: Manage vADC device Physical Functionality
       | deviceIPs                    | 172.16.160.2 |
 
     Then UI open Topology Tree view "SitesAndClusters" site
-    Then UI Lock Device with type "Alteon" and Index 7 by Tree Tab "Sites And Devices"
+    Then UI Lock Device "Alteon_Set_5" under "Sites And Devices"
     Then UI Timeout in seconds "30"
-    Then UI verify Device Status with deviceType "Alteon" with index 7 if Expected device Status "Up or Maintenance"
+    Then UI verify Device Status "Alteon_Set_5" if Expected device Status "Up or Maintenance"
 
   @SID_4
   Scenario: Delete vADC from organization tree

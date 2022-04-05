@@ -9,7 +9,6 @@ import com.radware.vision.infra.base.pages.dialogboxes.AreYouSureDialogBox;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.base.pages.system.usermanagement.localusers.*;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.utils.WebUIStringsVision;
 import com.radware.vision.utils.RegexUtils;
 import org.openqa.selenium.WebElement;

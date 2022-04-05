@@ -6,7 +6,7 @@ public interface DevicesConstants {
 
 
     //VISION
-    int VISION_DEFAULT_PORT = 443;
+    int VISION_DEFAULT_PORT =80;
     String VISION_LOGIN_PATH = "/mgmt/system/user/login";
     String VISION_LOGOUT_PATH = "/mgmt/system/user/logout";
     String VISION_INFO_PATH = "/mgmt/system/user/info?showpolicies=true";
@@ -26,6 +26,20 @@ public interface DevicesConstants {
     int ALTEON_DEFAULT_PORT = 443;
     String ALTEON_SESSION_DETAILS_PATH = "/config/sessiondetails";
     StatusCode ALTEON_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
+
+    //ALTEON SIMULATORS
+    String DEFAULT_MAP = "Automation_Machines";
+    String SIMULATOR_XML_FILE_1 = "Alteon_32.2.0.141_jason_xml_output.xmf";
+    String SIMULATOR_XML_FILE_2 = "Alteon_32.2.0.141_jason_xml_output_all_fields.xmf";
+    String SIMULATOR_XML_FILE_3 = "Alteon_32.2.0.141_jason_xml_output_all_fields_even.xmf";
+
+    //DP SIMULATORS
+    String DP_SIMULATOR_EAAF_XML = "DP_sim_8.28.xmf";
+    String DP_SIMULATOR_EAAF_XML_EMPTY_JSON = "DP_sim_8.28_empty_json.xmf";
+    String DP_SIMULATOR_NEW_REPORTING_ON = "out_simDP_8.28_new.var";
+    String DP_SIMULATOR_NEW_REPORTING_OFF = " out_simDP_8.28_new_reporting_off.var";
+
+
 
     //    APPWALL
     int APPWALL_DEFAULT_PORT = 443;

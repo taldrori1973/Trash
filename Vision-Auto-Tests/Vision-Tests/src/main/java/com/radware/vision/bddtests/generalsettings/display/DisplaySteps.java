@@ -2,13 +2,13 @@ package com.radware.vision.bddtests.generalsettings.display;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.system.generalsettings.enums.GeneralSettingsEnum;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.system.generalsettings.display.DisplayHandler;
 import cucumber.api.java.en.When;
 
-public class DisplaySteps extends BddUITestBase {
+public class DisplaySteps extends VisionUITestBase {
 
     public DisplaySteps() throws Exception {
     }

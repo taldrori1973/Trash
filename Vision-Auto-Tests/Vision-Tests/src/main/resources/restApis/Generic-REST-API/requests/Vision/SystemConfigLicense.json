@@ -1,0 +1,21 @@
+{
+  "deviceName": "Vision",
+  "fileName": "SystemConfigLicense",
+  "description": "License ",
+  "api": [
+    {
+      "label": "Vision License Info",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/item/licenseinfo",
+      "produces": "application/json",
+      "description": "get vision license info "
+    },
+    {
+      "label": "Attack Capacity License",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/attack/capacity/license",
+      "produces": "application/json",
+      "description": "get vision attack capacity license info"
+    }
+  ]
+}

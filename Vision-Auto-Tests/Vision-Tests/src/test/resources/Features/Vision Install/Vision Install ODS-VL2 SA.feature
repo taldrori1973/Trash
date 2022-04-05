@@ -19,7 +19,7 @@ Feature: Vision Install ODS-VL2 SA
   Scenario: Validate server is up after reset
     When CLI Operations - Run Root Session command "reboot"
     Then Sleep "180"
-    When validate vision server services is UP
+    When validate vision server services are UP
 
   @SID_4
   Scenario: Login and install license
@@ -89,7 +89,7 @@ Feature: Vision Install ODS-VL2 SA
 
   @SID_8
   Scenario: Validate TED status
-    Then CLI Run linux Command "echo $(mysql -prad123 vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
+    Then CLI Run linux Command "echo $(vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
     Then CLI Run linux Command "curl -ks -o null -w 'RESP_CODE:%{response_code}\n' -XGET https://localhost:443/ted/api/data" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
 
   @SID_9
@@ -110,7 +110,7 @@ Feature: Vision Install ODS-VL2 SA
 
   @SID_12
   Scenario: Validate MySql version
-    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+    Then MYSQL Validate "version" Variable Value EQUALS "10.4.6-MariaDB"
 
   @SID_13
   Scenario: Validate vdirect listener
@@ -180,11 +180,11 @@ Feature: Vision Install ODS-VL2 SA
 
   @SID_21
   Scenario: Verify number of tables in vision schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 90
 
   @SID_22
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "169"
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 169
 
   @SID_23
   Scenario: Verify services are running

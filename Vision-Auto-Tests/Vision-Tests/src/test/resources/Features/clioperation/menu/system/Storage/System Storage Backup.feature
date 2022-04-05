@@ -40,9 +40,10 @@ Feature: CLI System Storage Backup
   @SID_6
   Scenario: System Storage Backup remote NFS
     When CLI Operations - Run Radware Session command "system storage backup remote nfs://172.17.164.10:/mnt/shared" timeout 120
-    Then CLI Operations - Verify that output contains regex "Setting backup to remote storage.*[  OK  ]"
+    Then CLI Operations - Verify that output contains regex "Setting backup to remote storage"
+    Then CLI Operations - Verify that output contains regex "Done"
     When CLI Operations - Run Radware Session command "system storage backup info" timeout 30
-    Then CLI Operations - Verify that output contains regex "The server is configured to save the backup data to the remote directory nfs://172.17.164.10:/mnt/shared."
+    Then CLI Operations - Verify that output contains regex "The server is configured to save the backup data to the remote directory"
 
   @SID_7
   Scenario: Verify backup is saved remotely

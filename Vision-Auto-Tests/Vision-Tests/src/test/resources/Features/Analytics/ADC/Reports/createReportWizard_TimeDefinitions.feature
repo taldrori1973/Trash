@@ -29,12 +29,12 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame 15 mim"
     Given UI "Create" DPMReport With Name "ADCtestReport_15m"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:15m                  |
 
     Then UI "Validate" DPMReport With Name "ADCtestReport_15m"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:15m                  |
 
 
@@ -43,12 +43,12 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame 30 mim"
     Given UI "Create" DPMReport With Name "ADCtestReport_30m"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:30m                  |
 
     Then UI "Validate" DPMReport With Name "ADCtestReport_30m"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:30m                  |
 
 
@@ -57,12 +57,12 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame 1 Hour"
     Given UI "Create" DPMReport With Name "ADCtestReport_1H"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:1H                   |
 
     Then UI "Validate" DPMReport With Name "ADCtestReport_1H"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:1H                   |
 
 
@@ -71,11 +71,11 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame 1 Day"
     Given UI "Create" DPMReport With Name "ADCtestReport_1D"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:1D                   |
     Then UI "Validate" DPMReport With Name "ADCtestReport_1D"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:1D                   |
 
   @SID_8
@@ -83,12 +83,12 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame 1 Week"
     Given UI "Create" DPMReport With Name "ADCtestReport_1W"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:1W                   |
 
     Then UI "Validate" DPMReport With Name "ADCtestReport_1W"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:1W                   |
 
 
@@ -97,12 +97,12 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame 1 Month"
     Given UI "Create" DPMReport With Name "ADCtestReport_1M"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:1M                   |
 
     Then UI "Validate" DPMReport With Name "ADCtestReport_1M"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:1M                   |
 
   @SID_10
@@ -110,11 +110,11 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame 3 Month"
     Given UI "Create" DPMReport With Name "ADCtestReport_3M"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:3M                   |
     Then UI "Validate" DPMReport With Name "ADCtestReport_3M"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:3M                   |
 #
 # The Folllowing Scenarios not relevant for ADC , a defect was closed as "Not a defect" for Quick Time options not avaiable
@@ -123,11 +123,11 @@ Feature: DPM - Report Wizard_Time_Definitions
 #    ## "TimeFrame Today"
 #    Given UI "Create" DPMReport With Name "ADCtestReport_Today"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:Today                |
 #    Then UI "Validate" DPMReport With Name "ADCtestReport_Today"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:Today                |
 #
 #
@@ -136,11 +136,11 @@ Feature: DPM - Report Wizard_Time_Definitions
 #    # "TimeFrame This Week"
 #    Given UI "Create" DPMReport With Name "ADCtestReport_This_Week"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:This Week            |
 #    Then UI "Validate" DPMReport With Name "ADCtestReport_This_Week"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:This Week            |
 #
 #
@@ -148,11 +148,11 @@ Feature: DPM - Report Wizard_Time_Definitions
 #  Scenario: DE43518 - ADC - Add new Report test This month from type Application Report
 #    Given UI "Create" DPMReport With Name "ADCtestReport_This_Month"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:This Month           |
 #    Then UI "Validate" DPMReport With Name "ADCtestReport_This_Month"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:This Month           |
 #
 #
@@ -161,12 +161,12 @@ Feature: DPM - Report Wizard_Time_Definitions
 #    # "TimeFrame Quarter"
 #    Given UI "Create" DPMReport With Name "ADCtestReport_This_Quarter"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:Quarter              |
 #
 #    Then UI "Create" DPMReport With Name "ADCtestReport_This_Quarter"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:Quarter              |
 
 #@stam
@@ -175,11 +175,11 @@ Feature: DPM - Report Wizard_Time_Definitions
 #    # "TimeFrame Absolute"
 #    Given UI "Create" DPMReport With Name "ADCtestReport_Absolute"
 #      | reportType            | Application Report                 |
-#      | devices               | virts:[Rejith_32326515:88]         |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88]         |
 #      | Time Definitions.Date | Absolute:[Feb 27, 1971 01:00, +1d] |
 #    Then UI "Validate" DPMReport With Name "ADCtestReport_Absolute"
 #      | reportType            | Application Report                 |
-#      | devices               | virts:[Rejith_32326515:88]         |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88]         |
 #      | Time Definitions.Date | Absolute:[Feb 27, 1971 01:00, +1d] |
 
 
@@ -188,11 +188,11 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame Relative 1 Hours"
     Given UI "Create" DPMReport With Name "ADCRelative_1_Hour"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Relative:[Hours,1]         |
     Then UI "Validate" DPMReport With Name "ADCRelative_1_Hour"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Relative:[Hours,1]         |
 
 
@@ -201,11 +201,11 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame Relative 2 Days"
     Given UI "Create" DPMReport With Name "ADCRelative_2_Days"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Relative:[Days,2]          |
     Then UI "Validate" DPMReport With Name "ADCRelative_2_Days"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Relative:[Days,2]          |
 
 
@@ -214,11 +214,11 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame Relative 3 Weeks"
     Given UI "Create" DPMReport With Name "ADCRelative_3_Weeks"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Relative:[Weeks,3]         |
     Then UI "Validate" DPMReport With Name "ADCRelative_3_Weeks"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Relative:[Weeks,3]         |
 
 
@@ -227,11 +227,11 @@ Feature: DPM - Report Wizard_Time_Definitions
     # "TimeFrame Relative 4 Month"
     Given UI "Create" DPMReport With Name "ADCRelative_4_Months"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Relative:[Months,4]        |
     Then UI "Validate" DPMReport With Name "ADCRelative_4_Months"
       | reportType            | Application Report         |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Relative:[Months,4]        |
 
 
@@ -240,11 +240,11 @@ Feature: DPM - Report Wizard_Time_Definitions
 #    # "TimeFrame Quick Previous Month"
 #    Given UI "Create" DPMReport With Name "ADCPrevious Month"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:Previous Month       |
 #    Then UI "Validate" DPMReport With Name "ADCPrevious Month"
 #      | reportType            | Application Report         |
-#      | devices               | virts:[Rejith_32326515:88] |
+#      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
 #      | Time Definitions.Date | Quick:Previous Month       |
 
   @SID_21

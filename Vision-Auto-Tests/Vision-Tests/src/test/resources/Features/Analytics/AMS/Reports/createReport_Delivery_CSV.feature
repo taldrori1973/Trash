@@ -1,12 +1,12 @@
-@VRM_Report2 @TC108070 
+@VRM_Report2 @TC108070
 
 Feature:  Report AMS analytics CSV Validations
 
   @SID_1
   Scenario: keep reports copy on file system
-    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Service "config_kvision-reporter_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
     Given CLI Reset radware password
 
 
@@ -17,14 +17,17 @@ Feature:  Report AMS analytics CSV Validations
 #    * REST Delete ES index "dp-https-rt-*"
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c \"rm /usr/local/tomcat/VRM_report*\"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
     Given Setup email server
 
   @SID_3
   Scenario: generate two attacks
-    Given CLI simulate 2 attacks of type "rest_anomalies" on "DefensePro" 10 with attack ID
-    Given CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10 and wait 60 seconds
+#   Given CLI simulate 2 attacks of type "rest_anomalies" on "DefensePro" 10 with attack ID
+    Given CLI simulate 2 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1" with attack ID
+#   Given CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10 and wait 60 seconds
+    Given CLI simulate 1 attacks of type "rest_dos" on SetId "DefensePro_Set_1" and wait 60 seconds
 
 
   @SID_4
@@ -80,6 +83,7 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_9
   Scenario: VRM report unzip local CSV file
+    Then CLI Copy files contains name "VRM_report_*.zip" from container "config_kvision-reporter_1" from path "/usr/local/tomcat" to path "/opt/radware/mgt-server/third-party/tomcat/bin/" with timeout 80
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
     ############################################       Top\ Attacks       ###################################################################################
@@ -222,7 +226,6 @@ Feature:  Report AMS analytics CSV Validations
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "name"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "ruleName"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Count"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks\ by\ Protection\ Policy-DefensePro\ Analytics.csv|head -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS ""
 
   @SID_34
   Scenario: VRM report validate CSV file ATTACKS BY PROTECTION POLICY content

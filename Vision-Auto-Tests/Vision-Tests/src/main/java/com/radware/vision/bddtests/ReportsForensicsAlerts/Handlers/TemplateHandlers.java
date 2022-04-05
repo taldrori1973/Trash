@@ -7,6 +7,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
@@ -29,13 +30,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
+import static com.radware.vision.automation.base.TestBase.sutManager;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static org.apache.commons.lang.math.NumberUtils.isNumber;
 
 
 public class TemplateHandlers {
-
 
     public static void addTemplate(JSONObject templateJsonObject, String reportName) throws Exception {
         String reportType = templateJsonObject.get("reportType").toString();
@@ -85,6 +85,7 @@ public class TemplateHandlers {
                 return new LinkProofScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "ERT ACTIVE ATTACKERS FEED":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
+            //         return new EAAFScopeSelection(new JSONArray(), templateParam);
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
                 return new DPBehavioralScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "DEFENSEPRO ANALYTICS":
@@ -494,25 +495,30 @@ public class TemplateHandlers {
 
         private class DPSingleDPScopeSelection {
 
-            private String deviceIndex;
+            private String deviceSetId;
             private ArrayList devicePorts;
             private ArrayList devicePolicies;
 
             DPSingleDPScopeSelection(JSONObject deviceJSON) {
                 if (deviceJSON.keySet().size() != 0) {
-                    deviceIndex = deviceJSON.toMap().getOrDefault("deviceIndex", deviceJSON.toMap().get("index")).toString();
+                    deviceSetId = deviceJSON.toMap().getOrDefault("deviceSetId", deviceJSON.toMap().get("SetId")).toString();
                     devicePorts = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePorts", deviceJSON.toMap().getOrDefault("ports", null)));
                     devicePolicies = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePolicies", deviceJSON.toMap().getOrDefault("policies", null)));
                 }
             }
 
             private String getDeviceIp() throws Exception {
-                return devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, deviceIndex.matches("\\d+") ? Integer.valueOf(deviceIndex) : -1).getDeviceIp();
+                Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagement(deviceSetId);
+
+                if (!deviceOpt.isPresent()) {
+                    throw new Exception(String.format("No Device with \"%s\" Set ID was found in this setup", deviceSetId));
+                }
+
+                return deviceOpt.get().getManagementIp();
             }
 
             private void selectPortsOrPolicies(ArrayList devicePoliciesOrPorts, String dpPolicyCheck, String portOrPolicyFileter) throws Exception {
                 if (devicePoliciesOrPorts != null) {
-//                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocator(portOrPolicyFileter, getDeviceIp()));
                     WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator(portOrPolicyFileter, new String[]{getDeviceIp()}));
                     for (Object policyOrPort : devicePoliciesOrPorts) {
                         policyOrPortText.type(policyOrPort.toString().trim());

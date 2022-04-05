@@ -5,9 +5,8 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
 import com.jayway.jsonpath.PathNotFoundException;
 import com.radware.vision.RestStepResult;
-import com.radware.vision.requestsRepository.controllers.RequestsFilesRepository;
+import com.radware.vision.requestsRepository.controllers.RequestsRepository;
 import com.radware.vision.requestsRepository.models.RequestPojo;
-import com.radware.vision.requestsRepository.models.RequestsFilePojo;
 import com.radware.vision.utils.BodyEntry;
 import com.radware.vision.utils.StepsParametersUtils;
 import models.ContentType;
@@ -17,7 +16,6 @@ import models.RestRequestSpecification;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import static com.radware.vision.RestStepResult.Status.FAILED;
 import static com.radware.vision.RestStepResult.Status.SUCCESS;
@@ -29,15 +27,16 @@ public class GenericStepsHandler {
 
     public static RestRequestSpecification createNewRestRequestSpecification(String filePath, String requestLabel) {
         RestRequestSpecification requestSpecification;
-        RequestsFilePojo requestsFilePojo = RequestsFilesRepository.get_instance().getRequestsFilePojo(filePath);
-        List<RequestPojo> requestsPojo = requestsFilePojo.getApi().stream().filter(request -> request.getLabel().equals(requestLabel)).collect(Collectors.toList());
+        RequestPojo requestPojo = RequestsRepository.getRequestPojo(filePath, requestLabel);
+//        RequestsFilePojo requestsFilePojo = RequestsFilesRepository.get_instance().getRequestsFilePojo(filePath);
+//        List<RequestPojo> requestsPojo = requestsFilePojo.getApi().stream().filter(request -> request.getLabel().equals(requestLabel)).collect(Collectors.toList());
 
-        if (requestsPojo.size() > 1)
-            throw new IllegalStateException(format("There are %d occurrences of %s label in the file %s", requestsPojo.size(), requestLabel, filePath));
-        if (requestsPojo.size() == 0)
-            throw new IllegalArgumentException(format("The Label %s not exist in file %s", requestLabel, filePath));
-
-        RequestPojo requestPojo = requestsPojo.stream().findFirst().get();
+//        if (requestsPojo.size() > 1)
+//            throw new IllegalStateException(format("There are %d occurrences of %s label in the file %s", requestsPojo.size(), requestLabel, filePath));
+//        if (requestsPojo.size() == 0)
+//            throw new IllegalArgumentException(format("The Label %s not exist in file %s", requestLabel, filePath));
+//
+//        RequestPojo requestPojo = requestsPojo.stream().findFirst().get();
 
         Method method = Method.valueOf(requestPojo.getMethod());
         requestSpecification = new RestRequestSpecification(method);
@@ -175,7 +174,7 @@ public class GenericStepsHandler {
                 if (((List) value).size() == 1) value = ((List) value).get(0);
                 else {
                     errors.add("this validation supporting just with one value per each data table row");
-                    value=null;
+                    value = null;
                 }
             }
             if (value != null && !value.equals(StepsParametersUtils.valueOf(bodyEntry.getValue())))

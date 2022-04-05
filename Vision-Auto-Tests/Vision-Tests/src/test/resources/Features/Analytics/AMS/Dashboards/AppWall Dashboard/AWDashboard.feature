@@ -18,13 +18,7 @@ Feature: VRM AppWall dashboard
 
   @SID_3 @Sanity
   Scenario: configure the AW in vision
-    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
+    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
     And Sleep "10"
     * CLI Clear vision logs
 
@@ -59,7 +53,7 @@ Feature: VRM AppWall dashboard
 
   @SID_6
   Scenario: validate 3 upper widgets
-    Then UI Text of "blocked Events value" equal to "145"
+    Then UI Text of "blocked Events value" equal to "140"
     Then UI Text of "reported Events value" equal to "5"
     Then UI Text of "modified Events value" equal to "5"
 

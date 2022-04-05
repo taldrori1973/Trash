@@ -25,7 +25,7 @@ Feature: AW RBAC - New AW roles
 
   @SID_4
   Scenario Outline: Create users and verify
-    When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
+    When UI Create New User With User Name "<User Name>", Role "<Role>", Scope "<Scope>", Password "<Password>"
     Then Sleep "10"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Then Sleep "10"
@@ -47,7 +47,6 @@ Feature: AW RBAC - New AW roles
     And Sleep "10"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
@@ -172,7 +171,6 @@ Feature: AW RBAC - New AW roles
     And Sleep "10"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |

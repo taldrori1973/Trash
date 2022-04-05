@@ -9,7 +9,7 @@ Feature: BDoS General Behavioral Tests
     Given CLI Clear vision logs
 #    Given REST Delete ES index "dp-bdos-baseline*"
 #    Given REST Delete ES index "dp-baseline*"
-    Given CLI simulate 1 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 2 seconds
+    Given CLI simulate 1 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 2 seconds
 
 
   @SID_2
@@ -23,8 +23,8 @@ Feature: BDoS General Behavioral Tests
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
 
 
   @SID_3
@@ -219,10 +219,10 @@ Feature: BDoS General Behavioral Tests
     Then Sleep "1"
     Then UI Click Button "Behavioral Tab" with value "<ChartName>"
     Examples:
-      | ChartName |
+      | ChartName    |
       | DNS Flood    |
       | Quantile DoS |
-      | BDoS      |
+      | BDoS         |
 
   @SID_19
   Scenario: validate switch buttons still save the last changing
@@ -274,15 +274,14 @@ Feature: BDoS General Behavioral Tests
 
   @SID_22
   Scenario Outline:Scope selection need to be saved between tabs
-    Then Sleep "2"
-    Then UI "Validate" Scope Polices
-      | devices | type:DEVICES,index:10,policies:[pol_1] |
     Then UI Click Button "Behavioral Tab" with value "<ChartName>"
+    Then UI "Validate" Scope Polices
+      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[pol_1] |
     Examples:
       | ChartName    |
       | DNS Flood    |
-      | Quantile DoS |
       | BDoS         |
+      | Quantile DoS |
 
   @SID_23
   Scenario: kill all simulator attacks and logout

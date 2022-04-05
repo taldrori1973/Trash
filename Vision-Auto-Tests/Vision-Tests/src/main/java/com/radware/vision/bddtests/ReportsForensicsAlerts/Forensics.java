@@ -6,11 +6,12 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import models.RestResponse;
 import models.StatusCode;
 import org.json.JSONArray;
@@ -78,6 +79,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             selectScopeSelection(map);
             createForensicsParam(name, map);
             BasicOperationsHandler.clickButton("save");
+            WebUIUtils.sleep(3);
             if (WebUiTools.getWebElement("Error message description") != null)
             {
                 String internalErrorMessage = WebUiTools.getWebElement("Error message description").getText();
@@ -445,10 +447,10 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     private JsonNode validateDPName(JsonNode actualDevicesDefinition, Object expectedDevice, StringBuilder errorMessage) throws Exception {
         for (JsonNode actualDeviceDefinition : actualDevicesDefinition)
         {
-            if (actualDeviceDefinition.get("filters").get(0).get("value").toString().replaceAll("\"", "").equalsIgnoreCase(getDPDeviceIp(new JSONObject(expectedDevice.toString()).get("index").toString())))
+            if (actualDeviceDefinition.get("filters").get(0).get("value").toString().replaceAll("\"", "").equalsIgnoreCase(getDPDeviceIpBySetID(new JSONObject(expectedDevice.toString()).get("SetId").toString())))
                 return actualDeviceDefinition;
         }
-        errorMessage.append("No device with Ip " + getDPDeviceIp(new JSONObject(expectedDevice.toString()).get("index") + "/n"));
+        errorMessage.append("No device with Ip " + getDPDeviceIp(new JSONObject(expectedDevice.toString()).get("SetId") + "/n"));
         return null;
     }
 
@@ -625,6 +627,11 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     private String getDPDeviceIp(String deviceIndex) throws Exception {
         return devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, deviceIndex.matches("\\d+") ? Integer.valueOf(deviceIndex) : -1).getDeviceIp();
+    }
+
+    private String getDPDeviceIpBySetID(String deviceSetID) throws Exception {
+        return TestBase.sutManager.getTreeDeviceManagement(deviceSetID).get().getManagementIp();
+
     }
 
 }

@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.visionsettings.system.generalSettings;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.system.generalsettings.licensemanagement.LicenseManagementHandler;
 import com.radware.vision.infra.testresthandlers.visionLicense.AttackCapacityLicenseTestHandler;
 import com.radware.vision.infra.testresthandlers.visionLicense.VisionLicenseTestHandler;
@@ -14,7 +14,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.*;
 
-public class LicenseManagementSteps extends BddUITestBase {
+public class LicenseManagementSteps extends VisionUITestBase {
     public LicenseManagementSteps() throws Exception {
     }
 
@@ -105,7 +105,7 @@ public class LicenseManagementSteps extends BddUITestBase {
      * @param status
      */
     @Then("^Set AVA_Grace_Period_Status to (Not Set|In Grace Period|No Grace Period)$")
-    public void setAVA_Grace_Period_StatusTo(String status) {
+    public void setAVA_Grace_Period_StatusTo(String status) throws Exception {
         AttackCapacityLicenseTestHandler.GracePeriodState state;
         switch (status) {
             case "Not Set":
@@ -126,7 +126,7 @@ public class LicenseManagementSteps extends BddUITestBase {
     }
 
     @Then("^Validate DefenseFlow is( NOT)? Licensed by Attack Capacity License$")
-    public void validateDefenseFlowIsLicensed(String isNotLicensed) throws IOException, ParseException {
+    public void validateDefenseFlowIsLicensed(String isNotLicensed) throws IOException, ParseException, NoSuchFieldException {
         boolean expected = isNotLicensed == null;
         AttackCapacityLicenseTestHandler visionLicense = new AttackCapacityLicenseTestHandler();
         if (visionLicense.isDefenseFlowLicensed() != expected) {

@@ -1,16 +1,15 @@
 package com.radware.vision.infra.base.pages.defensepro;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
+import com.radware.automation.webui.widgets.impl.table.WebUICell;
+import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.restcore.utils.enums.DeviceType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
-import com.radware.automation.webui.widgets.ComponentLocator;
-import com.radware.automation.webui.widgets.impl.table.WebUITable;
-import com.radware.automation.webui.widgets.impl.table.WebUICell;
-import com.radware.restcore.utils.enums.DeviceType;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DpClusterInformationTable extends WebUITable {
 

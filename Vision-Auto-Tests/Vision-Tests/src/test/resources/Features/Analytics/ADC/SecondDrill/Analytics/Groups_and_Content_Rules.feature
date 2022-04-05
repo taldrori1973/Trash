@@ -5,7 +5,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
   @SID_1
   Scenario: Validate server fetched all applications after upgrade
     Given REST Vision Install License Request "vision-reporting-module-ADC"
-    Then CLI copy "/home/radware/Scripts/fetch_num_of_real_alteons_apps.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/root/"
+    Then CLI copy "/home/radware/Scripts/uVision_fetch_num_of_real_alteons_apps.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/root/"
     Then Validate existence of Real Alteon Apps
     Then CLI Run remote linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -k -XPOST -H "Cookie: JSESSIONID=$jsession" -d '{}' https://localhost:443/mgmt/system/monitor/dpm/alteon/fetch" on "ROOT_SERVER_CLI"
 
@@ -27,8 +27,8 @@ Feature: DPM Second Drill - Groups and Content Rules Table
   @SID_5
   Scenario: Navigate to Virtual Service
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
-    Then UI Text of "Virtual Service.Name" with extension "Rejith_32326515:80" equal to "Rejith_32326515:80"
+    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
+    Then UI Text of "Virtual Service.Name" with extension "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80" equal to "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80"
 
 #Validate Widgets Titles
   @SID_6

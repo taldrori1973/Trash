@@ -1,6 +1,6 @@
 package com.radware.vision.infra.testhandlers.alerts;
 
-import basejunit.RestTestBase;
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.utils.WebUIStrings;
@@ -31,7 +31,7 @@ public class AlertsNegativeHandler {
                 submit.click();
             }
         } catch (Exception e) {
-            RestTestBase.report.report("Test: " + "\n.", Reporter.FAIL);
+            BaseTestUtils.report("Test: " + "\n.", Reporter.FAIL);
         }finally {
             WebUIUtils.setIsTriggerPopupSearchEvent(true);
             WebUIUtils.isIgnoreDisplayedPopup = false;
@@ -59,8 +59,7 @@ public class AlertsNegativeHandler {
 
             WebUIVisionBasePage.submit(WebUIStringsVision.getAlertsFIlterSubmitButton());
         } catch (Exception e) {
-            RestTestBase.report.report("Test: " + "\n.", Reporter.FAIL);
-           // RestTestBase.report.report("Test: " + "\n.", Reporter.PASS);
+            BaseTestUtils.report("Test: " + "\n.", Reporter.FAIL);
         }
     }
 
@@ -72,7 +71,7 @@ public class AlertsNegativeHandler {
 
             WebUIVisionBasePage.submit(WebUIStringsVision.getAlertsFIlterSubmitButton());
         } catch (Exception e) {
-            RestTestBase.report.report("Test: " + "\n.", Reporter.FAIL);
+            BaseTestUtils.report("Test: " + "\n.", Reporter.FAIL);
         }
     }
 

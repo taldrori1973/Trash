@@ -11,7 +11,8 @@ Feature: Packet Type testing in DefensePro Monitoring Dashboard
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
-    Given CLI simulate 4 attacks of type "https" on "DefensePro" 11
+#    Given CLI simulate 4 attacks of type "https" on "DefensePro" 11
+    Given CLI simulate 4 attacks of type "https" on SetId "DefensePro_Set_1"
 
   @SID_3
   Scenario:  login
@@ -38,7 +39,8 @@ Feature: Packet Type testing in DefensePro Monitoring Dashboard
 
   @SID_6
   Scenario: validate Events Table
-    Given CLI simulate 4 attacks of type "https" on "DefensePro" 11
+#    Given CLI simulate 4 attacks of type "https" on "DefensePro" 11
+    Given CLI simulate 4 attacks of type "https" on SetId "DefensePro_Set_1"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "p2"
     Then UI Click Switch button "Protection Policies.Protections Table.Switch Button" and set the status to "ON"
     Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 2

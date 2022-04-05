@@ -6,7 +6,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.DefencePro.dpConfiguration.accesscontrol.blacklistsandwhitelists.BlackListHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,7 +16,7 @@ import org.openqa.selenium.support.How;
 
 import java.util.Map;
 
-public class BlackListSteps extends BddUITestBase {
+public class BlackListSteps extends VisionUITestBase {
     int rowsNum;
 
     public BlackListSteps() throws Exception {

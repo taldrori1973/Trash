@@ -4,33 +4,29 @@ import com.radware.automation.react.widgets.impl.enums.OnOffStatus;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ComparableUtils;
-import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.TextField;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
+import com.radware.vision.automation.invocation.InvokeMethod;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
-import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.TableHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import enums.SUTEntryType;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -42,10 +38,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
 
-public class GenericSteps extends BddUITestBase {
+public class GenericSteps extends VisionUITestBase {
 
     private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
     private TableHandler tableHandler = new TableHandler();
@@ -165,18 +162,18 @@ public class GenericSteps extends BddUITestBase {
         entries.forEach(entry -> {
             String param = null;
             try {
-                if (entry.index != null) {
-                    param = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
-                    String[] params = param.split(",");
-                    try {
-                        BasicOperationsHandler.clickButton(label, params);
-                    } catch (TargetWebElementNotFoundException e) {
-                        BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
-                    }
-
-                } else {
+//                if (entry.index != null) {
+//                    param = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+//                    String[] params = param.split(",");
+//                    try {
+//                        BasicOperationsHandler.clickButton(label, params);
+//                    } catch (TargetWebElementNotFoundException e) {
+//                        BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
+//                    }
+//
+//                } else {
                     BasicOperationsHandler.clickButton(label, param);
-                }
+//                }
 
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), e);
@@ -282,10 +279,11 @@ public class GenericSteps extends BddUITestBase {
                 BaseTestUtils.report(errorMessage, Reporter.FAIL);
                 throw new TargetWebElementNotFoundException(errorMessage);
             }
-            if (!actualValue.trim().equals(expectedValue)) {
+            if (!actualValue.trim().equals(invokeMethodFromText(expectedValue))) {
                 try {
                     VRMHandler.scroll("Table_Attack Details");
                 } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
                 }
                 ReportsUtils.reportAndTakeScreenShot(String.join(" : ", label + "-" + params, "Actual is \"" + actualValue + "\" but is not equal to \"" + expectedValue + "\""), Reporter.FAIL);
             }
@@ -363,7 +361,7 @@ public class GenericSteps extends BddUITestBase {
 
         boolean isSelected = BasicOperationsHandler.isItemSelectedByClass(label, params);
         if (!ComparableUtils.equals(isSelected, expected)) {
-            String errorMessage = String.format("Item with name : %s Does not match the expected result : %s", String.join(".", label, params), String.valueOf(expected));
+            String errorMessage = String.format("Item with name : %s Does not match the expected result : %s", String.join(".", label, params), expected);
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
         }
     }
@@ -439,7 +437,7 @@ public class GenericSteps extends BddUITestBase {
 
     @Then("^UI Table Validate Value Existence in Table \"(.*)\" with Column Name \"(.*)\" and Value \"(.*)\" if Exists \"(true|false)\"$")
     public void uiValidateElementWithLabelIsNotExist(String label, String columnName, String value, String existence) throws Throwable {
-        tableHandler.validateValueExistenceAtTableByColumn(label, columnName, value, Boolean.valueOf(existence));
+        tableHandler.validateValueExistenceAtTableByColumn(label, columnName, value, Boolean.parseBoolean(existence));
     }
 
     @Then("^UI Click Button \"([^\"]*)\"(?: with value \"([^\"]*)\")? Under Parent \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
@@ -471,7 +469,7 @@ public class GenericSteps extends BddUITestBase {
     }
 
     @When("^UI set \"([^\"]*)\" switch button to \"([^\"]*)\"$")
-    public void clickOnSwitchButton(String label, String state) throws TargetWebElementNotFoundException {
+    public void clickOnSwitchButton(String label, String state) {
         ClickOperationsHandler.clickOnSwitchButton(label, null, state);
     }
 
@@ -498,7 +496,7 @@ public class GenericSteps extends BddUITestBase {
     }
 
 
-    private class ElementAttribute {
+    private static class ElementAttribute {
         String name;
         String value;
     }

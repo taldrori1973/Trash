@@ -7,17 +7,16 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
-import com.radware.automation.webui.widgets.api.TextField;
 import com.radware.automation.webui.widgets.api.Widget;
-import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
-import com.radware.restcore.VisionRestClient;
+import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.base.WebUITestSetup;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
+import com.radware.vision.base.VisionUITestSetup;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
@@ -31,19 +30,24 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
-import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
-import cucumber.api.PendingException;
+import com.radware.vision.restAPI.GenericVisionRestAPI;
+import com.radware.vision.restBddTests.RestClientsSteps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import jsystem.framework.RunProperties;
+import models.RestResponse;
+import models.StatusCode;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
+import restInterface.client.SessionBasedRestClient;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -53,16 +57,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.*;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
+import static com.radware.vision.utils.SutUtils.*;
+import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
 
 /**
  * Created by AviH on 30-Nov-17.
  */
 
-public class BasicOperationsSteps extends BddUITestBase {
+public class BasicOperationsSteps extends VisionUITestBase {
     private BasicOperationsByNameIdHandler basicOperationsByNameIdHandler = new BasicOperationsByNameIdHandler();
 
     public BasicOperationsSteps() throws Exception {
@@ -147,7 +152,7 @@ public class BasicOperationsSteps extends BddUITestBase {
         }
         if (!isLoggedIn) {
             try {
-                loginToServer(username, password, restTestBase.getVisionRestClient());
+                loginToServer(username, password);
             } catch (Exception e) {
                 BaseTestUtils.report("Failed to Login", e);
             }
@@ -167,49 +172,76 @@ public class BasicOperationsSteps extends BddUITestBase {
     /**
      * UI and REST login
      *
-     * @param username         - user name
-     * @param password         - password
-     * @param visionRestClient - VisionRestClient object
+     * @param username - user name
+     * @param password - password
      * @throws Exception - throws exception
      */
-    public static void loginToServer(String username, String password, VisionRestClient visionRestClient) throws Exception {
-        WebUITestSetup webUITestSetup = new WebUITestSetup();
+    public static void loginToServer(String username, String password) throws Exception {
+        VisionUITestSetup webUITestSetup = new VisionUITestSetup();
         webUITestSetup.setup();
-//        WebUIUtils.getDriver().get("http://localhost:3003/"); // temporary
         BasicOperationsHandler.login(username, password);
         VisionWebUIUtils.loggedinUser = username;
-        visionRestClient.login(username, password, "", 1);
+        RestClientsSteps.thatCurrentVisionIsLoggedIn(null, username, password, null);
+        restTestBase.getVisionRestClient().login();
     }
 
-    /**
-     * REST logout from server and UI validation
-     *
-     * @param visionRestClient - rest client
-     *                         //     * @param sessionID - rest session ID
-     */
-    public static void logoutFromServer(VisionRestClient visionRestClient, String username) {
-        int sessionID = visionRestClient.getSuitableSessionId(username);
-        WebUIUtils.isIgnoreDisplayedPopup = true;
-        WebUIUtils.setIsTriggerPopupSearchEvent(true);
-        try {
-            if (!isLoggedOut(WebUIUtils.SHORT_WAIT_TIME)) {
-                visionRestClient.logout(sessionID);
-            }
-        } catch (IllegalStateException e) {
-            //if user was already logged in we got into a inactivity timeout (most likely Configuration TO)
-            visionRestClient.login(visionRestClient.getUsername(), visionRestClient.getPassword(), "", sessionID);
-            visionRestClient.logout(sessionID);
-        } catch (Exception e) {
-            BaseTestUtils.report("Failed to logout: " + e.getMessage(), Reporter.FAIL);
-        } finally {
-            if (!isLoggedOut(WebUIUtils.DEFAULT_LOGIN_WAIT_TIME)) {
-                BaseTestUtils.report("Logout Operation failed, no \"log In\" button found", Reporter.FAIL);
-            } else {
-                isLoggedIn = false;
-                VisionDebugIdsManager.setTab("LoginPage");
-            }
+//    /**
+//     * REST logout from server and UI validation
+//     *
+//     * @param visionRestClient - rest client
+//     *                         //     * @param sessionID - rest session ID
+//     */
+//    public static void logoutFromServer(VisionRestClient visionRestClient, String username) {
+//        int sessionID = visionRestClient.getSuitableSessionId(username);
+//        WebUIUtils.isIgnoreDisplayedPopup = true;
+//        WebUIUtils.setIsTriggerPopupSearchEvent(true);
+//        try {
+//            if (!isLoggedOut(WebUIUtils.SHORT_WAIT_TIME)) {
+//                visionRestClient.logout(sessionID);
+//            }
+//        } catch (IllegalStateException e) {
+//            //if user was already logged in we got into a inactivity timeout (most likely Configuration TO)
+//            visionRestClient.login(visionRestClient.getUsername(), visionRestClient.getPassword(), "", sessionID);
+//            visionRestClient.logout(sessionID);
+//        } catch (Exception e) {
+//            BaseTestUtils.report("Failed to logout: " + e.getMessage(), Reporter.FAIL);
+//        } finally {
+//            if (!isLoggedOut(WebUIUtils.DEFAULT_LOGIN_WAIT_TIME)) {
+//                BaseTestUtils.report("Logout Operation failed, no \"log In\" button found", Reporter.FAIL);
+//            } else {
+//                isLoggedIn = false;
+//                VisionDebugIdsManager.setTab("LoginPage");
+//            }
+//        }
+//    }
+
+    public static void logoutBrowser() throws Exception {
+        Cookie jsessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID");
+        if (jsessionId == null) {
+            throw new Exception("can't get the JSESSIONID.");
+        }
+        String browserSessionId = jsessionId.getValue();
+        BaseTestUtils.report("Browser Session Id = " + browserSessionId, Reporter.PASS_NOR_FAIL);
+        GenericVisionRestAPI currentVisionRestAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Log Out");
+        HashMap<String, String> hash_map_param = new HashMap<>();
+        hash_map_param.put("JSESSIONID", browserSessionId);
+        currentVisionRestAPI.getRestRequestSpecification().setCookies(hash_map_param);
+        RestResponse restResponse = currentVisionRestAPI.sendRequest();
+        if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+            throw new Exception("Failed to Log Out");
+        }
+        VisionWebUIUtils.loggedinUser = null;
+        refreshPage();
+    }
+
+    public static void logoutRestInfra() throws Exception {
+        String baseUri = buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp());
+        SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(baseUri, getCurrentVisionRestPort(), getCurrentVisionRestUserName(), getCurrentVisionRestUserPassword(), null);
+        if (connection.isLoggedIn()) {
+            connection.logout();
         }
     }
+
 
     /**
      * logout from Vision
@@ -217,8 +249,13 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Given("^UI Logout$")
     public void logout() {
         try {
-            logoutFromServer(restTestBase.getVisionRestClient(), VisionWebUIUtils.loggedinUser);
-            VisionWebUIUtils.loggedinUser = null;
+            logoutBrowser();
+            logoutRestInfra();
+            isLoggedIn = false;
+            VisionDebugIdsManager.setTab("LoginPage");
+        } catch (Exception e) {
+            e.printStackTrace();
+            BaseTestUtils.report("failed to logout" + e.getMessage(), Reporter.FAIL);
         } finally {
             BasicOperationsHandler.delay(1);
         }
@@ -376,13 +413,14 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Then("^UI set Current Time Plus Seconds \"(.*)\"$")
     public void setCurrentTimePlusSeconds(long secondsToAdd) {
         try {
+            SystemProperties systemProperties = SystemProperties.get_instance();
             LocalTime currentTime = LocalTime.now();
             currentTime = currentTime.plusSeconds(secondsToAdd);
             String hours = Integer.toString(currentTime.getHour());
             String minutes = Integer.toString(currentTime.getMinute());
             String seconds = Integer.toString(currentTime.getSecond());
             String dateString = hours + ":" + minutes + ":" + seconds;
-            RunProperties.getInstance().setRunProperty("currentTimePlus", dateString);
+            systemProperties.setRunTimeProperty("currentTimePlus", dateString);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -454,11 +492,6 @@ public class BasicOperationsSteps extends BddUITestBase {
         BasicOperationsHandler.validateArrow(label, params, status);
     }
 
-
-    //    @Then("^UI Validate the attribute \"([^\"]*)\" Of Label \"([^\"]*)\"(?: With Params \"([^\"]*)\")? is \"(EQUALS|CONTAINS)\" to \"(.*)\"(?: with errorMessage \"([^\"]*)\")?$")
-//    public void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String compare, String value, String expectedErrorMessage) {
-//        BasicOperationsHandler.uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(attribute, label, params, compare, value, expectedErrorMessage);
-//    }
     @Then("^UI Validate the attribute \"([^\"]*)\" Of Label \"([^\"]*)\"(?: With Params \"([^\"]*)\")?(?: with errorMessage \"([^\"]*)\")? is \"(EQUALS|CONTAINS|NOT CONTAINS|MatchRegx)\" to \"(.*)\" ?(?: with offset (\\S+))?$")
     public void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String expectedErrorMessage, String compare, String value, String offset) {
         BasicOperationsHandler.uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(attribute, label, params, compare, value, expectedErrorMessage, offset);
@@ -467,8 +500,6 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Then("^UI Validate order of labels \"([^\"]*)\" with attribute \"([^\"]*)\" that \"(EQUALS|CONTAINS|NOT CONTAINS)\" value of \"([^\"]*)\"$")
     public void uiValidateOrderOfLabelsWithAttributeThatValueOf(String label, String attribute, String compare, String value, List<VRMHandler.DfProtectedObject> entries) {
         BasicOperationsHandler.uiValidationItemsOrderInList(label, attribute, compare, value, entries);
-
-
     }
 
     @Then("^UI clear (\\d+) characters in \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: with enter Key \"(true|false)\")?$")
@@ -533,7 +564,7 @@ public class BasicOperationsSteps extends BddUITestBase {
         try {
             List<Widget> widgets = basicOperationsByNameIdHandler.findWidgetByNameId(WebUIUtils.VISION_DEVICE_DRIVER_ID, WebWidgetType.Table, tableElement, FindByType.BY_NAME);
             if (widgets.isEmpty()) {
-                report.report("Failed to get Table for label: " + columnName + ", it may not be visible", Reporter.FAIL);
+                BaseTestUtils.report("Failed to get Table for label: " + columnName + ", it may not be visible", Reporter.FAIL);
             }
             for (Widget widget : widgets) {
                 if (widget == null || !widget.find(true, true) || !widget.getRawId().equals(tableElement)) {
@@ -560,7 +591,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
             }
         } catch (Exception e) {
-            report.report("Failed to get Table for label: " + columnName + " \n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to get Table for label: " + columnName + " \n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -569,7 +600,7 @@ public class BasicOperationsSteps extends BddUITestBase {
         try {
             if (withoutNavigateToAnotherPage == null)
                 VisionDebugIdsManager.setTab("upBar");
-            BasicOperationsHandler.clickButton(label);
+            clickButton(label);
         } catch (TargetWebElementNotFoundException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -592,7 +623,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     @When("^close popup if it exists by button \"([^\"]*)\"(?: with params \"([^\"]*)\")?$")
     public void closePopupIfItExistsByButtonWithParams(String label, String params) {
         try {
-            BasicOperationsHandler.clickButton(label, params);
+            clickButton(label, params);
         } catch (Exception ignore) {
         }
     }
@@ -617,7 +648,6 @@ public class BasicOperationsSteps extends BddUITestBase {
     public void uiValidateTheAttributesOfAreTo(String attribute, String compare, List<ParameterSelected> listParamters) {
         uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(listParamters, attribute, compare);
     }
-
 
     @Then("^UI Select list of WAN Links in LinkProof \"([^\"]*)\"$")
     public void uiSelectListOfWANLinks(String WANLinks) throws Exception {
@@ -736,13 +766,17 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     private static void selectHoursOrMinutes(String label, String params, String HoursOrMinutes, LocalDateTime scheduleTime) {
-        int differenceValue = Integer.valueOf(WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCount'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? "1" : "2") + "]")).getText()) - (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? scheduleTime.getHour() : scheduleTime.getMinute());
+        int differenceValue = Integer.parseInt(WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCount'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? "1" : "2") + "]")).getText()) - (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? scheduleTime.getHour() : scheduleTime.getMinute());
         for (int i = 0; i < Math.abs(differenceValue); i++)
             WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCounter'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours") ? "1" : "2") + "]//span[.='" + (differenceValue > 0 ? "▼" : "▲") + "']")).click();
     }
 
     private static void selectDate(String label, String params, LocalDateTime scheduleTime) {
-        LocalDate actualLocalDate = LocalDate.parse("01 " + WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdtSwitch']")).getText(), DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+        String date = String.format("01 %s", WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdtSwitch']")).getText());
+        String[] date_s = date.split(" ");
+        int monthNumber = Arrays.asList("january", "february", "march", "april","may", "june", "july", "august", "september", "october", "november", "december").indexOf(date_s[1].toLowerCase())+1;
+        date_s[1] = String.format("%s%s",(monthNumber<=9)?"0":"",monthNumber);
+        LocalDate actualLocalDate = LocalDate.parse(String.join(" ", date_s), DateTimeFormatter.ofPattern("dd MM yyyy"));
         int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
         while (monthsDifference != 0) {
             WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdt" + (monthsDifference > 0 ? "Next" : "Prev") + "']")).click();
@@ -770,7 +804,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     @Then("^UI \"(Select|UnSelect|Validate)\" Scope Polices$")
     public void uiScopePolicesInDevice(String operationType, Map<String, String> devicePolices) throws Exception {
-        Map<String, String> map = null;
+        Map<String, String> map;
         map = CustomizedJsonManager.fixJson(devicePolices);
         ReportsForensicsAlertsAbstract.fixTemplateMap(map);
         switch (operationType) {
@@ -792,8 +826,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     private void uiUnSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
-        String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
-        expandScopePolicies(deviceIP, map);
+        String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();        expandScopePolicies(deviceIP, map);
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())) {
             WebUiTools.check("DPPolicyCheck", new String[]{deviceIP, policy.toString()}, false);
         }
@@ -802,12 +835,13 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
-        String deviceIP = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, new JSONObject(map.get("devices")).get("index").toString().matches("\\d+") ? Integer.valueOf(new JSONObject(map.get("devices")).get("index").toString()) : -1).getDeviceIp();
-        expandScopePolicies(deviceIP, map);
+        String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();
+        BasicOperationsHandler.clickButton("Device Selection");
         if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
             errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
+        BasicOperationsHandler.clickButton("DPScopeSelectionChange",deviceIP);
         if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPScopeSelectionChange", deviceIP)))
-            errorMessage.append("This device DefensePro_" + deviceIP + " with index " + new JSONObject(map.get("devices")).get("index").toString() + " is not selected !!");
+            errorMessage.append("This device DefensePro_" + deviceIP + " with SetId " + new JSONObject(map.get("devices")).get("SetId").toString() + " is not selected !!");
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()))
             if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceIP, policy.toString()})))
                 errorMessage.append("This Policy " + policy.toString() + " is not selected !!");
@@ -831,10 +865,10 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     private void saveScopeSelection(String deviceIP) throws TargetWebElementNotFoundException {
-        BasicOperationsHandler.clickButton("DPScopeSelectionChange", deviceIP);
-        BasicOperationsHandler.clickButton("SaveDPScopeSelection", "");
+        clickButton("DPScopeSelectionChange", deviceIP);
+        clickButton("SaveDPScopeSelection", "");
         if (WebUiTools.getWebElement("close scope selection") != null)
-            BasicOperationsHandler.clickButton("close scope selection");
+            clickButton("close scope selection");
     }
 
     private void expandScopePolicies(String device, Map<String, String> map) throws Exception {
@@ -944,21 +978,8 @@ public class BasicOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("The expected count of Label " + label + "with value " + value + "is " + count + "But the Actual is " + actualcount, Reporter.FAIL);
     }
 
-
-    // .... Maha test ....
-    @Then("^MahaTest click on \"([^\"]*)\"$")
-    public void mahatestClickOn(String buttonName) {
-        // Write code here that turns the phrase above into concrete actions
-        VisionDebugIdsManager.setLabel(buttonName);
-        VisionDebugIdsManager.setParams("");
-        WebUIUtils.fluentWait((ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId())).getBy()).click();
-//        throw new PendingException();
-    }
-
-
     @Then("^UI Unclick all the attributes \"([^\"]*)\" is \"(EQUALS|CONTAINS)\" to \"([^\"]*)\"$")
-    public void uiUnclickAllTheAttributesOf(String attribute, String compare, String
-            value, List<ParameterSelected> listParameters) {
+    public void uiUnclickAllTheAttributesOf(String attribute, String compare, String value, List<ParameterSelected> listParameters) {
         try {
             for (ParameterSelected parameter : listParameters) {
                 VisionDebugIdsManager.setLabel(parameter.label);
@@ -971,12 +992,12 @@ public class BasicOperationsSteps extends BddUITestBase {
                     switch (compare) {
                         case "EQUALS":
                             if (element.getAttribute(attribute).equalsIgnoreCase(value)) {
-                                BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                                clickButton(parameter.label, parameter.param);
                             }
                             break;
                         case "CONTAINS":
                             if (element.getAttribute(attribute).contains(value)) {
-                                BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                                clickButton(parameter.label, parameter.param);
                             }
                             break;
                     }
@@ -992,7 +1013,4 @@ public class BasicOperationsSteps extends BddUITestBase {
         String label;
         String param;
     }
-
-
-//checkbox_select-all_Label
 }

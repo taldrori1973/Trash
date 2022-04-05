@@ -4,27 +4,22 @@ import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
-import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
-import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
-import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
-import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.automation.Deploy.NewVmHandler;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
-import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.*;
 import com.radware.vision.enums.VisionDeployType;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
-import com.radware.vision.vision_handlers.NewVmHandler;
+import com.radware.vision.setup.SetupImpl;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
-import com.radware.vision.vision_project_cli.VisionCli;
-import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.junit.FeatureRunner;
-import jsystem.framework.system.SystemManagerImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +28,7 @@ import java.util.*;
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
 
-public class VMOperationsSteps extends BddUITestBase {
+public class VMOperationsSteps extends VisionUITestBase {
 
     public static VMOperationsSteps newInstance() throws Exception {
         return new VMOperationsSteps();
@@ -80,10 +75,11 @@ public class VMOperationsSteps extends BddUITestBase {
     @When("^Revert DefenseFlow to snapshot$")
     public void DfenseFlowRevertToSnapshot() {
         try {
-            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
-            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
-            BaseTestUtils.report("Reverting Defense Flow to snapshot " + DF.getSnapshot(), Reporter.PASS_NOR_FAIL);
-            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, DF.vmName), DF.snapshot, true);
+            //Kvision
+//            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
+//            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
+//            BaseTestUtils.report("Reverting Defense Flow to snapshot " + DF.getSnapshot(), Reporter.PASS_NOR_FAIL);
+//            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, DF.vmName), DF.snapshot, true);
             Thread.sleep(10 * 60 * 1000);
             BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
         } catch (Exception e) {
@@ -94,7 +90,10 @@ public class VMOperationsSteps extends BddUITestBase {
 
     public void deleteKvm() throws Exception {
         NewVmHandler handler = new NewVmHandler();
-        String vmName = handler.visionRadwareFirstTime.getVmName() + handler.visionRadwareFirstTime.getIp();
+        String vmPrefix = getVisionSetupAttributeFromSUT("vmPrefix");
+        String vmName = String.format("%s_%s", vmPrefix, handler.visionRadwareFirstTime.getIp());
+        // ToDo - check why setConnectOnInit is true
+        handler.visionRadwareFirstTime.setConnectOnInit(false);
         handler.deleteKvm(vmName);
     }
 
@@ -115,11 +114,12 @@ public class VMOperationsSteps extends BddUITestBase {
         VisionRadwareFirstTime visionRadwareFirstTime;
         try {
             setupMode = getVisionSetupAttributeFromSUT("setupMode");
-            visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
+            //kVision
+//            visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
             if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
             snapshot = getVisionSetupAttributeFromSUT("snapshot");
-            if (!isActionNeeded(snapshot, setupMode, force)) {
-                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
+            if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
+                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS_NOR_FAIL);
                 return;
             }
             /* Fresh section */
@@ -129,15 +129,17 @@ public class VMOperationsSteps extends BddUITestBase {
                     preFreshInstall();
                     return;
 
+                case "qcow2_fresh install":
                 case "kvm_fresh install":
                     deleteKvm();
                     return;
-
-                case "physical":
-                    return;
-                /* Upgrade section */
+//
+//                case "physical":
+//                    return;
+//                /* Upgrade section */
                 case "kvm_upgrade_inparallel":
-                    revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
+                    //Kvision
+//                    revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
                     afterUpgrade();
                     return;
 
@@ -148,7 +150,8 @@ public class VMOperationsSteps extends BddUITestBase {
                     return;
 
                 case "kvm_upgrade":
-                    revertKvmSnapshot(snapshot, visionRadwareFirstTime);
+                    //kVision
+//                    revertKvmSnapshot(snapshot, visionRadwareFirstTime);
                     afterUpgrade();
                     return;
 
@@ -162,25 +165,8 @@ public class VMOperationsSteps extends BddUITestBase {
 
         } catch (Exception e) {
             e.printStackTrace();
-            BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-    }
-
-    private boolean isActionNeeded(String snapshot, String setup, String force)
-    {
-        if(!setup.toLowerCase().contains("upgrade"))
-            return true;
-
-        if((snapshot == null || snapshot.equals("")))
-            return false;
-
-        if(force != null)
-            return true;
-        // ToDo - need to build Singleton to get Deploy object
-        Deploy deploy = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
-        deploy.isSetupNeeded();
-
-        return deploy.isSetupNeeded;
     }
 
     private void afterUpgrade() {
@@ -191,7 +177,8 @@ public class VMOperationsSteps extends BddUITestBase {
     private void revert_kvm_upgrade_InParallel(String snapshot, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
         KVMSnapShotThread firstMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
         firstMachine.start();
-        visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime2");
+        //kVision
+//        visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime2");
         KVMSnapShotThread secondMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
         secondMachine.start();
         while (true) {
@@ -202,10 +189,12 @@ public class VMOperationsSteps extends BddUITestBase {
 
     private void preFreshInstall() {
         NewVmSteps newVmSteps = new NewVmSteps();
+        NewVmHandler handler = new NewVmHandler();
         String vmPrefix = getVisionSetupAttributeFromSUT("vmPrefix");
+        String vmName = String.format("%s_%s", vmPrefix, handler.visionRadwareFirstTime.getIp());
         if (vmPrefix == null) throw new NullPointerException("Can't find \"vmPrefix\" at SUT File");
         List<String> columnName = Collections.singletonList("VmMachinePrefix");
-        List<String> value = Collections.singletonList(vmPrefix);
+        List<String> value = Collections.singletonList(vmName);
         List<List<String>> row = Arrays.asList(columnName, value);
         DataTable dataTable = DataTable.create(row, Locale.getDefault(), "VmMachinePrefix");
         newVmSteps.StopMachine(dataTable);
@@ -225,64 +214,79 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Upgrade or Fresh Install Vision$")
     public void upgradeOrFreshInstallVision() {
-        String setupMode = getVisionSetupAttributeFromSUT("setupMode");
-        if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
+        try {
+            String setupMode = getSutManager().getDeployConfigurations().getSetupMode();
+            if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
 
-        switch (setupMode.toLowerCase()) {
-            case "kvm_upgrade":
-            case "upgrade":
-                Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
-                upgrade.deploy();
-                break;
-            case "upgrade_inparallel":
-            case "kvm_upgrade_inparallel":
-                UpgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
-                break;
-            case "kvm_fresh install":
-                FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, null);
-                freshInstallKVM.deploy();
-                break;
-            case "fresh install_inparallel":
-                freshInstallInParallel();
-                break;
-            case "fresh install":
-                FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
-                freshInstallOVA.deploy();
-                break;
-            case "physical":
-                Physical physical = new Physical(true, null);
-                physical.deploy();
-                break;
-            default: {
-                BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
+            switch (setupMode.toLowerCase()) {
+                case "kvm_upgrade":
+                case "upgrade":
+                    RadwareServerCli radwareServerCli = null;
+                    RootServerCli rootServerCli = null;
+                    if (serversManagement.getRadwareServerCli().isPresent())
+                        radwareServerCli = serversManagement.getRadwareServerCli().get();
+                    if (serversManagement.getRootServerCLI().isPresent())
+                        rootServerCli = serversManagement.getRootServerCLI().get();
+                    assert rootServerCli != null;
+                    assert radwareServerCli != null;
+                    Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
+                    upgrade.deploy();
+                    break;
+
+                case "upgrade_inparallel":
+                case "kvm_upgrade_inparallel":
+                    UpgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
+                    break;
+
+                case "qcow2_fresh install":
+                case "serial iso_fresh install":
+                case "fresh install":
+                    String[] setupModeSplit = setupMode.split("_");
+                    String fileType = (setupModeSplit.length == 2) ? setupModeSplit[0] : "ova";
+                    FreshInstall freshInstall = FreshInstallFactory.getFreshInstall(fileType, true, null);
+                    assert freshInstall != null;
+                    freshInstall.deploy();
+                    break;
+
+//                case "fresh install_inparallel":
+//                    freshInstallInParallel();
+//                    break;
+                default: {
+                    BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
+                }
             }
+            updateVersionVar();
+            SetupImpl setup = new SetupImpl();
+            setup.buildSetup();
+            //kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
+//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        updateVersionVar();
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
-        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
     }
 
     public static String getVisionSetupAttributeFromSUT(String attribute) {
-        VisionCli visionCli = null;
-        try {
-            visionCli = (VisionCli) SystemManagerImpl.getInstance().getSystemObject("visionCli");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (visionCli == null) throw new NullPointerException("Can't find \"visionCli\" at SUT File");
+//        VisionCli visionCli = null;
+//        try {
+//            visionCli = (VisionCli) SystemManagerImpl.getInstance().getSystemObject("visionCli");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        if (visionCli == null) throw new NullPointerException("Can't find \"visionCli\" at SUT File");
 
         switch (attribute) {
             case "setupMode":
-                return visionCli.visionServer.visionSetup.getSetupMode();
+                return getSutManager().getDeployConfigurations().getSetupMode();
             case "snapshot":
-                return visionCli.visionServer.visionSetup.getSnapshot();
+                return getSutManager().getDeployConfigurations().getSnapshot();
             case "vmPrefix":
-                return visionCli.visionServer.visionSetup.getVmPrefix();
-            case "FileNamePrefix":
-                return visionCli.visionServer.visionSetup.getFileNamePrefix();
-            case "serverType":
-                return visionCli.visionServer.visionSetup.getServerType();
+                return getSutManager().getServerName();
+//            case "FileNamePrefix":
+//                return visionCli.visionServer.visionSetup.getFileNamePrefix();
+//            case "serverType":
+//                return visionCli.visionServer.visionSetup.getServerType();
         }
         return null;
     }
@@ -330,16 +334,21 @@ public class VMOperationsSteps extends BddUITestBase {
      * Relevant to be used after revert to snapshot and upgrade
      */
     public static void updateVersionVar() {
-        VisionInfo visionInfo = new VisionInfo(getRestTestBase().getGenericRestClient().getDeviceIp());
+        VisionInfo visionInfo = new VisionInfo(sutManager.getClientConfigurations().getHostIp());
         String version = visionInfo.getVisionVersion();
         String featureBranch = visionInfo.getVisionBranch();
         String build = visionInfo.getVisionBuild();
         //update runtime variables
-        restTestBase.getRootServerCli().setVersionNumebr(version);
-        restTestBase.getRootServerCli().setBuildNumber(build);
+        RootServerCli rootServerCli = null;
+        if (serversManagement.getRootServerCLI().isPresent()) {
+            rootServerCli = serversManagement.getRootServerCLI().get();
+            rootServerCli.setVersionNumebr(version);
+            rootServerCli.setBuildNumber(build);
+        } else
+            BaseTestUtils.report("Optional: RootServerCli is empty", Reporter.FAIL);
         //Update portal
         FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
-        FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
+        FeatureRunner.update_station_sutName(clientConfigurations.getHostIp(), System.getProperty("SUT"));
 
     }
 }

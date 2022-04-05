@@ -13,7 +13,7 @@ import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.enums.PopupDialogBoxTexts;
@@ -29,7 +29,6 @@ import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.tests.GeneralOperations.ByLabelValidations;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import org.json.JSONArray;
 import org.openqa.selenium.By;
@@ -40,10 +39,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.setTextField;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
-public class BasicValidationsTests extends BddUITestBase {
+public class BasicValidationsTests extends VisionUITestBase {
 
     BasicOperationsByNameIdHandler basicOperationsByNameIdHandler = new BasicOperationsByNameIdHandler();
     TableHandler tableHandler = new TableHandler();
@@ -54,8 +54,8 @@ public class BasicValidationsTests extends BddUITestBase {
     }
 
     /**
-     * @param label
-     * @param isEnabled
+     * @param label     - element labal
+     * @param isEnabled - element's expected status
      */
     @Then("^UI Validate Element EnableDisable status By Label \"([^\"]*)\"(?: and Value \"([^\"]*)\")? is Enabled \"(true|false)\"$")
     public void validateElementEnableDisableStatus(String label, String value, Boolean isEnabled) {
@@ -63,46 +63,38 @@ public class BasicValidationsTests extends BddUITestBase {
     }
 
     /**
-     * @param label
-     * @param isExists
+     * @param label    - element labal
+     * @param isExists - element's existance state
      */
     @Then("^UI Validate Element Existence By Label \"(.*)\" if Exists \"(true|false)\"(?: with value \"(.*)\")?$")
     public void validateElementExistenceByLabel(String label, Boolean isExists, String param) {
         BasicOperationsHandler.isElementFounds(label, isExists, param);
     }
 
-//    @Then("^UI Validate Element Existence By Label \"([^\"]*)\" Equals \"([^\"]*)\"$")
-//    public void validateElementValue(String param, String value) {
-//        BasicOperationsHandler.isElementFounds(label, isExists, param);
-//    }
-
-
     @Then("^UI Validate Element Existence By GWT id \"(.*)\" if Exists \"(true|false)\"(?: with value \"(.*)\")?$")
     public void validateElementExistenceByGwtId(String label, Boolean isExists, String param) {
         BasicOperationsHandler.isGwtElementExists(label, isExists, param);
     }
 
-    /**
-     * @param label
-     * @param isExists
-     */
     @Then("^UI Validate Element Selection By Label \"(.*)\" if Exists \"(true|false)\"(?: with value \"(.*)\")?$")
     public void validateElementSelectionByLabel(String label, Boolean isExists, String param) {
         BasicOperationsHandler.isElementSelected(label, isExists, param);
     }
 
-    /**
-     * @param selectorValue
-     * @param expectedText
-     * @param operatorsEnum
-     * @param cutCharsNumber - will be cut from the right side of the String
-     */
-
     @Then("^UI Validate Text field \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: On Regex \"([^\"]*)\")? (EQUALS|CONTAINS|MatchRegex|GT|GTE|LT|LTE) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
     public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
+        try {
+            if (params != null) {
+                params = (String) invokeMethodFromText(params);
+            }
+            expectedText = (String) invokeMethodFromText(expectedText);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;//this parameter can be used for equals or contains of String from char 0 until char cutCharsNumber
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, regex, operatorsEnum, Integer.parseInt(cutCharsNumber),offset);
+        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, regex, operatorsEnum, Integer.parseInt(cutCharsNumber), offset);
     }
 
 
@@ -117,17 +109,13 @@ public class BasicValidationsTests extends BddUITestBase {
         BasicOperationsHandler.isTextEqualValue(label, value1, value2, value3, tableName);
     }
 
+
     @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?(?: with offset (\\S+))?$")
     public void validateTextFieldElementbyId(String selectorValue, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber, String offset) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, operatorsEnum, Integer.valueOf(cutCharsNumber),offset);
+        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber), offset);
     }
-
-    /**
-     * @param expectedText
-     * @Description - validate dialog box existence and caption text
-     */
 
     @Then("^UI Validate Popup Dialog Box, have value \"(.*)\" with text Type \"(CAPTION|MESSAGE)\"$")
     public void validatePopupTextFieldElement(String expectedText, PopupDialogBoxTexts popupDialogBoxTexts) {
@@ -135,19 +123,11 @@ public class BasicValidationsTests extends BddUITestBase {
     }
 
 
-    /**
-     * @param expectedRecordsNumber
-     * @param columnValue
-     * @param columnKey
-     * @param elementLabelId
-     * @param deviceDriverType
-     * @param findByType
-     */
     @Then("^UI validate Table RecordsCount \"(.*)\" with Identical ColumnValue \"(.*)\" by columnKey \"(.*)\" by elementLabelId \"(.*)\" by deviceDriverType \"(VISION|DEVICE)\" findBy Type \"(BY_NAME|BY_ID)\"$")
     public void validateTableRecordsNumberWithIdenticalColumnValue(String expectedRecordsNumber, String columnValue, String columnKey, String elementLabelId, DeviceDriverType deviceDriverType, FindByType findByType) {
         try {
             int actualRowAmount = basicOperationsByNameIdHandler.getRowsAmountByKeyValue(deviceDriverType.getDDType(), elementLabelId, columnKey, columnValue, findByType);
-            if (actualRowAmount != Integer.valueOf(expectedRecordsNumber)) {
+            if (actualRowAmount != Integer.parseInt(expectedRecordsNumber)) {
                 BaseTestUtils.report("Records number by KeyValue validation has Failed : actualRowAmount = " + actualRowAmount + " expectedRecordsNumber: " + expectedRecordsNumber, Reporter.FAIL);
             }
         } catch (Exception e) {
@@ -159,7 +139,7 @@ public class BasicValidationsTests extends BddUITestBase {
     public void validateTableRecordsNumberPerPage(String expectedRecordsNumber, DeviceDriverType deviceDriverType, String elementNameId, FindByType findByType) {
         try {
             int actualRowAmount = basicOperationsByNameIdHandler.getRowsAmountPerPage(deviceDriverType.getDDType(), elementNameId, findByType);
-            if (actualRowAmount != Integer.valueOf(expectedRecordsNumber)) {
+            if (actualRowAmount != Integer.parseInt(expectedRecordsNumber)) {
                 BaseTestUtils.report("Records number by KeyValue validation has Failed : actualRowAmount = " + actualRowAmount + " expectedRecordsNumber: " + expectedRecordsNumber, Reporter.FAIL);
             }
         } catch (Exception e) {
@@ -167,12 +147,6 @@ public class BasicValidationsTests extends BddUITestBase {
         }
     }
 
-    /**
-     * @param elementLabel
-     * @param columnName
-     * @param cellValue
-     * @param cells
-     */
     @Then("^UI Validate Table record values by columns with elementLabel \"([^\"]*)\"(?: with extension (\\S+))?(?: findBy index (\\d+))?(?: findBy columnName \"([^\"]*)\")?(?: findBy cellValue \"([^\"]*)\")?$")
     public void validateTableRecordValuesByColumnName(String elementLabel, String extension, Integer index, String columnName, String cellValue, List<WebUITable.TableDataSets> cells) {
         int rowIndex = index != null ? index : -1;
@@ -181,35 +155,25 @@ public class BasicValidationsTests extends BddUITestBase {
 
     @Then("^UI Validate Total Summary Table \"([^\"]*)\"$")
     public void uiValidateTotalSummaryTableWithWidget(String TableName) throws Throwable {
-        float sum =0;
+        float sum;
         sum = tableHandler.sumColOfTableByTableName(TableName);
         VisionDebugIdsManager.setLabel("Top Attack Total");
         String element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getText();
         if (element == null)
             BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+        assert element != null;
         float actualSum = Float.parseFloat(element.replaceAll("[^\\d.]", ""));
-        if(actualSum !=sum){
+        if (actualSum != sum) {
             addErrorMessage("The total have to be eqaual to " + sum + ", not " + actualSum);
         }
     }
 
-    /**
-     * @param elementLabel
-     * @param columnName
-     * @param cellValue
-     * @param cells
-     */
     @Then("^UI Validate Table record tooltip values with elementLabel \"([^\"]*)\"(?: with extension (\\S+))?(?: findBy index (\\d+))?(?: findBy columnName \"([^\"]*)\")?(?: findBy cellValue \"([^\"]*)\")?$")
     public void validateTableRecordTooltipValuesByColumnName(String elementLabel, String extension, Integer index, String columnName, String cellValue, List<WebUITable.TableDataSets> cells) {
         int rowIndex = index != null ? index : -1;
         tableHandler.validateTableRecordTooltipContent(elementLabel, columnName, cellValue, cells, rowIndex, extension);
     }
 
-    /**
-     * @param elementLabel - table name
-     * @param count        - total rows count
-     * @param offset       - optional offset to count parameter
-     */
     @Then("^UI Validate \"(.*)\" Table rows count (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) to (\\d+)(?: with offset (\\d+))?$")
     public void validateTableRowsCount(String elementLabel, OperatorsEnum operatorsEnum, int count, Integer offset) {
         tableHandler.validateTableRowsCount(elementLabel, count, operatorsEnum, offset);
@@ -243,9 +207,17 @@ public class BasicValidationsTests extends BddUITestBase {
     public void clickTableRowByKeyValueOrIndex(String elementLabel, Integer index, String columnName, String cellValue, String table, String label, String labelValue) {
         int rowIndex = index != null ? index : -1;
         try {
+            try {
+                if (cellValue != null) {
+                    cellValue = (String) invokeMethodFromText(cellValue);
+                }
+            } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+            }
+
             if (columnName != null && cellValue != null && columnName.contains(",") && cellValue.contains(","))
                 tableHandler.clickTableRowByKeyValueOrIndex(elementLabel, Arrays.asList(columnName.split(",")), Arrays.asList(cellValue.split(",")), rowIndex);
-            else if(table!=null)
+            else if (table != null)
                 tableHandler.clickTableRowByLabelValue(elementLabel, table, label, labelValue);
             else
                 tableHandler.clickTableRowByKeyValueOrIndex(elementLabel, columnName, cellValue, rowIndex);
@@ -283,22 +255,10 @@ public class BasicValidationsTests extends BddUITestBase {
         }
     }
 
-    /**
-     * @param elementLabel
-     * @param columnName
-     * @param criteria
-     */
     @Then("^UI Validate Table Sorting with elementLabel \"([^\"]*)\" Sort By columnName \"([^\"]*)\"(?: By Criteria (\\S+))?$")
     public void validateTableSortingByColumnName(String elementLabel, String columnName, TableSortingCriteria criteria) {
         tableHandler.validateTableSortingByColumn(elementLabel, columnName, criteria);
     }
-
-    /**
-     * @param textOption
-     * @param elementLabelId
-     * @param deviceDriverType
-     * @param findByType
-     */
 
     @Then("^UI validate DropDown textOption Existence \"(.*)\" by elementLabelId \"(.*)\" by deviceDriverType \"(VISION|DEVICE)\" findBy Type \"(BY_NAME|BY_ID)\"$")
     public void validateDropDownTextOptionExistence(String textOption, String elementLabelId, DeviceDriverType deviceDriverType, FindByType findByType) {
@@ -311,9 +271,6 @@ public class BasicValidationsTests extends BddUITestBase {
         basicOperationsByNameIdHandler.validateDropDownSelection(textOption, elementLabelId, deviceDriverType.getDDType(), findByType);
     }
 
-    /**
-     * @param expectedValue
-     */
     @Then("^UI validate popup Message \"(.*)\"$")
     public void validatePopupContent(String expectedValue) {
         try {
@@ -332,20 +289,11 @@ public class BasicValidationsTests extends BddUITestBase {
         }
     }
 
-    /**
-     * @param elementId
-     * @param expectedCheckboxSelection
-     */
     @Then("^UI validate CheckBox by ID \"(.*)\" if Selected \"(true|false)\"$")
     public void validateCheckboxSelection(String elementId, boolean expectedCheckboxSelection) {
         basicOperationsByNameIdHandler.validateCheckboxSelection(elementId, expectedCheckboxSelection);
     }
 
-    /**
-     * @param label
-     * @param deviceName
-     * @param expectedCheckboxSelection
-     */
     @Then("^UI validate Checkbox by label \"([^\"]*)\"(?: optional (device IP|params) \"(.*)\")? if Selected \"(true|false)\"$")
     public void validateCheckboxSelectionbyLabel(String label, String ipOrParams, String deviceName, boolean expectedCheckboxSelection) {
         String deviceNameFinal = deviceName != null ? deviceName : "";
@@ -454,15 +402,14 @@ public class BasicValidationsTests extends BddUITestBase {
     }
 
     @Then("^UI FluentWait For \"([^\"]*)\"(?: With Extension \"([^\"]*)\")? Table Until Rows Number (EQUALS|GTE|GT|LTE|LT) (\\d+)$")
-    public void fluentWaitForTableWithRows(String label, String extension,OperatorsEnum operatorsEnum,int rowsNumber) {
+    public void fluentWaitForTableWithRows(String label, String extension, OperatorsEnum operatorsEnum, int rowsNumber) {
 
         try {
-            if (!tableHandler.fluentWaitTableByRowsNumber(label, extension,operatorsEnum, rowsNumber))
+            if (!tableHandler.fluentWaitTableByRowsNumber(label, extension, operatorsEnum, rowsNumber))
                 BaseTestUtils.reporter.report("Fluent Wait Time Was Ended without find the number of expected rows", Reporter.FAIL);
         } catch (Exception e) {
             BaseTestUtils.reporter.report(e.getMessage(), Reporter.FAIL);
         }
-
     }
 
     @Then("^UI Validate IP's in chart with Summary Table \"([^\"]*)\" with Col name \"([^\"]*)\" with widget name \"([^\"]*)\"$")
@@ -479,10 +426,10 @@ public class BasicValidationsTests extends BddUITestBase {
     @Then("^Sort \"([^\"]*)\" rows in Attacks Table By ColName \"([^\"]*)\"$")
     public void sortRowsInAttacksTableByColName(String SortType, String ColName) throws Throwable {
         List<WebElement> elements;
-        if(SortType.equals("DOWN")){
-            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort "+ColName+"\"] i:nth-child(1)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        }else{
-            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort "+ColName+"\"] i:nth-child(2)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        if (SortType.equals("DOWN")) {
+            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort " + ColName + "\"] i:nth-child(1)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        } else {
+            elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.CSS, "[data-debug-id=\"Sorter_attacksDashboardSort " + ColName + "\"] i:nth-child(2)").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         }
         elements.get(0).click();
     }
@@ -490,15 +437,13 @@ public class BasicValidationsTests extends BddUITestBase {
     @Then("^UI Validate Count of Applications scope selection starts with \"([^\"]*)\" in AppWall dashboard equal to \"([^\"]*)\"$")
     public void uiValidateCountOfApplicationsScopeSelectionStartsWithInAppWallDashboardEqualTo(String prefix, String ExpectedCount) throws Throwable {
         int actualCount = basicOperationsByNameIdHandler.ScrollDownAndCountApplications(prefix);
-        if(actualCount != Integer.parseInt(ExpectedCount)){
-            ReportsUtils.reportAndTakeScreenShot("actualCount = "+actualCount+" , not equal to ExpectedCount = "+ExpectedCount, Reporter.FAIL);
+        if (actualCount != Integer.parseInt(ExpectedCount)) {
+            ReportsUtils.reportAndTakeScreenShot("actualCount = " + actualCount + " , not equal to ExpectedCount = " + ExpectedCount, Reporter.FAIL);
         }
-
-
     }
 
 
-    class TableValues {
+    static class TableValues {
         public String columnName;
         public String value;
     }
@@ -516,7 +461,7 @@ public class BasicValidationsTests extends BddUITestBase {
         tableHandler.uiValidateRowsIsBetweenDates(tableLabel, first, second);
     }
 
-    @Then("^Validate Expand  \"([^\"]*)\" table$")
+    @Then("^Validate Expand \"([^\"]*)\" table$")
     public void uiValidateValues(String label, List<TableContent> entries) throws Exception {
 
         String params = null;
@@ -533,7 +478,7 @@ public class BasicValidationsTests extends BddUITestBase {
         }
     }
 
-    class TableContent {
+    static class TableContent {
         public String name;
         public String value;
         public String index;

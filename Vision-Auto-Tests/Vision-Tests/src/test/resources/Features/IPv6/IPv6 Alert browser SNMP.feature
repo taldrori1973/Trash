@@ -3,14 +3,14 @@ Feature: IPv6 Alert Browser SNMP
 
   @SID_1
   Scenario: IPv6 SNMP trap Cleanup
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alert_rule;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from snmp_target_server;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_categories where category=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_logical_grp_ids where alert_filter_id=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_ids where device_id=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_severities where severity=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_modules where module=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alertsfilter where name='ProfileV6';""
+    Then MYSQL DELETE FROM "alert_rule" Table in "VISION_NG" Schema WHERE ""
+    Then MYSQL DELETE FROM "snmp_target_server" Table in "VISION_NG" Schema WHERE ""
+    Then MYSQL DELETE FROM "alrt_fltr_to_categories" Table in "VISION_NG" Schema WHERE "category=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alrt_fltr_to_logical_grp_ids" Table in "VISION_NG" Schema WHERE "alert_filter_id=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alrt_fltr_to_ids" Table in "VISION_NG" Schema WHERE "device_id=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alrt_fltr_to_severities" Table in "VISION_NG" Schema WHERE "severity=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alrt_fltr_to_modules" Table in "VISION_NG" Schema WHERE "module=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alertsfilter" Table in "VISION_NG" Schema WHERE "name='ProfileV6'"
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     Then REST Request "PUT" for "Vision Authentication->TACACS"
       | type | value                           |
@@ -66,7 +66,7 @@ Feature: IPv6 Alert Browser SNMP
 
   @SID_7
   Scenario: IPv6 SNMP delete alert rule
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alert_rule;""
+    Then MYSQL DELETE FROM "alert_rule" Table in "VISION_NG" Schema WHERE ""
 
   @SID_8
   Scenario: IPv6 Verify application trap received at snmpd server
@@ -75,19 +75,18 @@ Feature: IPv6 Alert Browser SNMP
     Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "iso.3.6.1.4.1.89.35.10.1.3"|tail -5'" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "iso.3.6.1.4.1.89.35.10.1.3 = STRING: "wrong_name"" in any line
     Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "iso.3.6.1.4.1.89.35.10.1.4"|tail -1'" on "GENERIC_LINUX_SERVER" and validate result EQUALS "iso.3.6.1.4.1.89.35.10.1.4 = STRING: "INFO""
     Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "iso.3.6.1.4.1.89.35.10.1.5"|tail -1'" on "GENERIC_LINUX_SERVER" and validate result EQUALS "iso.3.6.1.4.1.89.35.10.1.5 = STRING: "INSITE_GENERAL""
-    Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "Agent Hostname: UDP/IPv6: "|tail -1'" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "[200a::172:17:164:111]" Retry 120 seconds
     Then CLI Run remote linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log > /tmp/trapfile.txt'" on "GENERIC_LINUX_SERVER"
 
   @SID_9
   Scenario: IPv6 SNMP trap - cleanup
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alert_rule;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from snmp_target_server;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_categories where category=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_logical_grp_ids where alert_filter_id=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_ids where device_id=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_severities where severity=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_modules where module=(select row_id from alertsfilter where name='ProfileV6');""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alertsfilter where name='ProfileV6';""
+    Then MYSQL DELETE FROM "alert_rule" Table in "VISION_NG" Schema WHERE ""
+    Then MYSQL DELETE FROM "snmp_target_server" Table in "VISION_NG" Schema WHERE ""
+    Then MYSQL DELETE FROM "alrt_fltr_to_categories" Table in "VISION_NG" Schema WHERE "category=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alrt_fltr_to_logical_grp_ids" Table in "VISION_NG" Schema WHERE "alert_filter_id=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alrt_fltr_to_ids" Table in "VISION_NG" Schema WHERE "device_id=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alrt_fltr_to_severities" Table in "VISION_NG" Schema WHERE "severity=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alrt_fltr_to_modules" Table in "VISION_NG" Schema WHERE "module=(select row_id from alertsfilter where name='ProfileV6')"
+    Then MYSQL DELETE FROM "alertsfilter" Table in "VISION_NG" Schema WHERE "name='ProfileV6'"
     Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and halt 185 seconds
     * CLI Check if logs contains
       | logType | expression | isExpected   |

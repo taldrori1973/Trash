@@ -11,9 +11,8 @@ Feature: Attacks Per Period Chart in Dashboard and Report
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Attack per period
-    Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 250 seconds
+    Given CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_Set_1" and wait 250 seconds
     * CLI kill all simulator attacks on current vision
-
 
   @SID_3
   Scenario:  login

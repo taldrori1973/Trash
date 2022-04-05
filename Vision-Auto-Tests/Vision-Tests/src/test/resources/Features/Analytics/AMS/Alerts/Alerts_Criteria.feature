@@ -368,8 +368,8 @@ Feature: VRM Alerts Criteria
     Scenario: Clear alert browser and Run DP simulator
 #    Given CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 11
     Then REST Delete ES index "alert"
-    And CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 210 seconds
-    Given CLI simulate 1 attacks of type "pps_traps" on "DefensePro" 10 and wait 210 seconds
+    And CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_set_1" and wait 210 seconds
+    Given CLI simulate 1 attacks of type "pps_traps" on SetId "DefensePro_set_1" and wait 210 seconds
     Then UI Navigate to "AMS Forensics" page via homePage
     Then UI Navigate to "AMS Alerts" page via homePage
 
@@ -965,8 +965,8 @@ Feature: VRM Alerts Criteria
   @SID_138 @HTTPS_FLOOD
   Scenario: Clear alert browser and Run DP simulator for HTTPS
     Then REST Delete ES index "alert"
-    And CLI simulate 1 attacks of type "https_new2" on "DefensePro" 11
-    And CLI simulate 1 attacks of type "https_new2_trap" on "DefensePro" 11 with loopDelay 15000 and wait 90 seconds
+    And CLI simulate 1 attacks of type "https_new2" on SetId "DefensePro_set_2"
+    And CLI simulate 1 attacks of type "https_new2_trap" on SetId "DefensePro_set_2" with loopDelay 15000 and wait 90 seconds
 
   @SID_139 @HTTPS_FLOOD
   Scenario: VRM Validate Alert Threat Category HTTPS Flood Any Time Schedule

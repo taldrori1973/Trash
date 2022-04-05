@@ -11,8 +11,8 @@ Feature: Edit AMS Report tests
   Scenario: Create and validate Dp Analytics and DF Analytics and HTTPS Flood Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                                                                                                                                                                 |
-      | Template-2            | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true                                                                                                                                                                 |
+      | Template-2            | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{SetId:DefensePro_Set_2, devicePolicies:[BDOS]}] |
       | Template-3            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                                                                                                                                                      |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                    |
       | Time Definitions.Date | Quick:1D                                                                                                                                                                                                                                                             |
@@ -20,8 +20,8 @@ Feature: Edit AMS Report tests
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                                                                                                                                                 |
       | Format                | Select: PDF                                                                                                                                                                                                                                                          |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                                                                                                                                                                 |
-      | Template-2            | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true                                                                                                                                                                 |
+      | Template-2            | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{SetId:DefensePro_Set_2, devicePolicies:[BDOS]}] |
       | Template-3            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                                                                                                                                                      |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                    |
       | Time Definitions.Date | Quick:1D                                                                                                                                                                                                                                                             |
@@ -48,35 +48,35 @@ Feature: Edit AMS Report tests
   @SID_5
   Scenario: Edit Template Devices from Dp Analytics and DF Analytics and HTTPS Flood Report
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1 | reportType:DefensePro Analytics,devices:[{deviceIndex:11}] |
+      | Template-1 | reportType:DefensePro Analytics,devices:[{SetId:DefensePro_Set_2}] |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_2}],showTable:true |
 
 
   @SID_6
   Scenario:Add Template to Dp Analytics and DF Analytics and HTTPS Flood Report
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-4 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Template-4 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                                                                                                                                                                 |
-      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_2}],showTable:true                                                                                                                                                                 |
+      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{SetId:DefensePro_Set_2, devicePolicies:[BDOS]}] |
       | Template-3 | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                                                                                                                                                      |
-      | Template-4 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true                                                                                                                                            |
+      | Template-4 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true                                                                                                                                            |
 
   @SID_7
   Scenario: Delete Template from Dp Analytics and DF Analytics and HTTPS Flood Report
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-4 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                                                                                                                                                                 |
-      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_2}],showTable:true                                                                                                                                                                 |
+      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{SetId:DefensePro_Set_2, devicePolicies:[BDOS]}] |
       | Template-3 | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                                                                                                                                                      |
 
   @SID_8
   Scenario: Create and validate Dp Analytics and DF Analytics and HTTPS Flood Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report2"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true            |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true            |
       | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                               |
       | Time Definitions.Date | Quick:1D                                                                                                        |
@@ -84,7 +84,7 @@ Feature: Edit AMS Report tests
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                            |
       | Format                | Select: PDF                                                                                                     |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report2"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true            |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true            |
       | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                               |
       | Time Definitions.Date | Quick:1D                                                                                                        |

@@ -2,7 +2,6 @@
 Feature: DefenseFlow Attacks Reports
 
   #  ==========================================Setup================================================
-
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -12,13 +11,11 @@ Feature: DefenseFlow Attacks Reports
     * REST Delete ES index "vrm-scheduled-report-result-*"
     * CLI Clear vision logs
 
-
   @SID_31
   Scenario: Change DF managment IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
-
 
   @SID_2
   Scenario: Run DF simulator
@@ -35,13 +32,11 @@ Feature: DefenseFlow Attacks Reports
       | #visionIP                                       |
       | " Terminated"                                   |
 
-  
   @SID_3
   Scenario:Login and copy get_scheduled_report_value.sh file to server
     Given UI Login with user "sys_admin" and password "radware"
     Then CLI copy "/home/radware/Scripts/get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
 
-  
   @SID_4
   Scenario: Email configuration
     And UI Go To Vision
@@ -57,49 +52,45 @@ Feature: DefenseFlow Attacks Reports
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
 
-  
   @SID_5
   Scenario: Navigate to AMS report
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "New Report Tab" if Exists "true"
 
   # =============================================Overall===========================================================
-  
   @SID_6
   Scenario: Create DefenseFlow report
     When UI "Create" Report With Name "OverallDFReport"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All], showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                        |
-
+      | Template | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All] |
+      | Logo     | reportLogoPNG.png                                                                                                                         |
     Then UI "Validate" Report With Name "OverallDFReport"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All], showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                        |
+      | Template | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All] |
+      | Logo     | reportLogoPNG.png                                                                                                                         |
     Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverallDFReport"
 
-  
   @SID_7
   Scenario: Edit report
     When UI "Edit" Report With Name "OverallDFReport"
-      | Template              | reportType:DefenseFlow Analytics,AddWidgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[PO_300], showTable:true |
+      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_300]      |
+      | Logo                  | reportLogoPNG.png                                                |
       | Time Definitions.Date | Quick:15m                                                        |
       | Share                 | Email:[DF_attack@report.local],Subject:DefenseFlow Attack report |
       | Format                | Select: CSV                                                      |
 
-  
+
   @SID_8
   Scenario: Clear SMTP server log files
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
 
-  
   @SID_9
   Scenario: Generate Report
     Then UI "Generate" Report With Name "OverallDFReport"
       | timeOut | 60 |
 
-  
   @SID_10
   Scenario: Delete report
-    Then UI Delete Report With Name "OverallDFReport"
+    When UI Click Button "Delete" with value "OverallDFReport"
+    When UI Click Button "Delete.Approve"
     Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "OverallDFReport"
 
   @SID_11
@@ -111,40 +102,39 @@ Feature: DefenseFlow Attacks Reports
   @SID_12
   Scenario: Create New Report with Default Values
     When UI "Create" Report With Name "deliveryDF"
-      | reportType     | DefenseFlow Analytics Dashboard                                                              |
-      | projectObjects | All                                                                                          |
-      | Share          | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject DF |
+      | reportType | DefenseFlow Analytics,Protected Objects:[All]                                                |
+      | Share      | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject DF |
     Then UI Generate and Validate Report With Name "deliveryDF" with Timeout of 100 Seconds
 
   @SID_13
   Scenario: Create New Report with Monthly schedule
     When UI "Create" Report With Name "scheduleMonthlyDF"
-      | reportType | DefenseFlow Analytics Dashboard |
-      | Schedule   | Run Every:Monthly,On Time:+2m   |
+      | reportType | DefenseFlow Analytics         |
+      | Schedule   | Run Every:Monthly,On Time:+2m |
 
     Then UI "Validate" Report With Name "scheduleMonthlyDF"
-      | reportType | DefenseFlow Analytics Dashboard |
-      | Schedule   | Run Every:Monthly,On Time:+2m   |
+      | reportType | DefenseFlow Analytics         |
+      | Schedule   | Run Every:Monthly,On Time:+2m |
 
   @SID_14
   Scenario: Create New Report with With daily schedule
     When UI "Create" Report With Name "scheduleDailyDF"
-      | reportType | DefenseFlow Analytics Dashboard |
-      | Schedule   | Run Every:Daily,On Time:+2m     |
+      | reportType | DefenseFlow Analytics       |
+      | Schedule   | Run Every:Daily,On Time:+2m |
 
     Then UI "Validate" Report With Name "scheduleDailyDF"
-      | reportType | DefenseFlow Analytics Dashboard |
-      | Schedule   | Run Every:Daily,On Time:+2m     |
+      | reportType | DefenseFlow Analytics       |
+      | Schedule   | Run Every:Daily,On Time:+2m |
 
   @SID_15
   Scenario: validation if reports generated after the expected time
     When Sleep "150"
     # validate if scheduleMonthlyDF generated in UI
-    When UI Click Button "Reports List Item" with value "scheduleMonthlyDF"
+    When UI Click Button "My Report" with value "scheduleMonthlyDF"
     Then UI Validate Element Existence By Label "Logs List Items" if Exists "true" with value "scheduleMonthlyDF"
 
     # validate if scheduleDailyDF generated in UI
-    When UI Click Button "Reports List Item" with value "scheduleDailyDF"
+    When UI Click Button "My Report" with value "scheduleDailyDF"
     Then UI Validate Element Existence By Label "Logs List Items" if Exists "true" with value "scheduleDailyDF"
 
     # validate scheduleMonthlyDF schedule regex matchs in CLI
@@ -177,15 +167,13 @@ Feature: DefenseFlow Attacks Reports
   @SID_18
   Scenario: validate time selection -Quick range- Report
     Given UI "Create" Report With Name "1WeakBeforeReport"
-      | reportType            | DefenseFlow Analytics Dashboard |
-      | projectObjects        | PO_300                          |
-      | Time Definitions.Date | Quick:1W                        |
-      | Format                | Select: CSV                     |
+      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_300] |
+      | Time Definitions.Date | Quick:1W                                         |
+      | Format                | Select: CSV                                      |
     Then UI "Validate" Report With Name "1WeakBeforeReport"
-      | reportType            | DefenseFlow Analytics Dashboard |
-      | projectObjects        | PO_300                          |
-      | Time Definitions.Date | Quick:1W                        |
-      | Format                | Select: CSV                     |
+      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_300] |
+      | Time Definitions.Date | Quick:1W                                         |
+      | Format                | Select: CSV                                      |
     Then UI Generate and Validate Report With Name "1WeakBeforeReport" with Timeout of 100 Seconds
 
   @SID_19
@@ -201,17 +189,13 @@ Feature: DefenseFlow Attacks Reports
   @SID_21
   Scenario: validate time selection -Absolute- report
     Given UI "Create" Report With Name "100DaysBeforeReport"
-      | reportType            | DefenseFlow Analytics Dashboard                                              |
-      | projectObjects        | PO_200,PO_100                                                                |
-      | Design                | Add:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                        |
-      | Format                | Select: CSV                                                                  |
+      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_200,PO_100],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                      |
+      | Format                | Select: CSV                                                                                                                              |
     Then UI "Validate" Report With Name "100DaysBeforeReport"
-      | reportType            | DefenseFlow Analytics Dashboard                                                  |
-      | projectObjects        | PO_200,PO_100                                                                    |
-      | Design                | Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                            |
-      | Format                | Select: CSV                                                                      |
+      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_200,PO_100],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                      |
+      | Format                | Select: CSV                                                                                                                              |
     Then UI Generate and Validate Report With Name "100DaysBeforeReport" with Timeout of 100 Seconds
 
   @SID_22
@@ -241,14 +225,14 @@ Feature: DefenseFlow Attacks Reports
   Scenario: non-admin user can't select DF in report
     When UI Click Button "Add New"
     And UI Click Button "Template" with value ""
-    Then UI Validate Element Existence By Label "Template" if Exists "false" with value "DefenseFlow Analytics Dashboard"
+    Then UI Validate Element Existence By Label "Template" if Exists "false" with value "DefenseFlow Analytics"
     And UI Click Button "Cancel"
 
   @SID_26
   Scenario: non-admin user can't navigate to DF dashboard
     Then UI Validate user rbac
-      | operations                      | accesses |
-      | DefenseFlow Analytics Dashboard | no       |
+      | operations            | accesses |
+      | DefenseFlow Analytics | no       |
 
   @SID_27
   Scenario: can't see the admins report
@@ -271,13 +255,13 @@ Feature: DefenseFlow Attacks Reports
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_31
-  Scenario: Change DF management IP to IP of Vision DF
-    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "system df management-ip set " |
-      | @defenseFlowDevice.getDeviceIp |
-
   @SID_30
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+
+  @SID_32
   Scenario: Cleanup
     When UI Open "Configurations" Tab
     Then UI logout and close browser

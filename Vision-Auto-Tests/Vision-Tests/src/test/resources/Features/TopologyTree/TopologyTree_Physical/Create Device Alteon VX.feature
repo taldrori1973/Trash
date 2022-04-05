@@ -11,13 +11,13 @@ Feature: Create Alteon VX Functionality
 
   @SID_2
   Scenario: Add  Alteon VX
-    Then UI Add physical "Alteon" with index 6 on "Default (Physical)" site
+    Then UI Add physical "Alteon_Set_4" under "Default (Physical)" site
     Then UI open Topology Tree view "PhysicalContainers" site
     Then UI Add new Site "Alteon_VX" under Parent "Default (Physical)"
     Then UI ExpandAll Physical Containers
     Then UI open Topology Tree view "SitesAndClusters" site
     Then UI open Topology Tree view "PhysicalContainers" site
-    Then UI Lock Device with type "Alteon" and Index 6 by Tree Tab "Physical Containers"
+    Then UI Lock Device "Alteon_Set_4" under "Physical Containers"
     Then UI Timeout in seconds "5"
 
   @SID_3

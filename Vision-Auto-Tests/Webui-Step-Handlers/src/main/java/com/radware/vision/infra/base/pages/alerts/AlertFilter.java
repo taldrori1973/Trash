@@ -1,5 +1,6 @@
 package com.radware.vision.infra.base.pages.alerts;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
@@ -14,7 +15,6 @@ import com.radware.vision.infra.testhandlers.alerts.AlertsUtils.DeviceTypeSetter
 import com.radware.vision.infra.testhandlers.alerts.AlertsUtils.ModuleSetter;
 import com.radware.vision.infra.testhandlers.alerts.AlertsUtils.SeveritySetter;
 import com.radware.vision.infra.utils.WebUIStringsVision;
-import junit.framework.SystemTestCase4;
 import org.openqa.selenium.support.How;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class AlertFilter extends WebUIVisionBasePage {
         } else if ((raisedTimeUnit.toLowerCase()).contains("minute")) {
             timeValueCombo.setLocator(new ComponentLocator(How.ID, WebUIStringsVision.getRaisedLastValMinCombo()));
         } else {
-            SystemTestCase4.report.report("Incorrect time UNIT is provided", Reporter.FAIL);
+            BaseTestUtils.report("Incorrect time UNIT is provided", Reporter.FAIL);
         }
         timeValueCombo.find(true, true);
         setDropdownIfNotEmpty(timeValueCombo, raisedTimeValue);

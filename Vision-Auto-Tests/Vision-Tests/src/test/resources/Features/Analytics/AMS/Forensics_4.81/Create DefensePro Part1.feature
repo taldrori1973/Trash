@@ -12,110 +12,110 @@ Feature:DefensePro Part1
 
   @SID_2
   Scenario: create new Output Device IP Address
-    Given UI "Create" Forensics With Name "Output Device IP Address"
-      | Product               | DefensePro                                                                     |
-      | Output                | Device IP Address                                                              |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
-    Then UI "Validate" Forensics With Name "Output Device IP Address"
-      | Product               | DefensePro                                                                     |
-      | Output                | Device IP Address                                                              |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
-    Then UI Delete Forensics With Name "Output Device IP Address"
+    Given UI "Create" Forensics With Name " Output Device IP Address"
+      | Product  | DefensePro                                                                     |
+      | Output   | Device IP Address                                                              |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
+    Then UI "Validate" Forensics With Name " Output Device IP Address"
+      | Product  | DefensePro                                                                     |
+      | Output   | Device IP Address                                                              |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
+    Then UI Delete Forensics With Name " Output Device IP Address"
 
   @SID_3
   Scenario: create new Output End Time
     Given UI "Create" Forensics With Name "Output End Time"
-      | Product               | DefensePro                                                                     |
-      | Output                | End Time                                                                       |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
+      | Product  | DefensePro                                                                     |
+      | Output   | End Time                                                                       |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
     Then UI "Validate" Forensics With Name "Output End Time"
-      | Product               | DefensePro                                                                     |
-      | Output                | End Time                                                                       |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
+      | Product  | DefensePro                                                                     |
+      | Output   | End Time                                                                       |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
     Then UI Delete Forensics With Name "Output End Time"
 
   @SID_4
   Scenario: create new Output Start Time
     Given UI "Create" Forensics With Name "Output Start Time"
-      | Product               | DefensePro                                                                     |
-      | Output                | Start Time                                                                     |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
+      | Product  | DefensePro                                                                     |
+      | Output   | Start Time                                                                     |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
     Then UI "Validate" Forensics With Name "Output Start Time"
-      | Product               | DefensePro                                                                     |
-      | Output                | Start Time                                                                     |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
+      | Product  | DefensePro                                                                     |
+      | Output   | Start Time                                                                     |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
     Then UI Delete Forensics With Name "Output Start Time"
 
   @SID_5
   Scenario: create new Output Threat Category
     Given UI "Create" Forensics With Name "Output Threat Category"
-      | Product               | DefensePro                                                                     |
-      | Output                | Threat Category                                                                |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                    |
-      | Format                | Select: HTML                                                                   |
+      | Product  | DefensePro                                                  |
+      | Output   | Threat Category                                             |
+      | Criteria | condition.All:true                                          |
+      | devices  | All                                                         |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG] |
+      | Format   | Select: HTML                                                |
     Then UI "Validate" Forensics With Name "Output Threat Category"
-      | Product               | DefensePro                                                                     |
-      | Output                | Threat Category                                                                |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                    |
-      | Format                | Select: HTML                                                                   |
+      | Product  | DefensePro                                                  |
+      | Output   | Threat Category                                             |
+      | Criteria | condition.All:true                                          |
+      | devices  | All                                                         |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG] |
+      | Format   | Select: HTML                                                |
     Then UI Delete Forensics With Name "Output Threat Category"
 
   @SID_6
   Scenario: create new Output Attack Name1
     Given UI "Create" Forensics With Name "Output Attack Name1"
-      | Product               | DefensePro                                                                     |
-      | Output                | Attack Name                                                                    |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                    |
-      | Format                | Select: HTML                                                                   |
+      | Product  | DefensePro                                                  |
+      | Output   | Attack Name                                                 |
+      | Criteria | condition.All:true                                          |
+      | devices  | All                                                         |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG] |
+      | Format   | Select: HTML                                                |
     Then UI "Validate" Forensics With Name "Output Attack Name1"
-      | Product               | DefensePro                                                                     |
-      | Output                | Attack Name                                                                    |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                    |
-      | Format                | Select: HTML                                                                   |
+      | Product  | DefensePro                                                  |
+      | Output   | Attack Name                                                 |
+      | Criteria | condition.All:true                                          |
+      | devices  | All                                                         |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG] |
+      | Format   | Select: HTML                                                |
     Then UI Delete Forensics With Name "Output Attack Name1"
 
   @SID_7
   Scenario: create new Output Attack Name2
     Given UI "Create" Forensics With Name "Output Attack Name2"
-      | Product               | DefensePro                                                                     |
-      | Output                | Attack Name                                                                    |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                    |
-      | Format                | Select: CSV                                                                    |
+      | Product  | DefensePro                                                  |
+      | Output   | Attack Name                                                 |
+      | Criteria | condition.All:true                                          |
+      | devices  | All                                                         |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG] |
+      | Format   | Select: CSV                                                 |
     Then UI "Validate" Forensics With Name "Output Attack Name2"
-      | Product               | DefensePro                                                                     |
-      | Output                | Attack Name                                                                    |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                    |
-      | Format                | Select: CSV                                                                    |
+      | Product  | DefensePro                                                  |
+      | Output   | Attack Name                                                 |
+      | Criteria | condition.All:true                                          |
+      | devices  | All                                                         |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG] |
+      | Format   | Select: CSV                                                 |
     Then UI Delete Forensics With Name "Output Attack Name2"
 
   @SID_8
@@ -124,7 +124,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                                                       |
       | Output                | Action                                                                                                           |
       | Criteria              | condition.All:true                                                                                               |
-      | devices               | index:10                                                                                                         |
+      | devices               | SetId:DefensePro_Set_1                                                                                           |
       | Time Definitions.Date | Quick:1D                                                                                                         |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -133,7 +133,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                                                       |
       | Output                | Action                                                                                                           |
       | Criteria              | condition.All:true                                                                                               |
-      | devices               | index:10                                                                                                         |
+      | devices               | SetId:DefensePro_Set_1                                                                                           |
       | Time Definitions.Date | Quick:1D                                                                                                         |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -143,21 +143,21 @@ Feature:DefensePro Part1
   @SID_9
   Scenario: create new Output Attack ID
     Given UI "Create" Forensics With Name "Output Attack ID"
-      | Product               | DefensePro                                                                     |
-      | Output                | Attack ID                                                                      |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
-      | Schedule              | Run Every:once, On Time:+6H                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
+      | Product  | DefensePro                                                                     |
+      | Output   | Attack ID                                                                      |
+      | Criteria | condition.All:true                                                             |
+      | devices  | SetId:DefensePro_Set_1                                                         |
+      | Schedule | Run Every:once, On Time:+6H                                                    |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
     Then UI "Validate" Forensics With Name "Output Attack ID"
-      | Product               | DefensePro                                                                     |
-      | Output                | Attack ID                                                                      |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
-      | Schedule              | Run Every:once, On Time:+6H                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
+      | Product  | DefensePro                                                                     |
+      | Output   | Attack ID                                                                      |
+      | Criteria | condition.All:true                                                             |
+      | devices  | SetId:DefensePro_Set_1                                                         |
+      | Schedule | Run Every:once, On Time:+6H                                                    |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
     Then UI Delete Forensics With Name "Output Attack ID"
 
   @SID_10
@@ -185,19 +185,19 @@ Feature:DefensePro Part1
   @SID_11
   Scenario: create new Output Source IP Address
     Given UI "Create" Forensics With Name "Output Source IP Address"
-      | Product               | DefensePro                                                                     |
-      | Output                | Source IP Address                                                              |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
+      | Product  | DefensePro                                                                     |
+      | Output   | Source IP Address                                                              |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
     Then UI "Validate" Forensics With Name "Output Source IP Address"
-      | Product               | DefensePro                                                                     |
-      | Output                | Source IP Address                                                              |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV With Attack Details                                                |
+      | Product  | DefensePro                                                                     |
+      | Output   | Source IP Address                                                              |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV With Attack Details                                                |
     Then UI Delete Forensics With Name "Output Source IP Address"
 
   @SID_12
@@ -225,21 +225,21 @@ Feature:DefensePro Part1
   @SID_13
   Scenario: create new Output Destination IP Address
     Given UI "Create" Forensics With Name "Output Destination IP Address"
-      | Product               | DefensePro                                                                     |
-      | Output                | Destination IP Address                                                         |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: HTML                                                                   |
+      | Product  | DefensePro                                                                     |
+      | Output   | Destination IP Address                                                         |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: HTML                                                                   |
     Then UI "Validate" Forensics With Name "Output Destination IP Address"
-      | Product               | DefensePro                                                                     |
-      | Output                | Destination IP Address                                                         |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: HTML                                                                   |
+      | Product  | DefensePro                                                                     |
+      | Output   | Destination IP Address                                                         |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Destination IP Address"
 
   @SID_14
@@ -248,7 +248,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                                                       |
       | Output                | Destination Port                                                                                                 |
       | Criteria              | condition.All:true                                                                                               |
-      | devices               | index:10                                                                                                         |
+      | devices               | SetId:DefensePro_Set_1                                                                                           |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -257,7 +257,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                                                       |
       | Output                | Destination Port                                                                                                 |
       | Criteria              | condition.All:true                                                                                               |
-      | devices               | index:10                                                                                                         |
+      | devices               | SetId:DefensePro_Set_1                                                                                           |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -336,7 +336,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Duration                                                                       |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -345,7 +345,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Duration                                                                       |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -422,7 +422,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Max bps                                                                        |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -431,7 +431,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Max bps                                                                        |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -463,21 +463,21 @@ Feature:DefensePro Part1
   @SID_24
   Scenario: create new Output Risk
     Given UI "Create" Forensics With Name "Output Risk"
-      | Product               | DefensePro                                                                     |
-      | Output                | Risk                                                                           |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | DefensePro                                                                     |
+      | Output   | Risk                                                                           |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
     Then UI "Validate" Forensics With Name "Output Risk"
-      | Product               | DefensePro                                                                     |
-      | Output                | Risk                                                                           |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | DefensePro                                                                     |
+      | Output   | Risk                                                                           |
+      | Criteria | condition.All:true                                                             |
+      | devices  | All                                                                            |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Risk"
 
   @SID_25
@@ -508,7 +508,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                                           |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped |
       | Criteria              | condition.All:true                                                                                   |
-      | devices               | index:10                                                                                             |
+      | devices               | SetId:DefensePro_Set_1                                                                               |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                       |
       | Format                | Select: HTML                                                                                         |
@@ -516,7 +516,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                                           |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped |
       | Criteria              | condition.All:true                                                                                   |
-      | devices               | index:10                                                                                             |
+      | devices               | SetId:DefensePro_Set_1                                                                               |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                       |
       | Format                | Select: HTML                                                                                         |
@@ -525,23 +525,23 @@ Feature:DefensePro Part1
   @SID_27
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag
     Given UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag"
-      | Product               | DefensePro                                                                                                                                      |
-      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
-      | Criteria              | condition.All:true                                                                                                                              |
-      | devices               | All                                                                                                                                             |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                              |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                 |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                |
-      | Format                | Select: CSV                                                                                                                                     |
+      | Product               | DefensePro                                                                                                                                     |
+      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
+      | Criteria              | condition.All:true                                                                                                                             |
+      | devices               | All                                                                                                                                            |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                             |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                               |
+      | Format                | Select: CSV                                                                                                                                    |
     Then UI "Validate" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag"
-      | Product               | DefensePro                                                                                                                                      |
-      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
-      | Criteria              | condition.All:true                                                                                                                              |
-      | devices               | All                                                                                                                                             |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                              |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                 |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                |
-      | Format                | Select: CSV                                                                                                                                     |
+      | Product               | DefensePro                                                                                                                                     |
+      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
+      | Criteria              | condition.All:true                                                                                                                             |
+      | devices               | All                                                                                                                                            |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                             |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                               |
+      | Format                | Select: CSV                                                                                                                                    |
     Then UI Delete Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag"
 
   @SID_28
@@ -569,21 +569,21 @@ Feature:DefensePro Part1
   @SID_29
   Scenario: create new Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action
     Given UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action"
-      | Product               | DefensePro                                                                                                       |
-      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action                                         |
-      | Criteria              | condition.All:true                                                                                               |
-      | devices               | All                                                                                                              |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Product  | DefensePro                                                                                                       |
+      | Output   | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action                                         |
+      | Criteria | condition.All:true                                                                                               |
+      | devices  | All                                                                                                              |
+      | Schedule | Run Every:Daily,On Time:+2m                                                                                      |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV With Attack Details                                                                                  |
     Then UI "Validate" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action"
-      | Product               | DefensePro                                                                                                       |
-      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action                                         |
-      | Criteria              | condition.All:true                                                                                               |
-      | devices               | All                                                                                                              |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Product  | DefensePro                                                                                                       |
+      | Output   | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action                                         |
+      | Criteria | condition.All:true                                                                                               |
+      | devices  | All                                                                                                              |
+      | Schedule | Run Every:Daily,On Time:+2m                                                                                      |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action"
 
   @SID_30
@@ -592,7 +592,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Policy Name,Source IP Address                                                  |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -601,7 +601,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Policy Name,Source IP Address                                                  |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -633,23 +633,23 @@ Feature:DefensePro Part1
   @SID_32
   Scenario: create new Output All
     Given UI "Create" Forensics With Name "Output All"
-      | Product               | DefensePro                                                                                                                                                                                                                                                                                         |
-      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
-      | Criteria              | condition.All:true                                                                                                                                                                                                                                                                                 |
-      | devices               | All                                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                   |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                                                                                                                                                                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                     |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                        |
+      | Product               | DefensePro                                                                                                                                                                                                                                                                                        |
+      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
+      | Criteria              | condition.All:true                                                                                                                                                                                                                                                                                |
+      | devices               | All                                                                                                                                                                                                                                                                                               |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                                                                                                                                                                                                   |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                    |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                       |
     Then UI "Validate" Forensics With Name "Output All"
-      | Product               | DefensePro                                                                                                                                                                                                                                                                                         |
-      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
-      | Criteria              | condition.All:true                                                                                                                                                                                                                                                                                 |
-      | devices               | All                                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                   |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                                                                                                                                                                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                     |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                        |
+      | Product               | DefensePro                                                                                                                                                                                                                                                                                        |
+      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
+      | Criteria              | condition.All:true                                                                                                                                                                                                                                                                                |
+      | devices               | All                                                                                                                                                                                                                                                                                               |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                                                                                                                                                                                                   |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                    |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                       |
     Then UI Delete Forensics With Name "Output All"
 
   @SID_33
@@ -680,7 +680,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | End Time                                                                       |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:Forward                            |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Months,2]                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -689,7 +689,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | End Time                                                                       |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:Forward                            |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Months,2]                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -721,21 +721,21 @@ Feature:DefensePro Part1
   @SID_36
   Scenario: create new Output Threat Category Equals
     Given UI "Create" Forensics With Name "Output Threat Category Equals"
-      | Product               | DefensePro                                                                     |
-      | Output                | Threat Category                                                                |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Source Reset                       |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | DefensePro                                                                     |
+      | Output   | Threat Category                                                                |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:Source Reset                       |
+      | devices  | All                                                                            |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
     Then UI "Validate" Forensics With Name "Output Threat Category Equals"
-      | Product               | DefensePro                                                                     |
-      | Output                | Threat Category                                                                |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Source Reset                       |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | DefensePro                                                                     |
+      | Output   | Threat Category                                                                |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:Source Reset                       |
+      | devices  | All                                                                            |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Threat Category Equals"
 
   @SID_37
@@ -766,7 +766,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Attack Name                                                                    |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:Source and Destination Reset       |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Quick:Today                                                                    |
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -775,7 +775,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Attack Name                                                                    |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:Source and Destination Reset       |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Quick:Today                                                                    |
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -823,7 +823,7 @@ Feature:DefensePro Part1
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Attack ID Equals"
-  @MMM
+
   @SID_41
   Scenario: create new Output Policy Name Equals
     Given UI "Create" Forensics With Name "Output Policy Name Equals"
@@ -838,7 +838,7 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Policy Name Equals"
       | Product               | DefensePro                                                                                                       |
       | Output                | Policy Name                                                                                                      |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK                                                         |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK                                                          |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                                  |
@@ -851,8 +851,8 @@ Feature:DefensePro Part1
     Given UI "Create" Forensics With Name "Output Source IP Address Equals"
       | Product               | DefensePro                                                                     |
       | Output                | Source IP Address                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination      |
-      | devices               | index:10                                                                       |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination             |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -860,8 +860,8 @@ Feature:DefensePro Part1
     Then UI "Validate" Forensics With Name "Output Source IP Address Equals"
       | Product               | DefensePro                                                                     |
       | Output                | Source IP Address                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK Reset Destination      |
-      | devices               | index:10                                                                       |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination             |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -871,101 +871,101 @@ Feature:DefensePro Part1
   @SID_43
   Scenario: create new Output Source Port Equals
     Given UI "Create" Forensics With Name "Output Source Port Equals"
-      | Product               | DefensePro                                                                                                       |
-      | Output                | Source Port                                                                                                      |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden                                                   |
-      | devices               | All                                                                                                              |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV                                                                                                      |
+      | Product  | DefensePro                                                                                                       |
+      | Output   | Source Port                                                                                                      |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden                                                   |
+      | devices  | All                                                                                                              |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Source Port Equals"
-      | Product               | DefensePro                                                                                                       |
-      | Output                | Source Port                                                                                                      |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden                                                   |
-      | devices               | All                                                                                                              |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV                                                                                                      |
+      | Product  | DefensePro                                                                                                       |
+      | Output   | Source Port                                                                                                      |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden                                                   |
+      | devices  | All                                                                                                              |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Source Port Equals"
 
   @SID_44
   Scenario: create new Output Destination IP Address Equals
     Given UI "Create" Forensics With Name "Output Destination IP Address Equals"
-      | Product               | DefensePro                                                                     |
-      | Output                | Destination IP Address                                                         |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden and Reset Destination      |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:once, On Time:+6H                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | DefensePro                                                                     |
+      | Output   | Destination IP Address                                                         |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden and Reset Destination      |
+      | devices  | All                                                                            |
+      | Schedule | Run Every:once, On Time:+6H                                                    |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
     Then UI "Validate" Forensics With Name "Output Destination IP Address Equals"
-      | Product               | DefensePro                                                                     |
-      | Output                | Destination IP Address                                                         |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden and Reset Destination      |
-      | devices               | All                                                                            |
-      | Schedule              | Run Every:once, On Time:+6H                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | DefensePro                                                                     |
+      | Output   | Destination IP Address                                                         |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden and Reset Destination      |
+      | devices  | All                                                                            |
+      | Schedule | Run Every:once, On Time:+6H                                                    |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Destination IP Address Equals"
 
   @SID_45
   Scenario: create new Output Destination Port Equals
     Given UI "Create" Forensics With Name "Output Destination Port Equals"
-      | Product               | DefensePro                                                                                                                                   |
-      | Output                | Destination Port                                                                                                                             |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination]   |
-      | devices               | All                                                                                                                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                             |
-      | Format                | Select: CSV With Attack Details                                                                                                              |
+      | Product               | DefensePro                                                                                                                                 |
+      | Output                | Destination Port                                                                                                                           |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination] |
+      | devices               | All                                                                                                                                        |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                           |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                           |
+      | Format                | Select: CSV With Attack Details                                                                                                            |
     Then UI "Validate" Forensics With Name "Output Destination Port Equals"
-      | Product               | DefensePro                                                                                                                                   |
-      | Output                | Destination Port                                                                                                                             |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination]   |
-      | devices               | All                                                                                                                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                             |
-      | Format                | Select: CSV With Attack Details                                                                                                              |
+      | Product               | DefensePro                                                                                                                                 |
+      | Output                | Destination Port                                                                                                                           |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,HTTP 200 OK,HTTP 403 Forbidden and Reset Destination] |
+      | devices               | All                                                                                                                                        |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                           |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                           |
+      | Format                | Select: CSV With Attack Details                                                                                                            |
     Then UI Delete Forensics With Name "Output Destination Port Equals"
 
   @SID_46
   Scenario: create new Output Direction Equals
     Given UI "Create" Forensics With Name "Output Direction Equals"
-      | Product               | DefensePro                                                                                                                                                                                                                             |
-      | Output                | Direction                                                                                                                                                                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination]|
-      | devices               | index:10                                                                                                                                                                                                                               |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                         |
-      | Format                | Select: HTML                                                                                                                                                                                                                           |
+      | Product               | DefensePro                                                                                                                                                                                                                           |
+      | Output                | Direction                                                                                                                                                                                                                            |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                               |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                   |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                       |
+      | Format                | Select: HTML                                                                                                                                                                                                                         |
     Then UI "Validate" Forensics With Name "Output Direction Equals"
-      | Product               | DefensePro                                                                                                                                                                                                                             |
-      | Output                | Direction                                                                                                                                                                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination]|
-      | devices               | index:10                                                                                                                                                                                                                               |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                         |
-      | Format                | Select: HTML                                                                                                                                                                                                                           |
+      | Product               | DefensePro                                                                                                                                                                                                                           |
+      | Output                | Direction                                                                                                                                                                                                                            |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,HTTP 200 OK,HTTP 200 OK and Reset Destination,HTTP 403 Forbidden,HTTP 403 Forbidden and Reset Destination] |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                               |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                   |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                       |
+      | Format                | Select: HTML                                                                                                                                                                                                                         |
     Then UI Delete Forensics With Name "Output Direction Equals"
 
   @SID_47
   Scenario: create new Output Protocol Not Equals
     Given UI "Create" Forensics With Name "Output Protocol Not Equals"
-      | Product               | DefensePro                                                                                                       |
-      | Output                | Protocol                                                                                                         |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Source and Destination Reset                                     |
-      | devices               | All                                                                                                              |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV                                                                                                      |
+      | Product  | DefensePro                                                                                                       |
+      | Output   | Protocol                                                                                                         |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Source and Destination Reset                                     |
+      | devices  | All                                                                                                              |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                     |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Protocol Not Equals"
-      | Product               | DefensePro                                                                                                       |
-      | Output                | Protocol                                                                                                         |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Source and Destination Reset                                     |
-      | devices               | All                                                                                                              |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV                                                                                                      |
+      | Product  | DefensePro                                                                                                       |
+      | Output   | Protocol                                                                                                         |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Source and Destination Reset                                     |
+      | devices  | All                                                                                                              |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                     |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Protocol Not Equals"
 
   @SID_48
@@ -1018,7 +1018,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Total Packets Dropped                                                          |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK                    |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Months,4]                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -1026,7 +1026,7 @@ Feature:DefensePro Part1
       | Product               | DefensePro                                                                     |
       | Output                | Total Packets Dropped                                                          |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK                    |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                         |
       | Time Definitions.Date | Relative:[Months,4]                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -1035,21 +1035,21 @@ Feature:DefensePro Part1
   @SID_51
   Scenario: create new Output Max pps Not Equals
     Given UI "Create" Forensics With Name "Output Max pps Not Equals"
-      | Product               | DefensePro                                                                                                       |
-      | Output                | Max pps                                                                                                          |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK and Reset Destination                                |
-      | devices               | All                                                                                                              |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV                                                                                                      |
+      | Product  | DefensePro                                                                                                       |
+      | Output   | Max pps                                                                                                          |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK and Reset Destination                                           |
+      | devices  | All                                                                                                              |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Max pps Not Equals"
-      | Product               | DefensePro                                                                                                       |
-      | Output                | Max pps                                                                                                          |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 Ok Reset Dest                                           |
-      | devices               | All                                                                                                              |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV                                                                                                      |
+      | Product  | DefensePro                                                                                                       |
+      | Output   | Max pps                                                                                                          |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK and Reset Destination                                          |
+      | devices  | All                                                                                                              |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Max pps Not Equals"
 
   @SID_52

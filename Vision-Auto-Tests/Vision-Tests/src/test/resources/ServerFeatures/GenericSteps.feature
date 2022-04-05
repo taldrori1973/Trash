@@ -45,3 +45,11 @@ Feature: Generic Steps
 
 
 #    Given New <string> Request Specification with Base Path "<string>"
+
+  #### ES rest example
+  Scenario: ES rest example
+    When REST Delete ES index "ramez"
+    Then REST Delete ES document with data ""module": "DEVICE_GENERAL"" from index "alert"
+
+    Then REST Search ES index "alert" with query "{"query":{"bool":{"must":[{"wildcard":{"message":"M_60096: Collector service went down, analytics data cannot be collected"}}]}},"from":0,"size":100}" and validate response contain ""took": 9"
+    Then REST Update ES index "{"query":{"bool":{"must":{"term":{"tunnel":"tun_HTTP"}}}}"script":{"source":"ctx._source.receivedTimeStamp='$(echo $(date +%s%3N)-7200000|bc)L';"}}" with query "" body and validate response contains ""took": 9"

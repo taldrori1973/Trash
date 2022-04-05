@@ -8,10 +8,8 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import org.apache.commons.lang3.StringUtils;
@@ -27,32 +25,13 @@ public class ForensicsHandler extends VRMBaseUtilies {
 
 
     public void VRMForensicsOperation(vrmActions operationType, String forensicsName, Map<String, String> forensicsEntry, RootServerCli rootServerCli) throws Exception {
-        BaseVRMOperation(operationType, forensicsName, forensicsEntry, rootServerCli);
+        BaseVRMOperation(operationType, forensicsName, forensicsEntry,rootServerCli);
     }
 
-    protected void validateVRMBase(RootServerCli rootServerCli, String forensicsName, Map<String, String> map) {
+    protected void AMSValidateBase(RootServerCli rootServerCli, String forensicsName, Map<String, String> map) {
     }
 
-    protected void editVRMBase(String forensicsName, Map<String, String> map) throws Exception {
-        enterToEdit(forensicsName);
-        editGeneral(forensicsName, map);
-        BasicOperationsHandler.clickButton("Scope Selection Card", "initial");
-        editDevices(map);
-        BasicOperationsHandler.clickButton("Time Range Card", "initial");
-        editTimeDefinitions(map);
-        BasicOperationsHandler.clickButton("Criteria Card", "initial");
-        editCriteria(map);
-        BasicOperationsHandler.clickButton("Output Card", "initial");
-        editOutput(map);
-        BasicOperationsHandler.clickButton("Schedule Card", "initial");
-        editSchedule(map);
-        BasicOperationsHandler.clickButton("Delivery Card", "initial");
-        editDelivery(map);
-        BasicOperationsHandler.clickButton("Summary Card", "initial");
-        BasicOperationsHandler.clickButton("Submit", "");
-    }
-
-    protected void editVRMBaseNew(String forensicsName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void AMSEditBase(String forensicsName, Map<String, String> map) throws TargetWebElementNotFoundException {
         try {
             enterToEdit(forensicsName);
             editSelectBasicInfo(forensicsName, map);
@@ -142,64 +121,17 @@ public class ForensicsHandler extends VRMBaseUtilies {
     private void validateDevices(JSONArray scopeSelection, Map<String, String> map) {
     }
 
-
-    protected void createVRMBase(String forensicsName, Map<String, String> map) throws Exception {
-        try {
-            EnterToCreatingView(forensicsName);
-            selectBasicInfo(forensicsName, map);
-            BasicOperationsHandler.clickButton("Next", "");
-            selectDevices(map);
-            BasicOperationsHandler.clickButton("Next", "");
-            selectTimeDefinitions(map);
-            BasicOperationsHandler.clickButton("Next", "");
-            selectCriteria(map);
-            BasicOperationsHandler.clickButton("Next", "");
-//            selectOutput(map); // old
-            selectOutputNew(map); // newOutput
-            BasicOperationsHandler.clickButton("Next", "");
-            selectSchedule(map);
-            BasicOperationsHandler.clickButton("Next", "");
-            Delivery(map);
-            BasicOperationsHandler.clickButton("Next", "");
-            BasicOperationsHandler.clickButton("Submit", "");
-        } finally {
-            try {
-                VisionDebugIdsManager.setLabel("Close");
-                ComponentLocator closeLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
-                WebUIUtils.fluentWaitClick(closeLocator.getBy(), 2, false);
-                BasicOperationsHandler.clickButton("Close", "");
-            } catch (Exception e) {
-
-            }
-        }
-    }
-
     protected void selectBasicInfo(String forensicsName, Map<String, String> map) throws TargetWebElementNotFoundException {
 
         try {
-            switch (oldOrNew) {
-                case "old":
-                    if (BasicOperationsHandler.getText("Name TextField").equals(""))//Create new
-                        BasicOperationsHandler.setTextField("Add.Basic Info.Name", forensicsName);
-                    if (map.containsKey("Basic Info")) {
-                        JSONObject basicInfoJson = new JSONObject(map.get("Basic Info"));
-                        if (!basicInfoJson.isNull("forensics name"))
-                            BasicOperationsHandler.setTextField("Add.Basic Info.Name", basicInfoJson.getString("forensics name"));
-                        if (!basicInfoJson.isNull("Description"))
-                            BasicOperationsHandler.setTextField("Add.Basic Info.Description", basicInfoJson.getString("Description"));
-                    }
-                    break;
-                case "new":
-                    if (BasicOperationsHandler.getText("Name TextField").equals(""))//Create new
-                        BasicOperationsHandler.setTextField("Name TextField", forensicsName);
-                    if (map.containsKey("Basic Info")) {
-                        JSONObject basicInfoJson = new JSONObject(map.get("Basic Info"));
-                        if (!basicInfoJson.isNull("forensics name"))
-                            BasicOperationsHandler.setTextField("Name TextField", basicInfoJson.getString("forensics name"));
-                        if (!basicInfoJson.isNull("Description"))
-                            BasicOperationsHandler.setTextField("Description TextField", basicInfoJson.getString("Description"));
-                    }
-                    break;
+            if (BasicOperationsHandler.getText("Name TextField").equals(""))//Create new
+                BasicOperationsHandler.setTextField("Name TextField", forensicsName);
+            if (map.containsKey("Basic Info")) {
+                JSONObject basicInfoJson = new JSONObject(map.get("Basic Info"));
+                if (!basicInfoJson.isNull("forensics name"))
+                    BasicOperationsHandler.setTextField("Name TextField", basicInfoJson.getString("forensics name"));
+                if (!basicInfoJson.isNull("Description"))
+                    BasicOperationsHandler.setTextField("Description TextField", basicInfoJson.getString("Description"));
             }
         } catch (TargetWebElementNotFoundException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -312,18 +244,8 @@ public class ForensicsHandler extends VRMBaseUtilies {
 
     private void addCriteria(Map<String, Object> criteriaObject) throws TargetWebElementNotFoundException {
         String eventCriteria = criteriaObject.get("Event Criteria").toString();
-        switch (oldOrNew) {
-            case "old": {
-                BasicOperationsHandler.newSelectItemFromDropDown("Criteria.Event Criteria", eventCriteria);
-                BasicOperationsHandler.newSelectItemFromDropDown("Criteria.Operator", criteriaObject.get("Operator").toString());
-                break;
-            }
-            case "new": {
-                selectActionSelectItemFromDropDown("Criteria.Event Criteria", eventCriteria);
-                selectActionSelectItemFromDropDown("Criteria.Operator", criteriaObject.get("Operator").toString());
-                break;
-            }
-        }
+        selectActionSelectItemFromDropDown("Criteria.Event Criteria", eventCriteria);
+        selectActionSelectItemFromDropDown("Criteria.Operator", criteriaObject.get("Operator").toString());
         switch (eventCriteria.toUpperCase()) {
             case "ACTION":
             case "DIRECTION":
@@ -340,23 +262,13 @@ public class ForensicsHandler extends VRMBaseUtilies {
                 for (String aValuesArray : valuesArray) {
                     valueEntries.add(aValuesArray.trim());
                 }
-                switch (oldOrNew) {
-                    case "old":
-                        BasicOperationsHandler.multiSelectItemFromDropDown("Criteria.Value", valueEntries, false);
-                    case "new":
-                        selectMultiActionSelectItemFromDropDown("Criteria.ValueNew", valueEntries);
-                }
+                selectMultiActionSelectItemFromDropDown("Criteria.ValueNew", valueEntries);
                 break;
             }
 
             case "RADWARE ID":
             case "ATTACK NAME": {
-                switch (oldOrNew) {
-                    case "old":
-                        BasicOperationsHandler.setTextField("Criteria.ValueTextBox", criteriaObject.get("Value").toString());
-                    case "new":
-                        BasicOperationsHandler.setTextField("Criteria.ValueTextBoxNew", criteriaObject.get("Value").toString());
-                }
+                BasicOperationsHandler.setTextField("Criteria.ValueTextBoxNew", criteriaObject.get("Value").toString());
                 break;
             }
 
@@ -364,12 +276,7 @@ public class ForensicsHandler extends VRMBaseUtilies {
             case "SOURCE IP": {
                 String IPType = criteriaObject.get("IPType").toString();
                 String IPValue = criteriaObject.get("IPValue").toString();
-                switch (oldOrNew) {
-                    case "old":
-                        BasicOperationsHandler.selectItemFromDropDown("Criteria.ipType", IPType);
-                    case "new":
-                        selectActionSelectItemFromDropDown("Criteria.ipType", IPType);
-                }
+                selectActionSelectItemFromDropDown("Criteria.ipType", IPType);
                 BasicOperationsHandler.setTextField("Criteria.ipValue", IPValue);
                 break;
             }
@@ -379,31 +286,21 @@ public class ForensicsHandler extends VRMBaseUtilies {
                 String portType = criteriaObject.get("portType").toString();
                 if (portType.equalsIgnoreCase("Port") || portType.equalsIgnoreCase("single")) {
                     String portValue = criteriaObject.get("portValue").toString();
-                    switch (oldOrNew) {
-                        case "old":
-                            BasicOperationsHandler.selectItemFromDropDown("Criteria.portType", portType);
-                        case "new":
-                            portType = "single";
-                            selectActionSelectItemFromDropDown("Criteria.portType", portType);
-                    }
+                    portType = "single";
+                    selectActionSelectItemFromDropDown("Criteria.portType", portType);
                     BasicOperationsHandler.setTextField("Criteria.portValue", portValue);
                 }
                 if (portType.equalsIgnoreCase("Port Range") || portType.equalsIgnoreCase("range")) {
                     String from = criteriaObject.get("portFrom").toString();
                     String to = criteriaObject.get("portTo").toString();
-                    switch (oldOrNew) {
-                        case "old":
-                            BasicOperationsHandler.selectItemFromDropDown("Criteria.portType", portType);
-                        case "new":
-                            portType = "range";
-                            selectActionSelectItemFromDropDown("Criteria.portType", portType);
-                    }
+                    portType = "range";
+                    selectActionSelectItemFromDropDown("Criteria.portType", portType);
                     BasicOperationsHandler.setTextField("Criteria.portFrom", from);
                     BasicOperationsHandler.setTextField("Criteria.portTo", to);
                 }
                 break;
             }
-
+            case "MAX PPS":
             case "ATTACK RATE IN BPS":
             case "ATTACK RATE IN PPS": {
                 String rateValue = criteriaObject.get("RateValue").toString();
@@ -423,6 +320,7 @@ public class ForensicsHandler extends VRMBaseUtilies {
         BasicOperationsHandler.clickButton("Views.Forensic", viewName );
     }
 
+
     @Override
     protected List<String> getViewsList(int maxValue) throws TargetWebElementNotFoundException {
         List<String> snapshotsName = new ArrayList<>();
@@ -430,7 +328,11 @@ public class ForensicsHandler extends VRMBaseUtilies {
         for (int i = 0; i < maxValue - 1; i++) {
         //    generateView("validateMaxViews",i);
             BasicOperationsHandler.clickButton("Generate Snapshot Forensics Manually", "validateMaxViews");
-           // BasicOperationsHandler.clickButton("Views.Forensic", "validateMaxViews," + i);
+            try {
+                Thread.sleep(3 * 1000);
+            } catch (InterruptedException e) {
+            }
+            // BasicOperationsHandler.clickButton("Views.Forensic", "validateMaxViews," + i);
             WebElement iGenerationElement = BasicOperationsHandler.getDisplayedWebElement("Views.Forensic", "validateMaxViews," + i);
             if (iGenerationElement == null) {
                 throw new TargetWebElementNotFoundException("No view with name: validateMaxViews_" + i);
@@ -441,14 +343,14 @@ public class ForensicsHandler extends VRMBaseUtilies {
         return snapshotsName;
     }
 
-    @Override
+    //    @Override
     protected List<WebElement> getSnapshotElements() {
         return WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByDbgId("Vrm_forensic_Snapshot_validateMaxViews_").getBy());
     }
 
     /**************************************************************************************************************************************************/
     // new forensics UI
-    protected void createVRMBaseNew(String forensicsName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void AMSCreateBase(String forensicsName, Map<String, String> map) throws TargetWebElementNotFoundException {
         try {
             deleteVRMBase(forensicsName);
             BasicOperationsHandler.clickButton("Add", "");

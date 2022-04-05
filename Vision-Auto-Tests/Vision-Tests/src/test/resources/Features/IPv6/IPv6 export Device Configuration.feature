@@ -1,4 +1,3 @@
-
 @TC111503
 Feature: IPv6 Export device configuration
 
@@ -6,12 +5,23 @@ Feature: IPv6 Export device configuration
   Scenario: Login and clear device configuration table
     Given CLI Reset radware password
     Then UI Login with user "radware" and password "radware"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from dpm_virtual_services where fk_device=(select row_id from site_tree_elem_abs where name='Alteon_200a::172:17:164:19');"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_file where dev_type='Alteon';"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Alteon_200a::172:17:164:19';"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_setup where fk_dev_access_device_acces=(select row_id from device_access where mgt_ip="200a:0:0:0:172:17:164:19");"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_access where mgt_ip="200a:0:0:0:172:17:164:19";"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Alteons-IPv6';"" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from dpm_virtual_services where fk_device=(select row_id from site_tree_elem_abs where name='Alteon_200a::172:17:164:19');"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "dpm_virtual_services" Table in "VISION_NG" Schema WHERE "fk_device=(select row_id from site_tree_elem_abs where name='Alteon_200a::172:17:164:19')"
+
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_file where dev_type='Alteon';"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "device_file" Table in "VISION_NG" Schema WHERE "dev_type='Alteon'"
+
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Alteon_200a::172:17:164:19';"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='Alteon_200a::172:17:164:19'"
+
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_setup where fk_dev_access_device_acces=(select row_id from device_access where mgt_ip="200a:0:0:0:172:17:164:19");"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "device_setup" Table in "VISION_NG" Schema WHERE "fk_dev_access_device_acces=(select row_id from device_access where mgt_ip='200a:0:0:0:172:17:164:19')"
+
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_access where mgt_ip="200a:0:0:0:172:17:164:19";"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "device_access" Table in "VISION_NG" Schema WHERE "mgt_ip='200a:0:0:0:172:17:164:19'"
+
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Alteons-IPv6';"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='Alteons-IPv6'"
 
   @SID_2
   Scenario: Upload Driver to vision

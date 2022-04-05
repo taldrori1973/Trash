@@ -2,23 +2,60 @@ package com.radware.vision.bddtests.rest.topologytree;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.ElasticSearchHandler;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.bddtests.remotessh.AttacksSteps;
-import com.radware.vision.infra.testresthandlers.ElasticSearchHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
-public class ElasticSearchSteps extends BddRestTestBase {
+public class ElasticSearchSteps extends TestBase {
+    /**
+     *
+     * @param data - the data query you want to delete
+     * @param index - the index name
+     */
     @Given("^REST Delete ES document with data \"(.*)\" from index \"(.*)\"$")
     public void deleteESDocument(String data, String index) {
-        ElasticSearchHandler.deleteESDocument(restTestBase.getVisionRestClient().getDeviceIp(), data, index);
+        ElasticSearchHandler.deleteESDocument(data, index);
     }
 
+    /**
+     *
+     * @param index - index name
+     */
     @Given("^REST Delete ES index \"(.*)\"$")
     public void deleteESIndex(String index) {
-        ElasticSearchHandler.deleteESIndex(restTestBase.getVisionRestClient().getDeviceIp(), index);
+        ElasticSearchHandler.deleteESIndex(index);
     }
+
+
+    /**
+     *
+     * @param index - index name
+     * @param query - query for search
+     * @param response - desired response
+     */
+    @Given("^REST Search ES index \"(.*)\" with query \"(.*)\" and validate response contain \"(.*)\"$")
+    public void searchESIndex(String index, String query,String response ) {
+        ElasticSearchHandler.searchESIndexByQuery(index,query,response);
+    }
+
+    /**
+     *
+     * @param index - index name
+     * @param body
+     * @param response
+     */
+    @Given("^REST Update ES index \"(.*)\" with query \"(.*)\" body(?: and validate response contains \"(.*)\")?$")
+    public void updateESIndex(String index, String body,String response ) {
+        ElasticSearchHandler.updateESIndexByQuery(index,body,response);
+    }
+//
+//    @Given("^REST Update ES index \"(.*)\" with query \"(.*)\" and validate response conatin \"(.*)\"$")
+//    public void updateESIndex(String index, String query,String response ) {
+//        ElasticSearchHandlerNew.updateESIndexByQuery(index,query,response);
+//    }
 
     /**
      * @param indexName    - if the index name without week number so you should enter the full name , but if there is a week number for example:
@@ -36,9 +73,9 @@ public class ElasticSearchSteps extends BddRestTestBase {
      */
     @Given("^That Elasticsearch Index \"(.*)\"(?: with Week Slice (\\d+))? Already Exists or Create the Index by Simulating (\\d+) attacks of type \"(.*)\" on \"(.*)\" (\\d+)(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
     public void isIndexExist(String indexName, Integer weekSlice, int numOfAttacks, String fileName, SUTDeviceType deviceType, int deviceIndex, Integer ld, Integer waitTimeout, String withAttackId) {
-        if (ElasticSearchHandler.getIndex(restTestBase.getVisionRestClient().getDeviceIp(), indexName, "last", weekSlice) == null) {
+        if (ElasticSearchHandler.getIndex(indexName, "last", weekSlice) == null) {
             AttacksSteps attacksSteps = new AttacksSteps();
-            attacksSteps.runSimulatorFromDevice(numOfAttacks, fileName, deviceType, deviceIndex, ld, waitTimeout, withAttackId);
+//            attacksSteps.runSimulatorFromDevice(numOfAttacks, fileName, deviceType, deviceIndex, ld, waitTimeout, withAttackId);
         }
     }
 
@@ -53,9 +90,7 @@ public class ElasticSearchSteps extends BddRestTestBase {
 
     @Then("^Validate that the Number of the Mapping Attributes at Index \"(.*)\"(?: with Week Slice (\\d+))? Equals to (\\d+)$")
     public void validateMappingAttributeNumber(String indexName, Integer weekSlice, int expected) {
-
-        int actual = ElasticSearchHandler.getNumberOfAttributes(restTestBase.getVisionRestClient().getDeviceIp(), indexName, weekSlice);
-
+        int actual = ElasticSearchHandler.getNumberOfAttributes(indexName, weekSlice);
         if (actual != expected)
             BaseTestUtils.report(String.format("%s Index Mapping Attributes:\nActual=%d, Expected:%d", indexName, actual, expected), Reporter.FAIL);
     }
@@ -73,9 +108,10 @@ public class ElasticSearchSteps extends BddRestTestBase {
      *                      This file will be empty before running the task
      */
     @Then("^Run ElasticSearch Migration Task \"([^\"]*)\" and Wait (\\d+) Seconds$")
-    public void runElasticSearchMigrationTaskAndWaitNumMinutes(ElasticSearchHandler.MigrationTask migrationTask, int seconds) throws InterruptedException {
-        ElasticSearchHandler.runMigrationTask(migrationTask, seconds);
+    public void runElasticSearchMigrationTaskAndWaitNumMinutes(com.radware.vision.infra.testresthandlers.ElasticSearchHandler.MigrationTask migrationTask, int seconds) throws InterruptedException {
+        com.radware.vision.infra.testresthandlers.ElasticSearchHandler.runMigrationTask(migrationTask, seconds);
     }
+
 
     @Then("^ElasticSearch - Validate \"([^\"]*)\" Attribute (NOT CONTAINS|CONTAINS) the Value \"([^\"]*)\" at(?: \"(FIRST|LAST)\")? Index of \"([^\"]*)\"(?: with Week Slice (\\d+))?$")
     public void elasticSearchValidateAttributeCONTAINSTheValueAtIndexOfWithWeekSlice(String attribute, String operation, String value, String sliceToGet, String indexName, Integer weekSlice) {
@@ -85,10 +121,10 @@ public class ElasticSearchSteps extends BddRestTestBase {
                             " should be both null OR both not null.\n" + "the first argument sent is \"%s\" and the second is \"%s\"", sliceToGet, weekSlice),
                     Reporter.FAIL);
         }
-        String index = ElasticSearchHandler.getIndex(restTestBase.getVisionRestClient().getDeviceIp(), indexName, sliceToGet, weekSlice);
+        String index = ElasticSearchHandler.getIndex(indexName, sliceToGet, weekSlice);
 
         boolean expected = operation.equalsIgnoreCase("CONTAINS");
-        boolean actual = ElasticSearchHandler.isIndexContainsKeyValue(restTestBase.getVisionRestClient().getDeviceIp(), index, attribute, value);
+        boolean actual = ElasticSearchHandler.isIndexContainsKeyValue(index, attribute, value);
 
         if (expected ^ actual) {
             BaseTestUtils.report(String.format("The Expected is %s, but actual is %s", expected ? "CONTAINS" : "NOT CONTAINS", actual ? "CONTAINS" : "NOT CONTAINS"), Reporter.FAIL);

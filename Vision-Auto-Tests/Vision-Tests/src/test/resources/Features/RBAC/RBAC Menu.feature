@@ -11,7 +11,7 @@ Feature: RBAC Menu
 
   @SID_2
   Scenario Outline: Create users and verify
-    When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
+    When UI Create New User With User Name "<User Name>", Role "<Role>", Scope "<Scope>", Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
       | User Name             | Role                          | Scope | Password        |
@@ -53,20 +53,21 @@ Feature: RBAC Menu
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
+
   @SID_4
   Scenario: Edit User Management Settings
-    Then UI Navigate to page "System->User Management->Authentication Mode"
-    Then UI Select "Local" from Vision dropdown "Authentication Mode"
-    Then UI Click Button "Submit"
-    Then UI Logout
+    Given That Current Vision is Logged In With Username "radware" and Password "radware"
+    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value   |
+      | $.authenticationMode | "Local" |
+    * UI logout and close browser
+
 
   @SID_5
   Scenario: ADC+Certificate Administrator
     When UI Login with user "adc_admin_certificate" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -81,15 +82,13 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_6
   Scenario: ADC Administrator
     When UI Login with user "adc_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -104,16 +103,14 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
-    #  Vdirect should not be display as  mentioned in table from user Guid
+#      Vdirect should not be display as  mentioned in table from user Guid
   @SID_7
   Scenario: ADC Operator
     When UI Login with user "adc_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -128,15 +125,13 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_8
   Scenario: Administrator
     When UI Login with user "radware" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -151,15 +146,13 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_9
   Scenario: Certificate Administrator
     When UI Login with user "certificate_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -174,15 +167,13 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_10
   Scenario: Device Administrator
     When UI Login with user "device_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -197,15 +188,13 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_11
   Scenario: Device Configurator
     When UI Login with user "device_configurator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -218,17 +207,15 @@ Feature: RBAC Menu
       | AMS Alerts                                  | no       |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | no      |
+      | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_12
   Scenario: Device Operator
     When UI Login with user "device_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -251,23 +238,21 @@ Feature: RBAC Menu
     When UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
-      | DefensePro Behavioral Protections Dashboard | yes       |
-      | DefensePro Analytics Dashboard              | yes       |
-      | DefensePro Monitoring Dashboard             | yes       |
+      | DefensePro Behavioral Protections Dashboard | yes      |
+      | DefensePro Analytics Dashboard              | yes      |
+      | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | yes       |
-      | AMS Reports                                 | yes       |
-      | AMS Forensics                               | yes       |
-      | AMS Alerts                                  | yes       |
+      | AppWall Dashboard                           | yes      |
+      | AMS Reports                                 | yes      |
+      | AMS Forensics                               | yes      |
+      | AMS Alerts                                  | yes      |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | yes      |
+      | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
 
    #  Vdirect should not be display as  mentioned in table from user Guid
@@ -276,8 +261,6 @@ Feature: RBAC Menu
     When UI Login with user "real_server_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -292,15 +275,14 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
+
 
   @SID_15
   Scenario: Security Administrator
     When UI Login with user "security_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -315,15 +297,13 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_16
   Scenario: Security Monitor
     When UI Login with user "security_monitor" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -338,15 +318,13 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_17
   Scenario: User Administrator
     When UI Login with user "user_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | no       |
-      | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
@@ -361,15 +339,13 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_18
   Scenario: Vision Administrator
     When UI Login with user "vision_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -384,15 +360,13 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
+    * UI logout and close browser
 
   @SID_19
   Scenario: Vision Reporter
     When UI Login with user "vision_reporter" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | AVR                                         | yes      |
-      | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
@@ -407,8 +381,7 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
-
+    * UI logout and close browser
 
   @SID_20
   Scenario Outline: Delete All Users
@@ -436,9 +409,7 @@ Feature: RBAC Menu
 
   @SID_21
   Scenario: Login And Go to Vision
-    Given UI Login with user "radware" and password "radware"
-    Given UI Go To Vision
-    Then UI Navigate to page "System->User Management->Authentication Mode"
-    Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
-    Then UI Click Button "Submit"
-    Then UI logout and close browser
+    Given That Current Vision is Logged In With Username "radware" and Password "radware"
+    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value    |
+      | $.authenticationMode | "TACACS" |

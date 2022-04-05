@@ -23,25 +23,25 @@ Feature: EAAF ScopeSelections Reports
   @SID_4
   Scenario: Create and validate EAAF Report with device index 11
     Given UI "Create" Report With Name "EAAF Report with device index 10"
-      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:10}] |
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{SetId:DefensePro_Set_1}] |
     Then UI "Validate" Report With Name "EAAF Report with device index 10"
-      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:10}] |
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{SetId:DefensePro_Set_1}] |
     Then UI Delete Report With Name "EAAF Report with device index 10"
 
   @SID_5
   Scenario: Create and validate EAAF Report with device index 11 and Policy 1_https
     Given UI "Create" Report With Name "EAAF Report with device index 11 and Policy 1_https"
-      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[1_https]}]|
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{SetId:DefensePro_Set_2 , devicePolicies:[1_https]}]|
     Then UI "Validate" Report With Name "EAAF Report with device index 11 and Policy 1_https"
-      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[1_https]}]|
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{SetId:DefensePro_Set_2 , devicePolicies:[1_https]}]|
     Then UI Delete Report With Name "EAAF Report with device index 11 and Policy 1_https"
 
   @SID_6
   Scenario: Create and validate EAAF Report with device index 11 and Policies BDOS and 1_https
     Given UI "Create" Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
-      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,1_https]}]|
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{SetId:DefensePro_Set_2 , devicePolicies:[BDOS,1_https]}]|
     Then UI "Validate" Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
-      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,1_https]}]|
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{SetId:DefensePro_Set_2 , devicePolicies:[BDOS,1_https]}]|
     Then UI Delete Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
 
   @SID_7
@@ -52,8 +52,8 @@ Feature: EAAF ScopeSelections Reports
     Then UI Click Button "Add Template" with value "ERT Active Attackers Feed"
     Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       |          |
+      | setId | ports | policies |
+      | DefensePro_Set_1    |       |          |
     Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "true" with value "172.16.22.50_disabled"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "false" with value "172.16.22.50"
@@ -68,8 +68,8 @@ Feature: EAAF ScopeSelections Reports
     Then UI Click Button "Add Template" with value "ERT Active Attackers Feed"
     Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 11    |       | 1_https  |
+      | setId | ports | policies |
+      | DefensePro_Set_2    |       | 1_https  |
     Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "false" with value "172.16.22.51_disabled"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "true" with value "172.16.22.51"

@@ -1,10 +1,9 @@
 package com.radware.vision.infra.base.pages.system.usermanagement;
 
-import org.openqa.selenium.support.How;
-
 import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.widgets.api.Dropdown;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
+import org.openqa.selenium.support.How;
 
 public class BasicParameters extends WebUIVisionBasePage {
 	

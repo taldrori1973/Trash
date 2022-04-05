@@ -1,5 +1,6 @@
 package com.radware.vision.infra.testhandlers.topologytree;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
@@ -12,7 +13,6 @@ import com.radware.vision.infra.testhandlers.topologytree.dynamicViewUtils.Dynam
 import com.radware.vision.infra.testhandlers.topologytree.enums.DynamicViewFilters;
 import com.radware.vision.infra.testhandlers.topologytree.enums.FilterByStatus;
 import com.radware.vision.infra.testhandlers.topologytree.enums.FilterByType;
-import junit.framework.SystemTestCase4;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -71,7 +71,7 @@ public class DynamicViewHandler {
         List<WebElement> nodes = TopologyTreeHandler.getNodes();
         int actualDevicesCount = getNodesAmount(nodes, filterByStatus, filterByName, filterByIp, filterByType, true);
         if (!nodesShouldNotBeSeen.equals("")) {
-            SystemTestCase4.report.report("Nodes should not be seen: " + nodesShouldNotBeSeen + "\n.", Reporter.FAIL);
+            BaseTestUtils.report("Nodes should not be seen: " + nodesShouldNotBeSeen + "\n.", Reporter.FAIL);
         } else {
             if (actualDevicesCount == expectedDevicesCount) {
                 isFilterValid = true;

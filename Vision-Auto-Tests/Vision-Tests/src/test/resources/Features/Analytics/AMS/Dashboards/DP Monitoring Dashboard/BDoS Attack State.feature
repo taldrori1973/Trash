@@ -4,16 +4,19 @@ Feature: AMS BDoS Attack State
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
+    * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
   @SID_2
   Scenario: generate BDoS attacks with all possible states
-    Given CLI simulate 20 attacks of type "Burst_States" on "DefensePro" 11 with loopDelay 15000 and wait 40 seconds
+    Given CLI simulate 20 attacks of type "Burst_States" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 40 seconds
+
   @SID_3
   Scenario: Login and enter attacks table
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    Then Sleep "60"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "pol_1"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Behavioral DoS"
 

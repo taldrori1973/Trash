@@ -2,16 +2,15 @@ package com.radware.vision.bddtests.clioperation.menu.system.snmp;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.webui.VisionDebugIdsManager;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
+import com.radware.vision.base.VisionUITestBase;
+import com.radware.vision.utils.SutUtils;
 import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.vision_tests.CliTests;
-import com.radware.vision.bddtests.BddCliTestBase;
-import com.radware.vision.bddtests.BddUITestBase;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import cucumber.api.java.en.When;
-import enums.SUTEntryType;
 
 
 /**
@@ -20,7 +19,7 @@ import enums.SUTEntryType;
  * checking snmpwalk command
  * run command from  genericLinuxServer after that check result if there is an inside file from rootServerCli
  */
-public class SnmpWalk extends BddCliTestBase {
+public class SnmpWalk extends TestBase {
     private int failedCounter;
 
     /**
@@ -33,10 +32,14 @@ public class SnmpWalk extends BddCliTestBase {
      */
     @When("^CLI snmpwalk Validate \"([^\"]*)\" with \"([^\"]*)\"(?: with host \"(.*)\")?$")
     public void cliSnmpwalkValidateCPUUtilizationReflex(String file, String OIDType, String host) {
-        RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
-        RootServerCli rootServerCli = restTestBase.getRootServerCli();
+        RadwareServerCli radwareServerCli;
+        RootServerCli rootServerCli;
         if (host == null) {
-            host = restTestBase.getRadwareServerCli().getHost();
+            try {
+                host = SutUtils.getCurrentVisionIp();
+            } catch (NoSuchFieldException e) {
+                BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
+            }
             if(!host.matches("(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)"))
                 host = "'" + "udp6:" + host + "'";
         }
@@ -44,30 +47,29 @@ public class SnmpWalk extends BddCliTestBase {
             try {
                 if(!host.matches("(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)"))
                     host = "'" + "udp6:" + host + "'";
-                radwareServerCli = new RadwareServerCli(host, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+                radwareServerCli = new RadwareServerCli(host, cliConfigurations.getRadwareServerCliUserName(), cliConfigurations.getRadwareServerCliPassword());
                 radwareServerCli.init();
-                rootServerCli = new RootServerCli(host, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+                rootServerCli = new RootServerCli(host, cliConfigurations.getRootServerCliUserName(), cliConfigurations.getRootServerCliPassword());
                 rootServerCli.init();
             } catch (Exception e) {
-                BaseTestUtils.report("Failed to build with host: " + host + " " + parseExceptionBody(e), Reporter.FAIL);
+                BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
             }
         }
         file = file.toLowerCase();
         String lowerCaseOIdtype = OIDType.toLowerCase();
-        BddUITestBase.initDataDebugIds();
+        VisionUITestBase.initDataDebugIds();
         VisionDebugIdsManager.setLabel("OID." + file + "." + OIDType);
         String oid = VisionDebugIdsManager.getDataDebugId();
-        preCondition(radwareServerCli);
-        String sutEntryType = "genericLinuxServer";
+        preCondition();
         String commandToExecute = String.format("snmpwalk -v 2c -c public %s %s| grep -o '\".*\"' |tr -d '\"'", host, oid);
         failedCounter = 0;
         String failedException = "";
         /* 1. */
-        CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
+        CliOperations.runCommand(serversManagement.getLinuxFileServer().get(), commandToExecute);
         String lastRow1 = CliOperations.lastRow;
         /* 2. */
         String rootCommand = String.format("cat /opt/radware/storage/maintenance/hw_monitoring/%s.txt", file);
-        CliOperations.runCommand(rootServerCli, rootCommand);
+        CliOperations.runCommand(serversManagement.getRootServerCLI().get(), rootCommand);
         /* validate */
         try {
             CliOperations.verifyLastOutputByRegex(lowerCaseOIdtype);
@@ -80,7 +82,7 @@ public class SnmpWalk extends BddCliTestBase {
         if (failedCounter == 0) return;
 
         //            run from genericLinux
-        CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
+        CliOperations.runCommand(serversManagement.getLinuxFileServer().get(), commandToExecute);
         String lastRaw2 = CliOperations.lastRow;
 
         if (lastRow1.equals(lastRaw2) && failedCounter > 0) {
@@ -88,10 +90,10 @@ public class SnmpWalk extends BddCliTestBase {
             /* reverse */
             int snmpWalkRuns = 10;
             for (int i = 0; i < snmpWalkRuns; i++) {
-                CliOperations.runCommand(rootServerCli, rootCommand);
+                CliOperations.runCommand(serversManagement.getRootServerCLI().get(), rootCommand);
                 String lastOutput = CliOperations.lastOutput;
 
-                CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
+                CliOperations.runCommand(serversManagement.getLinuxFileServer().get(), commandToExecute);
                 String lastRow = CliOperations.lastRow;
 
                 try {
@@ -126,28 +128,28 @@ public class SnmpWalk extends BddCliTestBase {
      */
     @When("^CLI run snmpwalk command \"([^\"]*)\"(?: with host \"(.*)\")?$")
     public void runSnmpwalkCommand(String OIDType, String host) {
-        RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
         if (host == null) {
-            host = CliTests.radwareServerCli.getHost();
+            host = sutManager.getClientConfigurations().getHostIp();
             if(!host.matches("(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)"))
                 host = "'" + "udp6:" + host + "'";
         }
-        BddUITestBase.initDataDebugIds();
+        VisionUITestBase.initDataDebugIds();
         VisionDebugIdsManager.setLabel("OID." + OIDType);
         String oid = VisionDebugIdsManager.getDataDebugId();
         String commandToExecute = String.format("snmpwalk -v 2c -c public %s %s| grep -o '\".*\"' |tr -d '\"'", host, oid);
-        String sutEntryType = "genericLinuxServer";
-        preCondition(radwareServerCli);
+        preCondition();
         try {
-            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
+            CliOperations.runCommand(serversManagement.getLinuxFileServer().get(), commandToExecute);
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + sutEntryType + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " +
+                    ServersManagement.ServerIds.GENERIC_LINUX_SERVER + "\n" + e.getMessage(), Reporter.FAIL);
         }
     }
 
 
-    private void preCondition(ServerCliBase radwareServer) {
+    private void preCondition() {
         String startSnmp = "system snmp service start";
+        RadwareServerCli radwareServer = serversManagement.getRadwareServerCli().get();
         CliOperations.runCommand(radwareServer, startSnmp);
         String addCommunity = "system snmp community add public";
         CliOperations.runCommand(radwareServer, addCommunity);

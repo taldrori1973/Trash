@@ -3,13 +3,13 @@ package com.radware.vision.restBddTests;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.bddtests.BddRestTestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 import cucumber.api.java.en.Then;
 
-public class Demo extends BddRestTestBase {
+public class Demo extends TestBase {
 //
     @Then("^Validate pojo Paesing$")
     public void validatePojoPaesing() throws JsonProcessingException {

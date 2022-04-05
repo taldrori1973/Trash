@@ -23,10 +23,10 @@ Feature: CLI System AVR
   Scenario: verify write to sql enabled
     Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running." in any line Retry 250 seconds
     When Sleep "15"
-    When CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from security_attacks;"" on "ROOT_SERVER_CLI"
-    When CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
-    When CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 12
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result GT "0" Retry 60 seconds
+    When CLI Run remote linux Command "vision_ng -e "delete from security_attacks;"" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
+    When CLI simulate 1 attacks of type "rest_anomalies" on DefensePro_Set_2
+    Then CLI Run linux Command "vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result GT "0" Retry 60 seconds
 
   @SID_5
   Scenario: verify services running
@@ -54,28 +54,28 @@ Feature: CLI System AVR
 
   @SID_8
   Scenario: verify write to sql disabled
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from security_attacks;"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from bdos_real_time_rate;"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from packet_reports;"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from dns_real_time_rate;"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from http_traf_stats_anomaly;"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from traffic_utilizations;"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision_ng -e "delete from security_attacks;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision -e "delete from bdos_real_time_rate;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision_ng -e "delete from packet_reports;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision -e "delete from dns_real_time_rate;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision_ng -e "delete from http_traf_stats_anomaly;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision -e "delete from traffic_utilizations;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision -e "delete from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
 
-    Then CLI simulate 1 attacks of type "rest_bdosdns" on "DefensePro" 12
-    Then CLI simulate 1 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 12
-    Then CLI simulate 1 attacks of type "rest_http_server_16.16.16.10" on "DefensePro" 12
-    Then CLI simulate 1 attacks of type "rest_bdos" on "DefensePro" 12 and wait 40 seconds
+    Then CLI simulate 1 attacks of type "rest_bdosdns" on DefensePro_Set_2
+    Then CLI simulate 1 attacks of type "rest_traffic_diff_Policy15out" on DefensePro_Set_2
+    Then CLI simulate 1 attacks of type "rest_http_server_16.16.16.10" on DefensePro_Set_2
+    Then CLI simulate 1 attacks of type "rest_bdos" on DefensePro_Set_2 and wait 40 seconds
 
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from bdos_real_time_rate;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-    Then CLI Run linux Command "mysql -prad123 vision_ng -NB -e "select count(*) from packet_reports;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from dns_real_time_rate;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-    Then CLI Run linux Command "mysql -prad123 vision_ng -NB -e "select count(*) from http_traf_stats_anomaly;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from traffic_utilizations;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then CLI Run linux Command "vision -NB -e "select count(*) from bdos_real_time_rate;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then CLI Run linux Command "vision_ng -NB -e "select count(*) from packet_reports;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then CLI Run linux Command "vision -NB -e "select count(*) from dns_real_time_rate;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then CLI Run linux Command "vision_ng -NB -e "select count(*) from http_traf_stats_anomaly;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then CLI Run linux Command "vision -NB -e "select count(*) from traffic_utilizations;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then CLI Run linux Command "vision -NB -e "select count(*) from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then CLI Run remote linux Command "vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
   @SID_9
   Scenario: verify services stopped
     Then CLI Run linux Command "service avrservice status|head -1|grep "mainengine.exe"|awk '{print$2,$3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "is stopped"
@@ -96,7 +96,7 @@ Feature: CLI System AVR
     Then Sleep "30"
     Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is stopped." in any line Retry 250 seconds
     Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 40 seconds
-    When CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 12 and wait 35 seconds
+    When CLI simulate 1 attacks of type "rest_anomalies" on DefensePro_Set_2 and wait 35 seconds
     Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1" Retry 120 seconds
 
   @SID_12
@@ -129,12 +129,12 @@ Feature: CLI System AVR
 
   @SID_15
   Scenario: verify write to sql enabled
-    Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from traffic_utilizations;"" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision -e "delete from traffic_utilizations;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision -e "delete from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI"
     When Sleep "90"
-    Then CLI simulate 2 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 12 and wait 30 seconds
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from traffic_utilizations;"" on "ROOT_SERVER_CLI" and validate result GT "0"
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI" and validate result GT "0"
+    Then CLI simulate 2 attacks of type "rest_traffic_diff_Policy15out" on DefensePro_Set_2 and wait 30 seconds
+    Then CLI Run linux Command "vision -NB -e "select count(*) from traffic_utilizations;"" on "ROOT_SERVER_CLI" and validate result GT "0"
+    Then CLI Run linux Command "vision -NB -e "select count(*) from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI" and validate result GT "0"
 
   @SID_16
   Scenario: verify services running

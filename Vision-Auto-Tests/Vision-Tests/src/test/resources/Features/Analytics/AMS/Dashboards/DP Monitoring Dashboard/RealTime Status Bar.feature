@@ -11,10 +11,10 @@ Feature: VRM Real Time Status Bar Devices status
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 # Validate correct number of DPs
-    Then UI Text of "Device Status Up Summary" equal to "3"
+    Then UI Text of "Device Status Up Summary" equal to "4"
 
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "1"
+    Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
 #    DE57930
@@ -25,14 +25,14 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Text of "Device Selection" equal to "DEVICES4/4"
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       |          |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       |          |
     Then Sleep "2"
 #   Validate correct number of DPs
     Then UI Text of "Device Selection" equal to "DEVICES1/4"
-    Then UI Text of "Device Status Up Summary" equal to "3"
+    Then UI Text of "Device Status Up Summary" equal to "4"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "1"
+    Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Logout
 
 #  DE57930
@@ -42,61 +42,66 @@ Feature: VRM Real Time Status Bar Devices status
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | BDOS     |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | BDOS     |
     Then Sleep "4"
     Then UI Text of "Device Selection" equal to "DEVICES1/4"
-    Then UI Text of "Device Status Up Summary" equal to "3"
+    Then UI Text of "Device Status Up Summary" equal to "4"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "1"
+    Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
-
 #  DE57014
   @SID_4
   Scenario: Devices status disconnected DP by route
     Then CLI Run remote linux Command "net route set host 172.16.22.55 172.17.3.3" on "Radware_SERVER_CLI"
     Then Sleep "120"
+    And UI Logout
+    Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "3"
-    Then UI Text of "Device Selection" equal to "DEVICES1/4"
-    Then UI Text of "Device Status Up Summary" equal to "3"
+    Then UI Text of "Device Selection" equal to "DEVICES4/4"
+    Then UI Text of "Device Status Up Summary" equal to "4"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "1"
+    Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
     Then CLI Run remote linux Command "net route delete 172.16.22.55 255.255.255.255 172.17.3.3" on "Radware_SERVER_CLI"
-    Then Sleep "35"
+    Then Sleep "120"
+    And UI Logout
+    Given UI Login with user "sys_admin" and password "radware"
 
 #    DE57014
   @SID_5
   Scenario: Devices status connected DP by route
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Text of "Device Selection" equal to "DEVICES1/4"
-    Then UI Text of "Device Status Up Summary" equal to "3"
+    Then UI Text of "Device Selection" equal to "DEVICES4/4"
+    Then UI Text of "Device Status Up Summary" equal to "4"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "1"
+    Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_6
   Scenario: Devices status disconnected Alteon
-    When UI Add "Alteon" with index 30 on "Default" site nowait
+#   When UI Add "Alteon" with index 30 on "Default" site nowait
+    Then UI Add "Alteon_Set_1" under "Default" site
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "90"
 # Validate correct number of DPs
     Then UI Text of "Device Selection" equal to "DEVICES4/4"
-    Then UI Text of "Device Status Up Summary" equal to "3"
+    Then UI Text of "Device Status Up Summary" equal to "4"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "1"
+    Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_7
   Scenario: Delete disconnected Alteon
-    Then UI Delete "Alteon" device with index 30 from topology tree
+#   Then UI Delete "Alteon" device with index 30 from topology tree
+    Then UI Delete "Alteon_Set_1" from topology tree
     Then Sleep "90"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Device Selection" equal to "DEVICES4/4"
-    Then UI Text of "Device Status Up Summary" equal to "3"
+    Then UI Text of "Device Status Up Summary" equal to "4"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "1"
+    Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Logout
 
 #  DE57898

@@ -2,20 +2,20 @@ package com.radware.vision.bddtests.clioperation.system.upgrade;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.Deploy.UvisionServer;
+import com.radware.vision.automation.Deploy.VisionServer;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.bddtests.clioperation.GeneralSteps;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
-import com.radware.vision.enums.GlobalProperties;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
-import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -24,38 +24,41 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.radware.vision.vision_handlers.system.VisionServer.waitForVisionServerServicesToStartHA;
-import static com.radware.vision.vision_tests.CliTests.radwareServerCli;
-import static com.radware.vision.vision_tests.CliTests.rootServerCli;
+import static com.radware.vision.automation.Deploy.VisionServer.waitForVisionServerServicesToStartHA;
 
-public class UpgradeSteps extends BddCliTestBase {
+
+public class UpgradeSteps extends TestBase {
 
 
     @When("^Upgrade vision to version \"(.*)\", build \"(.*)\"$")
     public void UpgradeVisionServer(String version, String build) {
         try {
-            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+            validateVisionServerServicesUP(serversManagement.getRadwareServerCli().get());
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
-    @When("^validate vision server services is UP$")
+    @When("^validate vision server services are UP$")
     public void validateVisionServerServicesUPStep() {
         try {
-            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+            UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(),
+                    UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
-    @When("^validate vision server services is UP on vision 2$")
+    @When("^validate vision server services are UP on vision 2$")
     public void validateVisionServerServicesUPStepVision2() {
         try {
-            String sourceIP = restTestBase.getVisionServerHA().getHost_2();
-            RadwareServerCli radwareServerCli = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
-            validateVisionServerServicesUP(radwareServerCli);
+            String sourceIP = sutManager.getpair().getPairIp();
+            RadwareServerCli radwareServerCli = new RadwareServerCli(sourceIP,
+                    serversManagement.getRadwareServerCli().get().getUser(),
+                    serversManagement.getRadwareServerCli().get().getPassword());
+            radwareServerCli.connect();
+            UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -100,13 +103,14 @@ public class UpgradeSteps extends BddCliTestBase {
     @When("^CLI validate Vision Services UP$")
     public void CliValidateVisionServerServicesUP() {
         try {
-            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+            validateVisionServerServicesUP(serversManagement.getRadwareServerCli().get());
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
     public static boolean isAPM() {
+        ServerCliBase rootServerCli = serversManagement.getRootServerCLI().get();
         try {
             rootServerCli.connect();
         } catch (Exception e) {
@@ -126,8 +130,8 @@ public class UpgradeSteps extends BddCliTestBase {
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         } finally {
-            RootServerCli rootServerCli = restTestBase.getRootServerCli();
-            if (!InvokeUtils.isConnectionOpen(rootServerCli)) rootServerCli.connect();
+            RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+            if (!rootServerCli.isServerConnected()) rootServerCli.connect();
         }
     }
 
@@ -153,7 +157,9 @@ public class UpgradeSteps extends BddCliTestBase {
      * @param versionNumber - Desired vision version
      */
     private void upgradeToNonSupportedVersion(String versionNumber) {
-        Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
+        RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+        RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+        Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
         String[] notSupportedVersion = upgrade.getNonSupportedVersion();
 
         String[] path = upgrade.getBuildFileInfo().getPath().toString().split("/");
@@ -161,24 +167,24 @@ public class UpgradeSteps extends BddCliTestBase {
 
         try {
             /* Change version to unsupported one */
-            InvokeUtils.invokeCommand(null, "/bin/cp /opt/radware/mgt-server/build.properties /opt/radware/storage/",
-                    rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
+            CliOperations.runCommand(rootServerCli, "/bin/cp /opt/radware/mgt-server/build.properties /opt/radware/storage/",
+                    CliOperations.DEFAULT_TIME_OUT, false, false, true);
 
             String ChangeMajorVersion = String.format("sed -i 's/buildMajorVersion: .*$/buildMajorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[0]);
-            InvokeUtils.invokeCommand(null, ChangeMajorVersion, rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
+            CliOperations.runCommand(rootServerCli, ChangeMajorVersion, CliOperations.DEFAULT_TIME_OUT, false, false, true);
 
             String changeMinorVersion = String.format("sed -i 's/buildMinorVersion: .*$/buildMinorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[1]);
-            InvokeUtils.invokeCommand(null, changeMinorVersion, rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
+            CliOperations.runCommand(rootServerCli, changeMinorVersion, CliOperations.DEFAULT_TIME_OUT, false, false, true);
             BaseTestUtils.report("Setting Server property file to version: " + String.format("%s.%s.%s", notSupportedVersion[0], notSupportedVersion[1], notSupportedVersion[2]), Reporter.PASS_NOR_FAIL);
             VisionServer.downloadUpgradeFile(rootServerCli, upgrade.getBuildFileInfo().getDownloadUri().toString());
             String upgradePassword = "";
             radwareServerCli.setUpgradePassword(upgradePassword);
             radwareServerCli.setBeginningTheAPSoluteVisionUpgradeProcessEndsCommand(false);
 
-            long responseTimeOut = 10 * 60 * 1000;
+            int responseTimeOut = 10 * 60 * 1000;
             /* Run the system upgrade command */
-            InvokeUtils.invokeCommand(null, Menu.system().upgrade().full().build() + " " + fileName,
-                    radwareServerCli, responseTimeOut, false, false, true);
+            CliOperations.runCommand(radwareServerCli, Menu.system().upgrade().full().build() + " " + fileName,
+                    responseTimeOut, false, false, true);
             ArrayList<String> output = radwareServerCli.getCmdOutput();
             String errorMessage = String.format("Upgrade from source version \\d+.\\d+.\\d+.\\d+ to version %s is not supported.", versionNumber);
             Pattern pattern = Pattern.compile(errorMessage);
@@ -195,11 +201,11 @@ public class UpgradeSteps extends BddCliTestBase {
         } finally {
             try {
                 /* Revert to the original */
-                InvokeUtils.invokeCommand(null, "/bin/cp /opt/radware/storage/build.properties /opt/radware/mgt-server/ ",
-                        rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
+                CliOperations.runCommand(rootServerCli, "/bin/cp /opt/radware/storage/build.properties /opt/radware/mgt-server/ ",
+                        CliOperations.DEFAULT_TIME_OUT, false, false, true);
                 /* Delete all upgrade files */
-                InvokeUtils.invokeCommand(null, "rm -f /uploads/temp/Upgrade*",
-                        rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
+                CliOperations.runCommand(rootServerCli, "rm -f /uploads/temp/Upgrade*",
+                        CliOperations.DEFAULT_TIME_OUT, false, false, true);
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
@@ -223,8 +229,8 @@ public class UpgradeSteps extends BddCliTestBase {
     }
 
     private void upgradeToTheNextBuild(String build) {
-        RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
-        RootServerCli rootServerCli = restTestBase.getRootServerCli();
+        RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+        RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
         Upgrade upgrade = new Upgrade(true, build, radwareServerCli, rootServerCli);
         String buildUnderTest = upgrade.getBuild();
         if (upgrade.isSetupNeeded) {
@@ -250,9 +256,11 @@ public class UpgradeSteps extends BddCliTestBase {
             FileType upgradeType = isAPM() ? FileType.UPGRADE_APM : FileType.UPGRADE;
             JFrogFileModel buildFileInfo = JFrogAPI.getBuildFromOldVersion(upgradeType, version);
             String[] path = buildFileInfo.getPath().toString().split("/");
-            VisionServer.upgradeServerFile(restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli()
-                    , version, null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
-            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+            RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+            RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+            VisionServer.upgradeServerFile(radwareServerCli, rootServerCli
+                    , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
+            validateVisionServerServicesUP(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

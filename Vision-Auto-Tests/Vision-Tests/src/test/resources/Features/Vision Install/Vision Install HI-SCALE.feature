@@ -19,7 +19,7 @@ Feature: Vision Install HI SCALE
     Given CLI Run linux Command "service mgtsrv status |grep 'Local License Server is upgrading in the background and will start after the process ends' |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 600 seconds
     When CLI Run remote linux Command "reboot" on "ROOT_SERVER_CLI"
     Then Sleep "180"
-    When validate vision server services is UP
+    When validate vision server services are UP
 
   @SID_4
   Scenario: Login with activation and install license
@@ -91,7 +91,7 @@ Feature: Vision Install HI SCALE
 
   @SID_8
   Scenario: Validate TED status
-    Then CLI Run linux Command "echo $(mysql -prad123 vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
+    Then CLI Run linux Command "echo $(vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
     Then CLI Run linux Command "curl -ks -o null -w 'RESP_CODE:%{response_code}\n' -XGET https://localhost:443/ted/api/data" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
 
   @SID_9
@@ -112,7 +112,7 @@ Feature: Vision Install HI SCALE
 
   @SID_12
   Scenario: Validate MySql version
-    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+    Then CLI Run linux Command "--version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
 
   @SID_13
   Scenario: Validate vdirect listener
@@ -137,11 +137,11 @@ Feature: Vision Install HI SCALE
 
   @SID_17
   Scenario: Verify number of tables in vision schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+    Then CLI Run linux Command "-NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
 
   @SID_18
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "169"
+    Then CLI Run linux Command "-NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "169"
 
   @SID_19
   Scenario: Verify services are running

@@ -31,8 +31,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
-
-    Given CLI simulate 200 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
+    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_3
   Scenario: select device and Policy
@@ -41,27 +40,27 @@ Feature: DefensePro Behavioral DNS General Tests
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
 
   @SID_4
   Scenario: Validate Scope Selection Stability
     Then UI Click Button "Behavioral Tab" with value "BDoS"
     Then Sleep "2"
     And UI Do Operation "Select" item "Device Selection"
-    Then UI Validate the attribute of "Class" are "EQUAL" to
-      | label                                      | param          | value   |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  | checked |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  |         |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.55  |         |
+    Then UI Validate the attribute of "class" are "EQUAL" to
+      | label                                     | param        | value   |
+      | DefensePro Analytics_RationScopeSelection | 172.16.22.50 | checked |
+      | DefensePro Analytics_RationScopeSelection | 172.16.22.51 |         |
+      | DefensePro Analytics_RationScopeSelection | 172.16.22.25 |         |
     Then UI Click Button "Device Selection.Cancel"
     Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     And UI Do Operation "Select" item "Device Selection"
-    Then UI Validate the attribute of "Class" are "EQUAL" to
-      | label                                      | param          | value   |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  | checked |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  |         |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.55  |         |
+    Then UI Validate the attribute of "class" are "EQUAL" to
+      | label                                     | param        | value   |
+      | DefensePro Analytics_RationScopeSelection | 172.16.22.50 | checked |
+      | DefensePro Analytics_RationScopeSelection | 172.16.22.51 |         |
+      | DefensePro Analytics_RationScopeSelection | 172.16.22.25 |         |
     Then UI Click Button "Device Selection.Cancel"
 
 
@@ -218,11 +217,10 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-Other"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-PTR"
+    Then UI logout and close browser
 
-  
   @SID_14
   Scenario: Validate Chart Number Reset
-    Then UI logout and close browser
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
@@ -239,7 +237,7 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-1"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-A"
 
-  
+
   @SID_15
   Scenario: Validate No Widgets Selected Message
     When UI VRM Clear All Widgets
@@ -254,21 +252,25 @@ Feature: DefensePro Behavioral DNS General Tests
   @SID_16
   Scenario: Create Report of DNS baselines IPv4
     And UI Navigate to "AMS Reports" page via homePage
-    Given UI "Create" Report With Name "DNS Baselines Report IPv4"
-      | reportType | DefensePro Behavioral Protections Dashboard |
+    Given UI "Create" Report With Name "DNS Baselines Report"
+      | reportType | DefensePro Behavioral Protections Dashboard                                                                                                                                                              |
       | Design     | {"Add":[{"DNS-A":["IPv4"]},{"DNS-AAAA":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
-      | devices    | index:10,policies:[pol_1]                   |
-      | Format     | Select: PDF                                 |
-      | Time Definitions.Date | Relative:[Hours,1]               |
-    Then UI "Generate" Report With Name "DNS Baselines Report IPv4"
-      | timeOut | 60 |
-    Then UI Click Button "Log Preview" with value "DNS Baselines Report IPv4_0"
+      | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                                                  |
+      | Format     | Select: PDF                                                                                                                                                                                              |
+    Then Sleep "5"
+    Given UI "Edit" Report With Name "DNS Baselines Report"
+      | reportType | DefensePro Behavioral Protections Dashboard                                                                                                                                        |
+      | Design     | {"Add":[{"DNS-A":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
+      | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                            |
+      | Format     | Select: PDF                                                                                                                                                                        |
+    Then Sleep "5"
+    Then UI "Generate" Report With Name "DNS Baselines Report"
+      | timeOut | 120 |
+    Then UI Click Button "Log Preview" with value "DNS Baselines Report_0"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-A"
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-A"
-    Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-AAAA"
-    Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-AAAA"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-NAPTR"

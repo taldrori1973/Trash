@@ -220,11 +220,12 @@ Feature: Flow Statistics In DF Analytics and Reports
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Outbound" Equals to "32000"
     Then UI Validate Sum Of Line Chart data "netFlow-chart" with Label "Outbound Dropped" Equals to "16000"
 
+
   @SID_20
-  Scenario: Change DF management IP to IP of Vision DF
+  Scenario: Change DF management IP to IP of DefenseFlow
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
-      | @defenseFlowDevice.getDeviceIp |
+      | #dfIP                          |
 
   @SID_21
   Scenario: Cleanup

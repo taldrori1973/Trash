@@ -5,7 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.analytics.adc.ADCHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
 import cucumber.api.DataTable;
@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Created by MoaadA on 9/6/2018.
  */
-public class ADCSteps extends BddUITestBase {
+public class ADCSteps extends VisionUITestBase {
 
     public ADCSteps() throws Exception {
     }

@@ -22,16 +22,16 @@ Feature: Edit DefensePro Analytics tests
   Scenario: Create and validate DefensePro Analytics Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefensePro Analytics Report"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
-      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true                      |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                         |
       | Time Definitions.Date | Quick:1D                                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                      |
       | Format                | Select: PDF                                                                                                               |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
-      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true                      |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                         |
       | Time Definitions.Date | Quick:1D                                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
@@ -48,42 +48,42 @@ Feature: Edit DefensePro Analytics tests
   @SID_4
   Scenario: Add Template Widget to DefensePro Analytics
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
-      | Template-1 | reportType:DefensePro Analytics,AddWidgets:[Top Attacks],devices:[{deviceIndex:10}],showTable:true |
+      | Template-1 | reportType:DefensePro Analytics,AddWidgets:[Top Attacks],devices:[{SetId:DefensePro_Set_1}],showTable:true |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true |
 
 
   @SID_5
   Scenario: Delete Template Widget from DefensePro Analytics
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
-      | Template-1 | reportType:DefensePro Analytics,DeleteWidgets:[Top Attacks],devices:[{deviceIndex:10}],showTable:true |
+      | Template-1 | reportType:DefensePro Analytics,DeleteWidgets:[Top Attacks],devices:[{SetId:DefensePro_Set_1}],showTable:true |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true |
 
   @SID_6
   Scenario: Edit Template Devices from DefensePro Analytics Report
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
-      | Template-1 | reportType:DefensePro Analytics,devices:[{deviceIndex:11}] |
+      | Template-1 | reportType:DefensePro Analytics,devices:[{SetId:DefensePro_Set_2}] |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_2}],showTable:true |
 
 
   @SID_7
   Scenario:Add Template to DefensePro Analytics Report
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
-      | Template-3 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Template-3 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                      |
-      | Template-2 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
-      | Template-3 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_2}],showTable:true                      |
+      | Template-2 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true |
+      | Template-3 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true |
 
   @SID_8
   Scenario: Delete Template from DefensePro Analytics Report
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
       | Template-3 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                      |
-      | Template-2 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_2}],showTable:true                      |
+      | Template-2 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true |
 
   @SID_9
   Scenario: Edit The Time and validate
@@ -103,16 +103,16 @@ Feature: Edit DefensePro Analytics tests
   Scenario: Create and validate DefensePro Analytics Report2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefensePro Analytics Report2"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
-      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true                      |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                         |
       | Time Definitions.Date | Quick:1D                                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                      |
       | Format                | Select: PDF                                                                                                               |
     Then UI "Validate" Report With Name "DefensePro Analytics Report2"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
-      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true                      |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{SetId:DefensePro_Set_2}],showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                         |
       | Time Definitions.Date | Quick:1D                                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |

@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <VISION_VERSION>4.85.10</VISION_VERSION>
+        <VISION_VERSION>5.2.0</VISION_VERSION>
         <revision>${VISION_VERSION}-SNAPSHOT</revision>
         <rest.version>4.83.00-SNAPSHOT</rest.version>
         <cli.version>4.83.00-SNAPSHOT</cli.version>
@@ -26,6 +26,11 @@
         <jsystem.version>6.1.09</jsystem.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <jackson.version>2.10.3</jackson.version>
+        <!-- Old modules dependencies -->
+        <cli.base>DEVELOPMENT-4.83.00-SNAPSHOT</cli.base>
+        <rest.base>DEVELOPMENT-4.83.00-SNAPSHOT</rest.base>
+        <localization.base>4.83.00-SNAPSHOT</localization.base>
     </properties>
 
     <repositories>
@@ -77,12 +82,6 @@
             <name>topq-remote-repo</name>
             <url>http://hudson.corp.radware.com:8081/artifactory/Maven-Remote_topq</url>
         </repository>
-<!--       test delete-->
-<!--        <repository>-->
-<!--            <id>auto-dp7-release</id>-->
-<!--            <name>auto-dp7-release</name>-->
-<!--            <url>http://bldartifactory:8081/artifactory/list/auto-dp7-release</url>-->
-<!--        </repository>-->
     </repositories>
 
     <distributionManagement>
@@ -94,6 +93,26 @@
         </snapshotRepository>
     </distributionManagement>
 
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+            <!--            <type>bundle</type>-->
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+    </dependencies>
     <profiles>
         <profile>
             <id>production</id>

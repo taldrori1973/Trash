@@ -2,7 +2,7 @@
 Feature: Demo
 
 
-  @SID_5
+  @SID_5 @Debug1
   Scenario: Create Local User
 
     Given That Current Vision is Logged In
@@ -18,15 +18,12 @@ Feature: Demo
 
     When Send Request with the Given Specification
 
-
-
-
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
 
     Given The Request Body is the following Object
       | jsonPath                                                       | value                     |
       | $.name                                                         | "cucumber"                |
-      | $.password                                                     | ""                        |
+      | $.password                                                     | "Radware123456!"                        |
       | $.requireDeviceLock                                            | true                      |
       | $.userSettings.userLocale                                      | "en_US"                   |
       | $.parameters.roleGroupPairList[0].groupName                    | "VA_DPs_Version_8_site"   |

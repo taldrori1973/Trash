@@ -7,7 +7,6 @@ import com.radware.automation.tools.utils.ValidationUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.widgets.ComponentLocator;
-import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.vision.infra.base.pages.dptemplates.DpTemplates;
 import com.radware.vision.infra.base.pages.navigation.HomePage;

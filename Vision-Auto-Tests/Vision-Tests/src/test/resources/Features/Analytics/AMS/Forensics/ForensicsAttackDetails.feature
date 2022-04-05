@@ -19,13 +19,13 @@ Feature: Forensic Attack details Tests
 
   @SID_2
   Scenario: Run DP simulator
-    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
+    Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1" and wait 250 seconds
 
 
   @SID_3
   Scenario: VRM - Login to VRM Forensics
     Given UI Login with user "sys_admin" and password "radware"
-   * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
@@ -34,9 +34,8 @@ Feature: Forensic Attack details Tests
   Scenario: VRM - Add New Forensics Report Attack details1
     When UI "Create" Forensics With Name "Attack Details1"
       | Output | Action,Attack ID,Threat Category,Duration |
-    Then UI Click Button "My Forensics" with value "Attack Details1"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack Details1"
-    Then Sleep "35"
+    Then UI "Generate" Forensics With Name "Attack Details1"
+      | timeOut | 90 |
     And UI Click Button "Views.Forensic" with value "Attack Details1,0"
 
  ######################################################### Refine ########################################################################
@@ -45,7 +44,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Action
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Action |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
     * UI Click Button "Clear Refine"
@@ -54,7 +53,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Attack ID
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Attack ID |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     * UI Click Button "Clear Refine"
@@ -63,7 +62,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Start Time
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Start Time |
     #  move to manual because refine by time is not absolute
       # Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
@@ -73,7 +72,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Source IP Address
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Source IP Address |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 4
 
@@ -96,7 +95,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Source Port
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Source Port |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 8
     * UI Click Button "Clear Refine"
@@ -105,7 +104,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Destination IP Address
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Destination IP Address |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 4
     * UI Click Button "Clear Refine"
@@ -114,7 +113,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Destination Port
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Destination Port |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     * UI Click Button "Clear Refine"
@@ -123,7 +122,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Direction
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Direction |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
     * UI Click Button "Clear Refine"
@@ -132,7 +131,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Protocol
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Protocol |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 19
     * UI Click Button "Clear Refine"
@@ -141,7 +140,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Threat Category
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Threat Category |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 6
     * UI Click Button "Clear Refine"
@@ -150,7 +149,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Radware ID
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Radware ID |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     * UI Click Button "Clear Refine"
@@ -159,7 +158,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Attack Name
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Attack Name |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     * UI Click Button "Clear Refine"
@@ -168,7 +167,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Device IP Address
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Device IP Address |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 35
     * UI Click Button "Clear Refine"
@@ -177,25 +176,25 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by End Time
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | End Time |
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     * UI Click Button "Clear Refine"
 
   @SID_19
   Scenario: Validate attack details refine by Duration
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Duration |
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 3 with offset 2
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 5 with offset 5
     * UI Click Button "Clear Refine"
 
 #  @SID_20
 #  Scenario: Validate attack details refine by pps
 #    When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
 #    And UI Click Button "Refine View"
-#    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+#    And UI Select Multi items from dropdown "Refine by" apply
 #      | pps |
 #    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 #    * UI Click Button "Clear Refine"
@@ -204,7 +203,7 @@ Feature: Forensic Attack details Tests
 #  Scenario: Validate attack details refine by Mbps
 #    When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
 #    And UI Click Button "Refine View"
-#    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+#    And UI Select Multi items from dropdown "Refine by" apply
 #      | Mbps |
 #    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 #    * UI Click Button "Clear Refine"
@@ -213,7 +212,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Physical Port
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Physical Port |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     * UI Click Button "Clear Refine"
@@ -222,7 +221,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Policy Name
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Policy Name |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     * UI Click Button "Clear Refine"
@@ -231,7 +230,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by Risk
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Risk |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 10
     * UI Click Button "Clear Refine"
@@ -240,7 +239,7 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by VLAN Tag
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | VLAN Tag |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 33
     * UI Click Button "Clear Refine"
@@ -249,18 +248,18 @@ Feature: Forensic Attack details Tests
   Scenario: Validate attack details refine by group 1
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | VLAN Tag |
       | Risk     |
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 10
     * UI Click Button "Clear Refine"
 
-  
+
   @SID_27
   Scenario: Validate attack details refine by group 2
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+    And UI Select Multi items from dropdown "Refine by" apply
       | Source Port       |
       | Protocol          |
       | Device IP Address |
@@ -270,7 +269,7 @@ Feature: Forensic Attack details Tests
     * UI Click Button "Clear Refine"
 
 ##################################################### Attack PCAP file ####################################################################
-  
+
   @SID_28
   Scenario: Validate downloaded capture file
     Then Delete downloaded file with name "attack_800-1525623158_packets.pcap"
@@ -293,16 +292,15 @@ Feature: Forensic Attack details Tests
 
   @SID_30
   Scenario: New attack and create forensics view
-    Given CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 10 and wait 50 seconds
+    Given CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_1" and wait 60 seconds
     When UI "Create" Forensics With Name "Attack_Details"
       | Output | Start Time,Action,Attack ID,Threat Category,Duration |
 
 
   @SID_31
   Scenario: VRM - open forensic "Attack details" table
-    Then UI Click Button "My Forensics" with value "Attack_Details"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack_Details"
-    Then Sleep "35"
+    Then UI "Generate" Forensics With Name "Attack_Details"
+      | timeOut | 90 |
     And UI Click Button "Views.Forensic" with value "Attack_Details,0"
 
 
@@ -509,17 +507,17 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Source Port" equal to "4445"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Terminated"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "VLAN Tag" equal to "N/A"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Duration" equal to "13"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Duration" equal to "17"
     Then UI Validate Element Existence By Label "Forensics.Attack Details.Detail" if Exists "true" with value "Duration"
 
   @SID_48
   Scenario: close attack Server Cracking details
     Then UI Click Button "Forensics.Attack Details.Close"
-  
+
   @SID_49
   Scenario: Enter to 136-1414505529 details
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "136-1414505529"
-  
+
   @SID_50
   Scenario: Validate Anti-Scanning details
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
@@ -577,15 +575,15 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Operator" with extension "9" equal to "AND"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "9" equal to "source-ip"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Values" with extension "9" equal to "192.85.1.2"
-  
+
   @SID_51
   Scenario: close attack Anti-Scanning details
     Then UI Click Button "Forensics.Attack Details.Close"
-  
+
   @SID_52
   Scenario: Enter to 7447-1402580209 details
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7447-1402580209"
-  
+
   @SID_53
   Scenario: Validate DNS Flood details
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Forward"
@@ -626,7 +624,7 @@ Feature: Forensic Attack details Tests
 #    Then UI Validate Text field "Forensics.Attack Details.Detail.whitelist_0" have value "mail.gooooooooooooooooooooo.uk"
 #    Then UI Validate Text field "Forensics.Attack Details.Detail.whitelist_1" have value "gmail.google.com"
 #    Then UI Validate Text field "Forensics.Attack Details.Detail.whitelist_2" have value "www.google.com"
-  
+
   @SID_54
   Scenario: close attack DNS Flood details
     Then UI Click Button "Forensics.Attack Details.Close"
@@ -662,12 +660,12 @@ Feature: Forensic Attack details Tests
   Scenario: Close report details
     When UI Click Button "Forensics.Attack Details.Close"
 
-  
+
   @SID_58
   Scenario: VRM - Add New Forensics Report Attack ACL or 34-2206430105 for samples
     When UI "Create" Forensics With Name "Attack ACL"
       | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:ACL; Event Criteria:Radware ID,Operator:Equals,Value:700000 |
-      | Output   | Action,Attack ID,Threat Category,Duration                   |
+      | Output   | Action,Attack ID,Threat Category,Duration                                                                        |
     Then UI Click Button "Edit Forensics" with value "Attack ACL"
     Then UI Click Button "Criteria Tab"
     Then UI Select Element with label "Criteria Apply To" and params "any"
@@ -676,13 +674,13 @@ Feature: Forensic Attack details Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack ACL"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Attack ACL,0"
-  
+
 
   @SID_59
-    Scenario: Enter to 78-1536381752 details
+  Scenario: Enter to 78-1536381752 details
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "78-1536381752"
 
-  
+
   @SID_60
   Scenario: Validate ACL details
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
@@ -712,7 +710,7 @@ Feature: Forensic Attack details Tests
     Then UI Click Button "Forensics.Attack Details.Close"
 
 ##################################################### Attack sampled data ####################################################################
-  
+
   @SID_62
   Scenario: validate Forensic sampled data
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "34-2206430105"
@@ -726,7 +724,7 @@ Feature: Forensic Attack details Tests
       | Phyisical Port         | MNG-1      |
       | VLAN Tag               | N/A        |
       | Protocol               | UDP        |
-    
+
   @SID_63
   Scenario: Cleanup
     Given UI logout and close browser

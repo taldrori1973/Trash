@@ -13,11 +13,11 @@ Feature: Deletion Instance
   @SID_3
   Scenario: Create and validate DefensePro Analytics Report
     Given UI "Create" Report With Name "DefensePro Analytics Report"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true |
       | Time Definitions.Date | Quick:1D                                                                                             |
       | Format                | Select: CSV                                                                                          |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+      | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{SetId:DefensePro_Set_1}],showTable:true |
       | Time Definitions.Date | Quick:1D                                                                                             |
       | Format                | Select: CSV                                                                                          |
 

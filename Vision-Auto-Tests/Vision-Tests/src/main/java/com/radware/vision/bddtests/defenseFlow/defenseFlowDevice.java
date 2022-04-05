@@ -1,8 +1,6 @@
 package com.radware.vision.bddtests.defenseFlow;
 
-import jsystem.framework.system.SystemObjectImpl;
-
-public class defenseFlowDevice extends SystemObjectImpl {
+public class defenseFlowDevice  {
     public String vmName;
     public String deviceIp;
     public String snapshot;
@@ -97,8 +95,6 @@ public class defenseFlowDevice extends SystemObjectImpl {
     public defenseFlowDevice() {
     }
 
-    public void init() throws Exception {
-        super.init();
-    }
+
 
 }

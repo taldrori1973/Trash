@@ -49,6 +49,12 @@
             <artifactId>Auto-Utils</artifactId>
             <version>${revision}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>CLI-Infra</artifactId>
+            <version>${revision}</version>
+        </dependency>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Rest-Step-Handlers</artifactId>
@@ -80,21 +86,26 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation.rest</groupId>
-            <artifactId>vision-rest-framework</artifactId>
-            <version>${artifact-type}-${rest.version}</version>
+<!--        <dependency>-->
+<!--            <groupId>com.radware.vision.automation.rest</groupId>-->
+<!--            <artifactId>vision-rest-framework</artifactId>-->
+<!--            <version>${artifact-type}-${revision}</version>-->
+<!--        </dependency>-->
+         <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Cli-Step-Handlers</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
             <version>1.4.01</version>
         </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>RELEASE</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>commons-lang</groupId>-->
+<!--            <artifactId>commons-lang</artifactId>-->
+<!--            <version>RELEASE</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.jsystemtest</groupId>
             <artifactId>jsystemAgent</artifactId>
@@ -155,56 +166,14 @@
         </dependency>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${version}</version>
+            <artifactId>Database-Step-Handlers</artifactId>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${version}</version>
+            <artifactId>Auto-Common</artifactId>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -238,7 +207,7 @@
                     <dependency>
                         <groupId>com.radware.vision.automation</groupId>
                         <artifactId>Vision-Tests</artifactId>
-                        <version>${parent.version}</version>
+                        <version>${project.parent.version}</version>
                         <scope>runtime</scope>
                     </dependency>
                     <dependency>

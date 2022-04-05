@@ -32,7 +32,7 @@ Feature: DPM - Report Schedule Wizard
   Scenario: ADC - Add new Report Scheduling Day
     Given UI "Create" DPMReport With Name "SchedulingDayADC"
       | reportType            | Application Report            |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:30m                     |
       | Schedule              | Run Every:Daily,On Time:+2m   |
 
@@ -44,7 +44,7 @@ Feature: DPM - Report Schedule Wizard
 
     Given UI "Validate" DPMReport With Name "SchedulingDayADC"
       | reportType            | Application Report            |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:30m                     |
       | Schedule              | Run Every:Daily,On Time:+2m   |
 
@@ -56,14 +56,14 @@ Feature: DPM - Report Schedule Wizard
   Scenario: ADC - Add new Report Scheduling Week
     Given UI "Create" DPMReport With Name "WeekScheduleReportADC"
       | reportType            | Application Report            |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:30m                     |
       | Schedule              | Run Every:Weekly On Time:+5m  |
 
 
     Then UI "Validate" DPMReport With Name "WeekScheduleReportADC"
       | reportType            | Application Report            |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:30m                     |
       | Schedule              | Run Every:Weekly On Time:+5m  |
 
@@ -75,14 +75,14 @@ Feature: DPM - Report Schedule Wizard
   Scenario: ADC - Add new Report Scheduling Once
     Given UI "Create" DPMReport With Name "OnceScheduleReportADC"
       | reportType            | Application Report            |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:30m                     |
       | Schedule              | Run Every:Once,On Time:10:00  |
 
 
     Given UI "Validate" DPMReport With Name "OnceScheduleReportADC"
       | reportType            | Application Report            |
-      | devices               | virts:[Rejith_32326515:88] |
+      | devices               | virts:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:88] |
       | Time Definitions.Date | Quick:30m                     |
       | Schedule              | Run Every:Once,On Time:10:00  |
 

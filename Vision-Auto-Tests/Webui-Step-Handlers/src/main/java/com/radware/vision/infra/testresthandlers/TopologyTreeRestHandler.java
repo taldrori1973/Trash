@@ -5,8 +5,9 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.VisionRestClient;
 import com.radware.restcore.utils.enums.DeviceType;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.vision.topologytree.TopologyTreeDeviceNotExistException;
-import com.radware.vision.infra.testhandlers.BaseHandler;
+import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,7 +18,7 @@ import testhandlers.VisionRestApiHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopologyTreeRestHandler {
+public class TopologyTreeRestHandler extends TestBase {
 
     public static void deleteDeviceByManagementIp(VisionRestClient visionRestClient, String deviceIp) {
         try {
@@ -35,16 +36,29 @@ public class TopologyTreeRestHandler {
     public static void addDeviceToTopologyTree(String deviceType, String deviceName, String deviceIp, String site, List<Data> optionalValues) {
 
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
+        String parentOrmID = "";
 
-
-        String parentOrmID = getParentOrmID(site);
-        if (parentOrmID == null) return;
+        try {
+            parentOrmID = getParentOrmID(site);
+            if (parentOrmID == null) return;
+        }
+        catch (Exception e)
+        {
+            if(e.getMessage().contains(String.format("There is no device with name %s configured in APSolute Vision.", site)))
+            {
+                // create site
+                TopologyTreeImpl topologyTree = new TopologyTreeImpl();
+                topologyTree.addSite(site);
+                parentOrmID = getParentOrmID(site);
+                if (parentOrmID == null) return;
+            }
+        }
 
 
         String bodyParams = buildBodyParams(deviceType, deviceName, deviceIp, parentOrmID, optionalValues);
         Object result = null;
         try {
-            result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
+            result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
                     "Device Tree->Add New Device", null, bodyParams, null);
         } catch (IllegalStateException e) {
             if(e.getMessage().contains("already exists, please use a different IP Address"))
@@ -58,7 +72,7 @@ public class TopologyTreeRestHandler {
 
         //Sync after Add
         try {
-            result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
+            result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
                     "Device Tree->Sync Device", deviceIp, null, null);
         } catch (IllegalStateException e) {
 //            BaseTestUtils.report(String.format("Failed to Synchronize %s device.\nException Message:\n%s", deviceName,e.getMessage()), 1);
@@ -82,7 +96,7 @@ public class TopologyTreeRestHandler {
         bodyParams = bodyParams.concat("parentOrmID=" + parentOrmID).concat(",name=" + siteName);
         Object result = null;
         try {
-            result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
+            result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
                     "Device Tree->Add Site", null, bodyParams, null);
         } catch (IllegalStateException e) {
             if(e.getMessage().contains("Node name in the tree must be unique"))
@@ -101,7 +115,7 @@ public class TopologyTreeRestHandler {
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
 
-        Object result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
+        Object result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
                 "Device Tree->Site Data", site, null, null);
 
         if (result.toString().contains("\"status\": \"error\"")) {
@@ -138,7 +152,7 @@ public class TopologyTreeRestHandler {
         if (deviceOrmID == null) return;
         Object result = "";
         try {
-            result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.PUT,
+            result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.PUT,
                     request, null, "ormID=" + deviceOrmID + "," + scalarName + "=" + newValue, null);
         } catch (IllegalStateException e) {
             BaseTestUtils.report(String.format("Can't Update Scalar %s.\nException Message:\n%s", scalarName, e.getMessage()), 1);
@@ -148,7 +162,7 @@ public class TopologyTreeRestHandler {
 
         //Sync after Add
         try {
-            result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
+            result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
                     "Device Tree->Sync Device", deviceIp, null, null);
         } catch (IllegalStateException e) {
         }
@@ -157,7 +171,7 @@ public class TopologyTreeRestHandler {
 
     private static String getDeviceOrmID(String deviceIp) {
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
-        Object result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
+        Object result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
                 "Device Tree->Device Data", deviceIp, null, null);
 
         if (result.toString().contains("\"status\": \"error\"")) {
@@ -181,7 +195,7 @@ public class TopologyTreeRestHandler {
 
     public static String getDeviceName(String deviceIp) {
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
-        Object result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
+        Object result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
                 "Device Tree->Device Data", deviceIp, null, null);
 
         if (result.toString().contains("\"status\": \"error\"")) {
@@ -212,7 +226,7 @@ public class TopologyTreeRestHandler {
             if(e.getMessage().contains("M_00734: There is no device with name " + deviceIp + " configured in APSolute Vision."))
                 return;
         }
-        Object result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.DELETE,
+        Object result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.DELETE,
                 "Device Tree->Delete Device", deviceOrmID, null, null);
 
         if (result.toString().contains("\"status\": \"error\"")) {
@@ -222,7 +236,7 @@ public class TopologyTreeRestHandler {
 
     public static List<String> getListOfDevicesIPsByDeviceType(DeviceType deviceType) {
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
-        Object result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
+        Object result = visionRestApiHandler.handleRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.GET,
                 "Device Tree->Get Devices By Type", deviceType.getDeviceType().toLowerCase(), null, null);
 
         List<String> devicesIPs = new ArrayList<>();
@@ -244,5 +258,14 @@ public class TopologyTreeRestHandler {
         public String attribute;
         public String value;
 
+    }
+
+    public static class DataAdapter extends Data
+    {
+        public DataAdapter(String attribute, String value)
+        {
+            this.attribute = attribute;
+            this.value = value;
+        }
     }
 }

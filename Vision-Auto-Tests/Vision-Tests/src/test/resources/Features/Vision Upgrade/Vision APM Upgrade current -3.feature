@@ -4,7 +4,7 @@ Feature: Vision APM Upgrade current -3
   @SID_1
   Scenario: preparations for upgrade release -3
     Given Prerequisite for Setup force
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
 
         ######################################################################################
 
@@ -18,7 +18,7 @@ Feature: Vision APM Upgrade current -3
   @SID_3
   Scenario: Do any pre-upgrade changes
     Given CLI Reset radware password
-    Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "echo "Before " $(vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
       #for testing AVA Attack Capacity Grace Period with the following scenario:
       # if before upgrade the server not have the Legacy "vision-reporting-module-AMS" license and never installs the new AVA License so after upgrade No  Grace Period will be given:
     Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
@@ -83,7 +83,7 @@ Feature: Vision APM Upgrade current -3
     When CLI Run remote linux Command "reboot" on "ROOT_SERVER_CLI"
     When Sleep "120"
     When CLI Wait for Vision Re-Connection
-    Then validate vision server services is UP
+    Then validate vision server services are UP
 
   @SID_7
   Scenario: Check firewall settings
@@ -145,7 +145,7 @@ Feature: Vision APM Upgrade current -3
 
   @SID_12
   Scenario: Validate TED status
-    Then CLI Run linux Command "echo $(mysql -prad123 vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
+    Then CLI Run linux Command "echo $(vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 900 seconds
 
   @SID_13
   Scenario: Create new Site
@@ -192,7 +192,7 @@ Feature: Vision APM Upgrade current -3
 
   @SID_21
   Scenario: Validate MySql version
-    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+    Then CLI Run linux Command "--version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
 
   @SID_22
   Scenario: Validate vdirect listener
@@ -212,7 +212,7 @@ Feature: Vision APM Upgrade current -3
       | logType | expression                                                           | isExpected   |
       | LLS     | fatal\| error\|fail                                                  | NOT_EXPECTED |
       #rollback to the original values
-    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='32';"" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "vision_ng -e "update lls_server set min_required_ram='32';"" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system lls service stop"
     When CLI Operations - Run Radware Session command "y" timeout 180
 
@@ -232,11 +232,11 @@ Feature: Vision APM Upgrade current -3
 
   @SID_27
   Scenario: Verify number of tables in vision schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+    Then CLI Run linux Command "-NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
 
   @SID_28
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "169"
+    Then CLI Run linux Command "-NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "169"
 
   @SID_29
   Scenario: Verify services are running
@@ -270,7 +270,7 @@ Feature: Vision APM Upgrade current -3
 
   @SID_31
   Scenario: Validate Changed MySql partitioning number
-    Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "echo "After " $(vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result NOT_EQUALS "0"
 

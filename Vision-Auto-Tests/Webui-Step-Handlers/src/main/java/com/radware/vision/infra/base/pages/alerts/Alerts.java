@@ -1,14 +1,15 @@
 package com.radware.vision.infra.base.pages.alerts;
 
-import com.aqua.sysobj.conn.CliConnection;
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.table.WebUIRow;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
-import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.infra.base.pages.dialogboxes.AreYouSureDialogBox;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.RaisedTimeUnits;
@@ -18,14 +19,11 @@ import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.WebUIStringsVision;
 import com.radware.vision.infra.validationutils.ValidateAlertsTable;
-import junit.framework.SystemTestCase4;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 
 import java.util.*;
-
-import static junit.framework.SystemTestCase.report;
 
 public class Alerts extends WebUIVisionBasePage {
     public static String TimeAndDateFormat = "dd.MM.yyyy HH:mm:ss";
@@ -56,20 +54,9 @@ public class Alerts extends WebUIVisionBasePage {
             ComponentLocator locator = ComponentLocatorFactory.getLocatorById("gwt-debug-AlertsMaximize");
             WebUIUtils.fluentWait(locator.getBy()).click();
         }
-//        try {
-//            TopologyTreeHandler.clickTreeNodeDefault();
-//
-//            //wait before next step done, otherwise it will not be performed well
-//            BasicOperationsHandler.delay(1);
-//            WebUIUtils.isAllowInexistenceMode = true;
-//            ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsMaximizeButton());
-//            WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-//        } finally {
-//            WebUIUtils.isAllowInexistenceMode = false;
-//        }
     }
 
-    public boolean isAlertsTableOpen(){
+    public boolean isAlertsTableOpen() {
         ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsTab());
         WebElement element = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         return element != null;
@@ -129,19 +116,6 @@ public class Alerts extends WebUIVisionBasePage {
         }
     }
 
-//    public void setPageTextBox(String pageNum) {
-//
-//        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getPageTextBox());
-//        WebUITextField textField = new WebUITextField();
-//        textField.setWebElement((new WebUIComponent(locator)).getWebElement());
-//        textField.type(pageNum);
-//        try {
-//            WebUIUtils.pressEnter();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public void autoRefreshAlertsOff() {
         ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsAutoRefreshButton());
         WebUIComponent element = (new WebUIComponent(locator));
@@ -155,8 +129,6 @@ public class Alerts extends WebUIVisionBasePage {
             WebUIUtils.setIsTriggerPopupSearchEvent(false);
             ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsClearButton());
             WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
-//            locator = ComponentLocatorFactory.getLocatorByDbgId("gwt-debug-Dialog_Box_Yes");
-//            WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
         } finally {
             WebUIUtils.setIsTriggerPopupSearchEvent(true);
         }
@@ -264,7 +236,7 @@ public class Alerts extends WebUIVisionBasePage {
         for (String rowIndex : rowIndices) {
             int currentRowIndex = Integer.parseInt(rowIndex) - 1;
             if (currentRowIndex > allTableRows.size()) {
-                SystemTestCase4.report.report("++++ Row: " + currentRowIndex + " larger than current table count: " + allTableRows.size() + ". row selection was skipped." + Reporter.PASS);
+                BaseTestUtils.reporter.report("++++ Row: " + currentRowIndex + " larger than current table count: " + allTableRows.size() + ". row selection was skipped." + Reporter.PASS);
                 elements.add(allTableRows.get(allTableRows.size() / 2));
             } else {
                 elements.add(allTableRows.get(currentRowIndex));
@@ -333,9 +305,8 @@ public class Alerts extends WebUIVisionBasePage {
         usersTable.clickOnRow(rowNum);
     }
 
-    public String validateFilteredByRaisedTimeTable(String raisedTimeUnit, String raisedTimeValue, CliConnection cli) throws Exception {
-
-        InvokeUtils.invokeCommand("date +%s", (RootServerCli) cli);
+    public String validateFilteredByRaisedTimeTable(String raisedTimeUnit, String raisedTimeValue, ServerCliBase cli) throws Exception {
+        CliOperations.runCommand(cli, "date +%s");
         String serverTimeString = ((RootServerCli) cli).getTestAgainstObject().toString();
 
         long serverTime = Long.parseLong(serverTimeString.split("\\r\\n")[1]);
@@ -418,7 +389,7 @@ public class Alerts extends WebUIVisionBasePage {
             } while (value == null && count++ < 5);
             alert.put(field, value);
         }
-        report.report("Alert:", alert.toString(), Reporter.PASS);
+        BaseTestUtils.report("Alert:", alert.toString(), Reporter.PASS);
         return alert;
     }
 

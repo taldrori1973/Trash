@@ -3,9 +3,11 @@ package com.radware.vision.bddtests.defensepro.dpoperation;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.vision.automation.databases.mariaDB.GenericCRUD;
+import com.radware.vision.automation.databases.mariaDB.client.VisionDBSchema;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.base.pages.defensepro.HAStatus;
 import com.radware.vision.infra.enums.DeviceState;
 import com.radware.vision.infra.enums.TopologyTreeTabs;
@@ -14,7 +16,6 @@ import com.radware.vision.infra.testhandlers.DefencePro.dpOperations.DPOperation
 import com.radware.vision.infra.testhandlers.DefencePro.enums.DPHaDeviceStatus;
 import com.radware.vision.infra.testhandlers.DefencePro.enums.SignatureTypes;
 import com.radware.vision.infra.testhandlers.DefencePro.enums.UpdateFromSource;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.rbac.RBACHandlerBase;
 import com.radware.vision.infra.testresthandlers.DefenseProRESTHandler;
 import cucumber.api.java.en.Then;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 
 import static com.radware.vision.infra.testhandlers.DefencePro.dpOperations.DPOperationsHandler.printYellowMessage;
 
-public class DPOperationsTests extends BddUITestBase {
+public class DPOperationsTests extends VisionUITestBase {
 
     public DPOperationsTests() throws Exception {
     }
@@ -40,7 +41,7 @@ public class DPOperationsTests extends BddUITestBase {
             //////////////////////
             WebUIUtils.widgetsContainer = null;
             if (deviceInfoPrimary.getDeviceIp() == null) {
-                updateNavigationParser(Device.getDeviceIp(getVisionRestClient(), getDeviceName()));
+                updateNavigationParser(Device.getDeviceIp(restTestBase.getVisionRestClient(), getDeviceName()));
             } else {
                 updateNavigationParser(deviceInfoPrimary.getDeviceIp());
                 setDeviceName(deviceInfoPrimary.getDeviceIp());
@@ -56,7 +57,7 @@ public class DPOperationsTests extends BddUITestBase {
             testProperties.put("fileDownloadPath", "");//C:\Users\stanislava\Downloads\
             testProperties.put("fileName", "");
 
-            if (!DPOperationsHandler.updateSecuritySignatures(getVisionRestClient(), testProperties)) {
+            if (!DPOperationsHandler.updateSecuritySignatures(restTestBase.getVisionRestClient(), testProperties)) {
                 WebUIUtils.generateAndReportScreenshot();
                 BaseTestUtils.report("update Security Signatures operation may have been executed incorrectly :", Reporter.FAIL);
             }
@@ -80,7 +81,7 @@ public class DPOperationsTests extends BddUITestBase {
     }
 
     @Then("^UI verify dp Cluster device \"([^\"]*)\" with device index (\\d+) by haStatus \"(Primary|Secondary)\"$")
-    public void verifyClusterSecondaryDevice(String clusterName, String deviceIndex, HAStatus haStatus) throws Exception {
+    public void verifyClusterSecondaryDevice(String clusterName, String deviceIndex, HAStatus haStatus){
         try {
             DeviceInfo deviceInfoPrimary = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, Integer.parseInt(deviceIndex));
             if (!DPClusterManageHandler.isDpDeviceMember(clusterName, deviceInfoPrimary.getDeviceName(), haStatus)) {
@@ -92,7 +93,7 @@ public class DPOperationsTests extends BddUITestBase {
     }
 
     @Then("^UI dp Cluster Switchover \"([^\"]*)\"$")
-    public void dpClusterSwitchover(String deviceName) throws Exception {
+    public void dpClusterSwitchover(String deviceName) {
         try {
             setDeviceName(deviceName);
             DPClusterManageHandler.dpClusterSwitchover(getDeviceName());
@@ -102,12 +103,13 @@ public class DPOperationsTests extends BddUITestBase {
     }
 
     @When("^Change Platform Type of DefensePro by IP \"([^\"]*)\" to \"([^\"]*)\"$")
-    public void changePlatformTypeOfDefenseProByIPTo(String defenseProIp, String newPlatformType) {
+    public void changePlatformTypeOfDefenseProByIPTo(String defenseProIp, String newPlatformType) throws Exception {
 
         String deviceMac = DefenseProRESTHandler.getMacByIp(defenseProIp);
-        String sqlCommand = String.format("mysql -prad123 vision_ng -e \"update hardware set platform_type='%s' where base_mac_addr='%s'\\G\"", newPlatformType, deviceMac);
-        CliOperations.runCommand(restTestBase.getRootServerCli(), sqlCommand);
-
+        int updateNumber = GenericCRUD.updateSingleValue(VisionDBSchema.VISION_NG, "hardware", String.format("base_mac_addr='%s'",deviceMac),"platform_type", newPlatformType);
+        if(updateNumber<1){
+            throw new Exception(String.format("DefensePro with Ip: '%s' Platform Type not updated.",defenseProIp));
+        }
     }
 
 }

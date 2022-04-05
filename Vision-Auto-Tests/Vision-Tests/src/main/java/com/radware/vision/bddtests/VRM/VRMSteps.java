@@ -89,6 +89,7 @@ public class VRMSteps {
      */
     @When("^UI VRM Select device from dashboard( and Save Filter)?(?: device type \"(.*)\")?$")
     public void selectDeviceWithPoliciesAndPorts(String saveFilter, SUTDeviceType deviceType, List<DpDeviceFilter> entries) {
+        int x;
         vrmHandler.innerSelectDeviceWithPoliciesAndPorts(saveFilter, deviceType, entries, true);
     }
 
@@ -234,9 +235,9 @@ public class VRMSteps {
         vrmHandler.validateMemoryUtilization();
     }
 
-    @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"$")
-    public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName,  List<VRMHandler.Data> entries) throws Throwable {
-        new Report().getVRMReportsChartsHandler(reportName).validateChartDataOfDataSets(chart, label, null, entries);
+    @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"(?: with device \"(.*)\")?$")
+    public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName, String device, List<VRMHandler.Data> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName, device).validateChartDataOfDataSets(chart, label, null, entries);
     }
 
     @Then("^UI Validate StackBar data with widget \"([^\"]*)\" in report \"([^\"]*)\"$")

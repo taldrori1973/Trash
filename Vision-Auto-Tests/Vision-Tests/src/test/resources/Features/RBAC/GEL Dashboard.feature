@@ -30,6 +30,7 @@ Feature: GEL Dashboard RBAC
     Then UI Validate user rbac
       | operations    | accesses |
       | GEL Dashboard | <Access> |
+
     Then UI Logout
 
     Examples:

@@ -18,36 +18,35 @@ public class DPMReportHandler extends VRMReportsHandler {
 
     protected void selectDevices(Map<String, String> map) {
         try {
-        if (map.containsKey("devices")) {
-            JSONArray virtsJsonArray = (JSONArray) new JSONObject(map.get("devices")).get("virts");
-            for (int i=0; i<virtsJsonArray.length(); i++)
-            {
-                BasicOperationsHandler.clickButton("Virtual device",virtsJsonArray.getString(i).trim());
-            }
+            if (map.containsKey("devices")) {
+                JSONArray virtsJsonArray = (JSONArray) new JSONObject(map.get("devices")).get("virts");
+                for (int i = 0; i < virtsJsonArray.length(); i++) {
+                    BasicOperationsHandler.clickButton("Virtual device", virtsJsonArray.getString(i).trim());
+                }
 
-        }else{
-            VisionDebugIdsManager.setLabel("Virtual device");
-            VisionDebugIdsManager.setParams("");
-            List<WebElement> virts = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            if (virts.size() >= 1){
-                virts.get(0).click();
-                Thread.sleep(3);
-            }else{
-                BaseTestUtils.report("There is NO virst/device to select",Reporter.FAIL);
+            } else {
+                VisionDebugIdsManager.setLabel("Virtual device");
+                VisionDebugIdsManager.setParams("");
+                List<WebElement> virts = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                if (virts.size() >= 1) {
+                    virts.get(0).click();
+                    Thread.sleep(3);
+                } else {
+                    BaseTestUtils.report("There is NO virst/device to select", Reporter.FAIL);
+                }
             }
-        }
-        }catch (Exception e){
-            BaseTestUtils.report("Failed in scope selection",Reporter.FAIL);
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed in scope selection", Reporter.FAIL);
         }
     }
 
 //    protected void validateVRMBase(RootServerCli rootServerCli, String reportName, Map<String, String> map) {
-//        super.validateGeneratedReport(reportName,map);
+//        super.validateGeneratedBaseTestUtils.reportName,map);
 //    }
 //
 
 
-    protected void validateGenratedReportDevices(Map<String,String> map) {
+    protected void validateGenratedReportDevices(Map<String, String> map) {
     }
 
     @Override
@@ -58,7 +57,7 @@ public class DPMReportHandler extends VRMReportsHandler {
             String reportType = map.getOrDefault("reportType", null);
             WebElement selectTemplate = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             if (selectTemplate.getAttribute("class").contains("collapsed"))
-                BasicOperationsHandler.clickButton("Template","");
+                BasicOperationsHandler.clickButton("Template", "");
             if (reportType != null && reportType.equalsIgnoreCase("Network Report")) {
                 BasicOperationsHandler.clickButton("Template", "Network Report");
             } else {
@@ -77,13 +76,13 @@ public class DPMReportHandler extends VRMReportsHandler {
             JSONObject actualVirt = new JSONObject(actualVirtsJsonArray.get(0).toString());
 
             JSONArray expectedVirtsJsonArray = (JSONArray) new JSONObject(map.get("devices")).get("virts");
-            if (actualVirtsJsonArray.length()!=1 || expectedVirtsJsonArray.length()!=1){
+            if (actualVirtsJsonArray.length() != 1 || expectedVirtsJsonArray.length() != 1) {
 //                BaseTestUtils.report("There is more than one virt.",Reporter.FAIL);
                 errorMessage.append("There is more than one virt.").append("\n");
             }
-            if (!expectedVirtsJsonArray.getString(0).trim().equalsIgnoreCase(actualVirt.get("name").toString())){
+            if (!expectedVirtsJsonArray.getString(0).trim().equalsIgnoreCase(actualVirt.get("name").toString())) {
 //                BaseTestUtils.report("The actual Virts is: "+actualVirt.get("name")+"but the expected Virt is: "+expectedVirtsJsonArray.getString(0).trim(),Reporter.FAIL);
-                errorMessage.append("The actual Virts is: "+actualVirt.get("name")+"but the expected Virt is: "+expectedVirtsJsonArray.getString(0).trim()).append("\n");
+                errorMessage.append("The actual Virts is: " + actualVirt.get("name") + "but the expected Virt is: " + expectedVirtsJsonArray.getString(0).trim()).append("\n");
             }
         }
         return errorMessage;

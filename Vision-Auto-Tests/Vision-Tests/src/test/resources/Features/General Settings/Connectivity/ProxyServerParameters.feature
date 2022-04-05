@@ -29,14 +29,14 @@ Feature: Connectivity Proxy Server Parameters Functionality
   Scenario: Proxy validate UI fields
     Then UI Click Button "toolbarRefresh"
     Then REST get Connectivity Parameters "proxyServerAddress"
-    Then UI Validate Text field "IP Address" EQUALS ""
+    Then UI Validate Text field "IP Address" EQUALS "172.17.172.89"
     Then REST get Connectivity Parameters "proxyServerPort"
-    Then UI Validate Text field "Port" EQUALS ""
+    Then UI Validate Text field "Port" EQUALS "8080"
     Then REST get Connectivity Parameters "proxyServerUser"
-    Then UI Validate Text field "Username" EQUALS ""
+    Then UI Validate Text field "Username" EQUALS "radware"
     Then REST get Connectivity Parameters "proxyServerPass"
-    Then UI Validate Text field "Password" EQUALS ""
-    Then UI Validate Text field by id "gwt-debug-proxyServerPass_DuplicatePasswordField" EQUALS ""
+    Then UI Validate Text field "Password" EQUALS "radware"
+    Then UI Validate Text field by id "gwt-debug-proxyServerPass_DuplicatePasswordField" EQUALS "radware"
 
   @SID_5
   Scenario: Validate proxy by IP address - functionality
@@ -44,7 +44,8 @@ Feature: Connectivity Proxy Server Parameters Functionality
     Then UI Click vision dashboards
     Then UI Click security control center
     Then Sleep "10"
-    Then CLI Run linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS \" 20" on "ROOT_SERVER_CLI" and validate result CONTAINS "00"
+    #Then CLI Run linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS \" 20" on "ROOT_SERVER_CLI" and validate result CONTAINS "00"
+    Then CLI Run remote linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS \" 20" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS > /opt/radware/storage/out.txt " on "ROOT_SERVER_CLI"
 
 
@@ -67,14 +68,15 @@ Feature: Connectivity Proxy Server Parameters Functionality
     Then UI Click vision dashboards
     Then UI Click security control center
     * Sleep "10"
-    Then CLI Run linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS" on "ROOT_SERVER_CLI" and validate result EQUALS "{"status":"UNKNOWN"}"
+    Then CLI Run linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS" on "ROOT_SERVER_CLI" and validate result CONTAINS "status"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-configuration-service_1 sh -c \"cat /opt/radware/mgt-server/third-party/jboss-4.2.3.GA/server/insite/log/server/sc-dashboard.log\" | grep framework " on "ROOT_SERVER_CLI"
 
     * CLI Check if logs contains
-      | logType | expression                                                             | isExpected |
-      | JBOSS   | you are not currently allowed to request https://services.radware.com/ | EXPECTED   |
+      | logType | expression                          | isExpected   |
+      | JBOSS   | fatal                               | NOT_EXPECTED |
 
-  @SID_8
-  Scenario: Validate proxy by IP address - proxy server logs
+#  @SID_8
+#  Scenario: Validate proxy by IP address - proxy server logs
 
   @SID_9
   Scenario: modify local hosts file
@@ -102,13 +104,13 @@ Feature: Connectivity Proxy Server Parameters Functionality
     Then UI Click vision dashboards
     Then UI Click security control center
     Then Sleep "15"
-    Then CLI Run linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS \" 20" on "ROOT_SERVER_CLI" and validate result CONTAINS "00"
-
-  @SID_12
-  Scenario: Validate proxy by Name - proxy server and vision logs
-  | logType | expression                                                             | isExpected |
-  | JBOSS   | you are not currently allowed to request https://services.radware.com/ | false      |
-  | ALL     | fatal                                                                  | false      |
+    #Then CLI Run linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS \" 20" on "ROOT_SERVER_CLI" and validate result CONTAINS "00"
+    Then CLI Run remote linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS \" 20" on "ROOT_SERVER_CLI"
+#  @SID_12
+#  Scenario: Validate proxy by Name - proxy server and vision logs
+#  | logType | expression                                                             | isExpected |
+#  | JBOSS   | you are not currently allowed to request https://services.radware.com/ | false      |
+#  | ALL     | fatal                                                                  | false      |
 
 
   @SID_13

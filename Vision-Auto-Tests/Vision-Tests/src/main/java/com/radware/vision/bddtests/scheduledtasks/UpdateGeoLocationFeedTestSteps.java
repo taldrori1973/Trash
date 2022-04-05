@@ -1,12 +1,12 @@
 package com.radware.vision.bddtests.scheduledtasks;
 
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.UpdateGeoLocationFeedTestHandler;
 import cucumber.api.java.en.Then;
 
 import java.util.List;
 
-public class UpdateGeoLocationFeedTestSteps extends BddUITestBase {
+public class UpdateGeoLocationFeedTestSteps extends VisionUITestBase {
 
     public UpdateGeoLocationFeedTestSteps() throws Exception {
     }

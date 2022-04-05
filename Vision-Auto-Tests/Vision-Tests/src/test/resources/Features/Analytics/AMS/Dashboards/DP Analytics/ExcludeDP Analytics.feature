@@ -10,7 +10,7 @@ Feature: Exclude DP Analytics Dashboard
 
   @SID_2
   Scenario: Run DP simulator for ErtFeed_GeoFeed
-    Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "ErtFeed_GeoFeed" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
     Then Sleep "30"
 
 

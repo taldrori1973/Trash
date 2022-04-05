@@ -2,19 +2,20 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.automation.Deploy.UvisionServer;
+import com.radware.vision.automation.Deploy.VisionServer;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
-import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
+
 
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Upgrade extends Deploy {
     private static final Map<String, String> LAST_SUPPORTED_UPGRADE_VERSION = new HashMap<String, String>() {{
-        put("4.86.00", "4.83.00");
         put("4.85.00", "4.82.00");
         put("4.84.00", "4.81.00");
         put("4.83.00", "4.80.00");
@@ -31,7 +32,7 @@ public class Upgrade extends Deploy {
     private FileType upgradeType;
 
     public Upgrade(boolean isExtended, String build, RadwareServerCli radwareServerCli, RootServerCli rootServerCli) {
-        super(isExtended, build, rootServerCli.getHost());
+        super(isExtended, build, rootServerCli.getHost(), FileType.UPGRADE);
         this.radwareServerCli = radwareServerCli;
         this.rootServerCli = rootServerCli;
         this.initFileType();
@@ -56,8 +57,8 @@ public class Upgrade extends Deploy {
             if (!isSetupNeeded) return;
             String[] path = buildFileInfo.getPath().toString().split("/");
             VisionServer.upgradeServerFile(this.radwareServerCli, this.rootServerCli
-                    , version, null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
-            UpgradeSteps.validateVisionServerServicesUP(WebUITestBase.getRestTestBase().getRadwareServerCli());
+                    , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
+            UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

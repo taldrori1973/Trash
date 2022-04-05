@@ -3,12 +3,23 @@ Feature: Alert Settings - Syslog Reporting Functionality IPv6
 
   @SID_1
   Scenario: Syslog IPv6 cleanup
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_severities;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_device_ids;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_modules;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_server;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "update syslog_global_params set enable_syslog_reporting=b'0';""
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_severities;""
+    Then MYSQL DELETE FROM "syslog_filter_to_severities" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_device_ids;""
+    Then MYSQL DELETE FROM "syslog_filter_to_device_ids" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_modules;""
+    Then MYSQL DELETE FROM "syslog_filter_to_modules" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_server;""
+    Then MYSQL DELETE FROM "syslog_server" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter;""
+    Then MYSQL DELETE FROM "syslog_filter" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "update syslog_global_params set enable_syslog_reporting=b'0';""
+    Then MYSQL UPDATE "syslog_global_params" Table in "VISION_NG" Schema SET "enable_syslog_reporting" Column Value as false WHERE ""
 #    Then UI Add "Alteon" with index 40 on "Default" site
     Then CLI Clear vision logs
 
@@ -42,7 +53,7 @@ Feature: Alert Settings - Syslog Reporting Functionality IPv6
   @SID_5
   Scenario: Syslog Reporting - Generate alert
 #    Then UI DualList Move deviceIndex 40 deviceType "Alteon" DualList Items to "RIGHT" , dual list id "gwt-debug-syslogFilter.deviceOrmIds"
-   Then CLI Run remote linux Command "ssh root@172.17.178.20 'echo "cleared" $(date) > /var/log/syslog'" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "ssh root@172.17.178.20 'echo "cleared" $(date) > /var/log/syslog'" on "GENERIC_LINUX_SERVER"
     Then UI Set Checkbox "Enable Detailed Auditing of APSolute Vision Activity" To "true"
     Then UI Click Button "Submit"
     Then UI Set Checkbox "Enable Detailed Auditing of APSolute Vision Activity" To "false"
@@ -105,7 +116,9 @@ Feature: Alert Settings - Syslog Reporting Functionality IPv6
 
   @SID_7
   Scenario: disable syslog Logout and check logs IPv6
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "update syslog_global_params set enable_syslog_reporting=b'0';""
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "update syslog_global_params set enable_syslog_reporting=b'0';""
+    Then MYSQL UPDATE "syslog_global_params" Table in "VISION_NG" Schema SET "enable_syslog_reporting" Column Value as false WHERE ""
+
     Then UI logout and close browser
     Then CLI Check if logs contains
       | logType     | expression   | isExpected   |

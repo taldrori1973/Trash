@@ -10,8 +10,8 @@ Feature: Connectivity SNMP Parameters
     Then UI Go To Vision
     Then UI Add "DefensePro" with index 5 on "Default" site
     Then UI Add "Alteon" with index 3 on "Default" site
-    Then UI Wait For Device To Show Up In The Topology Tree "DefensePro" device with index 5 with timeout 300
-    Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 3 with timeout 300
+    Then UI Wait For Device To Show Up In The Topology Tree "DefensePro" device with index 5 with timeout 300 seconds
+    Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 3 with timeout 300 seconds
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Connectivity"
 

@@ -10,7 +10,7 @@ Feature: VRM DNS baselines
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
 
-    Given CLI simulate 200 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
+    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_2
   Scenario: login and select device
@@ -25,8 +25,8 @@ Feature: VRM DNS baselines
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
     And UI Do Operation "Select" item "Max Min"
 
  # @SID_3
@@ -1167,7 +1167,7 @@ Feature: VRM DNS baselines
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Attack Edge"
       | value | count | offset |
-      | 189   |   13  | 10     |
+      | 189   | 13    | 10     |
 
     Then UI Validate Line Chart data "DNS-SRV" with Label "Legitimate Traffic"
       | value | count | offset |
@@ -1184,8 +1184,8 @@ Feature: VRM DNS baselines
   Scenario: DNS baseline Filter
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies        |
-      | 10    |       | policy_1, pol_1 |
+      | SetId            | ports | policies       |
+      | DefensePro_Set_1 |       | policy_1,pol_1 |
     Then UI Remove Session Storage "DNS-A"
     Then Sleep "35"
     Then UI Validate Session Storage "DNS-A" exists "false"
@@ -1205,8 +1205,8 @@ Feature: VRM DNS baselines
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | SetId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
     Then Sleep "5"
     Then UI Validate Line Chart data "DNS-TXT" with Label "Suspected Edge"
       | value | count | offset |
@@ -1295,7 +1295,7 @@ Feature: VRM DNS baselines
 #      | borderColor           | rgba(141, 190, 214, 5)   |
 #
 #    * UI Open "Configurations" Tab
-    * UI Logout
+    Then UI logout and close browser
 
   @SID_23
   Scenario: DNS baseline RBAC negative
@@ -1306,11 +1306,10 @@ Feature: VRM DNS baselines
    # Then UI Open "DP DNS Baseline" Sub Tab
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | policy1  |
-
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | policy1  |
     * UI Open "Configurations" Tab
-    * UI Logout
+    Then UI logout and close browser
 
   @SID_24
   Scenario: DNS baselines clear all widgets
@@ -1324,8 +1323,8 @@ Feature: VRM DNS baselines
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | pol_1    |
+      | setId            | ports | policies |
+      | DefensePro_Set_1 |       | pol_1    |
     Then UI VRM Clear All Widgets
 
   @SID_25

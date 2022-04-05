@@ -5,23 +5,25 @@ Feature: Create Device DP
   Scenario: Open the SitesAndClusters  Containers
     Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
-    Then UI Go To Vision
-    Then UI open Topology Tree view "SitesAndClusters" site
+    Given REST Delete device with DeviceID "DefensePro_172.16.22.25" from topology tree
 
   @SID_2 @Sanity
   Scenario: Add new DefensePro
-    Then UI Add "DefensePro" with index 2 on "Default" site
+    Given UI Go To Vision
+    When UI open Topology Tree view "SitesAndClusters" site
+    When UI Add with DeviceID "DefensePro_172.16.22.25" under "Default" site
+    Then UI Wait For Device To Show Up In The Topology Tree with DeviceID "DefensePro_172.16.22.25" with timeout 300 seconds
 
   @SID_3
   Scenario: verify DP status and lock DP
-    Then UI Lock Device with type "DefensePro" and Index 2 by Tree Tab "Sites And Devices"
-    Then UI verify Device Status with deviceType "defensePro" with index 2 if Expected device Status "Up or Maintenance"
-    Then UI open Topology Tree view "SitesAndClusters" site
+    When UI Lock Device with DeviceID "DefensePro_172.16.22.25" under "Sites And Devices"
+    Then UI verify Device Status with DeviceID "DefensePro_172.16.22.25" if Expected device Status "Up or Maintenance"
 
   @SID_4 @Sanity
   Scenario: Delete DefensePro
-    Then UI Delete "DefensePro" device with index 2 from topology tree
+    When UI open Topology Tree view "SitesAndClusters" site
+    Then UI Delete with DeviceID "DefensePro_172.16.22.25" from topology tree
 
   @SID_5 @Sanity
   Scenario: Logout
-    Then UI logout and close browser
+    Given UI logout and close browser

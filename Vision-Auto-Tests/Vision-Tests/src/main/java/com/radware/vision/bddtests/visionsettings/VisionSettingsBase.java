@@ -2,11 +2,11 @@ package com.radware.vision.bddtests.visionsettings;
 
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
-public class VisionSettingsBase extends BddUITestBase {
+public class VisionSettingsBase extends VisionUITestBase {
     public VisionSettingsBase() throws Exception {
     }
 

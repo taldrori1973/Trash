@@ -8,19 +8,19 @@ Feature: Forensics CSV without Attack details
     * CLI kill all simulator attacks on current vision
     * CLI Clear vision logs
     * REST Delete ES index "dp-*"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
   @SID_2
   Scenario: Run DP simulator for BDOS, DNS, ASCAN, Syn, HTTPs, burst
-    And CLI simulate 1 attacks of type "rest_synflood" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_dns" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_ascan" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_bdos" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_server_crack" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "HTTPS" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_burst" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 10 and wait 30 seconds
+    And CLI simulate 1 attacks of type "rest_synflood" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "rest_dns" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "rest_bdos" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "rest_server_crack" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "HTTPS" on "DefensePro" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "rest_burst" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "rest_dos" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_1"
+
 
   @SID_3
   Scenario: login and go to forensic tab

@@ -1,10 +1,8 @@
 package com.radware.vision.bddtests.VRM;
 
 
-import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.infra.testhandlers.vrm.ForensicsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
@@ -13,8 +11,9 @@ import cucumber.api.java.en.Then;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
-public class ForensicsSteps extends BddUITestBase {
+public class ForensicsSteps extends TestBase {
     private ForensicsHandler forensicsHandler = new ForensicsHandler();
 
     public ForensicsSteps() throws Exception {
@@ -77,8 +76,7 @@ public class ForensicsSteps extends BddUITestBase {
      * */
     @Given("^UI \"(Create|Validate|Edit|Generate|Isexist)\" Forensics With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String forensicsName, String negative, Map<String,String> forensicsEntry) throws Throwable {
-      //  forensicsHandler.VRMForensicsOperation(operationType, forensicsName, forensicsEntry, restTestBase.getRootServerCli());
-       new Forensics().baseOperation(operationType, forensicsName, negative, forensicsEntry, restTestBase.getRootServerCli());
+       new Forensics().baseOperation(operationType, forensicsName, negative, forensicsEntry, serversManagement.getRootServerCLI().get());
     }
 
     @Then("^UI Validate max generate Forensics is (\\d+)$")
@@ -96,6 +94,6 @@ public class ForensicsSteps extends BddUITestBase {
         Map<String,String> map=new HashMap<>();
         map.put("validation",Validate);
         map.put("timeout",String.valueOf(timeout));
-        forensicsHandler.VRMForensicsOperation(vrmActions.GENERATE,reportName,map,restTestBase.getRootServerCli());
+        forensicsHandler.VRMForensicsOperation(vrmActions.GENERATE,reportName,map,serversManagement.getRootServerCLI().get());
     }
 }

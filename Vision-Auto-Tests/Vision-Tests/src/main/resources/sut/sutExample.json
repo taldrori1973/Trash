@@ -1,0 +1,38 @@
+{
+  "setupFile": "[SETUP_FILE_NAME].json",
+  "serverName": "uvision_auto",
+  "defenseFlow": "[DF IP ADDR (not relavant for CyberController)]",
+  "deployConfigurations": {
+    "snapshot": "",
+    "setupMode": "[DEPLOY MODE]",
+    "environment": "[HOST]"
+  },
+  "pair": {
+    "pairIp": "[PAIR IP]",
+    "environment": "[PAIR HOST]"
+  },
+  "clientConfiguration": {
+    "hostIp": "[IP ADDR]",
+    "userName": "radware",
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 443,
+      "defaultProtocol": "https"
+    },
+    "sqlDbConnection": {
+      "defaultPort": 3306,
+      "username": "root",
+      "password": "radware"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
+      "password": "radware"
+    }
+  }
+}

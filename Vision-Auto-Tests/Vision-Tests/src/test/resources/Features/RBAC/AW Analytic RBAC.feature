@@ -2,21 +2,16 @@
 Feature: AW Analytics User RBAC
 
   @SID_1
-  Scenario: Clear Database and Login And Go to Vision
-    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
+  Scenario Outline: Clear Database and Login And Go to Vision
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Service "config_kvision-reporter_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
     * REST Delete ES index "dp-*"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
-
-
-  @SID_2
-  Scenario Outline: Create users and verify
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
-    When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
+    When UI Create New User With User Name "<User Name>", Role "<Role>", Scope "<Scope>", Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
       | User Name              | Role                   | Scope | Password        |
@@ -27,7 +22,8 @@ Feature: AW Analytics User RBAC
     Then UI Navigate to page "System->User Management->Authentication Mode"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
-    Then UI Logout
+    Then Sleep "10"
+    Then UI logout and close browser
 
   @SID_4
   Scenario: AW_ANALYTICS_User RBAC Validation
@@ -37,7 +33,7 @@ Feature: AW Analytics User RBAC
       | operations                                  | accesses |
       | AVR                                         | no       |
       | DPM                                         | no       |
-      | ANALYTICS ADC                               | no       |
+      | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | DefensePro Behavioral Protections Dashboard | no       |
       | HTTPS Flood Dashboard                       | no       |
@@ -94,8 +90,8 @@ Feature: AW Analytics User RBAC
     Then UI "Generate" Report With Name "OverAllAppWallReport"
       | timeOut | 120 |
     Then UI Click Button "Log Preview" with value "OverAllAppWallReport_0"
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep 'VRM_report_.*.pdf' | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.pdf" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.pdf' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
 
   @SID_9
@@ -106,8 +102,8 @@ Feature: AW Analytics User RBAC
       | Format | Select: CSV |
     Then UI "Generate" Report With Name "OverAllAppWallReport"
       | timeOut | 120 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep VRM_report_.*.zip | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.zip" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.zip' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
 
   @SID_10
@@ -118,8 +114,8 @@ Feature: AW Analytics User RBAC
       | Format | Select: HTML |
     Then UI "Generate" Report With Name "OverAllAppWallReport"
       | timeOut | 120 |
-    Then CLI Run linux Command "ll /opt/radware/mgt-server/third-party/tomcat/bin/ | grep VRM_report_.*.html | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_.*.html" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.html' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
   @SID_11
   Scenario: Delete Report Validation
@@ -206,7 +202,7 @@ Feature: AW Analytics User RBAC
     When UI Delete Alerts With Name "Alert Delivery"
     Then Sleep "5"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert Delivery"
-    Then UI Logout
+    Then UI logout and close browser
 
   @SID_20
   Scenario Outline: Delete All Users

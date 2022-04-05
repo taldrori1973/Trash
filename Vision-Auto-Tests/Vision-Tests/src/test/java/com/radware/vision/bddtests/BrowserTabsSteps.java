@@ -2,10 +2,11 @@ package com.radware.vision.bddtests;
 
 import com.radware.automation.webui.utils.multitab.BrowserMultiTabManager;
 import com.radware.automation.webui.utils.multitab.TabInfo;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import cucumber.api.java.en.Then;
 
-public class BrowserTabsSteps extends BddUITestBase{
+public class BrowserTabsSteps extends VisionUITestBase {
 
 
     BrowserMultiTabManager multiTabsManager=BrowserMultiTabManager.getInstance();

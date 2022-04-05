@@ -27,7 +27,7 @@ Feature: AMS actionable edit Threshold
     Then CLI Operations - Verify that output contains regex ".*adjust_profile.*"
   @SID_3
   Scenario: run attacks
-    Given CLI simulate 1000 attacks of type "baselines_pol_1_dynamic" on "DefensePro" 11 and wait 10 seconds
+    Given CLI simulate 1000 attacks of type "baselines_pol_1_dynamic" on SetId "DefensePro_Set_2" and wait 10 seconds
 
   @SID_4
   Scenario: login

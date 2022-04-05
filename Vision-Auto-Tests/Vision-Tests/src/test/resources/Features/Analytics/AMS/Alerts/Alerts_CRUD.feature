@@ -1,4 +1,5 @@
-@VRM_Alerts @TC105982
+@VRM_Alerts
+@TC105982
 
 Feature: VRM Alerts CRUD
 
@@ -12,7 +13,7 @@ Feature: VRM Alerts CRUD
 
   @SID_2
   Scenario: VRM - Login to VRM "Alerts" tab
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "AMS Alerts" page via homePage
 
@@ -20,10 +21,9 @@ Feature: VRM Alerts CRUD
   Scenario: Create Alert basic
     When UI "Create" Alerts With Name "Alert_Src_Port"
       | Basic Info | Description:Src Port,Impact:some impact,Remedy: who knows,Severity:Info   |
-      | devices    | index:11                                                                  |
-      | Criteria   | Event Criteria:Source Port,Operator:Equals,portType:Port,portValue:10024; |
+      | devices    | [DefensePro_172.16.22.50]                                                 |
+      | Criteria   | Event Criteria:Source Port,Operator:Equals,portType:Port,portValue:1024;  |
       | Schedule   | triggerThisRule:2,Within:4,selectTimeUnit:days,alertsPerHour:60           |
-      | Share      | Email:[automation1@radware.com],Subject:mySubject,Body:myBody;            |
 
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_Src_Port"
 
@@ -31,15 +31,16 @@ Feature: VRM Alerts CRUD
   Scenario: Edit Alert fields
     When UI "Edit" Alerts With Name "Alert_Src_Port"
       | Basic Info | Description:Src Port modified,Impact:Another impact,Remedy: I know,Severity:Warning                                                 |
-      | devices    | index:10                                                                                                                            |
-      | Criteria   | Event Criteria:Source Port,Operator:Not Equals,portType:Port,portValue:1024;Event Criteria:Attack ID,Operator:Not Equals,Value:300; |
+      | devices    | [DefensePro_172.16.22.50]                                                                                                           |
+      | Criteria   | Event Criteria:Source Port,Operator:Not Equals,portType:Port,portValue:1024; |
       | Schedule   | checkBox:Trigger,alertsPerHour:1                                                                                                    |
 
   @SID_5
   Scenario: Create Alert To_be_Disabled
     When UI "Create" Alerts With Name "To_be_Disabled"
-      | Basic Info | Description:Src Port                                    |
-      | Criteria   | Event Criteria:Attack ID,Operator:Not Equals,Value:300; |
+      | Basic Info | Description:To_be_Disabled,Impact:some impact,Remedy: I know,Severity:Warning |
+      | devices    | [All]                                                   |
+      | Criteria   | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:600,Unit:M; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                       |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "To_be_Disabled"
 
@@ -49,7 +50,7 @@ Feature: VRM Alerts CRUD
 
   @SID_7
   Scenario: generate attack to trigger alert
-    Given CLI simulate 1 attacks of type "VRM_Alert_Severity" on "DefensePro" 10 and wait 90 seconds
+    Given CLI simulate 1 attacks of type "VRM_Alert_Severity" on SetId "DefensePro_Set_1" and wait 90 seconds
 
   @SID_8
   Scenario: validate results for edit Alert fields
@@ -92,6 +93,40 @@ Feature: VRM Alerts CRUD
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert_Src_Port"
 
   @SID_12
+  Scenario: Create Alerts Criteria Max pps
+    When UI "Create" Alerts With Name "Max pps greater than K"
+      | devices  | [All]                                                                  |
+      | Criteria | Event Criteria:Max pps,Operator:Greater than,RateValue:300,Unit:K;     |
+      | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60   |
+    Then UI "Validate" Alerts With Name "Max pps greater than K"
+      | devices  | [All]                                                                  |
+      | Criteria | Event Criteria:Max pps,Operator:Greater than,RateValue:300,Unit:K;     |
+      | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60   |
+
+  @SID_13
+  Scenario: Edit Alerts Value Max pps
+    When UI "Edit" Alerts With Name "Max pps greater than K"
+      | devices  | [All]                                                                         |
+      | Criteria | Event Criteria:Max pps,Operator:Greater than,RateValue:600,Unit:M;            |
+      | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60          |
+    Then UI "Validate" Alerts With Name "Max pps greater than K"
+      | devices  | [All]                                                                         |
+      | Criteria | Event Criteria:Max pps,Operator:Greater than,RateValue:600,Unit:M;            |
+      | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60          |
+
+  @SID_14
+  Scenario: Edit Alerts Criteria Max pps
+    When UI "Edit" Alerts With Name "Max pps greater than K"
+      | devices  | [All]                                                                         |
+      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:300,Unit:K; |
+      | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60          |
+    Then UI "Validate" Alerts With Name "Max pps greater than K"
+      | devices  | [All]                                                                         |
+      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:300,Unit:K; |
+      | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60          |
+    Then UI Delete Alerts With Name "Max pps greater than K"
+
+      @SID_15
   Scenario: Cleanup
     And UI logout and close browser
     * CLI Check if logs contains

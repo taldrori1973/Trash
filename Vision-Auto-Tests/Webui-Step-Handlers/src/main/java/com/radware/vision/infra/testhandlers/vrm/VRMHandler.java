@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.radware.automation.react.widgets.impl.ReactDropdown;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.utils.FileUtils;
@@ -22,6 +21,12 @@ import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.jsonparsers.impl.JsonUtils;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.SessionStorageException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -29,11 +34,10 @@ import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.vrm.enums.VRMDashboards;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
-import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,8 +56,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import java.lang.Math;
+
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
-import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 import static jodd.util.ThreadUtil.sleep;
@@ -81,15 +87,16 @@ public class VRMHandler {
         String item = sessionStorage.getItem(chart);// return NO data available
 
 
-        if (isJSONValid(item)) {
-            jsonMap = JsonUtils.getJsonMap(item);
+        if(isJSONValid(item)){
+        jsonMap = JsonUtils.getJsonMap(item);
 
-        } else {
+    }else
+    {
 
-            jsonMap = new HashMap<String, String>();
-            jsonMap.put("data", item);
+        jsonMap = new HashMap<String, String>();
+        jsonMap.put("data","No Data Available");
 
-        }
+    }
 
 
         return jsonMap;
@@ -183,7 +190,7 @@ public class VRMHandler {
                     }
                     //Value does not have offset or offset is "0"
                 } else if (!actualData.equals(entry.value)) {
-                    addErrorMessage("There is no match found in --> the EXPECTED data is " + entry.toString() + " and the ACTUAL value is " + actualData);
+                    addErrorMessage("There is no match found in --> the EXPECTED data is " + entry + " and the ACTUAL value is " + actualData);
                     scrollAndTakeScreenshot(chart);
                 }
 
@@ -198,23 +205,21 @@ public class VRMHandler {
         }
         reportErrors();
     }
-
-    public void uiValidateSumOfLineChartData(String chart, String label, String sum) {
+    public void uiValidateSumOfLineChartData(String chart,String label,String sum){
 
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, null);
         JSONArray data = (JSONArray) foundObject.get(DATA);
         double DataSum = 0;
-        for (int i = 0; i < data.length(); i++) {
-            DataSum += Double.parseDouble(data.get(i).toString());
+        for(int i =0;i<data.length();i++){
+           DataSum +=Double.parseDouble(data.get(i).toString());
         }
-        if (Math.round(DataSum) != Double.parseDouble(sum)) {
+        if(Math.round(DataSum)!=Double.parseDouble(sum)){
             scrollAndTakeScreenshot(chart);
-            BaseTestUtils.report("The expected Value is " + sum + "not equal to actual Value " + Math.round(DataSum), Reporter.FAIL);
+            BaseTestUtils.report("The expected Value is "+sum+ "not equal to actual Value " + Math.round(DataSum),Reporter.FAIL);
         }
     }
-
     public void validateVirticalStackBarData(String chart, List<StackBarData> entries) {
         Objects.requireNonNull(chart, "Chart is equal to null");
         JSONArray legends = getLabelsFromData(chart);
@@ -240,16 +245,14 @@ public class VRMHandler {
         entry.legendNameExist = entry.legendNameExist == null || entry.legendNameExist;
         JSONArray legends = getLabelsFromData(chart);
         if (!((legends.toList().contains(entry.legendName) && entry.legendNameExist) || (!legends.toList().contains(entry.legendName) && !entry.legendNameExist))) {
-//            addErrorMessage("The existence of " + entry.legendName + " is " + entry.legendNameExist + " but ACTUAL is " + legends.toList().contains(entry.legendName));
             addErrorMessage("The Legend Name of '" + entry.legendName + "'" + (entry.label != null ? " of label '" + entry.label + "'" : "") + " is Not as expected, Expected result is: " + (entry.legendNameExist.equals(true) ? "'exist'" : "'doesn't exist'") + " But Actual result is: " + (legends.toList().contains(entry.legendName) ? "'exist'" : "'doesn't exist'"));
         }
         return returnValue;
     }
 
     protected boolean isLabanAndEntryExists(String chart, StackBarData entry) {
-        entry.exist = entry.exist == null ? true : entry.exist;
+        entry.exist = entry.exist == null || entry.exist;
         if (!(isLabelExist(chart, entry.label)) && entry.exist || (isLabelExist(chart, entry.label)) && !entry.exist) {
-//            addErrorMessage("The existence of " + entry.label + " is " + entry.exist + " but ACTUAL is " + isLabelExist(chart, entry.label));
             addErrorMessage("The Label Name of '" + entry.label + "' is Not as expected, Expected result is: " + (entry.exist.equals(true) ? "'exist'" : "'doesn't exist'") + " But Actual result is: " + (isLabelExist(chart, entry.label) ? "'exist'" : "'doesn't exist'"));
             scrollAndTakeScreenshot(chart);
             return true;
@@ -312,7 +315,7 @@ public class VRMHandler {
                     }
                     //Value does not have offset or offset is "0"
                 } else if (!actualData.equals(entry.value)) {
-                    addErrorMessage("There is no match found in --> the EXPECTED data is " + entry.toString() + " and the ACTUAL value is " + actualData);
+                    addErrorMessage("There is no match found in --> the EXPECTED data is " + entry + " and the ACTUAL value is " + actualData);
                     scrollAndTakeScreenshot(chart);
                 }
             });
@@ -331,20 +334,23 @@ public class VRMHandler {
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, columnGraph);
-        if (!isJSONValid(foundObject.get(DATA).toString())) {
+        if(!isJSONValid(foundObject.get(DATA).toString()))
+        {
             entries.forEach(entry -> {
                 entry.value = (entry.value == null) ? null : entry.value;
 
                 String actualResult = foundObject.get(DATA).toString();
 
-                if (actualResult.equals(entry.value))
+                if(actualResult.equals(entry.value))
                     return;
 
                 else
                     addErrorMessage("The ACTUAL value in the chart " + chart + "  is " + actualResult);
 
             });
-        } else {
+        }
+
+        else {
 
             JSONArray data = (JSONArray) foundObject.get(DATA);
 
@@ -409,6 +415,9 @@ public class VRMHandler {
 
 
         }
+
+
+
 
 
     }
@@ -478,9 +487,12 @@ public class VRMHandler {
                     BaseTestUtils.report("The graph column " + columnGraph + " is not found", Reporter.FAIL);
                 }
 
-            if (!isJSONValid(jsonMap.get(DATA).toString())) {
-                foundObject = new JSONObject(jsonMap);
-            } else {
+            if(!isJSONValid(jsonMap.get(DATA).toString()))
+            {
+                foundObject =  new JSONObject(jsonMap);
+            }
+
+            else{
                 jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
                 dataArray = (JSONArray) jsonMap.get(DATASETS);
 
@@ -809,7 +821,7 @@ public class VRMHandler {
                 Double dataFromArray = Double.parseDouble(dataArray.get(labelIndex).toString());
                 if (entry.offset == 0 && entry.offsetPercentage == null) {
                     if (!dataFromArray.equals(entryData)) {
-                        addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray.toString() + " The EXPECTED is " + entryData);
+                        addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray + " The EXPECTED is " + entryData);
                         scrollAndTakeScreenshot(chart);
                     }
                 } else {
@@ -881,7 +893,7 @@ public class VRMHandler {
             } else {
                 for (DpApplicationFilter entry : entries) {
                     VisionDebugIdsManager.setLabel("Device Selection.Available Device CheckBox");
-                    entry.name = entry.name.trim();
+                    entry.name = (String) invokeMethodFromText(entry.name.trim());
                     VisionDebugIdsManager.setParams(entry.name);
                     checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
 //                    checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + entry.name + "_Label"));
@@ -944,8 +956,10 @@ public class VRMHandler {
             VisionDebugIdsManager.setLabel("Widget Selection.Add Selected Widgets");
             WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
         }
+//        Change focus to close
         VisionDebugIdsManager.setLabel("Widget Selection");
         WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
+
     }
 
     void uiVRMDragAndDropWidgets(List<String> entries) throws TargetWebElementNotFoundException { /// change to drag and drop
@@ -978,7 +992,7 @@ public class VRMHandler {
                     }
                 }
                 if (!dragged) {
-                    BaseTestUtils.report("The Widget: " + widgetName + " has Not Draged", Reporter.FAIL);
+                    BaseTestUtils.report("The Widget: " + widgetName + " has Not Dragged", Reporter.FAIL);
                 }
             }
 
@@ -1013,15 +1027,17 @@ public class VRMHandler {
                 String deviceIp = null;
                 String deviceName = null;
                 try {
-                    if (entry.index == null) {
-                        throw new Exception("Index entry is empty please enter it!");
-                    }
-                    if (deviceType == null) {
-                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
-                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
+                    if (entry.setId != null || entry.deviceId != null) {
+                        SUTManager sutManager = SUTManagerImpl.getInstance();
+                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId!=null)?sutManager.getTreeDeviceManagement(entry.setId):
+                                                                                          sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+                        if (!deviceOpt.isPresent()) {
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId!=null)?entry.setId:entry.deviceId));
+                        }
+                        deviceIp = deviceOpt.get().getManagementIp();
+                        deviceName=deviceOpt.get().getDeviceName();
                     } else {
-                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
-                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
+                        throw new Exception("device setId|deviceId entry is empty.");
                     }
 
                 } catch (Exception e) {
@@ -1103,8 +1119,9 @@ public class VRMHandler {
             });
             //Save Filter
             if (saveFilter != null) {
-                VisionDebugIdsManager.setLabel("Device Selection.Save Filter");
-                WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("Device Selection.Save Filter").click();
+                String saveBtnLabel = "Device Selection.Save Filter";
+                VisionDebugIdsManager.setLabel(saveBtnLabel);
+                WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
             }
 
         } catch (
@@ -1193,16 +1210,20 @@ public class VRMHandler {
     public void validateDevicePolicies(List<DevicesAndPolices> entries) {
         entries.forEach(entry -> {
             String deviceIp = "";
+            String deviceType = "";
             try {
-                deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+                TreeDeviceManagementDto deviceInfo = TestBase.getSutManager().getTreeDeviceManagement(entry.setId).get();
+                deviceIp = deviceInfo.getManagementIp();
+                deviceType = deviceInfo.getDeviceType();
+
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
-            VisionDebugIdsManager.setLabel("Device Selection.Available Device.change");
+            VisionDebugIdsManager.setLabel("DPChange");
             VisionDebugIdsManager.setParams(deviceIp);
             WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
 
-            String policySearch = "scopeSelection_deviceIP_[" + deviceIp + "]_policy_Text";
+            String policySearch = String.format("scopeSelection_[%s_%s]_policy_Text",deviceType,deviceIp);
             WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
 
             List<String> polices = Lists.newArrayList(entry.polices.split(","));
@@ -1210,22 +1231,21 @@ public class VRMHandler {
             for (String policy : polices) {
                 policy = policy.trim();
                 policyText.type(policy);
-                VisionDebugIdsManager.setLabel("Device Selection.Available Device.change.policy");
-                VisionDebugIdsManager.setParams(deviceIp, policy);
+                VisionDebugIdsManager.setLabel("PolicyValidate");
+               VisionDebugIdsManager.setParams(deviceIp, policy);
                 if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()) == null) {
                     addErrorMessage(String.format("device [%s] ->Expected policy [%s] does not exist", deviceIp, policy));
                     WebUIUtils.generateAndReportScreenshot();
                 }
             }
             //count the policies
-            int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label")).getViewValues().size();
+            int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id,'scopeSelection_DefensePro_"+deviceIp+"')]")).getViewValues().size();
             if (entry.total.equalsIgnoreCase("All")) {
-                CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
-                int totalDpPolicesNumber = Integer.valueOf(CliOperations.lastRow);
-                if (String.valueOf(actualPoliciesNumber).equals(totalDpPolicesNumber)) {
-                    addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected \"All =\" [%s]", deviceIp, actualPoliciesNumber, totalDpPolicesNumber));
-                    WebUIUtils.generateAndReportScreenshot();
-                }
+                ServersManagement serversManagement = TestBase.getServersManagement();
+                Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
+                RootServerCli rsc = rootServerCli.get();
+
+               CliOperations.runCommand(rsc, String.format("mysql -u root -pradware vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
             } else if (!String.valueOf(actualPoliciesNumber).equals(entry.total)) {
                 addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected [%s]", deviceIp, actualPoliciesNumber, entry.total));
                 WebUIUtils.generateAndReportScreenshot();
@@ -1304,10 +1324,10 @@ public class VRMHandler {
         String amountType = interval.split("\\d+")[1].trim();
         switch (amountType) {
             case "s":
-                sleep(Integer.parseInt(amount) * 1000);
+                sleep(Integer.parseInt(amount) * 1000L);
                 break;
             case "m":
-                sleep(Integer.valueOf(amount) * 1000 * 60);
+                sleep((long) Integer.parseInt(amount) * 1000 * 60);
                 break;
         }
         LocalDateTime firstTimeAfterRefresh = LocalDateTime.parse((CharSequence) legends.get(0), inputFormatter);
@@ -1329,22 +1349,23 @@ public class VRMHandler {
         String amountType = maxIntervalTime.split("\\d+")[1].trim();
         switch (amountType) {
             case "m": {
-                if (!((Long.valueOf(amount)) >= (Math.abs(duration.toMinutes()) - offset) && (Long.valueOf(amount)) <= (Math.abs(duration.toMinutes()) + offset)))
+                if (!((Long.parseLong(amount)) >= (Math.abs(duration.toMinutes()) - offset) && (Long.parseLong(amount)) <= (Math.abs(duration.toMinutes()) + offset)))
                     BaseTestUtils.report("The Expected max interval in " + chart + " is " + maxIntervalTime + " but the Actual " + Math.abs(duration.toMinutes()) + " minutes, with offset " + offset, Reporter.FAIL);
                 break;
             }
             case "H": {
-                if (!((Long.valueOf(amount)) >= (Math.abs(duration.toHours()) - offset) && (Long.valueOf(amount)) <= (Math.abs(duration.toHours()) + offset)))
+                if (!((Long.parseLong(amount)) >= (Math.abs(duration.toHours()) - offset) && (Long.parseLong(amount)) <= (Math.abs(duration.toHours()) + offset)))
                     BaseTestUtils.report("The Expected max interval in " + chart + " is " + maxIntervalTime + " but the Actual " + Math.abs(duration.toHours()) + " Hours, with offset " + offset, Reporter.FAIL);
                 break;
             }
             case "d": {
-                if (!((Long.valueOf(amount)) >= (Math.abs(duration.toDays()) - offset) && (Long.valueOf(amount)) <= (Math.abs(duration.toDays()) + offset)))
+                if (!((Long.parseLong(amount)) >= (Math.abs(duration.toDays()) - offset) && (Long.parseLong(amount)) <= (Math.abs(duration.toDays()) + offset)))
                     BaseTestUtils.report("The Expected max interval in " + chart + " is " + maxIntervalTime + " but the Actual " + Math.abs(duration.toDays()) + " days, with offset " + offset, Reporter.FAIL);
                 break;
             }
             case "M": {
-                if (!(((Long.valueOf(amount)) >= Period.between(firstTime.toLocalDate().plusMonths(offset), lastTime.toLocalDate()).toTotalMonths()) && (Long.valueOf(amount)) <= Period.between(firstTime.toLocalDate().minusMonths(offset), lastTime.toLocalDate()).toTotalMonths()))
+                if (!(((Long.parseLong(amount)) >= Period.between(firstTime.toLocalDate().plusMonths(offset),
+                        lastTime.toLocalDate()).toTotalMonths()) && (Long.parseLong(amount)) <= Period.between(firstTime.toLocalDate().minusMonths(offset), lastTime.toLocalDate()).toTotalMonths()))
                     BaseTestUtils.report("The Expected max interval in " + chart + " is " + maxIntervalTime + " but the Actual " + Period.between(firstTime.toLocalDate(), lastTime.toLocalDate()).toTotalMonths() + " Months, with offset " + offset, Reporter.FAIL);
                 break;
             }
@@ -1387,7 +1408,7 @@ public class VRMHandler {
                     scrollAndTakeScreenshot(chart);
                     addErrorMessage("No label with date " + expectedTime.format(inputFormatter));
                 } else {
-                    if (!((entry.value >= (Double.parseDouble(data.get(index).toString())) - entry.offset) && (entry.value <= (Double.valueOf(data.get(index).toString())) + entry.offset))) {
+                    if (!((entry.value >= (Double.parseDouble(data.get(index).toString())) - entry.offset) && (entry.value <= (Double.parseDouble(data.get(index).toString())) + entry.offset))) {
                         addErrorMessage("In the label " + expectedTime + " The EXPECTED value is " + entry.value + " but the ACTUAL is " + data.get(index) + " with offset " + entry.offset);
                         scrollAndTakeScreenshot(chart);
                     }
@@ -1547,7 +1568,8 @@ public class VRMHandler {
     }
 
     public static class DpDeviceFilter {
-        public Integer index;
+        public String setId;
+        public String deviceId;
         public String ports;
         public String policies;
         String virtualServices;
@@ -1567,8 +1589,7 @@ public class VRMHandler {
     }
 
     public static class DevicesAndPolices {
-        int index;
-        String polices, total;
+        String setId, polices, total;
     }
 
     public static class Polices {
@@ -1604,7 +1625,7 @@ public class VRMHandler {
      * @param fromIndex - is an index of label in the session storage.
      * @param toIndex   - is an index of label in the sesison storage
      * @param chart     - chart name
-     * @parm timeFormat
+     * @parm timeFormat - time format for example yyyy-MM-dd'T'HH:mm:ssXXX
      */
     public void selectTimeFromTo(int fromIndex, int toIndex, String chart, String timeFormat) {
         try {
@@ -1660,19 +1681,22 @@ public class VRMHandler {
     }
 
     public void validateMemoryUtilization() throws Exception {
-        RootServerCli rootServerCli = new RootServerCli(restTestBase.getRootServerCli().getHost(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
-        rootServerCli.init();
-        InvokeUtils.invokeCommand(null, "yum install stress", rootServerCli, 3 * 60 * 1000, true);
-        InvokeUtils.invokeCommand(null, "sudo yum install -y epel-release", rootServerCli, 3 * 60 * 1000, true);
-        InvokeUtils.invokeCommand(null, "sudo yum install -y stress", rootServerCli, 3 * 60 * 1000, true);
-        CliOperations.runCommand(rootServerCli, "free");
+        ServersManagement serversManagement = TestBase.getServersManagement();
+        Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
+        RootServerCli rsc = rootServerCli.get();
+
+        CliOperations.runCommand(rsc, "yum install stress", 3 * 60 * 1000, true);
+        CliOperations.runCommand(rsc, "sudo yum install -y epel-release", 3 * 60 * 1000, true);
+        CliOperations.runCommand(rsc, "sudo yum install -y stress", 3 * 60 * 1000, true);
+
+        CliOperations.runCommand(rsc, "free");
         int number;
         String warningRising;
         String warningFalling;
         String errorRising;
         String errorFalling;
         try {
-            String[] a = rootServerCli.getCmdOutput().get(1).split("\\s+");
+            String[] a = rsc.getCmdOutput().get(1).split("\\s+");
             double num = Double.parseDouble(a[2]) / Double.parseDouble(a[1]);
             number = (int) (num * 100);
             if (number >= 85)
@@ -1686,7 +1710,7 @@ public class VRMHandler {
         }
 
         changeValuesMemoryUtilization(warningRising, errorRising, warningFalling, errorFalling);
-        InvokeUtils.invokeCommand(null, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", rootServerCli, 4 * 60 * 1000, true, false, true);
+        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
         Thread.sleep(60 * 1000);
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -1699,7 +1723,7 @@ public class VRMHandler {
 
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         changeValuesMemoryUtilization(warningRising, "99", String.valueOf(number - 10), "99");
-        InvokeUtils.invokeCommand(null, "stress  --vm 1 --vm-bytes 6G --vm-hang 30 --timeout 3m", rootServerCli, 4 * 60 * 1000, true, false, true);
+        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 6G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
         Thread.sleep(60 * 1000);
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -1711,7 +1735,7 @@ public class VRMHandler {
 
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         changeValuesMemoryUtilization(warningRising, errorRising, String.valueOf(number - 10), "90");
-        InvokeUtils.invokeCommand(null, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", rootServerCli, 4 * 60 * 1000, true, false, true);
+        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
         Thread.sleep(60 * 1000);
 
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -1835,15 +1859,16 @@ public class VRMHandler {
             entries.forEach(entry -> {
                 String deviceIp = null;
                 try {
-                    if (entry.index == null) {
-                        throw new Exception("Index entry is empty please enter it!");
-                    }
-                    if (deviceType == null) {
-                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
-                    } else {
-                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
-                    }
 
+                    if (entry.setId != null) {
+                        Optional<TreeDeviceManagementDto> deviceOpt = SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
+                        if (!deviceOpt.isPresent()) {
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
+                        }
+                        deviceIp = deviceOpt.get().getManagementIp();
+                    } else {
+                        throw new Exception("device setId entry is empty.");
+                    }
                 } catch (Exception e) {
                     BaseTestUtils.report(e.getMessage(), e);
                 }

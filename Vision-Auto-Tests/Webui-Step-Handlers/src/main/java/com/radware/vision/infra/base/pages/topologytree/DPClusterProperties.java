@@ -1,11 +1,10 @@
 package com.radware.vision.infra.base.pages.topologytree;
 
-import org.openqa.selenium.support.How;
-
 import com.radware.automation.webui.widgets.impl.WebUIDropdown;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.ClusterAssociatedMgmtPorts;
+import org.openqa.selenium.support.How;
 
 public class DPClusterProperties extends WebUIVisionBasePage {
 	

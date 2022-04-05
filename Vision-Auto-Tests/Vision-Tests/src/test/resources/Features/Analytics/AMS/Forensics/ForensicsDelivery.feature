@@ -55,7 +55,7 @@ Feature: Forensics Delivery
   @SID_4
   Scenario: Run DP simulator and clear email logs
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
-    And CLI simulate 4 attacks of type "rest_intrusion" on "DefensePro" 10 and wait 35 seconds
+    And CLI simulate 4 attacks of type "rest_intrusion" on SetId "DefensePro_Set_1" and wait 35 seconds
 
   @SID_5
   Scenario: login and generate the forensic report "Email Validate"

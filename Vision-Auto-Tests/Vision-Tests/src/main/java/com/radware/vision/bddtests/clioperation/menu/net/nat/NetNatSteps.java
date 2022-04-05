@@ -2,24 +2,33 @@ package com.radware.vision.bddtests.clioperation.menu.net.nat;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.base.VisionCliTestBase;
+import com.radware.vision.net.Nat;
+import com.radware.vision.net.Net;
+import com.radware.vision.root.RootVerifications;
 import com.radware.vision.test_parameters.NetPortIp;
-import com.radware.vision.vision_handlers.net.Nat;
-import com.radware.vision.vision_handlers.net.Net;
-import com.radware.vision.vision_handlers.root.RootVerifications;
-import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.When;
 
-public class NetNatSteps extends BddCliTestBase {
+public class NetNatSteps extends VisionCliTestBase {
 
     private NetPortIp[] netPortIpArray;
+    private final RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+    private final RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
 
     /**
      * The Scenario :
      * 1.	net
      */
     @When("^CLI net Sub Menu$")
-    public void netSubMenu() throws Exception {
-        Net.netSubMenuCheck(restTestBase.getRadwareServerCli());
+    public void netSubMenu() {
+        try {
+            Net.netSubMenuCheck(radwareServerCli);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     /**
@@ -30,42 +39,37 @@ public class NetNatSteps extends BddCliTestBase {
      * 4.	Via root user /etc/init.d/iptables status and verify it
      * 5.	Net nat get and verify it
      */
-    @When("^CLI Net Nat Get IP$")
+    @When("^CLI Net Nat Set IP$")
     public void netNatGetIP() {
         try {
 
-            Nat.netNatSetIp("23.23.23.23", restTestBase.getRadwareServerCli());
-            RootVerifications.verifyLinuxOSParamsViaRootRegex("/etc/init.d/iptables status", "1\\s+DNAT\\s+all\\s+--\\s+0.0.0.0/0\\s+23.23.23.23\\s+to:127.0.0.1", restTestBase.getRootServerCli());
-            Nat.netNatSetNone(restTestBase.getRadwareServerCli());
-            RootVerifications.verifyLinuxOSParamsNotExistViaRootRegex("/etc/init.d/iptables status", "1\\s+DNAT\\s+all\\s+--\\s+0.0.0.0/0\\s+23.23.23.23\\s+to:127.0.0.1", restTestBase.getRootServerCli());
-            Nat.netNatGet("No NAT is configured for the server.", restTestBase.getRadwareServerCli());
+            Nat.netNatSetIp("23.23.23.23", radwareServerCli);
+            CliOperations.runCommand(rootServerCli, "iptables -t nat -L -n -v | grep \"23.23.23.23\"");
+            CliOperations.verifyLastOutputByRegex("\\s+\\d+\\s+\\d+\\s+DNAT\\s+all\\s+\\W+\\W\\s+0.0.0.0/0\\s+23.23.23.23\\s+to:127.0.0.1");
+            Nat.netNatSetNone(radwareServerCli);
+            CliOperations.runCommand(radwareServerCli, "iptables -t nat -L -n -v | grep \"23.23.23.23\"");
+            CliOperations.verifyLastOutputNotExistByRegex("\\s+\\d+\\s+\\d+\\s+DNAT\\s+all\\s+\\W+\\W\\s+0.0.0.0/0\\s+23.23.23.23\\s+to:127.0.0.1");
+            Nat.netNatGet("No NAT is configured for the server.", radwareServerCli);
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        AfterMethod();
+        
     }
 
-
-    /**
-     * The Scenario :
-     * 1.	Net nat set ip 23.23.23.23
-     * 2.	Via root user /etc/init.d/iptables status and verify it
-     * 3.	Net nat get and verify it
-     */
-    @When("^CLI Net Nat Get None$")
-    public void netNatGetNone() {
+    @When("^Net Nat Set none$")
+    public void netNatSetNone() {
         try {
 
-            Nat.netNatSetIp("23.23.23.23", restTestBase.getRadwareServerCli());
-            RootVerifications.verifyLinuxOSParamsViaRootRegex("/etc/init.d/iptables status", "1\\s+DNAT\\s+all\\s+--\\s+0.0.0.0/0\\s+23.23.23.23\\s+to:127.0.0.1", restTestBase.getRootServerCli());
-            Nat.netNatGet("Server NAT host IP: <23.23.23.23>", restTestBase.getRadwareServerCli());
+            Nat.netNatSetNone(radwareServerCli);
+            Nat.netNatGet("No NAT is configured for the server.", radwareServerCli);
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        AfterMethod();
+        
     }
+
 
     /**
      * The Scenario :
@@ -78,14 +82,14 @@ public class NetNatSteps extends BddCliTestBase {
         try {
 
             String hostName = "natAutomationTest";
-            Nat.netNatSetHostName(hostName, restTestBase.getRadwareServerCli());
-            RootVerifications.verifyLinuxOSParamsViaRootText("cat /etc/hosts", "127.0.0.1 " + hostName, restTestBase.getRootServerCli());
-            Nat.netNatGet("Server hostname:" + hostName, restTestBase.getRadwareServerCli());
+            Nat.netNatSetHostName(hostName, radwareServerCli);
+            RootVerifications.verifyLinuxOSParamsViaRootText("cat /etc/hosts", "127.0.0.1 " + hostName, rootServerCli);
+            Nat.netNatGet("Server hostname:" + hostName, radwareServerCli);
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        AfterMethod();
+        
     }
 
     /**
@@ -96,7 +100,7 @@ public class NetNatSteps extends BddCliTestBase {
     public void netNatSubMenu() {
 
         try {
-            Nat.netNatSubMenuCheck(restTestBase.getRadwareServerCli());
+            Nat.netNatSubMenuCheck(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -109,51 +113,12 @@ public class NetNatSteps extends BddCliTestBase {
     @When("^CLI Net Nat Set Sub Menu$")
     public void netNatSetSubMenu() {
         try {
-            Nat.netNatSetSubMenuCheck(restTestBase.getRadwareServerCli());
+            Nat.netNatSetSubMenuCheck(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
-    /**
-     * The Scenario :
-     * 1.	Net nat set ip 23.23.23.23
-     * 2.	Via root user /etc/init.d/iptables status and verify it
-     * 3.	net nat set none
-     * 4.	Via root user /etc/init.d/iptables status and verify it
-     */
-    @When("^CLI Net Nat Set None$")
-    public void netNatSetNone() {
-        try {
-
-            Nat.netNatSetIp("23.23.23.23", restTestBase.getRadwareServerCli());
-            RootVerifications.verifyLinuxOSParamsViaRootRegex("/etc/init.d/iptables status", "1\\s+DNAT\\s+all\\s+--\\s+0.0.0.0/0\\s+23.23.23.23\\s+to:127.0.0.1", restTestBase.getRootServerCli());
-            Nat.netNatSetNone(restTestBase.getRadwareServerCli());
-            RootVerifications.verifyLinuxOSParamsNotExistViaRootRegex("/etc/init.d/iptables status", "1\\s+DNAT\\s+all\\s+--\\s+0.0.0.0/0\\s+23.23.23.23\\s+to:127.0.0.1", restTestBase.getRootServerCli());
-
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-        AfterMethod();
-    }
-
-    /**
-     * The Scenario :
-     * 1.	Net nat set ip 23.23.23.23
-     * 2.	Via root user /etc/init.d/iptables status and verify it
-     */
-    @When("^CLI Net Nat Set IP$")
-    public void netNatSetIP() {
-        try {
-
-            Nat.netNatSetIp("23.23.23.23", restTestBase.getRadwareServerCli());
-            RootVerifications.verifyLinuxOSParamsViaRootRegex("/etc/init.d/iptables status", "1\\s+DNAT\\s+all\\s+--\\s+0.0.0.0/0\\s+23.23.23.23\\s+to:127.0.0.1", restTestBase.getRootServerCli());
-            doTheVisionLabRestart = true;
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-        AfterMethod();
-    }
 
     /**
      * The Scenario :
@@ -165,13 +130,13 @@ public class NetNatSteps extends BddCliTestBase {
         try {
 
             String hostName = "natAutomationTest";
-            Nat.netNatSetHostName(hostName, restTestBase.getRadwareServerCli());
-            RootVerifications.verifyLinuxOSParamsViaRootText("cat /etc/hosts", "127.0.0.1 " + hostName, restTestBase.getRootServerCli());
-
+            Nat.netNatSetHostName(hostName, radwareServerCli);
+            RootVerifications.verifyLinuxOSParamsViaRootText("cat /etc/hosts", "127.0.0.1 " + hostName, rootServerCli);
+            Nat.netNatGet("Server hostname:" + hostName, radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-        AfterMethod();
+        
     }
 
     public NetPortIp[] getNetPortIpArray() {
@@ -183,13 +148,4 @@ public class NetNatSteps extends BddCliTestBase {
     }
 
 
-    private void AfterMethod() {
-
-        try {
-            Nat.netNatSetNone(restTestBase.getRadwareServerCli());
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-
-    }
 }

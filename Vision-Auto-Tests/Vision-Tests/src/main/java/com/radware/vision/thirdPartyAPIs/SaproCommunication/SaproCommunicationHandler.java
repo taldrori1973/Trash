@@ -4,16 +4,19 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.sapcnsl.api.SaproCommunication;
 import com.sapcnsl.api.SaproCommunicationFactory;
-import com.sapcnsl.api.returntypes.*;
+import com.sapcnsl.api.returntypes.CommandMessage;
+import com.sapcnsl.api.returntypes.DirectoryData;
 import com.sapcnsl.exception.SaproException;
-import com.sapcnsl.api.returntypes.MapListInfo;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+
 public class SaproCommunicationHandler {
     private final String mapDirectoryName;
     private final String xmlFullPath;
+    private final String varFullPath;
+    private final String cmfFullPath;
     private final SaproCommunication saproObj;
     private final String inetAddress;
     private final int port;
@@ -26,6 +29,8 @@ public class SaproCommunicationHandler {
         this.port = 2100;
         mapDirectoryName = "/opt/sapro/map/";
         xmlFullPath = "/opt/sapro/xml/";
+        varFullPath = "/opt/sapro/var/";
+        cmfFullPath = "/opt/sapro/cmf/";
     }
 
 
@@ -67,6 +72,7 @@ public class SaproCommunicationHandler {
     public void startDevicesFromMap(String mapName, String... devNames) {
         try {
             this.initConnect();
+           // startMap(mapName);
             mapName = this.getFullMapName(mapName);
 //            List<MapListInfo> l = saproObj.getMapListFromServer();
             for (String devName : devNames) {
@@ -167,10 +173,52 @@ public class SaproCommunicationHandler {
         }
     }
 
+    public void reloadVarFile(String mapName, String deviceName, String newVarFile, String newCmfFile) {
+        try {
+            // making sure the device is on:
+            this.startDevicesFromMap(mapName, deviceName);
+            this.initConnect();
+            CommandMessage reload = saproObj.sendTclCmdToDevice(this.getFullMapName(mapName), deviceName, "SA_reloadvar " + this.varFullPath + newVarFile + " " + this.cmfFullPath + newCmfFile);
+            BaseTestUtils.report(reload.getMessage(), Reporter.PASS);
+            this.closeConnect();
+        } catch (SaproException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
     public void refresh() throws SaproException {
         saproObj.getStatsFromMap("/opt/sapro/map/Danny.map");
     }
 
+    public void modifyDeviceParameters(String mapName, String... devNames){
+        try{
+            Integer secondToWait = 2;
+            this.stopDevicesFromMap(mapName, devNames);
+            saproObj.initConnection("172.17.166.8", 2100);
+            //saproObj.setNewVersion(false);
+            mapName = this.getFullMapName(mapName);
+            for (String devName : devNames) {
+                  CommandMessage delDevMsg = saproObj.sendDelDevCmdToMap(mapName,devName);
+                  BaseTestUtils.report(delDevMsg.getMessage(), Reporter.PASS_NOR_FAIL);
+                try {
+                    TimeUnit.SECONDS.sleep(secondToWait);
+                }catch (InterruptedException e) {
+                    BaseTestUtils.report("Interrupted while Sleeping: " + e.getMessage(), Reporter.FAIL);
+                }
+            }
+            CommandMessage addDevMsg=saproObj.sendAddDevCmdToMap(mapName,"/opt/sapro/map/newdev.map");
+            BaseTestUtils.report(addDevMsg.getMessage(), Reporter.PASS_NOR_FAIL);
+            try {
+                TimeUnit.SECONDS.sleep(secondToWait);
+            }catch (InterruptedException e) {
+                BaseTestUtils.report("Interrupted while Sleeping: " + e.getMessage(), Reporter.FAIL);
+            }
+
+            saproObj.closeConnection();
+        }catch (SaproException e){
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
 
     /**
      * @param mapName gets all files from mapDirectoryName and use mapName as filter
@@ -179,11 +227,11 @@ public class SaproCommunicationHandler {
      */
     private String getFullMapName(String mapName) {
         try {
-            String m = mapName + ".map";
+            String mapPath = mapName + ".map";
             List<DirectoryData> list = saproObj.listFiles(mapDirectoryName, mapName);
             for (DirectoryData map : list) {
-                if (m.equals(map.getFileName())) {
-                    return mapDirectoryName + m;
+                if (mapPath.equals(map.getFileName())) {
+                    return mapDirectoryName + mapPath;
                 }
             }
         } catch (SaproException e) {

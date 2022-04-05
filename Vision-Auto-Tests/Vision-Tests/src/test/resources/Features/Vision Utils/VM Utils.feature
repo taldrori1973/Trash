@@ -9,6 +9,7 @@ Feature: VM Utils
       | VisionAutoNegative |
       | freshInstallTest   |
       | VisionAutoBasic    |
+      | uvision_fresh_ova  |
 
   @Update_Snapshot
   Scenario: Update Snapshot

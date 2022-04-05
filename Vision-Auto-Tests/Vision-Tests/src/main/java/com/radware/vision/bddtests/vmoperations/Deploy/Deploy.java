@@ -24,10 +24,11 @@ public abstract class Deploy {
     String repositoryName;
     JFrogFileModel buildFileInfo;
     public boolean isSetupNeeded;
-    private String ipaddress;
+    private final String ipaddress;
+    protected FileType type;
     private static final Map<String, String> Respository_types = new HashMap<String, String>() {{
-        put("Snapshot", "vision-snapshot-local");
-        put("Release", "vision-release-local");
+        put("Snapshot", "kvision-images-snapshot-local");
+        put("Release", "kvision-images-release-local");
     }};
 
     public Deploy(boolean isExtended, String build, String ipaddress) {
@@ -35,7 +36,20 @@ public abstract class Deploy {
         this.build = build;
         this.version = readVisionVersionFromPomFile();
 //        this.featureBranch = "4.81.00";
-        this.featureBranch = BaseTestUtils.getRuntimeProperty("PRDCT_BRANCH", "master"); // default branch master
+        this.featureBranch = BaseTestUtils.getRuntimeProperty("PRDCT_BRANCH", "dev"); // default branch master
+        this.repositoryName =Respository_types.get(BaseTestUtils.getRuntimeProperty("BuildType", "Snapshot"));
+//        this.repositoryName = "vision-release-local";
+        this.ipaddress = ipaddress;
+        isSetupNeeded();
+    }
+
+    public Deploy(boolean isExtended, String build, String ipaddress, FileType type) {
+        this.isExtended = isExtended;
+        this.build = build;
+        this.version = readVisionVersionFromPomFile();
+        this.type = type;
+//        this.featureBranch = "4.81.00";
+        this.featureBranch = BaseTestUtils.getRuntimeProperty("PRDCT_BRANCH", "dev"); // default branch master
         this.repositoryName =Respository_types.get(BaseTestUtils.getRuntimeProperty("BuildType", "Snapshot"));
 //        this.repositoryName = "vision-release-local";
         this.ipaddress = ipaddress;
@@ -67,7 +81,7 @@ public abstract class Deploy {
             String build = BaseTestUtils.getRuntimeProperty("BUILD", null); //get build from portal
             if (build == null || build.equals("") || build.equals("0")) {
                 BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
-                this.build = String.valueOf(repositoryService.getLastExtendedBuildNumberFromBranch(this.featureBranch));
+                this.build = String.valueOf(repositoryService.getLastExtendedDeployNumberFromBranch(this.featureBranch, type.toString()));
                 isExtended = true;
             } else {
                 this.build = build;
@@ -100,6 +114,4 @@ public abstract class Deploy {
             e.printStackTrace();
         }
     }
-
-
 }

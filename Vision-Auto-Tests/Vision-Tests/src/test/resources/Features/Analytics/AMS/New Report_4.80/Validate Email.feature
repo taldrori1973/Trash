@@ -11,9 +11,9 @@ Feature: Validate Email
   @SID_2
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
-    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Service "config_kvision-collector_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_COLLECTOR" is up with timeout "45" minutes
 
   @SID_3
   Scenario: Clear Database and old reports on file-system
@@ -35,7 +35,7 @@ Feature: Validate Email
 
   @SID_6
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
-    Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
+    Given CLI simulate 2 attacks of type "HTTPS" on SetId "DefensePro_Set_2" with loopDelay 5000 and wait 60 seconds
 
   @SID_7
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
@@ -363,11 +363,11 @@ Feature: Validate Email
   Scenario: Create and Validate DefensePro Behavioral Protections Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefensePro Behavioral Protections Report"
-      | Template | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,pps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Template | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,pps,Outbound]}] ,devices:[{SetId:DefensePro_Set_2, devicePolicies:[1_https]}] |
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                               |
       | Format   | Select: CSV                                                                                                                                       |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,pps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Template | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,pps,Outbound]}] ,devices:[{SetId:DefensePro_Set_2, devicePolicies:[1_https]}] |
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                               |
       | Format   | Select: CSV                                                                                                                                       |
 

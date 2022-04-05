@@ -1,11 +1,10 @@
 package com.radware.vision.bddtests.rest;
 
 
-
+import basejunit.RestTestBase;
 import com.radware.restcore.VisionRestClient;
 import com.radware.vision.infra.testresthandlers.RestSettingHandler;
 import cucumber.api.java.en.When;
-import basejunit.RestTestBase;
 
 public class RestSettingSteps {
 

@@ -4,7 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.BaseTasksHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.validateScheduledTasks.ValidateTasksHandler;
@@ -12,7 +12,7 @@ import cucumber.api.java.en.Then;
 import org.junit.After;
 
 
-public class ValidateTaskTests extends BddUITestBase {
+public class ValidateTaskTests extends VisionUITestBase {
 
     String defaultFileName = "/cm:/db_f.bin";
 
@@ -33,9 +33,9 @@ public class ValidateTaskTests extends BddUITestBase {
             deviceIp = deviceInfo.getDeviceIp();
             updateNavigationParser(deviceIp);
             if (filePathToDelete == null || filePathToDelete.isEmpty()) {
-                ValidateTasksHandler.removeDpSecurityFileRepeater(deviceIp, getRestTestBase().getRootServerCli(), "", "", defaultFileName, 5);
+                ValidateTasksHandler.removeDpSecurityFileRepeater(deviceIp, serversManagement.getRootServerCLI().get(), "", "", defaultFileName, 5);
             } else {
-                ValidateTasksHandler.removeDpSecurityFileRepeater(deviceIp, getRestTestBase().getRootServerCli(), "", "", filePathToDelete, 5);
+                ValidateTasksHandler.removeDpSecurityFileRepeater(deviceIp, serversManagement.getRootServerCLI().get(), "", "", filePathToDelete, 5);
 
             }
         } catch (Exception e) {

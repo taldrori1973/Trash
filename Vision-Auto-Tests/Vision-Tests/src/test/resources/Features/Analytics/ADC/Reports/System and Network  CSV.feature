@@ -4,12 +4,13 @@ Feature: ADC System and Network Generate CSV Report
   @SID_1
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
-    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." Retry 240 seconds
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/storage/dc_config/kvision-reporter/config/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Service "config_kvision-reporter_1" do action RESTART
+    Then CLI Validate service "CONFIG_KVISION_REPORTER" is up with timeout "45" minutes
 
   @SID_2
   Scenario: old reports on file-system
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c \"rm /usr/local/tomcat/VRM_report*\"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
 
@@ -22,21 +23,22 @@ Feature: ADC System and Network Generate CSV Report
   Scenario: Create and validate ADC Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC System and Network Report"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[#getSUTValue(setID:Alteon_Sim_Set_0);] |
       | Time Definitions.Date | Quick:1H                                                                                                 |
       | Format                | Select:  CSV                                                                                             |
     Then UI "Validate" Report With Name "ADC System and Network Report"
-      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.154.215] |
+      | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[#getSUTValue(setID:Alteon_Sim_Set_0);] |
       | Time Definitions.Date | Quick:1H                                                                                                 |
       | Format                | Select: CSV                                                                                              |
 
   @SID_5
   Scenario: Validate delivery card and generate report
     Then UI "Generate" Report With Name "ADC System and Network Report"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
   @SID_6
   Scenario: VRM report unzip local CSV file
+    Then CLI Copy files contains name "VRM_report_*.zip" from container "config_kvision-reporter_1" from path "/usr/local/tomcat" to path "/opt/radware/mgt-server/third-party/tomcat/bin/"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
   @SID_7

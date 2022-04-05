@@ -1,7 +1,8 @@
 @TC108105
+
 Feature: EAAF Widget - Top IP Statistics
-  @SID_1
-  
+
+@SID_1
   Scenario: Clean system attacks,database and logs
     * CLI kill all simulator attacks on current vision
     # wait until collector cache clean up
@@ -15,16 +16,12 @@ Feature: EAAF Widget - Top IP Statistics
     * CLI Clear vision logs
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
-  
+
   @SID_2
-  
-
   Scenario: Run DP simulator PCAPs for EAAF widgets
-    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11 and wait 150 seconds
-  
-  @SID_3
-  
+    * CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_Set_1" and wait 150 seconds
 
+  @SID_3
   Scenario: Login and navigate to EAAF dashboard
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     * CLI Run remote linux Command "mysql -u root -prad123 vision_ng -e "update user_mgt set password='0R5nzwnMaxkeLEWhI+QahPWxssDjLbGH', password_expiration_date='2030-1-1' where name='radware';"" on "ROOT_SERVER_CLI"
@@ -36,8 +33,6 @@ Feature: EAAF Widget - Top IP Statistics
 #this scenario verifies two things: Default selection of "Events" TAB and data correctness of that TAB
 
   @SID_4
-  
-
   Scenario: Validate Top Malicious IP Addresses Widget - Events
 #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
@@ -49,14 +44,14 @@ Feature: EAAF Widget - Top IP Statistics
   @SID_5
   Scenario: Validate Num of attacks per IP
 # Validate Num of attacks per IP
-    Then UI Click Button "Events" with value "Top-Malicious-IP-Addresses"
+    Then UI Click Button "Attacks" with value "Top-Malicious-IP-Addresses"
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "24"
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "14"
     Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "10"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "6"
 
   @SID_6
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness1
 #    Validate IP addresses correctness
     Then UI Text of "top ip value" with extension "0" equal to "172.217.186.137"
     Then UI Text of "top ip value" with extension "1" equal to "130.206.245.152"
@@ -79,7 +74,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Click Button "Packets" with value "Top-Malicious-IP-Addresses"
 
   @SID_9
-  Scenario: check IP bar percentage value
+  Scenario: check IP bar percentage value1
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "99.99%"
@@ -87,7 +82,6 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5.82%"
 
   @SID_10
-  
   Scenario: Validate Num of packets per IP
 # Validate Num of packets per IP
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "12 K" with offset 2
@@ -102,7 +96,7 @@ Feature: EAAF Widget - Top IP Statistics
 
 #    Then UI Validate Text field "top ip value" with params "0" MatchRegex "128.201.145.148|130.206.245.152|138.121.200.174"
   @SID_11
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness2
 #    Validate IP addresses correctness
     Then UI Text of "top ip value" with extension "0" equal to "128.201.145.123"
     Then UI Text of "top ip value" with extension "1" equal to "148.223.160.123"
@@ -145,7 +139,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688 K"
 
   @SID_15
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness3
 #    Validate IP addresses correctness
     Then UI Text of "top ip value" with extension "0" equal to "128.201.145.123"
     Then UI Text of "top ip value" with extension "1" equal to "148.223.160.123"
@@ -157,9 +151,8 @@ Feature: EAAF Widget - Top IP Statistics
 # validate values ordering
     Then UI Validate elements "TOTAL IP Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
   @SID_16
-  
   Scenario: validate max amount of 10 IP's exists in Top Malicious IP Addresses Widget
-    Then UI Click Button "Events" with value "Top-Malicious-IP-Addresses"
+    Then UI Click Button "Attacks" with value "Top-Malicious-IP-Addresses"
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "10"
     Then UI Validate Element Existence By Label "Top IP Address bar" if Exists "false" with value "10"
     Then UI Validate Element Existence By Label "top ip value" if Exists "false" with value "10"
@@ -186,12 +179,12 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "7" is "EQUALS" to "15.41%" with offset 2
     Then UI Validate Element Existence By Label "Top IP Address bar" if Exists "false" with value "8"
 #    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5.33%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "1%" with offset 1
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "0.01%" with offset 2
 
   @SID_18
-  
   Scenario: Validate IP filtering data correctness check values
 # check values
+    Then Sleep "10"
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7 M" with offset 1
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7 M" with offset 1
     Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7 M" with offset 1
@@ -202,7 +195,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
 
   @SID_19
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness4
 #    Validate IP addresses correctness
     Then UI Text of "top ip value" with extension "0" equal to "128.201.145.123"
     Then UI Text of "top ip value" with extension "1" equal to "148.223.160.123"
@@ -213,7 +206,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate elements "TOTAL IP Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
 
   @SID_20
-  Scenario: check IP bar percentage value
+  Scenario: check IP bar percentage value2
 #check Packets TAB
     Then UI Click Button "Packets" with value "Top-Malicious-IP-Addresses"
     #      check IP bar percentage value
@@ -229,8 +222,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "5%" with offset 2
 
   @SID_21
-  
-  Scenario: Check values
+  Scenario: Check values1
 # check values
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "12 K" with offset 1
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "12 K" with offset 1
@@ -242,7 +234,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
 
   @SID_22
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness5
 #    Validate IP addresses correctness
     Then UI Text of "top ip value" with extension "0" equal to "128.201.145.123"
     Then UI Text of "top ip value" with extension "1" equal to "148.223.160.123"
@@ -253,12 +245,12 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate elements "TOTAL IP Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
 
   @SID_23
-  Scenario: check IP bar percentage value
+  Scenario: check IP bar percentage value3
 #check Events TAB
-    Then UI Click Button "Events" with value "Top-Malicious-IP-Addresses"
+    Then UI Click Button "Attacks" with value "Top-Malicious-IP-Addresses"
     #      check IP bar percentage value
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "0" is "EQUALS" to "100.00%"
-    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "87.50%" with offset 2
+    Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "1" is "EQUALS" to "87.99%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "2" is "EQUALS" to "58.33%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "3" is "EQUALS" to "54.17%" with offset 2
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "4" is "EQUALS" to "50.00%" with offset 2
@@ -268,7 +260,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "25.00%" with offset 2
 
   @SID_24
-  Scenario: check values
+  Scenario: check values2
 # check values
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "24" with offset 1
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "14" with offset 1
@@ -279,7 +271,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "6" with offset 1
 
   @SID_25
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness6
 #    Validate IP addresses correctness
     Then UI Text of "top ip value" with extension "0" equal to "172.217.186.137"
     Then UI Text of "top ip value" with extension "1" equal to "130.206.245.152"
@@ -287,7 +279,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Text of "top ip value" with extension "7" equal to "185.133.124.156"
     Then UI Text of "top ip value" with extension "9" equal to "148.223.160.129"
     Then UI Validate Element Existence By Label "top ip value" if Exists "false" with value "10"
-    Then UI Validate elements "TOTAL IP Events value" with params "" are sorting Descending by "Numerical"
+    Then UI Validate elements "TOTAL IP Events value" with params "12 K" are sorting Descending by "Numerical"
 
   @SID_26
   Scenario: Validate user selection lasts after page refresh on Top Malicious IP Addresses Widget
@@ -305,7 +297,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate the attribute "fill" Of Label "Top IP Address bar" With Params "9" is "EQUALS" to "1%" with offset 1
 
   @SID_27
-  Scenario: check values
+  Scenario: check values3
 # check values
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7 M" with offset 1
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7 M" with offset 1
@@ -317,7 +309,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
 
   @SID_28
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness7
 #    Validate IP addresses correctness
     Then UI Text of "top ip value" with extension "0" equal to "128.201.145.123"
     Then UI Text of "top ip value" with extension "1" equal to "148.223.160.123"
@@ -351,7 +343,7 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688 K"
 
  @SID_31
-  Scenario: Validate IP addresses correctness
+  Scenario: Validate IP addresses correctness8
 #    Validate IP addresses correctness
     Then UI Text of "top ip value" with extension "0" equal to "128.201.145.123"
     Then UI Text of "top ip value" with extension "1" equal to "148.223.160.123"
