@@ -1,6 +1,7 @@
 {
   "setupFile": "Setup_IPv6.json",
   "serverName": "uVision",
+  "defenseFlow": "",
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",
