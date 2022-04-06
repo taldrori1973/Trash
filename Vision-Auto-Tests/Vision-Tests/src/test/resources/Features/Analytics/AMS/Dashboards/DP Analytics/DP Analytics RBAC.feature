@@ -52,8 +52,8 @@ Feature: DP ANALYTICS RBAC
     Then UI Total "Attacks by Protection Policy" legends equal to 10
 
 
-    Then UI Text of "Device Selection" equal to "DEVICES3/3"
-    Then UI Text of "UpDevices" equal to "3"
+    Then UI Text of "Device Selection" equal to "DEVICES5/5"
+    Then UI Text of "UpDevices" equal to "5"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
     When UI Click Button "Device Selection"
@@ -64,9 +64,9 @@ Feature: DP ANALYTICS RBAC
 
     When UI VRM Select device from dashboard
       | setId |
-    Then UI Text of "Device Selection.Available Devices header" contains "Devices3/3"
+    Then UI Text of "Device Selection.Available Devices header" contains "Devices5/5"
     Then UI VRM Total Available Device's 3
-    * UI Logout
+    * UI logout and close browser
 
     ### see DE39973 WNBF
 
@@ -126,7 +126,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    * UI Logout
+    * UI logout and close browser
 
   @SID_6
   Scenario: Analytics RBAC sec_mon_DP50_policy1 user search options
@@ -150,7 +150,7 @@ Feature: DP ANALYTICS RBAC
     Then UI VRM Total Available Device's 0
     When UI Set Text Field "Device Selection.Search" To "DPs_version_8_LogicalGroup"
     Then UI VRM Total Available Device's 0
-    * UI Logout
+    * UI logout and close browser
 
   @SID_7
   Scenario:Analytics RBAC sec_mon_all_pol user
@@ -187,7 +187,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_8
   Scenario:Analytics RBAC sec_admin_all_pol user
@@ -224,7 +224,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_9
   Scenario: Analytics RBAC sec_mon_BDOS user
@@ -254,7 +254,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_10
   Scenario: Analytics RBAC sec_admin_all_pol_51 user
@@ -291,7 +291,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_11
   Scenario: Analytics RBAC sec_mon_DP50_POL_IPV6 user
@@ -299,7 +299,7 @@ Feature: DP ANALYTICS RBAC
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-    And Sleep "3"
+    And Sleep "5"
     Then UI Validate StackBar data with widget "Attacks by Protection Policy"
       | legendName | label                          | value |
       | POL_IPV6   | network flood IPv6 TCP-SYN-ACK | 1     |
@@ -319,7 +319,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_12
   Scenario: Analytics RBAC sec_admin_DP50_policy1 user
