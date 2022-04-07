@@ -13,18 +13,18 @@ Feature: DP ANALYTICS
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
     Given REST Login with activation with user "radware" and password "radware"
-    Then REST Add device with DeviceID "DefensePro_172.17.22.55"
-    Then REST Add device with DeviceID "DefensePro_50.50.7.1"
-    Then REST Add device with DeviceID "DefensePro_50.50.7.2"
-    Then Sleep "90"
+#    Then REST Add device with DeviceID "DefensePro_172.17.22.55"
+#    Then REST Add device with DeviceID "DefensePro_50.50.7.1"
+#    Then REST Add device with DeviceID "DefensePro_50.50.7.2"
+#    Then Sleep "90"
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on DeviceID "DefensePro_172.17.22.55" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on DeviceID "DefensePro_50.50.7.1" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on DeviceID "DefensePro_50.50.7.2" and wait 240 seconds with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on DeviceID "DefensePro_Set_3" and wait 240 seconds with attack ID
+#    * CLI simulate 1 attacks of type "VRM_attacks" on DeviceID "DefensePro_50.50.7.1" with attack ID
+#    * CLI simulate 1 attacks of type "VRM_attacks" on DeviceID "DefensePro_50.50.7.2" and wait 240 seconds with attack ID
     # Wait to avoid ES issue when running curl one after another
     And Sleep "5"
 
@@ -167,7 +167,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= ATTACKS BY PROTECTION POLICY ================= #
 
@@ -292,7 +292,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= Attacks by Threat Category ================= #
 
@@ -390,7 +390,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= ATTACK CATEGORIES BY BANDWIDTH ================= #
 
@@ -518,7 +518,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= TOP ATTACKS DESTINATION ================= #
 
@@ -636,7 +636,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= TOP ATTACKS ================= #
 
@@ -770,7 +770,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= Top Attacks by Bandwidth ================= #
 
@@ -898,7 +898,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= TOP ATTACKS BY DURATION ================= #
 
@@ -1021,7 +1021,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= Top Attacks by Protocol ================= #
   @SID_72
@@ -1134,7 +1134,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= TOP ATTACKS SOURCES ================= #
 
@@ -1231,7 +1231,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
 
       # ================= TOP PROBED IP ADDRESSES ================= #
@@ -1294,7 +1294,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
       # ================= TOP SCANNERS ================= #
 
@@ -1382,7 +1382,7 @@ Feature: DP ANALYTICS
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
-    * UI Logout
+    Then UI logout and close browser
 
   @Sanity @SID_102
   Scenario: Sanity
