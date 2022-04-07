@@ -4,7 +4,6 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.test_utils.DeployOva;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
