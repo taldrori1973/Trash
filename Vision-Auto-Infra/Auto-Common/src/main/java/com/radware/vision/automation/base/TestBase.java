@@ -146,7 +146,8 @@ public abstract class TestBase {
     }
 
     public static boolean connectOnInit() {
-        return !sutManager.getDeployConfigurations().getSetupMode().toLowerCase().contains("fresh install");
+        return !sutManager.getClientConfigurations().getHostIp().equals("") &&
+                !sutManager.getDeployConfigurations().getSetupMode().toLowerCase().contains("fresh install");
     }
 
 }
