@@ -246,7 +246,7 @@ Feature: Challenged outbound
       | value   | count | offset |
       | 83470.0 | 2     | 5      |
     Then UI Validate Text field "max attacks" EQUALS "83.49 M" with offset 5
-    Then UI Validate Text field "min attacks" EQUALS "84.09 K" with offset 5
+    Then UI Validate Text field "min attacks" EQUALS "83.42 M" with offset 5
 
   @SID_25
   Scenario: validate traffic bandwidth pps+inbound Attacks
