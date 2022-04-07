@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.clioperation.connections;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.test_utils.DeployOva;
@@ -47,13 +48,13 @@ public class NewVmSteps extends TestBase {
 
     @Given("^Remove old VMs$")
     public void removeOldVms(DataTable dataTable) {
-        VisionVMs visionVMs = restTestBase.getVisionVMs();
-        String userName = visionVMs.getUserName();
-        String password = visionVMs.getPassword();
+        EnvironmentDto environmentDto = getSutManager().getEnviorement().get();
+        String userName = environmentDto.getUser();
+        String password = environmentDto.getPassword();
         int deleteMinutes = 24 * 60;
-        String vCenterURL = visionVMs.getvCenterURL();
-        String hostIp = visionVMs.getvCenterIP();
-        String resourcePool = visionVMs.getResourcePool();
+        String vCenterURL = environmentDto.getUrl();
+        String hostIp = environmentDto.getHostIp();
+        String resourcePool = environmentDto.getResourcePool();
         List<Map<String, String>> listOfData = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> data : listOfData) {
             try {
