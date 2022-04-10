@@ -229,7 +229,8 @@ public class VMOperationsSteps extends VisionUITestBase {
                         rootServerCli = serversManagement.getRootServerCLI().get();
                     assert rootServerCli != null;
                     assert radwareServerCli != null;
-                    Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
+                    //Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
+                    Upgrade upgrade = DeployFactory.getUpgrade(true, null, radwareServerCli, rootServerCli);
                     upgrade.deploy();
                     break;
 
@@ -241,9 +242,8 @@ public class VMOperationsSteps extends VisionUITestBase {
                 case "qcow2_fresh install":
                 case "serial iso_fresh install":
                 case "fresh install":
-                    String[] setupModeSplit = setupMode.split("_");
-                    String fileType = (setupModeSplit.length == 2) ? setupModeSplit[0] : "ova";
-                    FreshInstall freshInstall = FreshInstallFactory.getFreshInstall(fileType, true, null);
+                    String environmentType = getSutManager().getEnviorement().get().getName().split("-")[0];
+                    FreshInstall freshInstall = DeployFactory.getFreshInstall(environmentType, true, null);
                     assert freshInstall != null;
                     freshInstall.deploy();
                     break;
