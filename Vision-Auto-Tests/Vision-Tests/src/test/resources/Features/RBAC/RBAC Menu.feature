@@ -250,7 +250,7 @@ Feature: RBAC Menu
       | AMS Alerts                                  | yes      |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | no       |
+      | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
     * UI logout and close browser
 
