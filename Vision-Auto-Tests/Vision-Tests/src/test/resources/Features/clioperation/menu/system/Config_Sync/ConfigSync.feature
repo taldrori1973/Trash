@@ -159,7 +159,7 @@ Feature: Config-Sync
     Then CLI Operations - Verify that output contains regex "Interval: 1 \(Minutes\)"
     Then CLI Operations - Verify that output contains regex "Peer Address: 0.0.0.0"
     Then CLI Operations - Verify that output contains regex "Last Configuration Sync Date: \d+/\d+/\d+\s\d+:\d+:\d+"
-    Then CLI Operations - Verify that output contains regex "Last Configuration Sync Timestamp:\d+"
+    Then CLI Operations - Verify that output contains regex "Last Configuration Sync Timestamp:\s+\d+"
 
 
   @SID_20
