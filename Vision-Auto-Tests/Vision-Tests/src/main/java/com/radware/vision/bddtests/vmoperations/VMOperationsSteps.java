@@ -4,6 +4,8 @@ import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.Deploy.NewVmHandler;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
@@ -20,6 +22,10 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.junit.FeatureRunner;
+
+import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
+import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
+import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -75,11 +81,11 @@ public class VMOperationsSteps extends VisionUITestBase {
     @When("^Revert DefenseFlow to snapshot$")
     public void DfenseFlowRevertToSnapshot() {
         try {
-            //Kvision
-//            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
-//            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
-//            BaseTestUtils.report("Reverting Defense Flow to snapshot " + DF.getSnapshot(), Reporter.PASS_NOR_FAIL);
-//            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, DF.vmName), DF.snapshot, true);
+            TreeDeviceManagementDto df = sutManager.getDefenseFlow().get();
+            EnvironmentDto dfEnv = sutManager.getDefenseFlowEnviorement().get();
+            EsxiInfo esxiInfo = new EsxiInfo(dfEnv.getUrl(), dfEnv.getUser(), dfEnv.getPassword(), dfEnv.getResourcePool());
+            BaseTestUtils.report("Reverting Defense Flow to snapshot " + df.getSnapshot(), Reporter.PASS_NOR_FAIL);
+            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, df.getDeviceName()), df.getSnapshot(), true);
             Thread.sleep(10 * 60 * 1000);
             BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
         } catch (Exception e) {
