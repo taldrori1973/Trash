@@ -28,6 +28,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public abstract class TestBase {
@@ -65,13 +67,19 @@ public abstract class TestBase {
     public static void dBAccessCommand() {
         try {
             String ip = "0.0.0.0";
-            //ip = getMyHostIP();
-            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), Menu.system().database().access().revoke().build() + " " + "all");
-            String command = Menu.system().database().access().grant().build() + " " + ip;
-            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
+            ip = getMyHostIP();
+            String dbAccessCommand = Menu.system().database().access().display().build();
+            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), dbAccessCommand);
+            Matcher matcher = Pattern.compile(dbAccessCommand + "(([\n\r].*)*)(\\[.*\\$)").matcher(CliOperations.lastOutput);
+
+            if(!matcher.find() || !matcher.group(1).contains(ip))
+            {
+                CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), Menu.system().database().access().revoke().build() + " " + "all");
+                String command = Menu.system().database().access().grant().build() + " " + ip;
+                CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
+            }
         } catch (Exception e) {
-            // ToDo - ERROR: reporter is null
-            //BaseTestUtils.report(e.getMessage(), Reporter.PASS_NOR_FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.PASS_NOR_FAIL);
         }
     }
 
