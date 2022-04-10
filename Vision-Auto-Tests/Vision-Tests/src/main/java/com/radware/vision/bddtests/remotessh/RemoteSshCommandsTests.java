@@ -114,7 +114,7 @@ public class RemoteSshCommandsTests extends TestBase {
     @When("^Verify retention task of index aggregation for index \"([a-z]+[-][a-z]+[-][a-z]+)\"(?: with timeOut (\\d+))?$")
     public void verifyADCRetention(String indexName, String timeOut) {
         String[] delimiter = indexName.split("-");
-        String commandToExecute = "/retentionVerification.sh " + delimiter[0] + " " + delimiter[1] + " " + delimiter[2];
+        String commandToExecute = "/uVision_retentionVerification.sh " + delimiter[0] + " " + delimiter[1] + " " + delimiter[2];
 
         try {
             timeOut = timeOut != null ? timeOut : "120";
