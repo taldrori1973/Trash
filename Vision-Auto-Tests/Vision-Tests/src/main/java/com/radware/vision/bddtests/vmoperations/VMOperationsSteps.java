@@ -30,6 +30,7 @@ import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
@@ -144,20 +145,13 @@ public class VMOperationsSteps extends VisionUITestBase {
 //                    return;
 //                /* Upgrade section */
                 case "kvm_upgrade_inparallel":
-                    //Kvision
-//                    revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
-                    afterUpgrade();
-                    return;
-
                 case "upgrade_inparallel":
-                    revertSnapshot(1);
-                    revertSnapshot(2);
+                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINEAndPAIR, 60, TimeUnit.MINUTES);
                     afterUpgrade();
                     return;
 
                 case "kvm_upgrade":
-                    //kVision
-//                    revertKvmSnapshot(snapshot, visionRadwareFirstTime);
+                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINE, 60, TimeUnit.MINUTES);
                     afterUpgrade();
                     return;
 
