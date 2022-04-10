@@ -5,9 +5,9 @@ Feature: Config-Sync
   @SID_1
   Scenario: system config-sync help
     When CLI Operations - Run Radware Session command "system config-sync ?"
-    Then CLI Operations - Verify that output contains regex "intervals+Manages the configuration-synchronization interval."
+    Then CLI Operations - Verify that output contains regex "interval\s+Manages the configuration-synchronization interval."
     Then CLI Operations - Verify that output contains regex "mail_recipients\s+Manages the comma-separated list of email recipients who get notified about synchronization-process failures."
-    Then CLI Operations - Verify that output contains regex "manuals+Manually starts a configuration-synchronization action."
+    Then CLI Operations - Verify that output contains regex "manual\s+Manually starts a configuration-synchronization action."
     Then CLI Operations - Verify that output contains regex "missed_syncs\s+Manages the number of configuration synchronizations that can be missed before the system starts sending email notifications."
     Then CLI Operations - Verify that output contains regex "mode\s+Manages the configuration-synchronization mode."
     Then CLI Operations - Verify that output contains regex "peer\s+Manages the peer address."
@@ -60,13 +60,13 @@ Feature: Config-Sync
     Then CLI Operations - Verify that output contains regex "Sets the configuration-synchronization mode."
     Then CLI Operations - Verify that output contains regex "active\s+Sets the server mode to active."
     Then CLI Operations - Verify that output contains regex "disabled\s+Disables configuration synchronization."
-    Then CLI Operations - Verify that output contains regex "standbys+Sets the server mode to standby."
+    Then CLI Operations - Verify that output contains regex "standby\s+Sets the server mode to standby."
 
   @SID_9
   Scenario: system config-sync mode get help
     When CLI Operations - Run Radware Session command "system config-sync mode get ?"
-    Then CLI Operations - Verify that output contains regex ".*Usage: system config-sync mode get.*"
-    Then CLI Operations - Verify that output contains regex ".*Displays the configuration-synchronization mode..*"
+    Then CLI Operations - Verify that output contains regex "Usage: system config-sync mode get"
+    Then CLI Operations - Verify that output contains regex "Displays the configuration-synchronization mode."
 
 
   @SID_10
@@ -82,8 +82,8 @@ Feature: Config-Sync
   Scenario: system config-sync mode set standby
     When CLI Set both visions disabled with timeout 3000
     When CLI Operations - Run Radware Session command "system config-sync mode set standby" timeout 60
-    Then CLI Operations - Verify that output contains regex ".*Selecting the standby mode will stop the configuration service on the APSolute Vision server..*"
-    Then CLI Operations - Verify that output contains regex ".*Continue?.*\(y/n\).*"
+    Then CLI Operations - Verify that output contains regex "Selecting the standby mode will stop the configuration service on the APSolute Vision server."
+    Then CLI Operations - Verify that output contains regex "Continue?.*\(y/n\)"
     When CLI Operations - Run Radware Session command "y" timeout 60
     When CLI Operations - Run Radware Session command "system config-sync mode get"
     Then CLI Operations - Verify last output contains
