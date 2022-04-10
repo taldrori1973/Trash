@@ -72,7 +72,7 @@ public class RepositoryService {
         ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch.toLowerCase());// in Artifactory all folders are lower case
         if (branchPojo == null) {
-            buildPojo = getFile(artifactPojoFolder, build, fileType, "dev");//build under version
+            buildPojo = getFile(artifactPojoFolder, build, fileType, branch);//build under version
         } else {
             buildPojo = getFile(branchPojo, build, fileType, branch);//build under branch
         }
