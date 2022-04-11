@@ -87,6 +87,7 @@ Feature: Attacks Table
     Then UI Click Button "Auto Refresh"
     Then Sleep "3"
     Then UI Click Button "Sample Data Button" with value ""
+    Then Sleep "3"
     Then UI Validate "SampleDataTable" Table rows count GTE to 2
     Then UI Click Button by Class "anticon anticon-close ant-modal-close-icon"
 #    Then UI Click Button "closeTable"
