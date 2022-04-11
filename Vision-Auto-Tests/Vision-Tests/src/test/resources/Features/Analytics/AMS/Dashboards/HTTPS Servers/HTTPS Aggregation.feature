@@ -16,7 +16,9 @@ Feature: AMS HTTPS System Aggregation
     Given CLI simulate 2 attacks of type "HTTPS" on SetId "DefensePro_Set_1" with loopDelay 5000 and wait 90 seconds
 
     * CLI Run remote linux Command on "ROOT_SERVER_CLI" and wait for prompt "True"
-      | "/uVision_leave_two_documents_https.sh dp-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound" |
+      | "/uVision_leave_two_documents_https.sh dp-https-rt " |
+      | #setID:DefensePro_Set_1                              |
+      | " Outbound BaselineOutbound"                         |
 
     * CLI Run remote linux Command on "ROOT_SERVER_CLI" and wait for prompt "True"
       | "/HTTPS_Reindex_rt_prevHour.sh" |
