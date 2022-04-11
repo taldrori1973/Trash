@@ -24,8 +24,8 @@ Feature: Scheduled task Backup DefensePro
     Then UI Select "FTP" from Vision dropdown by Id "gwt-debug-additionalParams.transportProtocol_Widget-input"
     Then UI Set Text field with id "gwt-debug-additionalParams.pathToFile_Widget" with "/home/radware/ftp"
     Then UI Set Text field with id "gwt-debug-additionalParams.userName_Widget" with "radware"
-    Then UI Set Text field with id "gwt-debug-additionalParams.password_Widget" with "radware"
-    Then UI Set Text field with id "gwt-debug-additionalParams.password_DuplicatePasswordField" with "radware"
+    Then UI Set Text field with id "gwt-debug-additionalParams.password_Widget" with "radware123"
+    Then UI Set Text field with id "gwt-debug-additionalParams.password_DuplicatePasswordField" with "radware123"
     Then UI Set Text field with id "gwt-debug-additionalParams.backupFileName_Widget" with "DP_config_task"
     Then UI Set Text field with id "gwt-debug-additionalParams.ip_Widget" with "172.17.164.10"
 
