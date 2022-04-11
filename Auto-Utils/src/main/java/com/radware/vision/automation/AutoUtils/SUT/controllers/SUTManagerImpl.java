@@ -3,6 +3,7 @@ package com.radware.vision.automation.AutoUtils.SUT.controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
 import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +45,11 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     @Override
+    public SutDao getPairDao() {
+        return this.sutService.getPairSutDao();
+    }
+
+    @Override
     public String getSetupId() {
         return this.sutService.getSetupId();
     }
@@ -59,13 +65,28 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     @Override
+    public ClientConfigurationDto getPairConfigurations() {
+        return this.sutService.getPairConfigurations();
+    }
+
+    @Override
     public CliConfigurationDto getCliConfigurations() {
         return this.sutService.getVisionCliConfigurations();
+    }
+
+    @Override
+    public CliConfigurationDto getPairCliConfigurations() {
+        return this.sutService.getPairCliConfigurations();
     }
 
     public DeployConfigurationsDto getDeployConfigurations() {
 
         return this.sutService.getDeployConfigurations();
+    }
+
+    @Override
+    public DeployConfigurationsDto getPairDeployConfigurations() {
+        return this.sutService.getPairDeployConfigurations();
     }
 
     @Override
@@ -108,7 +129,7 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     public Optional<EnvironmentDto> getPairEnviorement() {
-        return this.sutService.getEnviorement(getpair().getEnvironment());
+        return this.sutService.getEnviorement(getPairDeployConfigurations().getEnvironment());
     }
 
     public Optional<EnvironmentDto> getDefenseFlowEnviorement() {
