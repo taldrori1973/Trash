@@ -4,6 +4,8 @@ import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.Deploy.NewVmHandler;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
@@ -21,9 +23,14 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.junit.FeatureRunner;
 
+import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
+import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
+import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
@@ -75,11 +82,11 @@ public class VMOperationsSteps extends VisionUITestBase {
     @When("^Revert DefenseFlow to snapshot$")
     public void DfenseFlowRevertToSnapshot() {
         try {
-            //Kvision
-//            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
-//            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
-//            BaseTestUtils.report("Reverting Defense Flow to snapshot " + DF.getSnapshot(), Reporter.PASS_NOR_FAIL);
-//            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, DF.vmName), DF.snapshot, true);
+            TreeDeviceManagementDto df = sutManager.getDefenseFlow().get();
+            EnvironmentDto dfEnv = sutManager.getDefenseFlowEnviorement().get();
+            EsxiInfo esxiInfo = new EsxiInfo(dfEnv.getUrl(), dfEnv.getUser(), dfEnv.getPassword(), dfEnv.getResourcePool());
+            BaseTestUtils.report("Reverting Defense Flow to snapshot " + df.getSnapshot(), Reporter.PASS_NOR_FAIL);
+            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, df.getDeviceName()), df.getSnapshot(), true);
             Thread.sleep(10 * 60 * 1000);
             BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
         } catch (Exception e) {
@@ -138,20 +145,13 @@ public class VMOperationsSteps extends VisionUITestBase {
 //                    return;
 //                /* Upgrade section */
                 case "kvm_upgrade_inparallel":
-                    //Kvision
-//                    revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
-                    afterUpgrade();
-                    return;
-
                 case "upgrade_inparallel":
-                    revertSnapshot(1);
-                    revertSnapshot(2);
+                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINEAndPAIR, 60, TimeUnit.MINUTES);
                     afterUpgrade();
                     return;
 
                 case "kvm_upgrade":
-                    //kVision
-//                    revertKvmSnapshot(snapshot, visionRadwareFirstTime);
+                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINE, 60, TimeUnit.MINUTES);
                     afterUpgrade();
                     return;
 
@@ -229,7 +229,8 @@ public class VMOperationsSteps extends VisionUITestBase {
                         rootServerCli = serversManagement.getRootServerCLI().get();
                     assert rootServerCli != null;
                     assert radwareServerCli != null;
-                    Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
+                    //Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
+                    Upgrade upgrade = DeployFactory.getUpgrade(true, null, radwareServerCli, rootServerCli);
                     upgrade.deploy();
                     break;
 
@@ -241,9 +242,8 @@ public class VMOperationsSteps extends VisionUITestBase {
                 case "qcow2_fresh install":
                 case "serial iso_fresh install":
                 case "fresh install":
-                    String[] setupModeSplit = setupMode.split("_");
-                    String fileType = (setupModeSplit.length == 2) ? setupModeSplit[0] : "ova";
-                    FreshInstall freshInstall = FreshInstallFactory.getFreshInstall(fileType, true, null);
+                    String environmentType = getSutManager().getEnviorement().get().getName().split("-")[0];
+                    FreshInstall freshInstall = DeployFactory.getFreshInstall(environmentType, true, null);
                     assert freshInstall != null;
                     freshInstall.deploy();
                     break;

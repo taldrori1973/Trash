@@ -23,6 +23,7 @@ public class SetupDao {
     public SetupDao(String setupFileName) {
         ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
         SystemProperties systemProperties = SystemProperties.get_instance();
+        if(setupFileName==null) setupFileName = "defaultSetup.json";
         this.setupPojo = JsonUtilities.loadJsonFile(
                 systemProperties.getResourcesPath(
                         String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), setupFileName)

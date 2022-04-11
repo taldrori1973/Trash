@@ -4,7 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.thirdPartyAPIs.SaproCommunication.SaproCommunicationHandler;
+import com.radware.vision.automation.thirdPartyAPIs.SaproCommunication.SaproCommunicationHandler;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

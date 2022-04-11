@@ -50,7 +50,7 @@ public class InvokeMethod {
                 invokeValue = (String) generate(className, method, params);
                 break;
             default:
-                return null;
+                return originStr;
         }
 
         return originStr.replace(matcher.group(), invokeValue);
