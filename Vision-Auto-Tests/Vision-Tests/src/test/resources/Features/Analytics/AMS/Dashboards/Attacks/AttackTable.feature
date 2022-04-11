@@ -68,7 +68,7 @@ Feature: Attacks Table
 
   @SID_6
   Scenario: validate all the data
-    Then UI Navigate to "VISION SETTINGS" page via homePage
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI Navigate to "DefensePro Attacks" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
@@ -95,7 +95,7 @@ Feature: Attacks Table
 
   @SID_8
   Scenario: validate the frames1
-    Then UI Navigate to "VISION SETTINGS" page via homePage
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI Navigate to "DefensePro Attacks" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
