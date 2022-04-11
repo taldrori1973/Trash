@@ -355,8 +355,8 @@ public class BasicOperationsSteps extends VisionUITestBase {
     @Then("^UI DualList Move deviceIndex (\\d+) deviceType \"(.*)\" DualList Items to \"(LEFT|RIGHT)\" , dual list id \"(.*)\"$")
     public void moveDualListItems(int deviceIndex, SUTDeviceType deviceType, DualListSides dualListSide, String dualListID) {
         try {
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
-            String itemName = deviceType.getDeviceType() + "_" + deviceInfo.getDeviceIp();
+//          DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
+            String itemName = sutManager.getTreeDeviceManagement("DefensePro_Set_1").get().getDeviceId();
             ClickOperationsHandler.moveScriptDualListItems(dualListSide, itemName, dualListID);
         } catch (Exception e) {
 
