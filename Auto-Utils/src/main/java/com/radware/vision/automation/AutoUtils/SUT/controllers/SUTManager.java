@@ -2,6 +2,7 @@ package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.*;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,15 +15,23 @@ public interface SUTManager {
 
     PairDto getpair();
 
+    SutDao getPairDao();
+
     String getSetupId();
 
     String getLinuxServerID();
 
     ClientConfigurationDto getClientConfigurations();
 
+    ClientConfigurationDto getPairConfigurations();
+
     CliConfigurationDto getCliConfigurations();
 
+    CliConfigurationDto getPairCliConfigurations();
+
     DeployConfigurationsDto getDeployConfigurations();
+
+    DeployConfigurationsDto getPairDeployConfigurations();
 
     List<String> getVisionSetupTreeSites();
 

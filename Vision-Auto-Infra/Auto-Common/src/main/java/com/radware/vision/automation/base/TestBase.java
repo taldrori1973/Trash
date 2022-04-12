@@ -18,6 +18,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.systemManagement.licenseManagement.LicenseGenerator;
 import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.automation.systemManagement.visionConfigurations.ManagementInfo;
+import com.radware.vision.automation.systemManagement.visionConfigurations.SetupImpl;
 import com.radware.vision.automation.systemManagement.visionConfigurations.VisionConfigurations;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import cucumber.runtime.junit.FeatureRunner;
@@ -28,6 +29,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public abstract class TestBase {
@@ -49,6 +52,8 @@ public abstract class TestBase {
             serversManagement = new ServersManagement();
             if (connectOnInit()) {
                 setManagementInfo();
+                // ToDo - Handle interface G2 and add device driver for simulators
+//                setDeviceSettings();
             }
             clientConfigurations = getSutManager().getClientConfigurations();
             cliConfigurations = getSutManager().getCliConfigurations();
@@ -56,22 +61,35 @@ public abstract class TestBase {
             restTestBase = new RestManagement();
             restTestBase.init();
         } catch (Exception e) {
-            // ToDo - ERROR: reporter is null
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
+    }
 
+    private static void setDeviceSettings() {
+        SetupImpl setup = new SetupImpl();
+        try
+        {
+            setup.buildSetup();
+        }
+        catch (Exception ignore){}
     }
 
     public static void dBAccessCommand() {
         try {
             String ip = "0.0.0.0";
-            //ip = getMyHostIP();
-            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), Menu.system().database().access().revoke().build() + " " + "all");
-            String command = Menu.system().database().access().grant().build() + " " + ip;
-            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
+            ip = getMyHostIP();
+            String dbAccessCommand = Menu.system().database().access().display().build();
+            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), dbAccessCommand);
+            Matcher matcher = Pattern.compile(dbAccessCommand + "(([\n\r].*)*)(\\[.*\\$)").matcher(CliOperations.lastOutput);
+
+            if(!matcher.find() || !matcher.group(1).contains(ip))
+            {
+                CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), Menu.system().database().access().revoke().build() + " " + "all");
+                String command = Menu.system().database().access().grant().build() + " " + ip;
+                CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command);
+            }
         } catch (Exception e) {
-            // ToDo - ERROR: reporter is null
-            //BaseTestUtils.report(e.getMessage(), Reporter.PASS_NOR_FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.PASS_NOR_FAIL);
         }
     }
 

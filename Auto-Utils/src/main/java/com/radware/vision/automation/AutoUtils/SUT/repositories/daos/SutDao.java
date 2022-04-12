@@ -14,6 +14,7 @@ public class SutDao {
     private static final String SUT_FILES_PATH_PROPERTY = "SUT.path";
 
     private static SutDao _instance = new SutDao();
+    public static SutDao _pairInstance;
 
     private ApplicationPropertiesUtils applicationPropertiesUtils;
     private SystemProperties systemProperties;
@@ -28,12 +29,29 @@ public class SutDao {
         String sutFilePath = systemProperties.getResourcesPath(
                 String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), getSUTFileName()));
         this.sutPojo = JsonUtilities.loadJsonFile(sutFilePath, SUTPojo.class);
+
+        if (_pairInstance == null && this.sutPojo.getPairSUT() != null)
+            _pairInstance = new SutDao(this.sutPojo.getPairSUT());
+    }
+
+    public SutDao(String sutFileName)
+    {
+        this.applicationPropertiesUtils = new ApplicationPropertiesUtils();
+        this.systemProperties = SystemProperties.get_instance();
+
+        String sutFilePath = systemProperties.getResourcesPath(
+                String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), sutFileName));
+        this.sutPojo = JsonUtilities.loadJsonFile(sutFilePath, SUTPojo.class);
     }
 
     public static SutDao get_instance() {
         return _instance;
     }
 
+    public static SutDao get_pairInstance()
+    {
+        return _pairInstance;
+    }
 
     private String getSUTFileName() {
 
@@ -87,6 +105,10 @@ public class SutDao {
     }
 
     public CliConfiguration findCliConfiguration() {
+        return this.sutPojo.getCliConfiguration();
+    }
+
+    public CliConfiguration findPairCliConfiguration() {
         return this.sutPojo.getCliConfiguration();
     }
 

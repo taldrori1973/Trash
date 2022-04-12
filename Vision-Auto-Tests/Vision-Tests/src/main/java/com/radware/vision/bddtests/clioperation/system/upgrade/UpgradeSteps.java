@@ -68,8 +68,8 @@ public class UpgradeSteps extends TestBase {
     @When("^Upgrade in Parallel,backup&Restore setup$")        /// backup and restore setup
     public static void UpgradeVisionToLatestBuildTwoMachines() {
         try {
-            String sourceIP = restTestBase.getVisionServerHA().getHost_2();
-            String targetIP = restTestBase.getVisionServer().getHost();
+            String sourceIP = getSutManager().getpair().getPairIp();
+            String targetIP = getSutManager().getClientConfigurations().getHostIp();
             String build = System.getenv("BUILD");//get build from portal
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
 

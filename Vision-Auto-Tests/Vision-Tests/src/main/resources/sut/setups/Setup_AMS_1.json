@@ -31,7 +31,11 @@
       },
       {
         "deviceId": "DefensePro_172.17.50.50",
-        "parentSite": "default"
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "DefensePro_50.50.7.1",
+        "parentSite": "Default"
       },
       {
         "deviceId": "AppWall_172.17.164.30",
