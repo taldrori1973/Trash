@@ -32,7 +32,7 @@ Feature: Scheduled task Backup DefensePro
     Then UI Click Button by id "gwt-debug-scheduledTasksDualList_Tab"
     Then UI Set Text field with id "gwt-debug-managementIp_SearchControl" with "DefensePro_172"
     Then UI Click Button by id "gwt-debug-devicesList_ApplyFilter"
-    Then UI DualList Move deviceIndex 11 deviceType "DefensePro" DualList Items to "RIGHT" , dual list id "gwt-debug-devicesList"
+    Then UI DualList Move deviceSet 1 deviceType "DefensePro" DualList Items to "RIGHT" , dual list id "gwt-debug-devicesList"
     Then UI Click Button by id "gwt-debug-ConfigTab_NEW_scheduledTasks_Submit"
 
   @SID_4
