@@ -14,10 +14,9 @@ Feature: Attacks Dashboard Traffic Widget
 
   @SID_3
   Scenario: change the date of traffic of 51 device
-    Then CLI copy "/home/radware/Scripts/changeDate.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    When CLI Run remote linux Command "chmod 777 /changeDate.sh" on "ROOT_SERVER_CLI" with timeOut 120
-    When CLI Run remote linux Command "/changeDate.sh dp-traffic-raw- 172.16.22.51 2" on "ROOT_SERVER_CLI" with timeOut 500
-
+    Then CLI copy "/home/radware/Scripts/uVision_changeDate.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+    When CLI Run remote linux Command "chmod 777 /uVision_changeDate.sh" on "ROOT_SERVER_CLI" with timeOut 120
+    When CLI Run remote linux Command "/uVision_changeDate.sh dp-traffic-raw- #getSUTValue(setId:DefensePro_Set_2); 2" on "ROOT_SERVER_CLI" with timeOut 500
     Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 120 seconds
 
 
@@ -35,22 +34,22 @@ Feature: Attacks Dashboard Traffic Widget
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value   | min |
-      | 1459480 | 0   |
+      | 1459480 | 5   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value   | min |
-      | 1027638 | 0   |
+      | 1027638 | 5   |
 
 #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
 #      | value   | min |
 #      | 1027638 | 5   |
 
   @SID_6
-  Scenario: validate traffic bandwidth bps+outbound
+  Scenario: validate traffic bandwidth bps+outbound1
     When UI Click Button "outboundSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 40000 | 0   |
+      | 40000 | 5   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
@@ -66,7 +65,7 @@ Feature: Attacks Dashboard Traffic Widget
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 20000 | 0   |
+      | 20000 | 5   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
@@ -83,11 +82,11 @@ Feature: Attacks Dashboard Traffic Widget
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value    | min |
-      | 11157622 | 0   |
+      | 11157622 | 5   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value   | min |
-      | 1035926 | 0   |
+      | 1035926 | 5   |
 
     #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
 #      | value   | min |
@@ -100,25 +99,26 @@ Feature: Attacks Dashboard Traffic Widget
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
   @SID_10
-  Scenario: validate traffic bandwidth bps+inbound
+  Scenario: validate traffic bandwidth bps+inbound2
+    When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value   | min |
-      | 5578811 | 0   |
+      | 5578811 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value  | min |
-      | 517963 | 0   |
+      | 517963 | 1   |
 
     #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
 #      | value   | min |
 #      | 1027638 | 5   |
 
   @SID_11
-  Scenario: validate traffic bandwidth bps+outbound
+  Scenario: validate traffic bandwidth bps+outbound3
     When UI Click Button "outboundSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 10000 | 0   |
+      | 10000 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
@@ -134,7 +134,7 @@ Feature: Attacks Dashboard Traffic Widget
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 10000 | 0   |
+      | 10000 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
@@ -151,11 +151,11 @@ Feature: Attacks Dashboard Traffic Widget
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value   | min |
-      | 5578811 | 0   |
+      | 5578811 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value  | min |
-      | 517963 | 0   |
+      | 517963 | 1   |
 
     #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
 #      | value   | min |
@@ -176,22 +176,22 @@ Feature: Attacks Dashboard Traffic Widget
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value  | min |
-      | 729740 | 0   |
+      | 729740 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value  | min |
-      | 513819 | 0   |
+      | 513819 | 1   |
 
     #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
 #      | value   | min |
 #      | 1027638 | 5   |
 
   @SID_16
-  Scenario: validate traffic bandwidth bps+outbound
+  Scenario: validate traffic bandwidth bps+outbound4
     When UI Click Button "outboundSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 20000 | 0   |
+      | 20000 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
@@ -207,7 +207,7 @@ Feature: Attacks Dashboard Traffic Widget
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 10000 | 0   |
+      | 10000 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
@@ -224,11 +224,11 @@ Feature: Attacks Dashboard Traffic Widget
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value   | min |
-      | 5578811 | 0   |
+      | 5578811 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value  | min |
-      | 517963 | 0   |
+      | 517963 | 1   |
 
     #    Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Excluded"
 #      | value   | min |
