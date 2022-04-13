@@ -304,6 +304,11 @@ public class RadwareServerCli extends ServerCliBase {
         p.setCommandEnd(false);
         prompts.add(p);
 
+        p = new Prompt();
+        p.setPrompt("Continue? (y/N)?");
+        p.setStringToSend(this.yOrn);
+        p.setCommandEnd(false);
+        prompts.add(p);
 
         //Keep the simple prompts AFTER last to avoid catching them first
         p = new Prompt();

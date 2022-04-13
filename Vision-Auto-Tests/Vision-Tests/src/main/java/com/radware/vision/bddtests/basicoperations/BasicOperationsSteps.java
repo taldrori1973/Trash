@@ -347,16 +347,16 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     /**
-     * @param deviceIndex  - SUT device index
+     * @param deviceSet  - SUT device index
      * @param deviceType   - SUTDeviceType enum
      * @param dualListSide - LEFT/RIGHT
      * @param dualListID   - dual list ID
      */
-    @Then("^UI DualList Move deviceIndex (\\d+) deviceType \"(.*)\" DualList Items to \"(LEFT|RIGHT)\" , dual list id \"(.*)\"$")
-    public void moveDualListItems(int deviceIndex, SUTDeviceType deviceType, DualListSides dualListSide, String dualListID) {
+    @Then("^UI DualList Move deviceSet (\\d+) deviceType \"(.*)\" DualList Items to \"(LEFT|RIGHT)\" , dual list id \"(.*)\"$")
+    public void moveDualListItems(int deviceSet, SUTDeviceType deviceType, DualListSides dualListSide, String dualListID) {
         try {
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
-            String itemName = deviceType.getDeviceType() + "_" + deviceInfo.getDeviceIp();
+            String setName = deviceType + "_Set_" + deviceSet;
+            String itemName = sutManager.getTreeDeviceManagement(setName).get().getDeviceId();
             ClickOperationsHandler.moveScriptDualListItems(dualListSide, itemName, dualListID);
         } catch (Exception e) {
 

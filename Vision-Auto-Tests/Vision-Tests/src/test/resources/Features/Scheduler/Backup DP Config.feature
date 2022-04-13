@@ -24,15 +24,15 @@ Feature: Scheduled task Backup DefensePro
     Then UI Select "FTP" from Vision dropdown by Id "gwt-debug-additionalParams.transportProtocol_Widget-input"
     Then UI Set Text field with id "gwt-debug-additionalParams.pathToFile_Widget" with "/home/radware/ftp"
     Then UI Set Text field with id "gwt-debug-additionalParams.userName_Widget" with "radware"
-    Then UI Set Text field with id "gwt-debug-additionalParams.password_Widget" with "radware"
-    Then UI Set Text field with id "gwt-debug-additionalParams.password_DuplicatePasswordField" with "radware"
+    Then UI Set Text field with id "gwt-debug-additionalParams.password_Widget" with "radware123"
+    Then UI Set Text field with id "gwt-debug-additionalParams.password_DuplicatePasswordField" with "radware123"
     Then UI Set Text field with id "gwt-debug-additionalParams.backupFileName_Widget" with "DP_config_task"
     Then UI Set Text field with id "gwt-debug-additionalParams.ip_Widget" with "172.17.164.10"
 
     Then UI Click Button by id "gwt-debug-scheduledTasksDualList_Tab"
     Then UI Set Text field with id "gwt-debug-managementIp_SearchControl" with "DefensePro_172"
     Then UI Click Button by id "gwt-debug-devicesList_ApplyFilter"
-    Then UI DualList Move deviceIndex 11 deviceType "DefensePro" DualList Items to "RIGHT" , dual list id "gwt-debug-devicesList"
+    Then UI DualList Move deviceSet 1 deviceType "DefensePro" DualList Items to "RIGHT" , dual list id "gwt-debug-devicesList"
     Then UI Click Button by id "gwt-debug-ConfigTab_NEW_scheduledTasks_Submit"
 
   @SID_4
