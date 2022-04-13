@@ -28,7 +28,7 @@ Feature: DefensePro Analytics CSV Report
     Given CLI simulate 1 attacks of type "rest_dos" on SetId "DefensePro_Set_1" and wait 60 seconds
 
   @SID_4
-  Scenario: VRM - enabling emailing and go to VRM Reports Tab
+  Scenario: VRM - enabling emailing and go VRM Reports Tab
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     #Make sure all attacks are at the same time
