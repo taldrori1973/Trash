@@ -347,16 +347,15 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     /**
-     * @param deviceSet  - SUT device index
-     * @param deviceType   - SUTDeviceType enum
+     * @param setId   - setId
      * @param dualListSide - LEFT/RIGHT
      * @param dualListID   - dual list ID
      */
-    @Then("^UI DualList Move deviceSet (\\d+) deviceType \"(.*)\" DualList Items to \"(LEFT|RIGHT)\" , dual list id \"(.*)\"$")
-    public void moveDualListItems(int deviceSet, SUTDeviceType deviceType, DualListSides dualListSide, String dualListID) {
+    @Then("^UI DualList Move setId \"(.*)\" DualList Items to \"(LEFT|RIGHT)\" , dual list id \"(.*)\"$")
+    public void moveDualListItems(String setId, DualListSides dualListSide, String dualListID) {
         try {
-            String setName = deviceType + "_Set_" + deviceSet;
-            String itemName = sutManager.getTreeDeviceManagement(setName).get().getDeviceId();
+  //        DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
+            String itemName = sutManager.getTreeDeviceManagement(setId).get().getDeviceId();
             ClickOperationsHandler.moveScriptDualListItems(dualListSide, itemName, dualListID);
         } catch (Exception e) {
 
@@ -836,7 +835,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();
-        BasicOperationsHandler.clickButton("Scope Selection");
+        BasicOperationsHandler.clickButton("Device Selection");
         if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
             errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
         BasicOperationsHandler.clickButton("DPScopeSelectionChange",deviceIP);
