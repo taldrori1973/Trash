@@ -75,6 +75,10 @@ public class VmSnapShotOperations extends VisionUITestBase {
         return new VmSnapShotOperations();
     }
 
+    public static VmSnapShotOperations getInstance() throws Exception {
+        return new VmSnapShotOperations();
+    }
+
     private void validateSnapshotListOfKVMIfExist(String snapshotName, boolean isExist) throws Exception {
 //        TODO kvision
 //        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-list " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);

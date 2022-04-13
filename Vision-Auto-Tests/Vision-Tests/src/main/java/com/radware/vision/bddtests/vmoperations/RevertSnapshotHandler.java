@@ -46,10 +46,10 @@ public class RevertSnapshotHandler implements Runnable{
             switch (envType.toLowerCase())
             {
                 case "ova":
-                    VmSnapShotOperations.newInstance().revertVMWareSnapshot(this.vmName, this.snapshot, this.environment, this.serverCliHM);
+                    VmSnapShotOperations.getInstance().revertVMWareSnapshot(this.vmName, this.snapshot, this.environment, this.serverCliHM);
                     break;
                 case "kvm":
-                    VmSnapShotOperations.newInstance().revertKvmSnapshot(this.snapshot, this.radwareFirstTime, this.serverCliHM);
+                    VmSnapShotOperations.getInstance().revertKvmSnapshot(this.snapshot, this.radwareFirstTime, this.serverCliHM);
                     break;
             }
         }

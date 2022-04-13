@@ -3,12 +3,12 @@ Feature: LVM CLI VMware
 
   @SID_1
   Scenario: Check current storage partition size
-    When CLI Run linux Command "df -P /opt/radware/storage |tail -1|awk '{print$2}'" on "ROOT_SERVER_CLI" and validate result LTE "245000000"
+    When CLI Run linux Command "df -P /opt/radware/storage |tail -1|awk '{print$2}'" on "ROOT_SERVER_CLI" and validate result LTE "555000000"
 
   @SID_2
   Scenario: Run LVM script quit
     When CLI Run remote linux Command "printf 'quit\n' |/opt/radware/box/bin/system_storage_lvm.sh" on "ROOT_SERVER_CLI" with timeOut 30
-    When CLI Run linux Command "df -P /opt/radware/storage |tail -1|awk '{print$2}'" on "ROOT_SERVER_CLI" and validate result LTE "245000000"
+    When CLI Run linux Command "df -P /opt/radware/storage |tail -1|awk '{print$2}'" on "ROOT_SERVER_CLI" and validate result LTE "555000000"
 
   @SID_3
   Scenario: Run LVM script default
