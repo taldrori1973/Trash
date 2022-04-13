@@ -495,17 +495,17 @@ Feature: Attack Table - Expand Table Row
     Then Validate Expand "Info" Table with label "<label>" Equals to "<value>"
 
     Examples:
-      | label              | value              |
-      | Risk               | High               |
-      | Radware ID         | 320029             |
-      | Direction          | In                 |
-      | Action Type        | Http200OkResetDest |
-      | Attack ID          | 531-1429625097     |
-      | Physical Port      | MNG-1              |
-      | Total Packet Count | 1                  |
-      | VLAN               | N/A                |
-      | MPLS RD            | N/A                |
-      | Source port        | 26505              |
+      | label              | value                             |
+      | Risk               | High                              |
+      | Radware ID         | 320029                            |
+      | Direction          | In                                |
+      | Action Type        | HTTP 200 OK and Reset Destination |
+      | Attack ID          | 531-1429625097                    |
+      | Physical Port      | MNG-1                             |
+      | Total Packet Count | 1                                 |
+      | VLAN               | N/A                               |
+      | MPLS RD            | N/A                               |
+      | Source port        | 26505                             |
 
 
    ####################  QDos attack tables ####################################################
