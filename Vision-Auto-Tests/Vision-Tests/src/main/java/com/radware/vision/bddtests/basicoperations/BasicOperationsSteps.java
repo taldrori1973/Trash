@@ -137,9 +137,9 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     /**
-     * @param username - user name
+     * @param username - username
      * @param password - user password
-     *                 Do Login with userName and password and if the user had loggedIn with another userName it Do logout, after that login with the userName
+     *                 Do Log in with userName and password and if the user had loggedIn with another userName it Do logout, after that login with the userName
      */
     @Given("^UI Login with user \"(.*)\" and password \"(.*)\"( negative)?$")
     public void login(String username, String password, String negative) throws Exception {
