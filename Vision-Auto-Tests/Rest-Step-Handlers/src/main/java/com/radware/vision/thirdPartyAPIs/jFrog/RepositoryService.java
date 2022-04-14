@@ -1,7 +1,6 @@
 package com.radware.vision.thirdPartyAPIs.jFrog;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.radware.automation.tables.AutoTestBaseLineTable;
 import com.radware.vision.restAPI.JFrogRestAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
@@ -109,11 +108,11 @@ public class RepositoryService {
                 String.format("%d Files with extension %s were found: %s\n Please Customize Filtering Method at %s Class",
                         filterByFileType.size(),
                         fileType.getExtension(),
-                        filterByFileType.toString(),
+                        filterByFileType,
                         this.getClass().getName()
                 ));
         String path = String.format("%s%s", buildPojo.getPath().getPath().substring(1), filterByFileType.get(0).getUri().toString());
-        fileType.setFileName(filterByFileType.get(0).getUri().toString().substring(1));
+//        fileType.setFileName(filterByFileType.get(0).getUri().toString().substring(1));
         return getPojo(path, StatusCode.OK, ArtifactFilePojo.class);
     }
 
@@ -146,7 +145,7 @@ public class RepositoryService {
                 String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
                 ArtifactFolderPojo buildPojo = getPojo(buildPath, StatusCode.OK, ArtifactFolderPojo.class);
                 ArtifactFilePojo filePojo = getFile(buildPojo, FileType.valueOf(fileType.toString().toUpperCase()));
-                Pattern p = Pattern.compile(String.format("%d-%s-D-([\\d]+)-", last, jenkinsJob));
+                Pattern p = Pattern.compile("-D-([\\d]+)-");
                 Matcher m = p.matcher(filePojo.getPath().getPath());
                 while (m.find()) {
                     Integer buildDeployID = Integer.parseInt(m.group(1));
@@ -285,7 +284,7 @@ public class RepositoryService {
                 ArtifactFolderPojo buildPojo = getPojo(buildPath, StatusCode.OK, ArtifactFolderPojo.class);
                 String fileType = buildPath.split("/")[0];
                 ArtifactFilePojo filePojo = getFile(buildPojo, FileType.valueOf(fileType.toUpperCase()));
-                Pattern p = Pattern.compile(String.format("%d-%s-D-([\\d]+)-", last, jenkinsJob));
+                Pattern p = Pattern.compile("-D-([\\d]+)-");
                 Matcher m = p.matcher(filePojo.getPath().getPath());
                 while (m.find()) {
                     try {
@@ -319,9 +318,9 @@ public class RepositoryService {
             RestResponse restResponse = jFrogRestAPI.sendRequest("Get Artifact Properties", queryParams, StatusCode.OK);
             String key = "\"build.parentNumber\",\"value\":\"";
             String jsonAsString = restResponse.getBody().getBodyAsString();
-            Integer i = jsonAsString.indexOf(key);
+            int i = jsonAsString.indexOf(key);
             if (i < 0) return null;
-            Integer j = jsonAsString.indexOf("\"", i + key.length() + 1);
+            int j = jsonAsString.indexOf("\"", i + key.length() + 1);
             if (j < 0) return null;
             String parentBuildNumberString = jsonAsString.substring(i + key.length(), j);
             return Integer.parseInt(parentBuildNumberString);
@@ -345,30 +344,12 @@ public class RepositoryService {
         return true;
     }
 
-
-    public int getLastExtendedBuildNumberFromBranch(String branch) throws Exception {
-        ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
-        String artifactPojoPtah = artifactPojo.getPath().getPath();
-        ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
-        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
-        return getLastSuccessfulExtendedBuild(branchPojo, branch);
-    }
-
-    public int getLastExtendedBuildNumberFromBranch(String branch, String setupMode) throws Exception {
-        ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
-        String artifactPojoPtah = artifactPojo.getPath().getPath() + setupMode.toUpperCase();
-        ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
-        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
-        return getLastSuccessfulExtendedBuild(branchPojo, branch);
-    }
-
     public int getLastExtendedDeployNumberFromBranch(String branch, String setupMode) throws Exception {
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
         String artifactPojoPtah = artifactPojo.getPath().getPath() + ((setupMode != null) ? setupMode.toUpperCase() : "");
         ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
-        Integer lastSuccessfulExtendedBuild = getLastSuccessfulExtendedDeployID(branchPojo, branch);
-        return lastSuccessfulExtendedBuild;
+        return getLastSuccessfulExtendedDeployID(branchPojo, branch);
     }
 
     public JFrogFileModel getFileUnderVersion(FileType fileType, String version) throws Exception {

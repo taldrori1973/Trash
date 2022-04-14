@@ -14,8 +14,8 @@ public class Physical extends Deploy {
     JFrogFileModel buildFileInfoISO;
     JFrogFileModel buildFileInfoTar;
 
-    public Physical(boolean isExtended, String build) {
-        super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp());
+    public Physical() {
+        super(TestBase.restTestBase.getVisionRestClient().getDeviceIp());
         buildFileInfo();
     }
 

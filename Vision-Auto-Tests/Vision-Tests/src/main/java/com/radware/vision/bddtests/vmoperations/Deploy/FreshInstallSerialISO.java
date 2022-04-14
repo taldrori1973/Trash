@@ -7,8 +7,8 @@ import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisi
 
 public class FreshInstallSerialISO extends FreshInstall {
 
-    public FreshInstallSerialISO(boolean isExtended, String build) {
-        super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.ISO_SERIAL);
+    public FreshInstallSerialISO() {
+        super(TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.ISO_SERIAL);
     }
 
     @Override

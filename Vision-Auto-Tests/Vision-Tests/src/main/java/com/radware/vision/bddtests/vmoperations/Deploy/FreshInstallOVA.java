@@ -14,12 +14,8 @@ import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisi
 public class FreshInstallOVA extends FreshInstall {
     private FileType fileType = FileType.OVA;
 
-    public FreshInstallOVA(boolean isExtended, String build) {
-        super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.OVA);
-    }
-
-    public FileType getOvaType() {
-        return fileType;
+    public FreshInstallOVA() {
+        super(TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.OVA);
     }
 
     @Override
