@@ -135,7 +135,7 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "6"
     Then UI Validate Element Existence By Label "Country bar" if Exists "false" with value "6"
     Then UI Click Button "Volume" with value "Top-Attacking-Geolocations"
-    Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "6"
+    Then UI Validate Element Existence By Label "country attacks total value" if Exists "false" with value "6"
     Then UI Validate Element Existence By Label "Country bar" if Exists "false" with value "6"
 
   @SID_14
