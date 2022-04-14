@@ -186,10 +186,11 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
   Scenario: EAAF Summary Hits - last Month verification
     Then UI Validate number range between minValue 166 and maxValue 180 in label "Monthly Hits value"
 
-  @EAAFDebug
-  @SID_13
-  Scenario: EAAF Summary Hits - last Year verification
-    Then UI Validate number range between minValue 625 and maxValue 625 in label "Yearly Hits value"
+# there is no Yearly Hits value in the new design
+#  @EAAFDebug
+#  @SID_13
+#  Scenario: EAAF Summary Hits - last Year verification
+#    Then UI Validate number range between minValue 625 and maxValue 625 in label "Yearly Hits value"
 
   @EAAFDebug
   @SID_14
