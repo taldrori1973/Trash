@@ -1,7 +1,7 @@
 @TC108108
 Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
-  
-@SID_1
+
+  @SID_1
   Scenario: Clean system attacks,database and logs
     * CLI kill all simulator attacks on current vision
     # wait until collector cache clean up
@@ -9,9 +9,9 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
-    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
+    * CLI Run remote linux Command "curl -H "Content-Type: application/json" -XPOST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
 
-  
+
   @SID_2
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
     # run EAAF attacks PCAP - this PCAP is the ONLY RELEVANT PCAP FOR THIS TEST FILE
@@ -28,7 +28,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     # NOTE: this script can be stopped at the end of this test file but it's not mandatory
     Then CLI Run remote linux Command "/uVision_EAAF_KeepAttacksTimesUpToDate.sh" on "ROOT_SERVER_CLI"
 
-  @EAAFDebug 
+  @EAAFDebug
   @SID_3
   Scenario: Login and navigate to EAAF dashboard
 #    Given UI Login with user "sys_admin" and password "radware"
@@ -36,7 +36,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "EAAF Dashboard" page via homePage
 
-  @EAAFDebug 
+  @EAAFDebug
   @SID_4
   Scenario: EAAF Hits Timeline - verify data for 15 minutes
     And UI Do Operation "Select" item "Global Time Filter"
@@ -46,11 +46,13 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 42 and maxValue 48 in label "TotalsInTimeFrame Events value"
     Then UI Validate number range between minValue 17.07 and maxValue 17.83 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 12.50 and maxValue 13.27 in label "TotalsInTimeFrame Volume value"
-    Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
-      Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 15    | 2     |1           |
+#    Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
+    Then UI Text of "TimeFrame Packets badge" with extension "" equal to "K"
+#    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
+    Then UI Text of "TimeFrame Volume badge" with extension "" equal to "Mbit"
+    Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
+      | value | count | countOffset |
+      | 15    | 2     | 1           |
 
   @EAAFDebug
   @SID_5
@@ -62,8 +64,8 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 72 and maxValue 78 in label "TotalsInTimeFrame Events value"
     Then UI Validate number range between minValue 20.44 and maxValue 21.20 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 15.87 and maxValue 16.64 in label "TotalsInTimeFrame Volume value"
-    Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
+    Then UI Text of "TimeFrame Packets badge" with extension "" equal to "K"
+    Then UI Text of "TimeFrame Volume badge" with extension "" equal to "Mbit"
 
   @EAAFDebug
   @SID_6
@@ -75,8 +77,8 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 102 and maxValue 108 in label "TotalsInTimeFrame Events value"
     Then UI Validate number range between minValue 24.28 and maxValue 25.04 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 19.71 and maxValue 20.48 in label "TotalsInTimeFrame Volume value"
-    Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
+    Then UI Text of "TimeFrame Packets badge" with extension "" equal to "K"
+    Then UI Text of "TimeFrame Volume badge" with extension "" equal to "Mbit"
 
   @EAAFDebug
   @SID_7
@@ -87,20 +89,20 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 148 and maxValue 154 in label "TotalsInTimeFrame Events value"
     Then UI Validate number range between minValue 41.86 and maxValue 42.62 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 32.72 and maxValue 33.49 in label "TotalsInTimeFrame Volume value"
-    Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
+    Then UI Text of "TimeFrame Packets badge" with extension "" equal to "K"
+    Then UI Text of "TimeFrame Volume badge" with extension "" equal to "Mbit"
     Then UI Click Button "Attacks" with value "EAAF-Timeline"
     Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 4    | 11     |2           |
+      | value | count | countOffset |
+      | 4     | 11    | 2           |
     Then UI Click Button "Packets" with value "EAAF-Timeline"
-    Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 512    | 10     |2           |
+    Then UI Validate Line Chart data "EAAF Hits Timeline packets" with LabelTime
+      | value | count | countOffset |
+      | 512   | 10    | 2           |
     Then UI Click Button "Volume" with value "EAAF-Timeline"
-    Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 512 K   | 10     |2           |
+    Then UI Validate Line Chart data "EAAF Hits Timeline volume" with LabelTime
+      | value  | count | countOffset |
+      | 512000 | 10    | 2           |
 
   @EAAFDebug
   @SID_8
@@ -111,20 +113,20 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 158 and maxValue 166 in label "TotalsInTimeFrame Events value"
     Then UI Validate number range between minValue 43.14 and maxValue 44.00 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 34.01 and maxValue 34.86 in label "TotalsInTimeFrame Volume value"
-    Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
+    Then UI Text of "TimeFrame Packets badge" with extension "" equal to "K"
+    Then UI Text of "TimeFrame Volume badge" with extension "" equal to "Mbit"
     Then UI Click Button "Attacks" with value "EAAF-Timeline"
     Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 2    | 4     |2           |
+      | value | count | countOffset |
+      | 2     | 4     | 2           |
     Then UI Click Button "Packets" with value "EAAF-Timeline"
-    Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 256    | 3     |2           |
+    Then UI Validate Line Chart data "EAAF Hits Timeline packets" with LabelTime
+      | value | count | countOffset |
+      | 256   | 3     | 2           |
     Then UI Click Button "Volume" with value "EAAF-Timeline"
-    Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 256 K   | 3     |2           |
+    Then UI Validate Line Chart data "EAAF Hits Timeline volume" with LabelTime
+      | value  | count | countOffset |
+      | 256000 | 3     | 2           |
 
   @EAAFDebug
   @SID_9
@@ -135,20 +137,20 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 170 and maxValue 178 in label "TotalsInTimeFrame Events value"
     Then UI Validate number range between minValue 44.34 and maxValue 45.24 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 35.21 and maxValue 36.11 in label "TotalsInTimeFrame Volume value"
-    Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
+    Then UI Text of "TimeFrame Packets badge" with extension "" equal to "K"
+    Then UI Text of "TimeFrame Volume badge" with extension "" equal to "Mbit"
     Then UI Click Button "Attacks" with value "EAAF-Timeline"
     Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 2    | 3     |2           |
+      | value | count | countOffset |
+      | 2     | 3     | 2           |
     Then UI Click Button "Packets" with value "EAAF-Timeline"
-    Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 172    | 3     |2           |
+    Then UI Validate Line Chart data "EAAF Hits Timeline packets" with LabelTime
+      | value | count | countOffset |
+      | 172   | 3     | 2           |
     Then UI Click Button "Volume" with value "EAAF-Timeline"
-    Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 172 K   | 3     |2           |
+    Then UI Validate Line Chart data "EAAF Hits Timeline volume" with LabelTime
+      | value  | count | countOffset |
+      | 172000 | 3     | 2           |
 
   @EAAFDebug
   @SID_10
@@ -159,20 +161,20 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 176 and maxValue 188 in label "TotalsInTimeFrame Events value"
     Then UI Validate number range between minValue 44.98 and maxValue 46.52 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 35.85 and maxValue 37.39 in label "TotalsInTimeFrame Volume value"
-    Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
+    Then UI Text of "TimeFrame Packets badge" with extension "" equal to "K"
+    Then UI Text of "TimeFrame Volume badge" with extension "" equal to "Mbit"
     Then UI Click Button "Attacks" with value "EAAF-Timeline"
     Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 3    | 3     |2           |
+      | value | count | countOffset |
+      | 3     | 3     | 2           |
     Then UI Click Button "Packets" with value "EAAF-Timeline"
-    Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 384    | 3     |2           |
+    Then UI Validate Line Chart data "EAAF Hits Timeline packets" with LabelTime
+      | value | count | countOffset |
+      | 384   | 3     | 2           |
     Then UI Click Button "Volume" with value "EAAF-Timeline"
-    Then UI Validate Line Chart data "EAAF Hits Timeline attacks" with LabelTime
-      | value | count |countOffset |
-      | 384 K    | 3     |2           |
+    Then UI Validate Line Chart data "EAAF Hits Timeline volume" with LabelTime
+      | value  | count | countOffset |
+      | 384000 | 3     | 2           |
 
   @EAAFDebug
   @SID_11
