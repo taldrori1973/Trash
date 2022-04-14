@@ -40,9 +40,9 @@ Feature: AppWall Reports
     And CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
 
   @SID_4
-  Scenario: Login And Copy get_scheduled_report_value.sh File To Server
+  Scenario: Login And Copy uVision_get_scheduled_report_value.sh File To Server
     Given UI Login with user "radware" and password "radware"
-    And CLI copy "/home/radware/Scripts/get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+    And CLI copy "/home/radware/Scripts/uVision_get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
 
   @SID_5
   Scenario: Email Configuration
@@ -166,11 +166,11 @@ Feature: AppWall Reports
     When UI Click Button "My Report" with value "scheduleDailyAW"
     Then UI Validate Element Existence By Label "Show Report" if Exists "true" with value "scheduleDailyAW,0"
     # validate scheduleMonthlyAW schedule regex matchs in CLI
-    When CLI Run remote linux Command "/get_scheduled_report_value.sh scheduleMonthlyAW" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "/uVision_get_scheduled_report_value.sh scheduleMonthlyAW" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "0 (\d{2}) (\d{2}) (\d{1,2}) (\d{1,2}) \? \*"
 
     # validate scheduleDailyAW schedule regex matchs in CLI
-    When CLI Run remote linux Command "/get_scheduled_report_value.sh scheduleDailyAW" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "/uVision_get_scheduled_report_value.sh scheduleDailyAW" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "0 (\d{2}) (\d{2}) (\d{1,2}) (\d{1,2}) \? \*"
 
   @SID_16

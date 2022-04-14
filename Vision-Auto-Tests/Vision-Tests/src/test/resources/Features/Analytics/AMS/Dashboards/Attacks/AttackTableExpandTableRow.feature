@@ -12,12 +12,13 @@ Feature: Attack Table - Expand Table Row
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
+    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
+    * CLI kill all simulator attacks on current vision
     Given CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_2"
     Given CLI simulate 1 attacks of type "HTTPS" on SetId "DefensePro_Set_2"
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_Set_2"
     Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" and wait 210 seconds
     Given CLI simulate 1 attacks of type "test_pcap" on SetId "DefensePro_Set_1" and wait 200 seconds
-    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
 
   @SID_3
   Scenario:  login
@@ -528,7 +529,7 @@ Feature: Attack Table - Expand Table Row
       | Direction          | In            | In            |
       | Action Type        | Drop          | Drop          |
       | Physical Port      | 1             | 1             |
-      | Total Packet Count | 395,583       | 2,318,458     |
+      | Total Packet Count | 263,774       | 265,008       |
       | VLAN               | N/A           | N/A           |
       | MPLS RD            | N/A           | N/A           |
       | Source port        | 0             | 1024          |
@@ -544,8 +545,8 @@ Feature: Attack Table - Expand Table Row
       | Current Policy Bandwidth           | 164.6 Mbps                    | 164 Mbps                     |
       | Detection Sensitivity              | 2%                            | 2%                           |
       | Peacetime Quantile Bandwidth       | 3.3 Mbps                      | 3.3 Mbps                     |
-      | Dropped Quantile Bandwidth         | 25.6 Mbps                     | 25.5 Mbps                    |
-      | Current Quantile Bandwidth         | 25.8 Mbps                     | 25.3 Mbps                    |
+      | Dropped Quantile Bandwidth         | 25.6 Mbps                     | 25.9 Mbps                    |
+      | Current Quantile Bandwidth         | 25.8 Mbps                     | 25.5 Mbps                    |
       | Quantile Rate Limit                | Moderate 150%, 2.2 Mbps       | Moderate 150%, 3.5 Mbps      |
       | Mitigation Method                  | Quantile Top Talkers          | Quantile Top Talkers         |
 

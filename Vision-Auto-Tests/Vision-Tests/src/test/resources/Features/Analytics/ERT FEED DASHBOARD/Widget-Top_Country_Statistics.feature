@@ -13,7 +13,7 @@ Feature: EAAF Widget - Top Country Statistics
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
-    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
+    * CLI Run remote linux Command "curl -H "Content-Type: application/json" -XPOST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
 
   @SID_2
   Scenario: Run DP simulator PCAPs for EAAF widgets
@@ -40,12 +40,12 @@ Feature: EAAF Widget - Top Country Statistics
   Scenario: Validate Num of attacks per IP
 # Validate Num of attacks per IP
     Then UI Click Button "Attacks" with value "Top-Attacking-Geolocations"
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "192"
-    Then UI Validate Text field "TOTAL Country Events value" with params "1" EQUALS "134"
-    Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "103"
-    Then UI Validate Text field "TOTAL Country Events value" with params "3" EQUALS "96"
-    Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "22"
-    Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "15"
+    Then UI Validate Text field "country attacks total value" with params "0" EQUALS "192"
+    Then UI Validate Text field "country attacks total value" with params "1" EQUALS "134"
+    Then UI Validate Text field "country attacks total value" with params "2" EQUALS "103"
+    Then UI Validate Text field "country attacks total value" with params "3" EQUALS "96"
+    Then UI Validate Text field "country attacks total value" with params "4" EQUALS "22"
+    Then UI Validate Text field "country attacks total value" with params "5" EQUALS "15"
 
   @SID_6
   Scenario: alidate Num of attacks per IP
@@ -58,7 +58,7 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Text of "Country bar" with extension "5" equal to "Mexico"
 
 # validate values ordering
-    Then UI Validate elements "TOTAL Country Events value" with params "47 K" are sorting Descending by "Numerical"
+    Then UI Validate elements "country attacks total value" with params "47 K" are sorting Descending by "Numerical"
 
   @SID_7
   Scenario: Validate Top Attacking Countries Widget - Packets
@@ -73,10 +73,10 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_8
   Scenario: Validate Num of packets per IP
 # Validate Num of packets per IP
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "47 K" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "23 K" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "13 K" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "2 K" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "0" EQUALS "47 K" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "2" EQUALS "23 K" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "4" EQUALS "13 K" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "5" EQUALS "2 K" with offset 2
 
   @SID_9
   Scenario: Validate IP addresses correctness1
@@ -89,7 +89,7 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Text of "Country bar" with extension "5" equal to "Zimbabwe"
 
   # validate values ordering
-    Then UI Validate elements "TOTAL Country Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
+    Then UI Validate elements "country attacks total value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
 
   @SID_10
   Scenario: Validate Top Attacking Countries Widget - Volume
@@ -106,12 +106,12 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_11
   Scenario: Validate Volume amount per IP
 # Validate Volume amount per IP
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "38 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "1" EQUALS "19 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "19 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "3" EQUALS "19 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "8 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "2 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "0" EQUALS "38 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "1" EQUALS "19 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "2" EQUALS "19 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "3" EQUALS "19 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "4" EQUALS "8 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "5" EQUALS "2 M" with offset 2
 
   @SID_12
   Scenario: Validate IP addresses correctness2
@@ -124,7 +124,7 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Text of "Country bar" with extension "5" equal to "Zimbabwe"
 
   # validate values ordering
-    Then UI Validate elements "TOTAL Country Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
+    Then UI Validate elements "country attacks total value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
 
   @SID_13
   Scenario: Validate max amount of 6 Countries exists in Top Attacking Countries Widget
@@ -148,8 +148,8 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_15
   Scenario: Top Attacking Countries check values1
 # check values
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "387 K"
-    Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "1"
+    Then UI Validate Text field "country attacks total value" with params "0" EQUALS "387 K"
+    Then UI Validate Element Existence By Label "country attacks total value" if Exists "false" with value "1"
 
   @SID_16
   Scenario: Top Attacking Countries Validate IP addresses correctness1
@@ -168,8 +168,8 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_18
   Scenario: Top Attacking Countries check values2
 # check values
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "387"
-    Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "1"
+    Then UI Validate Text field "country attacks total value" with params "0" EQUALS "387"
+    Then UI Validate Element Existence By Label "country attacks total value" if Exists "false" with value "1"
 
   @SID_19
   Scenario: Top Attacking Countries check values3
@@ -188,8 +188,8 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_21
   Scenario: Top Attacking Countries check values4
 # check values
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "6"
-    Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "1"
+    Then UI Validate Text field "country attacks total value" with params "0" EQUALS "6"
+    Then UI Validate Element Existence By Label "country attacks total value" if Exists "false" with value "1"
 
   @SID_22
   Scenario: Top Attacking Countries Validate IP addresses correctness2
@@ -208,8 +208,8 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_24
   Scenario: Validate user selection lasts after page refresh on Top Attacking Countries Widget -check values
 # check values
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "387 K"
-    Then UI Validate Element Existence By Label "TOTAL Country Events value" if Exists "false" with value "1"
+    Then UI Validate Text field "country attacks total value" with params "0" EQUALS "387 K"
+    Then UI Validate Element Existence By Label "country attacks total value" if Exists "false" with value "1"
 
 #    Validate IP addresses correctness
     Then UI Text of "Country bar" with extension "0" equal to "Mexico"
@@ -228,12 +228,12 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_26
   Scenario: Validate Volume amount per IP on Top Attacking Countries Widget
 # Validate Volume amount per IP
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "38 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "1" EQUALS "19 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "19 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "3" EQUALS "19 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "8 M" with offset 2
-    Then UI Validate Text field "TOTAL Country Events value" with params "5" EQUALS "2 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "0" EQUALS "38 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "1" EQUALS "19 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "2" EQUALS "19 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "3" EQUALS "19 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "4" EQUALS "8 M" with offset 2
+    Then UI Validate Text field "country attacks total value" with params "5" EQUALS "2 M" with offset 2
 
   @SID_27
   Scenario: Validate Volume amount per IP on Top Attacking Countries Widget -Validate IP addresses correctness
@@ -246,7 +246,7 @@ Feature: EAAF Widget - Top Country Statistics
     Then UI Text of "Country bar" with extension "5" equal to "Zimbabwe"
 
   # validate values ordering
-    Then UI Validate elements "TOTAL Country Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
+    Then UI Validate elements "country attacks total value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
 
   @SID_28
   Scenario: Cleanup

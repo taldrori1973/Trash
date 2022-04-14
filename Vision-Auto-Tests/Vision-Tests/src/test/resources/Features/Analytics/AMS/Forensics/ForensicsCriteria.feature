@@ -183,7 +183,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Direction Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Direction Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 20 with offset 3
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 20 with offset 4
     Then UI Delete Forensics With Name "Not Direction Criteria"
 
 
@@ -244,7 +244,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Protocol Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Protocol Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 25 with offset 3
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 25 with offset 4
     Then UI Delete Forensics With Name "Not Protocol Criteria"
 
 
@@ -272,7 +272,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Risk Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Risk Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 25 with offset 3
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 25 with offset 4
     Then UI Delete Forensics With Name "Not Risk Criteria"
 
   @SID_22

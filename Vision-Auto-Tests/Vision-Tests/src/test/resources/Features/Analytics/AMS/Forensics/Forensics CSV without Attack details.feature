@@ -1,5 +1,4 @@
 @TC110199
-
 Feature: Forensics CSV without Attack details
 
   @SID_1
@@ -14,13 +13,13 @@ Feature: Forensics CSV without Attack details
   Scenario: Run DP simulator for BDOS, DNS, ASCAN, Syn, HTTPs, burst
     And CLI simulate 1 attacks of type "rest_synflood" on SetId "DefensePro_Set_1"
     And CLI simulate 1 attacks of type "rest_dns" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "rest_ascan" on SetId "DefensePro_Set_1"
     And CLI simulate 1 attacks of type "rest_bdos" on SetId "DefensePro_Set_1"
     And CLI simulate 1 attacks of type "rest_server_crack" on SetId "DefensePro_Set_1"
-    And CLI simulate 1 attacks of type "HTTPS" on "DefensePro" on SetId "DefensePro_Set_1"
+    And CLI simulate 1 attacks of type "HTTPS" on SetId "DefensePro_Set_1"
     And CLI simulate 1 attacks of type "rest_burst" on SetId "DefensePro_Set_1"
     And CLI simulate 1 attacks of type "rest_dos" on SetId "DefensePro_Set_1"
-    And CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_1"
-
+    And CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_1" and wait 30 seconds
 
   @SID_3
   Scenario: login and go to forensic tab
@@ -47,10 +46,9 @@ Feature: Forensics CSV without Attack details
   @SID_4
   Scenario: Create Forensics forensics csv_without_details
     When UI "Create" Forensics With Name "csv_without_details"
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                                                                                              |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type |
       | Format                | Select: CSV                                                                                                                                                                                                                                                                                                   |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                                                                                              |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                                                                                           |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                                                                                                                                                                                                                            |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
 
@@ -58,11 +56,11 @@ Feature: Forensics CSV without Attack details
   Scenario: Modify any dynamic values in DB
     #All units in mSec but in CSV/UI will be shown in seconds
     #Less than 1000 mSec are rounded to 0
-    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "7839-1402580209"}}]}},"script": {"source": "ctx._source.duration ='20000'"},"size": 1}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST -H "Content-Type: application/json" "localhost:9200/dp-attack-raw-*/_update_by_query/?size=1&conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "7839-1402580209"}}]}},"script": {"source": "ctx._source.duration ='20000'"}}'" on "ROOT_SERVER_CLI"
     Then Sleep "5"
-    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "7840-1402580209"}}]}},"script": {"source": "ctx._source.duration ='1000'"},"size": 1}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST -H "Content-Type: application/json" "localhost:9200/dp-attack-raw-*/_update_by_query/?size=1&conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "7840-1402580209"}}]}},"script": {"source": "ctx._source.duration ='1000'"}}'" on "ROOT_SERVER_CLI"
     Then Sleep "5"
-    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "33-19"}}]}},"script": {"source": "ctx._source.duration ='1'"},"size": 1}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST -H "Content-Type: application/json" "localhost:9200/dp-attack-raw-*/_update_by_query/?size=1&conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "33-19"}}]}},"script": {"source": "ctx._source.duration ='1'"}}'" on "ROOT_SERVER_CLI"
     Then Sleep "5"
 
   @SID_6
@@ -243,10 +241,9 @@ Feature: Forensics CSV without Attack details
   @SID_18
   Scenario: Create Forensics forensics csv_without_details
     When UI "Create" Forensics With Name "csv_without_details"
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                                                                                              |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type |
       | Format                | Select: CSV                                                                                                                                                                                                                                                                                                   |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                                                                                              |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                                                                                           |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                                                                                                                                                                                                                            |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                   |
@@ -258,11 +255,11 @@ Feature: Forensics CSV without Attack details
     Then UI Navigate to "AMS Forensics" page via homepage
     #All units in mSec but in CSV/UI will be shown in seconds
     #Less than 1000 mSec are rounded to 0
-    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "7839-1402580209"}}]}},"script": {"source": "ctx._source.duration ='20000'"},"size": 1}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST -H "Content-Type: application/json" "localhost:9200/dp-attack-raw-*/_update_by_query/?size=1&conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "7839-1402580209"}}]}},"script": {"source": "ctx._source.duration ='20000'"}}'" on "ROOT_SERVER_CLI"
     Then Sleep "5"
-    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "7840-1402580209"}}]}},"script": {"source": "ctx._source.duration ='1000'"},"size": 1}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST -H "Content-Type: application/json" "localhost:9200/dp-attack-raw-*/_update_by_query/?size=1&conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "7840-1402580209"}}]}},"script": {"source": "ctx._source.duration ='1000'"}}'" on "ROOT_SERVER_CLI"
     Then Sleep "5"
-    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "33-19"}}]}},"script": {"source": "ctx._source.duration ='1'"},"size": 1}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST -H "Content-Type: application/json" "localhost:9200/dp-attack-raw-*/_update_by_query/?size=1&conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "33-19"}}]}},"script": {"source": "ctx._source.duration ='1'"}}'" on "ROOT_SERVER_CLI"
     Then Sleep "5"
 
   @SID_20

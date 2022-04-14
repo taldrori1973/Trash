@@ -151,12 +151,8 @@ public class VMOperationsSteps extends VisionUITestBase {
                     return;
 
                 case "kvm_upgrade":
-                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINE, 60, TimeUnit.MINUTES);
-                    afterUpgrade();
-                    return;
-
                 case "upgrade":
-                    revertSnapshot(1);
+                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINE, 60, TimeUnit.MINUTES);
                     afterUpgrade();
                     return;
                 default:

@@ -9,7 +9,7 @@ Feature: Scheduled task Backup Alteon
   @SID_2
   Scenario: Login and go to scheduler screen
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Go To Vision
+#    Then UI Go To Vision
     And UI Navigate to "SCHEDULER" page via homePage
 
   @SID_3
@@ -24,14 +24,14 @@ Feature: Scheduled task Backup Alteon
 
     Then UI Select "FTP" from Vision dropdown by Id "gwt-debug-additionalParams.transportProtocol_Widget-input"
     Then UI Set Text field with id "gwt-debug-additionalParams.pathToFile_Widget" with "/home/radware/ftp"
-    Then UI Set Text field with id "gwt-debug-additionalParams.userName_Widget" with "radware"
-    Then UI Set Text field with id "gwt-debug-additionalParams.password_Widget" with "radware"
-    Then UI Set Text field with id "gwt-debug-additionalParams.password_DuplicatePasswordField" with "radware"
+    Then UI Set Text field with id "gwt-debug-additionalParams.userName_Widget" with "#getSUTValue(GENERIC_LINUX_SERVER:UserName);"
+    Then UI Set Text field with id "gwt-debug-additionalParams.password_Widget" with "#getSUTValue(GENERIC_LINUX_SERVER:Password);"
+    Then UI Set Text field with id "gwt-debug-additionalParams.password_DuplicatePasswordField" with "#getSUTValue(GENERIC_LINUX_SERVER:Password);"
     Then UI Set Text field with id "gwt-debug-additionalParams.backupFileName_Widget" with "ADC_config_task"
-    Then UI Set Text field with id "gwt-debug-additionalParams.ip_Widget" with "172.17.164.10"
+    Then UI Set Text field with id "gwt-debug-additionalParams.ip_Widget" with "#getSUTValue(GENERIC_LINUX_SERVER:IP);"
     Then Sleep "15"
     Then UI Click Button by id "gwt-debug-scheduledTasksDualList_Tab"
-    Then UI DualList Move deviceIndex 10 deviceType "Alteon" DualList Items to "RIGHT" , dual list id "gwt-debug-devicesList"
+    Then UI DualList Move setId "Alteon_Set_1" DualList Items to "RIGHT" , dual list id "gwt-debug-devicesList"
     Then UI Click Button by id "gwt-debug-ConfigTab_NEW_scheduledTasks_Submit"
 
   @SID_4
