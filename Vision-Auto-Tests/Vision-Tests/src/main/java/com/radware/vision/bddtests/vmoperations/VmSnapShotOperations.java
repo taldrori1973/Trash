@@ -6,6 +6,7 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
 import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
@@ -237,17 +238,19 @@ public class VmSnapShotOperations extends VisionUITestBase {
         } catch (Exception e) {
             BaseTestUtils.report("Error reverting snapshot: " + parseExceptionBody(e), Reporter.FAIL);
         } finally {
-            // ToDo - check if we need
-            //radwareServerCli.setConnectOnInit(true);
-            //radwareServerCli.init();
-            ServerCliBase radware = serverCliHM.get("radware");
-            radware.setConnectOnInit(true);
-            radware.init();
-            //serversManagement.getRootServerCLI().get().setConnectOnInit(true);
-            //serversManagement.getRootServerCLI().get().init();
-            ServerCliBase root = serverCliHM.get("root");
-            root.setConnectOnInit(true);
-            root.init();
+            Optional<RootServerCli> rootServerCli = getServersManagement().getRootServerCLI();
+            Optional<RadwareServerCli> radwareServerCli = getServersManagement().getRadwareServerCli();
+
+            if(rootServerCli.isPresent())
+            {
+                rootServerCli.get().setConnectOnInit(false);
+                rootServerCli.get().connect();
+            }
+            if(radwareServerCli.isPresent())
+            {
+                radwareServerCli.get().setConnectOnInit(false);
+                radwareServerCli.get().connect();
+            }
         }
     }
 
