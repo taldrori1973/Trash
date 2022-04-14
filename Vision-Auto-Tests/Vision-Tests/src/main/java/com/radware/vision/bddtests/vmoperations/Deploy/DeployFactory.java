@@ -10,22 +10,24 @@ public class DeployFactory {
     private static HashMap<String, Upgrade> upgradeHM = new HashMap<>();
     private static HashMap<String, FreshInstall> freshInstallHM = new HashMap<>();
 
-    public static Upgrade getUpgrade(boolean isExtended, String build, RadwareServerCli radwareServerCli, RootServerCli rootServerCli)
+    public static Upgrade getUpgrade(RadwareServerCli radwareServerCli, RootServerCli rootServerCli)
     {
-        String key = String.format("%s#%s", isExtended, build);
+        //TODO why do we need the HM is it relevant for parallel?
+        String key = String.format("%s", radwareServerCli.getDnsServerIp());
 
         if(upgradeHM.containsKey(key))
             return upgradeHM.get(key);
 
-        Upgrade upgrade = new Upgrade(isExtended, build, radwareServerCli, rootServerCli);
+        Upgrade upgrade = new Upgrade(radwareServerCli, rootServerCli);
         upgradeHM.put(key, upgrade);
 
         return upgrade;
     }
 
-    public static FreshInstall getFreshInstall(String environmentType, boolean isExtended, String build)
+    public static FreshInstall getFreshInstall(String environmentType)
     {
-        String key = String.format("%s#%s#%s", environmentType, isExtended, build).toLowerCase();
+        //TODO why do we need the HM is it relevant for parallel?
+        String key = String.format("%s", environmentType).toLowerCase();
 
         if(freshInstallHM.containsKey(key))
             return freshInstallHM.get(key);
@@ -35,11 +37,11 @@ public class DeployFactory {
         switch (environmentType.toLowerCase())
         {
             case "kvm":
-                freshInstall = new FreshInstallQCow2(isExtended, build); break;
+                freshInstall = new FreshInstallQCow2(); break;
             case "serial iso":
-                freshInstall = new FreshInstallSerialISO(isExtended, build); break;
+                freshInstall = new FreshInstallSerialISO(); break;
             case "ova":
-                freshInstall = new FreshInstallOVA(isExtended, build); break;
+                freshInstall = new FreshInstallOVA(); break;
             default:
                 freshInstall = null;
         }
