@@ -115,7 +115,7 @@ Feature: Vision Install KVM SA
   @SID_12
   Scenario: Validate MySql version
 #    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
-    Then MYSQL Validate "version" Variable Value EQUALS "10.4.6-MariaDB"
+    Then MYSQL Validate "version" Variable Value EQUALS "10.5.9-MariaDB"
 
 
   @SID_13
@@ -155,21 +155,33 @@ Feature: Vision Install KVM SA
   @SID_19
   Scenario: Verify number of tables in vision_ng schema
 #    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
-    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 169
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 170
 
   @SID_20
   Scenario: Verify services are running
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Collector service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "New Reporter service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Alerts service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Scheduler service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration Synchronization service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Tor feed service is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line
-    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line
+    When CLI Operations - Run Radware Session command "system vision-server status"
+    Then CLI Operations - Verify that output contains regex "config_kvision-lls_1\s+.*Up"
+    Then CLI Operations - Verify that output contains regex "config_kvision-dc-nginx_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-rt-alert_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-formatter_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-vdirect_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-scheduler_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-vrm_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-tor-feed_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-alerts_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-config-sync-service_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-autoheal_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-ted_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-webui_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-help_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-fluentd_1\s+.*Up"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-ipv6nat_1\s+.*Up"
+    Then CLI Operations - Verify that output contains regex "config_kvision-reporter_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-collector_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-configuration-service_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-rabbitmq_1\s+.*Up"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-efk_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-infra-mariadb_1\s+.*\(healthy\)"
 
   @SID_21
   Scenario: Verify vg_disk-lv number of partitions

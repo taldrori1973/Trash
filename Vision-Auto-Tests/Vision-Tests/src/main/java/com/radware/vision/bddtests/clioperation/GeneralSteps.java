@@ -15,6 +15,8 @@ import cucumber.api.java.en.Then;
 import joptsimple.internal.Strings;
 import jsystem.framework.report.Reporter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,8 @@ import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
 public class GeneralSteps extends TestBase {
+
+    private static String lastcleared = null;
 
     @Given("^CLI Clear vision logs$")
     public static void clearAllLogs() {
@@ -38,8 +42,12 @@ public class GeneralSteps extends TestBase {
                 "/var/log/td-agent/td-agent.log " +
                 "/opt/radware/storage/maintenance/logs/lls/lls_install_display.log " +
                 "/opt/radware/storage/maintenance/logs/jboss_watchdog.log ";
+
                 clearDockerLogs();
         CliOperations.runCommand(serversManagement.getRootServerCLI().get(), clearAllLogs);
+
+        CliOperations.runCommand(getServersManagement().getRootServerCLI().get(), "date +\"%Y-%m-%d\"");
+        lastcleared= CliOperations.lastRow;
 
     }
 
@@ -57,8 +65,11 @@ public class GeneralSteps extends TestBase {
      */
     @Then("^CLI Check if logs contains$")
     public void checkIfLogsContains(List<SearchLog> selections) {
-        String command = "grep -Ei";
+
+//        String command = "grep -Ei";
         String commandToSkip = " |grep -v ";
+
+        String command ="journalctl CONTAINER_TAG=";
 
         if (!selections.get(0).logType.toString().equalsIgnoreCase("ALL")) {
             List<SearchLog> ignoreList = getIgnoreList(selections);
@@ -66,7 +77,10 @@ public class GeneralSteps extends TestBase {
             List<SearchLog> searchList = getSearchList(selections);
 
             searchList.forEach(selection -> {
-                String checkForErrors = String.format("%s \"%s\" %s", command, selection.expression, selection.logType.getServerLogType());
+//                String checkForErrors = String.format("%s \"%s\" %s", command , selection.expression, selection.logType.getServerLogType());
+                String checkForErrors =String.format("%s\"%s\" %s \"%s\" %s \"%s\"", command ,selection.logType.getServerLogType(), "-S", lastcleared,  " -U now |grep -i" , selection.expression);
+
+
                 List<SearchLog> myIgnored = ignoreList.stream().filter(o ->
                         o.logType.equals(selection.logType)).collect(Collectors.toList());
 
@@ -168,7 +182,8 @@ public class GeneralSteps extends TestBase {
         VISION_INSTALL("/tmp/logs/Vision_install.log"),
         FLUENTD("/var/log/td-agent/td-agent.log"),
         LLS("/opt/radware/storage/maintenance/logs/lls/lls_install_display.log"),
-        JBOSS_WD("/opt/radware/storage/maintenance/logs/jboss_watchdog.log");
+        JBOSS_WD("/opt/radware/storage/maintenance/logs/jboss_watchdog.log"),
+        REPORTER("kvision-reporter");
 
         private String serverLogType;
 

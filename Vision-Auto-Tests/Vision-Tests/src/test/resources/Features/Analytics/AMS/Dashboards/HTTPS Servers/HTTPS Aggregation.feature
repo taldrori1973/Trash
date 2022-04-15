@@ -27,6 +27,7 @@ Feature: AMS HTTPS System Aggregation
     #* CLI Run remote linux Command "/HTTPS_Reindex_rt_prevHour.sh" on "ROOT_SERVER_CLI"
     * Sleep "30"
 
+ 
   @SID_3
   Scenario: Run System aggregation CLI command on demand
     And REST Delete ES index "dp-hourly*"
@@ -34,9 +35,10 @@ Feature: AMS HTTPS System Aggregation
 #    Then CLI Run remote linux Command "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://localhost:10080/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.dp.task.https.DPHttpsDataHourlyAggTask'" on "ROOT_SERVER_CLI"
     Then CLI Run linux Command "curl -w 'RESP_CODE:%{response_code}\n' -XPOST 'http://localhost:8080/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.dp.task.https.DPHttpsDataHourlyAggTask'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200"
     * Sleep "30"
+
     * CLI Check if logs contains
       | logType | expression                                            | isExpected |
-      | TOMCAT  | DPHttpsDataHourlyPerformer: aggregation task finished | EXPECTED   |
+      | REPORTER  | DPHttpsDataHourlyPerformer: aggregation task finished | EXPECTED   |
 
   @SID_4
   Scenario: validate average values of fields in index dp-hourly-https-rt
