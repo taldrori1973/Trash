@@ -130,6 +130,7 @@ public class VMOperationsSteps extends VisionUITestBase {
                 return;
             }
             /* Fresh section */
+            RevertMachines revertMachines = null;
             switch (setupMode.toLowerCase()) {
                 case "fresh install_inparallel":
                 case "fresh install":
@@ -146,14 +147,11 @@ public class VMOperationsSteps extends VisionUITestBase {
 //                /* Upgrade section */
                 case "kvm_upgrade_inparallel":
                 case "upgrade_inparallel":
-                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINEAndPAIR, 60, TimeUnit.MINUTES);
-                    afterUpgrade();
-                    return;
-
+                    revertMachines = RevertMachines.MACHINEAndPAIR;
                 case "kvm_upgrade":
                 case "upgrade":
-                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINE, 60, TimeUnit.MINUTES);
-                    afterUpgrade();
+                    if(revertMachines==null) revertMachines = RevertMachines.MACHINE;
+                    RevertSnapshotHandler.revertSnapshot(revertMachines, 60, TimeUnit.MINUTES).afterRevert();
                     return;
                 default:
                     BaseTestUtils.report("What is wrong with you man? there is no such a mode as: " + setupMode, Reporter.FAIL);
