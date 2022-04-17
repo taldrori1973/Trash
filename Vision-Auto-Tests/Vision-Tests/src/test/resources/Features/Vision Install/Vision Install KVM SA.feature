@@ -103,11 +103,11 @@ Feature: Vision Install KVM SA
 
 
   @SID_13
-  Scenario: Validate vdirect listener
-    Then CLI Run linux Command "netstat -nlt |grep 2188|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result EQUALS ":::2188" Retry 300 seconds
-    Then CLI Run linux Command "netstat -nlt |grep 2189|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result EQUALS ":::2189" Retry 300 seconds
-    Then CLI Run linux Command "curl -ks -o null -XGET https://localhost6:2189 -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" Retry 300 seconds
-    Then CLI Run linux Command "curl -ks -o null -XGET https://localhost4:2189 -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" Retry 300 seconds
+  Scenario: Validate vDirect listener
+    Then CLI Run linux Command "netstat -nlt |grep 2188|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result EQUALS ":::2188" Retry 120 seconds
+    Then CLI Run linux Command "netstat -nlt |grep 2189|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result EQUALS ":::2189" Retry 120 seconds
+    Then CLI Run remote linux Command "curl -ks -o null -XGET https://localhost:2189 -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
+    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
   @SID_14
   Scenario: Validate LLS service is up
@@ -119,7 +119,7 @@ Feature: Vision Install KVM SA
 
   @SID_15
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result CONTAINS "2.7.0"
+    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.7.0"
 
   @SID_16
   Scenario: Validate IPv6 Hostname in /etc/hosts
