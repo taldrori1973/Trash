@@ -88,7 +88,7 @@ Feature: Vision Install KVM SA
   @SID_10
   Scenario: validate Edit Threshold script exist in vision
     Then CLI Run linux Command "ll /var/lib/docker/docker-root/volumes/config_vdirect/_data/templates/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "ll /opt/radware/ConfigurationTemplatesRepository/actionable/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "for path in /*;do find "$path" -type f -name "adjust_profile_v2.vm" -print -quit ;done | grep /opt/radware/ConfigurationTemplatesRepository/actionable/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1" Wait For Prompt 180 seconds
 
   @SID_11
   Scenario: validate available disk space
