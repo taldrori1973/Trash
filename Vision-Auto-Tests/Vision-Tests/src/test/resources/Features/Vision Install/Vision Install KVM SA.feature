@@ -171,11 +171,11 @@ Feature: Vision Install KVM SA
 
   @SID_22
   Scenario: Check lvm partitions:
-    When CLI Operations - Run Root Session command "df -h"
-    Then CLI Operations - Verify that output contains regex "vg_disk-lv_radware"
-    Then CLI Operations - Verify that output contains regex "vg_disk-lv_storage"
-    Then CLI Run linux Command "df -h | awk 'NR==8' | awk '{print $2}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GT "30"
-    Then CLI Run linux Command "df -h | awk 'NR==9' | awk '{print $2}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GTE "350"
+    Given CLI Operations - Run Root Session command "df -h"
+    When CLI Operations - Verify that output contains regex "vg_disk-lv_radware"
+    And CLI Operations - Verify that output contains regex "vg_disk-lv_storage"
+    Then CLI Run linux Command "df -h |grep vg_disk-lv_radware | awk '{print $2}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GT "30"
+    Then CLI Run linux Command "df -h |grep vg_disk-lv_storage | awk '{print $2}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GTE "350"
 
     @SID_23
     Scenario: Clean and CLose
