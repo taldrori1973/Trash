@@ -44,13 +44,13 @@ Feature: Vision Upgrade current -1
   @SID_7
   Scenario: Check upgrade logs
     Then CLI Check if logs contains
-      | logType | expression                                                                                    | isExpected   |
-      | UPGRADE | fatal                                                                                         | NOT_EXPECTED |
-      | UPGRADE | fail to\|failed to                                                                            | NOT_EXPECTED |
-      | UPGRADE | The upgrade of APSolute Vision server has completed successfully                              | EXPECTED     |
-      | UPGRADE | Failed to connect to localhost port 8009: Connection refused                                  | IGNORE       |
-      | UPGRADE | NOTE1: Some changes will not take effect untill next login.                                   | EXPECTED     |
-      | UPGRADE | [ERROR]   WARNING: The script pysemver is installed in '/usr/local/bin' which is not on PATH. | IGNORE       |
+      | logType | expression                                                                                   | isExpected   |
+      | UPGRADE | fatal                                                                                        | NOT_EXPECTED |
+      | UPGRADE | fail to\|failed to                                                                           | NOT_EXPECTED |
+      | UPGRADE | The upgrade of APSolute Vision server has completed successfully                             | EXPECTED     |
+      | UPGRADE | Failed to connect to localhost port 8009: Connection refused                                 | IGNORE       |
+      | UPGRADE | NOTE1: Some changes will not take effect untill next login                                   | EXPECTED     |
+      | UPGRADE | [ERROR]   WARNING: The script pysemver is installed in '/usr/local/bin' which is not on PATH | IGNORE       |
 
   @SID_8
   Scenario: Validate server is up after reset
