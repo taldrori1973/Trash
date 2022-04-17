@@ -1,4 +1,4 @@
-@TC116609
+@TC116609 @Test12
 Feature: UDP widgets
 
   @SID_1
@@ -59,7 +59,7 @@ Feature: UDP widgets
 
 
   @SID_5
-  Scenario: Clear the vision from the attacks and run PCAP
+  Scenario: Clear the vision from the attacks
     * CLI kill all simulator attacks on current vision
 #    * REST Delete ES index "dp-traffic-*"
 #    * REST Delete ES index "dp-https-stats-*"
@@ -67,4 +67,3 @@ Feature: UDP widgets
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     When CLI Clear vision logs
-    Then REST Delete device with DeviceID "DefensePro_172.17.50.50" from topology tree
