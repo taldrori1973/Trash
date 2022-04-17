@@ -5,6 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
+import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.RepositoryService;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
@@ -52,6 +53,10 @@ public abstract class Deploy {
     }
 
     abstract public void deploy();
+
+    public void afterDeploy(){
+        VMOperationsSteps.updateVersionVar();
+    }
 
     public void buildFileInfo(FileType type) {
         try {

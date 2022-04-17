@@ -35,6 +35,11 @@ public class Physical extends Deploy {
         }
     }
 
+    @Override
+    public void afterDeploy() {
+        super.afterDeploy();
+    }
+
     public void buildFileInfo() {
         try {
             if (isExtended) {
