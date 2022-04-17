@@ -201,7 +201,7 @@ public class ConfigSync {
 
     }
 
-    public static void setModeWitoutServices(RadwareServerCli serverCli, ConfigSyncMode mode, int timeout, String yesNo) throws Exception {
+    public static void setModeWitouthServices(RadwareServerCli serverCli, ConfigSyncMode mode, int timeout, String yesNo) throws Exception {
         try {
             if (yesNo==null) {
                 throw new Exception("Please specify if you want to continue or not (y/n)");
