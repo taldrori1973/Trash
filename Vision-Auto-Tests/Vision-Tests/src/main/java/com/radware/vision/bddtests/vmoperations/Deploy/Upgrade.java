@@ -52,6 +52,11 @@ public class Upgrade extends Deploy {
         }
     }
 
+    @Override
+    public void afterDeploy() {
+        super.afterDeploy();
+    }
+
     public String[] getNonSupportedVersion() {
         String lastKnownSupportedVersion = LAST_SUPPORTED_UPGRADE_VERSION.get(version);
         String[] versionSplit = lastKnownSupportedVersion.split("\\.");
