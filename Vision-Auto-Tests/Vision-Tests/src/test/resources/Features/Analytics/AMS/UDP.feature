@@ -48,10 +48,10 @@ Feature: UDP widgets
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Behavioral DoS"
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack Status" findBy cellValue "Ongoing"
     Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
-      | value | min |
-      | 0     | 7  |
-    Then UI Validate Line Chart data "BDoS-UDP" with Label "Total Traffic"
       | value | min | valueOffset |
+      | 0     | 7   | 3           |
+    Then UI Validate Line Chart data "BDoS-UDP" with Label "Total Traffic"
+      | value  | min | valueOffset |
       | 332500 | 5   | 1500        |
 
 #    Then UI Text of "Detection Method" equal to "Detection Method:Advanced UDP"
