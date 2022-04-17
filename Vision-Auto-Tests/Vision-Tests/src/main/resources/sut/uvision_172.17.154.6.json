@@ -7,8 +7,8 @@
     "environment": "KVM-215"
   },
   "pair": {
-    "pairIp": "172.17.164.101",
-    "environment": "KVM-217"
+    "pairIp": "",
+    "environment": ""
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.6",
