@@ -96,7 +96,7 @@ Feature: Vision Upgrade current -1
 
   @SID_14
   Scenario: Add fake devices to tree
-    Then REST Add "Alteon" Device To topology Tree with Name "FakeAlteon" and Management IP "4.4.4.4" into site "Default"
+    Then REST Add "Alteon" Device To topology Tree with Name "RealAlteon" and Management IP "172.17.164.17" into site "Default"
       | attribute | value |
     Then REST Add "DefensePro" Device To topology Tree with Name "FakeDP" and Management IP "4.4.4.5" into site "Default"
       | attribute | value |
@@ -129,7 +129,7 @@ Feature: Vision Upgrade current -1
   @SID_21
   Scenario: Delete fake devices from tree
     Then Sleep "20"
-    Then REST Delete Device By IP "4.4.4.4"
+    Then REST Delete Device By IP "172.17.164.17"
     Then REST Delete Device By IP "4.4.4.5"
 
   @SID_22
