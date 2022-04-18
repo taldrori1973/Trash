@@ -2,18 +2,18 @@
   "serverName": "uvision_auto",
   "setupFile": "Setup_AMS_3.json",
   "pair": {
-    "pairIp": "172.17.164.148",
+    "pairIp": "172.19.205.33",
     "environment": "KVM-210"
   },
   "deployConfigurations": {
-    "setupMode": "qcow2_fresh install",
-    "snapshot": "",
+    "setupMode": "upgrade",
+    "snapshot": "Current-1",
     "environment": "KVM-210"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.154.12",
+    "hostIp": "172.19.205.33",
     "userName": "radware",
-    "password": "radware",
+    "password": "radware1",
     "restConnection": {
       "defaultPort": 443,
       "defaultProtocol": "https"
@@ -27,7 +27,7 @@
   "cliConfiguration": {
     "radwareServerCli": {
       "userName": "radware",
-      "password": "radware"
+      "password": "radware1"
     },
     "rootServerCli": {
       "userName": "root",

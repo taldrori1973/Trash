@@ -12,10 +12,10 @@ Feature: Attack Table - Expand Table Row
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
-    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
-    * CLI kill all simulator attacks on current vision
+#    Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 120 seconds
+#    * CLI kill all simulator attacks on current vision
     Given CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_2"
-    Given CLI simulate 1 attacks of type "HTTPS" on SetId "DefensePro_Set_2"
+#    Given CLI simulate 1 attacks of type "HTTPS" on SetId "DefensePro_Set_2"
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on SetId "DefensePro_Set_2"
     Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" and wait 210 seconds
     Given CLI simulate 1 attacks of type "test_pcap" on SetId "DefensePro_Set_1" and wait 200 seconds
