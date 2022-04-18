@@ -73,7 +73,7 @@ Feature: Vision Upgrade current -1
     Then CLI Operations - Verify that output contains regex "tcp\s+7070"
     Then CLI Operations - Verify that output contains regex "tcp\s+9200"
 
-    When CLI Run linux Command "iptables -L -n | grep tcp | grep -v 10.10 |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "13"
+    When CLI Run linux Command "iptables -L -n | grep tcp | grep -v 10.10 |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "14"
 
   @SID_11
   Scenario: Login with activation
