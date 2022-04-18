@@ -44,41 +44,13 @@ Feature: Vision Upgrade current -1
   @SID_7
   Scenario: Check upgrade logs
     Then CLI Check if logs contains
-      | logType | expression                                                                                    | isExpected   |
-      | UPGRADE | fatal                                                                                         | NOT_EXPECTED |
-      | UPGRADE | fail to\|failed to                                                                            | NOT_EXPECTED |
-      | UPGRADE | The upgrade of APSolute Vision server has completed successfully                              | EXPECTED     |
-      | UPGRADE | Failed to connect to localhost port 8009: Connection refused                                  | IGNORE       |
-      | UPGRADE | NOTE1: Some changes will not take effect untill next login.                                   | EXPECTED     |
-      | UPGRADE | [ERROR]   WARNING: The script pysemver is installed in '/usr/local/bin' which is not on PATH. | IGNORE       |
-
-#      | UPGRADE | Vision Reporter upgrade finished                                                              | EXPECTED     |
-#      | UPGRADE | Successfully upgraded from AVR                                                                | EXPECTED     |
-#      | UPGRADE | Upgrading vDirect services ended                                                              | EXPECTED     |
-#      | UPGRADE | APSolute Vision ELASTICSEARCH upgrade finished                                                | EXPECTED     |
-#      | UPGRADE | APSolute Vision AMQP upgrade finished                                                         | EXPECTED     |
-#      | UPGRADE | APSolute Vision Appwall upgrade finished                                                      | EXPECTED     |
-#      | UPGRADE | APSolute Vision Workflows upgrade finished                                                    | EXPECTED     |
-#      | UPGRADE | APSolute Vision Databse upgrade finished                                                      | EXPECTED     |
-#      | UPGRADE | APSolute Vision CLI upgrade finished                                                          | EXPECTED     |
-#      | UPGRADE | APSolute Vision Web upgrade finished                                                          | EXPECTED     |
-#      | UPGRADE | APSolute Vision DP upgrade finished                                                           | EXPECTED     |
-#      | UPGRADE | APSolute Vision Configuration upgrade finished                                                | EXPECTED     |
-#      | UPGRADE | APSolute Vision Device upgrade finished                                                       | EXPECTED     |
-#      | UPGRADE | APSolute Vision Online upgrade finished                                                       | EXPECTED     |
-#      | UPGRADE | APSolute Vision WEB upgrade finished                                                          | EXPECTED     |
-#      | UPGRADE | APSolute Vision Application upgrade finished                                                  | EXPECTED     |
-#      | UPGRADE | APSolute Vision System upgrade finished                                                       | EXPECTED     |
-#      | UPGRADE | APSolute Vision OS upgrade finished                                                           | EXPECTED     |
-#      | UPGRADE | APSolute Vision FluentD upgrade finished                                                      | EXPECTED     |
-#      | UPGRADE | APSolute Vision TED upgrade finished                                                          | EXPECTED     |
-#      | UPGRADE | ERROR                                                                                         | NOT_EXPECTED |
-#      | UPGRADE | error: package MySQL-                                                                         | IGNORE       |
-#      | UPGRADE | *.svg                                                                                         | IGNORE       |
-#      | UPGRADE | *.png                                                                                         | IGNORE       |
-#      | UPGRADE | inflating:                                                                                    | IGNORE       |
-#      | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/*                        | IGNORE       |
-#      | UPGRADE | No such image or container: *                                                                 | IGNORE       |
+      | logType | expression                                                                                   | isExpected   |
+      | UPGRADE | fatal                                                                                        | NOT_EXPECTED |
+      | UPGRADE | fail to\|failed to                                                                           | NOT_EXPECTED |
+      | UPGRADE | The upgrade of APSolute Vision server has completed successfully                             | EXPECTED     |
+      | UPGRADE | Failed to connect to localhost port 8009: Connection refused                                 | IGNORE       |
+      | UPGRADE | NOTE1: Some changes will not take effect untill next login                                   | EXPECTED     |
+      | UPGRADE | [ERROR]   WARNING: The script pysemver is installed in '/usr/local/bin' which is not on PATH | IGNORE       |
 
   @SID_8
   Scenario: Validate server is up after reset
@@ -99,10 +71,9 @@ Feature: Vision Upgrade current -1
     Then CLI Operations - Verify that output contains regex "tcp\s+3000"
     Then CLI Operations - Verify that output contains regex "tcp\s+5671"
     Then CLI Operations - Verify that output contains regex "tcp\s+7070"
-    Then CLI Operations - Verify that output contains regex "tcp\s+3306"
     Then CLI Operations - Verify that output contains regex "tcp\s+9200"
 
-    When CLI Run linux Command "iptables -L -n | grep tcp | grep -v 10.10 |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "13"
+    When CLI Run linux Command "iptables -L -n | grep tcp | grep -v 10.10 |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "14"
 
   @SID_11
   Scenario: Login with activation
@@ -132,8 +103,8 @@ Feature: Vision Upgrade current -1
 
   @SID_15
   Scenario: validate Edit Threshold script exist in vision
-    Then CLI Run linux Command "ll /var/lib/docker/volumes/config_vdirect/_data/templates/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "ll /opt/radware/ConfigurationTemplatesRepository/actionable/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "ll /var/lib/docker/docker-root/volumes/config_vdirect/_data/templates/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "for path in /*;do find "$path" -type f -name "adjust_profile_v2.vm" -print -quit ;done | grep /opt/radware/ConfigurationTemplatesRepository/actionable/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1" Wait For Prompt 180 seconds
 
   @SID_16
   Scenario: Import driver script and jar file
@@ -167,7 +138,7 @@ Feature: Vision Upgrade current -1
 
   @SID_23
   Scenario: Validate MySql version
-    Then MYSQL Validate "version" Variable Value EQUALS "10.5.8-MariaDB"
+    Then MYSQL Validate "version" Variable Value EQUALS "10.5.9-MariaDB"
 
   @SID_24
   Scenario: Validate vdirect listener
@@ -207,7 +178,7 @@ Feature: Vision Upgrade current -1
   @SID_30
   Scenario: Verify services are running
     When CLI Operations - Run Radware Session command "system vision-server status"
-    Then CLI Operations - Verify that output contains regex "config_kvision-lls_1\s+.*\(healthy\)"
+    Then CLI Operations - Verify that output contains regex "config_kvision-lls_1\s+.*Up"
     Then CLI Operations - Verify that output contains regex "config_kvision-dc-nginx_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-rt-alert_1\s+.*\(healthy\)"
     Then CLI Operations - Verify that output contains regex "config_kvision-formatter_1\s+.*\(healthy\)"
@@ -241,4 +212,4 @@ Feature: Vision Upgrade current -1
 
   @SID_33
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "mysql -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "169"
+    Then CLI Run linux Command "mysql -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "170"

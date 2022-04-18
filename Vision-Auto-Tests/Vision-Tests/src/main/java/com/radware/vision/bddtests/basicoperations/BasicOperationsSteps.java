@@ -137,9 +137,9 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     /**
-     * @param username - user name
+     * @param username - username
      * @param password - user password
-     *                 Do Login with userName and password and if the user had loggedIn with another userName it Do logout, after that login with the userName
+     *                 Do Log in with userName and password and if the user had loggedIn with another userName it Do logout, after that login with the userName
      */
     @Given("^UI Login with user \"(.*)\" and password \"(.*)\"( negative)?$")
     public void login(String username, String password, String negative) throws Exception {
@@ -835,7 +835,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();
-        BasicOperationsHandler.clickButton("Device Selection");
+        BasicOperationsHandler.clickButton("Scope Selection");
         if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
             errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
         BasicOperationsHandler.clickButton("DPScopeSelectionChange",deviceIP);

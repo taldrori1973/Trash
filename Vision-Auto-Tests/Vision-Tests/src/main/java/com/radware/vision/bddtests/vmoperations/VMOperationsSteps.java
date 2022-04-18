@@ -130,6 +130,7 @@ public class VMOperationsSteps extends VisionUITestBase {
                 return;
             }
             /* Fresh section */
+            RevertMachines revertMachines = null;
             switch (setupMode.toLowerCase()) {
                 case "fresh install_inparallel":
                 case "fresh install":
@@ -146,14 +147,11 @@ public class VMOperationsSteps extends VisionUITestBase {
 //                /* Upgrade section */
                 case "kvm_upgrade_inparallel":
                 case "upgrade_inparallel":
-                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINEAndPAIR, 60, TimeUnit.MINUTES);
-                    afterUpgrade();
-                    return;
-
+                    revertMachines = RevertMachines.MACHINEAndPAIR;
                 case "kvm_upgrade":
                 case "upgrade":
-                    RevertSnapshotHandler.revertSnapshot(RevertMachines.MACHINE, 60, TimeUnit.MINUTES);
-                    afterUpgrade();
+                    if(revertMachines==null) revertMachines = RevertMachines.MACHINE;
+                    RevertSnapshotHandler.revertSnapshot(revertMachines, 60, TimeUnit.MINUTES).afterRevert();
                     return;
                 default:
                     BaseTestUtils.report("What is wrong with you man? there is no such a mode as: " + setupMode, Reporter.FAIL);
@@ -213,7 +211,7 @@ public class VMOperationsSteps extends VisionUITestBase {
         try {
             String setupMode = getSutManager().getDeployConfigurations().getSetupMode();
             if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
-
+            Deploy deploy = null;
             switch (setupMode.toLowerCase()) {
                 case "kvm_upgrade":
                 case "upgrade":
@@ -226,8 +224,8 @@ public class VMOperationsSteps extends VisionUITestBase {
                     assert rootServerCli != null;
                     assert radwareServerCli != null;
                     //Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
-                    Upgrade upgrade = DeployFactory.getUpgrade(true, null, radwareServerCli, rootServerCli);
-                    upgrade.deploy();
+                    deploy = DeployFactory.getUpgrade(radwareServerCli, rootServerCli);
+                    deploy.deploy();
                     break;
 
                 case "upgrade_inparallel":
@@ -239,9 +237,9 @@ public class VMOperationsSteps extends VisionUITestBase {
                 case "serial iso_fresh install":
                 case "fresh install":
                     String environmentType = getSutManager().getEnviorement().get().getName().split("-")[0];
-                    FreshInstall freshInstall = DeployFactory.getFreshInstall(environmentType, true, null);
-                    assert freshInstall != null;
-                    freshInstall.deploy();
+                    deploy = DeployFactory.getFreshInstall(environmentType);
+                    assert deploy != null;
+                    deploy.deploy();
                     break;
 
 //                case "fresh install_inparallel":
@@ -251,9 +249,8 @@ public class VMOperationsSteps extends VisionUITestBase {
                     BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
                 }
             }
-            updateVersionVar();
-            SetupImpl setup = new SetupImpl();
-            setup.buildSetup();
+            if(deploy!=null)
+                deploy.afterDeploy();
             //kVision
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
 //        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);

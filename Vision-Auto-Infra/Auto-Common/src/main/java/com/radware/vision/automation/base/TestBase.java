@@ -77,7 +77,7 @@ public abstract class TestBase {
     public static void dBAccessCommand() {
         try {
             String ip = "0.0.0.0";
-           // ip = getMyHostIP();
+            ip = getMyHostIP();
             String dbAccessCommand = Menu.system().database().access().display().build();
             CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), dbAccessCommand);
             Matcher matcher = Pattern.compile(dbAccessCommand + "(([\n\r].*)*)(\\[.*\\$)").matcher(CliOperations.lastOutput);

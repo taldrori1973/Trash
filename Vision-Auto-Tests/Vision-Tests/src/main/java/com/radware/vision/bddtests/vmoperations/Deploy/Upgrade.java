@@ -6,7 +6,6 @@ import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.Deploy.VisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 
 
@@ -31,25 +30,13 @@ public class Upgrade extends Deploy {
     private final RootServerCli rootServerCli;
     private FileType upgradeType;
 
-    public Upgrade(boolean isExtended, String build, RadwareServerCli radwareServerCli, RootServerCli rootServerCli) {
-        super(isExtended, build, rootServerCli.getHost(), FileType.UPGRADE);
+    public Upgrade(RadwareServerCli radwareServerCli, RootServerCli rootServerCli) {
+        super(rootServerCli.getHost(), FileType.UPGRADE);
         this.radwareServerCli = radwareServerCli;
         this.rootServerCli = rootServerCli;
-        this.initFileType();
+        this.upgradeType = FileType.UPGRADE;
         buildFileInfo(this.upgradeType);
     }
-
-    /**
-     * initialize the right FileType according to serverCli for deploy.
-     */
-    public void initFileType() {
-        if (UpgradeSteps.isAPM()) {
-            this.upgradeType = FileType.UPGRADE_APM;
-        } else {
-            this.upgradeType = FileType.UPGRADE;
-        }
-    }
-
 
     @Override
     public void deploy() {
@@ -63,6 +50,11 @@ public class Upgrade extends Deploy {
             BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
+    }
+
+    @Override
+    public void afterDeploy() {
+        super.afterDeploy();
     }
 
     public String[] getNonSupportedVersion() {

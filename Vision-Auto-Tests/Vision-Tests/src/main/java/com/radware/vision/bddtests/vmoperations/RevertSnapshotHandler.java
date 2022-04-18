@@ -8,6 +8,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServer
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -64,9 +65,9 @@ public class RevertSnapshotHandler implements Runnable{
         revertSnapshot(revertMachines, 0, null);
     }
 
-    public static void revertSnapshot(RevertMachines revertMachines, long timeout, TimeUnit timeUnit) throws Exception {
+    public static RevertSnapshotHandler revertSnapshot(RevertMachines revertMachines, long timeout, TimeUnit timeUnit) throws Exception {
         List<RevertSnapshotHandler> revertSnapshotHandlerList = new ArrayList<>();
-        RevertSnapshotHandler revertSnapshotHandler;
+        RevertSnapshotHandler revertSnapshotHandler = null;
 
         switch (revertMachines)
         {
@@ -109,6 +110,8 @@ public class RevertSnapshotHandler implements Runnable{
         else{
             throw new Exception("There is no machines to revert.");
         }
+
+        return revertSnapshotHandler;
     }
 
     public static RevertSnapshotHandler getMachineRevert()
@@ -210,6 +213,13 @@ public class RevertSnapshotHandler implements Runnable{
         catch (Exception ignored){ }
 
         return server;
+    }
+
+    public void afterRevert()
+    {
+        RemoteSshCommandsTests.resetPassword();
+        VMOperationsSteps.updateVersionVar();
+        TestBase.dBAccessCommand();
     }
 }
 

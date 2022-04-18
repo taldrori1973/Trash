@@ -14,7 +14,7 @@ Feature: AW CSV Forensics
   Scenario: logina
     Given UI Login with user "sys_admin" and password "radware"
 #    * REST Delete ES index "aw-web-application"
-    * REST Delete Device By IP "172.17.164.30"
+  #  * REST Delete Device By IP "172.17.164.30"
     * Browser Refresh Page
     And Sleep "10"
 

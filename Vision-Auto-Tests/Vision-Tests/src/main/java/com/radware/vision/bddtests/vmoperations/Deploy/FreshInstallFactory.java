@@ -2,16 +2,16 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 
 public class FreshInstallFactory {
 
-    public static FreshInstall getFreshInstall(String fileType, boolean isExtended, String build)
+    public static FreshInstall getFreshInstall(String fileType)
     {
         switch (fileType.toLowerCase())
         {
             case "qcow2":
-                return new FreshInstallQCow2(isExtended, build);
+                return new FreshInstallQCow2();
             case "serial iso":
-                return new FreshInstallSerialISO(isExtended, build);
+                return new FreshInstallSerialISO();
             case "ova":
-                return new FreshInstallOVA(isExtended, build);
+                return new FreshInstallOVA();
             default:
                 return null;
         }

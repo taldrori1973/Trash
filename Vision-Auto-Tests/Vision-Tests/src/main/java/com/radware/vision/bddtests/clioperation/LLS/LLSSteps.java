@@ -64,8 +64,7 @@ public class LLSSteps extends TestBase {
             RadwareServerCli standbyServerCli = new RadwareServerCli(standby, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
             standbyServerCli.init();
             standbyServerCli.connect();
-//            ConfigSync.setMode(standbyServerCli,ConfigSyncMode.getConstant(mode),1000*1000, "y");
-            ConfigSync.setModeWitoutServices(standbyServerCli, ConfigSyncMode.getConstant(mode), 1000 * 1000, "y");
+            ConfigSync.setModeWitouthServices(standbyServerCli, ConfigSyncMode.getConstant(mode), 1000 * 1000, "y");
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -80,7 +79,6 @@ public class LLSSteps extends TestBase {
             backupServerCli.init();
             backupServerCli.connect();
             ConfigSync.setPeer(backupServerCli, mainIP);
-//            CliOperations.runCommand(backupServerCli,"system config-sync peer set "+mainIP);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -113,7 +111,6 @@ public class LLSSteps extends TestBase {
             backupServerCli.init();
             backupServerCli.disconnect();
             backupServerCli.connect();
-//            ConfigSync.setPeer(backupServerCli, mainIP);
             LLSHandler.waitForInstallationInLogsHA(backupServerCli, 10000, "backup", mainIP, backup);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -173,5 +170,4 @@ public class LLSSteps extends TestBase {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
-
 }
