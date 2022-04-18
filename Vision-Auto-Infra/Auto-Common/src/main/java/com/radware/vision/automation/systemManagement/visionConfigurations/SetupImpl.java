@@ -27,6 +27,8 @@ import static models.config.DevicesConstants.SIMULATOR_XML_FILE_3;
 
 public class SetupImpl extends TestBase{
 
+    private static List<TreeDeviceManagementDto> devices = null;
+
     public void buildSetup() throws Exception {
         SystemProperties systemProperties = SystemProperties.get_instance();
         String syncDevices = systemProperties.getValueByKey("SYNC_DEVICES");
@@ -49,8 +51,8 @@ public class SetupImpl extends TestBase{
 
         if(existedDevicesTree!=null)
         {
+            List<TreeDeviceManagementDto> visionSetupTreeDevices = getDevices();
             deleteDevices(existedDevicesTree, existedDevicesTree.getName());
-            List<TreeDeviceManagementDto> visionSetupTreeDevices = sutManager.getVisionSetupTreeDevices();
             addDevices(existedDevicesTree , visionSetupTreeDevices);
             //validateSetupIsReady();
         }
@@ -149,16 +151,18 @@ public class SetupImpl extends TestBase{
 
         if(type.equals("device"))
         {
-            String parentSiteSetup = TestBase.getSutManager().getDeviceParentSite(name);
+            Optional<TreeDeviceManagementDto> deviceTree = getDevices().parallelStream().
+                                                      filter(device -> device.getDeviceName().equals(name)).findFirst();
 
-            if(parentSiteSetup != null && parentSiteSetup.equals(parentSite))
+            if(deviceTree.isPresent())
             {
-                Optional<TreeDeviceManagementDto> d = TestBase.getSutManager().getTreeDeviceManagementFromDevices(name);
-                if(d!=null && d.isPresent())
+                String parentSiteSetup = getSutManager().getDeviceParentSite(deviceTree.get().getDeviceId());
+
+                if(parentSiteSetup != null && parentSiteSetup.equals(parentSite))
                 {
                     GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "Get Device Data");
                     Map<String, String> pathParams = new HashMap<>();
-                    pathParams.put("ip", d.get().getManagementIp());
+                    pathParams.put("ip", deviceTree.get().getManagementIp());
                     restAPI.getRestRequestSpecification().setPathParams(pathParams);
                     RestResponse restResponse = restAPI.sendRequest();
                     if(restResponse.getStatusCode().equals(StatusCode.OK))
@@ -167,7 +171,6 @@ public class SetupImpl extends TestBase{
                     }
                 }
             }
-
         }
         else if(containsDevices || name.equals("Default"))
             return false;
@@ -266,6 +269,14 @@ public class SetupImpl extends TestBase{
         }
 
         return devicesTree;
+    }
+
+    private static List<TreeDeviceManagementDto> getDevices()
+    {
+        if (devices == null)
+            devices = getSutManager().getVisionSetupTreeDevices();
+
+        return devices;
     }
 }
 
