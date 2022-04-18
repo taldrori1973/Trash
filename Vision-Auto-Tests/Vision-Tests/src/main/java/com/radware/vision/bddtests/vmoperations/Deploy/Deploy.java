@@ -80,7 +80,8 @@ public abstract class Deploy {
                 BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS_NOR_FAIL);
                 this.build = String.valueOf(repositoryService.getLastExtendedDeployNumberFromBranch(this.featureBranch, type.toString()));
             }
-            if (this.build == null || build.equals("")) isExtended = true;
+            if (build.equals(""))
+                isExtended = true;
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

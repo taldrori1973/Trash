@@ -39,18 +39,9 @@ public class VmSnapShotOperations extends VisionUITestBase {
     int defaultVMWareNumber = 1;
     String vmName = sutManager.getServerName();
     private static final Map<String, String> NEXT_VERSION = new HashMap<String, String>() {{
-        put("4.85.00", "4.86.00");
-        put("4.84.00", "4.85.00");
-        put("4.83.00", "4.84.00");
-        put("4.82.00", "4.83.00");
-        put("4.81.00", "4.82.00");
-        put("4.81.01", "4.82.00");
-        put("4.80.00", "4.81.01");
-        put("4.80.01", "4.81.01");
-        put("4.80.02", "4.81.01");
-        put("4.70.00", "4.80.02");
-        put("4.60.00", "4.70");
-        put("4.50.00", "4.60");
+        put("5.2.0", "5.3.0");
+        put("5.1.1", "5.2.0");
+        put("5.1.0", "5.2.0");
     }};
 
     public enum Snapshot {
@@ -318,18 +309,6 @@ public class VmSnapShotOperations extends VisionUITestBase {
                 VmSnapShotOperations.newInstance().takeKVmSnapshot(snapshotName);
                 break;
         }
-    }
-
-    private String calculateVersionAccordingToSnapshot() throws Exception {
-        if (setupMode.equalsIgnoreCase("upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
-            snapshotName = getSnapshotNameOfEnumFromListForVMWare();
-        if (setupMode.equalsIgnoreCase("kvm_upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
-            snapshotName = getSnapshotNameOfEnumFromListForKVM();
-        String currentVersion = VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[0] + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[1];
-        assert snapshotName != null;
-        String number = (snapshotName.equalsIgnoreCase("current")) ? "0" : snapshotName.split("-")[1].trim();
-        String numberToSubtract = "0." + number;
-        return new BigDecimal(currentVersion).subtract(new BigDecimal(numberToSubtract)) + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[2];
     }
 
     public String getSnapshotNameOfEnumFromListForVMWare() throws Exception {
