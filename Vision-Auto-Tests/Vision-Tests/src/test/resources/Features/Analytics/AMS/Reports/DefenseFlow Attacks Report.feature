@@ -260,6 +260,7 @@ Feature: DefenseFlow Attacks Reports
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
       | #dfIP                          |
+    Then Wait For PO's appearance timeout 10 minutes
 
   @SID_32
   Scenario: Cleanup
