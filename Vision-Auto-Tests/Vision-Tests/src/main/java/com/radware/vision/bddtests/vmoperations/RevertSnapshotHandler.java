@@ -121,7 +121,7 @@ public class RevertSnapshotHandler implements Runnable{
         String ip = sutManager.getClientConfigurations().getHostIp();
         String vmName = String.format("%s_%s", sutManager.getServerName(), ip);
         String snapshot = sutManager.getDeployConfigurations().getSnapshot();
-        Optional<EnvironmentDto> environmentO = sutManager.getEnviorement();
+        Optional<EnvironmentDto> environmentO = sutManager.getEnvironment();
         EnvironmentDto environment = null;
         if(environmentO.isPresent())
             environment = environmentO.get();
@@ -138,7 +138,7 @@ public class RevertSnapshotHandler implements Runnable{
         String ip = sutManager.getClientConfigurations().getHostIp();
         String vmName = String.format("%s_%s", sutManager.getPairDao().getServerName(), sutManager.getPairConfigurations().getHostIp());
         String snapshot = sutManager.getPairDeployConfigurations().getSnapshot();
-        Optional<EnvironmentDto> environmentO = sutManager.getPairEnviorement();
+        Optional<EnvironmentDto> environmentO = sutManager.getPairEnvironment();
         EnvironmentDto environment = null;
         if(environmentO.isPresent())
             environment = environmentO.get();

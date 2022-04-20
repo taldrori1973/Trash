@@ -17,7 +17,6 @@ import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.utils.RegexUtils;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -354,13 +353,13 @@ public class VmSnapShotOperations extends VisionUITestBase {
 
     public static void getEnvironmentsFromSut() {
         environments = new EnvironmentDto[2];
-        Optional<EnvironmentDto> environmentDto = sutManager.getEnviorement();
+        Optional<EnvironmentDto> environmentDto = sutManager.getEnvironment();
         if (!environmentDto.isPresent()) {
             BaseTestUtils.report("Environment Not Found!.", Reporter.FAIL);
         }
         environments[0] = environmentDto.get();
 
-        Optional<EnvironmentDto> pairEnvironmentDto = sutManager.getPairEnviorement();
+        Optional<EnvironmentDto> pairEnvironmentDto = sutManager.getPairEnvironment();
         if (!pairEnvironmentDto.isPresent()) {
             BaseTestUtils.report("Pair Environment Not Found!, continue without pair.", Reporter.PASS_NOR_FAIL);
             environments[1] = null;
