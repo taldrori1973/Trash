@@ -22,7 +22,7 @@ Feature: Task OTB DefensePro Export-Import policy
      | "/home/radware/Scripts/create_task.sh " |
      | #visionIP                               |
      | " /home/radware/Scripts/OTB_task.json"  |
-  
+
   @SID_4
   Scenario: Go to scheduler and run the task
     # Make sure a policy named BDOS with DNS and BDOS profiles exist in DP index 10
@@ -33,7 +33,7 @@ Feature: Task OTB DefensePro Export-Import policy
   @SID_5
   Scenario: Verify Vision success message
     Then Sleep "20"
-    Then CLI Run linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"term":{"module":"OPERATOR_TOOLBOX"}}]}},"from":0,"size":10}' localhost:9200/alert/_search |awk -F"\"M_01414:  " '{print$2}'|awk -F"{" '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "User APSolute_Vision Operator Toolbox script DefensePro_Export_And_Import_Policy.vm was executed successfully by user APSolute_Vision on device 172.16.22.50,172.16.22.51 with parameters"
+    Then CLI Run linux Command "curl -H "Content-Type: application/json" -XPOST -s -d'{"query":{"bool":{"must":[{"term":{"module":"OPERATOR_TOOLBOX"}}]}},"from":0}' localhost:9200/alert/_search?size=10 |awk -F"\"M_01414:  " '{print$2}'|awk -F"{" '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "User APSolute_Vision Operator Toolbox script DefensePro_Export_And_Import_Policy.vm was executed successfully by user APSolute_Vision on device 172.16.22.50,172.16.22.51 with parameters"
 
   @SID_6
   Scenario: Delete the created task
