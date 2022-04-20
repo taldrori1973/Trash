@@ -2,13 +2,13 @@
   "setupFile": "Setup_Sanity_2.json",
   "serverName": "uvision_auto",
   "deployConfigurations": {
-    "snapshot": "",
+    "snapshot": "Current-1",
     "setupMode": "upgrade_inparallel",
     "environment": "OVA-234"
   },
   "pair": {
-    "pairIp": "172.17.141.49",
-    "environment": "OVA-254"
+    "pairIp": "172.17.154.8",
+    "environment": "KVM-217"
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.30",
