@@ -58,7 +58,6 @@ public class DefenseFlowRestSteps {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray poJSONArray = null;
         try {
-            BasicRestOperationsSteps bros = new  BasicRestOperationsSteps();
             restTestBase.getVisionRestClient().login(
                     getSutManager().getClientConfigurations().getUserName(),
                     getSutManager().getClientConfigurations().getPassword(),
