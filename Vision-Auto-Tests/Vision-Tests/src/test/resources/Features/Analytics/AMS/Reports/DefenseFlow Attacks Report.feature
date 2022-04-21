@@ -33,11 +33,17 @@ Feature: DefenseFlow Attacks Reports
       | " Terminated"                                   |
 
   @SID_3
-  Scenario:Login and copy get_scheduled_report_value.sh file to server
-    Given UI Login with user "sys_admin" and password "radware"
-    Then CLI copy "/home/radware/Scripts/get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+  Scenario: Change DF management IP to IP of DefenseFlow
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
 
   @SID_4
+  Scenario:Login and copy uVision_get_scheduled_report_value.sh file to server
+    Given UI Login with user "sys_admin" and password "radware"
+    Then CLI copy "/home/radware/Scripts/uVision_get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+
+  @SID_5
   Scenario: Email configuration
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
@@ -52,13 +58,13 @@ Feature: DefenseFlow Attacks Reports
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
 
-  @SID_5
+  @SID_6
   Scenario: Navigate to AMS report
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "New Report Tab" if Exists "true"
 
   # =============================================Overall===========================================================
-  @SID_6
+  @SID_7
   Scenario: Create DefenseFlow report
     When UI "Create" Report With Name "OverallDFReport"
       | Template | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol],Protected Objects:[All] |
@@ -68,7 +74,7 @@ Feature: DefenseFlow Attacks Reports
       | Logo     | reportLogoPNG.png                                                                                                                         |
     Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverallDFReport"
 
-  @SID_7
+  @SID_8
   Scenario: Edit report
     When UI "Edit" Report With Name "OverallDFReport"
       | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_300]      |
@@ -78,74 +84,75 @@ Feature: DefenseFlow Attacks Reports
       | Format                | Select: CSV                                                      |
 
 
-  @SID_8
+  @SID_9
   Scenario: Clear SMTP server log files
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
 
-  @SID_9
+  @SID_10
   Scenario: Generate Report
     Then UI "Generate" Report With Name "OverallDFReport"
       | timeOut | 60 |
 
-  @SID_10
+  @SID_11
   Scenario: Delete report
     When UI Click Button "Delete" with value "OverallDFReport"
     When UI Click Button "Delete.Approve"
     Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "OverallDFReport"
 
-  @SID_11
+  @SID_12
   Scenario: Validate Report Email received content
     Then CLI Run remote linux Command "cat /var/spool/mail/reportuser > /tmp/reportdelivery.log" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "grep "X-Original-To: DF_attack@report.local" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
 
-  @SID_12
+  @SID_13
   Scenario: Create New Report with Default Values
     When UI "Create" Report With Name "deliveryDF"
-      | reportType | DefenseFlow Analytics,Protected Objects:[All]                                                |
-      | Share      | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject DF |
-    Then UI Generate and Validate Report With Name "deliveryDF" with Timeout of 100 Seconds
-
-  @SID_13
-  Scenario: Create New Report with Monthly schedule
-    When UI "Create" Report With Name "scheduleMonthlyDF"
-      | reportType | DefenseFlow Analytics         |
-      | Schedule   | Run Every:Monthly,On Time:+2m |
-
-    Then UI "Validate" Report With Name "scheduleMonthlyDF"
-      | reportType | DefenseFlow Analytics         |
-      | Schedule   | Run Every:Monthly,On Time:+2m |
+      | Template | reportType:DefenseFlow Analytics, Protected Objects:[All]                                    |
+      | Share    | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject DF |
+    Then UI "Generate" Report With Name "deliveryDF"
+      | timeOut | 100 |
 
   @SID_14
-  Scenario: Create New Report with With daily schedule
-    When UI "Create" Report With Name "scheduleDailyDF"
-      | reportType | DefenseFlow Analytics       |
-      | Schedule   | Run Every:Daily,On Time:+2m |
+  Scenario: Create New Report with Monthly schedule
+    When UI "Create" Report With Name "scheduleMonthlyDF"
+      | Template | reportType:DefenseFlow Analytics, Protected Objects:[All] |
+      | Schedule | Run Every:Monthly,On Time:+2m                             |
 
-    Then UI "Validate" Report With Name "scheduleDailyDF"
-      | reportType | DefenseFlow Analytics       |
-      | Schedule   | Run Every:Daily,On Time:+2m |
+    Then UI "Validate" Report With Name "scheduleMonthlyDF"
+      | Template | reportType:DefenseFlow Analytics, Protected Objects:[All] |
+      | Schedule | Run Every:Monthly,On Time:+2m                             |
 
   @SID_15
+  Scenario: Create New Report with With daily schedule
+    When UI "Create" Report With Name "scheduleDailyDF"
+      | Template | reportType:DefenseFlow Analytics, Protected Objects:[All] |
+      | Schedule | Run Every:Daily,On Time:+2m                               |
+
+    Then UI "Validate" Report With Name "scheduleDailyDF"
+      | Template | reportType:DefenseFlow Analytics, Protected Objects:[All] |
+      | Schedule | Run Every:Daily,On Time:+2m                               |
+
+  @SID_16
   Scenario: validation if reports generated after the expected time
     When Sleep "150"
     # validate if scheduleMonthlyDF generated in UI
     When UI Click Button "My Report" with value "scheduleMonthlyDF"
-    Then UI Validate Element Existence By Label "Logs List Items" if Exists "true" with value "scheduleMonthlyDF"
+    Then UI Validate Element Existence By Label "Generate Report Manually" if Exists "true" with value "scheduleMonthlyDF"
 
     # validate if scheduleDailyDF generated in UI
     When UI Click Button "My Report" with value "scheduleDailyDF"
-    Then UI Validate Element Existence By Label "Logs List Items" if Exists "true" with value "scheduleDailyDF"
+    Then UI Validate Element Existence By Label "Generate Report Manually" if Exists "true" with value "scheduleDailyDF"
 
     # validate scheduleMonthlyDF schedule regex matchs in CLI
-    Then CLI Run remote linux Command "/get_scheduled_report_value.sh scheduleMonthlyDF" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/uVision_get_scheduled_report_value.sh scheduleMonthlyDF" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "0 (\d{2}) (\d{2}) (\d{1,2}) (\d{1,2}) \? \*"
 
     # validate scheduleDailyDF schedule regex matchs in CLI
-    Then CLI Run remote linux Command "/get_scheduled_report_value.sh scheduleDailyDF" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/uVision_get_scheduled_report_value.sh scheduleDailyDF" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "0 (\d{2}) (\d{2}) \? \* \*"
 
-  @SID_16
+  @SID_17
   Scenario: Cleanup
     * REST Delete ES index "df-attack*"
     * REST Delete ES index "vrm-scheduled-report-*"
@@ -153,7 +160,7 @@ Feature: DefenseFlow Attacks Reports
 
 
     # new attacks one occurred before 100 days, and another before 25 hours
-  @SID_17
+  @SID_18
   Scenario: Run DF simulator
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/curl_DF_attacks-auto_PO_100_100D_Before.sh " |
@@ -164,48 +171,47 @@ Feature: DefenseFlow Attacks Reports
       | #visionIP                                                  |
       | " Terminated"                                              |
 
-  @SID_18
+  @SID_19
   Scenario: validate time selection -Quick range- Report
     Given UI "Create" Report With Name "1WeakBeforeReport"
-      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_300] |
-      | Time Definitions.Date | Quick:1W                                         |
-      | Format                | Select: CSV                                      |
+      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_300] |
+      | Time Definitions.Date | Quick:1W                                                    |
+      | Format                | Select: CSV                                                 |
     Then UI "Validate" Report With Name "1WeakBeforeReport"
-      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_300] |
-      | Time Definitions.Date | Quick:1W                                         |
-      | Format                | Select: CSV                                      |
-    Then UI Generate and Validate Report With Name "1WeakBeforeReport" with Timeout of 100 Seconds
-
-  @SID_19
-  Scenario: Download CSV from UI page
-    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 90 seconds
-      | "/home/radware/Scripts/download_report_file.sh " |
-      | #visionIP                                        |
-      | " 1WeakBeforeReport"                             |
+      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_300] |
+      | Time Definitions.Date | Quick:1W                                                    |
+      | Format                | Select: CSV                                                 |
+    Then UI "Generate" Report With Name "1WeakBeforeReport"
+      | timeOut | 100 |
 
   @SID_20
-  Scenario: Validate content of CSV file
-
-  @SID_21
-  Scenario: validate time selection -Absolute- report
-    Given UI "Create" Report With Name "100DaysBeforeReport"
-      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_200,PO_100],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                      |
-      | Format                | Select: CSV                                                                                                                              |
-    Then UI "Validate" Report With Name "100DaysBeforeReport"
-      | reportType            | DefenseFlow Analytics,Protected Objects:[PO_200,PO_100],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                      |
-      | Format                | Select: CSV                                                                                                                              |
-    Then UI Generate and Validate Report With Name "100DaysBeforeReport" with Timeout of 100 Seconds
-
-  @SID_22
   Scenario: Download CSV from UI page
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 90 seconds
       | "/home/radware/Scripts/download_report_file.sh " |
       | #visionIP                                        |
       | " 1WeakBeforeReport"                             |
 
+  @SID_22
+  Scenario: validate time selection -Absolute- report
+    Given UI "Create" Report With Name "100DaysBeforeReport"
+      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_200,PO_100],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                    |
+      | Format                | Select: CSV                                                                                                                                         |
+    Then UI "Validate" Report With Name "100DaysBeforeReport"
+      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_200,PO_100],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                    |
+      | Format                | Select: CSV                                                                                                                                         |
+    Then UI "Generate" Report With Name "100DaysBeforeReport"
+      | timeOut | 100 |
+
   @SID_23
+  Scenario: Download CSV from UI page
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 90 seconds
+      | "/home/radware/Scripts/download_report_file.sh " |
+      | #visionIP                                        |
+      | " 1WeakBeforeReport"                             |
+
+  @SID_24
   Scenario: logout
     When UI Navigate to "VISION SETTINGS" page via homePage
     And UI Go To Vision
@@ -214,40 +220,44 @@ Feature: DefenseFlow Attacks Reports
     Then UI Click Button "Submit"
     When UI logout and close browser
 
-  @SID_24
-  Scenario: login with sec_mon user
-    Given UI Login with user "sec_mon" and password "radware"
-    And UI Navigate to "AMS Reports" page via homePage
-    Then UI Validate Element Existence By Label "Title" if Exists "false" with value "2DaysBeforeReport"
-    Then UI Validate Element Existence By Label "Title" if Exists "false" with value "100DaysBeforeReport"
-
   @SID_25
+  Scenario Outline: login with sec_mon user
+    Given UI Login with user "<username>" and password "<password>"
+    Then REST Login with user "<username>" and password "<password>"
+    And UI Navigate to "AMS Reports" page via homePage
+    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "2DaysBeforeReport"
+    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "100DaysBeforeReport"
+    Examples:
+      | username | password |
+      | sec_mon  | radware  |
+
+  @SID_26
   Scenario: non-admin user can't select DF in report
     When UI Click Button "Add New"
     And UI Click Button "Template" with value ""
     Then UI Validate Element Existence By Label "Template" if Exists "false" with value "DefenseFlow Analytics"
-    And UI Click Button "Cancel"
+    And UI Click Button "cancel"
 
-  @SID_26
+  @SID_27
   Scenario: non-admin user can't navigate to DF dashboard
     Then UI Validate user rbac
       | operations            | accesses |
       | DefenseFlow Analytics | no       |
 
-  @SID_27
+  @SID_28
   Scenario: can't see the admins report
     Then REST Validate existence reports
       | reportName          | isExist |
       | 2DaysBeforeReport   | false   |
       | 100DaysBeforeReport | false   |
 
-  @SID_28
+  @SID_29
   Scenario: Get POs by Security_Monitor_user user by rest
     Then REST Request "POST" for "DefenseFlow->getPOs"
       | type                 | value |
       | Returned status code | 403   |
 
-  @SID_29
+  @SID_30
   Scenario: Search for bad logs
     * CLI kill all simulator attacks on current vision
     * CLI Check if logs contains
@@ -255,14 +265,11 @@ Feature: DefenseFlow Attacks Reports
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_30
-  Scenario: Change DF management IP to IP of DefenseFlow
-    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
-      | "system df management-ip set " |
-      | #dfIP                          |
-    Then Wait For PO's appearance timeout 10 minutes
-
-  @SID_32
+  @SID_31
   Scenario: Cleanup
     When UI Open "Configurations" Tab
     Then UI logout and close browser
+
+  @SID_32
+  Scenario: Wait Protected Objects
+    Then Wait For PO's appearance timeout 10 minutes
