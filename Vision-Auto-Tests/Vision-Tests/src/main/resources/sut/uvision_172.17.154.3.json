@@ -1,5 +1,5 @@
 {
-  "setupFile": "Setup_ADC_2.json",
+  "setupFile": "Setup_AMS_2.json",
   "serverName": "uvision_auto",
   "genericLinuxID":"linuxFileServer",
   "deployConfigurations": {
@@ -8,8 +8,8 @@
     "environment": "OVA-220"
   },
   "pair": {
-    "pairIp": "172.17.164.101",
-    "environment": "KVM-217"
+    "pairIp": "",
+    "environment": ""
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.3",

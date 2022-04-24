@@ -17,7 +17,6 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "11.16 M"
     Then UI Validate Text field "Inbound Traffic CPS" EQUALS "12.67 K"
     And UI Logout
-
   @SID_2
   Scenario: Inbound Traffic Filter Device
     Given UI Login with user "sys_admin" and password "radware"
@@ -63,17 +62,17 @@ Feature: VRM Real Time Status Bar Inbound Traffic
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1,3,7 |          |
     And Sleep "2"
-    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
+    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "729.74 M"
+    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "5.58 M"
+    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "4.25 K"
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 | 4     |          |
     And Sleep "2"
-    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
+    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "729.74 M"
+    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "5.58 M"
+    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "4.25 K"
 
     Then UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -106,9 +105,11 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | Policy15 |
-    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
+#    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
+#    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
+#    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
+    Then UI Text of "Inbound Statistics" with extension "" equal to " !No data available"
+
     And UI Logout
 
   @SID_8
@@ -129,9 +130,14 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     And Sleep "150"
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
-    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
+#    Given UI Click Button "Accessibility Menu"
+#    Then UI UnSelect Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
+#    Given UI Click Button "Accessibility Menu"
+#    And Sleep "150"
+#    Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "0"
+#    Then UI Validate Text field "Inbound Traffic PPS" EQUALS "0"
+#    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
+    Then UI Text of "Inbound Statistics" with extension "" equal to " !No data available"
     And UI logout and close browser
 
   @SID_10

@@ -1,14 +1,14 @@
 @TC112253
 Feature: VRM Real Time Status Bar BW by Policy
 
-
+  @SID_1
   Scenario: Login and Navigate
     Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
-  @SID_1
+  @SID_2
   Scenario: BW by policy Clean system data before test
     When CLI kill all simulator attacks on current vision
     When CLI Clear vision logs
@@ -20,7 +20,7 @@ Feature: VRM Real Time Status Bar BW by Policy
     Then Sleep "30"
 
 
-  @SID_2
+  @SID_3
   Scenario: BW by policy basic
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
@@ -41,7 +41,7 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy15  | 3089 | 10%              |
 #The last policy was ignored becuase of run time data change
 
-  @SID_3
+  @SID_4
   Scenario: BW by policy filter by device
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
@@ -65,7 +65,7 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy160 | 2885 | 10%              |
       | Policy15  | 3089 | 10%              |
 
-  @SID_4
+  @SID_5
   Scenario: BW by policy filter by policy in
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -79,7 +79,7 @@ Feature: VRM Real Time Status Bar BW by Policy
       | label    | data   | offsetPercentage |
       | Policy14 | 3089.0 | 10%              |
 
-  @SID_5
+  @SID_6
   Scenario: BW by policy filter by policy out
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -91,7 +91,7 @@ Feature: VRM Real Time Status Bar BW by Policy
 #| 0    | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
       | label    | exist |
-      | Policy15 | true |
+      | Policy15 | true  |
 
 #    The Policy14 is not exist in WebUI but exit on Session Storage , the test will always fail.
 #    Then UI Validate Pie Chart data "Bandwidth per Policy"
@@ -100,7 +100,7 @@ Feature: VRM Real Time Status Bar BW by Policy
 
     And UI Logout
 
-  @SID_6
+  @SID_7
   Scenario: BW by policy RBAC device
     Given UI Login with user "sec_mon_all_pol" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
@@ -119,10 +119,10 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy140 | 3089 | 10%              |
       | Policy16  | 2885 | 10%              |
       | Policy160 | 2885 | 10%              |
-      | Policy18  | 2512 | 10%              |
+      | Policy15  | 2512 | 10%              |
     And UI Logout
 
-  @SID_7
+  @SID_8
   Scenario: BW by policy RBAC policy
     Given UI Login with user "sec_mon_Policy14" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
@@ -140,7 +140,7 @@ Feature: VRM Real Time Status Bar BW by Policy
     And UI logout and close browser
 
 
-  @SID_8
+  @SID_9
   Scenario: BW by policy clean and new
     And CLI kill all simulator attacks on current vision
     Then REST Delete ES index "dp-*"
@@ -155,7 +155,7 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Maxim30 | 3435973.0 | 10%              |
       | Maxim31 | 6871947.0 | 10%              |
 
-  @SID_9
+  @SID_10
   Scenario: BW by policy check logs
     Then UI logout and close browser
     Then CLI kill all simulator attacks on current vision

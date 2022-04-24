@@ -12,8 +12,8 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
   Scenario: Run DP simulator PCAPs
 #    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 0 seconds
 #    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000 and wait 90 seconds
-    Given CLI simulate 1000 attacks of type "many_attacks" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 0 seconds
-    Given CLI simulate 1000 attacks of type "many_attacks" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 90 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 0 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 90 seconds
 
 
   @SID_3

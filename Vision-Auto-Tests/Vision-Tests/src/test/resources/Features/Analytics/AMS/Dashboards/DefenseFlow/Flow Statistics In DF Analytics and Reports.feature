@@ -222,10 +222,11 @@ Feature: Flow Statistics In DF Analytics and Reports
 
 
   @SID_20
-  Scenario: Change DF management IP to IP of DefenseFlow
+  Scenario: Change DF management IP to DefenseFlow IP
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
       | #dfIP                          |
+    Then Wait For PO's appearance timeout 10 minutes
 
   @SID_21
   Scenario: Cleanup

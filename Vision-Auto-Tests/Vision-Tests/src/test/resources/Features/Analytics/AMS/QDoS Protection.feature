@@ -1,21 +1,21 @@
 @TC122558
 
 Feature: QDoS Protection & Attack Category
-  
+
   @SID_1
   Scenario: Clean data before sending Qdos attack
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
-  
+
   @SID_2
   Scenario: Run DP simulator - QDos_Ahlam4
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     Then Sleep "5"
     * CLI kill all simulator attacks on current vision
 
-  
+
   @SID_3
   Scenario:  login to vision
     Given UI Login with user "radware" and password "radware"
@@ -231,7 +231,7 @@ Feature: QDoS Protection & Attack Category
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 250 seconds
     * CLI kill all simulator attacks on current vision
 
-    
+
   @SID_30
   Scenario: Navigate to DefensePro Attacks dashboard
     And UI Navigate to "DefensePro Attacks" page via homePage
@@ -431,13 +431,13 @@ Feature: QDoS Protection & Attack Category
     Given CLI simulate 1000 attacks of type "QDos_Ahlam4" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
     * CLI kill all simulator attacks on current vision
 
-  
+
   @SID_49
   Scenario:  Navigate to DefensePro Monitoring Dashboard
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "30"
 
-  
+
   @SID_50
   Scenario: Validate first under attack policy - attacks
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
@@ -447,15 +447,15 @@ Feature: QDoS Protection & Attack Category
       | Policy Name           | p1                      |
       | Policy Status         | underAttack             |
       | Total Inbound Traffic | 168.01 Mbps             |
-      | Attack Rate           | 52.74 Mbps              |
-      | Drop Rate             | 52.74 Mbps              |
+      | Attack Rate           | 52.75 Mbps              |
+      | Drop Rate             | 52.75 Mbps              |
       | Attack Category       | Quantile DoS            |
 
-  
+
   @SID_51
-  Scenario: Entering to the under attack policy 
+  Scenario: Entering to the under attack policy
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
-  
+
   @SID_52
   Scenario: validate events
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
@@ -465,7 +465,7 @@ Feature: QDoS Protection & Attack Category
       | Drop Rate       | 51.53 Mbps   |
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "39-1630605835"
-  
+
   @SID_53
   Scenario: Validate Characteristics card data -monitoring
     Then UI Validate Text field "Characteristics Labels" with params "40" EQUALS "40"
@@ -475,14 +475,14 @@ Feature: QDoS Protection & Attack Category
     Then UI Validate Text field "Characteristics Labels" with params "3.3 Mbps" EQUALS "3.3 Mbps"
 
 
-  
+
   @SID_54
   Scenario: Navigate to DP Monitoring
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "38-1630605835"
-  
+
   @SID_55
   Scenario: Validate Characteristics card data - monitoring
     Then UI Validate Text field "Characteristics Labels" with params "1" EQUALS "1"

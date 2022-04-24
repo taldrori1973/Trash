@@ -27,6 +27,7 @@ Feature: ADC dashboard Second Drill - SSL
 
   @SID_5
   Scenario: Navigate to Virtual Service
+    When UI Set Text Field "virts table Search TextBox" To "Rejith_32326515"
     Then Sleep "3"
     Then UI Set Text Field "virts table Search TextBox" To "443"
     Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:443"

@@ -26,7 +26,7 @@ Feature: ScopePolicies in Reports
     Then UI Click Button "My Report Tab"
     Then UI Click Button "Edit Report" with value "DefensePro Behavioral Protections Report"
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Behavioral Protections,SetId:DefensePro_Set_2, policies:[1_https] |
+      | devices | type:DefensePro Behavioral Protections,SetId:DefensePro_Set_2,policies:[1_https] |
     Then UI Click Button "save"
     Then UI Delete Report With Name "DefensePro Behavioral Protections Report"
 

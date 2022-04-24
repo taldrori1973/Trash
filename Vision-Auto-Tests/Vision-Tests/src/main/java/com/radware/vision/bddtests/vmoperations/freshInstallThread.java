@@ -44,7 +44,7 @@ public class freshInstallThread extends Thread {
     @Override
     public void run() {
         try {
-            FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
+            FreshInstallOVA freshInstallOVA = new FreshInstallOVA();
             vmHandler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(), false, vCenterURL, vCenterUser, vCenterPassword, hostip,
                     build, vmName, null, networkName, resourcePool, null, dataStores);
         }

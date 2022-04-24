@@ -8,8 +8,8 @@ import java.io.File;
 
 public class FreshInstallQCow2 extends FreshInstall {
 
-    public FreshInstallQCow2(boolean isExtended, String build) {
-        super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.QCOW2);
+    public FreshInstallQCow2() {
+        super(TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.QCOW2);
     }
 
     @Override

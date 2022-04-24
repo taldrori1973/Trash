@@ -6,6 +6,8 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
 import com.radware.vision.automation.Deploy.UvisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
@@ -15,7 +17,6 @@ import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.utils.RegexUtils;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -37,18 +38,9 @@ public class VmSnapShotOperations extends VisionUITestBase {
     int defaultVMWareNumber = 1;
     String vmName = sutManager.getServerName();
     private static final Map<String, String> NEXT_VERSION = new HashMap<String, String>() {{
-        put("4.85.00", "4.86.00");
-        put("4.84.00", "4.85.00");
-        put("4.83.00", "4.84.00");
-        put("4.82.00", "4.83.00");
-        put("4.81.00", "4.82.00");
-        put("4.81.01", "4.82.00");
-        put("4.80.00", "4.81.01");
-        put("4.80.01", "4.81.01");
-        put("4.80.02", "4.81.01");
-        put("4.70.00", "4.80.02");
-        put("4.60.00", "4.70");
-        put("4.50.00", "4.60");
+        put("5.2.0", "5.3.0");
+        put("5.1.1", "5.2.0");
+        put("5.1.0", "5.2.0");
     }};
 
     public enum Snapshot {
@@ -71,6 +63,10 @@ public class VmSnapShotOperations extends VisionUITestBase {
 
     public static VmSnapShotOperations newInstance() throws Exception {
         getEnvironmentsFromSut();
+        return new VmSnapShotOperations();
+    }
+
+    public static VmSnapShotOperations getInstance() throws Exception {
         return new VmSnapShotOperations();
     }
 
@@ -184,6 +180,70 @@ public class VmSnapShotOperations extends VisionUITestBase {
         }
     }
 
+    private void setupServerAfterRevert(HashMap<String,ServerCliBase> serverCliHM) throws Exception {
+        int connectTimeOut = 10 * 60 * 1000;
+        waitForServerConnection(connectTimeOut, serverCliHM.get("root"));
+        //CliOperations.runCommand(serverCliHM.get("root"), "chkconfig --level 345 rsyslog on", 2 * 60 * 1000);
+        CliOperations.runCommand(serverCliHM.get("root"), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
+        resetPassword();
+        RadwareServerCli radwareServerCli = (RadwareServerCli) serverCliHM.get("radware");
+        UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_SERVICES_READY_FOR_UPGRADE, 30 * 60);
+    }
+
+    public void revertKvmSnapshot(String snapshotName, VisionRadwareFirstTime visionRadwareFirstTime, HashMap<String,ServerCliBase> serverCliHM) throws Exception {
+        visionRadwareFirstTime.init();
+        visionRadwareFirstTime.connect();
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh list --all");
+        String kvmMachineName = visionRadwareFirstTime.getVmName();
+        boolean isContained = RegexUtils.isStringContainsThePattern(kvmMachineName, CliOperations.lastOutput);
+        if (!isContained) {
+            throw new Exception("the " + kvmMachineName + "does not exist");
+        }
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
+        waitForDomainState(visionRadwareFirstTime, "running", 120);
+        BaseTestUtils.report("Reverting to snapshot: " + snapshotName, Reporter.PASS_NOR_FAIL);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + kvmMachineName + " --snapshotname " + snapshotName + " --force", 15 * 60 * 1000);
+        BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
+        String error = ".*Domain not found.*";
+        isContained = RegexUtils.isStringContainsThePattern(error, CliOperations.lastOutput);
+        if (isContained) {
+            throw new Exception("error: Domain not found: no domain with matching name '" + kvmMachineName + "' ");
+        }
+        waitForDomainState(visionRadwareFirstTime, "running", 120);
+        setupServerAfterRevert(serverCliHM);
+    }
+
+    public void revertVMWareSnapshot(String vmName, String snapshot, EnvironmentDto environment, HashMap<String,ServerCliBase> serverCliHM) throws Exception {
+        try {
+            if (snapshot == null || snapshot.equals("")) {
+                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS_NOR_FAIL);
+                return;
+            }
+            EsxiInfo esxiInfo = new EsxiInfo(environment.getUrl(), environment.getUser(), environment.getPassword(), environment.getResourcePool());
+            BaseTestUtils.report("Reverting to snapshot: " + snapshot, Reporter.PASS_NOR_FAIL);
+            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
+            BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
+            setupServerAfterRevert(serverCliHM);
+        } catch (Exception e) {
+            BaseTestUtils.report("Error reverting snapshot: " + parseExceptionBody(e), Reporter.FAIL);
+        } finally {
+            Optional<RootServerCli> rootServerCli = getServersManagement().getRootServerCLI();
+            Optional<RadwareServerCli> radwareServerCli = getServersManagement().getRadwareServerCli();
+
+            if(rootServerCli.isPresent())
+            {
+                rootServerCli.get().setConnectOnInit(false);
+                rootServerCli.get().connect();
+            }
+            if(radwareServerCli.isPresent())
+            {
+                radwareServerCli.get().setConnectOnInit(false);
+                radwareServerCli.get().connect();
+            }
+        }
+    }
+
     public void revertVMWareSnapshot(int vmNumber, boolean snapshotFromSut) throws Exception {
         try {
             String snapshot = sutManager.getDeployConfigurations().getSnapshot();
@@ -250,18 +310,6 @@ public class VmSnapShotOperations extends VisionUITestBase {
         }
     }
 
-    private String calculateVersionAccordingToSnapshot() throws Exception {
-        if (setupMode.equalsIgnoreCase("upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
-            snapshotName = getSnapshotNameOfEnumFromListForVMWare();
-        if (setupMode.equalsIgnoreCase("kvm_upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
-            snapshotName = getSnapshotNameOfEnumFromListForKVM();
-        String currentVersion = VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[0] + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[1];
-        assert snapshotName != null;
-        String number = (snapshotName.equalsIgnoreCase("current")) ? "0" : snapshotName.split("-")[1].trim();
-        String numberToSubtract = "0." + number;
-        return new BigDecimal(currentVersion).subtract(new BigDecimal(numberToSubtract)) + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[2];
-    }
-
     public String getSnapshotNameOfEnumFromListForVMWare() throws Exception {
         String snapshotName;
         for (Snapshot snapshot : Snapshot.values()) {
@@ -290,7 +338,7 @@ public class VmSnapShotOperations extends VisionUITestBase {
         try {
             boolean isContained;
             do {
-                String kvmMachineName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
+                String kvmMachineName = visionRadwareFirstTime.getVmName();
                 CliOperations.runCommand(visionRadwareFirstTime, "virsh domstate " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
                 isContained = RegexUtils.isStringContainsThePattern(state, CliOperations.lastRow);
                 if (!isContained) {
@@ -305,13 +353,13 @@ public class VmSnapShotOperations extends VisionUITestBase {
 
     public static void getEnvironmentsFromSut() {
         environments = new EnvironmentDto[2];
-        Optional<EnvironmentDto> environmentDto = sutManager.getEnviorement();
+        Optional<EnvironmentDto> environmentDto = sutManager.getEnvironment();
         if (!environmentDto.isPresent()) {
             BaseTestUtils.report("Environment Not Found!.", Reporter.FAIL);
         }
         environments[0] = environmentDto.get();
 
-        Optional<EnvironmentDto> pairEnvironmentDto = sutManager.getPairEnviorement();
+        Optional<EnvironmentDto> pairEnvironmentDto = sutManager.getPairEnvironment();
         if (!pairEnvironmentDto.isPresent()) {
             BaseTestUtils.report("Pair Environment Not Found!, continue without pair.", Reporter.PASS_NOR_FAIL);
             environments[1] = null;

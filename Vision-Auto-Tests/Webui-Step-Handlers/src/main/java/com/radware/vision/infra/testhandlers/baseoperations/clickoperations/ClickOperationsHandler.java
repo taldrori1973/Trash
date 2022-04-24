@@ -14,6 +14,7 @@ import com.radware.automation.webui.widgets.impl.WebUIDropdown;
 import com.radware.automation.webui.widgets.impl.WebUIDualList;
 import com.radware.automation.webui.widgets.impl.WebUIDualListScripts;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.invocation.InvokeMethod;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DualListSides;
 import com.radware.vision.infra.enums.VisionTableIDs;
@@ -130,6 +131,9 @@ public class ClickOperationsHandler {
         try {
             if (RunProperties.getInstance().getRunProperties().containsKey(inputText)) {
                 inputText = RunProperties.getInstance().getRunProperties().getProperty(inputText);
+            }
+            else{
+                inputText = (String) InvokeMethod.invokeMethodFromText(inputText);
             }
             WebUIUtils.setIsTriggerPopupSearchEvent(true);
             switch (elementType) {

@@ -7,7 +7,6 @@ import com.radware.vision.automation.Deploy.VisionServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.bddtests.clioperation.GeneralSteps;
@@ -29,16 +28,6 @@ import static com.radware.vision.automation.Deploy.VisionServer.waitForVisionSer
 
 public class UpgradeSteps extends TestBase {
 
-
-    @When("^Upgrade vision to version \"(.*)\", build \"(.*)\"$")
-    public void UpgradeVisionServer(String version, String build) {
-        try {
-            validateVisionServerServicesUP(serversManagement.getRadwareServerCli().get());
-        } catch (Exception e) {
-            BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-    }
 
     @When("^validate vision server services are UP$")
     public void validateVisionServerServicesUPStep() {
@@ -68,8 +57,8 @@ public class UpgradeSteps extends TestBase {
     @When("^Upgrade in Parallel,backup&Restore setup$")        /// backup and restore setup
     public static void UpgradeVisionToLatestBuildTwoMachines() {
         try {
-            String sourceIP = restTestBase.getVisionServerHA().getHost_2();
-            String targetIP = restTestBase.getVisionServer().getHost();
+            String sourceIP = getSutManager().getpair().getPairIp();
+            String targetIP = getSutManager().getClientConfigurations().getHostIp();
             String build = System.getenv("BUILD");//get build from portal
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
 
@@ -79,10 +68,10 @@ public class UpgradeSteps extends TestBase {
             RadwareServerCli radwareTarget = new RadwareServerCli(targetIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
             RootServerCli rootTarget = new RootServerCli(targetIP, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
 
-            Upgrade upgradeSource = new Upgrade(true, null, radwareSource, rootSource);
-            Upgrade upgradeTarget = new Upgrade(true, null, radwareTarget, rootTarget);
-            UpgradeThread sourceMachineThread = new UpgradeThread(sourceIP, null, build, isAPM());
-            UpgradeThread targetMachineThread = new UpgradeThread(targetIP, null, build, isAPM());
+            Upgrade upgradeSource = new Upgrade(radwareSource, rootSource);
+            Upgrade upgradeTarget = new Upgrade(radwareTarget, rootTarget);
+            UpgradeThread sourceMachineThread = new UpgradeThread(sourceIP, null, build);
+            UpgradeThread targetMachineThread = new UpgradeThread(targetIP, null, build);
 
             if (upgradeSource.isSetupNeeded) {
                 sourceMachineThread.start();
@@ -109,16 +98,16 @@ public class UpgradeSteps extends TestBase {
         }
     }
 
-    public static boolean isAPM() {
-        ServerCliBase rootServerCli = serversManagement.getRootServerCLI().get();
-        try {
-            rootServerCli.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
-        return !CliOperations.lastRow.equals("0");
-    }
+//    public static boolean isAPM() {
+//        ServerCliBase rootServerCli = serversManagement.getRootServerCLI().get();
+//        try {
+//            rootServerCli.connect();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
+//        return !CliOperations.lastRow.equals("0");
+//    }
 
     public static void validateVisionServerServicesUP(RadwareServerCli serverCli) throws Exception {
         try {
@@ -159,7 +148,7 @@ public class UpgradeSteps extends TestBase {
     private void upgradeToNonSupportedVersion(String versionNumber) {
         RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
         RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
-        Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
+        Upgrade upgrade = new Upgrade(radwareServerCli, rootServerCli);
         String[] notSupportedVersion = upgrade.getNonSupportedVersion();
 
         String[] path = upgrade.getBuildFileInfo().getPath().toString().split("/");
@@ -231,7 +220,7 @@ public class UpgradeSteps extends TestBase {
     private void upgradeToTheNextBuild(String build) {
         RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
         RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
-        Upgrade upgrade = new Upgrade(true, build, radwareServerCli, rootServerCli);
+        Upgrade upgrade = new Upgrade(radwareServerCli, rootServerCli);
         String buildUnderTest = upgrade.getBuild();
         if (upgrade.isSetupNeeded) {
             BaseTestUtils.report("Upgrading to latest build: " + buildUnderTest,
@@ -241,7 +230,7 @@ public class UpgradeSteps extends TestBase {
             BaseTestUtils.report("Server is ready for future upgrade", Reporter.PASS_NOR_FAIL);
         }
         GeneralSteps.clearAllLogs();
-        upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
+        upgrade = new Upgrade(radwareServerCli, rootServerCli);
         //Force upgrade to make sure another upgrade will occur.
         upgrade.isSetupNeeded = true;
         String nextBuild = upgrade.getBuild();
@@ -253,7 +242,7 @@ public class UpgradeSteps extends TestBase {
 
     public void UpgradeVisionServerFromOldVersion(String version) {
         try {
-            FileType upgradeType = isAPM() ? FileType.UPGRADE_APM : FileType.UPGRADE;
+            FileType upgradeType = FileType.UPGRADE;
             JFrogFileModel buildFileInfo = JFrogAPI.getBuildFromOldVersion(upgradeType, version);
             String[] path = buildFileInfo.getPath().toString().split("/");
             RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();

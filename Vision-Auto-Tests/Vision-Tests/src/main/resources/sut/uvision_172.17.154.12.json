@@ -7,7 +7,7 @@
   },
   "deployConfigurations": {
     "setupMode": "qcow2_fresh install",
-    "snapshot": "Current-1",
+    "snapshot": "",
     "environment": "KVM-210"
   },
   "clientConfiguration": {

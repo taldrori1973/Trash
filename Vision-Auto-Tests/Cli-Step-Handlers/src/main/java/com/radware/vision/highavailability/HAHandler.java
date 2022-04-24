@@ -75,7 +75,7 @@ public class HAHandler extends TestBase {
         try {
             ConfigSyncMode configSyncMode = ConfigSyncMode.getConstant(mode);
             YesNo yes = YesNo.valueOf(yesNo);
-            ConfigSync.setModeWitoutServices(radwareServerCli, configSyncMode, timeout, yes.getText());
+            ConfigSync.setModeWitouthServices(radwareServerCli, configSyncMode, timeout, yes.getText());
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

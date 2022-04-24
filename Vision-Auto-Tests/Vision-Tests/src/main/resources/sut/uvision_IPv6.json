@@ -4,11 +4,11 @@
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",
-    "environment": "KVM-215"
+    "environment": "OVA-220"
   },
   "pair": {
-    "pairIp": "172.17.164.101",
-    "environment": "KVM-217"
+    "pairIp": "",
+    "environment": ""
   },
   "clientConfiguration": {
     "hostIp": "ipv6.uVision.automation",

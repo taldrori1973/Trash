@@ -14,7 +14,7 @@ Feature: AW CSV Forensics
   Scenario: logina
     Given UI Login with user "sys_admin" and password "radware"
 #    * REST Delete ES index "aw-web-application"
-    * REST Delete Device By IP "172.17.164.30"
+  #  * REST Delete Device By IP "172.17.164.30"
     * Browser Refresh Page
     And Sleep "10"
 
@@ -54,7 +54,7 @@ Feature: AW CSV Forensics
     Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_6
-  Scenario: create new Forensics_AW and validate
+  Scenario: create new Forensics_AW and validate1
     When UI "Create" Forensics With Name "Forensics_AW"
       | Product               | AppWall                                                                                                                    |
       | Application           | All                                                                                                                        |
@@ -64,24 +64,24 @@ Feature: AW CSV Forensics
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123           |
 
   @SID_7
-  Scenario: Clear FTP server logs and generate the report
+  Scenario: Clear FTP server logs and generate the report1
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_AW*.zip /home/radware/ftp/Forensics_AW*.csv" on "GENERIC_LINUX_SERVER"
 
   @SID_8
   Scenario: Validate delivery card and generate Forensics
     Then UI Click Button "My Forensics" with value "Forensics_AW"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_AW"
-    Then Sleep "35"
+    Then Sleep "60"
 
 
   @SID_9
-  Scenario: Validate Forensics.Table
+  Scenario: Validate Forensics.Table1
     And UI Click Button "Views.Forensic" with value "Forensics_AW,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 30
 
 
   @SID_10
-  Scenario: Unzip CSV file
+  Scenario: Unzip CSV file1
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
@@ -133,7 +133,7 @@ Feature: AW CSV Forensics
 
 
   @SID_17
-  Scenario: create new Forensics_AW and validate
+  Scenario: create new Forensics_AW and validate2
     When UI "Create" Forensics With Name "Forensics_AW_Schedule"
       | Product     | AppWall                                                                                                          |
       | Application | All                                                                                                              |
@@ -145,20 +145,20 @@ Feature: AW CSV Forensics
 
 
   @SID_18
-  Scenario: Clear FTP server logs and generate the report
+  Scenario: Clear FTP server logs and generate the report2
     Then Sleep "130"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_19
-  Scenario: Validate Forensics.Table
+  Scenario: Validate Forensics.Table2
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "Forensics_AW_Schedule"
     And UI Click Button "Views.Forensic" with value "Forensics_AW_Schedule,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 29
 
   @SID_20
-  Scenario: Unzip CSV file
+  Scenario: Unzip CSV file2
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW_Schedule*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
@@ -204,7 +204,7 @@ Feature: AW CSV Forensics
     Then Sleep "35"
 
   @SID_25
-  Scenario: Validate Forensics.Table
+  Scenario: Validate Forensics.Table3
     And UI Click Button "Views.Forensic" with value "Forensics_AW_Email,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 30
 

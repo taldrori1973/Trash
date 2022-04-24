@@ -3,11 +3,11 @@
   "serverName": "uvision_auto",
   "deployConfigurations": {
     "snapshot": "",
-    "setupMode": "upgrade_inparallel",
+    "setupMode": "upgrade",
     "environment": "OVA-232"
   },
   "pair": {
-    "pairIp": "172.17.164.101",
+    "pairIp": "172.17.154.30",
     "environment": "KVM-217"
   },
   "clientConfiguration": {

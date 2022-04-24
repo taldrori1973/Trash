@@ -300,7 +300,7 @@ public class ForensicsHandler extends VRMBaseUtilies {
                 }
                 break;
             }
-
+            case "MAX PPS":
             case "ATTACK RATE IN BPS":
             case "ATTACK RATE IN PPS": {
                 String rateValue = criteriaObject.get("RateValue").toString();
