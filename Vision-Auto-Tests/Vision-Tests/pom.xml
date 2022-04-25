@@ -7,20 +7,11 @@
         <groupId>com.radware.vision.automation</groupId>
         <version>${revision}</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <name>Vision-Tests</name>
     <artifactId>Vision-Tests</artifactId>
-
-    <properties>
-    </properties>
-    <repositories>
-        <repository>
-            <id>DEVTOOLS_MAVEN</id>
-            <name>DEVTOOLS_MAVEN</name>
-            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN</url>
-        </repository>
-    </repositories>
 
     <distributionManagement>
         <snapshotRepository>
@@ -42,141 +33,75 @@
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>bdd-tools</artifactId>
-            <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Utils</artifactId>
-            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>CLI-Infra</artifactId>
-            <version>${revision}</version>
         </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Rest-Step-Handlers</artifactId>
             <version>${revision}</version>
         </dependency>
+
         <dependency>
             <groupId>radwareDefensePro</groupId>
             <artifactId>radwareDefensePro</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${revision}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com</groupId>
-                    <artifactId>restConnection</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.sourceforge.jexcelapi</groupId>
-                    <artifactId>jxl</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.radware.vision.automation.rest</groupId>-->
-<!--            <artifactId>vision-rest-framework</artifactId>-->
-<!--            <version>${artifact-type}-${revision}</version>-->
-<!--        </dependency>-->
+
          <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Cli-Step-Handlers</artifactId>
-            <version>${revision}</version>
         </dependency>
+
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>commons-lang</groupId>-->
-<!--            <artifactId>commons-lang</artifactId>-->
-<!--            <version>RELEASE</version>-->
-<!--        </dependency>-->
+
         <dependency>
             <groupId>org.jsystemtest</groupId>
             <artifactId>jsystemAgent</artifactId>
-            <version>${jsystem.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.jsystemtest</groupId>
             <artifactId>jsystem-maven-plugin</artifactId>
-            <version>${jsystem.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>asm-commons</artifactId>
-                    <groupId>asm</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>asm</artifactId>
-                    <groupId>asm</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>asm-tree</artifactId>
-                    <groupId>asm</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hamcrest-core</artifactId>
-                    <groupId>org.hamcrest</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jsystemtest</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.maven</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
+
         <dependency>
             <groupId>com.radware.automation.defensepro.infra.utils</groupId>
             <artifactId>radwareGeneric</artifactId>
-            <version>1.0.0</version>
         </dependency>
-        <!--                <dependency>-->
-        <!--                    <groupId>com.radware.vision.automation.openstack</groupId>-->
-        <!--                    <artifactId>openstack-tests</artifactId>-->
-        <!--                    <version>${VISION_VERSION}-SNAPSHOT</version>-->
-        <!--                </dependency>-->
-        <dependency>
 
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
-            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>SaproCommunication</groupId>
-            <artifactId>saprocommunication</artifactId>
-            <version>V190</version>
-        </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Database-Step-Handlers</artifactId>
-            <version>${revision}</version>
-            <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Common</artifactId>
-            <version>${revision}</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -204,12 +129,14 @@
                             </exclusion>
                         </exclusions>
                     </dependency>
+
                     <dependency>
                         <groupId>com.radware.vision.automation</groupId>
                         <artifactId>Vision-Tests</artifactId>
                         <version>${project.parent.version}</version>
                         <scope>runtime</scope>
                     </dependency>
+
                     <dependency>
                         <groupId>javax.mail</groupId>
                         <artifactId>mail</artifactId>
@@ -217,6 +144,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>2.5</version>
@@ -263,7 +191,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -319,6 +246,7 @@
                                     <outputDirectory>${project.basedir}\target\classes</outputDirectory>
                                     <includes>**/*.js</includes>
                                 </artifactItem>
+
                                 <artifactItem>
                                     <groupId>com.radware.automation</groupId>
                                     <artifactId>automation-web-driver-infra</artifactId>
@@ -386,6 +314,7 @@
                             </resources>
                         </configuration>
                     </execution>
+
                     <execution>
                         <id>copy-resources-dummy-vision-version-hierarchy</id>
                         <!-- here the phase you need -->
@@ -410,8 +339,8 @@
                 </executions>
             </plugin>
         </plugins>
+
         <resources>
-            <!-- include main.properties -->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
@@ -420,7 +349,6 @@
                 </includes>
             </resource>
 
-            <!-- exclude everything else from filtering -->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
@@ -428,9 +356,9 @@
                     <exclude>vision-tests-pom.properties</exclude>
                 </excludes>
             </resource>
-
         </resources>
     </build>
+
     <profiles>
         <profile>
             <id>production</id>
@@ -438,6 +366,7 @@
                 <artifact-type>PRODUCTION</artifact-type>
             </properties>
         </profile>
+
         <profile>
             <id>development</id>
             <activation>
