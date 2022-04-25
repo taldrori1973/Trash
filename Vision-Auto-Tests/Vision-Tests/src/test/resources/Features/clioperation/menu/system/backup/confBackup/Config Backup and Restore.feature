@@ -60,7 +60,7 @@ Feature: Backup and Restore
 
   @SID_10
   Scenario: Restore validation hostname
-    Then CLI Run linux Command "hostname" on "ROOT_SERVER_CLI" and validate result EQUALS "my.auto.vision"
+    Then CLI Run linux Command "hostname" on "ROOT_SERVER_CLI" and validate result EQUALS "vision"
 
   @SID_11
   Scenario: Restore validation AMS report definition

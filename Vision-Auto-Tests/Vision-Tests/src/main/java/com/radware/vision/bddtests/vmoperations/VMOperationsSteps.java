@@ -15,7 +15,6 @@ import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.*;
 import com.radware.vision.enums.VisionDeployType;
-import com.radware.vision.setup.SetupImpl;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
@@ -83,7 +82,7 @@ public class VMOperationsSteps extends VisionUITestBase {
     public void DfenseFlowRevertToSnapshot() {
         try {
             TreeDeviceManagementDto df = sutManager.getDefenseFlow().get();
-            EnvironmentDto dfEnv = sutManager.getDefenseFlowEnviorement().get();
+            EnvironmentDto dfEnv = sutManager.getDefenseFlowEnvironment().get();
             EsxiInfo esxiInfo = new EsxiInfo(dfEnv.getUrl(), dfEnv.getUser(), dfEnv.getPassword(), dfEnv.getResourcePool());
             BaseTestUtils.report("Reverting Defense Flow to snapshot " + df.getSnapshot(), Reporter.PASS_NOR_FAIL);
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, df.getDeviceName()), df.getSnapshot(), true);
@@ -236,7 +235,7 @@ public class VMOperationsSteps extends VisionUITestBase {
                 case "qcow2_fresh install":
                 case "serial iso_fresh install":
                 case "fresh install":
-                    String environmentType = getSutManager().getEnviorement().get().getName().split("-")[0];
+                    String environmentType = getSutManager().getEnvironment().get().getName().split("-")[0];
                     deploy = DeployFactory.getFreshInstall(environmentType);
                     assert deploy != null;
                     deploy.deploy();

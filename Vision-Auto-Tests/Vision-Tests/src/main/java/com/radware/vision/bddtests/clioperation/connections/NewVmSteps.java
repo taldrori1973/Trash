@@ -23,11 +23,11 @@ public class NewVmSteps extends TestBase {
     @Then("^Stop VM Machine$")
     public void StopMachine(DataTable dataTable) {
         List<Map<String, String>> listOfData = dataTable.asMaps(String.class, String.class);
-        String vCenterUser = getSutManager().getEnviorement().get().getUser();
-        String vCenterPassword = getSutManager().getEnviorement().get().getPassword();
-        String hostIp = getSutManager().getEnviorement().get().getHostIp();
-        String vCenterURL = getSutManager().getEnviorement().get().getUrl();
-        String resourcePool = getSutManager().getEnviorement().get().getResourcePool();
+        String vCenterUser = getSutManager().getEnvironment().get().getUser();
+        String vCenterPassword = getSutManager().getEnvironment().get().getPassword();
+        String hostIp = getSutManager().getEnvironment().get().getHostIp();
+        String vCenterURL = getSutManager().getEnvironment().get().getUrl();
+        String resourcePool = getSutManager().getEnvironment().get().getResourcePool();
 
         for (Map<String, String> data : listOfData) {
             try {
@@ -47,7 +47,7 @@ public class NewVmSteps extends TestBase {
 
     @Given("^Remove old VMs$")
     public void removeOldVms(DataTable dataTable) {
-        EnvironmentDto environmentDto = getSutManager().getEnviorement().get();
+        EnvironmentDto environmentDto = getSutManager().getEnvironment().get();
         String userName = environmentDto.getUser();
         String password = environmentDto.getPassword();
         int deleteMinutes = 24 * 60;

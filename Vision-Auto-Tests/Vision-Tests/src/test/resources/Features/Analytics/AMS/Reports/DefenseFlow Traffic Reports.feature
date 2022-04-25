@@ -1,4 +1,3 @@
-
 @TC112396
 Feature: DefenseFlow Traffic Reports
 
@@ -50,6 +49,7 @@ Feature: DefenseFlow Traffic Reports
   # =============================================Overall===========================================================
   @SID_6
   Scenario: Create DefenseFlow traffic report
+    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DF_Traffic"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[ALL],Protected Objects:[PO_100] |
       | Format                | Select: CSV                                                                                                           |
@@ -94,10 +94,11 @@ Feature: DefenseFlow Traffic Reports
       | ALL     | error      | NOT_EXPECTED |
 
   @SID_13
-  Scenario: Change DF management IP to IP of DefenseFlow
+  Scenario: Change DF management IP to DefenseFlow IP
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
       | #dfIP                          |
+    Then Wait For PO's appearance timeout 10 minutes
 
   @SID_14
   Scenario: Cleanup

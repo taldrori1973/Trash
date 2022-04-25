@@ -162,10 +162,11 @@ Feature: Defense Flow Forensic Wizard
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 
   @SID_19 @Sanity
-  Scenario: Change DF management IP to IP of DefenseFlow
+  Scenario: Change DF management IP to DefenseFlow IP
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
       | #dfIP                          |
+    Then Wait For PO's appearance timeout 10 minutes
 
   @SID_20 @Sanity
   Scenario: Logout

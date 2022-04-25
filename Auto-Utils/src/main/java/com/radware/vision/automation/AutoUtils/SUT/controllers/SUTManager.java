@@ -49,11 +49,11 @@ public interface SUTManager {
     List<TreeDeviceManagementDto> getSimulators();
 
 
-    Optional<EnvironmentDto> getEnviorement();
+    Optional<EnvironmentDto> getEnvironment();
 
-    Optional<EnvironmentDto> getPairEnviorement();
+    Optional<EnvironmentDto> getPairEnvironment();
 
-    Optional<EnvironmentDto> getDefenseFlowEnviorement();
+    Optional<EnvironmentDto> getDefenseFlowEnvironment();
 
     /**
      * @param deviceId deviceId as on devices file

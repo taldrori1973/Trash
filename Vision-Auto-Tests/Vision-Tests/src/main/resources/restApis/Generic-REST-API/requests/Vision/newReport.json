@@ -23,6 +23,13 @@
       "basePath": "/mgmt/monitor/reporter/v1/vrm/reporting/reporting/definitions/{reportID}",
       "produces": "application/json",
       "description": "Get specific created reports"
+    },
+    {
+      "label": "Get All Protected Objects",
+      "method": "POST",
+      "basePath": "/mgmt/monitor/reporter/reports-ext/DF_PROTECTED_OBJECT_LIST",
+      "produces": "application/json",
+      "description": "Get All Protected Objects"
     }
   ]
 }
