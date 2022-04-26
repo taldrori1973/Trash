@@ -360,21 +360,21 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>production</id>
-            <properties>
-                <artifact-type>PRODUCTION</artifact-type>
-            </properties>
-        </profile>
+<!--        <profile>-->
+<!--            <id>production</id>-->
+<!--            <properties>-->
+<!--                <artifact-type>PRODUCTION</artifact-type>-->
+<!--            </properties>-->
+<!--        </profile>-->
 
-        <profile>
-            <id>development</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <artifact-type>DEVELOPMENT</artifact-type>
-            </properties>
-        </profile>
+<!--        <profile>-->
+<!--            <id>development</id>-->
+<!--            <activation>-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
+<!--            <properties>-->
+<!--                <artifact-type>DEVELOPMENT</artifact-type>-->
+<!--            </properties>-->
+<!--        </profile>-->
     </profiles>
 </project>
