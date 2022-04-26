@@ -429,8 +429,8 @@ Feature: HTTPS Server Dashboard
     Then UI Validate Element Existence By Label "Max Traffic" if Exists "false"
     Then UI Validate Element Existence By Label "Min Traffic" if Exists "false"
     Then UI Do Operation "Select" item "Max Min"
-    Then UI Validate Text field "Max Traffic" EQUALS "Max 17500"
-    Then UI Validate Text field "Min Traffic" EQUALS "Min 17500"
+    Then UI Validate Text field "Max Traffic" EQUALS "17.5 K"
+    Then UI Validate Text field "Min Traffic" EQUALS "17.5 K"
     Then UI Validate Element Existence By Label "Max Traffic" if Exists "true"
     Then UI Validate Element Existence By Label "Min Traffic" if Exists "true"
 

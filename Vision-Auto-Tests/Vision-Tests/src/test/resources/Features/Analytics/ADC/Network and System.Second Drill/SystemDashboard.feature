@@ -18,8 +18,8 @@ Feature: ADC System Dashboard
     When UI Navigate to "System and Network Dashboard" page via homePage
     Given UI Click Button "Device Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
-      | Alteon_50.50.101.22 |
-    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
+      | #getSUTValue(setID:Alteon_Sim_Set_2); |
+    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "#getSUTValue(setID:Alteon_Sim_Set_2);"
 
   @SID_3
   Scenario: Validate Throughput widget

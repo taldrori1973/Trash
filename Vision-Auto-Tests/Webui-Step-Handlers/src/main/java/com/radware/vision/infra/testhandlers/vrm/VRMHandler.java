@@ -21,6 +21,7 @@ import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.jsonparsers.impl.JsonUtils;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
@@ -38,6 +39,7 @@ import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -55,6 +57,8 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import java.lang.Math;
+
+import static com.radware.vision.automation.invocation.InvokeMethod.invokeMethodFromText;
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
@@ -80,9 +84,36 @@ public class VRMHandler {
 
     public Map getSessionStorage(String chart) throws SessionStorageException {
         Map jsonMap;
-        String item = sessionStorage.getItem(chart);
+        String item = sessionStorage.getItem(chart);// return NO data available
+
+
+        if(isJSONValid(item)){
         jsonMap = JsonUtils.getJsonMap(item);
+
+    }else
+    {
+
+        jsonMap = new HashMap<String, String>();
+        jsonMap.put("data","No Data Available");
+
+    }
+
+
         return jsonMap;
+    }
+
+
+    private boolean isJSONValid(String test) {
+        try {
+            new JSONObject(test);
+        } catch (JSONException ex) {
+            try {
+                new JSONArray(test);
+            } catch (JSONException ex1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -303,66 +334,92 @@ public class VRMHandler {
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, columnGraph);
-        JSONArray data = (JSONArray) foundObject.get(DATA);
+        if(!isJSONValid(foundObject.get(DATA).toString()))
+        {
+            entries.forEach(entry -> {
+                entry.value = (entry.value == null) ? null : entry.value;
 
-        entries.forEach(entry -> {
-            entry.count = (entry.count == null) ? -1 : entry.count;
-            entry.exist = entry.exist == null || entry.exist;
-            entry.index = (entry.index == null) ? -1 : entry.index;
-            entry.value = (entry.value == null) ? null : entry.value;
-            entry.valueOffset = (entry.value == null) ? 0 : entry.valueOffset;
+                String actualResult = foundObject.get(DATA).toString();
 
-            if (isLabelExist(chart, label) ^ entry.exist) {
-                return;
-            }
-            if ((!isLabelExist(chart, label)) && !entry.exist) {
-                return;
-            }
+                if(actualResult.equals(entry.value))
+                    return;
 
-            long valueAppearances = StreamSupport.stream(data.spliterator(), false)
-                    .map(String::valueOf)
-                    .filter(s -> isDataMatch(entry, s))
-                    .count();
-            if (entry.min != null) {
-                if (valueAppearances < entry.min) {
-                    addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " of value: " + entry.value + " is " + valueAppearances + " and the EXPECTED minimum is " + entry.min);
-                    scrollAndTakeScreenshot(chart);
+                else
+                    addErrorMessage("The ACTUAL value in the chart " + chart + "  is " + actualResult);
+
+            });
+        }
+
+        else {
+
+            JSONArray data = (JSONArray) foundObject.get(DATA);
+
+            entries.forEach(entry -> {
+                entry.count = (entry.count == null) ? -1 : entry.count;
+                entry.exist = entry.exist == null || entry.exist;
+                entry.index = (entry.index == null) ? -1 : entry.index;
+                entry.value = (entry.value == null) ? null : entry.value;
+                entry.valueOffset = (entry.value == null) ? 0 : entry.valueOffset;
+
+                if (isLabelExist(chart, label) ^ entry.exist) {
+                    return;
                 }
-            } else if (entry.count > 0) {
-                // Value has offset that is not "0"
-                if (entry.offset != null && entry.offset != 0 || entry.valueOffset != 0) {
-                    if (entry.valueOffset != 0) {
-                        double actualValue = (Double) data.get(entry.index);
-                        double maxVal = actualValue + entry.valueOffset;
-                        double minVal = actualValue - entry.valueOffset;
-                        if (actualValue > maxVal || actualValue < minVal) {
-                            addErrorMessage("The ACTUAL value of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
-                                    + " and " + maxVal);
-                            scrollAndTakeScreenshot(chart);
-                        }
-                    } else {
-                        int maxVal = entry.count + entry.offset;
-                        int minVal = entry.count - entry.offset;
-                        if (valueAppearances > maxVal || valueAppearances < minVal) {
-                            addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
-                                    + " and " + maxVal);
-                            scrollAndTakeScreenshot(chart);
+                if ((!isLabelExist(chart, label)) && !entry.exist) {
+                    return;
+                }
+
+                long valueAppearances = StreamSupport.stream(data.spliterator(), false)
+                        .map(String::valueOf)
+                        .filter(s -> isDataMatch(entry, s))
+                        .count();
+                if (entry.min != null) {
+                    if (valueAppearances < entry.min) {
+                        addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " of value: " + entry.value + " is " + valueAppearances + " and the EXPECTED minimum is " + entry.min);
+                        scrollAndTakeScreenshot(chart);
+                    }
+                } else if (entry.count > 0) {
+                    // Value has offset that is not "0"
+                    if (entry.offset != null && entry.offset != 0 || entry.valueOffset != 0) {
+                        if (entry.valueOffset != 0) {
+                            double actualValue = (Double) data.get(entry.index);
+                            double maxVal = actualValue + entry.valueOffset;
+                            double minVal = actualValue - entry.valueOffset;
+                            if (actualValue > maxVal || actualValue < minVal) {
+                                addErrorMessage("The ACTUAL value of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                                        + " and " + maxVal);
+                                scrollAndTakeScreenshot(chart);
+                            }
+                        } else {
+                            int maxVal = entry.count + entry.offset;
+                            int minVal = entry.count - entry.offset;
+                            if (valueAppearances > maxVal || valueAppearances < minVal) {
+                                addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                                        + " and " + maxVal);
+                                scrollAndTakeScreenshot(chart);
+                            }
                         }
                     }
+                    //Value does not have offset or offset is "0"
+                    else if (!(valueAppearances == entry.count)) {
+                        addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is " + entry.count);
+                        scrollAndTakeScreenshot(chart);
+                    }
                 }
-                //Value does not have offset or offset is "0"
-                else if (!(valueAppearances == entry.count)) {
-                    addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is " + entry.count);
-                    scrollAndTakeScreenshot(chart);
+                if (entry.index != -1 && entry.valueOffset == 0) {
+                    if (!data.get(entry.index).toString().trim().equalsIgnoreCase(entry.value.trim())) {
+                        addErrorMessage("The ACTUAL value of the index " + entry.index + " is: " + data.get(entry.index) + " BUT the EXPECTED is " + entry.value);
+                    }
                 }
-            }
-            if (entry.index != -1 && entry.valueOffset == 0) {
-                if (!data.get(entry.index).toString().trim().equalsIgnoreCase(entry.value.trim())) {
-                    addErrorMessage("The ACTUAL value of the index " + entry.index + " is: " + data.get(entry.index) + " BUT the EXPECTED is " + entry.value);
-                }
-            }
-        });
-        reportErrors();
+            });
+            reportErrors();
+
+
+        }
+
+
+
+
+
     }
 
     protected boolean isDataMatch(Data entry, String s) {
@@ -429,14 +486,25 @@ public class VRMHandler {
                 } catch (Exception e) {
                     BaseTestUtils.report("The graph column " + columnGraph + " is not found", Reporter.FAIL);
                 }
-            jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
-            dataArray = (JSONArray) jsonMap.get(DATASETS);
 
-            foundObject = StreamSupport.stream(dataArray.spliterator(), false)
-                    .map(JSONObject.class::cast)
-                    .filter(jsonObject -> jsonObject.getString(LABEL).equals(label))
-                    .findFirst()
-                    .orElseThrow(() -> new NullPointerException(String.join(" ", "Chart :", chart, "With label :", label, "Could not be found")));
+            if(!isJSONValid(jsonMap.get(DATA).toString()))
+            {
+                foundObject =  new JSONObject(jsonMap);
+            }
+
+            else{
+                jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
+                dataArray = (JSONArray) jsonMap.get(DATASETS);
+
+                foundObject = StreamSupport.stream(dataArray.spliterator(), false)
+                        .map(JSONObject.class::cast)
+                        .filter(jsonObject -> jsonObject.getString(LABEL).equals(label))
+                        .findFirst()
+                        .orElseThrow(() -> new NullPointerException(String.join(" ", "Chart :", chart, "With label :", label, "Could not be found")));
+
+            }
+
+
         } catch (SessionStorageException e) {
             BaseTestUtils.report("Failed to get label: " + label + " from chart: " + chart, e);
             foundObject = null;
@@ -825,7 +893,7 @@ public class VRMHandler {
             } else {
                 for (DpApplicationFilter entry : entries) {
                     VisionDebugIdsManager.setLabel("Device Selection.Available Device CheckBox");
-                    entry.name = entry.name.trim();
+                    entry.name = (String) invokeMethodFromText(entry.name.trim());
                     VisionDebugIdsManager.setParams(entry.name);
                     checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
 //                    checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + entry.name + "_Label"));
@@ -959,15 +1027,17 @@ public class VRMHandler {
                 String deviceIp = null;
                 String deviceName = null;
                 try {
-                    if (entry.setId != null) {
-                        Optional<TreeDeviceManagementDto> deviceOpt = SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
+                    if (entry.setId != null || entry.deviceId != null) {
+                        SUTManager sutManager = SUTManagerImpl.getInstance();
+                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId!=null)?sutManager.getTreeDeviceManagement(entry.setId):
+                                                                                          sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
                         if (!deviceOpt.isPresent()) {
-                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId!=null)?entry.setId:entry.deviceId));
                         }
                         deviceIp = deviceOpt.get().getManagementIp();
                         deviceName=deviceOpt.get().getDeviceName();
                     } else {
-                        throw new Exception("device setId entry is empty.");
+                        throw new Exception("device setId|deviceId entry is empty.");
                     }
 
                 } catch (Exception e) {
@@ -1400,6 +1470,35 @@ public class VRMHandler {
         }
     }
 
+    public static class SignatureData{
+        public String type;
+        public String oper;
+        public String param;
+        public String values;
+        public String full_values;
+
+        @Override
+        public String toString() {
+            return "SignatureData{" +
+                    "type='" + type + '\'' +
+                    ", oper=" + oper +
+                    ", param=" + param +
+                    ", values=" + values +
+                    ", full_values=" + full_values +
+                    '}';
+        }
+
+        public boolean compareFullElement(String type, String oper, String param, String full_values) {
+            List<String> l2 = new ArrayList<>(Arrays.asList(full_values.split(",")));
+            return this.type.equals(type) && this.oper.equals(oper) && this.param.equals(param) && l2.contains(this.values);
+        }
+
+
+        public boolean compareTypeOperElement(String type,String oper){
+            return this.type.equals(type) && this.oper.equals(oper);
+        }
+    }
+
     public static class Data {
         public String value;
         Integer count;
@@ -1470,6 +1569,7 @@ public class VRMHandler {
 
     public static class DpDeviceFilter {
         public String setId;
+        public String deviceId;
         public String ports;
         public String policies;
         String virtualServices;
@@ -1785,4 +1885,35 @@ public class VRMHandler {
         }
     }
 
+    public void validateAttributeData(String attribute, String index, String chart, List<SignatureData> entries) throws SessionStorageException {
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        Map jsonMap = getSessionStorage(chart);
+        JSONArray jsonArray = (JSONArray) new JSONObject(jsonMap.get("data").toString()).get(attribute);
+        boolean isExist = false;
+        switch (attribute) {
+            case "rts":
+                JSONArray rtsArray = (JSONArray) new JSONObject(new JSONObject(jsonArray.get(Integer.parseInt(index)).toString()).get("value").toString()).get("footprint");
+                for (int i = 0; i < entries.size(); i++) {
+                    isExist = false;
+                    for (int j = 0; j < rtsArray.length(); j++) {
+                        if (entries.get(i).type.equals("OUTER")) {
+                            if (entries.get(i).compareTypeOperElement(rtsArray.getJSONObject(j).get("type").toString(),rtsArray.getJSONObject(j).get("oper").toString()))
+                            {
+                                isExist = true;
+                                break;
+                            }
+                        } else if (entries.get(i).type.equals("INNER")) {
+                            if (rtsArray.getJSONObject(j).has("param") && rtsArray.getJSONObject(j).has("full_values") && entries.get(i).compareFullElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString(), rtsArray.getJSONObject(j).get("param").toString(), rtsArray.getJSONObject(j).get("full_values").toString()))
+                            {
+                                isExist = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isExist)
+                        BaseTestUtils.report("The expected " + attribute + " with Value |"+entries.get(i).type+"|"+entries.get(i).oper+"|"+entries.get(i).param+"|"+entries.get(i).values+"| is not equal to actual " + attribute, Reporter.FAIL);
+                }
+                break;
+        }
+    }
 }

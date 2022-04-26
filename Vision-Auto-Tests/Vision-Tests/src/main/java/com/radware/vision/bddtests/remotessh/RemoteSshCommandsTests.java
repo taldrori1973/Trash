@@ -9,6 +9,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.invocation.InvokeMethod;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
@@ -113,7 +114,7 @@ public class RemoteSshCommandsTests extends TestBase {
     @When("^Verify retention task of index aggregation for index \"([a-z]+[-][a-z]+[-][a-z]+)\"(?: with timeOut (\\d+))?$")
     public void verifyADCRetention(String indexName, String timeOut) {
         String[] delimiter = indexName.split("-");
-        String commandToExecute = "/retentionVerification.sh " + delimiter[0] + " " + delimiter[1] + " " + delimiter[2];
+        String commandToExecute = "/uVision_retentionVerification.sh " + delimiter[0] + " " + delimiter[1] + " " + delimiter[2];
 
         try {
             timeOut = timeOut != null ? timeOut : "120";
@@ -188,6 +189,7 @@ public class RemoteSshCommandsTests extends TestBase {
     @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\"(?: with timeOut (\\d+))?$")
     public void runCLICommand(String commandToExecute, ServersManagement.ServerIds serverId, Integer timeOut) {
         try {
+            commandToExecute = (String) InvokeMethod.invokeMethodFromText(commandToExecute);
             timeOut = timeOut != null ? timeOut : CliOperations.DEFAULT_TIME_OUT;
             CliOperations.runCommand(TestBase.serversManagement.getServerById(serverId), commandToExecute, timeOut * 1000);
         } catch (Exception e) {
@@ -271,6 +273,7 @@ public class RemoteSshCommandsTests extends TestBase {
             long startTime = System.currentTimeMillis();
 
             do {
+                commandToExecute = (String) InvokeMethod.invokeMethodFromText(commandToExecute);
                 CliOperations.runCommand(TestBase.serversManagement.getServerById(serverId), commandToExecute, waitForPrompt);
                 String actualResult = CliOperations.lastRow.replace("|", "").trim();
 
@@ -530,7 +533,7 @@ public class RemoteSshCommandsTests extends TestBase {
             f.scp("/home/radware/Scripts/restore_radware_user_uvision.sh",
                     ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/");
             CliOperations.runCommand(serversManagement.getRootServerCLI().get(),
-                    "yes | /restore_radware_user_uvision.sh", CliOperations.DEFAULT_TIME_OUT);
+                    "yes | ./restore_radware_user_uvision.sh", CliOperations.DEFAULT_TIME_OUT);
         }
     }
 

@@ -32,6 +32,7 @@ public class SutService {
     private DevicesDao devicesDao;
     private SetupDao setupDao;
     private SutDao sutDao;
+    private SutDao pairSutDao;
     private ServersDao externalServersDao;
     private EnvironmentsDao environmentsDao;
 
@@ -39,10 +40,11 @@ public class SutService {
         this.modelMapper = new ModelMapper();
         this.devicesDao = DevicesDao.get_instance();
         this.sutDao = SutDao.get_instance();
-        if (this.sutDao.isLoadSimulators()) {
-            this.devicesDao.addSimulatorsBySetId(sutDao.getSimulators());
-        }
+        this.pairSutDao = SutDao.get_pairInstance();
         this.setupDao = SetupDao.get_instance(sutDao.getSetupFileName());
+        if (!(this.setupDao.getSimulators() == null) && !(this.setupDao.getSimulators().equals(""))) {
+            this.devicesDao.addSimulatorsBySetId(setupDao.getSimulators());
+        }
         serverNameDao = sutDao.getServerName();
         this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
         this.environmentsDao = EnvironmentsDao.get_instance();
@@ -59,6 +61,11 @@ public class SutService {
         return this.sutDao.getServerName();
     }
 
+    public SutDao getPairSutDao()
+    {
+        return this.pairSutDao;
+    }
+
     public PairDto getpair() {
         return modelMapper.map(this.sutDao.getPair(), PairDto.class);
     }
@@ -68,13 +75,28 @@ public class SutService {
         return modelMapper.map(clientConfiguration, ClientConfigurationDto.class);
     }
 
+    public ClientConfigurationDto getPairConfigurations() {
+        ClientConfiguration clientConfiguration = this.getPairSutDao().findClientConfiguration();
+        return modelMapper.map(clientConfiguration, ClientConfigurationDto.class);
+    }
+
     public CliConfigurationDto getVisionCliConfigurations() {
         CliConfiguration cliConfiguration = this.sutDao.findCliConfiguration();
         return modelMapper.map(cliConfiguration, CliConfigurationDto.class);
     }
 
+    public CliConfigurationDto getPairCliConfigurations() {
+        CliConfiguration cliConfiguration = this.getPairSutDao().findPairCliConfiguration();
+        return modelMapper.map(cliConfiguration, CliConfigurationDto.class);
+    }
+
     public DeployConfigurationsDto getDeployConfigurations() {
         DeployConfigurations deployConfigurations = this.sutDao.findDeployConfigurations();
+        return modelMapper.map(deployConfigurations, DeployConfigurationsDto.class);
+    }
+
+    public DeployConfigurationsDto getPairDeployConfigurations() {
+        DeployConfigurations deployConfigurations = this.getPairSutDao().findDeployConfigurations();
         return modelMapper.map(deployConfigurations, DeployConfigurationsDto.class);
     }
 

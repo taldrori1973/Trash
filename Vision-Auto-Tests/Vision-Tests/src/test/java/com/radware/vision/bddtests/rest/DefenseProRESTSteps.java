@@ -3,6 +3,7 @@ package com.radware.vision.bddtests.rest;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.automation.invocation.InvokeMethod;
 import com.radware.vision.infra.testresthandlers.DefenseProRESTHandler;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -23,6 +24,8 @@ public class DefenseProRESTSteps {
 
     @Given("^Rest Add Policy \"([^\"]*)\" To DP \"([^\"]*)\" if Not Exist$")
     public void restAddPolicyToDPIfNotExist(String policyName, String dpIp) {
+        if(dpIp.toLowerCase().startsWith("setid"))
+            dpIp = (String) InvokeMethod.invokeMethodFromText(String.format("#getSUTValue(%s);", dpIp));
         DefenseProRESTHandler.addNewPolicy(policyName, dpIp);
     }
 
@@ -55,6 +58,8 @@ public class DefenseProRESTSteps {
 
     @And("^Rest Add new Rule \"([^\"]*)\" in Profile \"([^\"]*)\" to Policy \"([^\"]*)\" to DP \"([^\"]*)\"$")
     public void restAddNewProfileToPolicyToDP(String rule, String profile, String policy, String ip) throws Throwable {
+        if(ip.toLowerCase().startsWith("setid"))
+            ip = (String) InvokeMethod.invokeMethodFromText(String.format("#getSUTValue(%s);", ip));
        DefenseProRESTHandler.addNewProfileToPolicyToIP(rule, profile, policy, ip);
     }
 }

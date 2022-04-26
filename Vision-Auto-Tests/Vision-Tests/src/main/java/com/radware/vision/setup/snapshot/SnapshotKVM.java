@@ -12,14 +12,14 @@ public class SnapshotKVM implements Snapshot {
 
     public SnapshotKVM(String snapshotName) {
         this.snapshotName = snapshotName;
-        String netMask = sutManager.getEnviorement().get().getNetMask();
-        String gateway = sutManager.getEnviorement().get().getGateWay();
-        String primaryDns = sutManager.getEnviorement().get().getDnsServerIp();
-        String physicalManagement = sutManager.getEnviorement().get().getPhysicalManagement();
+        String netMask = sutManager.getEnvironment().get().getNetMask();
+        String gateway = sutManager.getEnvironment().get().getGateWay();
+        String primaryDns = sutManager.getEnvironment().get().getDnsServerIp();
+        String physicalManagement = sutManager.getEnvironment().get().getPhysicalManagement();
         String vmName = sutManager.getServerName();
-        String ip = sutManager.getEnviorement().get().getHostIp();
-        String user = sutManager.getEnviorement().get().getUser();
-        String password = sutManager.getEnviorement().get().getPassword();
+        String ip = sutManager.getEnvironment().get().getHostIp();
+        String user = sutManager.getEnvironment().get().getUser();
+        String password = sutManager.getEnvironment().get().getPassword();
         this.visionRadwareFirstTime = new VisionRadwareFirstTime(user,password,netMask, gateway, primaryDns, physicalManagement, vmName, ip);
     }
 

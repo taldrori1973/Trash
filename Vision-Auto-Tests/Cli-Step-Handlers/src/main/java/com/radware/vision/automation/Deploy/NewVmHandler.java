@@ -35,17 +35,17 @@ public class NewVmHandler extends TestBase {
 
         try {
             //host - vSphere
-            String hostIp = Objects.requireNonNull(sutManager.getEnviorement().orElse(null)).getHostIp();
-            String vmName = sutManager.getEnviorement().orElse(null).getName();
+            String hostIp = Objects.requireNonNull(sutManager.getEnvironment().orElse(null)).getHostIp();
+            String vmName = sutManager.getEnvironment().orElse(null).getName();
 
             //Server - VM
             String hostUser = sutManager.getClientConfigurations().getUserName();
             String hostPassword = sutManager.getClientConfigurations().getPassword();
             String vmIp = sutManager.getClientConfigurations().getHostIp();
-            String netMask = sutManager.getEnviorement().orElse(null).getNetMask();
-            String gateway = sutManager.getEnviorement().orElse(null).getGateWay();
-            String primaryDns = sutManager.getEnviorement().orElse(null).getDnsServerIp();
-            String physicalManagement = sutManager.getEnviorement().orElse(null).getPhysicalManagement();
+            String netMask = sutManager.getEnvironment().orElse(null).getNetMask();
+            String gateway = sutManager.getEnvironment().orElse(null).getGateWay();
+            String primaryDns = sutManager.getEnvironment().orElse(null).getDnsServerIp();
+            String physicalManagement = sutManager.getEnvironment().orElse(null).getPhysicalManagement();
 
             this.visionRadwareFirstTime = new VisionRadwareFirstTime(hostUser, hostPassword, hostIp, netMask, gateway, primaryDns, physicalManagement, vmName, vmIp);
         } catch (Exception var2) {
@@ -80,6 +80,8 @@ public class NewVmHandler extends TestBase {
         try {
             // ToDo - check why setConnectOnInit is true
             this.visionRadwareFirstTime.setConnectOnInit(false);
+            this.visionRadwareFirstTime.setUser(sutManager.getEnvironment().get().getUser());
+            this.visionRadwareFirstTime.setPassword(sutManager.getEnvironment().get().getPassword());
             runCommand(this.visionRadwareFirstTime, "rm -rf " + imagesPath + vmName + ".qcow2");
             runCommand(this.visionRadwareFirstTime, "cd " + imagesPath);
             runCommand(this.visionRadwareFirstTime, "curl -o " + vmName + ".qcow2 " + fileUrl, 60 * 60 * 1000);
@@ -177,7 +179,7 @@ public class NewVmHandler extends TestBase {
                 this.isContained(messages, vmName, specificVisionBuild, version);
                 runCommand(this.visionRadwareFirstTime, "virsh list --all");
                 isShutoff = RegexUtils.isStringContainsThePattern(vmName + ".*shut off.*", lastOutput.trim());
-                runCommand(this.visionRadwareFirstTime, "ping -c 4 " + Objects.requireNonNull(sutManager.getEnviorement().orElse(null)).getHostIp(), 180000, true, false, true, null, true, false);
+                runCommand(this.visionRadwareFirstTime, "ping -c 4 " + Objects.requireNonNull(sutManager.getEnvironment().orElse(null)).getHostIp(), 180000, true, false, true, null, true, false);
                 pingResult = RegexUtils.isStringContainsThePattern("100% packet loss", lastOutput.trim());
                 currentTime = System.currentTimeMillis();
             } while ((isShutoff || pingResult) & currentTime - startTime < maxTimeOut);
@@ -266,7 +268,8 @@ public class NewVmHandler extends TestBase {
 
             try {
                 this.visionRadwareFirstTime.setHost(ip);
-                this.visionRadwareFirstTime.connect();
+                //this.visionRadwareFirstTime.connect();
+                runCommand(this.visionRadwareFirstTime, "", 1200000, true, false, false);
                 // ToDo kvision check what for this lines
                 //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
             } catch (Exception var23) {

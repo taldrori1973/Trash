@@ -2,8 +2,8 @@ package com.radware.vision.bddtests.clioperation.connections;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.test_utils.DeployOva;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
@@ -23,11 +23,11 @@ public class NewVmSteps extends TestBase {
     @Then("^Stop VM Machine$")
     public void StopMachine(DataTable dataTable) {
         List<Map<String, String>> listOfData = dataTable.asMaps(String.class, String.class);
-        String vCenterUser = getSutManager().getEnviorement().get().getUser();
-        String vCenterPassword = getSutManager().getEnviorement().get().getPassword();
-        String hostIp = getSutManager().getEnviorement().get().getHostIp();
-        String vCenterURL = getSutManager().getEnviorement().get().getUrl();
-        String resourcePool = getSutManager().getEnviorement().get().getResourcePool();
+        String vCenterUser = getSutManager().getEnvironment().get().getUser();
+        String vCenterPassword = getSutManager().getEnvironment().get().getPassword();
+        String hostIp = getSutManager().getEnvironment().get().getHostIp();
+        String vCenterURL = getSutManager().getEnvironment().get().getUrl();
+        String resourcePool = getSutManager().getEnvironment().get().getResourcePool();
 
         for (Map<String, String> data : listOfData) {
             try {
@@ -47,13 +47,13 @@ public class NewVmSteps extends TestBase {
 
     @Given("^Remove old VMs$")
     public void removeOldVms(DataTable dataTable) {
-        VisionVMs visionVMs = restTestBase.getVisionVMs();
-        String userName = visionVMs.getUserName();
-        String password = visionVMs.getPassword();
+        EnvironmentDto environmentDto = getSutManager().getEnvironment().get();
+        String userName = environmentDto.getUser();
+        String password = environmentDto.getPassword();
         int deleteMinutes = 24 * 60;
-        String vCenterURL = visionVMs.getvCenterURL();
-        String hostIp = visionVMs.getvCenterIP();
-        String resourcePool = visionVMs.getResourcePool();
+        String vCenterURL = environmentDto.getUrl();
+        String hostIp = environmentDto.getHostIp();
+        String resourcePool = environmentDto.getResourcePool();
         List<Map<String, String>> listOfData = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> data : listOfData) {
             try {

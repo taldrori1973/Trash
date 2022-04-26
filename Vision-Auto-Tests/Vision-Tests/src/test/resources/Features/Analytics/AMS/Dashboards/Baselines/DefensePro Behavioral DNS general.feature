@@ -237,15 +237,16 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-1"
     Then UI Validate Element Existence By Label "Chart" if Exists "false" with value "DNS-A"
 
+
   @SID_15
   Scenario: Validate No Widgets Selected Message
     When UI VRM Clear All Widgets
-    Then UI Validate Element Existence By Label "Repo button" if Exists "true"
-    Then UI Click Button "Repo button"
+    Then UI Validate Element Existence By Label "Repository button" if Exists "true"
+    Then UI Click Button "Repository button"
     Then UI Click Button "Repository Widget" with value "DNS-A"
     Then UI Click Button "Widget Selection.Add Selected Widgets"
     Then UI Click Button "Widget Selection"
-    Then UI Validate Element Existence By Label "Repo button" if Exists "false"
+    Then UI Validate Element Existence By Label "Repository button" if Exists "false"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-A-1"
 
   @SID_16
@@ -256,6 +257,13 @@ Feature: DefensePro Behavioral DNS General Tests
       | Design     | {"Add":[{"DNS-A":["IPv4"]},{"DNS-AAAA":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
       | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                                                  |
       | Format     | Select: PDF                                                                                                                                                                                              |
+    Then Sleep "5"
+    Given UI "Edit" Report With Name "DNS Baselines Report"
+      | reportType | DefensePro Behavioral Protections Dashboard                                                                                                                                        |
+      | Design     | {"Add":[{"DNS-A":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
+      | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                            |
+      | Format     | Select: PDF                                                                                                                                                                        |
+    Then Sleep "5"
     Then UI "Generate" Report With Name "DNS Baselines Report"
       | timeOut | 120 |
     Then UI Click Button "Log Preview" with value "DNS Baselines Report_0"
@@ -263,8 +271,6 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-TXT"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-A"
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-A"
-    Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-AAAA"
-    Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-AAAA"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Min button" if Exists "true" with value "DNS-MX"
     Then UI Validate Element Existence By Label "Max button" if Exists "true" with value "DNS-NAPTR"

@@ -1,4 +1,5 @@
 {
+  "simulatorSet" : "sim_set_2",
   "setupId": "ADC_2",
   "tree": {
     "sites": [

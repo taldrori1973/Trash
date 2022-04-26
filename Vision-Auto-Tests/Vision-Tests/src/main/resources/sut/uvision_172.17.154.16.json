@@ -1,8 +1,6 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_AMS_6.json",
   "serverName": "uVision",
-  "simulatorSet" : "sim_set_2",
-  "loadSimulators" : "true",
   "deployConfigurations": {
     "snapshot": "Current-1",
     "setupMode": "upgrade",

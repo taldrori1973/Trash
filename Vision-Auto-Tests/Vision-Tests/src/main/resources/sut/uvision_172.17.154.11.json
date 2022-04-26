@@ -1,8 +1,7 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_AMS_2.json",
   "serverName": "uVision",
-  "simulatorSet" : "",
-  "loadSimulators" : "false",
+  "defenseFlow": "DF_172.17.154.50",
   "deployConfigurations": {
     "snapshot": "Current-1",
     "setupMode": "upgrade",

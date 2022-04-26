@@ -1,4 +1,5 @@
 {
+  "simulatorSet" : "",
   "setupId": "AMS_1",
   "tree": {
     "sites": [
@@ -9,6 +10,10 @@
       {
         "parentSite": "Default",
         "name": "VA_DPs_Version_8_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "AW_site"
       }
     ],
     "devices": [
@@ -25,12 +30,20 @@
         "parentSite": "VA_DPs_Version_8_site"
       },
       {
-        "deviceId": "DefensePro_50.50.7.1",
-        "parentSite": "VA_DPs_Version_8_site"
+        "deviceId": "DefensePro_172.17.50.50",
+        "parentSite": "Default"
       },
       {
-        "deviceId": "DefensePro_50.50.7.2",
-        "parentSite": "VA_DPs_Version_8_site"
+        "deviceId": "DefensePro_50.50.7.1",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId":  "Alteon_172.16.100.103",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "AppWall_172.17.164.30",
+        "parentSite": "AW_site"
       }
     ]
   },

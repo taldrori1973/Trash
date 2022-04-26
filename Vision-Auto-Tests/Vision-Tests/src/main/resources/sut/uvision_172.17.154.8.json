@@ -1,14 +1,14 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_AMS_6.json",
   "serverName": "uvision_auto",
   "deployConfigurations": {
-    "snapshot": "",
+    "snapshot": "Current-1",
     "setupMode": "kvm_upgrade_inparallel",
     "environment": "KVM-217"
   },
   "pair": {
-    "pairIp": "172.17.154.30",
-    "environment": "OVA-235"
+    "pairIp": "",
+    "environment": ""
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.8",

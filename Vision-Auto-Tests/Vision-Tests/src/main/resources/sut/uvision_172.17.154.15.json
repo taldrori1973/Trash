@@ -1,6 +1,6 @@
 {
-  "setupFile": "fullSetup.json",
-  "serverName": "uVision",
+  "setupFile": "Setup_AMS_4.json",
+  "serverName": "uvision_auto",
   "deployConfigurations": {
     "snapshot": "Current-1",
     "setupMode": "fresh install",

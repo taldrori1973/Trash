@@ -7,7 +7,6 @@ Feature: HTTPS Flood CSV Report
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
     * REST Delete ES index "dp-*"
-    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and halt 185 seconds
 
   @SID_2
   Scenario: keep reports copy on file system
@@ -20,6 +19,7 @@ Feature: HTTPS Flood CSV Report
 
   @SID_3
   Scenario: Clear Database and old reports on file-system
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c \"rm /usr/local/tomcat/VRM_report*\"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
 
@@ -34,15 +34,14 @@ Feature: HTTPS Flood CSV Report
   Scenario:Login and Navigate to HTTPS Server Dashboard
     Then UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
-    And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.50"}},"script":{"source":"ctx._source.endTime='$(date +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    Given Rest Add Policy "pol1" To DP "setID:DefensePro_Set_2" if Not Exist
+    And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "setID:DefensePro_Set_2"
+    When CLI Run remote linux Command "curl -H "Content-Type: application/json" -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"#getSUTValue(setID:DefensePro_Set_2);"}},"script":{"source":"ctx._source.endTime='$(date +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
 
 
   @SID_6
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
     Given CLI simulate 2 attacks of type "HTTPS" on SetId "DefensePro_Set_2" with loopDelay 5000 and wait 60 seconds
-
 
 
   @SID_7
@@ -53,20 +52,20 @@ Feature: HTTPS Flood CSV Report
   @SID_8
   Scenario:  Add Report with HTTPS template
     Given UI "Create" Report With Name "Report HTTPS template"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-      | Format                | Select: CSV                                                                                                                |
-      | Time Definitions.Date | Quick:1H                                                                                                                    |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[test-DefensePro_#getSUTValue(setID:DefensePro_Set_2);-pol1] |
+      | Format                | Select: CSV                                                                                                             |
+      | Time Definitions.Date | Quick:1H                                                                                                                |
     Then UI "Validate" Report With Name "Report HTTPS template"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-      | Format                | Select: CSV                                                                                                                |
-      | Time Definitions.Date | Quick:1H                                                                                                                    |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[test-DefensePro_#getSUTValue(setID:DefensePro_Set_2);-pol1] |
+      | Format                | Select: CSV                                                                                                             |
+      | Time Definitions.Date | Quick:1H                                                                                                                |
 
 
   @SID_9
   Scenario: Validate delivery card and generate report
 
     Then UI "Generate" Report With Name "Report HTTPS template"
-      | timeOut | 60 |
+      | timeOut | 120 |
 
 
   @SID_10

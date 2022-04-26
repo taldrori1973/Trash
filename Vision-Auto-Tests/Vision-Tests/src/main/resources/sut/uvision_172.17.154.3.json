@@ -1,8 +1,6 @@
 {
-  "setupFile": "fullSetup.json",
+  "setupFile": "Setup_AMS_2.json",
   "serverName": "uvision_auto",
-  "simulatorSet" : "",
-  "loadSimulators" : "false",
   "genericLinuxID":"linuxFileServer",
   "deployConfigurations": {
     "snapshot": "Current-1",
@@ -10,8 +8,8 @@
     "environment": "OVA-220"
   },
   "pair": {
-    "pairIp": "172.17.164.101",
-    "environment": "KVM-217"
+    "pairIp": "",
+    "environment": ""
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.3",

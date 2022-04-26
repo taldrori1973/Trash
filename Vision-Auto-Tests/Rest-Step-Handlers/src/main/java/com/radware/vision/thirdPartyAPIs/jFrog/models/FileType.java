@@ -6,21 +6,17 @@ package com.radware.vision.thirdPartyAPIs.jFrog.models;
  * Time: 2:58 PM
  */
 public enum FileType {
-//    OVA("ova"),
-    OVA("\\d(.*)-(.*)-D-\\d(.*)-(.*)-C-(.*).ova"),
+    OVA(".*-D-\\d(.*)-(.*)-C-(.*).ova"),
+    QCOW2(".*-D-\\d(.*)-(.*)-C-(.*).qcow2"),
+    UPGRADE(".*-(.*)-D-\\d(.*)-(.*)-C-(.*).tar.gz"),
+    //TODO still not supported
     OVA_BASIC("Vision-\\d(.*)_Basic.ova"),
-    OVA_APM("Vision-with-APM-\\d(.*)_prod.ova"),
-    UPGRADE("upgrade-\\d(.*)-(.*)-D-\\d(.*)-(.*)-C-(.*).tar.gz"),
-    UPGRADE_APM("Upgrade_Vision-with-APM-\\d(.*).upgrade"),
     ODSVL2("Vision-\\d(.*)-usb-boot-ODSVL2-\\d(.*).tar.gz"),
     KVM("Vision-\\d(.*).KVM_\\d(.*)_prod.qcow2"),
-    KVM_APM("Vision-with-APM-\\d(.*).KVM_\\d(.*)_prod.qcow2"),
     ISO_USB("APSoluteVision-USB-\\d(.*)-x86_64.iso "),
-    ISO_SERIAL("APSoluteVision-Serial_console-\\d(.*)-x86_64.iso"),
-    QCOW2("\\d(.*)-(.*)-D-\\d(.*)-(.*)-C-(.*).qcow2");
+    ISO_SERIAL("APSoluteVision-Serial_console-\\d(.*)-x86_64.iso");
 
     private String extension;
-    private String fileName;
     FileType(String extension) {
         this.extension = extension;
     }
@@ -31,15 +27,5 @@ public enum FileType {
 
     public void setExtension(String extension) {
         this.extension = extension;
-    }
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-//    public String getFileName() {
-//        return extension;
-//    }
-
-    public boolean isContained(String substring) {
-        return extension.contains(substring);
     }
 }

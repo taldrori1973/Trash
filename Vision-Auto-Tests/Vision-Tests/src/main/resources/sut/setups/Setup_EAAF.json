@@ -1,0 +1,28 @@
+{
+  "simulatorSet" : "sim_dp_set_1",
+  "loadSimulators" : "true",
+  "setupId": "Setup_EAAF",
+  "tree": {
+    "sites": [
+      {
+        "parentSite": "Default",
+        "name": "Alteons_for_DPM-Fakes"
+      }
+    ],
+    "devices": [
+      {
+        "deviceId": "Alteon_Fake_0",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_Fake_1",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_Fake_2",
+        "parentSite": "Alteons_for_DPM-Fakes"
+      }
+    ]
+  },
+  "defenseFlowId": null
+}

@@ -101,14 +101,11 @@ Feature: DFGenerateReport
     Then UI Validate generate report with name "DF Report" is exist
 
   @SID_9 @Sanity
-  Scenario: Change DF management IP to IP of DefenseFlow
+  Scenario: Change DF management IP to DefenseFlow IP
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
       | #dfIP                          |
-
-  @SID_10
-  Scenario: start IPTABLES
-    #Then CLI Run remote linux Command "service iptables start" on "ROOT_SERVER_CLI"
+    Then Wait For PO's appearance timeout 10 minutes
 
 
 

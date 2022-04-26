@@ -9,34 +9,29 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import java.util.Arrays;
 
 import static com.radware.vision.automation.base.TestBase.getSutManager;
-import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 
 public class FreshInstallOVA extends FreshInstall {
     private FileType fileType = FileType.OVA;
 
-    public FreshInstallOVA(boolean isExtended, String build) {
-        super(isExtended, build, TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.OVA);
-    }
-
-    public FileType getOvaType() {
-        return fileType;
+    public FreshInstallOVA() {
+        super(TestBase.restTestBase.getVisionRestClient().getDeviceIp(), FileType.OVA);
     }
 
     @Override
     public void deploy() {
         // init firstTimeWizardOva parameters
-        String vmName = getSutManager().getServerName();
+        String vmName = String.format("%s_%s", getSutManager().getServerName(), getSutManager().getClientConfigurations().getHostIp());
         if (vmName == null) {
             BaseTestUtils.report("Can't find \"vmPrefix\" at SUT File", Reporter.FAIL);
         }
         boolean isAPM = false;//this.fileType.isContained("APM");
-        String vCenterUser = getSutManager().getEnviorement().get().getUser();
-        String vCenterPassword = getSutManager().getEnviorement().get().getPassword();
-        String hostIp = getSutManager().getEnviorement().get().getHostIp();
-        String vCenterURL = getSutManager().getEnviorement().get().getUrl();
-        String networkName = getSutManager().getEnviorement().get().getNetworkName();
-        String resourcePool = getSutManager().getEnviorement().get().getResourcePool();
-        String dataStores = getSutManager().getEnviorement().get().getDataStores();
+        String vCenterUser = getSutManager().getEnvironment().get().getUser();
+        String vCenterPassword = getSutManager().getEnvironment().get().getPassword();
+        String hostIp = getSutManager().getEnvironment().get().getHostIp();
+        String vCenterURL = getSutManager().getEnvironment().get().getUrl();
+        String networkName = getSutManager().getEnvironment().get().getNetworkName();
+        String resourcePool = getSutManager().getEnvironment().get().getResourcePool();
+        String dataStores = getSutManager().getEnvironment().get().getDataStores();
         NewVmHandler vmHandler = new NewVmHandler();
         try {
             vmHandler.firstTimeWizardOva(super.getBuildFileInfo().getDownloadUri().toString(), isAPM, vCenterURL, vCenterUser, vCenterPassword, hostIp,

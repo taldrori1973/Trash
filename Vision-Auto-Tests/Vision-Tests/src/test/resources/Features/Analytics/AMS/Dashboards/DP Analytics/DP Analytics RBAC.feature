@@ -5,12 +5,7 @@ Feature: DP ANALYTICS RBAC
   Scenario: Clean system attacks,database and logs
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     * CLI kill all simulator attacks on current vision
-    # wait until collector cache clean up
     * Sleep "15"
-#    * REST Delete ES index "dp-traffic-*"
-#    * REST Delete ES index "dp-https-stats-*"
-#    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -18,41 +13,40 @@ Feature: DP ANALYTICS RBAC
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_3" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_4" with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_5" and wait 240 seconds with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" and wait 240 seconds with attack ID
 
 
   @SID_3
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then Sleep "5"
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
+    Then Sleep "3"
 
   @SID_4
   Scenario:Analytics RBAC sys_admin user
     Then UI Validate StackBar data with widget "Attacks by Protection Policy"
       | legendName       | label                          | value |
-      | shlomi           | TCP Mid Flow packet            | 15    |
-      | shlomchik        | BWM Limit Alert                | 9     |
-      | Packet Anomalies | Incorrect IPv4 checksum        | 9     |
-      | policy1          | TCP Scan (vertical)            | 6     |
-      | policy1          | SYN Flood HTTP                 | 6     |
-      | Black_IPV6       | Black List                     | 6     |
-      | BDOS             | DOSS-Anomaly-TCP-SYN-RST       | 6     |
-      | BDOS             | DNS flood IPv4 DNS-A           | 3     |
-      | BDOS             | network flood IPv4 TCP-SYN-ACK | 3     |
-      | BDOS             | tim                            | 3     |
-      | 1                | DNS flood IPv4 DNS-A           | 6     |
-      | POL_IPV6         | network flood IPv6 TCP-SYN-ACK | 3     |
-      | POL_IPV6         | network flood IPv6 UDP         | 3     |
+      | shlomi           | TCP Mid Flow packet            | 10    |
+      | shlomchik        | BWM Limit Alert                | 6     |
+      | Packet Anomalies | Incorrect IPv4 checksum        | 6     |
+      | policy1          | TCP Scan (vertical)            | 4     |
+      | policy1          | SYN Flood HTTP                 | 4     |
+      | Black_IPV6       | Black List                     | 4     |
+      | BDOS             | DOSS-Anomaly-TCP-SYN-RST       | 4     |
+      | BDOS             | DNS flood IPv4 DNS-A           | 2     |
+      | BDOS             | network flood IPv4 TCP-SYN-ACK | 2     |
+      | BDOS             | tim                            | 2     |
+      | 1                | DNS flood IPv4 DNS-A           | 4     |
+      | POL_IPV6         | network flood IPv6 TCP-SYN-ACK | 2     |
+      | POL_IPV6         | network flood IPv6 UDP         | 2     |
     Then UI Total "Attacks by Protection Policy" legends equal to 10
 
 
-    Then UI Text of "Device Selection" equal to "DEVICES5/5"
-    Then UI Text of "UpDevices" equal to "5"
+    Then UI Text of "Device Selection" equal to "DEVICES4/4"
+    Then UI Text of "UpDevices" equal to "4"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
     When UI Click Button "Device Selection"
@@ -60,12 +54,12 @@ Feature: DP ANALYTICS RBAC
       | setId            | polices                | total |
       | DefensePro_Set_1 | Policy14,Policy15,BDOS | All   |
       | DefensePro_Set_2 | pol_1,policy_3         | All   |
-      | DefensePro_Set_3 | Ahlam69                | All   |
+
     When UI VRM Select device from dashboard
       | setId |
-    Then UI Text of "Device Selection.Available Devices header" contains "Devices5/5"
-    Then UI VRM Total Available Device's 5
-    * UI Logout
+    Then UI Text of "Device Selection.Available Devices header" contains "Devices4/4"
+    Then UI VRM Total Available Device's 4
+    * UI logout and close browser
 
     ### see DE39973 WNBF
 
@@ -125,7 +119,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    * UI Logout
+    * UI logout and close browser
 
   @SID_6
   Scenario: Analytics RBAC sec_mon_DP50_policy1 user search options
@@ -149,7 +143,7 @@ Feature: DP ANALYTICS RBAC
     Then UI VRM Total Available Device's 0
     When UI Set Text Field "Device Selection.Search" To "DPs_version_8_LogicalGroup"
     Then UI VRM Total Available Device's 0
-    * UI Logout
+    * UI logout and close browser
 
   @SID_7
   Scenario:Analytics RBAC sec_mon_all_pol user
@@ -186,7 +180,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_8
   Scenario:Analytics RBAC sec_admin_all_pol user
@@ -223,7 +217,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_9
   Scenario: Analytics RBAC sec_mon_BDOS user
@@ -253,7 +247,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_10
   Scenario: Analytics RBAC sec_admin_all_pol_51 user
@@ -284,13 +278,13 @@ Feature: DP ANALYTICS RBAC
     When UI Click Button "Device Selection"
     Then UI VRM Validate Devices policies
       | setId            | polices | total |
-      | DefensePro_Set_2 | pol1 | ALl   |
+      | DefensePro_Set_2 | pol1    | ALl   |
 
     When UI VRM Select device from dashboard
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_11
   Scenario: Analytics RBAC sec_mon_DP50_POL_IPV6 user
@@ -298,7 +292,7 @@ Feature: DP ANALYTICS RBAC
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-    And Sleep "3"
+    And Sleep "5"
     Then UI Validate StackBar data with widget "Attacks by Protection Policy"
       | legendName | label                          | value |
       | POL_IPV6   | network flood IPv6 TCP-SYN-ACK | 1     |
@@ -318,7 +312,7 @@ Feature: DP ANALYTICS RBAC
       | setId |
     Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
     Then UI VRM Total Available Device's 1
-    Then UI Logout
+    * UI logout and close browser
 
   @SID_12
   Scenario: Analytics RBAC sec_admin_DP50_policy1 user

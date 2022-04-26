@@ -63,8 +63,8 @@ Feature: DefenseFlow CSV Forensics
       | Protected Objects     | All                                                                                                                                                                                                                                                                                                           |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Format                | Select: CSV                                                                                                                                                                                                                                                                                                   |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                                                                                                                                                                                                                            |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                                                                                              |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                                                                                                                                                                                                                            |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
 
   @SID_6
@@ -271,8 +271,8 @@ Feature: DefenseFlow CSV Forensics
       | Protected Objects     | All                                                                                                                                                                                                                                                                                                           |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Format                | Select: CSV                                                                                                                                                                                                                                                                                                   |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                                                                                                                                                                                                                            |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                                                                                              |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                                                                                                                                                                                                                            |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                   |
  
@@ -358,7 +358,7 @@ Feature: DefenseFlow CSV Forensics
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Format                | Select: CSV                                                                                                                                                                                                                                                                                       |
       | Share                 | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                                                                                                                                                                               |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                                                                                                                                                                                                                |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden                                                                                                                                                                                                                                |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                       |
   
   @SID_32
@@ -392,10 +392,11 @@ Feature: DefenseFlow CSV Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow_with_Share_Email"
 
   @SID_37
-  Scenario: Change DF management IP to IP of DefenseFlow
+  Scenario: Change DF management IP to DefenseFlow IP
     When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
       | "system df management-ip set " |
       | #dfIP                          |
+    Then Wait For PO's appearance timeout 10 minutes
 
   @SID_38
   Scenario: Logout
