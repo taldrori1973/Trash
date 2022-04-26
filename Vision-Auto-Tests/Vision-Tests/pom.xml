@@ -240,7 +240,7 @@
                                 <artifactItem>
                                     <groupId>com.radware.automation</groupId>
                                     <artifactId>automation-web-elements-infra</artifactId>
-                                    <version>ALTDPVISION-${artifact-type}-SNAPSHOT</version>
+                                    <version>ALTDPVISION-DEVELOPMENT-SNAPSHOT</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.basedir}\target\classes</outputDirectory>
@@ -250,7 +250,7 @@
                                 <artifactItem>
                                     <groupId>com.radware.automation</groupId>
                                     <artifactId>automation-web-driver-infra</artifactId>
-                                    <version>master-${artifact-type}-SNAPSHOT</version>
+                                    <version>master-DEVELOPMENT-SNAPSHOT</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.basedir}\target\classes</outputDirectory>

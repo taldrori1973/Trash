@@ -152,7 +152,7 @@
             <dependency>
                 <groupId>com.radware.automation</groupId>
                 <artifactId>automation-web-elements-infra</artifactId>
-                <version>ALTDPVISION-${artifact-type}-SNAPSHOT</version>
+                <version>ALTDPVISION-DEVELOPMENT-SNAPSHOT</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.jsystemtest</groupId>
@@ -299,25 +299,25 @@
             <dependency>
                 <groupId>com.radware.vision.automation.tools</groupId>
                 <artifactId>bdd-tools</artifactId>
-                <version>${artifact-type}-1.0-SNAPSHOT</version>
+                <version>DEVELOPMENT-1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>com.radware.vision.automation.tools</groupId>
                 <artifactId>centralreporting</artifactId>
-                <version>${artifact-type}-1.0-SNAPSHOT</version>
+                <version>DEVELOPMENT-1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>com.radware.vision.automation.tools</groupId>
                 <artifactId>esxi-tool</artifactId>
-                <version>${artifact-type}-1.0-SNAPSHOT</version>
+                <version>DEVELOPMENT-1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>com.radware.vision.automation.tools</groupId>
                 <artifactId>exceptions</artifactId>
-                <version>${artifact-type}-1.0-SNAPSHOT</version>
+                <version>DEVELOPMENT-1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
@@ -329,13 +329,13 @@
             <dependency>
                 <groupId>com.radware.vision.automation.tools</groupId>
                 <artifactId>mail-service</artifactId>
-                <version>${artifact-type}-1.0-SNAPSHOT</version>
+                <version>DEVELOPMENT-1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>com.radware.vision.automation.tools</groupId>
                 <artifactId>sut-system-objects</artifactId>
-                <version>${artifact-type}-1.0-SNAPSHOT</version>
+                <version>DEVELOPMENT-1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
@@ -520,21 +520,21 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>production</id>
-            <properties>
-                <artifact-type>PRODUCTION</artifact-type>
-            </properties>
-        </profile>
+<!--        <profile>-->
+<!--            <id>production</id>-->
+<!--            <properties>-->
+<!--                <artifact-type>PRODUCTION</artifact-type>-->
+<!--            </properties>-->
+<!--        </profile>-->
 
-        <profile>
-            <id>development</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <artifact-type>DEVELOPMENT</artifact-type>
-            </properties>
-        </profile>
+<!--        <profile>-->
+<!--            <id>development</id>-->
+<!--            <activation>-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
+<!--            <properties>-->
+<!--                <artifact-type>DEVELOPMENT</artifact-type>-->
+<!--            </properties>-->
+<!--        </profile>-->
     </profiles>
 </project>
