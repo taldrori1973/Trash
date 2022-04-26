@@ -1,3 +1,4 @@
+#@Debug
 @TC126163
 Feature: BDoS Attack Lifecycle
 
@@ -21,6 +22,7 @@ Feature: BDoS Attack Lifecycle
 #    Given CLI simulate 1 attacks of type "MR_150pol_10attacks_interval5" on SetId "DefensePro_Set_8" and wait 90 seconds
 #    Given CLI simulate 1 attacks of type "MR_200_war" on SetId "DefensePro_Set_8" and wait 90 seconds
     Given CLI simulate 2 attacks of type "vrm_bdos" on SetId "DefensePro_Set_1" and wait 90 seconds
+#    * CLI kill all simulator attacks on current vision
 
 #    Given CLI simulate 100 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_8" and wait 90 seconds
 
