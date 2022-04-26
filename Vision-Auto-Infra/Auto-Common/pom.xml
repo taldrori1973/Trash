@@ -37,5 +37,11 @@
             <groupId>com.radware.vision.automation.rest</groupId>
             <artifactId>testinfra</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>SaproCommunication</groupId>
+            <artifactId>saprocommunication</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

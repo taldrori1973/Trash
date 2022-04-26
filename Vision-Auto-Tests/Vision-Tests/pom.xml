@@ -92,11 +92,6 @@
         </dependency>
 
         <dependency>
-            <groupId>SaproCommunication</groupId>
-            <artifactId>saprocommunication</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Database-Step-Handlers</artifactId>
         </dependency>
