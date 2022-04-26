@@ -12,7 +12,6 @@
     <artifactId>Vision-Auto-Infra</artifactId>
     <name>Vision-Auto-Infra</name>
     <packaging>pom</packaging>
-
     <modules>
         <module>Rest-Infra</module>
         <module>Webui-Infra</module>
@@ -20,4 +19,5 @@
         <module>Auto-Common</module>
         <module>Database-Infra</module>
     </modules>
+
 </project>
