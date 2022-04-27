@@ -96,6 +96,13 @@
         </repository>
     </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>Top-Q_plugin_repo</id>
+            <url>http://hudson.corp.radware.com:8081/artifactory/Maven-Remote_topq</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <distributionManagement>
         <snapshotRepository>
             <id>bld-artifactory</id>
@@ -268,6 +275,81 @@
                 <groupId>com.radware.vision.automation.tools</groupId>
                 <artifactId>sut-system-objects</artifactId>
                 <version>${artifact-type}-1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.automation</groupId>
+                <artifactId>automation-web-elements-infra</artifactId>
+                <version>ALTDPVISION-${artifact-type}-SNAPSHOT</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.jsystemtest</groupId>
+                        <artifactId>jsystemCore</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.radware.automation</groupId>
+                        <artifactId>jbehave-radware</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.jsystemtest</groupId>
+                        <artifactId>jsystemAgent</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation.tools</groupId>
+                <artifactId>esxi-tool</artifactId>
+                <version>${artifact-type}-1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation.tools</groupId>
+                <artifactId>centralreporting</artifactId>
+                <version>${artifact-type}-1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation.tools</groupId>
+                <artifactId>mail-service</artifactId>
+                <version>${artifact-type}-1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+            </dependency>
+
+            <dependency>
+                <groupId>il.co.topq.difido</groupId>
+                <artifactId>difido-reports-common</artifactId>
+                <version>2.0.04</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation.localization-infra</groupId>
+                <artifactId>localization</artifactId>
+                <version>${localization.base}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation.tools</groupId>
+                <artifactId>exceptions</artifactId>
+                <version>${artifact-type}-1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>Database-Step-Handlers</artifactId>
+                <version>${revision}</version>
+                <scope>compile</scope>
             </dependency>
 
         </dependencies>

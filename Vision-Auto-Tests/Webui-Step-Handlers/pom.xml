@@ -16,36 +16,17 @@
 
     <repositories>
 
-
     </repositories>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>bld-artifactory</id>
-            <name>hudson-snapshots</name>
-            <url>http://bldartifactory:8081/artifactory/list/auto-vision-snapshot-local/</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>Top-Q_plugin_repo</id>
-            <url>http://hudson.corp.radware.com:8081/artifactory/Maven-Remote_topq</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencies>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Utils</artifactId>
-            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.automation</groupId>
             <artifactId>automation-web-elements-infra</artifactId>
-            <version>ALTDPVISION-${artifact-type}-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jsystemtest</groupId>
@@ -65,43 +46,36 @@
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>esxi-tool</artifactId>
-            <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>sut-system-objects</artifactId>
-            <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>CLI-Infra</artifactId>
-            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>utils</artifactId>
-            <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>centralreporting</artifactId>
-            <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>mail-service</artifactId>
-            <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation.rest</groupId>
             <artifactId>testinfra</artifactId>
-            <version>${rest.base}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.radware</groupId>
@@ -134,13 +108,11 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
         </dependency>
 
         <dependency>
             <groupId>il.co.topq.difido</groupId>
             <artifactId>difido-reports-common</artifactId>
-            <version>2.0.04</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>
@@ -152,19 +124,16 @@
         <dependency>
             <groupId>com.radware.vision.automation.localization-infra</groupId>
             <artifactId>localization</artifactId>
-            <version>${localization.base}</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>exceptions</artifactId>
-            <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation.cli</groupId>
             <artifactId>vision-infra</artifactId>
-            <version>${cli.base}</version>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
@@ -176,14 +145,12 @@
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Database-Step-Handlers</artifactId>
-            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Common</artifactId>
-            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -192,7 +159,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -202,7 +168,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12.4</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
@@ -210,22 +175,4 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>production</id>
-            <properties>
-                <artifact-type>PRODUCTION</artifact-type>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>development</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <artifact-type>DEVELOPMENT</artifact-type>
-            </properties>
-        </profile>
-    </profiles>
 </project>
