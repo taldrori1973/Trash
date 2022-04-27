@@ -1,4 +1,4 @@
-@PasswordPolicy2
+@PasswordPolicy2 @TC126263
 Feature: Verify Password Policy feature where user is assigned to multiple roles and accepts password policy of higher rank
 
   Scenario: Create 2 new password policies for different roles

@@ -1,4 +1,4 @@
-@ADSAnalytics
+@ADSAnalytics @TC126268
 Feature: Verify ADS Analytics Screen
 
   Scenario: Login And Navigate to ADS Analytics Screen

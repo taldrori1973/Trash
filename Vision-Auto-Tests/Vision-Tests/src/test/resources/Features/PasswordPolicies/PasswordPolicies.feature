@@ -1,4 +1,4 @@
-@PasswordPolicy
+@PasswordPolicy @TC126263
 Feature: Verify Password Policy feature
 
   Scenario: Create new password policy for a role

@@ -1,4 +1,4 @@
-@AMSAnalytics
+@AMSAnalytics @TC126267
 Feature: Verify AMS Analytics Screen
 
 #  Scenario: Run DP simulator PCAPs
