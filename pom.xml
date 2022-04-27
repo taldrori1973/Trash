@@ -239,6 +239,19 @@
                 <artifactId>testng</artifactId>
                 <version>6.10</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation.cli</groupId>
+                <artifactId>vision-infra</artifactId>
+                <version>${cli.base}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>Auto-Common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
