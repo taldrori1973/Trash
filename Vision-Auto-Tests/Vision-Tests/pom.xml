@@ -12,61 +12,56 @@
     <name>Vision-Tests</name>
     <artifactId>Vision-Tests</artifactId>
 
-    <properties>
-    </properties>
-    <repositories>
-        <repository>
-            <id>DEVTOOLS_MAVEN</id>
-            <name>DEVTOOLS_MAVEN</name>
-            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN</url>
-        </repository>
-    </repositories>
+<!--    <properties>-->
+<!--    </properties>-->
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>DEVTOOLS_MAVEN</id>-->
+<!--            <name>DEVTOOLS_MAVEN</name>-->
+<!--            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>bld-artifactory</id>
-            <name>hudson-snapshots</name>
-            <url>http://bldartifactory:8081/artifactory/list/auto-vision-snapshot-local/</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
+<!--    <distributionManagement>-->
+<!--        <snapshotRepository>-->
+<!--            <id>bld-artifactory</id>-->
+<!--            <name>hudson-snapshots</name>-->
+<!--            <url>http://bldartifactory:8081/artifactory/list/auto-vision-snapshot-local/</url>-->
+<!--            <uniqueVersion>true</uniqueVersion>-->
+<!--        </snapshotRepository>-->
+<!--    </distributionManagement>-->
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>Top-Q_plugin_repo</id>
-            <url>http://hudson.corp.radware.com:8081/artifactory/Maven-Remote_topq</url>
-        </pluginRepository>
-    </pluginRepositories>
+<!--    <pluginRepositories>-->
+<!--        <pluginRepository>-->
+<!--            <id>Top-Q_plugin_repo</id>-->
+<!--            <url>http://hudson.corp.radware.com:8081/artifactory/Maven-Remote_topq</url>-->
+<!--        </pluginRepository>-->
+<!--    </pluginRepositories>-->
 
     <dependencies>
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>bdd-tools</artifactId>
-            <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Utils</artifactId>
-            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>CLI-Infra</artifactId>
-            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Rest-Step-Handlers</artifactId>
-            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>radwareDefensePro</groupId>
             <artifactId>radwareDefensePro</artifactId>
-            <version>1.0-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
@@ -78,7 +73,6 @@
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${revision}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com</groupId>
@@ -94,25 +88,21 @@
          <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Cli-Step-Handlers</artifactId>
-            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
         </dependency>
 
         <dependency>
             <groupId>org.jsystemtest</groupId>
             <artifactId>jsystemAgent</artifactId>
-            <version>${jsystem.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.jsystemtest</groupId>
             <artifactId>jsystem-maven-plugin</artifactId>
-            <version>${jsystem.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>asm-commons</artifactId>
@@ -144,33 +134,28 @@
         <dependency>
             <groupId>com.radware.automation.defensepro.infra.utils</groupId>
             <artifactId>radwareGeneric</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
 
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>SaproCommunication</groupId>
             <artifactId>saprocommunication</artifactId>
-            <version>V190</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Database-Step-Handlers</artifactId>
-            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Common</artifactId>
-            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
 

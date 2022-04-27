@@ -352,6 +352,48 @@
                 <scope>compile</scope>
             </dependency>
 
+            <dependency>
+                <groupId>radwareDefensePro</groupId>
+                <artifactId>radwareDefensePro</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>Webui-Step-Handlers</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>Cli-Step-Handlers</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+                <version>1.4.01</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jsystemtest</groupId>
+                <artifactId>jsystemAgent</artifactId>
+                <version>${jsystem.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jsystemtest</groupId>
+                <artifactId>jsystem-maven-plugin</artifactId>
+                <version>${jsystem.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.automation.defensepro.infra.utils</groupId>
+                <artifactId>radwareGeneric</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
