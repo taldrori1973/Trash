@@ -177,20 +177,20 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/lib</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>install</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy-dependencies</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>${project.basedir}/lib</outputDirectory>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -206,61 +206,61 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>create-empty-directory</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="${basedir}/target/classes/clientdevicedrivers"/>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-antrun-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>create-empty-directory</id>-->
+<!--                        <phase>process-classes</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>run</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <tasks>-->
+<!--                                <mkdir dir="${basedir}/target/classes/clientdevicedrivers"/>-->
+<!--                            </tasks>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.radware.automation</groupId>
-                                    <artifactId>automation-web-elements-infra</artifactId>
-                                    <version>ALTDPVISION-DEVELOPMENT-SNAPSHOT</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>
-                                    <includes>**/*.js</includes>
-                                </artifactItem>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>unpack</id>-->
+<!--                        <phase>install</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>unpack</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <artifactItems>-->
+<!--                                <artifactItem>-->
+<!--                                    <groupId>com.radware.automation</groupId>-->
+<!--                                    <artifactId>automation-web-elements-infra</artifactId>-->
+<!--                                    <version>ALTDPVISION-DEVELOPMENT-SNAPSHOT</version>-->
+<!--                                    <type>jar</type>-->
+<!--                                    <overWrite>false</overWrite>-->
+<!--                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>-->
+<!--                                    <includes>**/*.js</includes>-->
+<!--                                </artifactItem>-->
 
-                                <artifactItem>
-                                    <groupId>com.radware.automation</groupId>
-                                    <artifactId>automation-web-driver-infra</artifactId>
-                                    <version>master-DEVELOPMENT-SNAPSHOT</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>
-                                    <includes>**/*driver*</includes>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--                                <artifactItem>-->
+<!--                                    <groupId>com.radware.automation</groupId>-->
+<!--                                    <artifactId>automation-web-driver-infra</artifactId>-->
+<!--                                    <version>master-DEVELOPMENT-SNAPSHOT</version>-->
+<!--                                    <type>jar</type>-->
+<!--                                    <overWrite>false</overWrite>-->
+<!--                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>-->
+<!--                                    <includes>**/*driver*</includes>-->
+<!--                                </artifactItem>-->
+<!--                            </artifactItems>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
             <!--            Copy resource files to output folders-->
             <plugin>
