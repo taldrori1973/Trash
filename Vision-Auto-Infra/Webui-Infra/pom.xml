@@ -7,8 +7,9 @@
         <groupId>com.radware.vision.automation</groupId>
         <version>${revision}</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
+
     <artifactId>Webui-Infra</artifactId>
     <name>Webui-Infra</name>
+
 </project>
