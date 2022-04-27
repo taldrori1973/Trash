@@ -252,6 +252,18 @@
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>Rest-Step-Handlers</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.radware.vision.automation</groupId>
+                <artifactId>Database-Infra</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
