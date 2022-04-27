@@ -45,7 +45,7 @@ Feature: Vision Install KVM SA
     And UI Navigate to page "System->General Settings->Basic Parameters"
     And UI Do Operation "select" item "Software"
     Then REST get Basic Parameters "lastUpgradeStatus"
-    Then UI Validate Text field "Upgrade Status" EQUALS "Fresh install"
+    Then UI Validate Text field "Upgrade Status" EQUALS "OK"
     Then UI Validate Text field "MAC Address of Port G4" EQUALS "Unsupported"
 
   @SID_6
