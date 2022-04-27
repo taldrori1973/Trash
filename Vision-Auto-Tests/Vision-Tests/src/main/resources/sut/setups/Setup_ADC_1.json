@@ -6,6 +6,10 @@
       {
         "parentSite": "Default",
         "name": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "parentSite": "Default",
+        "name": "Alteon_for_DPM"
       }
     ],
     "devices": [
@@ -20,6 +24,14 @@
       {
         "deviceId": "Alteon_Fake_2",
         "parentSite": "Alteons_for_DPM-Fakes"
+      },
+      {
+        "deviceId": "Alteon_172.16.100.103",
+        "parentSite": "Alteon_for_DPM"
+      },
+      {
+        "deviceId": "Alteon_172.16.101.103",
+        "parentSite": "Alteon_for_DPM"
       }
     ]
   },

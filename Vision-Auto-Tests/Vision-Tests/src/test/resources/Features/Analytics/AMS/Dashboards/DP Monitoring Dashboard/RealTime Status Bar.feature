@@ -11,7 +11,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 # Validate correct number of DPs
-    Then UI Text of "Device Status Up Summary" equal to "4"
+    Then UI Text of "Device Status Up Summary" equal to "6"
 
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
@@ -22,15 +22,15 @@ Feature: VRM Real Time Status Bar Devices status
   Scenario: Devices status filter by device
   # Filter by device does not affect this widget
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Text of "Device Selection" equal to "DEVICES4/4"
+    Then UI Text of "Device Selection" equal to "DEVICES6/6"
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       |          |
     Then Sleep "2"
 #   Validate correct number of DPs
-    Then UI Text of "Device Selection" equal to "DEVICES1/4"
-    Then UI Text of "Device Status Up Summary" equal to "4"
+    Then UI Text of "Device Selection" equal to "DEVICES1/6"
+    Then UI Text of "Device Status Up Summary" equal to "6"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Logout
@@ -44,14 +44,14 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | BDOS     |
-    Then Sleep "4"
-    Then UI Text of "Device Selection" equal to "DEVICES1/4"
-    Then UI Text of "Device Status Up Summary" equal to "4"
+    Then Sleep "6"
+    Then UI Text of "Device Selection" equal to "DEVICES1/6"
+    Then UI Text of "Device Status Up Summary" equal to "6"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
-#  DE57014
-  @SID_4
+#  DE57016
+  @SID_6
   Scenario: Devices status disconnected DP by route
     Then CLI Run remote linux Command "net route set host 172.16.22.55 172.17.3.3" on "Radware_SERVER_CLI"
     Then Sleep "120"
@@ -59,8 +59,8 @@ Feature: VRM Real Time Status Bar Devices status
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "3"
-    Then UI Text of "Device Selection" equal to "DEVICES4/4"
-    Then UI Text of "Device Status Up Summary" equal to "4"
+    Then UI Text of "Device Selection" equal to "DEVICES6/6"
+    Then UI Text of "Device Status Up Summary" equal to "6"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
@@ -69,12 +69,12 @@ Feature: VRM Real Time Status Bar Devices status
     And UI Logout
     Given UI Login with user "sys_admin" and password "radware"
 
-#    DE57014
+#    DE57016
   @SID_5
   Scenario: Devices status connected DP by route
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Text of "Device Selection" equal to "DEVICES4/4"
-    Then UI Text of "Device Status Up Summary" equal to "4"
+    Then UI Text of "Device Selection" equal to "DEVICES6/6"
+    Then UI Text of "Device Status Up Summary" equal to "6"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
@@ -86,8 +86,8 @@ Feature: VRM Real Time Status Bar Devices status
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "90"
 # Validate correct number of DPs
-    Then UI Text of "Device Selection" equal to "DEVICES4/4"
-    Then UI Text of "Device Status Up Summary" equal to "4"
+    Then UI Text of "Device Selection" equal to "DEVICES6/6"
+    Then UI Text of "Device Status Up Summary" equal to "6"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
@@ -98,8 +98,8 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Delete "Alteon_Set_1" from topology tree
     Then Sleep "90"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Text of "Device Selection" equal to "DEVICES4/4"
-    Then UI Text of "Device Status Up Summary" equal to "4"
+    Then UI Text of "Device Selection" equal to "DEVICES6/6"
+    Then UI Text of "Device Status Up Summary" equal to "6"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Logout
