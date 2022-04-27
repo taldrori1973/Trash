@@ -9,6 +9,13 @@
       "basePath": "/mgmt/vrm/reporting/devices/cpu-utilization/search",
       "produces": "application/json",
       "description": "Dp CPU Utilization "
+    },
+    {
+      "label": "Traffic Bandwidth",
+      "method": "POST",
+      "basePath": "/mgmt/vrm/monitoring/traffic/periodic/report",
+      "produces": "application/json",
+      "description": "AMS Traffic Bandwidth"
     }
   ]
 }
