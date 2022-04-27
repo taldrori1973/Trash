@@ -49,7 +49,7 @@ Feature: Vision Upgrade current -1
       | UPGRADE | fail to\|failed to                                                                           | NOT_EXPECTED |
       | UPGRADE | The upgrade of APSolute Vision server has completed successfully                             | EXPECTED     |
       | UPGRADE | Failed to connect to localhost port 8009: Connection refused                                 | IGNORE       |
-      | UPGRADE | NOTE1: Some changes will not take effect untill next login                                   | EXPECTED     |
+      | UPGRADE | NOTE1: Some changes will not take effect until next login                                    | EXPECTED     |
       | UPGRADE | [ERROR]   WARNING: The script pysemver is installed in '/usr/local/bin' which is not on PATH | IGNORE       |
 
   @SID_8

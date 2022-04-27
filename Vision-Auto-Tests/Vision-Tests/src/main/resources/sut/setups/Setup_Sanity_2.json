@@ -70,11 +70,15 @@
         "parentSite": "Default"
       },
       {
-        "deviceId": "DefensePro_10.185.2.85",
+        "deviceId": "DefensePro_172.17.50.50",
         "parentSite": "Default"
       },
       {
-        "deviceId": "DefensePro_172.17.50.50",
+        "deviceId": "DefensePro_50.50.7.1",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "DefensePro_50.50.100.1",
         "parentSite": "Default"
       },
       {

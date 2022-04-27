@@ -120,7 +120,7 @@ public class BasicRestOperationsHandler extends TestBase {
         if(actualResult != null) {
             JSONArray actualResultArray = new JSONArray(actualResult.toString());
             List<String> actualReportsName = StreamSupport.stream(actualResultArray.spliterator(), false)
-                    .map(s -> String.valueOf(((JSONObject)s).get("name"))).collect (Collectors.toList ());
+                    .map(s -> String.valueOf(((JSONObject)s).get("reportName"))).collect (Collectors.toList ());
 
             for (ExistenceReport expectedReport : expectedReports)
             {

@@ -66,10 +66,12 @@ public class GeneralSteps extends TestBase {
     @Then("^CLI Check if logs contains$")
     public void checkIfLogsContains(List<SearchLog> selections) {
 
-//        String command = "grep -Ei";
+        String command = "grep -Ei";
         String commandToSkip = " |grep -v ";
 
-        String command ="journalctl CONTAINER_TAG=";
+        String journalctlCommand ="journalctl CONTAINER_TAG=";
+
+
 
         if (!selections.get(0).logType.toString().equalsIgnoreCase("ALL")) {
             List<SearchLog> ignoreList = getIgnoreList(selections);
@@ -77,8 +79,15 @@ public class GeneralSteps extends TestBase {
             List<SearchLog> searchList = getSearchList(selections);
 
             searchList.forEach(selection -> {
-//                String checkForErrors = String.format("%s \"%s\" %s", command , selection.expression, selection.logType.getServerLogType());
-                String checkForErrors =String.format("%s\"%s\" %s \"%s\" %s \"%s\"", command ,selection.logType.getServerLogType(), "-S", lastcleared,  " -U now |grep -i" , selection.expression);
+               String checkForErrors;
+
+                if (selection.logType.getServerLogType().equalsIgnoreCase("kvision-" + selection.logType.name())) {
+                    checkForErrors =String.format("%s\"%s\" %s \"%s\" %s \"%s\"", journalctlCommand ,selection.logType.getServerLogType(), "-S", lastcleared,  " -U now |grep -i" , selection.expression);
+                } else {
+                    checkForErrors = String.format("%s \"%s\" %s", command , selection.expression, selection.logType.getServerLogType());
+                }
+
+
 
 
                 List<SearchLog> myIgnored = ignoreList.stream().filter(o ->
@@ -185,6 +194,7 @@ public class GeneralSteps extends TestBase {
         JBOSS_WD("/opt/radware/storage/maintenance/logs/jboss_watchdog.log"),
         REPORTER("kvision-reporter");
 
+
         private String serverLogType;
 
         ServerLogType(String serverLogType) {
@@ -196,6 +206,23 @@ public class GeneralSteps extends TestBase {
         }
     }
 
+
+//    private enum ServerLogJournalctlType {
+//
+//        REPORTER("kvision-reporter");
+//
+//        private String serverLogJournalctlType;
+//
+//        ServerLogJournalctlType(String serverLogType) {
+//            this.serverLogJournalctlType = serverLogType;
+//        }
+//
+//        private String getServerLogType() {
+//            return serverLogJournalctlType;
+//        }
+//    }
+
+
     public static class SearchLog {
         ServerLogType logType;
         String expression;
@@ -206,6 +233,15 @@ public class GeneralSteps extends TestBase {
         }
     }
 
+//    public static class SearchJournalctlLog {
+//        ServerLogJournalctlType logJournalctlType;
+//        String expression;
+//        MessageAction isExpected;
+//
+//        public void setLogJournalctlType(ServerLogJournalctlType logJournalctlType) {
+//            this.logJournalctlType = logJournalctlType;
+//        }
+//    }
 
     private enum MessageAction {
         NOT_EXPECTED("false"),
