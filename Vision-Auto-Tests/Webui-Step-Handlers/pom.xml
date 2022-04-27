@@ -10,14 +10,6 @@
     <artifactId>Webui-Step-Handlers</artifactId>
     <name>Webui-Step-Handlers</name>
 
-    <properties>
-
-    </properties>
-
-    <repositories>
-
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
