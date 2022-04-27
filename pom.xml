@@ -409,6 +409,13 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.12.4</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.jsystemtest</groupId>
+                <artifactId>jsystem-maven-plugin</artifactId>
+                <version>${jsystem.version}</version>
+            </plugin>
+
         </plugins>
     </build>
 

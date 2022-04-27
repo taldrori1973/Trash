@@ -165,7 +165,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+<!--                <version>3.1</version>-->
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -175,31 +175,31 @@
             <plugin>
                 <groupId>org.jsystemtest</groupId>
                 <artifactId>jsystem-maven-plugin</artifactId>
-                <version>${jsystem.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jsystemtest</groupId>
-                        <artifactId>jsystemCommon</artifactId>
-                        <version>${jsystem.version}</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>*</groupId>
-                                <artifactId>*</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.radware.vision.automation</groupId>
-                        <artifactId>Vision-Tests</artifactId>
-                        <version>${project.parent.version}</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>javax.mail</groupId>
-                        <artifactId>mail</artifactId>
-                        <version>1.4.4</version>
-                    </dependency>
-                </dependencies>
+<!--                <version>${jsystem.version}</version>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>org.jsystemtest</groupId>-->
+<!--                        <artifactId>jsystemCommon</artifactId>-->
+<!--                        <version>${jsystem.version}</version>-->
+<!--                        <exclusions>-->
+<!--                            <exclusion>-->
+<!--                                <groupId>*</groupId>-->
+<!--                                <artifactId>*</artifactId>-->
+<!--                            </exclusion>-->
+<!--                        </exclusions>-->
+<!--                    </dependency>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.radware.vision.automation</groupId>-->
+<!--                        <artifactId>Vision-Tests</artifactId>-->
+<!--                        <version>${project.parent.version}</version>-->
+<!--                        <scope>runtime</scope>-->
+<!--                    </dependency>-->
+<!--                    <dependency>-->
+<!--                        <groupId>javax.mail</groupId>-->
+<!--                        <artifactId>mail</artifactId>-->
+<!--                        <version>1.4.4</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
             </plugin>
 
             <plugin>
