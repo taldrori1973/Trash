@@ -260,7 +260,6 @@
             <!--            Copy resource files to output folders-->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-<!--                <version>2.6</version>-->
                 <executions>
                     <execution>
                         <id>copy-resources-Vision-Tests</id>
