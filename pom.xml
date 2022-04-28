@@ -124,7 +124,6 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
                 <version>${jackson.version}</version>
-                <!--            <type>bundle</type>-->
             </dependency>
 
             <dependency>
@@ -349,7 +348,6 @@
                 <groupId>com.radware.vision.automation</groupId>
                 <artifactId>Database-Step-Handlers</artifactId>
                 <version>${revision}</version>
-                <!--                <scope>compile</scope>-->
             </dependency>
 
             <dependency>

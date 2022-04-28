@@ -12,32 +12,6 @@
     <name>Vision-Tests</name>
     <artifactId>Vision-Tests</artifactId>
 
-<!--    <properties>-->
-<!--    </properties>-->
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>DEVTOOLS_MAVEN</id>-->
-<!--            <name>DEVTOOLS_MAVEN</name>-->
-<!--            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-
-<!--    <distributionManagement>-->
-<!--        <snapshotRepository>-->
-<!--            <id>bld-artifactory</id>-->
-<!--            <name>hudson-snapshots</name>-->
-<!--            <url>http://bldartifactory:8081/artifactory/list/auto-vision-snapshot-local/</url>-->
-<!--            <uniqueVersion>true</uniqueVersion>-->
-<!--        </snapshotRepository>-->
-<!--    </distributionManagement>-->
-
-<!--    <pluginRepositories>-->
-<!--        <pluginRepository>-->
-<!--            <id>Top-Q_plugin_repo</id>-->
-<!--            <url>http://hudson.corp.radware.com:8081/artifactory/Maven-Remote_topq</url>-->
-<!--        </pluginRepository>-->
-<!--    </pluginRepositories>-->
-
     <dependencies>
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
@@ -165,46 +139,15 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-<!--                <version>3.1</version>-->
-<!--                <configuration>-->
-<!--                    <source>1.8</source>-->
-<!--                    <target>1.8</target>-->
-<!--                </configuration>-->
             </plugin>
 
             <plugin>
                 <groupId>org.jsystemtest</groupId>
                 <artifactId>jsystem-maven-plugin</artifactId>
-<!--                <version>${jsystem.version}</version>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>org.jsystemtest</groupId>-->
-<!--                        <artifactId>jsystemCommon</artifactId>-->
-<!--                        <version>${jsystem.version}</version>-->
-<!--                        <exclusions>-->
-<!--                            <exclusion>-->
-<!--                                <groupId>*</groupId>-->
-<!--                                <artifactId>*</artifactId>-->
-<!--                            </exclusion>-->
-<!--                        </exclusions>-->
-<!--                    </dependency>-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.radware.vision.automation</groupId>-->
-<!--                        <artifactId>Vision-Tests</artifactId>-->
-<!--                        <version>${project.parent.version}</version>-->
-<!--                        <scope>runtime</scope>-->
-<!--                    </dependency>-->
-<!--                    <dependency>-->
-<!--                        <groupId>javax.mail</groupId>-->
-<!--                        <artifactId>mail</artifactId>-->
-<!--                        <version>1.4.4</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
             </plugin>
 
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
-<!--                <version>2.5</version>-->
                 <executions>
                     <execution>
                         <id>auto-clean</id>
@@ -250,9 +193,7 @@
             </plugin>
 
             <plugin>
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
                 <artifactId>maven-source-plugin</artifactId>
-<!--                <version>2.2</version>-->
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -264,7 +205,6 @@
             </plugin>
 
             <plugin>
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -283,7 +223,6 @@
             </plugin>
 
             <plugin>
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
@@ -388,55 +327,8 @@
 
                 </executions>
             </plugin>
-
-<!--            <plugin>-->
-<!--                <artifactId>maven-resources-plugin</artifactId>-->
-<!--                <version>2.6</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>copy-resources-Webui-Step-Handlers</id>-->
-<!--                        &lt;!&ndash; here the phase you need &ndash;&gt;-->
-<!--                        <phase>validate</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>copy-resources</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <outputDirectory>${project.basedir}/target/classes/inputfiles</outputDirectory>-->
-<!--                            <resources>-->
-<!--                                <resource>-->
-<!--                                    <directory>${project.basedir}/../Webui-Step-Handlers/src/main/resources/inputfiles/-->
-<!--                                    </directory>-->
-<!--                                    <includes>-->
-<!--                                        <include>**/*.txt</include>-->
-<!--                                    </includes>-->
-<!--                                </resource>-->
-<!--                            </resources>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>copy-resources-dummy-vision-version-hierarchy</id>-->
-<!--                        &lt;!&ndash; here the phase you need &ndash;&gt;-->
-<!--                        <phase>validate</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>copy-resources</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <outputDirectory>${project.basedir}/target/classes/clientdevicedrivers/server-->
-<!--                            </outputDirectory>-->
-<!--                            <resources>-->
-<!--                                <resource>-->
-<!--                                    <directory>${project.basedir}/src/main/resources/clientdevicedrivers/server-->
-<!--                                    </directory>-->
-<!--                                    <includes>-->
-<!--                                        <include>**/*</include>-->
-<!--                                    </includes>-->
-<!--                                </resource>-->
-<!--                            </resources>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
         </plugins>
+
         <resources>
             <!-- include main.properties -->
             <resource>
