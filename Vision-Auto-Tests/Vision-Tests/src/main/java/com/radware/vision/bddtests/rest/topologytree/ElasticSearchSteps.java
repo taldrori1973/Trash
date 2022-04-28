@@ -24,9 +24,9 @@ public class ElasticSearchSteps extends TestBase {
      *
      * @param index - index name
      */
-    @Given("^REST Delete ES index \"(.*)\"$")
-    public void deleteESIndex(String index) {
-        ElasticSearchHandler.deleteESIndex(index);
+    @Given("^REST Delete ES index \"(.*)\"( inSecondaryServer)?$")
+    public void deleteESIndex(String index, String inSecondaryServer) {
+        ElasticSearchHandler.deleteESIndex(index, inSecondaryServer);
     }
 
 
