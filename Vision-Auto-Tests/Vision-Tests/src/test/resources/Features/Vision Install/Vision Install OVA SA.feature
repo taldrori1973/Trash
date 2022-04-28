@@ -43,7 +43,7 @@ Feature: Vision Install OVA SA
     Then UI Navigate to page "System->General Settings->Basic Parameters"
     When UI Do Operation "select" item "Software"
     Then REST get Basic Parameters "lastUpgradeStatus"
-    Then UI Validate Text field "Upgrade Status" EQUALS "OK"
+    Then UI Validate Text field "Upgrade Status" EQUALS "Fresh install"
 
   @SID_6
   Scenario: Validate iptables settings
