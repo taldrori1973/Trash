@@ -3,7 +3,11 @@ package com.radware.vision.restBddTests;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
+import com.radware.vision.infra.enums.WebElementType;
+import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
+import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import com.radware.vision.utils.BodyEntry;
 import com.radware.vision.utils.StepsParametersUtils;
@@ -16,6 +20,9 @@ import models.*;
 import net.minidev.json.JSONArray;
 import restInterface.RestApi;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +30,7 @@ import java.util.regex.Pattern;
 
 import static com.radware.automation.tools.basetest.BaseTestUtils.report;
 import static com.radware.automation.tools.basetest.Reporter.FAIL;
+import static com.radware.automation.tools.basetest.Reporter.PASS;
 import static com.radware.vision.RestStepResult.Status.FAILED;
 import static java.lang.String.format;
 
@@ -32,6 +40,7 @@ public class GenericSteps {
     public static RestResponse response;
     public static Map<String, String> runTimeParameters;
     public static Pattern runTimeValuesPattern = Pattern.compile("\"?\\$\\{(.*)\\}\"?");
+    public int passwordPolicyRank;
 
     public GenericSteps() {
         runTimeParameters = new HashMap<>();
@@ -193,5 +202,72 @@ public class GenericSteps {
         theRequestBodyIs("Object", bodyEntries);
         sendRequest();
         validateThatResponseCodeOK(StatusCode.OK);
+    }
+
+    @And("^Validate That Response Body has passwordPolicy equals to \"([^\"]*)\"$")
+    public void validateThatResponseBodyHasPasswordPolicyEqualsTo(String expectedValue){
+        String actualValue = response.getBody().getBodyAsString();
+        if(!actualValue.contains(expectedValue)){
+            ReportsUtils.reportAndTakeScreenShot("Password Policy for the specified role is not updated", Reporter.FAIL);
+        }
+    }
+
+    @Then("^Validate That Response Body has passwordRank equals to (\\d+)$")
+    public void validateThatResponseBodyHasPasswordRankEqualsTo(int tempRank) {
+        this.passwordPolicyRank = tempRank;
+        String expectedValue = "\"policyRank\":" + this.passwordPolicyRank;
+        String actualValue = response.getBody().getBodyAsString();
+
+        while (actualValue.contains(expectedValue)) {
+            this.passwordPolicyRank++;
+            expectedValue = "\"policyRank\":" + this.passwordPolicyRank;
+        }
+    }
+
+    @Then("^UI Set Text for passwordPolicyRank with id \"([^\"]*)\" with rank")
+    public void uiSetTextForPasswordPolicyRankWithIdWith(String elementId){
+        ClickOperationsHandler.setTextToElement(WebElementType.Id, elementId, String.valueOf(this.passwordPolicyRank), true);
+    }
+
+    @And("^Validate That Response Body has (\\d+) minutes resolution data$")
+    public void validateThatResponseBodyHasMinutesResolutionData(long retentionTime) {
+
+        long timeStamp1= 0;
+        long timeStamp2 = 0;
+
+        if(response.getBody().getBodyAsJsonNode().isPresent()) {
+            timeStamp1 = response.getBody().getBodyAsJsonNode().get().get("data").get(0).get("row").get("timeStamp").asLong();
+            timeStamp2 = response.getBody().getBodyAsJsonNode().get().get("data").get(1).get("row").get("timeStamp").asLong();
+        }
+
+        long actualRetentionTime = timeStamp2 - timeStamp1;
+
+        if(actualRetentionTime > retentionTime * 60000)
+            report(format("Retention time is more than %s minutes", retentionTime), FAIL);
+
+        else if(actualRetentionTime < retentionTime * 60000)
+            report(format("Retention time is less than %s minutes", retentionTime), FAIL);
+
+        else
+            report(format("Retention time is %s minutes", retentionTime), PASS);
+    }
+
+    @Given("^The Request Body is the following (Object|Array) with Time (\\d+) hours ago$")
+    public void theRequestBodyIsTheFollowingObjectWithTimeHoursAgo(String type,int hoursAgo, List<BodyEntry> bodyEntries) {
+        List<BodyEntry> bodyEntriesCopy = StepsParametersUtils.setRunTimeValuesOfBodyEntries(bodyEntries, runTimeParameters, runTimeValuesPattern);
+        String epochTime = "";
+
+        try{
+            LocalDateTime pastTime = LocalDateTime.now().minusHours(hoursAgo);
+            Date date = Date.from(pastTime.atZone(ZoneId.systemDefault()).toInstant());
+            epochTime = String.valueOf(date.getTime());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        bodyEntriesCopy.set(2, new BodyEntry("$.timeInterval.from",epochTime));
+
+        String body = GenericStepsHandler.createBody(bodyEntriesCopy, type);
+        restRequestSpecification.setBody(body);
     }
 }

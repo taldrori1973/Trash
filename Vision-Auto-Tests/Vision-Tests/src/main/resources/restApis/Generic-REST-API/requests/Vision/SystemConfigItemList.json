@@ -89,6 +89,41 @@
       "basePath": "/mgmt/system/config/tree/Organization",
       "produces": "application/json",
       "description": "Gets all the device names"
+    },
+    {
+      "label": "Get Password Policies",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/usermgmtpolicy",
+      "produces": "application/json",
+      "description": "Gets all password policies."
+    },
+    {
+      "label": "Get Roles With Policies",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/role",
+      "produces": "application/json",
+      "description": "Gets all roles with respective policies."
+    },
+    {
+      "label": "Get Role With Policy details",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/role/{id}",
+      "produces": "application/json",
+      "description": "Gets single role details."
+    },
+    {
+      "label": "Edit Policy of Role",
+      "method": "PUT",
+      "basePath": "/mgmt/system/config/itemlist/role/{id}",
+      "produces": "application/json",
+      "description": "Edit password for role"
+    },
+    {
+      "label": "Get Licenses list",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/visionlicense",
+      "produces": "application/json",
+      "description": "Get list of licenses"
     }
   ]
 }
