@@ -203,6 +203,8 @@ public class TableHandler {
                 table = new TrafficLogTable(tableSelector, withReadAllTable);
             else if (tableSelector.startsWith("tedTopAnalyticsSummary") ||tableSelector.contains("table_WanLinkStatus"))
                 table = new BasicTable(tableLocator, withReadAllTable);
+            else if(tableSelector.contains("BadgeExtendedInfoTable"))
+                table = new BasicTable(tableLocator, withReadAllTable);
         } else {
             if (tableSelector.contains(REACT_GRID)) {
                 table = new ReactGridTable(tableSelector, withReadAllTable);
@@ -214,7 +216,9 @@ public class TableHandler {
                 table = new ListTable(tableSelector, withReadAllTable);
             } else if (tableSelector.contains(Simple_Table)) {
                 table = new SimpleTable(tableSelector, VisionDebugIdsManager.getLabel() + VisionDebugIdsManager.getParams().get(0), withReadAllTable);
-            } else {
+            } else if (tableSelector.contains("BadgeExtendedInfoTable")) {
+                table = new BasicTable(tableLocator, withReadAllTable);
+            }  else {
                 throw new Exception("No table with name " + VisionDebugIdsManager.getLabel());
             }
         }

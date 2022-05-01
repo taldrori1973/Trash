@@ -76,6 +76,7 @@ public class NewVmHandler extends TestBase {
         String mysqlSocketProblem = "Can't connect to local MySQL server";
         messages.add(mysqlSocketProblem);
         String vmName = String.format("%s_%s", sutManager.getServerName(), sutManager.getClientConfigurations().getHostIp());
+        int downloadTimeOutInSec = 60 * 60;
 
         try {
             // ToDo - check why setConnectOnInit is true
@@ -84,7 +85,8 @@ public class NewVmHandler extends TestBase {
             this.visionRadwareFirstTime.setPassword(sutManager.getEnvironment().get().getPassword());
             runCommand(this.visionRadwareFirstTime, "rm -rf " + imagesPath + vmName + ".qcow2");
             runCommand(this.visionRadwareFirstTime, "cd " + imagesPath);
-            runCommand(this.visionRadwareFirstTime, "curl -o " + vmName + ".qcow2 " + fileUrl, 60 * 60 * 1000);
+            String curlCommand = String.format("curl -m %d -o %s.qcow2 %s", downloadTimeOutInSec, vmName, fileUrl);
+            runCommand(this.visionRadwareFirstTime, curlCommand, downloadTimeOutInSec * 1000);
             StringJoiner installCommand = new StringJoiner(" ");
             installCommand.add("virt-install").add("--name " + vmName).add("--noautoconsole ");
             installCommand.add("--ram 24576").add("--vcpus 8").add("--import").add("--disk " + imagesPath + vmName + ".qcow2,bus=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--graphics none").add("--video cirrus").add("--serial pty");

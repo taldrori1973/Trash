@@ -29,7 +29,7 @@ public class ElasticSearchHandler {
 
     public static void deleteESDocument(String data, String index) {
         try {
-            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete document by query");
+            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete document by query", "");
             HashMap<String, String> hash_map_param = new HashMap<>();
             hash_map_param.put("indexName", index);
             esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
@@ -44,7 +44,7 @@ public class ElasticSearchHandler {
     }
 
     public static JSONObject getESDocumentByField(String index, String field, String value) {
-        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query");
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query", "");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", index);
         Match match = new Match();
@@ -70,9 +70,9 @@ public class ElasticSearchHandler {
     }
 
 
-    public static void deleteESIndex(String index) {
+    public static void deleteESIndex(String index, String inSecondaryServer) {
         try {
-            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete Index");
+            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete Index", inSecondaryServer);
             HashMap<String, String> hash_map_param = new HashMap<>();
             hash_map_param.put("indexName", index);
             esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
@@ -88,7 +88,7 @@ public class ElasticSearchHandler {
 
     public static void searchESIndexByQuery(String index, String query, String response) {
         try {
-            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query");
+            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query", "");
             HashMap<String, String> hash_map_param = new HashMap<>();
             hash_map_param.put("indexName", index);
             esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
@@ -103,7 +103,7 @@ public class ElasticSearchHandler {
     }
 
     public static void updateESIndexByQuery(String index, String query, String response) {
-        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Update index by query");
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Update index by query", "");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", index);
         esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
@@ -115,7 +115,7 @@ public class ElasticSearchHandler {
     }
 
     public static JSONObject getIndex(String indexName) {
-        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Get Index");
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Get Index", "");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", indexName);
         esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
@@ -170,7 +170,7 @@ public class ElasticSearchHandler {
                 "    }\\\n" +
                 "}", attribute, attribute, value, attribute);
 
-        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query");
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query", "");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", indexName);
         esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
@@ -268,7 +268,7 @@ public class ElasticSearchHandler {
     }
 
     public static int searchGetNumberOfHits(String index, String query) {
-        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query");
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query", "");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", index);
         esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
@@ -280,9 +280,15 @@ public class ElasticSearchHandler {
         return bodyAsJsonNode.get().get("hits").get("total").get("value").asInt();
     }
 
-    public static ElasticsearchRestAPI createEsRestConnection(String requestFilePath, String requestLabel) {
+    public static ElasticsearchRestAPI createEsRestConnection(String requestFilePath, String requestLabel, String inSecondaryServer) {
         SUTManager sutManager = SUTManagerImpl.getInstance();
-        String host = sutManager.getClientConfigurations().getHostIp();
+        String host;
+
+        if(inSecondaryServer == null || inSecondaryServer.isEmpty())
+            host = sutManager.getClientConfigurations().getHostIp();
+        else
+            host = sutManager.getpair().getPairIp();
+
         return new ElasticsearchRestAPI("http://" + host, 9200, requestFilePath, requestLabel);
     }
 
