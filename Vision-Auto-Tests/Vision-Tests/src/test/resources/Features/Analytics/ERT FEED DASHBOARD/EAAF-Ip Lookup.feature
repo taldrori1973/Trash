@@ -1,4 +1,4 @@
-@1133
+@TC126291
 Feature: EAAF-Ip Lookup
 
   @SID_1
@@ -10,7 +10,7 @@ Feature: EAAF-Ip Lookup
   @SID_2
   Scenario: click iplookup and write valide ip
     Given UI Click Button "IP Lookup button"
-    Then UI Set Text Field "IPlookup search" To "1.1.1.1"
+    Then UI Set Text Field "IPlookup search" To "103.28.52.93"
     Then Sleep "2"
 
     Then UI Validate Table record tooltip values with elementLabel "IPLookupTable" findBy columnName "Country Code" findBy cellValue "ID"
@@ -88,9 +88,9 @@ Feature: EAAF-Ip Lookup
 
 
 
-    Then UI Validate Text field "count results" EQUALS "36 Results"
+    Then UI Validate Text field "count results" EQUALS "762 Results"
 
-
+################################ CSV section to be edited ##################################
   @SID_3
   Scenario: Modify any dynamic values in DB
     #All units in mSec but in CSV/UI will be shown in seconds
@@ -180,5 +180,5 @@ Feature: EAAF-Ip Lookup
   @SID_3
   Scenario: click iplookup and write unvalide ip
 
-    Then UI Set Text Field "IPlookup search" To "0.0.0.0"
+    Then UI Set Text Field "IPlookup search" To "344.344.344.344"
     Then UI Validate Text field "unvalid ip" EQUALS "IP address not found. Try a different one."
