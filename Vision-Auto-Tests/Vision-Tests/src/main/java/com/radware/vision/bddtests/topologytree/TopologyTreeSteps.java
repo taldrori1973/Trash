@@ -80,10 +80,11 @@ public class TopologyTreeSteps extends VisionUITestBase {
             if (!Device.waitForDeviceStatus(restTestBase.getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
                 BaseTestUtils.report("Device Name :" + getDeviceName() + " Device Status is not equal to " + expectedStatus, Reporter.FAIL);
             }
-            WebUIBasePage.closeAllYellowMessages();
-
         } catch (Exception e) {
             BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+        }
+        finally {
+            WebUIBasePage.closeAllYellowMessages();
         }
     }
 
