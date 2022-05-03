@@ -4,7 +4,7 @@
   "genericLinuxID":"linuxFileServer",
   "deployConfigurations": {
     "snapshot": "5.1.1",
-    "setupMode": "upgrade",
+    "setupMode": "kvm_upgrade",
     "environment": "KVM-217"
   },
   "pair": {
