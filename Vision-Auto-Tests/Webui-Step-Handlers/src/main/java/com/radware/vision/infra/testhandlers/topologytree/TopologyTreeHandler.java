@@ -19,7 +19,6 @@ import com.radware.vision.infra.base.pages.topologytree.*;
 import com.radware.vision.infra.enums.*;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.topologytree.dataTables.DeviceInfoDataTable;
 import com.radware.vision.infra.utils.GeneralUtils;
 import com.radware.vision.infra.utils.MouseUtils;
 import com.radware.vision.infra.utils.ReportsUtils;
@@ -35,7 +34,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.*;
 
 import static com.radware.vision.infra.enums.TopologyTreeTabs.PhysicalContainers;
-//import static jsystem.
 
 public class TopologyTreeHandler {
     public static String snmpV1VersionText = "SNMPv1";
@@ -52,15 +50,7 @@ public class TopologyTreeHandler {
         newSiteProperties.openAddNewElementDialog();
         newSiteProperties.setSiteType();
         newSiteProperties.setElementName(siteName);
-        newSiteProperties.submit();
-    }
-
-    public static void addNewDevice(SUTDeviceType elementType, String deviceName, String parentNode, String managementIP, String visionServerIP, boolean registerVisionServer) {
-        addNewDevice(elementType, deviceName, parentNode, managementIP, visionServerIP, registerVisionServer, null);
-    }
-
-    public static void addNewDevice(SUTDeviceType elementType, String deviceName, String parentNode, String managementIP, String visionServerIP, boolean registerVisionServer, HashMap<String, String> properties) {
-        addNewDevice(elementType, deviceName, parentNode, managementIP, visionServerIP, registerVisionServer, properties, TopologyTreeTabs.SitesAndClusters);
+        DeviceProperties.submit();
     }
 
     public static void addNewDevice(SUTDeviceType elementType, String deviceName, String parentNode, String managementIP, String visionServerIP, boolean registerVisionServer, HashMap<String, String> properties, TopologyTreeTabs topologyTreeTab) {
@@ -84,59 +74,16 @@ public class TopologyTreeHandler {
         deviceProperties.openAddNewElementDialog();
     }
 
-    public static void addNewGroup(DeviceType4Group elementType, String groupName, String deviceList) {
-        openGroups();
-        GroupProperties groupProperties = new GroupProperties();
-        groupProperties.openAddNewGroupDialog();
-        groupProperties.setType(elementType);
-        BasicOperationsHandler.delay(0.5);
-        groupProperties.setElementName(groupName);
-        groupProperties.addSelectedDevices(Arrays.asList(deviceList.split(",")));
-        groupProperties.submit();
-    }
-
-    public static void editGroup(String groupName, String deviceList) {
-        openGroups();
-        GroupProperties groupProperties = new GroupProperties();
-        clickTreeNode(groupName);
-        groupProperties.openEditGroupDialog();
-        groupProperties.editSelectedDevices(Arrays.asList(deviceList.split(",")));
-        groupProperties.submit();
-    }
-
-    public static void deleteGroup(String groupName) {
-        openGroups();
-        GroupProperties groupProperties = new GroupProperties();
-        clickTreeNode(groupName);
-        groupProperties.deleteElement(groupName);
-    }
-
-    public static void addNewAlteonVXDevice(String deviceName, String parentNode, String managementIP, String visionServerIP, boolean registerVisionServer, HashMap<String, String> properties) {
-        openPhysicalContainers();
-        clickTreeNode(parentNode);
-        DeviceProperties deviceProperties = new StandardDeviceProperties();
-        innerNewDevice(deviceProperties, SUTDeviceType.Alteon, deviceName, parentNode, managementIP, visionServerIP, registerVisionServer, properties);
-
-        // Validate by clicking on just added device
-//		openPhysicalContainers();
-//		deviceProperties.selectTreeNode(deviceName);
-    }
-
-    private static void innerNewDevice(DeviceProperties deviceProperties, SUTDeviceType elementType, String deviceName, String parentNode, String managementIP, String visionServerIP, boolean registerForDeviceEvents) {
-        innerNewDevice(deviceProperties, elementType, deviceName, parentNode, managementIP, visionServerIP, registerForDeviceEvents, null);
-    }
-
     private static void innerNewDevice(DeviceProperties deviceProperties, SUTDeviceType elementType, String deviceName, String parentNode, String managementIP, String visionServerIP, boolean registerForDeviceEvents, HashMap<String, String> properties) {
         deviceProperties.openAddNewElementDialog();
 
         deviceProperties.setType(elementType);
         BasicOperationsHandler.delay(0.5);
         deviceProperties.setElementName(deviceName);
+        assert properties != null;
         if (elementType != SUTDeviceType.AppWall) {
-            if (properties != null) {
-                deviceProperties.mSnmp().setSnmpV2ReadCommunity(properties.get("snmpReadCommunity"));
-                deviceProperties.mSnmp().setSnmpV2WriteCommunity(properties.get("snmpWriteCommunity"));
-            }
+            deviceProperties.mSnmp().setSnmpV2ReadCommunity(properties.get("snmpReadCommunity"));
+            deviceProperties.mSnmp().setSnmpV2WriteCommunity(properties.get("snmpWriteCommunity"));
             if (elementType.equals(SUTDeviceType.DefensePro)) {
                 deviceProperties.mWebAccess().setUserName(properties.get("httpUserNameDefensePro"));
                 deviceProperties.mWebAccess().setPassword(properties.get("httpPasswordDefensePro"));
@@ -182,16 +129,16 @@ public class TopologyTreeHandler {
         deviceProperties.selectTreeNode(devPorperties.get("deviceName"));
         deviceProperties.openEditElementDialog();
 
-        //deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.valueOf(devPorperties.get("verifyHttpAccess")));
-        //deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.valueOf(devPorperties.get("verifyHttpsAccess")));
+        //deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.parseBoolean(devPorperties.get("verifyHttpAccess")));
+        //deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.parseBoolean(devPorperties.get("verifyHttpsAccess")));
         deviceProperties.mWebAccess().setUserName(devPorperties.get("httpUserName"));
         deviceProperties.mWebAccess().setPassword(devPorperties.get("httpPassword"));
         deviceProperties.mWebAccess().setHttpsPort(Integer.parseInt(devPorperties.get("httpsPort")));
 
-        deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.valueOf(devPorperties.get("registerVisionServer")));
-        if (Boolean.valueOf(devPorperties.get("registerVisionServer"))) {
+        deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.parseBoolean(devPorperties.get("registerVisionServer")));
+        if (Boolean.parseBoolean(devPorperties.get("registerVisionServer"))) {
             deviceProperties.mEventNotification().setVisionServerIp(devPorperties.get("visionServerIP"));
-            deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.valueOf(devPorperties.get("removeTargets")));
+            deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.parseBoolean(devPorperties.get("removeTargets")));
         }
 
         waitForNonSynchronizedState(deviceProperties);
@@ -225,15 +172,15 @@ public class TopologyTreeHandler {
                     if (devPorperties.get("snmpV3Username") != null)
                         deviceProperties.mSnmp().setSnmpUserName(devPorperties.get("snmpV3Username"));
                     if (devPorperties.get("useSnmpV3Authentication") != null)
-                        deviceProperties.mSnmp().setUseAuthentication(Boolean.valueOf(devPorperties.get("useSnmpV3Authentication")));
-                    if (devPorperties.get("useSnmpV3Authentication") != null && Boolean.valueOf(devPorperties.get("useSnmpV3Authentication"))) {
+                        deviceProperties.mSnmp().setUseAuthentication(Boolean.parseBoolean(devPorperties.get("useSnmpV3Authentication")));
+                    if (devPorperties.get("useSnmpV3Authentication") != null && Boolean.parseBoolean(devPorperties.get("useSnmpV3Authentication"))) {
                         if (devPorperties.get("snmpV3AuthenticationProtocol") != null)
                             deviceProperties.mSnmp().setAuthenticationProtocol(devPorperties.get("snmpV3AuthenticationProtocol"));
                         if (devPorperties.get("snmpV3AuthenticationPassword") != null)
                             deviceProperties.mSnmp().setAuthenticationPassword(devPorperties.get("snmpV3AuthenticationPassword"));
                         if (devPorperties.get("useSnmpV3Privacy") != null)
-                            deviceProperties.mSnmp().setUsePrivacy(Boolean.valueOf(devPorperties.get("useSnmpV3Privacy")));
-                        if (devPorperties.get("useSnmpV3Privacy") != null && Boolean.valueOf(devPorperties.get("useSnmpV3Privacy"))) {
+                            deviceProperties.mSnmp().setUsePrivacy(Boolean.parseBoolean(devPorperties.get("useSnmpV3Privacy")));
+                        if (devPorperties.get("useSnmpV3Privacy") != null && Boolean.parseBoolean(devPorperties.get("useSnmpV3Privacy"))) {
                             if (devPorperties.get("snmpV3PrivacyPassword") != null)
                                 deviceProperties.mSnmp().setPrivacyPassword(devPorperties.get("snmpV3PrivacyPassword"));
                         }
@@ -243,9 +190,9 @@ public class TopologyTreeHandler {
         }
 
         if (devPorperties.get("verifyHttpAccess") != null)
-            deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.valueOf(devPorperties.get("verifyHttpAccess")));
+            deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.parseBoolean(devPorperties.get("verifyHttpAccess")));
         if (devPorperties.get("verifyHttpsAccess") != null)
-            deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.valueOf(devPorperties.get("verifyHttpsAccess")));
+            deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.parseBoolean(devPorperties.get("verifyHttpsAccess")));
         if (devPorperties.get("httpUserName") != null)
             deviceProperties.mWebAccess().setUserName(devPorperties.get("httpUserName"));
         if (devPorperties.get("httpPassword") != null)
@@ -261,33 +208,33 @@ public class TopologyTreeHandler {
         if (devPorperties.get("sshPort") != null)
             deviceProperties.mSsh().setSshPort(Integer.parseInt(devPorperties.get("sshPort")));
         if (devPorperties.get("registerVisionServer") != null)
-            deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.valueOf(devPorperties.get("registerVisionServer")));
-        if (devPorperties.get("registerVisionServer") != null && Boolean.valueOf(devPorperties.get("registerVisionServer"))) {
+            deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.parseBoolean(devPorperties.get("registerVisionServer")));
+        if (devPorperties.get("registerVisionServer") != null && Boolean.parseBoolean(devPorperties.get("registerVisionServer"))) {
             if (devPorperties.get("visionServerIP") != null)
                 deviceProperties.mEventNotification().setVisionServerIp(devPorperties.get("visionServerIP"));
             if (devPorperties.get("removeTargets") != null)
-                deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.valueOf(devPorperties.get("removeTargets")));
+                deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.parseBoolean(devPorperties.get("removeTargets")));
         }
         if (devPorperties.get("newDeviceName") != null)
             deviceProperties.setElementName(devPorperties.get("newDeviceName"));
         waitForNonSynchronizedState(deviceProperties);
     }
 
-    public static void manageAllVADC(HashMap<String, String> devPorperties, List<String> targetNames) throws Exception {
+    public static void manageAllVADC(HashMap<String, String> devProperties, List<String> targetNames) {
         openPhysicalContainers();
         DeviceProperties deviceProperties = new StandardDeviceProperties();
         for (String name : targetNames) {
             deviceProperties.selectTreeNode(name);
             deviceProperties.openManageVADCDialog();
-            innerManageVADc(devPorperties, false);
+            innerManageVADc(devProperties, false);
         }
         //TODO manageAll is currently NOT functional , so workaround is used - change it back when the BUG is fixed
         //multiSelection(targetNames);
         //deviceProperties.openManageVADCDialog();
 
         //ManageAllVADC manageAllVADC = new ManageAllVADC();
-        //manageAllVADC.setLocation(devPorperties.get("manageVadcLocation"));
-        //innerManageVADc(devPorperties, true);
+        //manageAllVADC.setLocation(devProperties.get("manageVadcLocation"));
+        //innerManageVADc(devProperties, true);
     }
 
     public static void manageVADC(HashMap<String, String> devPorperties) {
@@ -304,52 +251,52 @@ public class TopologyTreeHandler {
         innerManageVADc(devPorperties, false);
     }
 
-    private static void innerManageVADc(HashMap<String, String> devPorperties, boolean multipleVADC) {
+    private static void innerManageVADc(HashMap<String, String> devProperties, boolean multipleVADC) {
         DeviceProperties deviceProperties = multipleVADC ? new ManageAllVADC() : new ManageVADC();
-        switch (com.radware.vision.pojomodel.helpers.constants.ImConstants$SnmpVersionEnumPojo.valueOf(devPorperties.get("snmpVersion"))) {
+        switch (com.radware.vision.pojomodel.helpers.constants.ImConstants$SnmpVersionEnumPojo.valueOf(devProperties.get("snmpVersion"))) {
             case SNMP_V1:
                 deviceProperties.mSnmp().setSnmpVersion(snmpV1VersionText);
-                deviceProperties.mSnmp().setSnmpV1WriteCommunity(devPorperties.get("writeCommunityAlteon"));
-                deviceProperties.mSnmp().setSnmpV1ReadCommunity(devPorperties.get("readCommunity"));
+                deviceProperties.mSnmp().setSnmpV1WriteCommunity(devProperties.get("writeCommunityAlteon"));
+                deviceProperties.mSnmp().setSnmpV1ReadCommunity(devProperties.get("readCommunity"));
                 break;
             case SNMP_V2:
                 deviceProperties.mSnmp().setSnmpVersion(snmpV2VersionText);
-                deviceProperties.mSnmp().setSnmpV2WriteCommunity(devPorperties.get("writeCommunityAlteon"));
-                deviceProperties.mSnmp().setSnmpV2ReadCommunity(devPorperties.get("readCommunity"));
+                deviceProperties.mSnmp().setSnmpV2WriteCommunity(devProperties.get("writeCommunityAlteon"));
+                deviceProperties.mSnmp().setSnmpV2ReadCommunity(devProperties.get("readCommunity"));
                 break;
             case SNMP_V3:
                 deviceProperties.mSnmp().setSnmpVersion(snmpV3VersionText);
-                deviceProperties.mSnmp().setSnmpUserName(devPorperties.get("snmpV3Username"));
-                deviceProperties.mSnmp().setUseAuthentication(Boolean.valueOf(devPorperties.get("useSnmpV3Authentication")));
-                if (Boolean.valueOf(devPorperties.get("useSnmpV3Authentication"))) {
-                    deviceProperties.mSnmp().setAuthenticationProtocol(devPorperties.get("snmpV3AuthenticationProtocol"));
-                    deviceProperties.mSnmp().setAuthenticationPassword(devPorperties.get("snmpV3AuthenticationPassword"));
-                    deviceProperties.mSnmp().setUsePrivacy(Boolean.valueOf(devPorperties.get("useSnmpV3Privacy")));
-                    if (Boolean.valueOf(devPorperties.get("useSnmpV3Privacy"))) {
-                        deviceProperties.mSnmp().setPrivacyPassword(devPorperties.get("snmpV3PrivacyPassword"));
+                deviceProperties.mSnmp().setSnmpUserName(devProperties.get("snmpV3Username"));
+                deviceProperties.mSnmp().setUseAuthentication(Boolean.parseBoolean(devProperties.get("useSnmpV3Authentication")));
+                if (Boolean.parseBoolean(devProperties.get("useSnmpV3Authentication"))) {
+                    deviceProperties.mSnmp().setAuthenticationProtocol(devProperties.get("snmpV3AuthenticationProtocol"));
+                    deviceProperties.mSnmp().setAuthenticationPassword(devProperties.get("snmpV3AuthenticationPassword"));
+                    deviceProperties.mSnmp().setUsePrivacy(Boolean.parseBoolean(devProperties.get("useSnmpV3Privacy")));
+                    if (Boolean.parseBoolean(devProperties.get("useSnmpV3Privacy"))) {
+                        deviceProperties.mSnmp().setPrivacyPassword(devProperties.get("snmpV3PrivacyPassword"));
                     }
                 }
                 break;
         }
-        if (multipleVADC == false) {
-            String mangedDeviceName = devPorperties.get("managedDeviceNames");
+        if (!multipleVADC) {
+            String mangedDeviceName = devProperties.get("managedDeviceNames");
             if (mangedDeviceName != null && !mangedDeviceName.isEmpty()) {
                 deviceProperties.setElementName(mangedDeviceName);
             }
         }
-        deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.valueOf(devPorperties.get("verifyHttpAccess")));
-        deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.valueOf(devPorperties.get("verifyHttpsAccess")));
-        deviceProperties.mWebAccess().setUserName(devPorperties.get("httpUserName"));
-        deviceProperties.mWebAccess().setPassword(devPorperties.get("httpPassword"));
-        deviceProperties.mWebAccess().setHttpPort(Integer.parseInt(devPorperties.get("httpPort")));
-        deviceProperties.mWebAccess().setHttpsPort(Integer.parseInt(devPorperties.get("httpsPort")));
-        deviceProperties.mSsh().setUserName(devPorperties.get("sshUserName"));
-        deviceProperties.mSsh().setPassword(devPorperties.get("sshPassword"));
-        deviceProperties.mSsh().setSshPort(Integer.parseInt(devPorperties.get("sshPort")));
-        deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.valueOf(devPorperties.get("registerVisionServer")));
-        if (Boolean.valueOf(devPorperties.get("registerVisionServer"))) {
-            deviceProperties.mEventNotification().setVisionServerIp(devPorperties.get("visionServerIP"));
-            deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.valueOf(devPorperties.get("removeTargets")));
+        deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.parseBoolean(devProperties.get("verifyHttpAccess")));
+        deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.parseBoolean(devProperties.get("verifyHttpsAccess")));
+        deviceProperties.mWebAccess().setUserName(devProperties.get("httpUserName"));
+        deviceProperties.mWebAccess().setPassword(devProperties.get("httpPassword"));
+        deviceProperties.mWebAccess().setHttpPort(Integer.parseInt(devProperties.get("httpPort")));
+        deviceProperties.mWebAccess().setHttpsPort(Integer.parseInt(devProperties.get("httpsPort")));
+        deviceProperties.mSsh().setUserName(devProperties.get("sshUserName"));
+        deviceProperties.mSsh().setPassword(devProperties.get("sshPassword"));
+        deviceProperties.mSsh().setSshPort(Integer.parseInt(devProperties.get("sshPort")));
+        deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.parseBoolean(devProperties.get("registerVisionServer")));
+        if (Boolean.parseBoolean(devProperties.get("registerVisionServer"))) {
+            deviceProperties.mEventNotification().setVisionServerIp(devProperties.get("visionServerIP"));
+            deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.parseBoolean(devProperties.get("removeTargets")));
         }
         waitForNonSynchronizedState(deviceProperties);
     }
@@ -373,28 +320,28 @@ public class TopologyTreeHandler {
             case SNMP_V3:
                 deviceProperties.mSnmp().setSnmpVersion(snmpV3VersionText);
                 deviceProperties.mSnmp().setSnmpUserName(devPorperties.get("snmpV3Username"));
-                deviceProperties.mSnmp().setUseAuthentication(Boolean.valueOf(devPorperties.get("useSnmpV3Authentication")));
-                if (Boolean.valueOf(devPorperties.get("useSnmpV3Authentication"))) {
+                deviceProperties.mSnmp().setUseAuthentication(Boolean.parseBoolean(devPorperties.get("useSnmpV3Authentication")));
+                if (Boolean.parseBoolean(devPorperties.get("useSnmpV3Authentication"))) {
                     deviceProperties.mSnmp().setAuthenticationProtocol(devPorperties.get("snmpV3AuthenticationProtocol"));
                     deviceProperties.mSnmp().setAuthenticationPassword(devPorperties.get("snmpV3AuthenticationPassword"));
-                    deviceProperties.mSnmp().setUsePrivacy(Boolean.valueOf(devPorperties.get("useSnmpV3Privacy")));
-                    if (Boolean.valueOf(devPorperties.get("useSnmpV3Privacy"))) {
+                    deviceProperties.mSnmp().setUsePrivacy(Boolean.parseBoolean(devPorperties.get("useSnmpV3Privacy")));
+                    if (Boolean.parseBoolean(devPorperties.get("useSnmpV3Privacy"))) {
                         deviceProperties.mSnmp().setPrivacyPassword(devPorperties.get("snmpV3PrivacyPassword"));
                     }
                 }
                 break;
         }
 
-        deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.valueOf(devPorperties.get("verifyHttpAccess")));
-        deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.valueOf(devPorperties.get("verifyHttpsAccess")));
+        deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.parseBoolean(devPorperties.get("verifyHttpAccess")));
+        deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.parseBoolean(devPorperties.get("verifyHttpsAccess")));
         deviceProperties.mWebAccess().setUserName(devPorperties.get("httpUserName"));
         deviceProperties.mWebAccess().setPassword(devPorperties.get("httpPassword"));
         deviceProperties.mWebAccess().setHttpPort(Integer.parseInt(devPorperties.get("httpPort")));
         deviceProperties.mWebAccess().setHttpsPort(Integer.parseInt(devPorperties.get("httpsPort")));
-        deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.valueOf(devPorperties.get("registerVisionServer")));
-        if (Boolean.valueOf(devPorperties.get("registerVisionServer"))) {
+        deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.parseBoolean(devPorperties.get("registerVisionServer")));
+        if (Boolean.parseBoolean(devPorperties.get("registerVisionServer"))) {
             deviceProperties.mEventNotification().setVisionServerIp(devPorperties.get("visionServerIP"));
-            deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.valueOf(devPorperties.get("removeTargets")));
+            deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.parseBoolean(devPorperties.get("removeTargets")));
         }
         waitForNonSynchronizedState(deviceProperties);
     }
@@ -418,28 +365,28 @@ public class TopologyTreeHandler {
             case SNMP_V3:
                 deviceProperties.mSnmp().setSnmpVersion(snmpV3VersionText);
                 deviceProperties.mSnmp().setSnmpUserName(devPorperties.get("snmpV3Username"));
-                deviceProperties.mSnmp().setUseAuthentication(Boolean.valueOf(devPorperties.get("useSnmpV3Authentication")));
-                if (Boolean.valueOf(devPorperties.get("useSnmpV3Authentication"))) {
+                deviceProperties.mSnmp().setUseAuthentication(Boolean.parseBoolean(devPorperties.get("useSnmpV3Authentication")));
+                if (Boolean.parseBoolean(devPorperties.get("useSnmpV3Authentication"))) {
                     deviceProperties.mSnmp().setAuthenticationProtocol(devPorperties.get("snmpV3AuthenticationProtocol"));
                     deviceProperties.mSnmp().setAuthenticationPassword(devPorperties.get("snmpV3AuthenticationPassword"));
-                    deviceProperties.mSnmp().setUsePrivacy(Boolean.valueOf(devPorperties.get("useSnmpV3Privacy")));
-                    if (Boolean.valueOf(devPorperties.get("useSnmpV3Privacy"))) {
+                    deviceProperties.mSnmp().setUsePrivacy(Boolean.parseBoolean(devPorperties.get("useSnmpV3Privacy")));
+                    if (Boolean.parseBoolean(devPorperties.get("useSnmpV3Privacy"))) {
                         deviceProperties.mSnmp().setPrivacyPassword(devPorperties.get("snmpV3PrivacyPassword"));
                     }
                 }
                 break;
         }
 
-        deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.valueOf(devPorperties.get("verifyHttpAccess")));
-        deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.valueOf(devPorperties.get("verifyHttpsAccess")));
+        deviceProperties.mWebAccess().setVerifyHttpAccess(Boolean.parseBoolean(devPorperties.get("verifyHttpAccess")));
+        deviceProperties.mWebAccess().setVerifyHttpsAccess(Boolean.parseBoolean(devPorperties.get("verifyHttpsAccess")));
         deviceProperties.mWebAccess().setUserName(devPorperties.get("httpUserName"));
         deviceProperties.mWebAccess().setPassword(devPorperties.get("httpPassword"));
         deviceProperties.mWebAccess().setHttpPort(Integer.parseInt(devPorperties.get("httpPort")));
         deviceProperties.mWebAccess().setHttpsPort(Integer.parseInt(devPorperties.get("httpsPort")));
-        deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.valueOf(devPorperties.get("registerVisionServer")));
-        if (Boolean.valueOf(devPorperties.get("registerVisionServer"))) {
+        deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(Boolean.parseBoolean(devPorperties.get("registerVisionServer")));
+        if (Boolean.parseBoolean(devPorperties.get("registerVisionServer"))) {
             deviceProperties.mEventNotification().setVisionServerIp(devPorperties.get("visionServerIP"));
-            deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.valueOf(devPorperties.get("removeTargets")));
+            deviceProperties.mEventNotification().setRemoveAllOtherTargets(Boolean.parseBoolean(devPorperties.get("removeTargets")));
         }
         waitForNonSynchronizedState(deviceProperties);
     }
@@ -447,38 +394,24 @@ public class TopologyTreeHandler {
     public static void clickTreeNode(String node) {
         node = node == null ? "Default" : node;
         deviceName = node;
-        int count = 0;
-        WebElement element = null;
+        WebElement element;
         ComponentLocator locator = new ComponentLocator(How.XPATH, "//div[contains(@id,'" + WebUIStrings.getDeviceTreeNode(node) + "')]");
 
         element = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.defaultVisibilityTimeout, false);
         try {
             element.click();
         } catch (NullPointerException e) {
-            throw new NullPointerException(deviceName + " doesn't exist");
+            ReportsUtils.reportAndTakeScreenShot("Element not found |Element is not Displayed | Element is not Enabled" + locator.getLocatorValue(), Reporter.FAIL);
         }
         //get rid of the device info pane after clicking on it
         MouseUtils.hover(new ComponentLocator(How.ID, WebUIStringsVision.getAlertsMaximizeButton()));
-
-        if (element == null) {
-            ReportsUtils.reportAndTakeScreenShot("Element not found |Element is not Displayed | Element is not Enabled" + locator.getLocatorValue(), Reporter.FAIL);
-        }
-    }
-
-    public static void clickTreeNodeDefault() {
-        openSitesAndClusters();
-        clickTreeNode("Default");
     }
 
     public static boolean isTreeNodeExist(String node) {
         try {
             ComponentLocator locator = new ComponentLocator(How.XPATH, "//div[contains(@id,'" + WebUIStrings.getDeviceTreeNode(node) + "')]");
             final WebElement webElement = WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
-            if (webElement != null) {
-                return true;
-            } else {
-                return false;
-            }
+            return webElement != null;
         } catch (Exception e) {
             return false;
         }
@@ -518,24 +451,11 @@ public class TopologyTreeHandler {
             if (!new VisionServerInfoPane().getDeviceNameWithOutType().equals(deviceName)) {
                 ReportsUtils.reportAndTakeScreenShot("Open Device Info Pane Failed", Reporter.FAIL);
             }
-
-    }
-
-    public static void expandAll() {
-        openPhysicalContainers();
-//		expandAllPhysical();
-        openSitesAndClusters();
-//		expandAllSitesClusters();
     }
 
     public static void openDeviceSitesClusters(String deviceName) {
         expandAllSitesClusters();
         clickTreeNode(deviceName);
-        openDeviceInfoPane();
-    }
-
-    public static void openDevicePhysical(String deviceName) {
-        expandAllPhysical();
         openDeviceInfoPane();
     }
 
@@ -553,7 +473,6 @@ public class TopologyTreeHandler {
                 openGroups();
                 break;
         }
-
     }
 
 
@@ -577,11 +496,10 @@ public class TopologyTreeHandler {
 
     public static boolean waitForDeviceToShowUp(TopologyTreeTabs deviceType, String deviceName, long secondsToWait) {
 
-
         openTab(deviceType);
         long startTime = System.currentTimeMillis();
-        long milliSecondsTowait = secondsToWait * 1000;
-        while (System.currentTimeMillis() - startTime < milliSecondsTowait) {
+        long milliSecondsToWait = secondsToWait * 1000;
+        while (System.currentTimeMillis() - startTime < milliSecondsToWait) {
             expandTree(deviceType);
             if (ClickOperationsHandler.checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStrings.getDeviceTreeNode(deviceName), OperatorsEnum.EQUALS)))
                 return true;
@@ -674,28 +592,12 @@ public class TopologyTreeHandler {
     }
 
     public static List<WebElement> getNodes() {
-        //expandAll();
         WebUIWidget content = getTabLayoutPanelContent();
         String trXpath = "./table/tbody/tr";
         int trCount = content.getWebElement().findElements(By.xpath(trXpath)).size();
         String nodeXpath = "./table/tbody/tr[" + trCount + "]//div[starts-with(@id,'" + WebUIStrings.getDeviceTreeNodeString() + "')]";
         List<WebElement> nodeList = content.getWebElement().findElements(By.xpath(nodeXpath));
         return nodeList;
-    }
-
-    public static void closeDeviceEditDialog() {
-        try {
-            WebUIUtils.isWaitingForNonExistingElement = true;
-            ComponentLocator locator = new ComponentLocator(How.XPATH, "//div[contains(@class,'close_device_edit_dialog')]");
-            WebElement closeButton = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
-            if (closeButton != null) {
-                closeButton.click();
-            }
-        } catch (Exception e) {
-//            Ignore
-        } finally {
-            WebUIUtils.isWaitingForNonExistingElement = false;
-        }
     }
 
     private static WebUIWidget getTabLayoutPanelContent() {
@@ -713,7 +615,6 @@ public class TopologyTreeHandler {
                 for (PopupContent errors : popupErrors) {
                     if (errors.getContent().contains("is in synchronized state")) {
                         BasicOperationsHandler.delay(5);
-                        continue;
                     }
                 }
                 break;
@@ -739,7 +640,7 @@ public class TopologyTreeHandler {
             if (!ClickOperationsHandler.checkIfElementAttributeContains(device, "id", "Default")) {
                 ClickOperationsHandler.clickWebElement(device);
                 if (!device.getAttribute("class").equals("siteIcon"))
-                openDeviceInfoPane();
+                    openDeviceInfoPane();
                 return;
             }
 
@@ -750,7 +651,7 @@ public class TopologyTreeHandler {
     /**
      * searches for device by type under "sites and devices" node and clicks on it
      *
-     * @param deviceType
+     * @param deviceType - DeviceType4Group ENUM
      * @return in case the device found clicks on it and returns true, else return false
      */
     public static boolean clickTreeNode(DeviceType4Group deviceType) {
@@ -766,10 +667,9 @@ public class TopologyTreeHandler {
         String xpathDevicePrefix = GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStrings.getDeviceTreeNodeString(), OperatorsEnum.CONTAINS);
         List<WebElement> devices = WebUIUtils.fluentWaitMultiple(By.xpath(xpathDevicePrefix));
 
-        Iterator<WebElement> itr = devices.iterator();
         WebElement currentSiteInTree;
-        int i=0;
-        while (i < devices.size()){
+        int i = 0;
+        while (i < devices.size()) {
             currentSiteInTree = devices.get(i);
             try {
                 if (!ClickOperationsHandler.checkIfElementAttributeContains(currentSiteInTree, "id", "Default")) {
@@ -783,72 +683,15 @@ public class TopologyTreeHandler {
                     }
                 }
                 i++;
-            } catch (StaleElementReferenceException| NoSuchElementException e) {
+            } catch (StaleElementReferenceException | NoSuchElementException e) {
                 devices = WebUIUtils.fluentWaitMultiple(By.xpath(xpathDevicePrefix));
             }
         }
-
         return false;
-
-
     }
 
     public static void setDeviceName(String deviceName) {
         TopologyTreeHandler.deviceName = deviceName;
-    }
-
-    public static void addNewDevices(List<DeviceInfoDataTable> devices, String serverIP) {
-
-        SUTDeviceType sutDeviceType;
-        HashMap<String, String> deviceProperties = new HashMap<>();
-        TopologyTreeTabs topologyTreeTab;
-        boolean register;
-        String visionServerIP;
-        for (DeviceInfoDataTable device : devices) {
-            sutDeviceType = SUTDeviceType.valueOf(device.getDeviceType());
-
-
-            deviceProperties.clear();
-            deviceProperties.put("snmpReadCommunity", device.getReadCommunity());
-            deviceProperties.put("snmpWriteCommunity", device.getWriteCommunity());
-            deviceProperties.put("httpUserNameDefensePro", device.getUsername());
-            deviceProperties.put("httpPasswordDefensePro", device.getPassword());
-
-
-            topologyTreeTab = (device.getTreeTabType() != null && !device.getTreeTabType().equals("")) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-
-            register = device.getRegister().equalsIgnoreCase("true") ? true : false;
-
-            visionServerIP = device.getInterfaceName().concat(" (").concat(getInterfaceIp(serverIP, device.getInterfaceSubnet())).concat(")");
-            addNewDevice(sutDeviceType, device.getDeviceName(), device.getSite(), device.getDeviceIp(), visionServerIP, register, deviceProperties, topologyTreeTab);
-        }
-    }
-
-    private static String getInterfaceIp(String serverIP, String interfaceSubnet) {
-
-        String interfaceIp = "";
-        String[] serverIpOctets = serverIP.trim().split("\\.");
-        String[] interfaceSubnetOctets = interfaceSubnet.trim().split("\\.");
-
-        int i = 0;
-        while (!interfaceSubnetOctets[i].equals("0")) {
-            interfaceIp = interfaceIp.concat(interfaceSubnetOctets[i]).concat(".");
-            i++;
-        }
-        while (i < serverIpOctets.length) {
-            interfaceIp = interfaceIp.concat(serverIpOctets[i]).concat(".");
-            i++;
-        }
-        return interfaceIp.substring(0, interfaceIp.length() - 1);//because the "." at the end
-
-    }
-
-    public static void deleteMultipleDevice(List<DeviceInfoDataTable> devices) {
-        TopologyTreeTabs topologyTreeTab;
-        for (DeviceInfoDataTable device : devices) {
-            topologyTreeTab = (device.getTreeTabType() != null && !device.getTreeTabType().equals("")) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-            deleteDevice(device.getDeviceName(), topologyTreeTab);
-        }
     }
 
     public static DeviceInfo setDeviceInfo(SUTDeviceType sutDeviceType, String name, String ip, Map<String, String> optionalValues) {
@@ -862,26 +705,16 @@ public class TopologyTreeHandler {
         deviceInfo.setWriteCommunity(optionalValues.getOrDefault("SNMP Write Community", sutDeviceType == SUTDeviceType.DefensePro ? "public" : "private"));
 
         return deviceInfo;
-
-
     }
 
-    public static boolean navigateToIFrame(String by, String byLabel, String deviceName, TopologyTreeTabs topologyTreeTab) {
-
+    public static void navigateToIFrame(String by, String byLabel, String deviceName, TopologyTreeTabs topologyTreeTab) {
         selectDevice(deviceName, topologyTreeTab);
-        By byInstance=by.equals("Id")?By.id(byLabel):By.className(byLabel);
-        new WebDriverWait(WebUIDriver.getDriver(),30)
+        By byInstance = by.equals("Id") ? By.id(byLabel) : By.className(byLabel);
+        new WebDriverWait(WebUIDriver.getDriver(), 30)
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(byInstance));
-        return true;
     }
 
     public static void navigateBackFromIFrame() {
-
         WebUIDriver.getDriver().switchTo().defaultContent();
-    }
-
-    public class DeviceAttribute {
-        public String attribute;
-        public String value;
     }
 }
