@@ -43,6 +43,7 @@ public class TopologyTreeSteps extends VisionUITestBase {
 
     @When("^UI Add( physical)?(?: with (DeviceID|SetId))? \"(.*)\" under \"(.*)\" site(?: SNMP Version (V[123]))?( unregister)?(?: expected status \"(.*)\")?$")
     public void addNewDevice(String treeTabType,String idType, String id, String parent, String snmpVersion, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) {
+        int timeOut = 5 * 60 * 1000;
         try {
             String snmpV = snmpVersion == null? "V2" : snmpVersion;
             boolean register = unregister == null;
@@ -77,7 +78,9 @@ public class TopologyTreeSteps extends VisionUITestBase {
             if (expectedStatus == null) {
                 expectedStatus = ImConstants$DeviceStatusEnumPojo.OK;
             }
-            if (!Device.waitForDeviceStatus(restTestBase.getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, 5 * 60 * 1000)) {
+            if(!TopologyTreeHandler.waitForDeviceToShowUp(topologyTreeTab, deviceInfo.getDeviceName(), timeOut))
+                BaseTestUtils.report("Device Name :" + getDeviceName() + " Device was not added till timeout", Reporter.FAIL);
+            if (!Device.waitForDeviceStatus(restTestBase.getVisionRestClient(), deviceInfo.getDeviceName(), expectedStatus, timeOut)) {
                 BaseTestUtils.report("Device Name :" + getDeviceName() + " Device Status is not equal to " + expectedStatus, Reporter.FAIL);
             }
         } catch (Exception e) {
@@ -570,22 +573,6 @@ public class TopologyTreeSteps extends VisionUITestBase {
                     "Topology Element may not have been found: \n" + "\n" + "Error: " + e.getCause() + parseExceptionBody(e),
                     Reporter.FAIL);
 
-        }
-    }
-
-    @Then("^UI Delete Multiple Devices - By device Names \"(.*)\"$")
-    public void deleteMultipleDevicesByNames(String deletiondeviceNames) {
-        try {
-            List<String> deviceNames = Arrays.asList(deletiondeviceNames.split(","));
-            for (String currentDevice : deviceNames) {
-                try {
-                    TopologyTreeHandler.deleteDevice(currentDevice);
-                } catch (Exception e1) {
-                    BaseTestUtils.report("Could not delete elements: " + currentDevice + "\n" + parseExceptionBody(e1), Reporter.FAIL);
-                }
-            }
-        } catch (Exception e) {
-            BaseTestUtils.report("Could not delete all elements." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

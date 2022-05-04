@@ -12,7 +12,6 @@ Feature: Create Device DP
     Given UI Go To Vision
     When UI open Topology Tree view "SitesAndClusters" site
     When UI Add with DeviceID "DefensePro_172.16.22.25" under "Default" site
-    Then UI Wait For Device To Show Up In The Topology Tree with DeviceID "DefensePro_172.16.22.25" with timeout 300 seconds
 
   @SID_3
   Scenario: verify DP status and lock DP
