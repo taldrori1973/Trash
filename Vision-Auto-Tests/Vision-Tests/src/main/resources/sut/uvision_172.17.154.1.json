@@ -3,7 +3,7 @@
   "serverName": "uvision_auto",
   "defenseFlow": "DF_172.17.154.55",
   "deployConfigurations": {
-    "snapshot": "",
+    "snapshot": "Current-1",
     "setupMode": "upgrade",
     "environment": "KVM-215"
   },
