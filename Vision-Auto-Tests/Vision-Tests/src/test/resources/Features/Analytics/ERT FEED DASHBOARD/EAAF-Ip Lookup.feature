@@ -4,19 +4,19 @@ Feature: EAAF-Ip Lookup
     Scenario: delete data from elastic search
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "eaaf-attack-*"
-    Then Sleep "300"
+#    Then Sleep "300"
 
-
+@TEAA
   @SID_2
   Scenario: login and navigate ERT dashboard
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Navigate to "EAAF Dashboard" page via homePage
+  Then UI Navigate to "EAAF Dashboard" page via homePage
 
   @SID_3
   Scenario: click iplookup and write valide ip
     Given UI Click Button "IP Lookup"
-    Then UI Set Text Field "IPlookup search" To "103.28.52.93"
+    Then UI Set Text Field "IPlookup search" To "113.172.213.32"
     Then Sleep "2"
 
 #    Then UI Validate Table record tooltip values with elementLabel "IPLookupTable" findBy columnName "Country Code" findBy cellValue "ID"
