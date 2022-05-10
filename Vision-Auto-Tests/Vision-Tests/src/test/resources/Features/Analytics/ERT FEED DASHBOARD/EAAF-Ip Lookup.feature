@@ -1,9 +1,9 @@
 @TC126291
 Feature: EAAF-Ip Lookup
-  @SID_1
-    Scenario: delete data from elastic search
-    * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "eaaf-attack-*"
+#  @SID_1
+#    Scenario: delete data from elastic search
+#    * CLI kill all simulator attacks on current vision
+#    * REST Delete ES index "eaaf-attack-*"
 #    Then Sleep "300"
 
 @TEAA
