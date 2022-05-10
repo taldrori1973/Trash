@@ -64,7 +64,7 @@ public class TopologyTreeHandler {
                 WebUIUpperBar.select(UpperBarItems.Refresh);
             }
         } else {
-            BaseTestUtils.report("Device is already exist: " + deviceName, Reporter.PASS);
+            BaseTestUtils.report("Device already exists: " + deviceName, Reporter.PASS);
         }
 
     }
