@@ -201,12 +201,12 @@ public class RadwareServerCli extends ServerCliBase {
         p.setDontWaitForScrollEnd(true);
         prompts.add(p);
 
-        p = new Prompt();
-        p.setPrompt("Installing system requirements");
-        p.setRegularExpression(true);
-        p.setCommandEnd(true);
-        p.setDontWaitForScrollEnd(true);
-        prompts.add(p);
+//        p = new Prompt();
+//        p.setPrompt("Installing system requirements");
+//        p.setRegularExpression(true);
+//        p.setCommandEnd(true);
+//        p.setDontWaitForScrollEnd(true);
+//        prompts.add(p);
 
         p = new Prompt();
         p.setPrompt("Are you sure you want to continue with the reboot anyway? (y/N)");

@@ -67,7 +67,7 @@ public class NewVmHandler extends TestBase {
 
     }
 
-    public void firstTimeWizardQCow2(String version, String specificVisionBuild, String fileUrl) {
+    public void firstTimeWizardQCow2(String version, String specificVisionBuild, String fileUrl, String md5DevArt) {
         long timeOut = 3600000L;
         ArrayList<String> messages = new ArrayList();
         String fileNotFound = "Error 15: File not found\n";
@@ -87,6 +87,8 @@ public class NewVmHandler extends TestBase {
             runCommand(this.visionRadwareFirstTime, "cd " + imagesPath);
             String curlCommand = String.format("curl -m %d -o %s.qcow2 %s", downloadTimeOutInSec, vmName, fileUrl);
             runCommand(this.visionRadwareFirstTime, curlCommand, downloadTimeOutInSec * 1000);
+            checkMd5AfterDeploy(vmName, md5DevArt);
+
             StringJoiner installCommand = new StringJoiner(" ");
             installCommand.add("virt-install").add("--name " + vmName).add("--noautoconsole ");
             installCommand.add("--ram 24576").add("--vcpus 8").add("--import").add("--disk " + imagesPath + vmName + ".qcow2,bus=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--graphics none").add("--video cirrus").add("--serial pty");
@@ -125,8 +127,17 @@ public class NewVmHandler extends TestBase {
             runCommand(this.visionRadwareFirstTime, "rm -rf " + imagesPath + vmName + ".qcow2");
         }
     }
+    public void checkMd5AfterDeploy(String vmName, String md5DevArt){
+        runCommand(this.visionRadwareFirstTime,"md5sum " + imagesPath + vmName + ".qcow2 ", 60 * 60 * 200);
+        String md5CLI = this.visionRadwareFirstTime.getLastRow();
+        String[] md5Output = md5CLI.split(" ");
+        String md5_from_cli = md5Output[0];
+        if(!md5_from_cli.equals(md5DevArt)){
+            BaseTestUtils.report("Md5 from cli is not match to md5 from devArt101", Reporter.FAIL);
+        }
+    }
 
-    public void firstTimeWizardKVM(boolean isAPM, String version, String specificVisionBuild, String fileUrl) throws Exception {
+    public void firstTimeWizardKVM(boolean isAPM, String version, String specificVisionBuild, String fileUrl, String Md5) throws Exception {
         long timeOut = 3600000L;
         ArrayList messages = new ArrayList();
         String fileNotFound = "Error 15: File not found\n";
