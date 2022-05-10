@@ -40,7 +40,7 @@ public class VisionServer {
             if (!InvokeUtils.isConnectionOpen(radwareServerCli)) radwareServerCli.connect();
             upgradePassword = upgradePassword == null ? "" : upgradePassword;
             radwareServerCli.setUpgradePassword(upgradePassword);
-            int startUpgradeTimeOut = 20 * 60 * 1000;
+            int startUpgradeTimeOut = 40 * 60 * 1000;
             timeout = timeout * 60 * 1000;
             //Clear old file
             CliOperations.runCommand(rootServerCli, "mkdir /opt/radware/storage/maintenance/upgrade",
