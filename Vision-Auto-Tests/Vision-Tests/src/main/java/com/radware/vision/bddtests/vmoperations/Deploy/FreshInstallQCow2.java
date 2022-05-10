@@ -4,8 +4,6 @@ import com.radware.vision.automation.Deploy.NewVmHandler;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 
-import java.io.File;
-
 public class FreshInstallQCow2 extends FreshInstall {
 
     public FreshInstallQCow2() {
@@ -16,7 +14,7 @@ public class FreshInstallQCow2 extends FreshInstall {
     public void deploy() {
         NewVmHandler vmHandler = new NewVmHandler();
         try {
-            vmHandler.firstTimeWizardQCow2(version, build, buildFileInfo.getDownloadUri().toString());
+            vmHandler.firstTimeWizardQCow2(version, build, buildFileInfo.getDownloadUri().toString(), buildFileInfo.getChecksums().getMd5());
         } catch (Exception e) {
             e.printStackTrace();
         }

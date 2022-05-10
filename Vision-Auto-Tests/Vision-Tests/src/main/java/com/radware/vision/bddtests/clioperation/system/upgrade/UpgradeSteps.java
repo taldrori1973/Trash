@@ -165,7 +165,7 @@ public class UpgradeSteps extends TestBase {
             String changeMinorVersion = String.format("sed -i 's/buildMinorVersion: .*$/buildMinorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[1]);
             CliOperations.runCommand(rootServerCli, changeMinorVersion, CliOperations.DEFAULT_TIME_OUT, false, false, true);
             BaseTestUtils.report("Setting Server property file to version: " + String.format("%s.%s.%s", notSupportedVersion[0], notSupportedVersion[1], notSupportedVersion[2]), Reporter.PASS_NOR_FAIL);
-            VisionServer.downloadUpgradeFile(rootServerCli, upgrade.getBuildFileInfo().getDownloadUri().toString());
+            VisionServer.downloadUpgradeFile(rootServerCli, upgrade.getBuildFileInfo().getDownloadUri().toString() , upgrade.getBuildFileInfo().getChecksums().getMd5());
             String upgradePassword = "";
             radwareServerCli.setUpgradePassword(upgradePassword);
             radwareServerCli.setBeginningTheAPSoluteVisionUpgradeProcessEndsCommand(false);
@@ -248,7 +248,7 @@ public class UpgradeSteps extends TestBase {
             RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
             RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
             VisionServer.upgradeServerFile(radwareServerCli, rootServerCli
-                    , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
+                    , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString(), buildFileInfo.getChecksums().getMd5());
             validateVisionServerServicesUP(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);

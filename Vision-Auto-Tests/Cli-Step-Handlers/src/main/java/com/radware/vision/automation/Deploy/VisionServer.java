@@ -31,12 +31,12 @@ public class VisionServer {
 
     public static void upgradeServerFile(RadwareServerCli radwareServerCli, RootServerCli rootServerCli,
                                          String upgradePassword,
-                                         String file, String url) throws Exception {
+                                         String file, String url, String md5DevArt) throws Exception {
         try {
             BaseTestUtils.reporter.startLevel("system upgrade full - Started");
             int timeout = 90;
 
-            downloadUpgradeFile(rootServerCli, url);
+            downloadUpgradeFile(rootServerCli, url , md5DevArt);
             if (!InvokeUtils.isConnectionOpen(radwareServerCli)) radwareServerCli.connect();
             upgradePassword = upgradePassword == null ? "" : upgradePassword;
             radwareServerCli.setUpgradePassword(upgradePassword);
@@ -68,7 +68,7 @@ public class VisionServer {
         }
     }
 
-    public static void downloadUpgradeFile(RootServerCli rootServerCli, String visionServerUrl) throws Exception {
+    public static void downloadUpgradeFile(RootServerCli rootServerCli, String visionServerUrl, String md5DevArt) throws Exception {
         if (!InvokeUtils.isConnectionOpen(rootServerCli)) rootServerCli.connect();
 
         //remove the validation - so no need for password
@@ -81,8 +81,20 @@ public class VisionServer {
         BaseTestUtils.report("Starting download image from:" + visionServerUrl, Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(rootServerCli, String.format("curl -O \"%s\"",visionServerUrl),
                 GlobalProperties.VISION_OPERATIONS_TIMEOUT, false, false, true);
+        checkMd5AfterUpgrade(rootServerCli, visionServerUrl, md5DevArt);
         BaseTestUtils.report("Download image completed", Reporter.PASS_NOR_FAIL);
 
+    }
+    public static void checkMd5AfterUpgrade(RootServerCli rootServerCli, String visionServerUrl, String md5DevArt){
+        String[] nameOfUpgrade = visionServerUrl.split("/");
+        String nameOfBuild = nameOfUpgrade[nameOfUpgrade.length-1];
+        CliOperations.runCommand(rootServerCli, "md5sum " + TARGET_UPGRADE_SERVER_FILE_FOLDER + "/" + nameOfBuild , CliOperations.DEFAULT_TIME_OUT);
+        String md5CLI = CliOperations.lastRow;
+        String[] md5Output = md5CLI.split(" ");
+        String md5_from_cli = md5Output[0];
+        if(!md5_from_cli.equals(md5DevArt)){
+            BaseTestUtils.report("Md5 from cli is not match to md5 from devArt101", Reporter.FAIL);
+        }
     }
 
     /**

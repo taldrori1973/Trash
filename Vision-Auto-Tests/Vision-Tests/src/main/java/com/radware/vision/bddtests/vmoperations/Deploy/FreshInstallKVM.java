@@ -24,7 +24,7 @@ public class FreshInstallKVM extends Deploy {
     public void deploy() {
         NewVmHandler vmHandler = new NewVmHandler();
         try {
-            vmHandler.firstTimeWizardKVM(isAPM, version, build, buildFileInfo.getDownloadUri().toString());
+            vmHandler.firstTimeWizardKVM(isAPM, version, build, buildFileInfo.getDownloadUri().toString() , buildFileInfo.getChecksums().getMd5());
         } catch (Exception e) {
             e.printStackTrace();
         }
