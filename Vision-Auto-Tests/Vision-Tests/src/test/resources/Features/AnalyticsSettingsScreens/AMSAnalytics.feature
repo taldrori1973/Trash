@@ -1,8 +1,8 @@
 @AMSAnalytics @TC126267
 Feature: Verify AMS Analytics Screen
 
-#  Scenario: Run DP simulator PCAPs
-#    Given CLI simulate 1000 attacks of type "many_attacks" on SetId "DefensePro_Set_1" and wait 90 seconds
+  Scenario: Run DP simulator PCAPs
+    Given CLI simulate 1000 attacks of type "many_attacks" on DeviceID "DefensePro_172.16.22.50" and wait 90 seconds
 
   Scenario: Login And Navigate to AMS Analytics Screen
     Given UI Login with user "radware" and password "radware"
