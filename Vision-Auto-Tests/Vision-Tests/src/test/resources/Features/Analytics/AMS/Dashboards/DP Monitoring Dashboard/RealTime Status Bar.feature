@@ -81,8 +81,7 @@ Feature: VRM Real Time Status Bar Devices status
 
   @SID_6
   Scenario: Devices status disconnected Alteon
-#   When UI Add "Alteon" with index 30 on "Default" site nowait
-    Then UI Add "Alteon_Set_1" under "Default" site
+    Then UI Add with DeviceID "Alteon_172.16.100.103" under "Default" site
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "90"
 # Validate correct number of DPs
@@ -94,8 +93,7 @@ Feature: VRM Real Time Status Bar Devices status
 
   @SID_7
   Scenario: Delete disconnected Alteon
-#   Then UI Delete "Alteon" device with index 30 from topology tree
-    Then UI Delete "Alteon_Set_1" from topology tree
+    Then UI Delete with DeviceID "Alteon_172.16.100.103" from topology tree
     Then Sleep "90"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Device Selection" equal to "DEVICES6/6"
