@@ -1,7 +1,6 @@
 package com.radware.vision.automation.Deploy;
 
 
-import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
@@ -36,7 +35,7 @@ public class VisionServer {
             BaseTestUtils.reporter.startLevel("system upgrade full - Started");
             int timeout = 90;
 
-            downloadUpgradeFile(rootServerCli, url , md5DevArt);
+            downloadUpgradeFile(rootServerCli, url, md5DevArt);
             if (!InvokeUtils.isConnectionOpen(radwareServerCli)) radwareServerCli.connect();
             upgradePassword = upgradePassword == null ? "" : upgradePassword;
             radwareServerCli.setUpgradePassword(upgradePassword);
@@ -79,20 +78,21 @@ public class VisionServer {
         //Downloading the file to the target folder
         CliOperations.runCommand(rootServerCli, "cd " + TARGET_UPGRADE_SERVER_FILE_FOLDER);
         BaseTestUtils.report("Starting download image from:" + visionServerUrl, Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(rootServerCli, String.format("curl -O \"%s\"",visionServerUrl),
+        CliOperations.runCommand(rootServerCli, String.format("curl -O \"%s\"", visionServerUrl),
                 GlobalProperties.VISION_OPERATIONS_TIMEOUT, false, false, true);
         checkMd5AfterUpgrade(rootServerCli, visionServerUrl, md5DevArt);
         BaseTestUtils.report("Download image completed", Reporter.PASS_NOR_FAIL);
 
     }
-    public static void checkMd5AfterUpgrade(RootServerCli rootServerCli, String visionServerUrl, String md5DevArt){
+
+    public static void checkMd5AfterUpgrade(RootServerCli rootServerCli, String visionServerUrl, String md5DevArt) {
         String[] nameOfUpgrade = visionServerUrl.split("/");
-        String nameOfBuild = nameOfUpgrade[nameOfUpgrade.length-1];
-        CliOperations.runCommand(rootServerCli, "md5sum " + TARGET_UPGRADE_SERVER_FILE_FOLDER + "/" + nameOfBuild , 6 * 60 * 1000);
+        String nameOfBuild = nameOfUpgrade[nameOfUpgrade.length - 1];
+        CliOperations.runCommand(rootServerCli, "md5sum " + TARGET_UPGRADE_SERVER_FILE_FOLDER + "/" + nameOfBuild, 6 * 60 * 1000);
         String md5CLI = CliOperations.lastRow;
         String[] md5Output = md5CLI.split(" ");
         String md5_from_cli = md5Output[0];
-        if(!md5_from_cli.equals(md5DevArt)){
+        if (!md5_from_cli.equals(md5DevArt)) {
             BaseTestUtils.report("Md5 from cli is not match to md5 from devArt101", Reporter.FAIL);
         }
     }
@@ -208,56 +208,11 @@ public class VisionServer {
         return false;
     }
 
-    public static boolean waitForVisionServerServicesToStart(CliConnectionImpl cliConnection, long timeout) throws Exception {
-        long startTime = System.currentTimeMillis();
-        do {
-            if (com.radware.vision.vision_handlers.system.VisionServer.isVisionServerRunning(cliConnection))
-                return true;
-            Thread.sleep(15 * 1000);
-        }
-        while (System.currentTimeMillis() - startTime < timeout);
-        return false;
-    }
-
-    public static boolean waitForVisionServerReadinessForUpgrade(CliConnectionImpl cliConnection, long timeout) throws Exception {
-        long startTime = System.currentTimeMillis();
-        do {
-
-            if (isVisionReadyForUpgrade(cliConnection))
-                return true;
-            Thread.sleep(15 * 1000);
-        }
-        while (System.currentTimeMillis() - startTime < timeout);
-        return false;
-    }
-
-    public static boolean isVisionReadyForUpgrade(CliConnectionImpl serverCli) {
-        try {
-            serverCli.connect();
-            InvokeUtils.invokeCommand(null, Menu.system().visionServer().status().build(), serverCli, 2 * 60 * 1000, true);
-            String status = serverCli.getTestAgainstObject().toString();
-            if (status == null) {
-                return false;
-            }
-
-            boolean APSoluteVisionReporterStarted = status.contains(String.format("%s %s",
-                    VisionServices.COLLECTOR.getValue(), ServiceStatus.RUNNING.getStatus()));
-            boolean ConfigurationServerStarted = status.contains(String.format("%s %s",
-                    VisionServices.CONFIGURATION.getValue(), ServiceStatus.RUNNING.getStatus()));
-            return APSoluteVisionReporterStarted &&
-                    ConfigurationServerStarted;
-            //&& TedAgentIsRunning;
-        } catch (Exception e) {
-            return false;
-        }
-
-    }
-
     public static boolean isVisionServerRunningHA(RadwareServerCli serverCli) throws Exception {
 
         //if true -->all relevant services up
         boolean flag = false;
-        //all service that are stopped or not running will be add the this list
+        //aall service that are stopped or not running will be added to this list
         List<String> stoppedServices = new ArrayList<>();
         if (!serverCli.isConnected()) {
             serverCli.connect();
