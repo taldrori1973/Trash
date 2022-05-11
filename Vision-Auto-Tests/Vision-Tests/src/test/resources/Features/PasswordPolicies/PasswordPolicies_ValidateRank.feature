@@ -1,9 +1,8 @@
-@PasswordPolicy2 @TC126263
+@PasswordPolicy @TC126263
 Feature: Verify Password Policy feature where user is assigned to multiple roles and accepts password policy of higher rank
 
   Scenario: Create 2 new password policies for different roles
     Given UI Login with user "radware" and password "radware"
-#    Then UI Navigate to page "System"
     And UI Click Button by id "gwt-debug-TopicsStack_am.system.tree.userManagement"
     And UI Click Button by id "gwt-debug-TopicsNode_am.system.tree.userManagement.customSettings-content"
     And UI Click Button by id "gwt-debug-usermgmtpolicyoveridetable_NEW"
@@ -26,6 +25,8 @@ Feature: Verify Password Policy feature where user is assigned to multiple roles
     And UI Click Button by id "gwt-debug-usermgmtpolicyoveridetable_NEW"
     And UI Set Text field with id "gwt-debug-policyName_Widget" with "DeviceAdministratorPolicy"
 
+    And Sleep "5"
+    
     And Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Password Policies"
       | ormID | $[?(@.policyName=='DEFAULT')].ormID |
 
