@@ -1,9 +1,9 @@
 @TC126291
 Feature: EAAF-Ip Lookup
-  @SID_1
-    Scenario: delete data from elastic search
-    * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "eaaf-attack-*"
+#  @SID_1
+#    Scenario: delete data from elastic search
+#    * CLI kill all simulator attacks on current vision
+#    * REST Delete ES index "eaaf-attack-*"
 #    Then Sleep "300"
 
 @TEAA
@@ -102,8 +102,6 @@ Feature: EAAF-Ip Lookup
     Then CLI Run remote linux Command "rm -rf /home/radware/Downloads/*.csv" on "GENERIC_LINUX_SERVER"
   @SID_5
   Scenario: Modify any dynamic values in DB
-    #All units in mSec but in CSV/UI will be shown in seconds
-    #Less than 1000 mSec are rounded to 0
     Then UI Click Button "Export To CSV"
 
 
@@ -112,7 +110,7 @@ Feature: EAAF-Ip Lookup
 
   @SID_6
   Scenario: Validate detailed csv iplookup
-    Then CLI Run linux Command "cat /home/radware/Downloads/file.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "36"
+    Then CLI Run linux Command "cat /home/radware/Downloads/file.csv |wc -l" on "SLAVE_SERVER_CLI" and validate result EQUALS "36"
 #    Then CLI Run linux Command "cat /home/radware/ftp/modal_ip_lookup_*.csv|head -$(echo $(grep -n "IPLookup" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "50.50.100.1"
 #    Then CLI Run linux Command "cat /home/radware/ftp/modal_ip_lookup_*.csv|head -$(echo $(grep -n "IPLookup" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "861"
 #    Then CLI Run linux Command "cat /home/radware/ftp/modal_ip_lookup_*.csv|head -$(echo $(grep -n "IPLookup" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "ERT"
