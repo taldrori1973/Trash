@@ -4,8 +4,10 @@ Feature: Create Device DP
   @SID_1 @Sanity
   Scenario: Open the SitesAndClusters  Containers
     Given CLI Reset radware password
-    Given UI Login with user "radware" and password "radware"
+    Then REST Login with user "radware" and password "radware"
     Given REST Delete device with DeviceID "DefensePro_172.16.22.25" from topology tree
+    Then Sleep "40"
+    Given UI Login with user "radware" and password "radware"
 
   @SID_2 @Sanity
   Scenario: Add new DefensePro
@@ -22,7 +24,9 @@ Feature: Create Device DP
   Scenario: Delete DefensePro
     When UI open Topology Tree view "SitesAndClusters" site
     Then UI Delete with DeviceID "DefensePro_172.16.22.25" from topology tree
+    Then Sleep "40"
 
   @SID_5 @Sanity
   Scenario: Logout
+    Then REST Add device with DeviceID "DefensePro_172.16.22.25" into site "Default"
     Given UI logout and close browser
