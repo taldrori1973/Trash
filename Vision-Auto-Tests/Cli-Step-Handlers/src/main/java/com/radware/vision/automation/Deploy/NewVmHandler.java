@@ -128,7 +128,7 @@ public class NewVmHandler extends TestBase {
         }
     }
     public void checkMd5AfterDeploy(String vmName, String md5DevArt){
-        runCommand(this.visionRadwareFirstTime,"md5sum " + imagesPath + vmName + ".qcow2 ", 60 * 60 * 200);
+        runCommand(this.visionRadwareFirstTime,"md5sum " + imagesPath + vmName + ".qcow2 ", 6 * 60 * 1000);
         String md5CLI = this.visionRadwareFirstTime.getLastRow();
         String[] md5Output = md5CLI.split(" ");
         String md5_from_cli = md5Output[0];
