@@ -88,7 +88,7 @@ public class VisionServer {
     public static void checkMd5AfterUpgrade(RootServerCli rootServerCli, String visionServerUrl, String md5DevArt){
         String[] nameOfUpgrade = visionServerUrl.split("/");
         String nameOfBuild = nameOfUpgrade[nameOfUpgrade.length-1];
-        CliOperations.runCommand(rootServerCli, "md5sum " + TARGET_UPGRADE_SERVER_FILE_FOLDER + "/" + nameOfBuild , CliOperations.DEFAULT_TIME_OUT);
+        CliOperations.runCommand(rootServerCli, "md5sum " + TARGET_UPGRADE_SERVER_FILE_FOLDER + "/" + nameOfBuild , 6 * 60 * 1000);
         String md5CLI = CliOperations.lastRow;
         String[] md5Output = md5CLI.split(" ");
         String md5_from_cli = md5Output[0];

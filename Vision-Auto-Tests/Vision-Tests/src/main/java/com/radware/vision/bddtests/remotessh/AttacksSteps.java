@@ -23,8 +23,8 @@ public class AttacksSteps extends TestBase {
      * @param ld           - OPTIONAL loop delay. delay in mSec between iterations. default 1000loop delay. delay in mSec between iterations. default 1000
      * @param waitTimeout  - OPTIONAL Delay before return default 0
      */
-    @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on (SetId|DeviceID) \"(.*)\"(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
-    public void runSimulatorFromDevice(int numOfAttacks, String fileName, String idType, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId) {
+    @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on (SetId|DeviceID) \"(.*)\"(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?( inSecondaryServer)?$")
+    public void runSimulatorFromDevice(int numOfAttacks, String fileName, String idType, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId, String inSecondaryServer) {
         String deviceIp = "";
 
         try {
@@ -43,7 +43,7 @@ public class AttacksSteps extends TestBase {
             if (waitTimeout != null) {
                 wait = waitTimeout;
             }
-            String commandToExecute = getCommandToExecute(deviceIp, numOfAttacks, loopDelay, fileName, withAttackId != null);
+            String commandToExecute = getCommandToExecute(deviceIp, numOfAttacks, loopDelay, fileName, withAttackId != null, inSecondaryServer != null);
             Optional<LinuxFileServer> genericLinuxServerOpt = serversManagement.getLinuxFileServer();
             if (!genericLinuxServerOpt.isPresent()) {
                 throw new Exception("The genericLinuxServer Not found!");
@@ -61,10 +61,16 @@ public class AttacksSteps extends TestBase {
      * kills all the attacks process to the current vision
      */
 
-    @Given("^CLI kill all simulator attacks on current vision")
-    public void killAllAttacksOnVision() {
+    @Given("^CLI kill all simulator attacks on (current vision|Secondary Server)")
+    public void killAllAttacksOnVision(String server) {
         try {
-            String visionIP = clientConfigurations.getHostIp();
+            String visionIP = "";//clientConfigurations.getHostIp();
+
+            if(server.equals("current vision"))
+                visionIP = clientConfigurations.getHostIp();
+            else if (server.equals("Secondary Server"))
+                visionIP = getSutManager().getpair().getPairIp();
+
             Optional<LinuxFileServer> genericLinuxServerOpt = serversManagement.getLinuxFileServer();
             if (!genericLinuxServerOpt.isPresent()) {
                 throw new Exception("The genericLinuxServer Not found!");
@@ -78,9 +84,14 @@ public class AttacksSteps extends TestBase {
         }
     }
 
-    private String getCommandToExecute(String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId) {
+    private String getCommandToExecute(String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId, boolean inSecondaryServer) {
         String fakeIpPrefix = "50.50";
-        String visionIP = clientConfigurations.getHostIp();
+        String visionIP = "";
+        if(!inSecondaryServer)
+            visionIP = clientConfigurations.getHostIp();
+        else
+            visionIP = getSutManager().getpair().getPairIp();
+
         String interFace;
         String gwMacAdress = getServersManagement().getLinuxFileServer().get().getGwMacAddress();//"00:14:69:4c:70:42"; //172.19.1.1 GW mac
         String commandToExecute = "";
