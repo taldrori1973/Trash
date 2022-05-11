@@ -29,7 +29,7 @@ public class Migration extends TestBase {
             if (!rootServerCliOpt.isPresent()) {
                 throw new Exception("Root Server Not found!");
             }
-            CliOperations.runCommand(rootServerCli, command, 200000);
+            CliOperations.runCommand(rootServerCli, command, 200000, true);
 
         } catch (Exception e) {
             BaseTestUtils.report(String.format("Error: %s", e.getMessage()), Reporter.FAIL);
