@@ -16,15 +16,14 @@ public class ServersManagement {
     private final LinuxFileServer linuxFileServer;
     private final RadwareServerCli radwareServerCli;
     private final RootServerCli rootServerCli;
-    private final RootServerCli slaveServerCli;
+    private final SlaveServerCli slaveServerCli;
 
 
     public ServersManagement() throws Exception {
         this.linuxFileServer = this.createAndInitServer(getServerId(TestBase.getSutManager().getLinuxServerID()), LinuxFileServer.class);
         this.radwareServerCli = this.createAndInitServer(RadwareServerCli.class);
         this.rootServerCli = this.createAndInitServer(RootServerCli.class);
-        this.slaveServerCli = this.createAndInitServer(SlaveServerCli.class);
-
+        this.slaveServerCli = this.createAndInitServer(SlaveServerCli.class, false);
     }
 
     /***
@@ -65,6 +64,10 @@ public class ServersManagement {
     }
 
     private <SERVER extends ServerCliBase> SERVER createAndInitServer(Class<SERVER> clazz) {
+        return createAndInitServer(clazz, true);
+    }
+
+    private <SERVER extends ServerCliBase> SERVER createAndInitServer(Class<SERVER> clazz, boolean connectionInit) {
         try {
             Constructor<SERVER> constructor = clazz.getConstructor(String.class, String.class, String.class);
             String iP = TestBase.getSutManager().getClientConfigurations().getHostIp();
@@ -75,11 +78,13 @@ public class ServersManagement {
             }
             else if (clazz == SlaveServerCli.class) {
                 server = constructor.newInstance(TestBase.getMyHostIP(), SlaveServerCli.getSlaveUsername(), SlaveServerCli.getSlavePassword());
-            }else {
+            }
+            else {
                 server = constructor.newInstance(iP, CliConfigurationDto.getRootServerCliUserName(), CliConfigurationDto.getRootServerCliPassword());
             }
             server.setConnectOnInit(TestBase.connectOnInit());
-            server.init();
+            if(connectionInit)
+                server.init();
             return server;
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,7 +111,6 @@ public class ServersManagement {
         ROOT_SERVER_CLI("rootServerCli"),
         DEPLOYMENT_SERVER("deploymentServer"),
         SLAVE_SERVER_CLI("slaveServerCli");
-
 
         private String serverId;
 
