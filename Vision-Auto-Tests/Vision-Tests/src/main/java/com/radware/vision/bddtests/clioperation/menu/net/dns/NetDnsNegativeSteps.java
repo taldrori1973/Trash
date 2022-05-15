@@ -44,7 +44,7 @@ public class NetDnsNegativeSteps extends TestBase {
             cliNegative.init();
             ArrayList<CliNegative.InvalidInputDataType> invailedDataList = new ArrayList<>(Arrays.asList(CliNegative.InvalidInputDataType.IP_NET_DNS));
             cliNegative.run(Menu.net().dns().setSecondary().build(), invailedDataList, CliNegative.GoodErrorsList.NET_DNS_NEGATIVE_LIST);
-            Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDERAY);
+            Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDARY);
             cliNegative.after();
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

@@ -7,190 +7,121 @@ Feature: TED Functionality
     Then CLI Clear vision logs
     When CLI Operations - Run Radware Session command "net firewall open-port set 5140 open"
     When CLI Operations - Run Radware Session command "net firewall open-port set 9200 open"
-
+    Given CLI Run remote linux Command "/home/radware/hackMe40.sh 2 10.25.86.43" on "GENERIC_LINUX_SERVER"
     Then UI Login with user "radware" and password "radware"
-    Then REST Vision Install License Request "vision-reporting-module-ADC"
-    Then Browser Refresh Page
-    Then REST Add "Alteon" Device To topology Tree with Name "TED Automation" and Management IP "10.25.49.130" into site "Default"
-      | attribute     | value   |
-      | httpsPassword | admin   |
-      | httpsUsername | admin   |
-    Then Sleep "120"
-    Then REST Add "Alteon" Device To topology Tree with Name "TED Automation2" and Management IP "10.25.49.135" into site "Default"
-      | attribute     | value   |
-      | httpsPassword | admin   |
-      | httpsUsername | admin   |
-    Then Sleep "120"
-    Then REST Add "Alteon" Device To topology Tree with Name "TED Automation3" and Management IP "10.25.49.160" into site "Default"
-      | attribute     | value   |
-      | httpsPassword | admin   |
-      | httpsUsername | admin   |
 
   @SID_2
   Scenario: Navigate to TED Tab
-    #Given CLI simulate 2 attacks of type "1Hit" on "Alteon" 31 with loopDelay 15000 and wait 40 seconds
-    And UI Navigate to "Application Dashboard" page via homePage
+    Given UI Navigate to "Application Dashboard" page via homePage
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1:80"
-    Then UI Click Button "TED Tab"
+    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "hackMeBank8640:443"
+    Then UI Click Button "ted"
 
   @SID_3
   Scenario: validate filter bar is empty and no data exists in the tedEvents Table
-    Then UI Validate Text field by id "tedSearchBarInput" EQUALS ""
-    Then UI Validate "tedEvent Table" Table rows count EQUALS to 0
-  #TODO validate the correct "No data available" image appears in the table
+    Given UI Validate Text field by id "tedSearchBarInput" EQUALS ""
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 20
 
   @SID_4
   Scenario: After Sending events - verify no data appears until refresh and refresh maintains filter bar value
-    When CLI Send Traffic Events file "fieldsummarybadgevalues"
-    And Sleep "20"
-    Then UI Validate "tedEvent Table" Table rows count EQUALS to 0
-    Then UI Click Button by id "tedSearchBarClear"
-    Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
-    Then UI Click Button by id "tedSearchBarSearch"
-    Then UI Validate "tedEvent Table" Table rows count EQUALS to 8
+    Given UI Set Text field with id "tedSearchBarInput" with "range=7d"
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 20
     Then UI Validate Text field by id "tedSearchBarTagIndex0" CONTAINS "range:7d"
+    Then UI Click Button by id "tedSearchBarClearImage"
 
   @SID_5
   Scenario: Fields Summary -> TedTopAnalyticsSummaryStateBadge value and table displays max 5 results (table offset by 1)
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryStateBadge" EQUALS "7"
-    Then UI Click Button by id "tedTopAnalyticsSummaryStateBadge"
+    Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryStateBadge" EQUALS "4"
+    Then UI Click Button by id "tedAnalyticsPanelSummaryStateBadge"
     Then UI Validate "tedEvent stateTable" Table rows count EQUALS to 6
-    Then UI click Table row by keyValue or Index with elementLabel "tedEvent stateTable" findBy columnName "Value" findBy cellValue "Sent to client"
+    Then UI click Table row by keyValue or Index with elementLabel "tedEvent stateTable" findBy columnName "Value" findBy cellValue "Connection Failure"
 
     Then UI Validate Text field by id "tedSearchBarTagIndex0" CONTAINS "range:7d"
-    Then UI Validate Text field by id "tedSearchBarTagIndex1" CONTAINS "AND outcome:"Sent to client"
+    Then UI Validate Text field by id "tedSearchBarTagIndex1" CONTAINS "AND outcome:"Connection Failure"
 
-    Then UI Validate "tedEvent stateTable" Table rows count EQUALS to 2
-    Then UI Click Button by id "tedTopAnalyticsSummaryStateBadge"
-
-    Then UI Click Button by id "tedSearchBarClear"
-    Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
-    Then UI Click Button by id "tedSearchBarSearch"
+    Then UI Click Button by id "tedSearchBarClearImage"
+    Then UI Click Button by id "tedAnalyticsPanelSummaryStateBadge"
 
   @SID_6
   Scenario: tedEvent Table items are clickable and update query bar
-    Then UI Click Button by id "tedSearchBarClear"
-    Then UI Set Text field with id "tedSearchBarInput" with "range=7d AND outcome:"Sent to client""
-    Then UI Click Button by id "tedSearchBarSearch"
-    Then UI "collapse" Table row by keyValue or Index with elementLabel "tedEvent Table" findBy index 0
-    Then UI Validate Text field by id "EventsSubPanelBoxRequestleftStateData" EQUALS "Sent to client"
-    Then UI Click Button by id "EventsSubPanelBoxRequestrightQueryData"
-
+#    Then UI "expand" Table row by keyValue or Index with elementLabel "tedEvent Table" findBy index 0
+    Given UI Set Text field with id "tedSearchBarInput" with "range=7d"
+    Then UI Click Button by id "toggle0Image"
+    Then UI Validate Text field by id "tedEventsTableBoxRequestBody0State" EQUALS "Sent to client"
+    Then UI Click Button by id "tedEventsTableBoxRequestBody0StateInner"
     Then UI Validate Text field by id "tedSearchBarTagIndex0" CONTAINS "range:7d"
     Then UI Validate Text field by id "tedSearchBarTagIndex1" CONTAINS "AND outcome:"Sent to client""
-    Then UI Validate Text field by id "tedSearchBarTagIndex2" CONTAINS "AND rdwrAltQuery:"?queryWithNoParameters&withParams\=true""
-
-    Then UI "expand" Table row by keyValue or Index with elementLabel "tedEvent Table" findBy index 0
+    Then UI Click Button by id "toggle0Image"
+    Then UI Click Button by id "tedSearchBarClearImage"
 
   @SID_7
   Scenario: Field Summary Badge Values
-    Then UI Click Button by id "tedSearchBarClear"
-    Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
-    Then UI Click Button by id "tedSearchBarSearch"
+#    Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
     ## Fields Summary - Request
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryStateBadge" EQUALS "7"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryQueryBadge" EQUALS "2"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryReasonBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryReqLengthBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryHostBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryReqContentBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryMethodBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryReferrerBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryPathBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryHttpVerBadge" EQUALS "1"
-
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryStateBadge" EQUALS "4"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryQueryBadge" EQUALS "6"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryReasonBadge" EQUALS "4"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryReqLengthBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryHostBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryReqCTypeBadge" EQUALS "0"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryMethodBadge" EQUALS "2"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryReferBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryPathBadge" EQUALS "9"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryHttpVerBadge" EQUALS "1"
   ## Fields Summary - Response
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryRespCodeBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryRespContentBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryRespLengthBadge" EQUALS "1"
-
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryCodeBadge" EQUALS "2"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryRespCTypeBadge" EQUALS "2"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryRespLengthBadge" EQUALS "2"
   ## Fields Summary - End-to-End Time
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryEteTimeBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryAppRespBadge" EQUALS "0"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryClientRttBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryTransferBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryServerRttBadge" EQUALS "1"
-
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryEteBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryAppRespBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryClientRttBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryRespTransBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryServerRttBadge" EQUALS "1"
   ## Fields Summary - Client Parameters
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryLocationBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryBrowserBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryOsBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummarySourceBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryDeviceBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryXffBadge" EQUALS "0"
-
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryLocationBadge" EQUALS "0"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryBrowserBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryOsBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryCSourceBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryDeviceBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryXffBadge" EQUALS "0"
   ## Fields Summary - Frontend SSL
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryFeVerBadge" EQUALS "0"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryFeCipherBadge" EQUALS "0"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryFePolicyBadge" EQUALS "0"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryFeSniBadge" EQUALS "0"
-
+    Then UI Validate Text field by id "tedAnalyticsPanelSummarySslFVerBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummarySslFCipherBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummarySslFPolicyBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummarySslFHostBadge" EQUALS "0"
   ## Fields Summary - Backend SSL
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryBeVerBadge" EQUALS "0"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryBeCipherBadge" EQUALS "0"
-
+    Then UI Validate Text field by id "tedAnalyticsPanelSummarySslBVerBadge" EQUALS "0"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummarySslBCipherBadge" EQUALS "0"
   ## Fields Summary - Alteon
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryAltContentBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryAddressBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryGroupNameBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryPortBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryServNameBadge" EQUALS "1"
-    Then UI Validate Text field by id "tedTopAnalyticsSummaryInstanceBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryAltClassBadge" EQUALS "0"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryAltAddressBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryAltGroupBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryAltPortBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryAltNameBadge" EQUALS "1"
+    Then UI Validate Text field by id "tedAnalyticsPanelSummaryAltInstBadge" EQUALS "1"
 
   @SID_8
   Scenario: URL encoded query values properly quoted
-    Then UI Click Button by id "tedSearchBarClear"
     Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
-    Then UI Click Button by id "tedSearchBarSearch"
-    Then UI Click Button by id "tedTopAnalyticsSummaryQueryBadge"
-    Then UI Validate "tedEvent queryTable" Table rows count EQUALS to 3
-    Then UI click Table row by keyValue or Index with elementLabel "tedEvent queryTable" findBy columnName "Value" findBy cellValue "?Hello%20World"
+    Then UI Click Button by id "tedAnalyticsPanelSummaryQueryBadge"
+    Then UI Validate "tedEvent queryTable" Table rows count EQUALS to 7
+    Then UI click Table row by keyValue or Index with elementLabel "tedEvent queryTable" findBy columnName "Value" findBy cellValue "cmd.exe\=101"
     Then UI Validate Text field by id "tedSearchBarTagIndex0" CONTAINS "range:7d"
-    Then UI Validate Text field by id "tedSearchBarTagIndex1" CONTAINS "AND rdwrAltQuery:"?Hello%20World""
-    Then UI Validate "tedEvent queryTable" Table rows count EQUALS to 2
-    Then Sleep "5"
-    Then UI Click Button by id "tedTopAnalyticsSummaryQueryBadge"
+    Then UI Validate Text field by id "tedSearchBarTagIndex1" CONTAINS "AND rdwrAltQuery:"cmd.exe\\=101""
+    Then UI Validate "tedEvent queryTable" Table rows count EQUALS to 3
+    Then UI Click Button by id "tedAnalyticsPanelSummaryQueryBadge"
+    Then UI Click Button by id "tedSearchBarClearImage"
 
   @SID_9
-  Scenario: Running 32.4.1 traffic
-    * REST Delete ES index "alteon*"
-    Then CLI Run remote linux Command "curl 'http://10.25.49.132/' -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-GB,en;q=0.9,en-US;q=0.8,he;q=0.7' --compressed --insecure" on "GENERIC_LINUX_SERVER"
-    And Sleep "20"
-    Then UI Click Button by id "tedSearchBarClear"
-    Then UI Click Button by id "tedSearchBarSearch"
-    Then UI Validate "tedEvent Table" Table rows count EQUALS to 1
+  Scenario: Validate TED graph text fields
+    Then UI Validate Text field by id "tedHistogramChartLegendItem1Badge" EQUALS "12"
+    Then UI Validate Text field by id "tedHistogramChartLegendItem2Badge" EQUALS "20"
+    Then UI Validate Text field by id "tedHistogramChartLegendItem3Badge" EQUALS "2"
 
   @SID_10
-    Scenario: Running 34.2.2 traffic
-    Then CLI Run remote linux Command "curl 'http://10.25.49.137/' -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-GB,en;q=0.9,en-US;q=0.8,he;q=0.7' --compressed --insecure" on "GENERIC_LINUX_SERVER"
-    And Sleep "20"
-    Then UI Click Button by id "tedSearchBarClear"
-    Then UI Click Button by id "tedSearchBarSearch"
-    Then UI Validate "tedEvent Table" Table rows count EQUALS to 2
-
-  @SID_11
-  Scenario: Running 32.6.0.0 traffic
-    Then CLI Run remote linux Command "curl 'http://10.25.49.162/' -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-GB,en;q=0.9,en-US;q=0.8,he;q=0.7' --compressed --insecure" on "GENERIC_LINUX_SERVER"
-    And Sleep "20"
-    Then UI Click Button by id "tedSearchBarClear"
-    Then UI Click Button by id "tedSearchBarSearch"
-    Then UI Validate "tedEvent Table" Table rows count EQUALS to 3
-
-  @SID_12
-    Scenario: Malformed cef message request
-    * REST Delete ES index "alteon*"
-    When CLI Send Traffic Events file "unifiedTrafficEventUpdates"
-#    Then CLI Run remote linux Command "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i "172.17.164.101" -p "5140" -dir "/home/radware/TED/automation/unifiedTrafficEventUpdates" -t" on "GENERIC_LINUX_SERVER"
-    And Sleep "20"
-    Then UI Click Button by id "tedSearchBarSearch"
-    Then UI Validate "tedEvent Table" Table rows count EQUALS to 3
-
-  @SID_13
   Scenario: Cleanup
-    Then REST Delete Device By IP "10.25.49.130"
-    Then REST Delete Device By IP "10.25.49.135"
-    Then REST Delete Device By IP "10.25.49.160"
     Then UI logout and close browser
     * CLI Check if logs contains
       | logType | expression | isExpected   |

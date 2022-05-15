@@ -31,9 +31,9 @@ public class Dns {
             + "tertiary                Creates the tertiary DNS server entry.";
 
     public enum DnsType {
-        PRIMARY("primary"), SECONDERAY("secondary"), TERTIARY("tertiary");
+        PRIMARY("primary"), SECONDARY("secondary"), TERTIARY("tertiary");
 
-        public String dnsType;
+        public final String dnsType;
 
         DnsType(String dnsType) {
             this.dnsType = dnsType;
@@ -46,8 +46,10 @@ public class Dns {
      * @throws Exception - Generic Exception object
      */
     public static void setDnsPrimaryFromSut(RadwareServerCli serverCli) throws Exception {
-        BaseTestUtils.reporter.startLevel("Set Dns Primary " + serverCli.getDnsServerIp());
+        String dnsServer = serverCli.getDnsServerIp();
+        BaseTestUtils.reporter.startLevel("Set Dns Primary " + dnsServer);
         InvokeUtils.invokeCommand(null, Menu.net().dns().setPrimary().build() + " " + serverCli.getDnsServerIp(), serverCli);
+        serverCli.setDnsServerIp(dnsServer);
         BaseTestUtils.reporter.stopLevel();
     }
 
@@ -111,7 +113,7 @@ public class Dns {
             case PRIMARY:
                 InvokeUtils.invokeCommand(null, Menu.net().dns().deletePrimary().build(), serverCli);
                 break;
-            case SECONDERAY:
+            case SECONDARY:
                 InvokeUtils.invokeCommand(null, Menu.net().dns().deleteSecondary().build(), serverCli);
                 break;
             case TERTIARY:
@@ -210,7 +212,6 @@ public class Dns {
     /**
      * Verify sub menu of 'net dns' cmd
      *
-     * @throws Exception - Generic Exception object
      * @author izikp
      */
     public static void dnsSubMenuCheck(RadwareServerCli radwareCliConnection) {

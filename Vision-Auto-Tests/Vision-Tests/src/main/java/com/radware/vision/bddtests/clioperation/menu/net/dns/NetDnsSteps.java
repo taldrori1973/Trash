@@ -144,7 +144,7 @@ public class NetDnsSteps extends TestBase {
             Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsSecondaryIP);
             Dns.setDnsTertiary(radwareServerCli, dnsTertiaryIP);
             Dns.verifyTertiaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
-            Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDERAY);
+            Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDARY);
             Dns.verifyDnsIpIsDeleted(rootServerCli, radwareServerCli, dnsSecondaryIP);
             Dns.verifyPrimaryDnsViaRoot(rootServerCli, dnsPrimaryIp);
             Dns.verifySecondaryDnsViaRoot(rootServerCli, dnsTertiaryIP);
@@ -222,7 +222,7 @@ public class NetDnsSteps extends TestBase {
 
         try {
             Dns.deleteDns(radwareServerCli, Dns.DnsType.TERTIARY);
-            Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDERAY);
+            Dns.deleteDns(radwareServerCli, Dns.DnsType.SECONDARY);
             Dns.deleteDns(radwareServerCli, Dns.DnsType.PRIMARY);
             Dns.setDnsPrimaryFromSut(radwareServerCli);
         } catch (Exception e) {
