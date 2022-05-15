@@ -189,6 +189,35 @@
                             <outputDirectory>${project.basedir}/lib</outputDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.radware.automation</groupId>
+                                    <artifactId>automation-web-elements-infra</artifactId>
+                                    <version>ALTDPVISION-${artifact-type}-SNAPSHOT</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>
+                                    <includes>**/*.js</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.radware.automation</groupId>
+                                    <artifactId>automation-web-driver-infra</artifactId>
+                                    <version>master-${artifact-type}-SNAPSHOT</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>
+                                    <includes>**/*driver*</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -217,41 +246,6 @@
                             <tasks>
                                 <mkdir dir="${basedir}/target/classes/clientdevicedrivers"/>
                             </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.radware.automation</groupId>
-                                    <artifactId>automation-web-elements-infra</artifactId>
-                                    <version>ALTDPVISION-${artifact-type}-SNAPSHOT</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>
-                                    <includes>**/*.js</includes>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.radware.automation</groupId>
-                                    <artifactId>automation-web-driver-infra</artifactId>
-                                    <version>master-${artifact-type}-SNAPSHOT</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>
-                                    <includes>**/*driver*</includes>
-                                </artifactItem>
-                            </artifactItems>
                         </configuration>
                     </execution>
                 </executions>
