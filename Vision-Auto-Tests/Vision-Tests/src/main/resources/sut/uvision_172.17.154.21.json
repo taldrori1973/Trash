@@ -1,5 +1,5 @@
 {
-  "setupFile": "Setup_EAAF.json",
+  "setupFile": "Setup_FNM_1.json",
   "serverName": "uVision",
   "deployConfigurations": {
     "snapshot": "Current-1",

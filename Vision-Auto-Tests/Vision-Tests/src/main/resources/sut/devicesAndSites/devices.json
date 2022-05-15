@@ -934,6 +934,25 @@
     ]
   },
   "nonTreeDevices": {
+    "fnms": [
+      {
+        "deviceId": "FNM_172.17.88.54",
+        "deviceSetId": "FNM_172.17.88.54",
+        "configurations": {
+          "name": "FNM_172.17.88.54",
+          "parentOrmID": null,
+          "deviceSetup": {
+            "deviceAccess": {
+              "managementIp": "172.17.88.54",
+              "cliUsername": "admin",
+              "cliPassword": "admin"
+            },
+            "snapshot": "",
+            "environment": ""
+          }
+        }
+      }
+    ],
     "defenseFlows": [
       {
         "deviceId": "DF_10.205.172.201",
@@ -948,6 +967,23 @@
               "cliPassword": "radware"
             },
             "snapshot": "3.6.0.0",
+            "environment": "OVA-220"
+          }
+        }
+      },
+      {
+        "deviceId": "DF_172.17.154.35",
+        "deviceSetId": "DF_172.17.154.35",
+        "configurations": {
+          "name": "DefenseFlow_172.17.154.35",
+          "parentOrmID": null,
+          "deviceSetup": {
+            "deviceAccess": {
+              "managementIp": "172.17.154.35",
+              "cliUsername": "radware",
+              "cliPassword": "radware"
+            },
+            "snapshot": "4.5.0.0",
             "environment": "OVA-220"
           }
         }
