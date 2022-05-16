@@ -91,3 +91,4 @@ Feature: Migration from cVision to uVision
     When UI Do Operation "select" item "Software"
     Then REST get Basic Parameters "lastUpgradeStatus"
     Then UI Validate Text field "Upgrade Status" EQUALS "OK"
+    And UI logout and close browser
