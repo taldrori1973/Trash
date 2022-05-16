@@ -97,20 +97,26 @@ Feature: EAAF-Ip Lookup
     Then UI Validate Text field "count results" EQUALS "10 Results"
 
 ################################ CSV section to be edited ##################################
-  @SID_4
-  Scenario: Clear FTP server logs and generate the modal ip lookup
-    Then CLI Run remote linux Command "rm -rf /home/radware/Downloads/*.csv" on "GENERIC_LINUX_SERVER"
+
   @SID_5
-  Scenario: Modify any dynamic values in DB
+  Scenario: export CSV
+    Then CLI Run remote linux Command "rm /home/qa_builder/Downloads/file.csv" on "SLAVE_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -r /home/radware/Downloads/TC126291" on "GENERIC_LINUX_SERVER"
+
+    Then Sleep "10"
     Then UI Click Button "Export To CSV"
 
+    Then CLI Run remote linux Command "mkdir -p /home/radware/Downloads/TC126291/" on "GENERIC_LINUX_SERVER"
+    Then CLI copy "/home/qa_builder/Downloads/file.csv" from "SLAVE_SERVER_CLI" to "GENERIC_LINUX_SERVER" "/home/radware/Downloads/TC126291/"
 
 
 
 
+
+@Salve
   @SID_6
   Scenario: Validate detailed csv iplookup
-    Then CLI Run linux Command "cat /home/radware/Downloads/file.csv |wc -l" on "SLAVE_SERVER_CLI" and validate result EQUALS "36"
+    Then CLI Run linux Command "cat /home/radware/Downloads/TC126291/file.csv |wc -l" on "SLAVE_SERVER_CLI" and validate result EQUALS "36"
 #    Then CLI Run linux Command "cat /home/radware/ftp/modal_ip_lookup_*.csv|head -$(echo $(grep -n "IPLookup" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "50.50.100.1"
 #    Then CLI Run linux Command "cat /home/radware/ftp/modal_ip_lookup_*.csv|head -$(echo $(grep -n "IPLookup" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "861"
 #    Then CLI Run linux Command "cat /home/radware/ftp/modal_ip_lookup_*.csv|head -$(echo $(grep -n "IPLookup" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "ERT"

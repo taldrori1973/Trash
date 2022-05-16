@@ -88,6 +88,8 @@ public class TemplateHandlers {
             //         return new EAAFScopeSelection(new JSONArray(), templateParam);
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
                 return new DPBehavioralScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
+            case "ERT ACTIVE ATTACKERS AUDIT REPORT":
+                return new AuditReport(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "DEFENSEPRO ANALYTICS":
             default:
                 return new DPScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
@@ -704,6 +706,14 @@ public class TemplateHandlers {
         EAAFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             type = "ERT Active Attackers Feed";
+            saveButtonText = "SaveEAAFScopeSelection";
+        }
+    }
+
+    public static class AuditReport extends DPScopeSelection{
+        AuditReport(JSONArray deviceJSONArray, String templateParam) {
+            super(deviceJSONArray, templateParam);
+            type = "ERT Active Attackers Audit Report";
             saveButtonText = "SaveEAAFScopeSelection";
         }
     }
