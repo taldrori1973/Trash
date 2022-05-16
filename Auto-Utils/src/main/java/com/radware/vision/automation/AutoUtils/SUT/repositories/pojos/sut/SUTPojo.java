@@ -5,14 +5,13 @@ import lombok.Data;
 @Data
 public class SUTPojo {
     private String serverName;
-    private String defenseFlow;
     private String pairSUT;
     private Pair pair;
     private String setupFile;
     private DeployConfigurations deployConfigurations;
     private ClientConfiguration clientConfiguration;
     private CliConfiguration cliConfiguration;
-//    private String simulatorSet;
-//    private boolean loadSimulators;
+    //    private String simulatorSet;
+    //    private boolean loadSimulators;
     private String genericLinuxID;
 }
