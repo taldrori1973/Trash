@@ -23,10 +23,9 @@ public class ArtifactFilePojo {
     private Date lastUpdated;
     private URI downloadUri;
     private String mimeType;
+    public Checksums checksums;
     private String size;
     private URI uri;
 
-//    checksums
-//    originalChecksums
 
 }

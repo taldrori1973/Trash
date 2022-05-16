@@ -12,5 +12,6 @@ public class SetupPojo {
     private String setupId;
     private Tree tree;
     private String defenseFlowId;
+    private String fnmId;
 
 }

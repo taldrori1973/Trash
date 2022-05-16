@@ -45,13 +45,18 @@ public class SutService {
         if (!(this.setupDao.getSimulators() == null) && !(this.setupDao.getSimulators().equals(""))) {
             this.devicesDao.addSimulatorsBySetId(setupDao.getSimulators());
         }
+//        if (!(this.setupDao.getFNMId() == null) && !(this.setupDao.getFNMId().equals(""))) {
+//            this.devicesDao.findAllDevices()
+//        }
         serverNameDao = sutDao.getServerName();
         this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
         this.environmentsDao = EnvironmentsDao.get_instance();
     }
 
 
-    public String getLinuxServerID(){return this.sutDao.getLinuxServerID();}
+    public String getLinuxServerID() {
+        return this.sutDao.getLinuxServerID();
+    }
 
     public String getSetupId() {
         return setupDao.getSetupId();
@@ -61,8 +66,7 @@ public class SutService {
         return this.sutDao.getServerName();
     }
 
-    public SutDao getPairSutDao()
-    {
+    public SutDao getPairSutDao() {
         return this.pairSutDao;
     }
 
@@ -160,7 +164,8 @@ public class SutService {
         try {
             ModelMapper modelMapper = new ModelMapper();//this is special model mapper
             List<Device> allDevices = this.devicesDao.findAllDevices();
-            Type listType = new TypeToken<List<TreeDeviceManagementDto>>() {}.getType();
+            Type listType = new TypeToken<List<TreeDeviceManagementDto>>() {
+            }.getType();
 
             modelMapper.createTypeMap(Device.class, TreeDeviceManagementDto.class)
                     .addMapping(device -> device.getConfigurations().getName(), TreeDeviceManagementDto::setDeviceName)
@@ -189,14 +194,17 @@ public class SutService {
             List<Device> setupDevices = allDevices.stream().filter(device -> deviceId.equals(device.getDeviceId())).collect(Collectors.toList());
             List<TreeDeviceManagementDto> treeDeviceManagementDtos = modelMapper.map(setupDevices, listType);
             return Optional.of(treeDeviceManagementDtos.get(0));
+        } catch (Exception e) {
         }
-        catch (Exception e){}
         return null;
     }
 
-    public Optional<TreeDeviceManagementDto> getDefenseFlow()
-    {
-        return getTreeDeviceManagementBySetIdFromDevices(sutDao.getDefenseFlowID());
+    public Optional<TreeDeviceManagementDto> getDefenseFlow() {
+        return getTreeDeviceManagementBySetIdFromDevices(setupDao.getDefenseFlowid());
+    }
+
+    public Optional<TreeDeviceManagementDto> getFNM() {
+        return getTreeDeviceManagementBySetIdFromDevices(setupDao.getFNMId());
     }
 
     public Optional<ServerDto> getServerById(String serverId) {

@@ -76,7 +76,7 @@ public abstract class Deploy {
         try {
             repositoryService = new RepositoryService(this.repositoryName);
             this.build = String.valueOf(BaseTestUtils.getRuntimeProperty("BUILD", null)); //get build from user
-            if (build == null || build.equals("") || build.equals("0")) {
+            if (build == null || build.equals("") || build.equals("0") || build.equals("null")) {
                 BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS_NOR_FAIL);
                 this.build = String.valueOf(repositoryService.getLastExtendedDeployNumberFromBranch(this.featureBranch, type.toString()));
             }
