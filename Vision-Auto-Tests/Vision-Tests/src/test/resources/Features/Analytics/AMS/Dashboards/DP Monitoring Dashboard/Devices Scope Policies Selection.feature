@@ -20,7 +20,7 @@ Feature: Device Scope Policies Selection
     Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "RealDPs_Version_8_site,DefensePro_172.16.22.50,pol_1" is "EQUALS" to "true"
 
   @SID_3
-  Scenario: unselect all device and select spicific policy then validate in policy
+  Scenario: unselect all device and select specific policy then validate in policy
     Given UI Click Button "Device Selection"
     Given UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "true"
     Given UI Click Button "Device Selection.Save Filter"
