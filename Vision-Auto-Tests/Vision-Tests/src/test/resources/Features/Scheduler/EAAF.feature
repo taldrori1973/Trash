@@ -13,57 +13,57 @@ Feature: ERT Active Attackers Feed for DP
   Scenario: Login
     Given UI Login with user "radware" and password "radware"
 
-#  @SID_4
-#  Scenario: Remove EAAF task from table
-#    When UI Remove All Tasks with tha Value "ERT Active Attackers Feed for DefensePro" at Column "Task Type"
-#
-#  @SID_5
-#  Scenario: Schedule ERT Active Attackers Feed for DefensePro task
-#    When UI Navigate to "SCHEDULER" page via homePage
-#    Then UI Add Attackers feed task with name "testFeed" interval "3 Hours" destination devices indexes "DefensePro_Set_2" with default params
-#
-#  @SID_6
-#  Scenario: Validate MRF File downloaded.
-#    Then CLI Run linux Command "[ -a "/opt/radware/storage/reputation-feed/temp/BaselineRepFeed.json.gz" ] && echo "File Found" || echo "File Not Found"" on "ROOT_SERVER_CLI" and validate result CONTAINS "File Found" in any line
-#
-#  @SID_7
-#  Scenario: Logout
-#    Then UI logout and close browser
-#
-#  @SID_8
-#  Scenario: Remove MIS Reputation Feed file from Server
-#    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/temp/BaselineRepFeed.json.gz"" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/BaselineRepFeed.json"" on "ROOT_SERVER_CLI"
-#
-#  @SID_9
-#  Scenario: change reputation_feed.properties to work with MIS
-#    Then CLI Run remote linux Command "sed -i 's/ert\.reputation\.feed\.temp\.download\.path\=\/opt\/radware\/storage\/reputation-feed\/temp2*/ert\.reputation\.feed\.temp\.download\.path\=\/opt\/radware\/storage\/reputation-feed\/temp/g' /opt/radware/mgt-server/properties/reputation_feed.properties" on "ROOT_SERVER_CLI"
-#
-#  @SID_10
-#  Scenario: Remove MIS Reputation Feed file from Server
-#    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/temp/BaselineRepFeed.json.gz"" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/temp/BaselineRepFeed.json"" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/BaselineRepFeed.json"" on "ROOT_SERVER_CLI"
-#
-#  @SID_11
-#  Scenario: change reputation_feed.properties to work with constant file
-#    Then CLI Run remote linux Command "service vision stop" on "ROOT_SERVER_CLI" with timeOut 90
-#    Then CLI Run remote linux Command "sed -i 's/ert\.reputation\.feed\.temp\.download\.path\=\/opt\/radware\/storage\/reputation-feed\/temp*/ert\.reputation\.feed\.temp\.download\.path\=\/opt\/radware\/storage\/reputation-feed\/temp2/g' /opt/radware/mgt-server/properties/reputation_feed.properties" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "service vision start" on "ROOT_SERVER_CLI" with timeOut 120
-#    Then Sleep "120"
-#
-##  @SID_12
-##  Scenario: copy MRF file from genericLinuxServer
-##    Then CLI copy file by user "root" "/root/BaselineRepFeed.json" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage/reputation-feed/temp"
-#
-#
-#  @SID_13
-#  Scenario: Login
-#    Given UI Login with user "radware" and password "radware"
-#
-#  @SID_14
-#  Scenario: Remove EAAF task from table
-#    When UI Remove All Tasks with tha Value "ERT Active Attackers Feed for DefensePro" at Column "Task Type"
+  @SID_4
+  Scenario: Remove EAAF task from table
+    When UI Remove All Tasks with tha Value "ERT Active Attackers Feed for DefensePro" at Column "Task Type"
+
+  @SID_5
+  Scenario: Schedule ERT Active Attackers Feed for DefensePro task
+    When UI Navigate to "SCHEDULER" page via homePage
+    Then UI Add Attackers feed task with name "testFeed" interval "3 Hours" destination devices indexes "DefensePro_Set_2" with default params
+
+  @SID_6
+  Scenario: Validate MRF File downloaded.
+    Then CLI Run linux Command "[ -a "/opt/radware/storage/reputation-feed/temp/BaselineRepFeed.json.gz" ] && echo "File Found" || echo "File Not Found"" on "ROOT_SERVER_CLI" and validate result CONTAINS "File Found" in any line
+
+  @SID_7
+  Scenario: Logout
+    Then UI logout and close browser
+
+  @SID_8
+  Scenario: Remove MIS Reputation Feed file from Server
+    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/temp/BaselineRepFeed.json.gz"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/BaselineRepFeed.json"" on "ROOT_SERVER_CLI"
+
+  @SID_9
+  Scenario: change reputation_feed.properties to work with MIS
+    Then CLI Run remote linux Command "sed -i 's/ert\.reputation\.feed\.temp\.download\.path\=\/opt\/radware\/storage\/reputation-feed\/temp2*/ert\.reputation\.feed\.temp\.download\.path\=\/opt\/radware\/storage\/reputation-feed\/temp/g' /opt/radware/mgt-server/properties/reputation_feed.properties" on "ROOT_SERVER_CLI"
+
+  @SID_10
+  Scenario: Remove MIS Reputation Feed file from Server
+    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/temp/BaselineRepFeed.json.gz"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/temp/BaselineRepFeed.json"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -f "/opt/radware/storage/reputation-feed/BaselineRepFeed.json"" on "ROOT_SERVER_CLI"
+
+  @SID_11
+  Scenario: change reputation_feed.properties to work with constant file
+    Then CLI Run remote linux Command "service vision stop" on "ROOT_SERVER_CLI" with timeOut 90
+    Then CLI Run remote linux Command "sed -i 's/ert\.reputation\.feed\.temp\.download\.path\=\/opt\/radware\/storage\/reputation-feed\/temp*/ert\.reputation\.feed\.temp\.download\.path\=\/opt\/radware\/storage\/reputation-feed\/temp2/g' /opt/radware/mgt-server/properties/reputation_feed.properties" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "service vision start" on "ROOT_SERVER_CLI" with timeOut 120
+    Then Sleep "120"
+
+#  @SID_12
+#  Scenario: copy MRF file from genericLinuxServer
+#    Then CLI copy file by user "root" "/root/BaselineRepFeed.json" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage/reputation-feed/temp"
+
+
+  @SID_13
+  Scenario: Login
+    Given UI Login with user "radware" and password "radware"
+
+  @SID_14
+  Scenario: Remove EAAF task from table
+    When UI Remove All Tasks with tha Value "ERT Active Attackers Feed for DefensePro" at Column "Task Type"
 
   @SID_15
   Scenario: Clear DP8.18 BlackList
