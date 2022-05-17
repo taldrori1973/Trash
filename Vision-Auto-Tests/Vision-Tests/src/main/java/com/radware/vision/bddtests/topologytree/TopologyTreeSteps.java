@@ -265,13 +265,13 @@ public class TopologyTreeSteps extends VisionUITestBase {
         }
     }
 
-    @Then("^UI select Topology Element( physical)? \"(.*)\" device with index (\\d+) from topology tree$")
-    public void performTopologyTreeElement(String treeTabType, SUTDeviceType deviceType, int deviceIndex) {
+    @Then("^UI select Topology Element( physical)? \"(.*)\" device with index \"(.*)\" from topology tree$")
+    public void performTopologyTreeElement(String treeTabType, SUTDeviceType deviceType, String deviceIndex) {
         String elementName = "";
         try {
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
-            elementName = deviceType.getDeviceType() + "_" + deviceInfo.getDeviceIp();
+            Optional<TreeDeviceManagementDto> deviceInfo = sutManager.getTreeDeviceManagement(deviceIndex);
+            elementName = deviceInfo.get().getDeviceName();
             TopologyTreeHandler.selectDevice(elementName, topologyTreeTab);
         } catch (Exception e) {
             BaseTestUtils.report("Device with Name: " + elementName + " " + "may not have been selected, " + e.getMessage(), Reporter.FAIL);

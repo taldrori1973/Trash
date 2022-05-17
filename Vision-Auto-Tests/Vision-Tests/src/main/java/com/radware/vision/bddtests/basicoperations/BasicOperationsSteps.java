@@ -5,7 +5,6 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
-import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
@@ -87,17 +86,11 @@ public class BasicOperationsSteps extends VisionUITestBase {
     @Given("^UI Select \"(.*)\" device from tree with \"(.*)\"$")
     public void selectDeviceFromTree(SUTDeviceType deviceType, String deviceSet) {
         try {
-            Optional<TreeDeviceManagementDto> deviceInfo = sutManager.getTreeDeviceManagement("DefensePro_Set_8");
+
+            TopologyTreeTabs topologyTreeTab = ("nothing" != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
+            Optional<TreeDeviceManagementDto> deviceInfo = sutManager.getTreeDeviceManagement(deviceSet);
             setDeviceName(deviceInfo.get().getDeviceName());
             TopologyTreeHandler.clickTreeNode(deviceInfo.get().getDeviceName());
-            ComponentLocator locator = new ComponentLocator(How.XPATH, "//div[contains(@id,'" + WebUIStrings.getDeviceTreeNode(deviceInfo.get().getDeviceName()) + "')]");
-            WebElement element = null;
-            element = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.defaultVisibilityTimeout, false);
-            try {
-                element.click();
-            } catch (NullPointerException e) {
-                throw new NullPointerException(" doesn't exist");
-            }
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
