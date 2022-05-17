@@ -9,6 +9,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.restcommands.mgmtcommands.tree.DeviceCommands;
 import com.radware.utils.device.DeviceTableUtils;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -56,7 +57,7 @@ public class BlackListHandler extends BaseHandler {
     public static void fillInBlackListTableRows(String deviceIp) {
         try {
             int rowsNum = BlackListHandler.getRowsNumberStartWith("");
-            DeviceCommands deviceCommands = new DeviceCommands(restTestBase.getVisionRestClient());
+            DeviceCommands deviceCommands = new DeviceCommands(TestBase.restTestBase.getVisionRestClient());
             deviceCommands.lockDeviceByManagementIp(deviceIp);
             String namesGroup = "rsNewBlackListName,rsNewBlackListState,rsNewBlackListProtocol,rsNewBlackListDirection,rsNewBlackListExpirationHour,rsNewBlackListExpirationMinute,rsNewBlackListDynamicState,rsNewBlackListOriginatedIP,rsNewBlackListAction,rsNewBlackListReportAction,rsNewBlackListPacketReport";
             String valuesGroup = "";
@@ -65,7 +66,7 @@ public class BlackListHandler extends BaseHandler {
                 for (int i = 0; i < rowsToFill; i++) {
                     valuesGroup = i + ",1,0,1,0,0,2,0.0.0.0,1,1,2";
                     try {
-                        DeviceTableUtils.createTableRowWithName(restTestBase.getVisionRestClient(), deviceIp, "rsNewBlackListTable", namesGroup, valuesGroup, String.valueOf(i));
+                        DeviceTableUtils.createTableRowWithName(TestBase.restTestBase.getVisionRestClient(), deviceIp, "rsNewBlackListTable", namesGroup, valuesGroup, String.valueOf(i));
                     } catch (Exception e) {
                         //Check if black list contains entry with this key if yes skip to next entry
                         if (e.getMessage().contains("Message: M_00386: An entry with same values in the following fields already exists.") || e.getMessage().contains("M_00386: An entry with same key already exists.")) {

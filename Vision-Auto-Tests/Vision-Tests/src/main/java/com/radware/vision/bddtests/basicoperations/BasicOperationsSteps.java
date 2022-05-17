@@ -5,15 +5,16 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.base.VisionUITestSetup;
@@ -83,12 +84,20 @@ public class BasicOperationsSteps extends VisionUITestBase {
         }
     }
 
-    @Given("^UI Select \"(.*)\" device from tree with index (\\d+)$")
-    public void selectDeviceFromTree(SUTDeviceType deviceType, int deviceIndex) {
+    @Given("^UI Select \"(.*)\" device from tree with \"(.*)\"$")
+    public void selectDeviceFromTree(SUTDeviceType deviceType, String deviceSet) {
         try {
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
-            setDeviceName(deviceInfo.getDeviceName());
-            TopologyTreeHandler.clickTreeNode(deviceInfo.getDeviceName());
+            Optional<TreeDeviceManagementDto> deviceInfo = sutManager.getTreeDeviceManagement("DefensePro_Set_8");
+            setDeviceName(deviceInfo.get().getDeviceName());
+            TopologyTreeHandler.clickTreeNode(deviceInfo.get().getDeviceName());
+            ComponentLocator locator = new ComponentLocator(How.XPATH, "//div[contains(@id,'" + WebUIStrings.getDeviceTreeNode(deviceInfo.get().getDeviceName()) + "')]");
+            WebElement element = null;
+            element = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.defaultVisibilityTimeout, false);
+            try {
+                element.click();
+            } catch (NullPointerException e) {
+                throw new NullPointerException(" doesn't exist");
+            }
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
