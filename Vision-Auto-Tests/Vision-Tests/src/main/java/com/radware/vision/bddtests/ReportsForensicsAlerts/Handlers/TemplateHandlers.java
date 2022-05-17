@@ -10,6 +10,7 @@ import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.bddtests.GenericSteps;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.ReportsForensicsAlertsAbstract;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
@@ -529,6 +530,21 @@ public class TemplateHandlers {
                 }
             }
 
+            private void selectPorts(ArrayList devicePorts, String dpPortCheck, String portFileter) throws Exception {
+                if (devicePorts != null) {
+                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator(portFileter, new String[]{getDeviceIp()}));
+                    policyOrPortText.type(sutManager.getTreeDeviceManagement(deviceSetId).get().getDeviceId());
+                    WebUiTools.check(dpPortCheck, new String[]{getDeviceIp(), portFileter.toString()}, true);
+                    WebUiTools.check("PortsDropdown", "", true);
+
+                    for (Object port : devicePorts) {
+                        //WebUiTools.check("PortNumber", "", true);
+                        new GenericSteps().buttonClick("PortNumber", port.toString());
+                        //checkSpecificPortOrPolicy(dpPortCheck, port);
+                    }
+                }
+            }
+
             private void checkSpecificPortOrPolicy(String dpPolicyCheck, Object policyOrPort) throws Exception {
                 try {
                     WebUiTools.check(dpPolicyCheck, new String[]{getDeviceIp(), policyOrPort.toString()}, true);
@@ -545,10 +561,10 @@ public class TemplateHandlers {
             }
 
             void create() throws Exception {
-               // selectDevice(getDeviceIp(), true);
+//                selectDevice(sutManager.getTreeDeviceManagement(deviceSetId).get().getDeviceId(), true);
                 if (devicePorts != null || devicePolicies != null) {
 //                    BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp());
-//                    selectPortsOrPolicies(devicePorts, "DPPortCheck", "DPPortsFilter");
+//                    selectPorts(devicePorts, "DPPortCheck", "DPPortsFilter");
 
                     BasicOperationsHandler.clickButton("SwitchToPolicies");
                     BasicOperationsHandler.clickButton("Confirm Ports Selection");
