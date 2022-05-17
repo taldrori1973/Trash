@@ -1,9 +1,8 @@
 {
-  "setupFile": "Setup_AMS_2.json",
+  "setupFile": "Setup_DF_1.json",
   "serverName": "uVision",
-  "defenseFlow": "DF_172.17.154.50",
   "deployConfigurations": {
-    "snapshot": "Current-1",
+    "snapshot": "",
     "setupMode": "upgrade",
     "environment": "KVM-215"
   },
