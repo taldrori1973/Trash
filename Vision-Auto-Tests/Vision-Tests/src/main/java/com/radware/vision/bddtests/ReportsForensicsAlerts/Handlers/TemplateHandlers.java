@@ -545,12 +545,16 @@ public class TemplateHandlers {
             }
 
             void create() throws Exception {
-                selectDevice(getDeviceIp(), true);
+               // selectDevice(getDeviceIp(), true);
                 if (devicePorts != null || devicePolicies != null) {
-                    BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp());
-                    selectPortsOrPolicies(devicePorts, "DPPortCheck", "DPPortsFilter");
+//                    BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp());
+//                    selectPortsOrPolicies(devicePorts, "DPPortCheck", "DPPortsFilter");
+
+                    BasicOperationsHandler.clickButton("SwitchToPolicies");
+                    BasicOperationsHandler.clickButton("Confirm Ports Selection");
                     selectPortsOrPolicies(devicePolicies, "DPPolicyCheck", "DPPoliciesFilter");
-                    BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp());
+
+//                    BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp());
                 }
             }
 
