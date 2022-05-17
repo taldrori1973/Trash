@@ -9,7 +9,8 @@ Feature: New Scope Selection Implementation
 
 
     Then UI "Select" Scope Polices
-      | devices | SetId:DefensePro_Set_20,ports:[10],policies:[SGNS-Global-12, SGNS-Global-15] |
-#      | devices | SetId:DefensePro_Set_21,ports:[10, 25],policies:[policy10] |
+#      | devices | SetId:DefensePro_Set_20,ports:[10],policies:[SGNS-Global-12, SGNS-Global-15] |
+#      | devices | SetId:DefensePro_Set_21,ports:[10, 23],policies:[policy10] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_20,policies:[EAAF, EAAF2] |
 
-#      | devices | type:DefensePro Behavioral Protections,index:10,ports:[10],policies:[SSL2] |
+#      | devices | type:DefensePro Behavioral Protections,index:10,policies:[SGNS-Global-12] |
