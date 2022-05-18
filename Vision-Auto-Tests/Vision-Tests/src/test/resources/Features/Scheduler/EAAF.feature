@@ -52,9 +52,9 @@ Feature: ERT Active Attackers Feed for DP
     Then CLI Run remote linux Command "service vision start" on "ROOT_SERVER_CLI" with timeOut 120
     Then Sleep "120"
 
-#  @SID_12
-#  Scenario: copy MRF file from genericLinuxServer
-#    Then CLI copy file by user "root" "/root/BaselineRepFeed.json" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage/reputation-feed/temp"
+  @SID_12
+  Scenario: copy MRF file from genericLinuxServer
+    Then CLI copy "/root/BaselineRepFeed.json" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage/reputation-feed/temp"
 
 
   @SID_13

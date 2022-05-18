@@ -16,7 +16,7 @@ Feature: AW RBAC - New AW roles
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                       |
       | #visionIP                                                           |
-      | " 172.17.154.19 1 "/home/radware/AW_Attacks/Integrated_AW_Attack/""   |
+      | " 10.206.187.11  1 "/home/radware/AW_Attacks/Integrated_AW_Attack/""   |
 
   @SID_3
   Scenario: Navigate User Management
@@ -117,7 +117,7 @@ Feature: AW RBAC - New AW roles
   @SID_13
   Scenario: Validate Forensics.Table
     And UI Click Button "Views.Forensic" with value "Forensics_AW,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 0
     Then UI Delete Forensics With Name "Forensics_AW"
     Then Sleep "10"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics_AW"
@@ -141,7 +141,7 @@ Feature: AW RBAC - New AW roles
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
       | #visionIP                                                         |
-      | " 172.17.154.19 1 "/home/radware/AW_Attacks/Integrated_AW_Attack/""        |
+      | " 10.206.187.11 1 "/home/radware/AW_Attacks/Integrated_AW_Attack/""        |
     And Sleep "95"
 
 
