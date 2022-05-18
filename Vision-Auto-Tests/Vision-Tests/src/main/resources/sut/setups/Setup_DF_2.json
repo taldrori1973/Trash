@@ -46,6 +46,10 @@
         "parentSite": "Default"
       },
       {
+        "deviceId":  "Alteon_172.16.100.103",
+        "parentSite": "Default"
+      },
+      {
         "deviceId": "AppWall_172.17.164.30",
         "parentSite": "AW_site"
       }
