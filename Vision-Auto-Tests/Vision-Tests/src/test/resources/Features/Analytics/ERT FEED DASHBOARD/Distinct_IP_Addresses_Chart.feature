@@ -22,14 +22,14 @@ Feature: EAAF Distinct IP Addresses
   Scenario: EAAF Distinct IP Value and Total packets - verify data for 15 min
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
-    Then UI Validate Text field "Total packets value" with params "" EQUALS "10.03 K"
+    Then UI Validate Text field "Total packets value" with params "" EQUALS "10.32 K"
     Then UI Validate number range between minValue 10 and maxValue 11 in label "Total Distinct Ip"
 
   @SID_4
   Scenario: EAAF Distinct IP Value and Total packets- verify data for 30 min
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "30m"
-    Then UI Validate Text field "Total packets value" with params "" EQUALS "10.03 K"
+    Then UI Validate Text field "Total packets value" with params "" EQUALS "10.32 K"
     Then UI Validate number range between minValue 10 and maxValue 11 in label "Total Distinct Ip"
 
 
