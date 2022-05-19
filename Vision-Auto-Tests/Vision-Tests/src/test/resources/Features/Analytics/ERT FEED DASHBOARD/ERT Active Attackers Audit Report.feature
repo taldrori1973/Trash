@@ -99,7 +99,7 @@ Feature:ERT Active Attackers Audit Report
 
   @SID_12
   Scenario: EAAF report validate CSV file content
-#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/ERT Active Attackers Audit Report.csv"|head -2|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACL"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/ERT Active Attackers Audit Report.csv"|head -2|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "100"
   @SID_13
   Scenario: Logout and Close Browser
     Then UI logout and close browser

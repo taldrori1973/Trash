@@ -1,17 +1,21 @@
 @TC126291
 Feature: EAAF-Ip Lookup
-#  @SID_1
-#    Scenario: delete data from elastic search
-#    * CLI kill all simulator attacks on current vision
-#    * REST Delete ES index "eaaf-attack-*"
-#    Then Sleep "300"
-
-  @TEAA
-  @SID_2
-  Scenario: login and navigate ERT dashboard
+  @SID_1
+  Scenario: Login and navigate to EAAF dashboard and Clean system attacks
+    Then Play File "empty_file.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
+    * REST Delete ES index "eaaf-attack-*"
+    * REST Delete ES index "attack-*"
+    * CLI Clear vision logs
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Navigate to "EAAF Dashboard" page via homePage
+
+  @SID_2
+  Scenario: PLAY DP_sim_8.28 file and Navigate EAAF DashBoard
+    Given Play File "DP_sim_8.28.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
+    Then Sleep "300"
+    And UI Navigate to "EAAF Dashboard" page via homePage
+    Then Play File "empty_file.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
+
 
   @SID_3
   Scenario: click iplookup and write valide ip
