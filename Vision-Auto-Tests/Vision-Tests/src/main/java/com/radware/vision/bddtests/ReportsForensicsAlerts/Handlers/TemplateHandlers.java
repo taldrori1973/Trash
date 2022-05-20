@@ -27,6 +27,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.How;
 
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -391,11 +392,28 @@ public class TemplateHandlers {
         public void create() throws Exception {
             openScopeSelection();
             WebUIUtils.sleep(1);
-            if (!isAllAndClearScopeSelection()) {
-                for (Object deviceJSON : devicesJSON)
+
+            if (type.equals("DefensePro Analytics")) {
+                if (!isAllAndClearScopeSelection()) {
+                    for (Object deviceJSON : devicesJSON) {
+                        selectDevice(deviceJSON.toString(), true);
+                        BasicOperationsHandler.clickButton(getSaveButtonText(), "");
+                        openScopeSelection();
+                        WebUIUtils.sleep(1);
+                    }
+                }
+            } else if (type.equals("DefensePro Behavioral Protections")) {
+                for (Object deviceJSON : devicesJSON) {
                     selectDevice(deviceJSON.toString(), true);
+                    BasicOperationsHandler.clickButton(getSaveButtonText(), "");
+                }
+            } else if(type.equals("HTTPS Flood")) {
+                if (!isAllAndClearScopeSelection()) {
+                    for (Object deviceJSON : devicesJSON)
+                        selectDevice(deviceJSON.toString(), true);
+                }
+                BasicOperationsHandler.clickButton(getSaveButtonText(), "");
             }
-            BasicOperationsHandler.clickButton(getSaveButtonText(), "");
             if (WebUiTools.getWebElement("close scope selection") != null)
                 BasicOperationsHandler.clickButton("close scope selection");
 
@@ -418,14 +436,16 @@ public class TemplateHandlers {
         }
 
         void selectDevice(String deviceText, boolean isToCheck) throws Exception {
-            BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
-            WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
+            if (type.equals("DefensePro Analytics")) {
+                BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
+                WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
+            }
         }
 
         protected boolean isAllAndClearScopeSelection() throws Exception {
             if (devicesJSON.length() > 0) {
                 if (devicesJSON.get(0).toString().equalsIgnoreCase("All")) {
-                    WebUiTools.check("AllScopeSelection", "", true);
+                    WebUiTools.check("AllScopeSelection", "", false);
                     return true;
                 } else {
                     WebUiTools.check("AllScopeSelection", "", true);
@@ -520,57 +540,75 @@ public class TemplateHandlers {
                 return deviceOpt.get().getManagementIp();
             }
 
+            private String getDeviceId() throws Exception {
+                Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagement(deviceSetId);
+
+                if (!deviceOpt.isPresent()) {
+                    throw new Exception(String.format("No Device with \"%s\" Set ID was found in this setup", deviceSetId));
+                }
+
+                return deviceOpt.get().getDeviceId();
+            }
+
             private void selectPortsOrPolicies(ArrayList devicePoliciesOrPorts, String dpPolicyCheck, String portOrPolicyFileter) throws Exception {
                 if (devicePoliciesOrPorts != null) {
                     WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator(portOrPolicyFileter, new String[]{getDeviceIp()}));
-                    for (Object policyOrPort : devicePoliciesOrPorts) {
-                        policyOrPortText.type(policyOrPort.toString().trim());
-                        checkSpecificPortOrPolicy(dpPolicyCheck, policyOrPort);
+                    if (devicePoliciesOrPorts.get(0).toString().equalsIgnoreCase("All")) {
+                        policyOrPortText.type(getDeviceId().trim());
+                        WebUiTools.check("AllScopeSelection", "", true);
+                    } else {
+                        for (Object policyOrPort : (ArrayList) devicePoliciesOrPorts) {
+                            policyOrPortText.type(policyOrPort.toString().trim());
+                            checkSpecificPortOrPolicy(dpPolicyCheck, policyOrPort);
+                        }
                     }
                 }
             }
 
-            private void selectPorts(ArrayList devicePorts, String dpPortCheck, String portFileter) throws Exception {
+            private void selectPorts(ArrayList devicePorts, String dpPortCheck, String portFilter) throws Exception {
                 if (devicePorts != null) {
-                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator(portFileter, new String[]{getDeviceIp()}));
-                    policyOrPortText.type(sutManager.getTreeDeviceManagement(deviceSetId).get().getDeviceId());
-                    WebUiTools.check(dpPortCheck, new String[]{getDeviceIp(), portFileter.toString()}, true);
-                    WebUiTools.check("PortsDropdown", "", true);
-
-                    for (Object port : devicePorts) {
-                        //WebUiTools.check("PortNumber", "", true);
-                        new GenericSteps().buttonClick("PortNumber", port.toString());
-                        //checkSpecificPortOrPolicy(dpPortCheck, port);
+                    BasicOperationsHandler.clickButton(getType() + "_SelectPortsDD", getDeviceId());
+                    if (devicePorts.get(0).toString().equalsIgnoreCase("All")) {
+                        WebUiTools.check(getType() + "_SelectAllPorts", getDeviceId(), true);
+                    } else {
+                        for (Object port : (ArrayList) devicePorts) {
+                            WebUiTools.check(getType() + "_SelectSpecificPort", new String[]{getDeviceId(), port.toString()}, true);
+                        }
                     }
+                    BasicOperationsHandler.clickButton(getType() + "_SelectPortsDD", getDeviceId());
                 }
             }
 
             private void checkSpecificPortOrPolicy(String dpPolicyCheck, Object policyOrPort) throws Exception {
                 try {
-                    WebUiTools.check(dpPolicyCheck, new String[]{getDeviceIp(), policyOrPort.toString()}, true);
+                    WebUiTools.check(dpPolicyCheck, new String[]{getDeviceId(), policyOrPort.toString()}, true);
                 } catch (Exception e) {
                     if (e.getMessage().startsWith("No Element with"))
-                        throw new Exception("No Element with label" + dpPolicyCheck + " and params " + getDeviceIp() + " and " + policyOrPort.toString());
+                        throw new Exception("No Element with label " + dpPolicyCheck + " and params " + getDeviceIp() + " and " + policyOrPort.toString());
                     throw e;
                 }
             }
 
             void selectDevice(String deviceText, boolean isToCheck) throws Exception {
-                BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
-                WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
+                if (type.equals("DefensePro Analytics")) {
+                    BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
+                    WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
+                }
             }
 
             void create() throws Exception {
-//                selectDevice(sutManager.getTreeDeviceManagement(deviceSetId).get().getDeviceId(), true);
-                if (devicePorts != null || devicePolicies != null) {
-//                    BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp());
-//                    selectPorts(devicePorts, "DPPortCheck", "DPPortsFilter");
-
-                    BasicOperationsHandler.clickButton("SwitchToPolicies");
-                    BasicOperationsHandler.clickButton("Confirm Ports Selection");
+                if (type.equals("DefensePro Analytics")) {
+                    BasicOperationsHandler.clickButton("SwitchToDevices", "");
+                    selectDevice(sutManager.getTreeDeviceManagement(deviceSetId).get().getDeviceId(), true);
+                    selectPorts(devicePorts, "DPPortCheck", "DPPortsFilter");
+                    BasicOperationsHandler.clickButton(getSaveButtonText(), "");
+                    if (devicePolicies != null) {
+                        openScopeSelection();
+                        BasicOperationsHandler.clickButton("SwitchToPolicies", "");
+                        selectPortsOrPolicies(devicePolicies, "DPPolicyCheck", "DPPoliciesFilter");
+                    }
+                } else if (type.equals("DefensePro Behavioral Protections")) {
                     selectPortsOrPolicies(devicePolicies, "DPPolicyCheck", "DPPoliciesFilter");
-
-//                    BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp());
                 }
             }
 
@@ -591,8 +629,8 @@ public class TemplateHandlers {
             }
 
             private void compareDevice(JSONObject actualTemplateDevice, StringBuilder errorMessage) throws Exception {
-                validateComparePoliciesOrPorts(errorMessage, new JSONArray(actualTemplateDevice.get("policies").toString()), devicePolicies);
-                validateComparePoliciesOrPorts(errorMessage, new JSONArray(actualTemplateDevice.get("ports").toString()), devicePorts);
+                validateComparePoliciesOrPorts(errorMessage, new JSONArray(actualTemplateDevice.get("policies").toString()), (ArrayList) devicePolicies);
+                validateComparePoliciesOrPorts(errorMessage, new JSONArray(actualTemplateDevice.get("ports").toString()), (ArrayList) devicePorts);
             }
 
             private void validateComparePoliciesOrPorts(StringBuilder errorMessage, JSONArray actualDevicePoliciesOrPorts, ArrayList devicePoliciesOrPorts) {
@@ -615,7 +653,7 @@ public class TemplateHandlers {
     public static class DPBehavioralScopeSelection extends DPScopeSelection {
 
         DPBehavioralScopeSelection(JSONArray deviceJSON, String templateParam) {
-            super(deviceJSON, templateParam);
+            super(deviceJSON, templateParam, "DefensePro Behavioral Protections");
         }
 
         protected void openScopeSelection() throws TargetWebElementNotFoundException {
@@ -637,9 +675,26 @@ public class TemplateHandlers {
 
         @Override
         protected void selectDevice(String deviceText, boolean isToCheck) throws Exception {
-            BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", deviceText.split("-")[0]);
-            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText), true);
-            WebUiTools.check("httpsScopeRadio", deviceText, isToCheck);
+            String[] serverDetails = new String[4];
+            serverDetails[0] = getDeviceIp(deviceText);
+            serverDetails[1] = Arrays.asList(deviceText.split("-")).get(2);
+            serverDetails[2] = Arrays.asList(deviceText.split("-")).get(0);
+            serverDetails[3] = "1.1.1.1";
+
+            BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", serverDetails[1]);
+//            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText), true);
+            WebUiTools.check("httpsScopeRadio", serverDetails, true);
+
+        }
+
+        private String getDeviceIp(String deviceText) throws Exception {
+            Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagement(Arrays.asList(deviceText.split("-")).get(1));
+
+            if (!deviceOpt.isPresent()) {
+                throw new Exception(String.format("No Device with \"%s\" Set ID was found in this setup", Arrays.asList(deviceText.split("-")).get(1)));
+            }
+
+            return deviceOpt.get().getManagementIp().toString();
         }
 
         @Override
@@ -730,7 +785,7 @@ public class TemplateHandlers {
         }
     }
 
-    public static class AuditReport extends DPScopeSelection{
+    public static class AuditReport extends DPScopeSelection {
         AuditReport(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             type = "ERT Active Attackers Audit Report";
