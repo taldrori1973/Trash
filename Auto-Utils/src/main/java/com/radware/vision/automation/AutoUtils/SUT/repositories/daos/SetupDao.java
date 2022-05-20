@@ -73,6 +73,13 @@ public class SetupDao {
         return this.setupPojo.getSimulatorSet();
     }
 
+    public String getDefenseFlowid() {
+        return this.setupPojo.getDefenseFlowId();
+    }
+
+    public String getFNMId() {
+        return this.setupPojo.getFnmId();
+    }
 
 
 }

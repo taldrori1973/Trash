@@ -104,7 +104,7 @@ public class BasicValidationsTests extends VisionUITestBase {
 
     }
 
-    @Then("^Validate Expand \"([^\"]*)\" Table with label \"([^\"]*)\" Equals to \"([^\"]*)\" OR \"([^\"]*)\" (?:OR \"([^\"]*))?\"$")
+    @Then("^Validate Expand \"([^\"]*)\" Table with label \"([^\"]*)\" Equals to \"([^\"]*)\" OR \"([^\"]*)\"(?: OR \"([^\"]*)\")?$")
     public void validateExtendTable(String tableName, String label, String value1, String value2, String value3) {
         BasicOperationsHandler.isTextEqualValue(label, value1, value2, value3, tableName);
     }

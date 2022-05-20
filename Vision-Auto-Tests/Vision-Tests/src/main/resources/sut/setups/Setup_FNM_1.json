@@ -1,0 +1,10 @@
+{
+  "simulatorSet" : "",
+  "setupId": "FNM_1",
+  "tree": {
+    "sites": [],
+    "devices": []
+  },
+  "defenseFlowId": "DF_172.17.154.35",
+  "fnmId": "FNM_172.17.88.54"
+}

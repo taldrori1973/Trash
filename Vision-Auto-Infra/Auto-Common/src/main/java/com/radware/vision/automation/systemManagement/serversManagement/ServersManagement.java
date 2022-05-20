@@ -4,10 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.CliConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.*;
 import com.radware.vision.automation.base.TestBase;
 
 import java.lang.reflect.Constructor;
@@ -19,12 +16,14 @@ public class ServersManagement {
     private final LinuxFileServer linuxFileServer;
     private final RadwareServerCli radwareServerCli;
     private final RootServerCli rootServerCli;
+    private final SlaveServerCli slaveServerCli;
 
 
     public ServersManagement() throws Exception {
         this.linuxFileServer = this.createAndInitServer(getServerId(TestBase.getSutManager().getLinuxServerID()), LinuxFileServer.class);
         this.radwareServerCli = this.createAndInitServer(RadwareServerCli.class);
         this.rootServerCli = this.createAndInitServer(RootServerCli.class);
+        this.slaveServerCli = this.createAndInitServer(SlaveServerCli.class, false);
     }
 
     /***
@@ -65,6 +64,10 @@ public class ServersManagement {
     }
 
     private <SERVER extends ServerCliBase> SERVER createAndInitServer(Class<SERVER> clazz) {
+        return createAndInitServer(clazz, true);
+    }
+
+    private <SERVER extends ServerCliBase> SERVER createAndInitServer(Class<SERVER> clazz, boolean connectionInit) {
         try {
             Constructor<SERVER> constructor = clazz.getConstructor(String.class, String.class, String.class);
             String iP = TestBase.getSutManager().getClientConfigurations().getHostIp();
@@ -72,11 +75,16 @@ public class ServersManagement {
             SERVER server;
             if (clazz == RadwareServerCli.class) {
                 server = constructor.newInstance(iP, CliConfigurationDto.getRadwareServerCliUserName(), CliConfigurationDto.getRadwareServerCliPassword());
-            } else {
+            }
+            else if (clazz == SlaveServerCli.class) {
+                server = constructor.newInstance(TestBase.getMyHostIP(), SlaveServerCli.getSlaveUsername(), SlaveServerCli.getSlavePassword());
+            }
+            else {
                 server = constructor.newInstance(iP, CliConfigurationDto.getRootServerCliUserName(), CliConfigurationDto.getRootServerCliPassword());
             }
             server.setConnectOnInit(TestBase.connectOnInit());
-            server.init();
+            if(connectionInit)
+                server.init();
             return server;
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,7 +109,8 @@ public class ServersManagement {
         GENERIC_LINUX_SERVER_VANC("linuxFileServerVanc"),
         RADWARE_SERVER_CLI("radwareServerCli"),
         ROOT_SERVER_CLI("rootServerCli"),
-        DEPLOYMENT_SERVER("deploymentServer");
+        DEPLOYMENT_SERVER("deploymentServer"),
+        SLAVE_SERVER_CLI("slaveServerCli");
 
         private String serverId;
 
@@ -129,6 +138,9 @@ public class ServersManagement {
                 break;
             case ROOT_SERVER_CLI:
                 serverCliBase = this.rootServerCli;
+                break;
+            case SLAVE_SERVER_CLI:
+                serverCliBase = this.slaveServerCli;
                 break;
             default:
                 BaseTestUtils.report("Server ID" + ServerId + " is not implemented", Reporter.FAIL);

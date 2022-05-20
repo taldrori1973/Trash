@@ -248,7 +248,7 @@ public class SetupImpl extends TestBase{
         }
     }
 
-    protected static DevicesTree getDeviceTree() throws Exception
+    public static DevicesTree getDeviceTree() throws Exception
     {
         GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemConfigTree.json", "GET Device Tree");
         RestResponse restResponse = restAPI.sendRequest();
@@ -308,6 +308,7 @@ class DevicesTree {
     private List<DevicesTree> children;
     private String name;
     private String type;
+    private String baseMacAddress;
     private Identifier meIdentifier;
 
     public HashMap<String,String> getDevicesHash()

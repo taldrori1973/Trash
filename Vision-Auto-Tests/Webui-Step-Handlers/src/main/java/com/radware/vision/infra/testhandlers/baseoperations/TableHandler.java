@@ -16,11 +16,9 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.table.AbstractColumn;
 import com.radware.automation.webui.widgets.api.table.AbstractTable;
-import com.radware.automation.webui.widgets.impl.table.BasicTable;
-import com.radware.automation.webui.widgets.impl.table.BasicTableRow;
-import com.radware.automation.webui.widgets.impl.table.BasicTableWithPagination;
-import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.automation.webui.widgets.impl.table.*;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortableColumn;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortingDataSet;
@@ -193,7 +191,7 @@ public class TableHandler {
     private void constructTable(String tableSelector, ComponentLocator tableLocator, WebElement tableElement, boolean withReadAllTable) throws Exception {
         if (tableElement != null) {
             String classValue = WebUIUtils.fluentWaitAttribute(tableLocator.getBy(), WebUIUtils.MAX_RENDER_WAIT_TIME, true, "class", null);
-            if(tableSelector.equals("vrm-generic-table-vrm-dpm-applications-table-list-physical-devices-table"))
+            if(tableSelector.equals("IPLookup-table") || tableSelector.equals("vrm-generic-table-vrm-dpm-applications-table-list-physical-devices-table"))
                 table = new CustomBasicTable(tableLocator, withReadAllTable);
             else if (tableSelector.contains("table_minMaxTable") || classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table") || tableSelector.contains("table_sample-data-table") || tableSelector.equals("summary-table"))
                 table = new BasicTable(tableLocator, withReadAllTable);
@@ -204,6 +202,8 @@ public class TableHandler {
             else if (tableSelector.equals("default-eventtable"))
                 table = new TrafficLogTable(tableSelector, withReadAllTable);
             else if (tableSelector.startsWith("tedTopAnalyticsSummary") ||tableSelector.contains("table_WanLinkStatus"))
+                table = new BasicTable(tableLocator, withReadAllTable);
+            else if(tableSelector.contains("BadgeExtendedInfoTable"))
                 table = new BasicTable(tableLocator, withReadAllTable);
         } else {
             if (tableSelector.contains(REACT_GRID)) {
@@ -216,7 +216,9 @@ public class TableHandler {
                 table = new ListTable(tableSelector, withReadAllTable);
             } else if (tableSelector.contains(Simple_Table)) {
                 table = new SimpleTable(tableSelector, VisionDebugIdsManager.getLabel() + VisionDebugIdsManager.getParams().get(0), withReadAllTable);
-            } else {
+            } else if (tableSelector.contains("BadgeExtendedInfoTable")) {
+                table = new BasicTable(tableLocator, withReadAllTable);
+            }  else {
                 throw new Exception("No table with name " + VisionDebugIdsManager.getLabel());
             }
         }
@@ -454,13 +456,41 @@ class CustomBasicTable extends BasicTable{
     }
 
     @Override
+    public int getRowCount() {
+        String rowsLocator = "//*" + tableLocator.getLocatorValue().replaceFirst("\\[", "[@") + "//tbody//tr";
+        return WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, rowsLocator).getBy()).size();
+
+    }
+
+    @Override
+    public String validateTableCellsTooltipWithFailures(List<WebUITable.TableDataSets> cellsTooltipContentToValidate, int rowIndex) throws TargetWebElementNotFoundException {
+        if(!tableLocator.getLocatorValue().contains("IPLookup-table"))
+            return super.validateTableCellsTooltipWithFailures(cellsTooltipContentToValidate,rowIndex);
+        String res = "";
+        for (TableDataSets tableDataSet : cellsTooltipContentToValidate) {
+            BasicTableCell targetCell = (BasicTableCell) new BasicTableRow(rowIndex, tableLocator, headersFieldNames).cell(tableDataSet.columnName);
+            if (targetCell != null) {
+                String actualTitle = targetCell.getInnerText();
+                if (!actualTitle.equalsIgnoreCase(tableDataSet.value)) {
+                    res += "The Actual value in column " + tableDataSet.columnName + " and rowIndex " + rowIndex + 1 + " is " + actualTitle + " " +
+                            "but the Expected is " + tableDataSet.value + "\n";
+                }
+            } else {
+                throw new TargetWebElementNotFoundException("No cell in row: " + rowIndex + 1 + " and in column " + tableDataSet.columnName);
+            }
+
+        }
+        return res;
+    }
+
+    @Override
     protected TargetRow findTargetRow(String key, String value) throws Exception {
         int columnIndex = this.headersFieldNames.indexOf(key);
         if (columnIndex == -1) {
             throw new Exception("No column with name " + key);
         } else {
             for (int i = 1; i <= getRowCount(); i++) {
-                String targetCellLocator = "(//*" + this.tableLocator.getLocatorValue().replaceFirst("\\[", "[@") + "/tbody//tr["+i+"]/td[" + (columnIndex + 1) + "])[ . = '" + value + "']";
+                String targetCellLocator = "(//*" + this.tableLocator.getLocatorValue().replaceFirst("\\[", "[@") + "//tbody//tr["+i+"]/td[" + (columnIndex + 1) + "])[ . = '" + value + "']";
                 WebElement targetCellElement = WebUIUtils.fluentWait((new ComponentLocator(How.XPATH, targetCellLocator)).getBy(),1);
                 if (targetCellElement != null) {
                     return new TargetRow(targetCellElement, i);

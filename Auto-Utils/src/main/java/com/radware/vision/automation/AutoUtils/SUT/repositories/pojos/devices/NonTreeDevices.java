@@ -8,4 +8,5 @@ import java.util.List;
 public class NonTreeDevices {
 
     private List<Device> defenseFlows;
+    private List<Device> fnms;
 }

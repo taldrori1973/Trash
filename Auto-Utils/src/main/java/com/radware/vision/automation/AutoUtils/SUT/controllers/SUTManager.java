@@ -13,6 +13,8 @@ public interface SUTManager {
 
     Optional<TreeDeviceManagementDto> getDefenseFlow();
 
+    Optional<TreeDeviceManagementDto> getFNM();
+
     PairDto getpair();
 
     SutDao getPairDao();

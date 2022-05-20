@@ -40,6 +40,11 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getDefenseFlow();
     }
 
+    @Override
+    public Optional<TreeDeviceManagementDto> getFNM() {
+        return this.sutService.getFNM();
+    }
+
     public PairDto getpair() {
         return this.sutService.getpair();
     }

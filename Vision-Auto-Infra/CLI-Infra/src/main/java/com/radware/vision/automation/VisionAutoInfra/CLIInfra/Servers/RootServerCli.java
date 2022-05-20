@@ -17,6 +17,11 @@ public class RootServerCli extends ServerCliBase {
 
     private String versionNumebr = "";
     private String buildNumber = "";
+    private String remoteHost = "";
+    private String pairIP = "";
+    private String setUpImport = "";
+    private String continueImport = "";
+
 //    private String earFileName = "server-ear-" + CliTests.visionVersion + ".ear";
 
     public RootServerCli() {
@@ -266,6 +271,81 @@ public class RootServerCli extends ServerCliBase {
         p.setCommandEnd(true);
         prompts.add(p);
 
+        p = new Prompt();
+        p.setPrompt("Do you want to export Elasticsearch data? (yes/no):");
+        p.setStringToSend("yes");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Do you want to export Configuration data? (yes/no):");
+        p.setStringToSend("yes");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Do you want to export data to remote location? (yes/no):");
+        p.setStringToSend("yes");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Enter remote host address (*):");
+        p.setStringToSend(getRemoteHost());
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Enter remote NFS share (Default: /var/lib/docker/mnt/nfs_share):");
+        p.setStringToSend("");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Enter relative path for Elasticsearch data (Default: cvision/data-export/elasticsearch):");
+        p.setStringToSend("");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Enter relative path for Configuration data (Default: cvision/data-export/config):");
+        p.setStringToSend("");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Setup automated data import from existing vision (Should be done only once)? (yes/no):");
+        p.setStringToSend(getSetUpImport());
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Enter IP address of your existing vision:");
+        p.setStringToSend(getPairIP());
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Continue to data import? (yes/no):");
+        p.setStringToSend(getContinueImport());
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Import Configuration Data? (yes/no):");
+        p.setStringToSend("yes");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Import Elasticsearch Data? (yes/no)");
+        p.setStringToSend("yes");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Is your data located on a remote machine? (yes/no):");
+        p.setStringToSend("no");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Enter path to configuration data (Default: /var/lib/docker/mnt/nfs_share/cvision/data-export/config):");
+        p.setStringToSend("");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Enter path to elasticsearch data (Default: /var/lib/docker/mnt/nfs_share/cvision/data-export/elasticsearch):");
+        p.setStringToSend("");
+        prompts.add(p);
+
         return prompts.toArray(new Prompt[prompts.size()]);
     }
 
@@ -285,4 +365,35 @@ public class RootServerCli extends ServerCliBase {
         this.buildNumber = buildNumber;
     }
 
+    public String getRemoteHost() {
+        return remoteHost;
+    }
+
+    public void setRemoteHost(String remoteHost) {
+        this.remoteHost = remoteHost;
+    }
+
+    public String getPairIP() {
+        return pairIP;
+    }
+
+    public void setPairIP(String pairIP) {
+        this.pairIP = pairIP;
+    }
+
+    public String getSetUpImport() {
+        return setUpImport;
+    }
+
+    public void setSetUpImport(String setUpImport) {
+        this.setUpImport = setUpImport;
+    }
+
+    public String getContinueImport() {
+        return continueImport;
+    }
+
+    public void setContinueImport(String continueImport) {
+        this.continueImport = continueImport;
+    }
 }

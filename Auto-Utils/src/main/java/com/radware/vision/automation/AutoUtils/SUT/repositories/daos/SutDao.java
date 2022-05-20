@@ -112,9 +112,9 @@ public class SutDao {
         return this.sutPojo.getCliConfiguration();
     }
 
-    public String getDefenseFlowID() {
-        return this.sutPojo.getDefenseFlow();
-    }
+//    public String getDefenseFlowID() {
+//        return this.set.getDefenseFlow();
+//    }
 
     public Pair getPair() {
         return this.sutPojo.getPair();
