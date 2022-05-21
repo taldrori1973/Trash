@@ -1931,30 +1931,30 @@ public class VRMHandler {
 //            To Clear previous settings
             checkbox.check();
             if (!entries.isEmpty())
-                checkbox.uncheck();
+                entries.forEach(entry -> {
+                    String deviceIp = null;
+                    try {
 
-            entries.forEach(entry -> {
-                String deviceIp = null;
-                try {
-
-                    if (entry.setId != null) {
-                        Optional<TreeDeviceManagementDto> deviceOpt = SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
-                        if (!deviceOpt.isPresent()) {
-                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
+                        if (entry.setId != null || entry.deviceId != null) {
+                            SUTManager sutManager = SUTManagerImpl.getInstance();
+                            Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                                    sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+                            if (!deviceOpt.isPresent()) {
+                                throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
+                            }
+                            deviceIp = deviceOpt.get().getManagementIp();
+                        } else {
+                            throw new Exception("device setId entry is empty.");
                         }
-                        deviceIp = deviceOpt.get().getManagementIp();
-                    } else {
-                        throw new Exception("device setId entry is empty.");
+                    } catch (Exception e) {
+                        BaseTestUtils.report(e.getMessage(), e);
                     }
-                } catch (Exception e) {
-                    BaseTestUtils.report(e.getMessage(), e);
-                }
-                //select the device
-                // checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
-                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_" + deviceType + "_" + deviceIp + "_Label"));
-                checkbox.check();
-                ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceType + "_" + deviceIp), false);
-            });
+                    checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("row-DefensePro_" + deviceIp + "-cbox"));
+                    checkbox.check();
+                });
+            String saveBtnLabel = "Device Selection.Save Filter";
+            VisionDebugIdsManager.setLabel(saveBtnLabel);
+            WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
 
         } catch (
                 Exception e) {
