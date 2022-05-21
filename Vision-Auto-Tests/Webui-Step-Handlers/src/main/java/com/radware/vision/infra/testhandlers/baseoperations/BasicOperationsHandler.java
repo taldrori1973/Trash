@@ -67,7 +67,7 @@ import static com.radware.vision.infra.testhandlers.baseoperations.clickoperatio
 
 public class BasicOperationsHandler {
     public static boolean isLoggedIn;
-
+    public static String pageName;
     public static void openTab(String tabName) {
         VisionDebugIdsManager.setTab(tabName);
         try {
@@ -1159,6 +1159,7 @@ public class BasicOperationsHandler {
     }
 
     public static void navigateFromHomePage(String pageName) {
+        BasicOperationsHandler.pageName=pageName;
         try {
             closeAllPopups();
             HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(pageName));
