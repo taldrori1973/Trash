@@ -45,9 +45,6 @@ public class SutService {
         if (!(this.setupDao.getSimulators() == null) && !(this.setupDao.getSimulators().equals(""))) {
             this.devicesDao.addSimulatorsBySetId(setupDao.getSimulators());
         }
-//        if (!(this.setupDao.getFNMId() == null) && !(this.setupDao.getFNMId().equals(""))) {
-//            this.devicesDao.findAllDevices()
-//        }
         serverNameDao = sutDao.getServerName();
         this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
         this.environmentsDao = EnvironmentsDao.get_instance();
