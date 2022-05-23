@@ -207,6 +207,12 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
+        p.setPrompt("Detected IP Addresses");
+        p.setCommandEnd(true);
+        p.setDontWaitForScrollEnd(true);
+        prompts.add(p);
+
+        p = new Prompt();
         p.setPrompt("Do you want to change the root user password? [y/N]");
         p.setStringToSend("n");
         prompts.add(p);

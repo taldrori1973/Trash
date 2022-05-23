@@ -281,8 +281,8 @@ public class NewVmHandler extends TestBase {
 
             try {
                 this.visionRadwareFirstTime.setHost(ip);
-                //this.visionRadwareFirstTime.connect();
-                runCommand(this.visionRadwareFirstTime, "", 1200000, true, false, false);
+                this.visionRadwareFirstTime.connect();
+                runCommand(this.visionRadwareFirstTime, ip, 1200000);
                 // ToDo kvision check what for this lines
                 //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
             } catch (Exception var23) {
@@ -310,7 +310,6 @@ public class NewVmHandler extends TestBase {
             }
 
             rootServerCli.setHost(ip);
-            UvisionServer.modifyDockerNetwork(rootServerCli);
             UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().orElse(null), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
             this.initialRestLogin(900000L);
             BaseTestUtils.reporter.report("License Key updated.");
