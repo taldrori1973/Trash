@@ -1,5 +1,5 @@
 {
-  "simulatorSet" : "",
+  "simulatorSet" :[],
   "setupId": "AMS_1",
   "tree": {
     "sites": [
@@ -55,5 +55,5 @@
       }
     ]
   },
-  "defenseFlowId": null
+  "defenseFlowId": "DF_172.17.154.55"
 }

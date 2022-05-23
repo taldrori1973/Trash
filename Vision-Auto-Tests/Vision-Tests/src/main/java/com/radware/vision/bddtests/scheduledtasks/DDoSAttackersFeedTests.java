@@ -2,7 +2,6 @@ package com.radware.vision.bddtests.scheduledtasks;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.DDosFeedTaskHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.TaskRunIntervalType;
@@ -32,11 +31,11 @@ public class DDoSAttackersFeedTests extends VisionUITestBase {
 
             for (int i = 0; i < indexes.length; i++){
                 if(i == (indexes.length -1)){
-                    deviceDestinations += devicesManager.getDeviceInfo(SUTDeviceType.DefensePro,Integer.valueOf(indexes[i])).getDeviceName();
+                    deviceDestinations += sutManager.getTreeDeviceManagement(indexes[i]).get().getDeviceName();
                 }
                 else
                 {
-                    deviceDestinations += devicesManager.getDeviceInfo(SUTDeviceType.DefensePro,Integer.valueOf(indexes[i])).getDeviceName() + ",";
+                    deviceDestinations += sutManager.getTreeDeviceManagement(indexes[i]).get().getDeviceName() + ",";
                 }
             }
 
@@ -54,11 +53,11 @@ public class DDoSAttackersFeedTests extends VisionUITestBase {
 
             for (int i = 0; i < indexes.length; i++){
                 if(i == (indexes.length -1)){
-                    deviceDestinations += devicesManager.getDeviceInfo(SUTDeviceType.DefensePro,Integer.valueOf(indexes[i])).getDeviceIp();
+                    deviceDestinations += sutManager.getTreeDeviceManagement(indexes[i]).get().getDeviceName();
                 }
                 else
                 {
-                    deviceDestinations += devicesManager.getDeviceInfo(SUTDeviceType.DefensePro,Integer.valueOf(indexes[i])).getDeviceIp() + ",";
+                    deviceDestinations += sutManager.getTreeDeviceManagement(indexes[i]).get().getDeviceName() + ",";
                 }
             }
             DDosFeedTaskHandler.addDDosFeedTaskWithoutVerify(taskName, taskDescription, TaskRunIntervalType.getTypeByValue(taskSchedRunInterval).toString(), true, true, deviceDestinations, taskType, groupDestinations, true);

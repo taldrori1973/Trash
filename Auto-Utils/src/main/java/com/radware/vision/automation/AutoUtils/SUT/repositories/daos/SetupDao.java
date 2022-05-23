@@ -69,10 +69,17 @@ public class SetupDao {
         Optional<TreeDeviceNode> device = this.findDeviceById(deviceId);
         return device.map(TreeDeviceNode::getParentSite).orElse(null);
     }
-    public String getSimulators() {
+    public List<String> getSimulators() {
         return this.setupPojo.getSimulatorSet();
     }
 
+    public String getDefenseFlowid() {
+        return this.setupPojo.getDefenseFlowId();
+    }
+
+    public String getFNMId() {
+        return this.setupPojo.getFnmId();
+    }
 
 
 }

@@ -1,16 +1,14 @@
 package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 
 import com.radware.vision.automation.AutoUtils.SUT.enums.DeviceType;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DeviceConfiguration;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DevicesPojo;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.SimulatorPojo;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.*;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.DevicesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DevicesDao {
 
@@ -52,6 +50,7 @@ public class DevicesDao {
         allDevices.addAll(devicesPojo.getTreeDevices().getDefensePros());
         allDevices.addAll(devicesPojo.getTreeDevices().getAppWalls());
         allDevices.addAll(devicesPojo.getNonTreeDevices().getDefenseFlows());
+        allDevices.addAll(devicesPojo.getNonTreeDevices().getFnms());
     }
 
     public static DevicesDao get_instance() {
@@ -65,20 +64,44 @@ public class DevicesDao {
 
     }
 
-    public void addSimulatorsBySetId(String simSetId) {
-        List<String> simulatorsIp = simulatorPojo.getSimulatorSets().entrySet().stream().filter(sim -> sim.getKey().equals(simSetId)).map(Map.Entry::getValue).findAny().get();
-        simulatorsIp.forEach(simIP -> {
-            Device simulator = new Device();
-            simulator.setDeviceId("Alteon_" + "Fake_" + simulatorsIp.indexOf(simIP));
-            simulator.setDeviceSetId("Alteon_" + "Sim_" + "Set_" + simulatorsIp.indexOf(simIP));
-            DeviceConfiguration configurations = DevicesUtils.getDeviceConfigurationFromTemplate(simulatorPojo.getConfigurations());
-            configurations.setName(simIP);
-            configurations.getDeviceSetup().getDeviceAccess().setManagementIp(simIP);
-            simulator.setConfigurations(configurations);
-            allDevices.add(simulator);
-
-        });
+    public void addSimulatorsBySetId(List<String> simSetId) {
+        int alteonCounter = 0;
+        int dpCounter = 0;
+        for (String id : simSetId) {
+            SimulatorSets simSet = simulatorPojo.getSimulators().getSimSets().stream().filter(sim -> sim.getId().equals(id)).findAny().get();
+            for (String simIP : simSet.getIps()) {
+                switch (simSet.getType()) {
+                    case "alteon": {
+                        Device simulator = new Device();
+                        simulator.setDeviceId("Alteon_Fake_" + alteonCounter);
+                        simulator.setDeviceSetId("Alteon_Sim_Set_" + alteonCounter);
+                        DeviceConfiguration configurations = DevicesUtils.getDeviceConfigurationFromTemplate(simulatorPojo.getConfigurations());
+                        configurations.setName(simIP);
+                        configurations.setType("Alteon");
+                        configurations.getDeviceSetup().getDeviceAccess().setManagementIp(simIP);
+                        simulator.setConfigurations(configurations);
+                        allDevices.add(simulator);
+                        alteonCounter++;
+                        break;
+                    }
+                    case "defensePro": {
+                        Device simulator = new Device();
+                        simulator.setDeviceId("DP_Fake_" + dpCounter);
+                        simulator.setDeviceSetId("DP_Sim_Set_" + dpCounter);
+                        DeviceConfiguration configurations = DevicesUtils.getDeviceConfigurationFromTemplate(simulatorPojo.getConfigurations());
+                        configurations.setName(simIP);
+                        configurations.setType("DefensePro");
+                        configurations.getDeviceSetup().getDeviceAccess().setManagementIp(simIP);
+                        simulator.setConfigurations(configurations);
+                        allDevices.add(simulator);
+                        dpCounter++;
+                        break;
+                    }
+                }
+            }
+        }
     }
+
 
     public List<Device> findDevicesByType(DeviceType deviceType) {
         switch (deviceType) {

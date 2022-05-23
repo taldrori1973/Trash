@@ -1,17 +1,17 @@
 {
-  "setupFile": "Setup_DF_1.json",
-  "serverName": "uVision",
+  "setupFile": "Empty_Setup.json",
+  "serverName": "uvision_auto",
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "upgrade",
     "environment": "KVM-215"
   },
   "pair": {
-    "pairIp": "172.17.164.101",
+    "pairIp": "",
     "environment": "KVM-217"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.154.11",
+    "hostIp": "172.19.30.7",
     "userName": "radware",
     "password": "radware",
     "restConnection": {

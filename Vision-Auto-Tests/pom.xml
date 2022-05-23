@@ -11,12 +11,12 @@
     <artifactId>Vision-Auto-Tests</artifactId>
     <name>Vision-Auto-Tests</name>
     <packaging>pom</packaging>
+
     <modules>
         <module>Vision-Tests</module>
         <module>Webui-Step-Handlers</module>
         <module>Rest-Step-Handlers</module>
         <module>Database-Step-Handlers</module>
         <module>Cli-Step-Handlers</module>
-
     </modules>
 </project>

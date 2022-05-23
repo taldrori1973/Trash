@@ -12,58 +12,30 @@
     <name>Vision-Tests</name>
     <artifactId>Vision-Tests</artifactId>
 
-    <properties>
-    </properties>
-    <repositories>
-        <repository>
-            <id>DEVTOOLS_MAVEN</id>
-            <name>DEVTOOLS_MAVEN</name>
-            <url>http://3rdpkgartifactory:8081/artifactory/DEVTOOLS_MAVEN</url>
-        </repository>
-    </repositories>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>bld-artifactory</id>
-            <name>hudson-snapshots</name>
-            <url>http://bldartifactory:8081/artifactory/list/auto-vision-snapshot-local/</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>Top-Q_plugin_repo</id>
-            <url>http://hudson.corp.radware.com:8081/artifactory/Maven-Remote_topq</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <dependencies>
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>bdd-tools</artifactId>
-            <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Utils</artifactId>
-            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>CLI-Infra</artifactId>
-            <version>${revision}</version>
         </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Rest-Step-Handlers</artifactId>
-            <version>${revision}</version>
         </dependency>
+
         <dependency>
             <groupId>radwareDefensePro</groupId>
             <artifactId>radwareDefensePro</artifactId>
-            <version>1.0-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
@@ -71,10 +43,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Webui-Step-Handlers</artifactId>
-            <version>${revision}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com</groupId>
@@ -86,35 +58,25 @@
                 </exclusion>
             </exclusions>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.radware.vision.automation.rest</groupId>-->
-<!--            <artifactId>vision-rest-framework</artifactId>-->
-<!--            <version>${artifact-type}-${revision}</version>-->
-<!--        </dependency>-->
+
          <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Cli-Step-Handlers</artifactId>
-            <version>${revision}</version>
         </dependency>
+
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>commons-lang</groupId>-->
-<!--            <artifactId>commons-lang</artifactId>-->
-<!--            <version>RELEASE</version>-->
-<!--        </dependency>-->
+
         <dependency>
             <groupId>org.jsystemtest</groupId>
             <artifactId>jsystemAgent</artifactId>
-            <version>${jsystem.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.jsystemtest</groupId>
             <artifactId>jsystem-maven-plugin</artifactId>
-            <version>${jsystem.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>asm-commons</artifactId>
@@ -142,84 +104,50 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>com.radware.automation.defensepro.infra.utils</groupId>
             <artifactId>radwareGeneric</artifactId>
-            <version>1.0.0</version>
         </dependency>
-        <!--                <dependency>-->
-        <!--                    <groupId>com.radware.vision.automation.openstack</groupId>-->
-        <!--                    <artifactId>openstack-tests</artifactId>-->
-        <!--                    <version>${VISION_VERSION}-SNAPSHOT</version>-->
-        <!--                </dependency>-->
         <dependency>
 
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>SaproCommunication</groupId>
             <artifactId>saprocommunication</artifactId>
-            <version>V190</version>
         </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Database-Step-Handlers</artifactId>
-            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Auto-Common</artifactId>
-            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
+
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.jsystemtest</groupId>
                 <artifactId>jsystem-maven-plugin</artifactId>
-                <version>${jsystem.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jsystemtest</groupId>
-                        <artifactId>jsystemCommon</artifactId>
-                        <version>${jsystem.version}</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>*</groupId>
-                                <artifactId>*</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.radware.vision.automation</groupId>
-                        <artifactId>Vision-Tests</artifactId>
-                        <version>${project.parent.version}</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>javax.mail</groupId>
-                        <artifactId>mail</artifactId>
-                        <version>1.4.4</version>
-                    </dependency>
-                </dependencies>
             </plugin>
+
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
                 <executions>
                     <execution>
                         <id>auto-clean</id>
@@ -261,47 +189,6 @@
                             <outputDirectory>${project.basedir}/lib</outputDirectory>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>create-empty-directory</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="${basedir}/target/classes/clientdevicedrivers"/>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
                     <execution>
                         <id>unpack</id>
                         <phase>install</phase>
@@ -334,10 +221,39 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-empty-directory</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${basedir}/target/classes/clientdevicedrivers"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!--            Copy resource files to output folders-->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
                 <executions>
                     <execution>
                         <id>copy-resources-Vision-Tests</id>
@@ -359,13 +275,7 @@
                             </resources>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
 
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
                     <execution>
                         <id>copy-resources-Webui-Step-Handlers</id>
                         <!-- here the phase you need -->
@@ -407,9 +317,11 @@
                             </resources>
                         </configuration>
                     </execution>
+
                 </executions>
             </plugin>
         </plugins>
+
         <resources>
             <!-- include main.properties -->
             <resource>
@@ -431,6 +343,7 @@
 
         </resources>
     </build>
+
     <profiles>
         <profile>
             <id>production</id>
@@ -438,6 +351,7 @@
                 <artifact-type>PRODUCTION</artifact-type>
             </properties>
         </profile>
+
         <profile>
             <id>development</id>
             <activation>

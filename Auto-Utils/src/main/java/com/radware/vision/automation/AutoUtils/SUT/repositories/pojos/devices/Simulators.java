@@ -5,8 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class NonTreeDevices {
+public class Simulators {
+    List<SimulatorSets> simSets;
 
-    private List<Device> defenseFlows;
-    private List<Device> fnms;
 }

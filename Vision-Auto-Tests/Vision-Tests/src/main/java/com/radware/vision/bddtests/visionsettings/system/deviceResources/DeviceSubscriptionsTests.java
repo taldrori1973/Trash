@@ -24,10 +24,10 @@ public class DeviceSubscriptionsTests extends VisionSettingsBase {
         }
     }
 
-    @Then("^UI Validate \"(.*)\" device with index (\\d+) subscription contains \"(.*)\" equals to \"(.*)\"$")
-    public void checkDeviceSubscriptionsTableCell(SUTDeviceType deviceType, int deviceIndex, String columnName, String expectedValue) {
+    @Then("^UI Validate \"(.*)\" device subscription contains \"(.*)\" equals to \"(.*)\"$")
+    public void checkDeviceSubscriptionsTableCell(String deviceType, String columnName, String expectedValue) {
         try {
-            String deviceName = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            String deviceName = sutManager.getTreeDeviceManagement(deviceType).get().getDeviceName();
             if (!DeviceSubscriptionsHandler.checkDeviceSubscriptionsTableCell(deviceName, columnName, expectedValue)) {
                 throw new Exception("Cell value not as expected: " + expectedValue);
             }
@@ -55,10 +55,11 @@ public class DeviceSubscriptionsTests extends VisionSettingsBase {
 
         }
     }
-    @Then("^UI Validate \"(.*)\" device with index (\\d+) BlackList Number of Rows, contains (\\d+) rows$")
-    public void checkDeviceBlackListNumberOfRows(SUTDeviceType deviceType, int deviceIndex, long numOfRows) {
+    @Then("^UI Validate \"(.*)\" device with index \"(.*)\" BlackList Number of Rows, contains (\\d+) rows$")
+    public void checkDeviceBlackListNumberOfRows(SUTDeviceType deviceType, String deviceIndex, long numOfRows) {
         try {
-            String deviceName = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            String deviceName = sutManager.getTreeDeviceManagement(deviceIndex).get().getManagementIp();
+            //String deviceName = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
             long blackListSize = DeviceSubscriptionsHandler.DeviceBlackListNumberOfRows(deviceName,deviceType);
             if (blackListSize < 0)
                 throw new Exception("Error in reading blackList of device:" + deviceName);
@@ -79,10 +80,11 @@ public class DeviceSubscriptionsTests extends VisionSettingsBase {
 
     }
 
-    @Then("^UI Clear blackList from \"(.*)\" device with index (\\d+)$")
-    public void clearBlackList(SUTDeviceType deviceType, int deviceIndex) {
+    @Then("^UI Clear blackList from \"(.*)\" device with index \"(.*)\"")
+    public void clearBlackList(SUTDeviceType deviceType, String elementType) {
         try {
-            String deviceIP = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            String deviceIP = sutManager.getTreeDeviceManagement(elementType).get().getManagementIp();
+            //String deviceIP = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
             DeviceSubscriptionsHandler.clearBlackList(deviceIP,deviceType);
         }
         catch (ParseException e) {

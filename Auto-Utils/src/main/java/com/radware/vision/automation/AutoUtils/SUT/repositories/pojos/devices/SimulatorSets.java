@@ -3,10 +3,12 @@ package com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
-public class NonTreeDevices {
+public class SimulatorSets {
+    private String id;
+    private List<String> ips;
+    private String type;
 
-    private List<Device> defenseFlows;
-    private List<Device> fnms;
 }

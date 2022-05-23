@@ -150,7 +150,7 @@ public class RemoteSshCommandsTests extends TestBase {
 
     @When("^CLI Copy files contains name \"(.*)\" from container \"(.*)\" from path \"(.*)\" to path \"(.*)\"(?: with timeout (\\d+))?$")
     public void copyFilesFromContainer(String fileName, String containerName, String fromPath, String toPath, Integer timeOut) {
-        String commandToExecute = String.format("docker exec -it %s sh -c \"ls %s | grep %s | tr '\n' ';' && echo '\n'\"", containerName, fromPath, fileName);
+        String commandToExecute = String.format("docker exec -it %s sh -c \"ls %s | grep -E -i -w '%s' | tr '\n' ';' && echo '\n'\"", containerName, fromPath, fileName);
 
         try {
             List<String> files;

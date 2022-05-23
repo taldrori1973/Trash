@@ -7,6 +7,6 @@ import java.util.Map;
 
 @Data
 public class SimulatorPojo {
-    private Map<String, List<String>> simulatorSets;
+    private Simulators simulators;
     private DeviceConfiguration configurations;
 }

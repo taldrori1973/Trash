@@ -131,20 +131,21 @@ public class TopologyTreeSteps extends VisionUITestBase {
         TopologyTreeHandler.openTab(option);
     }
 
-    @When("^UI Add( physical)? \"(.*)\" with index (\\d+) on \"(.*)\" site nowait$")
-    public void addNewDeviceDontWaitForStatus(String treeTabType, String elementType, int index, String parent) {
+    @When("^UI Add( physical)? \"(.*)\" type \"(.*)\" on \"(.*)\" site nowait$")
+    public void addNewDeviceDontWaitForStatus(String treeTabType, String elementType,String type, String parent) {
         try {
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-            SUTDeviceType sutDeviceType = SUTDeviceType.valueOf(elementType);
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, index);
+            SUTDeviceType sutDeviceType = SUTDeviceType.valueOf(type);
+            Optional<TreeDeviceManagementDto> deviceInfo = sutManager.getTreeDeviceManagement(elementType);
+           // DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, index);
             String visionServerIP = ("G1").concat(" (").concat(getVisionServerIp()).concat(")");
             HashMap<String, String> deviceProperties = new HashMap<>();
             deviceProperties.put("snmpReadCommunity", "wrong");
             deviceProperties.put("snmpWriteCommunity", "wrong");
-            deviceProperties.put("httpUserNameDefensePro", deviceInfo.getUsername());
-            deviceProperties.put("httpPasswordDefensePro", deviceInfo.getPassword());
+            deviceProperties.put("httpUserNameDefensePro", deviceInfo.get().getHttpUsername());
+            deviceProperties.put("httpPasswordDefensePro", deviceInfo.get().getHttpPassword());
 
-            TopologyTreeHandler.addNewDevice(sutDeviceType, sutDeviceType.getDeviceType() + "_" + deviceInfo.getDeviceIp(), parent, deviceInfo.getDeviceIp(), visionServerIP, true, deviceProperties, topologyTreeTab);
+            TopologyTreeHandler.addNewDevice(sutDeviceType, sutDeviceType.getDeviceType() + "_" + deviceInfo.get().getManagementIp(), parent, deviceInfo.get().getManagementIp(), visionServerIP, true, deviceProperties, topologyTreeTab);
 
             WebUIBasePage.closeAllYellowMessages();
 
@@ -264,13 +265,13 @@ public class TopologyTreeSteps extends VisionUITestBase {
         }
     }
 
-    @Then("^UI select Topology Element( physical)? \"(.*)\" device with index (\\d+) from topology tree$")
-    public void performTopologyTreeElement(String treeTabType, SUTDeviceType deviceType, int deviceIndex) {
+    @Then("^UI select Topology Element( physical)? \"(.*)\" device with index \"(.*)\" from topology tree$")
+    public void performTopologyTreeElement(String treeTabType, SUTDeviceType deviceType, String deviceIndex) {
         String elementName = "";
         try {
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
-            elementName = deviceType.getDeviceType() + "_" + deviceInfo.getDeviceIp();
+            Optional<TreeDeviceManagementDto> deviceInfo = sutManager.getTreeDeviceManagement(deviceIndex);
+            elementName = deviceInfo.get().getDeviceName();
             TopologyTreeHandler.selectDevice(elementName, topologyTreeTab);
         } catch (Exception e) {
             BaseTestUtils.report("Device with Name: " + elementName + " " + "may not have been selected, " + e.getMessage(), Reporter.FAIL);
