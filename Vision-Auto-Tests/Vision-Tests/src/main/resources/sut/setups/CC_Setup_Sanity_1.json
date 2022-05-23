@@ -1,5 +1,5 @@
 {
-  "simulatorSet" : "sim_set_3",
+  "simulatorSet" : ["sim_set_3"],
   "setupId": "CC_Setup_Sanity_1",
   "tree": {
     "sites": [
