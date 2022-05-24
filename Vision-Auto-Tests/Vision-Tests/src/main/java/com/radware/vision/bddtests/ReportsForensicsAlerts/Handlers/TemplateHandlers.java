@@ -393,7 +393,7 @@ public class TemplateHandlers {
             openScopeSelection();
             WebUIUtils.sleep(1);
 
-            if (type.equals("DefensePro Analytics")) {
+            if (type.equals("DefensePro Analytics") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report") || type.equals("DEVICES")) {
                 if (!isAllAndClearScopeSelection()) {
                     for (Object deviceJSON : devicesJSON) {
                         selectDevice(deviceJSON.toString(), true);
@@ -407,16 +407,38 @@ public class TemplateHandlers {
                     selectDevice(deviceJSON.toString(), true);
                     BasicOperationsHandler.clickButton(getSaveButtonText(), "");
                 }
-            } else if(type.equals("HTTPS Flood")) {
+            } else if (type.equals("HTTPS Flood")) {
                 if (!isAllAndClearScopeSelection()) {
                     for (Object deviceJSON : devicesJSON)
                         selectDevice(deviceJSON.toString(), true);
                 }
                 BasicOperationsHandler.clickButton(getSaveButtonText(), "");
+            } else if (type.equals("DefenseFlow Analytics") || type.equals("PROTECTED OBJECTS")) {
+                if (!isAllAndClearScopeSelection()) {
+                    for (Object deviceJSON : devicesJSON)
+                        selectDevice(deviceJSON.toString(), true);
+
+                    BasicOperationsHandler.clickButton(getSaveButtonText(), "");
+                }
+            } else if (type.equals("AppWall") || type.equals("Applications")) {
+                if (!isAllAndClearScopeSelection()) {
+                    for (Object deviceJSON : devicesJSON)
+                        selectDevice(deviceJSON.toString(), true);
+
+                    BasicOperationsHandler.clickButton(getSaveButtonText(), "");
+                }
             }
             if (WebUiTools.getWebElement("close scope selection") != null)
                 BasicOperationsHandler.clickButton("close scope selection");
+        }
 
+        private void selectProtectedObjectsOrApplications(ArrayList ProtectedObjOrApplications) throws Exception {
+            if (ProtectedObjOrApplications != null) {
+                for (Object ProtectedObjOrApplication : (ArrayList) ProtectedObjOrApplications) {
+                    WebUiTools.check(getType() + "_RationScopeSelection", ProtectedObjOrApplication.toString(), true);
+
+                }
+            }
         }
 
         public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
@@ -436,7 +458,7 @@ public class TemplateHandlers {
         }
 
         void selectDevice(String deviceText, boolean isToCheck) throws Exception {
-            if (type.equals("DefensePro Analytics")) {
+            if (type.equals("DefensePro Analytics") || type.equals("DefenseFlow Analytics") || type.equals("AppWall") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report") || type.equals("PROTECTED OBJECTS")) {
                 BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
                 WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
             }
@@ -590,14 +612,14 @@ public class TemplateHandlers {
             }
 
             void selectDevice(String deviceText, boolean isToCheck) throws Exception {
-                if (type.equals("DefensePro Analytics")) {
+                if (type.equals("DefensePro Analytics") || type.equals("DEVICES") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report")) {
                     BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
                     WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
                 }
             }
 
             void create() throws Exception {
-                if (type.equals("DefensePro Analytics")) {
+                if (type.equals("DefensePro Analytics") || type.equals("DEVICES") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report")) {
                     BasicOperationsHandler.clickButton("SwitchToDevices", "");
                     selectDevice(sutManager.getTreeDeviceManagement(deviceSetId).get().getDeviceId(), true);
                     selectPorts(devicePorts, "DPPortCheck", "DPPortsFilter");
@@ -675,15 +697,17 @@ public class TemplateHandlers {
 
         @Override
         protected void selectDevice(String deviceText, boolean isToCheck) throws Exception {
-            String[] serverDetails = new String[4];
-            serverDetails[0] = getDeviceIp(deviceText);
-            serverDetails[1] = Arrays.asList(deviceText.split("-")).get(2);
-            serverDetails[2] = Arrays.asList(deviceText.split("-")).get(0);
-            serverDetails[3] = "1.1.1.1";
+            List<String> serverDetails = new ArrayList<String>();
+            serverDetails.add(0,deviceText);
+            serverDetails.add(1,Arrays.asList(deviceText.split("-")).get(2));
+            serverDetails.add(2,Arrays.asList(deviceText.split("-")).get(0));
+            serverDetails.add(3,"1.1.1.1");
 
-            BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", serverDetails[1]);
+            BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", serverDetails.get(1).toString());
 //            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText), true);
-            WebUiTools.check("httpsScopeRadio", serverDetails, true);
+            List<Object> params = new ArrayList<Object>();
+            params.add(0,serverDetails);
+            WebUiTools.check("httpsScopeRadio", serverDetails.toString(), true);
 
         }
 

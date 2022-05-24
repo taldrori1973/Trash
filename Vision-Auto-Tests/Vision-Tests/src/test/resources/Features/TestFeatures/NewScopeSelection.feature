@@ -1,35 +1,190 @@
 @TestScopeSelection
 Feature: New Scope Selection Implementation
 
-  Scenario: Login and Navigate to DP Monitoring Page
+  Scenario: Login and Navigate to AMS REPORTS Page
     Given UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
 
-  @SID_2
+#----------REPORTS Creation-------------
+
   Scenario: create new Report
-    Given UI "Create" Report With Name "Inbound Traffic 1"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[server_1-DefensePro_Set_20-pol_1] |
-      | Format                | Select: CSV                                                                                                                  |
-      | Logo                  | reportLogoPNG.png                                                                                                            |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                  |
-      | Time Definitions.Date | Quick:Today                                                                                                                  |
-      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                               |
+    Given UI "Create" Report With Name "DefenseFlow Analytics Report1"
+      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_Sravany_test_1,PO_Sravany_test_2],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                          |
+      | Format                | Select: CSV                                                                                                                                                               |
+    Given UI "Edit" Report With Name "DefenseFlow Analytics Report1"
+      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_Sravany_test_3,PO_Sravany_test_2],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                          |
+      | Format                | Select: PDF                                                                                                                                                               |
 
-#    Given UI "Create" Report With Name "Traffic Bandwidth Report1"
-#      | Template-1            | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}], devices:[{SetId:DefensePro_Set_20, devicePorts:[AllPorts], devicePolicies:[All]}]|
-#      | Logo                  | reportLogoPNG.png                                                                                           |
-#      | Format                | Select: CSV                                                                                                 |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                             |
-#      | Time Definitions.Date | Quick:Today                                                                                                 |
-#      | share                 | Email:[sravani.varada@radware.com],Subject:mySubject,Body:myBody                                        |
+    Given UI "Create" Report With Name "AppWall Report1"
+      | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , Applications:[hackMe8640] , showTable:false |
+      | Time Definitions.Date | Relative:[Days,2]                                                                         |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                              |
+      | Format                | Select: HTML                                                                              |
+    Given UI "Edit" Report With Name "AppWall Report1"
+      | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , Applications:[hackMe8640] , showTable:false |
+      | Time Definitions.Date | Relative:[Days,2]                                                                         |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                              |
+      | Format                | Select: PDF                                                                              |
+
+    Given UI "Create" Report With Name "ERT Active Attackers Feed Report"
+      | Template              | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Packets]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Attacks]}] ,devices:[All] |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                        |
+      | Format                | Select: CSV                                                                                                                                                                      |
+    Given UI "Edit" Report With Name "ERT Active Attackers Feed Report"
+      | Template              | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Packets]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Attacks]}] ,devices:[{SetId:DefensePro_Set_20, devicePolicies:[All]}] |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                        |
+      | Format                | Select: PDF                                                                                                                                                                      |
+
+    Given UI "Create" Report With Name "ERT Active Attackers Audit Report"
+      | Template              | reportType:ERT Active Attackers Audit Report , Widgets:[ERT Active Attackers Audit Report],devices:[All] |
+      | Time Definitions.Date | Quick:15m                                                                                                |
+      | Format                | Select: CSV                                                                                              |
+    Given UI "Edit" Report With Name "ERT Active Attackers Audit Report"
+      | Template              | reportType:ERT Active Attackers Audit Report , Widgets:[ERT Active Attackers Audit Report],devices:[{SetId:DefensePro_Set_20, devicePolicies:[All]}] |
+      | Time Definitions.Date | Quick:15m                                                                                                |
+      | Format                | Select: PDF                                                                                              |
+
+#    Given UI "Create" Report With Name "HTTPS Flood Report1"
+#      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[server_1-DefensePro_Set_20-pol_1] |
+#      | Format                | Select: CSV                                                                                                                  |
+#      | Logo                  | reportLogoPNG.png                                                                                                            |
+#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                  |
+#      | Time Definitions.Date | Quick:Today                                                                                                                  |
+#      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                               |
+#    Given UI "Edit" Report With Name "HTTPS Flood Report1"
+#      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[server_1-DefensePro_Set_20-pol_1] |
+#      | Format                | Select: PDF                                                                                                                  |
+#      | Logo                  | reportLogoPNG.png                                                                                                            |
+#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                  |
+#      | Time Definitions.Date | Quick:Today                                                                                                                  |
+#      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                               |
+
+    Given UI "Create" Report With Name "DefensePro Analytics Report1"
+      | Template              | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}], devices:[{SetId:DefensePro_Set_20, devicePorts:[AllPorts], devicePolicies:[All]}] |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                             |
+      | Format                | Select: CSV                                                                                                                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                                                                               |
+      | Time Definitions.Date | Quick:Today                                                                                                                                                                   |
+      | share                 | Email:[sravani.varada@radware.com],Subject:mySubject,Body:myBody                                                                                                              |
+    Given UI "Edit" Report With Name "DefensePro Analytics Report1"
+      | Template              | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}], devices:[All] |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                             |
+      | Format                | Select: PDF                                                                                                                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                                                                               |
+      | Time Definitions.Date | Quick:Today                                                                                                                                                                   |
+      | share                 | Email:[sravani.varada@radware.com],Subject:mySubject,Body:myBody                                                                                                              |
+
+    Given UI "Create" Report With Name "DefensePro Behavioral Protections Report1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Inbound]}] ,devices:[{SetId:DefensePro_Set_20, devicePolicies:[EAAF2]}] |
+      | Time Definitions.Date | Relative:[Months,3]                                                                                                                                     |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                             |
+      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                                                              |
+      | Format                | Select: CSV                                                                                                                                             |
+    Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Inbound]}] ,devices:[{SetId:DefensePro_Set_20, devicePolicies:[EAAF4]}] |
+      | Time Definitions.Date | Relative:[Months,3]                                                                                                                                     |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                             |
+      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                                                              |
+      | Format                | Select: PDF                                                                                                                                             |
+
+#----------REPORTS Validation------------
+
+#  Scenario: Validate Reports
+#    Given UI "Validate" Report With Name "DefenseFlow Analytics Report1"
+#      | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_Sravany_test_1,PO_Sravany_test_2],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
+#      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                          |
+#      | Format                | Select: CSV                                                                                                                                                               |
 #
-#    Given UI "Create" Report With Name "DefensePro Behavioral Protections Report"
+#    Given UI "Validate" Report With Name "AppWall Report1"
+#      | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , Applications:[hackMe8640] , showTable:false |
+#      | Time Definitions.Date | Relative:[Days,2]                                                                         |
+#      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                              |
+#      | Format                | Select: HTML                                                                              |
+#
+#    Given UI "Validate" Report With Name "ERT Active Attackers Feed Report"
+#      | Template              | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Packets]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Attacks]}] ,devices:[All] |
+#      | Logo                  | reportLogoPNG.png                                                                                                                                                                |
+#      | Time Definitions.Date | Quick:15m                                                                                                                                                                        |
+#      | Format                | Select: CSV                                                                                                                                                                      |
+#
+#    Given UI "Validate" Report With Name "ERT Active Attackers Audit Report"
+#      | Template              | reportType:ERT Active Attackers Audit Report , Widgets:[ERT Active Attackers Audit Report],devices:[All] |
+#      | Time Definitions.Date | Quick:15m                                                                                                |
+#      | Format                | Select: CSV                                                                                              |
+#
+##    Given UI "Validate" Report With Name "HTTPS Flood Report1"
+##      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[server_1-DefensePro_Set_20-pol_1] |
+##      | Format                | Select: CSV                                                                                                                  |
+##      | Logo                  | reportLogoPNG.png                                                                                                            |
+##      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                  |
+##      | Time Definitions.Date | Quick:Today                                                                                                                  |
+##      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                               |
+#
+#    Given UI "Validate" Report With Name "DefensePro Analytics Report1"
+#      | Template              | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}], devices:[{SetId:DefensePro_Set_20, devicePorts:[AllPorts], devicePolicies:[All]}] |
+#      | Logo                  | reportLogoPNG.png                                                                                                                                                             |
+#      | Format                | Select: CSV                                                                                                                                                                   |
+#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                                                                               |
+#      | Time Definitions.Date | Quick:Today                                                                                                                                                                   |
+#      | share                 | Email:[sravani.varada@radware.com],Subject:mySubject,Body:myBody                                                                                                              |
+#
+#    Given UI "Validate" Report With Name "DefensePro Behavioral Protections Report1"
 #      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Inbound]}] ,devices:[{SetId:DefensePro_Set_20, devicePolicies:[EAAF2]}] |
-#      | Time Definitions.Date | Relative:[Months,3]                                                                                                                                                    |
-#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                            |
-#      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                             |
-#      | Format                | Select: CSV                                                                                                                                                            |
+#      | Time Definitions.Date | Relative:[Months,3]                                                                                                                                     |
+#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                             |
+#      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                                                              |
+#      | Format                | Select: CSV                                                                                                                                             |
+#
 
+#----------FORENSICS Creation-------------
+
+#  Scenario: Navigate to Forensics Page
+#    Then UI Navigate to "AMS Forensics" page via homepage
+#
+#  Scenario: create new Forensics
+#    Given UI "Create" Forensics With Name "DP Forensics1"
+#      | Product  | DefensePro                                                                             |
+#      | Output   | Attack Name                                                                            |
+#      | Criteria | condition.All:true                                                                     |
+#      | devices  | SetId:DefensePro_Set_20, devicePorts:[AllPorts], devicePolicies:[EAAF2, EAAF4, PO_100] |
+#      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[JUL,AUG]                            |
+#      | Format   | Select: CSV                                                                            |
+#
+#    Given UI "Create" Forensics With Name "AppWall Forensic1"
+#      | Product               | AppWall                                                                                                                    |
+#      | Application           | hackMe8640                                                                                                                 |
+#      | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
+#      | Format                | Select: CSV                                                                                                                |
+#      | Time Definitions.Date | Quick:Today                                                                                                                |
+#      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                                 |
+#
+#    Given UI "Create" Forensics With Name "DefenseFlow Forensic2"
+#      | Product               | DefenseFlow                                                                                                |
+#      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]                                      |
+#      | Protected Objects     | PO_Sravany_test_1,PO_Sravany_test_2                                                                        |
+#      | Output                | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps |
+#      | Time Definitions.Date | Quick:1D                                                                                                   |
+#      | Format                | Select: CSV                                                                                                |
+#      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                 |
+
+#------------ALERTS Creation-----------
+
+#  Scenario: Navigate to Alerts
+#    And UI Navigate to "AMS Alerts" page via homePage
+#
+#  Scenario: Create Alert Delivery
+#    When UI "Create" Alerts With Name "Alert Delivery"
+#      | Product    | Appwall                                                                                                                     |
+#      | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
+#      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Blocked];                                                                  |
+#      | Schedule   | checkBox:Trigger,alertsPerHour:60                                                                                           |
+#      | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
+
+#----------------------------------------------------------------------
 
 #    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homepage
 #
