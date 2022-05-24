@@ -8,6 +8,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
+import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
@@ -349,14 +350,14 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     /**
-     * @param setId   - setId
+     * @param setId        - setId
      * @param dualListSide - LEFT/RIGHT
      * @param dualListID   - dual list ID
      */
     @Then("^UI DualList Move setId \"(.*)\" DualList Items to \"(LEFT|RIGHT)\" , dual list id \"(.*)\"$")
     public void moveDualListItems(String setId, DualListSides dualListSide, String dualListID) {
         try {
-  //        DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
+            //        DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
             String itemName = sutManager.getTreeDeviceManagement(setId).get().getDeviceId();
             ClickOperationsHandler.moveScriptDualListItems(dualListSide, itemName, dualListID);
         } catch (Exception e) {
@@ -695,10 +696,9 @@ public class BasicOperationsSteps extends VisionUITestBase {
         for (ParameterSelected parameter : listParamters) { //all the parameters that selected to compare with values
             VisionDebugIdsManager.setLabel(parameter.label);
 
-            if(parameter.param != null){
+            if (parameter.param != null) {
                 VisionDebugIdsManager.setParams(parameter.param.split(","));
-            }
-            else
+            } else
                 VisionDebugIdsManager.setParams(parameter.param);
 
             WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
@@ -775,8 +775,8 @@ public class BasicOperationsSteps extends VisionUITestBase {
     private static void selectDate(String label, String params, LocalDateTime scheduleTime) {
         String date = String.format("01 %s", WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdtSwitch']")).getText());
         String[] date_s = date.split(" ");
-        int monthNumber = Arrays.asList("january", "february", "march", "april","may", "june", "july", "august", "september", "october", "november", "december").indexOf(date_s[1].toLowerCase())+1;
-        date_s[1] = String.format("%s%s",(monthNumber<=9)?"0":"",monthNumber);
+        int monthNumber = Arrays.asList("january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december").indexOf(date_s[1].toLowerCase()) + 1;
+        date_s[1] = String.format("%s%s", (monthNumber <= 9) ? "0" : "", monthNumber);
         LocalDate actualLocalDate = LocalDate.parse(String.join(" ", date_s), DateTimeFormatter.ofPattern("dd MM yyyy"));
         int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
         while (monthsDifference != 0) {
@@ -827,28 +827,42 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     private void uiUnSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
-        String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();        expandScopePolicies(deviceIP, map);
-        for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())) {
-            WebUiTools.check("DPPolicyCheck", new String[]{deviceIP, policy.toString()}, false);
+        String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();
+        String deviceId = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getDeviceId();
+        expandScopePolicies(map);
+
+        JSONObject deviceJSON = new JSONObject(map.get("devices"));
+        ArrayList policiesArray = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePolicies", deviceJSON.toMap().getOrDefault("policies", null)));
+
+        WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator("DPPoliciesFilter", new String[]{deviceIP}));
+        for (Object policy : policiesArray) {
+            policyOrPortText.type(policy.toString().trim());
+//            WebUiTools.check("DPPoliciesFilter", new String[]{deviceIP, policy.toString()}, false);
+            WebUiTools.check("DPPolicyCheck", new String[]{deviceId, policy.toString()}, true);
         }
-        saveScopeSelection(deviceIP);
+        saveScopeSelection();
     }
 
     private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();
-        BasicOperationsHandler.clickButton("Scope Selection");
-        if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
-            errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
-        BasicOperationsHandler.clickButton("DPScopeSelectionChange",deviceIP);
-        if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPScopeSelectionChange", deviceIP)))
+        String deviceId = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getDeviceId();
+
+        BasicOperationsHandler.clickButton("Device Selection"); //"Scope Selection");
+//        if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
+//            errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
+//        BasicOperationsHandler.clickButton("DPScopeSelectionChange",deviceIP);
+
+        BasicOperationsHandler.clickButton("SwitchToDevices");
+        if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPDeviceCheck", deviceId)))
             errorMessage.append("This device DefensePro_" + deviceIP + " with SetId " + new JSONObject(map.get("devices")).get("SetId").toString() + " is not selected !!");
+        BasicOperationsHandler.clickButton("SwitchToPolicies");
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()))
-            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceIP, policy.toString()})))
+            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceId, policy.toString()})))
                 errorMessage.append("This Policy " + policy.toString() + " is not selected !!");
         if (!isSortedPolices(deviceIP, new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length(), new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())))
             errorMessage.append("This Policies is not sorted !! ");
-        saveScopeSelection(deviceIP);
+        saveScopeSelection();
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
@@ -858,28 +872,34 @@ public class BasicOperationsSteps extends VisionUITestBase {
         policesArray.replaceAll(String::toLowerCase);
         Collections.sort(policesArray);
         List<WebElement> policyElements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_DefensePro_" + deviceIP + "_policiesLabel_')]").getBy());
-        for (int i = 0; i < policesNumber; i++) {
-            if (!policyElements.get(i).getText().toLowerCase().equals(policesArray.get(i)))
-                return false;
-        }
+        if (policyElements.size() != 0) {
+            for (int i = 0; i < policesNumber; i++) {
+                if (!policyElements.get(i).getText().toLowerCase().equals(policesArray.get(i)))
+                    return false;
+            }
+        } else
+            return false;
+
         return true;
     }
 
-    private void saveScopeSelection(String deviceIP) throws TargetWebElementNotFoundException {
-        clickButton("DPScopeSelectionChange", deviceIP);
+    private void saveScopeSelection() throws TargetWebElementNotFoundException {
+//        clickButton("DPScopeSelectionChange", deviceIP);
         clickButton("SaveDPScopeSelection", "");
         if (WebUiTools.getWebElement("close scope selection") != null)
             clickButton("close scope selection");
     }
 
-    private void expandScopePolicies(String device, Map<String, String> map) throws Exception {
+    private void expandScopePolicies(Map<String, String> map) throws Exception {
         try {
             clickButton("Device Selection", "");
         } catch (Exception e) {
             clickButton("Open Scope Selection", new JSONObject(map.get("devices")).get("type").toString());
         } finally {
-            setTextField("ScopeSelectionFilter", device);
-            clickButton("DPScopeSelectionChange", device);
+//            setTextField("ScopeSelectionFilter", device);
+//            clickButton("DPScopeSelectionChange", device);
+            clickButton("SwitchToPolicies");
+
         }
     }
 

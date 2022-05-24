@@ -68,26 +68,26 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     @Override
     public void create(String name, String negative, Map<String, String> map) throws Exception {
-//        if(negative == null){
-//            try{delete(name);}catch (Exception ignored){}
-//        }
+        if (negative == null) {
+            try {
+                delete(name);
+            } catch (Exception ignored) {
+            }
+        }
 
-        try
-        {
+        try {
             closeView(false);
             WebUiTools.check("New Forensics Tab", "", true);
             selectScopeSelection(map);
             createForensicsParam(name, map);
             BasicOperationsHandler.clickButton("save");
             WebUIUtils.sleep(3);
-            if (WebUiTools.getWebElement("Error message description") != null)
-            {
+            if (WebUiTools.getWebElement("Error message description") != null) {
                 String internalErrorMessage = WebUiTools.getWebElement("Error message description").getText();
                 BasicOperationsHandler.clickButton("errorMessageOK", "");
                 throw new Exception("Forensics create has failed because " + internalErrorMessage);
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             cancelView();
             BaseTestUtils.report(e.toString(), Reporter.FAIL);
         }
@@ -111,8 +111,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
             case "appwall":
                 WebUiTools.check("Product", map.get("Product"), true);
-                if (map.containsKey("Applications"))
-                    new TemplateHandlers.AWScopeSelection(new JSONArray("[" + map.get("Applications") + "]"), "", "APPLICATIONS").create();
+                if (map.containsKey("Application"))
+                    new TemplateHandlers.AWScopeSelection(new JSONArray("[" + map.get("Applications") + "]"), "", "APPLICATION").create();
                 break;
         }
     }
@@ -143,32 +143,29 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     private void selectCriteria(Map<String, String> map) throws Exception {
-        if (map.containsKey("Criteria"))
-        {
+        if (map.containsKey("Criteria")) {
             JSONArray conditions = new ObjectMapper().readTree(map.get("Criteria")).isArray() ? new JSONArray(map.get("Criteria")) : new JSONArray().put(map.get("Criteria"));
             final Object[] applyValue = {""};
-            for (Object condition : conditions)
-            {
-                (conditions.length() == 1? (new JSONObject(condition)) : ((JSONObject) condition)).keySet().forEach(n -> {if (n.toLowerCase().contains("condition."))
-                    applyValue[0] = condition;});
-                if (new JSONObject(condition.toString()).has("Event Criteria"))
-                {
+            for (Object condition : conditions) {
+                (conditions.length() == 1 ? (new JSONObject(condition)) : ((JSONObject) condition)).keySet().forEach(n -> {
+                    if (n.toLowerCase().contains("condition."))
+                        applyValue[0] = condition;
+                });
+                if (new JSONObject(condition.toString()).has("Event Criteria")) {
                     selectAttributeCriteria(new JSONObject(condition.toString()));
                     selectAttributeValuesCriteria(new JSONObject(condition.toString()));
-                    BasicOperationsHandler.clickButton("Add Condition","enabled");
+                    BasicOperationsHandler.clickButton("Add Condition", "enabled");
                 }
             }
-            applyToCriteria(applyValue[0].equals("")?new JSONObject("{}"):(JSONObject) applyValue[0]);
+            applyToCriteria(applyValue[0].equals("") ? new JSONObject("{}") : (JSONObject) applyValue[0]);
         }
     }
 
     private void applyToCriteria(JSONObject applyValue) throws Exception {
-        if (applyValue.has("Criteria.Custom checkBox") || applyValue.has("condition.Custom"))
-        {
+        if (applyValue.has("Criteria.Custom checkBox") || applyValue.has("condition.Custom")) {
             WebUiTools.check("Criteria Apply To", "custom", true);
-            BasicOperationsHandler.setTextField("customTextField", applyValue.toMap().getOrDefault("Criteria.Custom checkBox",applyValue.get("condition.Custom")).toString());
-        }
-        else if (applyValue.has("Criteria.Any") || applyValue.has("condition.Any"))
+            BasicOperationsHandler.setTextField("customTextField", applyValue.toMap().getOrDefault("Criteria.Custom checkBox", applyValue.get("condition.Custom")).toString());
+        } else if (applyValue.has("Criteria.Any") || applyValue.has("condition.Any"))
             WebUiTools.check("Criteria Apply To", "any", true);
         else if (applyValue.has("Criteria.All") || applyValue.has("condition.All"))
             WebUiTools.check("Criteria Apply To", "all", true);
@@ -237,11 +234,13 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     private String getCriteriaOperator(String operator) throws Exception {
-        switch (operator.toLowerCase())
-        {
-            case "not equals": return "≠";
-            case "greater than": return ">";
-            case "equals": return "=";
+        switch (operator.toLowerCase()) {
+            case "not equals":
+                return "≠";
+            case "greater than":
+                return ">";
+            case "equals":
+                return "=";
         }
         throw new Exception("No operator with name " + operator);
     }
@@ -253,7 +252,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     public void selectOutput(Map<String, String> map) throws Exception {
-        if(map.containsKey("Output")) {
+        if (map.containsKey("Output")) {
             WebUiTools.check("outputExpandOrCollapse", "", true);
             ArrayList<String> expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
             if (expectedOutputs.get(0).equalsIgnoreCase("Add All")) {
@@ -291,7 +290,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         if (basicRestResult != null) {
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRangeDefinition").toString()), map, forensicsName));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, forensicsName));
-            errorMessage.append(validateFormatForensicsIgnoreDetailsInExport(basicRestResult,map));
+            errorMessage.append(validateFormatForensicsIgnoreDetailsInExport(basicRestResult, map));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateScopeSelection(basicRestResult, map));
             errorMessage.append(validateOutput(basicRestResult, map));
@@ -301,9 +300,9 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
 
-    private StringBuilder validateFormatForensicsIgnoreDetailsInExport(JSONObject basicRestResult ,Map<String, String> map){
+    private StringBuilder validateFormatForensicsIgnoreDetailsInExport(JSONObject basicRestResult, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
-        if(map.containsKey("Format")){
+        if (map.containsKey("Format")) {
             switch (new JSONObject(map.get("Format")).get("Select").toString()) {
                 case "HTML":
                 case "CSV":
@@ -314,33 +313,30 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                     break;
                 case "CSV With Attack Details":
                 case "CSVWithDetails":
-                    if(!basicRestResult.get("ignoreDetailsInExport").toString().equalsIgnoreCase("false") || !new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()).get("type").toString().equalsIgnoreCase("csv"))
+                    if (!basicRestResult.get("ignoreDetailsInExport").toString().equalsIgnoreCase("false") || !new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()).get("type").toString().equalsIgnoreCase("csv"))
                         errorMessage.append("The Actual format is not equal to expected ");
                     break;
             }
         }
         return errorMessage;
     }
+
     private StringBuilder validateOutput(JSONObject basicRestResult, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
-        if (map.containsKey("Output"))
-        {
+        if (map.containsKey("Output")) {
             outputsMatches = fillOutputMatch(map.getOrDefault("Product", ""));
             JSONArray actualOutputs = new JSONArray(basicRestResult.get("outputFields").toString());
             List expectedOutputs = new JSONArray("[" + map.get("Output") + "]").toList();
-            for (Object expectedOutput : expectedOutputs)
-            {
+            for (Object expectedOutput : expectedOutputs) {
                 String matchOutput = outputsMatches.toMap().getOrDefault(expectedOutput, expectedOutput).toString();
                 expectedOutputs.set(expectedOutputs.indexOf(expectedOutput), matchOutput);
             }
-            for (Object output : expectedOutputs)
-            {
+            for (Object output : expectedOutputs) {
                 if (!actualOutputs.toList().contains(output))
                     errorMessage.append("The output " + output + " isn't contained in the actual definition \n");
             }
 
-            for (Object output : actualOutputs)
-            {
+            for (Object output : actualOutputs) {
                 if (!expectedOutputs.contains(output))
                     errorMessage.append("The output " + output + " in actual output it isn't contained in the expected definition\n");
             }
@@ -360,8 +356,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     private void validateFTP(JSONObject deliveryJson, Map<String, String> map, StringBuilder errorMessage) {
-        if (deliveryJson.isNull("ftp"))
-        {
+        if (deliveryJson.isNull("ftp")) {
             errorMessage.append("The Expected share type is ftp but Actual no FTP in the definition");
             return;
         }
@@ -387,14 +382,13 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                     if (map.get("devices").equalsIgnoreCase("all"))
                         return errorMessage;
                     JsonNode actualDevicesJson = new ObjectMapper().readTree(forensicsDefinition.toString()).get("request").get("criteria").get(0).get("filters");
-                    JSONArray expectedDevices = new ObjectMapper().readTree(map.get("devices")).isArray()? new JSONArray(map.get("devices")) : new JSONArray().put(new JSONObject(map.get("devices")));
-                    for (Object expectedDevice : expectedDevices)
-                    {
+                    JSONArray expectedDevices = new ObjectMapper().readTree(map.get("devices")).isArray() ? new JSONArray(map.get("devices")) : new JSONArray().put(new JSONObject(map.get("devices")));
+                    for (Object expectedDevice : expectedDevices) {
                         JsonNode targetActualDevice = validateDPName(actualDevicesJson, expectedDevice, errorMessage);
                         if (targetActualDevice == null)
                             return errorMessage;
-                        validateDPPortsOrPolicies(targetActualDevice, ((JSONObject)expectedDevice), errorMessage, "Ports");
-                        validateDPPortsOrPolicies(targetActualDevice, ((JSONObject)expectedDevice), errorMessage, "Policies");
+                        validateDPPortsOrPolicies(targetActualDevice, ((JSONObject) expectedDevice), errorMessage, "Ports");
+                        validateDPPortsOrPolicies(targetActualDevice, ((JSONObject) expectedDevice), errorMessage, "Policies");
                     }
 
                 }
@@ -405,21 +399,19 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                         return errorMessage;
                     List<Object> actualPOs = new ArrayList<>();
                     for (Object device : ((JSONArray) ((JSONObject) ((JSONArray) ((JSONObject) forensicsDefinition.get("request")).get("criteria")).get(0)).get("filters")).toList())
-                        actualPOs.add(((HashMap)device).get("value"));
+                        actualPOs.add(((HashMap) device).get("value"));
                     validatePOsORApps(actualPOs, map, errorMessage, "Protected Objects");
                 }
                 break;
 
             case "appwall":
-                if (map.containsKey("Applications"))
-                {
+                if (map.containsKey("Applications")) {
                     if (map.get("Applications").equalsIgnoreCase("all"))
                         return errorMessage;
                     List applicationsList = ((JSONArray) ((JSONObject) ((JSONArray) ((JSONObject) forensicsDefinition.get("request")).get("criteria")).get(0)).get("filters")).toList();
                     List<Object> actualApplications = new ArrayList<>();
-                    for(Object application : applicationsList)
-                    {
-                        actualApplications.add(((HashMap)(((ArrayList)((HashMap)application).get("filters")).get(1))).get("value"));
+                    for (Object application : applicationsList) {
+                        actualApplications.add(((HashMap) (((ArrayList) ((HashMap) application).get("filters")).get(1))).get("value"));
                     }
                     validatePOsORApps(actualApplications, map, errorMessage, "Applications");
                 }
@@ -429,13 +421,12 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     private void validateDPPortsOrPolicies(JsonNode actualDeviceJson, JSONObject expectedDevice, StringBuilder errorMessage, String validateType) throws Exception {
-        if (expectedDevice.has(validateType))
-        {
+        if (expectedDevice.has(validateType)) {
             for (Object portOrPolicy : new JSONArray(new JSONObject(expectedDevice.toString()).get(validateType))) {
                 AtomicBoolean contained = new AtomicBoolean(false);
-                actualDeviceJson.get("filters").get(1).get("filters").get(validateType.equalsIgnoreCase("ports")?0:1).get("filters").forEach(n->
+                actualDeviceJson.get("filters").get(1).get("filters").get(validateType.equalsIgnoreCase("ports") ? 0 : 1).get("filters").forEach(n ->
                 {
-                    if(n.get("value").toString().equalsIgnoreCase(portOrPolicy.toString()))
+                    if (n.get("value").toString().equalsIgnoreCase(portOrPolicy.toString()))
                         contained.set(true);
                 });
                 if (!contained.get())
@@ -445,8 +436,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     private JsonNode validateDPName(JsonNode actualDevicesDefinition, Object expectedDevice, StringBuilder errorMessage) throws Exception {
-        for (JsonNode actualDeviceDefinition : actualDevicesDefinition)
-        {
+        for (JsonNode actualDeviceDefinition : actualDevicesDefinition) {
             if (actualDeviceDefinition.get("filters").get(0).get("value").toString().replaceAll("\"", "").equalsIgnoreCase(getDPDeviceIpBySetID(new JSONObject(expectedDevice.toString()).get("SetId").toString())))
                 return actualDeviceDefinition;
         }
@@ -466,8 +456,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     protected StringBuilder validateCriteriaDefinition(JSONObject basicRestResult, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
-        if (map.containsKey("Criteria"))
-        {
+        if (map.containsKey("Criteria")) {
             JSONObject actualDefinition = new JSONObject(basicRestResult.get("metadata").toString().replace("\\", ""));
             if (map.containsKey("Criteria.Custom checkBox"))
                 if (!actualDefinition.get("mode").toString().equalsIgnoreCase(map.get("Criteria.Custom checkBox")))
@@ -600,7 +589,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     private void editCriteria(Map<String, String> map) throws Exception {
         if (map.containsKey("Criteria")) {
-            for (WebElement criteriaElement : WebUiTools.getWebElements("Criteria Delete Condition","")) {
+            for (WebElement criteriaElement : WebUiTools.getWebElements("Criteria Delete Condition", "")) {
                 criteriaElement.click();
             }
             selectCriteria(map);
@@ -615,7 +604,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     private void editScopeSelection(Map<String, String> map, String reportName) throws Exception {
-        if (map.containsKey("devices") || map.containsKey("Protected Objects") || map.containsKey("Applications") )
+        if (map.containsKey("devices") || map.containsKey("Protected Objects") || map.containsKey("Applications"))
             selectScopeSelection(map);
     }
 
