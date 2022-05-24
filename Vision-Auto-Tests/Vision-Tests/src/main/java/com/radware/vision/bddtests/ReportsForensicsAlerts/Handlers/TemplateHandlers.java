@@ -420,7 +420,7 @@ public class TemplateHandlers {
 
                     BasicOperationsHandler.clickButton(getSaveButtonText(), "");
                 }
-            } else if (type.equals("AppWall") || type.equals("Applications")) {
+            } else if (type.equals("AppWall") || type.equals("Application") || type.equals("System and Network")) {
                 if (!isAllAndClearScopeSelection()) {
                     for (Object deviceJSON : devicesJSON)
                         selectDevice(deviceJSON.toString(), true);
@@ -458,7 +458,7 @@ public class TemplateHandlers {
         }
 
         void selectDevice(String deviceText, boolean isToCheck) throws Exception {
-            if (type.equals("DefensePro Analytics") || type.equals("DefenseFlow Analytics") || type.equals("AppWall") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report") || type.equals("PROTECTED OBJECTS")) {
+            if (type.equals("DefensePro Analytics") || type.equals("DefenseFlow Analytics") || type.equals("AppWall") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report") || type.equals("PROTECTED OBJECTS") || type.equals("Application") || type.equals("System and Network")) {
                 BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
                 WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
             }
