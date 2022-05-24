@@ -1690,7 +1690,8 @@ public class VRMHandler {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
                                 String policyPrefix = "row-DefensePro_" + deviceIp + "_" + policy + "-cbox_checkbox";
-                                selectPolicyTab();
+                                if (!BasicOperationsHandler.pageName.equalsIgnoreCase("DefensePro Behavioral Protections Dashboard"))
+                                    selectPolicyTab();
                                 policyText.type(policy.trim());
                                 WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
                                 if (!isExist) {
