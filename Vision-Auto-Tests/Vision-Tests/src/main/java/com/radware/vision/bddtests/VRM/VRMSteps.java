@@ -53,9 +53,9 @@ public class VRMSteps {
         vrmReportsHandler.validateQuickRange(startingLabel, endLabel, QuickRange.getQuickRangeEnum(quickRange), timeFormat, thresholdInMinutes);
     }
 
-    @Then("^UI Validate (?:column chart \"([^\"]*)\" for )?Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\"$")
-    public void uiValidateLineChartData(String columnChart, String chart, String label, List<Data> entries) {
-        vrmHandler.validateChartDataOfDataSets(chart, label, columnChart, entries);
+    @Then("^UI Validate (?:column chart \"([^\"]*)\" for )?Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\"(?: Not Exist \"([^\"]*)\")?$")
+    public void uiValidateLineChartData(String columnChart, String chart, String label, boolean noLabel, List<Data> entries) {
+        vrmHandler.validateChartDataOfDataSets(chart, label, columnChart, noLabel, entries);
     }
 
     @Then("^UI Validate Pie Chart attributes \"([^\"]*)\"$")
@@ -236,8 +236,8 @@ public class VRMSteps {
     }
 
     @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"(?: with device \"(.*)\")?$")
-    public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName, String device, List<VRMHandler.Data> entries) throws Throwable {
-        new Report().getVRMReportsChartsHandler(reportName, device).validateChartDataOfDataSets(chart, label, null, entries);
+    public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName, String device,boolean noLabel, List<VRMHandler.Data> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName, device).validateChartDataOfDataSets(chart, label, null, true, entries);
     }
 
     @Then("^UI Validate StackBar data with widget \"([^\"]*)\" in report \"([^\"]*)\"$")

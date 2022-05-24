@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class SimulatorPojo {
-    private Simulators simulators;
-    private DeviceConfiguration configurations;
+public class SimulatorSets {
+    private String id;
+    private List<String> ips;
+    private String type;
+
 }

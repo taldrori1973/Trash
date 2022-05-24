@@ -1,5 +1,5 @@
 {
-  "setupFile": "Setup_AMS_1.json",
+  "setupFile": "Setup_DF_2.json",
   "serverName": "uvision_auto",
   "deployConfigurations": {
     "snapshot": "",

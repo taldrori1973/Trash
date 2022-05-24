@@ -87,16 +87,15 @@ public class VRMHandler {
         String item = sessionStorage.getItem(chart);// return NO data available
 
 
-        if(isJSONValid(item)){
-        jsonMap = JsonUtils.getJsonMap(item);
+        if (isJSONValid(item)) {
+            jsonMap = JsonUtils.getJsonMap(item);
 
-    }else
-    {
+        } else {
 
-        jsonMap = new HashMap<String, String>();
-        jsonMap.put("data","No Data Available");
+            jsonMap = new HashMap<String, String>();
+            jsonMap.put("data", "No Data Available");
 
-    }
+        }
 
 
         return jsonMap;
@@ -205,21 +204,23 @@ public class VRMHandler {
         }
         reportErrors();
     }
-    public void uiValidateSumOfLineChartData(String chart,String label,String sum){
+
+    public void uiValidateSumOfLineChartData(String chart, String label, String sum) {
 
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, null);
         JSONArray data = (JSONArray) foundObject.get(DATA);
         double DataSum = 0;
-        for(int i =0;i<data.length();i++){
-           DataSum +=Double.parseDouble(data.get(i).toString());
+        for (int i = 0; i < data.length(); i++) {
+            DataSum += Double.parseDouble(data.get(i).toString());
         }
-        if(Math.round(DataSum)!=Double.parseDouble(sum)){
+        if (Math.round(DataSum) != Double.parseDouble(sum)) {
             scrollAndTakeScreenshot(chart);
-            BaseTestUtils.report("The expected Value is "+sum+ "not equal to actual Value " + Math.round(DataSum),Reporter.FAIL);
+            BaseTestUtils.report("The expected Value is " + sum + "not equal to actual Value " + Math.round(DataSum), Reporter.FAIL);
         }
     }
+
     public void validateVirticalStackBarData(String chart, List<StackBarData> entries) {
         Objects.requireNonNull(chart, "Chart is equal to null");
         JSONArray legends = getLabelsFromData(chart);
@@ -328,12 +329,21 @@ public class VRMHandler {
      * @param label   - Chart internal key
      * @param entries if no match between an entry and the actual label params it adds errorMessage to the report
      */
-    public void validateChartDataOfDataSets(String chart, String label, String columnGraph, List<Data> entries) {
+    public void validateChartDataOfDataSets(String chart, String label, String columnGraph, boolean noLabel, List<Data> entries) {
 
 
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, columnGraph);
+        if(foundObject == null)
+        {
+            BaseTestUtils.report((noLabel)?
+                            "Success : Label Not Found ":
+                            "Failed to get label: " + label + " from chart: " + chart
+                    , (noLabel) ? Reporter.PASS : Reporter.FAIL);
+
+            return;
+        }
         if(!isJSONValid(foundObject.get(DATA).toString()))
         {
             entries.forEach(entry -> {
@@ -341,7 +351,7 @@ public class VRMHandler {
 
                 String actualResult = foundObject.get(DATA).toString();
 
-                if(actualResult.equals(entry.value))
+                if (actualResult.equals(entry.value))
                     return;
 
                 else
@@ -349,7 +359,6 @@ public class VRMHandler {
 
             });
         }
-
         else {
 
             JSONArray data = (JSONArray) foundObject.get(DATA);
@@ -411,15 +420,9 @@ public class VRMHandler {
                     }
                 }
             });
+
             reportErrors();
-
-
         }
-
-
-
-
-
     }
 
     protected boolean isDataMatch(Data entry, String s) {
@@ -487,23 +490,19 @@ public class VRMHandler {
                     BaseTestUtils.report("The graph column " + columnGraph + " is not found", Reporter.FAIL);
                 }
 
-            if(!isJSONValid(jsonMap.get(DATA).toString()))
-            {
-                foundObject =  new JSONObject(jsonMap);
-            }
-
-            else{
-                jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
+            if (jsonMap.get(DATA) != null && !isJSONValid(jsonMap.get(DATA).toString())) {
+                foundObject = new JSONObject(jsonMap);
+            } else {
+                if (jsonMap.get(DATA) != null)
+                    jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
                 dataArray = (JSONArray) jsonMap.get(DATASETS);
-
+                boolean avoidExeption;
                 foundObject = StreamSupport.stream(dataArray.spliterator(), false)
                         .map(JSONObject.class::cast)
                         .filter(jsonObject -> jsonObject.getString(LABEL).equals(label))
-                        .findFirst()
-                        .orElseThrow(() -> new NullPointerException(String.join(" ", "Chart :", chart, "With label :", label, "Could not be found")));
-
+                        .findFirst().orElse(null);
             }
-
+            //orElseThrow(() -> new NullPointerException(String.join(" ", "Chart :", chart, "With label :", label, "Could not be found")))
 
         } catch (SessionStorageException e) {
             BaseTestUtils.report("Failed to get label: " + label + " from chart: " + chart, e);
@@ -1029,13 +1028,13 @@ public class VRMHandler {
                 try {
                     if (entry.setId != null || entry.deviceId != null) {
                         SUTManager sutManager = SUTManagerImpl.getInstance();
-                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId!=null)?sutManager.getTreeDeviceManagement(entry.setId):
-                                                                                          sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                                sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
                         if (!deviceOpt.isPresent()) {
-                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId!=null)?entry.setId:entry.deviceId));
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId != null) ? entry.setId : entry.deviceId));
                         }
                         deviceIp = deviceOpt.get().getManagementIp();
-                        deviceName=deviceOpt.get().getDeviceName();
+                        deviceName = deviceOpt.get().getDeviceName();
                     } else {
                         throw new Exception("device setId|deviceId entry is empty.");
                     }
@@ -1223,7 +1222,7 @@ public class VRMHandler {
             VisionDebugIdsManager.setParams(deviceIp);
             WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
 
-            String policySearch = String.format("scopeSelection_[%s_%s]_policy_Text",deviceType,deviceIp);
+            String policySearch = String.format("scopeSelection_[%s_%s]_policy_Text", deviceType, deviceIp);
             WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
 
             List<String> polices = Lists.newArrayList(entry.polices.split(","));
@@ -1232,20 +1231,20 @@ public class VRMHandler {
                 policy = policy.trim();
                 policyText.type(policy);
                 VisionDebugIdsManager.setLabel("PolicyValidate");
-               VisionDebugIdsManager.setParams(deviceIp, policy);
+                VisionDebugIdsManager.setParams(deviceIp, policy);
                 if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()) == null) {
                     addErrorMessage(String.format("device [%s] ->Expected policy [%s] does not exist", deviceIp, policy));
                     WebUIUtils.generateAndReportScreenshot();
                 }
             }
             //count the policies
-            int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id,'scopeSelection_DefensePro_"+deviceIp+"')]")).getViewValues().size();
+            int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id,'scopeSelection_DefensePro_" + deviceIp + "')]")).getViewValues().size();
             if (entry.total.equalsIgnoreCase("All")) {
                 ServersManagement serversManagement = TestBase.getServersManagement();
                 Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
                 RootServerCli rsc = rootServerCli.get();
 
-               CliOperations.runCommand(rsc, String.format("mysql -u root -pradware vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
+                CliOperations.runCommand(rsc, String.format("mysql -u root -pradware vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
             } else if (!String.valueOf(actualPoliciesNumber).equals(entry.total)) {
                 addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected [%s]", deviceIp, actualPoliciesNumber, entry.total));
                 WebUIUtils.generateAndReportScreenshot();
@@ -1470,7 +1469,7 @@ public class VRMHandler {
         }
     }
 
-    public static class SignatureData{
+    public static class SignatureData {
         public String type;
         public String oper;
         public String param;
@@ -1494,7 +1493,7 @@ public class VRMHandler {
         }
 
 
-        public boolean compareTypeOperElement(String type,String oper){
+        public boolean compareTypeOperElement(String type, String oper) {
             return this.type.equals(type) && this.oper.equals(oper);
         }
     }
@@ -1897,21 +1896,19 @@ public class VRMHandler {
                     isExist = false;
                     for (int j = 0; j < rtsArray.length(); j++) {
                         if (entries.get(i).type.equals("OUTER")) {
-                            if (entries.get(i).compareTypeOperElement(rtsArray.getJSONObject(j).get("type").toString(),rtsArray.getJSONObject(j).get("oper").toString()))
-                            {
+                            if (entries.get(i).compareTypeOperElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString())) {
                                 isExist = true;
                                 break;
                             }
                         } else if (entries.get(i).type.equals("INNER")) {
-                            if (rtsArray.getJSONObject(j).has("param") && rtsArray.getJSONObject(j).has("full_values") && entries.get(i).compareFullElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString(), rtsArray.getJSONObject(j).get("param").toString(), rtsArray.getJSONObject(j).get("full_values").toString()))
-                            {
+                            if (rtsArray.getJSONObject(j).has("param") && rtsArray.getJSONObject(j).has("full_values") && entries.get(i).compareFullElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString(), rtsArray.getJSONObject(j).get("param").toString(), rtsArray.getJSONObject(j).get("full_values").toString())) {
                                 isExist = true;
                                 break;
                             }
                         }
                     }
                     if (!isExist)
-                        BaseTestUtils.report("The expected " + attribute + " with Value |"+entries.get(i).type+"|"+entries.get(i).oper+"|"+entries.get(i).param+"|"+entries.get(i).values+"| is not equal to actual " + attribute, Reporter.FAIL);
+                        BaseTestUtils.report("The expected " + attribute + " with Value |" + entries.get(i).type + "|" + entries.get(i).oper + "|" + entries.get(i).param + "|" + entries.get(i).values + "| is not equal to actual " + attribute, Reporter.FAIL);
                 }
                 break;
         }

@@ -28,6 +28,14 @@ public class UpgradeThread extends Thread {
         this.versionNumber = VMOperationsSteps.readVisionVersionFromPomFile();
     }
 
+    UpgradeThread(String IP, RadwareServerCli radwareServerCli, RootServerCli rootServerCli, String buildNumber) {
+        this.IP = IP;
+        this.build = buildNumber;
+        this.radwareServerCli = radwareServerCli;
+        this.rootServerCli = rootServerCli;
+        this.versionNumber = VMOperationsSteps.readVisionVersionFromPomFile();
+    }
+
     @Override
     public void run() {
         try {

@@ -4,6 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.base.pages.VisionServerMenuPane;
 import com.radware.vision.infra.base.pages.system.deviceresources.devicesubscriptions.DeviceSubscriptions;
@@ -13,9 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import testhandlers.VisionRestApiHandler;
 
-import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
-
-public class DeviceSubscriptionsHandler {
+public class DeviceSubscriptionsHandler extends TestBase{
 
     public static boolean checkIfDeviceSubscriptionsTableColumnExists(String columnName) {
         DeviceSubscriptions deviceSubscriptions = openDeviceSubscriptionsMenu();

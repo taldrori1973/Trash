@@ -5,7 +5,6 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.infra.testhandlers.DefencePro.dpConfiguration.accesscontrol.blacklistsandwhitelists.BlackListHandler;
 import cucumber.api.java.en.Given;
@@ -22,10 +21,10 @@ public class BlackListSteps extends VisionUITestBase {
     public BlackListSteps() throws Exception {
     }
 
-    @Given("^UI Open black list in DefensePro (\\d+)$")
-    public void openBlackListForDevice(int deviceIndex) throws Exception {
+    @Given("^UI Open black list in DefensePro \"(.*)\"$")
+    public void openBlackListForDevice(String deviceSet) throws Exception {
         try {
-            String deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro,deviceIndex).getDeviceName();
+            String deviceName = sutManager.getTreeDeviceManagement(deviceSet).get().getDeviceName();
             setDeviceName(deviceName);
             BlackListHandler.openBlackList();
         } catch (Exception e) {
@@ -58,9 +57,10 @@ public class BlackListSteps extends VisionUITestBase {
         BlackListHandler.verifyRowsNumberEqual(namePrefix, num);
     }
 
-    @When("^UI Fill in the black list table in DefensePro (\\d+)$")
-    public void createRows(int deviceIndex) throws Exception {
-        String deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro,deviceIndex).getDeviceIp();
+    @When("^UI Fill in the black list table in DefensePro \"(.*)\"$")
+    public void createRows(String deviceSet) throws Exception {
+        String deviceIp = sutManager.getTreeDeviceManagement(deviceSet).get().getManagementIp();
+       // String deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro,deviceIndex).getDeviceIp();
         BlackListHandler.fillInBlackListTableRows(deviceIp);
     }
 

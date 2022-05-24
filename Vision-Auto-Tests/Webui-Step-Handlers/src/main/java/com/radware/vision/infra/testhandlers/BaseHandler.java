@@ -5,6 +5,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcommands.mgmtcommands.tree.DeviceCommands;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
 import com.radware.vision.infra.base.pages.deviceoperations.DeviceOperations;
 import com.radware.vision.infra.enums.DeviceState;
@@ -17,7 +18,7 @@ import java.util.HashMap;
  * Created by AviH on 11-Aug-16.
  */
 
-public class BaseHandler {
+public class BaseHandler extends TestBase{
     public static RestTestBase restTestBase = null;
     public static DevicesManager devicesManager = null;
 

@@ -12,9 +12,9 @@ import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.VisionUITestBase;
 import com.radware.vision.base.VisionUITestSetup;
@@ -84,12 +84,14 @@ public class BasicOperationsSteps extends VisionUITestBase {
         }
     }
 
-    @Given("^UI Select \"(.*)\" device from tree with index (\\d+)$")
-    public void selectDeviceFromTree(SUTDeviceType deviceType, int deviceIndex) {
+    @Given("^UI Select \"(.*)\" device from tree with \"(.*)\"$")
+    public void selectDeviceFromTree(SUTDeviceType deviceType, String deviceSet) {
         try {
-            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
-            setDeviceName(deviceInfo.getDeviceName());
-            TopologyTreeHandler.clickTreeNode(deviceInfo.getDeviceName());
+
+            TopologyTreeTabs topologyTreeTab = ("nothing" != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
+            Optional<TreeDeviceManagementDto> deviceInfo = sutManager.getTreeDeviceManagement(deviceSet);
+            setDeviceName(deviceInfo.get().getDeviceName());
+            TopologyTreeHandler.clickTreeNode(deviceInfo.get().getDeviceName());
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
