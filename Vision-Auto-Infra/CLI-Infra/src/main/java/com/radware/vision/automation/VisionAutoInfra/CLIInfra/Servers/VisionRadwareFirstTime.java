@@ -259,6 +259,11 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         p.setStringToSend(getVm().getPassword());
         prompts.add(p);
 
+        p = new Prompt();
+        p.setPrompt("Starting APSolute Vision services");
+        p.setCommandEnd(true);
+        prompts.add(p);
+
 
         return prompts.toArray(new Prompt[prompts.size()]);
     }
