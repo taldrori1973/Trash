@@ -7,16 +7,16 @@ Feature: New Scope Selection Implementation
 
 #----------AMS REPORTS-------------
 
-  Scenario: create new Report
+  Scenario: create and validate AMS report
     Given UI "Create" Report With Name "DefenseFlow Analytics Report1"
       | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_Sravany_test_1,PO_Sravany_test_2],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                                           |
       | Format                | Select: CSV                                                                                                                                                               |
-    Given UI "Edit" Report With Name "DefenseFlow Analytics Report1"
+    Then UI "Edit" Report With Name "DefenseFlow Analytics Report1"
       | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_Sravany_test_3,PO_Sravany_test_2],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                                           |
       | Format                | Select: PDF                                                                                                                                                               |
-    Given UI "Validate" Report With Name "DefenseFlow Analytics Report1"
+    Then UI "Validate" Report With Name "DefenseFlow Analytics Report1"
       | Template              | reportType:DefenseFlow Analytics,Protected Objects:[PO_Sravany_test_3,PO_Sravany_test_2],Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                                          |
       | Format                | Select: PDF                                                                                                                                                               |
@@ -26,12 +26,12 @@ Feature: New Scope Selection Implementation
       | Time Definitions.Date | Relative:[Days,2]                                                                         |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                              |
       | Format                | Select: HTML                                                                              |
-    Given UI "Edit" Report With Name "AppWall Report1"
+    Then UI "Edit" Report With Name "AppWall Report1"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , Applications:[hackMe8640] , showTable:false |
       | Time Definitions.Date | Relative:[Days,2]                                                                         |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                              |
       | Format                | Select: PDF                                                                              |
-    Given UI "Validate" Report With Name "AppWall Report1"
+    Then UI "Validate" Report With Name "AppWall Report1"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , Applications:[hackMe8640] , showTable:false |
       | Time Definitions.Date | Relative:[Days,2]                                                                         |
 #      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                              |
@@ -42,12 +42,12 @@ Feature: New Scope Selection Implementation
       | Logo                  | reportLogoPNG.png                                                                                                                                                                |
       | Time Definitions.Date | Quick:15m                                                                                                                                                                        |
       | Format                | Select: CSV                                                                                                                                                                      |
-    Given UI "Edit" Report With Name "ERT Active Attackers Feed Report"
+    Then UI "Edit" Report With Name "ERT Active Attackers Feed Report"
       | Template              | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Packets]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Attacks]}] ,devices:[{SetId:DefensePro_Set_21, devicePolicies:[All]}] |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                |
       | Time Definitions.Date | Quick:15m                                                                                                                                                                        |
       | Format                | Select: PDF                                                                                                                                                                      |
-    Given UI "Validate" Report With Name "ERT Active Attackers Feed Report"
+    Then UI "Validate" Report With Name "ERT Active Attackers Feed Report"
 #      | Template              | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Packets]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Attacks]}] ,devices:[{SetId:DefensePro_Set_21, devicePolicies:[All]}] |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                |
       | Time Definitions.Date | Quick:15m                                                                                                                                                                        |
@@ -57,11 +57,11 @@ Feature: New Scope Selection Implementation
       | Template              | reportType:ERT Active Attackers Audit Report , Widgets:[ERT Active Attackers Audit Report],devices:[All] |
       | Time Definitions.Date | Quick:15m                                                                                                |
       | Format                | Select: CSV                                                                                              |
-    Given UI "Edit" Report With Name "ERT Active Attackers Audit Report"
+    Then UI "Edit" Report With Name "ERT Active Attackers Audit Report"
       | Template              | reportType:ERT Active Attackers Audit Report , Widgets:[ERT Active Attackers Audit Report],devices:[{SetId:DefensePro_Set_20, devicePolicies:[All]}] |
       | Time Definitions.Date | Quick:15m                                                                                                |
       | Format                | Select: PDF                                                                                              |
-    Given UI "Validate" Report With Name "ERT Active Attackers Audit Report"
+    Then UI "Validate" Report With Name "ERT Active Attackers Audit Report"
 #      | Template              | reportType:ERT Active Attackers Audit Report , Widgets:[ERT Active Attackers Audit Report],devices:[{SetId:DefensePro_Set_20, devicePolicies:[All]}] |
       | Time Definitions.Date | Quick:15m                                                                                                |
       | Format                | Select: CSV                                                                                              |
@@ -73,14 +73,14 @@ Feature: New Scope Selection Implementation
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                  |
       | Time Definitions.Date | Quick:Today                                                                                                                  |
       | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                               |
-    Given UI "Edit" Report With Name "HTTPS Flood Report1"
+    Then UI "Edit" Report With Name "HTTPS Flood Report1"
       | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[server_1-DefensePro_Set_20-pol_1] |
       | Format                | Select: PDF                                                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                                                            |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                  |
       | Time Definitions.Date | Quick:Today                                                                                                                  |
       | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                               |
-    Given UI "Validate" Report With Name "HTTPS Flood Report1"
+    Then UI "Validate" Report With Name "HTTPS Flood Report1"
       | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[server_1-DefensePro_Set_20-pol_1] |
       | Format                | Select: CSV                                                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                                                            |
@@ -95,14 +95,14 @@ Feature: New Scope Selection Implementation
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                                                                               |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                   |
       | share                 | Email:[sravani.varada@radware.com],Subject:mySubject,Body:myBody                                                                                                              |
-    Given UI "Edit" Report With Name "DefensePro Analytics Report1"
+    Then UI "Edit" Report With Name "DefensePro Analytics Report1"
       | Template              | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}], devices:[All] |
       | Logo                  | reportLogoPNG.png                                                                                                                                                             |
       | Format                | Select: PDF                                                                                                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                                                                               |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                   |
       | share                 | Email:[sravani.varada@radware.com],Subject:mySubject,Body:myBody                                                                                                              |
-    Given UI "Validate" Report With Name "DefensePro Analytics Report1"
+    Then UI "Validate" Report With Name "DefensePro Analytics Report1"
       | Template              | reportType:DefensePro Analytics, Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}], devices:[All]  |
       | Logo                  | reportLogoPNG.png                                                                                                                                                             |
       | Format                | Select: PDF                                                                                                                                                                   |
@@ -116,13 +116,13 @@ Feature: New Scope Selection Implementation
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                             |
       | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                                                              |
       | Format                | Select: CSV                                                                                                                                             |
-    Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report1"
+    Then UI "Edit" Report With Name "DefensePro Behavioral Protections Report1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Inbound]}] ,devices:[{SetId:DefensePro_Set_20, devicePolicies:[EAAF4]}] |
       | Time Definitions.Date | Relative:[Months,3]                                                                                                                                     |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                             |
       | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                                                              |
       | Format                | Select: PDF                                                                                                                                             |
-    Given UI "Validate" Report With Name "DefensePro Behavioral Protections Report1"
+    Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Inbound]}] ,devices:[{SetId:DefensePro_Set_20, devicePolicies:[EAAF4]}] |
       | Time Definitions.Date | Relative:[Months,3]                                                                                                                                     |
       | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                                                              |
@@ -130,9 +130,9 @@ Feature: New Scope Selection Implementation
 
 #----------AMS REPORTS-------------
 
+  Scenario: Create and validate ADC Report
     And UI Navigate to "ADC Reports" page via homePage
 
-  Scenario: Create and validate ADC Report
     Given UI "Create" Report With Name "ADC Applications Report"
       | Template              | reportType:Application ,Widgets:[ALL] , Applications:[hackMeBank8640:80] |
       | Time Definitions.Date | Quick:1H                                                                 |
