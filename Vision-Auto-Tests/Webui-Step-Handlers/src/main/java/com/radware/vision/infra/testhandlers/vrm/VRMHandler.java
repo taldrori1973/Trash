@@ -1670,6 +1670,8 @@ public class VRMHandler {
     }
 
     public static class Polices {
+        public String setId;
+        public String deviceId;
         public Integer index;
         public String policies;
         public Boolean isExist;
@@ -1866,10 +1868,16 @@ public class VRMHandler {
             entries.forEach(entry -> {
                 String deviceIp = null;
                 try {
-                    if (entry.index == null) {
+                    if (entry.index == null && entry.deviceId==null && entry.setId==null) {
                         throw new Exception("Index entry is empty please enter it!");
                     } else {
-                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+                        SUTManager sutManager = SUTManagerImpl.getInstance();
+                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                                sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+
+//                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp() ;
+                        deviceIp = deviceOpt.get().getManagementIp();
+
                     }
 
                 } catch (Exception e) {
@@ -1878,25 +1886,29 @@ public class VRMHandler {
                 boolean changePolicies = entry.policies != null && !entry.policies.equals("");
                 boolean isExist = entry.isExist;
                 if (changePolicies) {
-                    String policyPrefix = "scopeSelection_DefensePro_" + deviceIp + "_policiesLabel_";
-                    String policySearch = "scopeSelection_DefensePro_[" + deviceIp + "]_policy_Text";
+//                    String policyPrefix = "scopeSelection_DefensePro_" + deviceIp + "_policiesLabel_";
+//                    String policySearch = "scopeSelection_DefensePro_[" + deviceIp + "]_policy_Text";
+
+                    String policySearch = "scope-searchbar-input";
                     List<String> policiesList;
                     if (changePolicies) {
-                        WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix));
+                        WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
                         if (!entry.policies.equalsIgnoreCase("ALL")) {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
-                                //     policyText.type(policy.trim());
-                                // WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+                                String policyPrefix = "row-DefensePro_"+deviceIp+"_"+policy+"-cbox_checkbox";
+                                selectPolicyTab();
+                                     policyText.type(policy.trim());
+                                 WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
                                 if (!isExist) {
-                                    if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()) != null) {
+                                    if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix).getBy()) != null) {
                                         // addErrorMessage(String.format("device [%s] ->Expected policy [%s] does exist", deviceIp, policy));
                                         BaseTestUtils.report("Expected policy: " + policy + " does exist", Reporter.FAIL);
                                         WebUIUtils.generateAndReportScreenshot();
                                     }
                                 }
                                 if (isExist) {
-                                    if (!WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()).isDisplayed()) {
+                                    if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix).getBy())==null) {
                                         BaseTestUtils.report("Expected policy: " + policy + " does not exist", Reporter.FAIL);
                                         WebUIUtils.generateAndReportScreenshot();
                                     }
@@ -1907,6 +1919,7 @@ public class VRMHandler {
                             LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//lablel"));
                             policiesList = lazyView.getViewValues();
                             for (String policy : policiesList) {
+                                String policyPrefix = "row-DefensePro_"+deviceIp+"_"+policy+"-cbox_checkbox";
                                 policyText.type(policy.trim());
                                 checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
                                 checkbox.check();
