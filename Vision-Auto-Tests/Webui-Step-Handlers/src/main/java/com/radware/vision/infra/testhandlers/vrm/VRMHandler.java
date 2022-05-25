@@ -1030,6 +1030,13 @@ public class VRMHandler {
 //        WebUIComponent component = new WebUIComponent(ComponentLocatorFactory.getEqualLocatorByDbgId(policyTab));
         button.click();
     }
+    public void selectDeviceTab() {
+        String deviceTab = "Device.tab";
+        VisionDebugIdsManager.setLabel(deviceTab);
+        WebUICheckbox button = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+//        WebUIComponent component = new WebUIComponent(ComponentLocatorFactory.getEqualLocatorByDbgId(policyTab));
+        button.click();
+    }
 
     public void innerSelectDeviceWithPoliciesAndPorts(String saveFilter, SUTDeviceType deviceType, List<DpDeviceFilter> entries, boolean moveMouse) {
         try {
@@ -1038,6 +1045,7 @@ public class VRMHandler {
             if (BasicOperationsHandler.pageName.equalsIgnoreCase("DefensePro Behavioral Protections Dashboard")) {
                 innerSelectDeviceWithPoliciesBehavioral(saveFilter, deviceType, entries, moveMouse);
             } else {
+                selectDeviceTab();
                 String selectAllCheckBox = "Device Selection.All Devices Selection";
                 VisionDebugIdsManager.setLabel(selectAllCheckBox);
                 WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
