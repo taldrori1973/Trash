@@ -6,6 +6,7 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
@@ -394,6 +395,8 @@ public class TemplateHandlers {
             WebUIUtils.sleep(1);
 
             if (type.equals("DefensePro Analytics") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report") || type.equals("DEVICES")) {
+                BasicOperationsHandler.clickButton("SwitchToDevices", "");
+                BasicOperationsHandler.clickButton("confirmSwitch", "");
                 if (!isAllAndClearScopeSelection()) {
                     for (Object deviceJSON : devicesJSON) {
                         selectDevice(deviceJSON.toString(), true);
@@ -620,7 +623,6 @@ public class TemplateHandlers {
 
             void create() throws Exception {
                 if (type.equals("DefensePro Analytics") || type.equals("DEVICES") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report")) {
-                    BasicOperationsHandler.clickButton("SwitchToDevices", "");
                     selectDevice(sutManager.getTreeDeviceManagement(deviceSetId).get().getDeviceId(), true);
                     selectPorts(devicePorts, "DPPortCheck", "DPPortsFilter");
                     BasicOperationsHandler.clickButton(getSaveButtonText(), "");
@@ -698,17 +700,20 @@ public class TemplateHandlers {
         @Override
         protected void selectDevice(String deviceText, boolean isToCheck) throws Exception {
             List<String> serverDetails = new ArrayList<String>();
-            serverDetails.add(0,deviceText);
+            serverDetails.add(0,getDeviceIp(deviceText));
             serverDetails.add(1,Arrays.asList(deviceText.split("-")).get(2));
             serverDetails.add(2,Arrays.asList(deviceText.split("-")).get(0));
             serverDetails.add(3,"1.1.1.1");
 
+            String ipAdd =  "^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
+                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
+                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
+                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$";
+
             BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", serverDetails.get(1).toString());
 //            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText), true);
-            List<Object> params = new ArrayList<Object>();
-            params.add(0,serverDetails);
-            WebUiTools.check("httpsScopeRadio", serverDetails.toString(), true);
-
+            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId("row-"+serverDetails.get(0).toString()+"_"+serverDetails.get(1).toString()+"_"+serverDetails.get(2).toString()+"_"+ipAdd));//+serverDetails.get(3).toString()));
+            checkbox.click();
         }
 
         private String getDeviceIp(String deviceText) throws Exception {
