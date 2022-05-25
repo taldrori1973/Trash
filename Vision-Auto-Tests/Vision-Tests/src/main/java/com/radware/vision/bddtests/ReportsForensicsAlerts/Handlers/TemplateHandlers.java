@@ -705,14 +705,14 @@ public class TemplateHandlers {
             serverDetails.add(2,Arrays.asList(deviceText.split("-")).get(0));
             serverDetails.add(3,"1.1.1.1");
 
-            String ipAdd =  "^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
-                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
-                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
-                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$";
+//            String ipAdd =  "^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
+//                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
+//                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
+//                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$";
 
             BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", serverDetails.get(1).toString());
 //            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText), true);
-            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId("row-"+serverDetails.get(0).toString()+"_"+serverDetails.get(1).toString()+"_"+serverDetails.get(2).toString()+"_"+ipAdd));//+serverDetails.get(3).toString()));
+            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId("row-"+serverDetails.get(0).toString()+"_"+serverDetails.get(1).toString()+"_"+serverDetails.get(2).toString()+"_"+serverDetails.get(3).toString()));
             checkbox.click();
         }
 
