@@ -1712,7 +1712,13 @@ public class VRMHandler {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
                                 String policyPrefix = "row-DefensePro_" + deviceIp + "_" + policy.trim() + "-cbox_checkbox";
-                                if (!BasicOperationsHandler.pageName.equalsIgnoreCase("DefensePro Behavioral Protections Dashboard"))
+                                if (!BasicOperationsHandler.pageName.equalsIgnoreCase("DefensePro Behavioral Protections Dashboard")) {
+                                    try {
+                                        BasicOperationsHandler.clickButton("Device Selection", "");
+                                    } catch (TargetWebElementNotFoundException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                                     selectPolicyTab();
                                 policyText.type(policy.trim());
                                 WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
