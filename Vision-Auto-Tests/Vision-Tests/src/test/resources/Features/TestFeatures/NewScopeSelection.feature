@@ -5,6 +5,49 @@ Feature: New Scope Selection Implementation
     Given UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
 
+#----------Tests------------
+
+#    Given UI "Create" Report With Name "DefensePro Behavioral Protections Report"
+#      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Inbound]}] ,devices:[{SetId:DefensePro_Set_2, devicePolicies:[1_https]}] |
+#      | Time Definitions.Date | Relative:[Months,3]                                                                                                                              |
+#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                      |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                   |
+#      | Format                | Select: CSV                                                                                                                                      |
+#    Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
+#      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Inbound]}] ,devices:[{SetId:DefensePro_Set_2, devicePolicies:[1_https]}] |
+#      | Time Definitions.Date | Relative:[Months,3]                                                                                                                              |
+#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                      |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                   |
+#      | Format                | Select: CSV                                                                                                                                      |
+#    Given UI "Create" Report With Name "DefensePro Analytics Report"
+#      | Template | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[{SetId:DefensePro_Set_21, devicePolicies:[EAAF,EAAF2]}],showTable:true |
+#    Then UI "Validate" Report With Name "DefensePro Analytics Report"
+#      | Template | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[{SetId:DefensePro_Set_21, devicePolicies:[EAAF,EAAF2]}],showTable:true |
+#
+#  Scenario: Edit DefensePro Analytics Report
+#    Then UI Click Button "My Report Tab"
+#    Then UI Click Button "Edit Report" with value "DefensePro Analytics Report"
+#    Then UI "Select" Scope Polices
+#      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_21,policies:[EAAF,EAAF2,EAAF3] |
+#    Then UI Click Button "save"
+
+  @SID_3
+  Scenario: Validate scope policies for DefensePro Analytics Report
+#    Then UI Click Button "My Report Tab"
+#    Then UI Click Button "Edit Report" with value "DefensePro Analytics Report"
+#    Then UI "UnSelect" Scope Polices
+#      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_21,policies:[EAAF] |
+#    Then UI Click Button "save"
+
+
+    Then UI Click Button "My Report Tab"
+    Then UI Click Button "Edit Report" with value "DefensePro Analytics Report"
+    Then UI "Validate" Scope Polices
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_21,policies:[EAAF2] |
+    Then UI Click Button "save"
+#    Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
+#      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Inbound]}] ,devices:[{SetId:DefensePro_Set_21, devicePolicies:[EAAF]}] |
+
 #----------AMS REPORTS-------------
 
 #  Scenario: create and validate AMS report
@@ -48,13 +91,13 @@ Feature: New Scope Selection Implementation
 #      | Time Definitions.Date | Quick:15m                                                                                                |
 #      | Format                | Select: PDF                                                                                              |
 
-    Given UI "Create" Report With Name "HTTPS Flood Report1"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[server_1-DefensePro_Set_21-pol_1] |
-      | Format                | Select: CSV                                                                                                                  |
-      | Logo                  | reportLogoPNG.png                                                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                  |
-      | Time Definitions.Date | Quick:Today                                                                                                                  |
-      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                               |
+#    Given UI "Create" Report With Name "HTTPS Flood Report1"
+#      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[server_1-DefensePro_Set_21-pol_1] |
+#      | Format                | Select: CSV                                                                                                                  |
+#      | Logo                  | reportLogoPNG.png                                                                                                            |
+#      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                  |
+#      | Time Definitions.Date | Quick:Today                                                                                                                  |
+#      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                               |
 #    Then UI "Edit" Report With Name "HTTPS Flood Report1"
 #      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[server_1-DefensePro_Set_21-pol1] |
 #      | Format                | Select: PDF                                                                                                                  |

@@ -625,8 +625,8 @@ public class TemplateHandlers {
                 if (type.equals("DefensePro Analytics") || type.equals("DEVICES") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report")) {
                     selectDevice(sutManager.getTreeDeviceManagement(deviceSetId).get().getDeviceId(), true);
                     selectPorts(devicePorts, "DPPortCheck", "DPPortsFilter");
-                    BasicOperationsHandler.clickButton(getSaveButtonText(), "");
                     if (devicePolicies != null) {
+                        BasicOperationsHandler.clickButton(getSaveButtonText(), "");
                         openScopeSelection();
                         BasicOperationsHandler.clickButton("SwitchToPolicies", "");
                         selectPortsOrPolicies(devicePolicies, "DPPolicyCheck", "DPPoliciesFilter");
