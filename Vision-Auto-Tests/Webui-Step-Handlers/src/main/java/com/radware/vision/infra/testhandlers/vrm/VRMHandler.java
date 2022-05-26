@@ -16,10 +16,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.LazyView;
 import com.radware.automation.webui.widgets.api.TextField;
-import com.radware.automation.webui.widgets.impl.LazyViewImpl;
-import com.radware.automation.webui.widgets.impl.WebUICheckbox;
-import com.radware.automation.webui.widgets.impl.WebUIComponent;
-import com.radware.automation.webui.widgets.impl.WebUITextField;
+import com.radware.automation.webui.widgets.impl.*;
 import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
@@ -44,6 +41,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
+import org.springframework.cache.interceptor.BasicOperation;
 
 import java.sql.Timestamp;
 import java.time.Duration;
@@ -911,10 +909,22 @@ public class VRMHandler {
                     checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
 //                    checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + entry.name + "_Label"));
                     if (checkbox.getWebElement() == null) {
+                        String poPrefix = "row-" + entry.name.trim() + "-cbox_checkbox";
+                        WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId("scope-searchbar-input"));
+                        policyText.type(entry.name.trim());
+                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(poPrefix));
+                        if (checkbox.getWebElement() != null)
+                            checkbox.check();
+                        else
+                            throw new Exception(" checkBox element not found " + entry.name + " ");
+//                        checkbox.check();
                         switch (deviceType.toLowerCase()) {
                             case "defenseflow":
+                                    break;
                             case "appwall":
+                                break;
                             case "alteon":
+                                break;
                             case "linkproof":
                                 VisionDebugIdsManager.setLabel("Filter");
                                 TextField textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(VisionDebugIdsManager.getDataDebugId());
@@ -1046,6 +1056,9 @@ public class VRMHandler {
                 innerSelectDeviceWithPoliciesBehavioral(saveFilter, deviceType, entries, moveMouse);
             } else {
                 selectDeviceTab();
+                WebUIComponent popupbutton= new WebUIComponent(ComponentLocatorFactory.getLocatorByDbgId("button_scope-confirm_button_1"));
+                popupbutton.click();
+//                WebUIComponent button= new WebUIComponent(ComponentLocatorFactory.getLocatorByDbgId("button_scope-confirm_button_1"));
                 String selectAllCheckBox = "Device Selection.All Devices Selection";
                 VisionDebugIdsManager.setLabel(selectAllCheckBox);
                 WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
@@ -1082,7 +1095,7 @@ public class VRMHandler {
                         if (!entry.ports.equalsIgnoreCase("ALL")) {
                             portsList = Arrays.asList(entry.ports.split("(,)"));
                             for (String port : portsList) {
-                                checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2_cbox_" + port + "_checkbox"));
+                                checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2_cbox_" + port.trim() + "_checkbox"));
                                 checkbox.check();
                             }
 
@@ -1140,11 +1153,12 @@ public class VRMHandler {
                             ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("ScopeSelectionButton"));
                             String policySearch = "scope-searchbar-input";
                             selectPolicyTab();
+                            popupbutton.click();
                             WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
                             if (!entry.policies.equalsIgnoreCase("ALL")) {
                                 policiesList = Arrays.asList(entry.policies.split("(,)"));
                                 for (String policy : policiesList) {
-                                    String policyPrefix = "row-" + deviceName + "_" + policy + "-cbox_checkbox";
+                                    String policyPrefix = "row-" + deviceName + "_" + policy.trim() + "-cbox_checkbox";
                                     policyText.type(policy.trim());
                                     checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(policyPrefix));
                                     checkbox.check();
@@ -1210,7 +1224,7 @@ public class VRMHandler {
                     if (!entry.policies.equalsIgnoreCase("ALL")) {
                         policiesList = Arrays.asList(entry.policies.split("(,)"));
                         for (String policy : policiesList) {
-                            String policyPrefix = "row-" + deviceName + "_" + policy + "-cbox_checkbox";
+                            String policyPrefix = "row-" + deviceName + "_" + policy.trim() + "-cbox_checkbox";
                             policyText.type(policy.trim());
                             checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(policyPrefix));
                             checkbox.check();
@@ -1697,7 +1711,7 @@ public class VRMHandler {
                         if (!entry.policies.equalsIgnoreCase("ALL")) {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
-                                String policyPrefix = "row-DefensePro_" + deviceIp + "_" + policy + "-cbox_checkbox";
+                                String policyPrefix = "row-DefensePro_" + deviceIp + "_" + policy.trim() + "-cbox_checkbox";
                                 if (!BasicOperationsHandler.pageName.equalsIgnoreCase("DefensePro Behavioral Protections Dashboard"))
                                     selectPolicyTab();
                                 policyText.type(policy.trim());
