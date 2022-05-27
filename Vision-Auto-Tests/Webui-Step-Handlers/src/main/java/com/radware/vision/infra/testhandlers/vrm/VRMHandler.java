@@ -1090,7 +1090,7 @@ public class VRMHandler {
                     boolean changePorts = entry.ports != null && !entry.ports.equals("");
                     List<String> portsList;
                     if (changePorts) {
-                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2_label"));
+                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2"));
                         checkbox.click();
                         if (!entry.ports.equalsIgnoreCase("ALL")) {
                             portsList = Arrays.asList(entry.ports.split("(,)"));
@@ -1104,7 +1104,7 @@ public class VRMHandler {
                             checkbox.click();
 
                         }
-                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2_label"));
+                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2"));
                         checkbox.click();
                     }
                     if (!(entry.virtualServices == null) && !entry.virtualServices.equals("")) {
