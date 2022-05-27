@@ -50,6 +50,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         templateWidgets.put("System and Network", 1);
         templateWidgets.put("Application", 6);
         templateWidgets.put("LinkProof", 3);
+        templateWidgets.put("ERT Active Attackers Audit Report", 1);
         widgets = Collections.unmodifiableMap(templateWidgets);
     }
 

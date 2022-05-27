@@ -1,5 +1,6 @@
 package com.radware.vision.thirdPartyAPIs.jFrog.models;
 
+import com.radware.vision.thirdPartyAPIs.jFrog.pojos.Checksums;
 import lombok.Data;
 
 import java.net.URI;
@@ -21,4 +22,6 @@ public class JFrogFileModel  {
     private FileType type;
     private URI downloadUri;
     private String size;
+    private Checksums checksums;
+
 }

@@ -124,7 +124,7 @@ Feature: AMS and ADC Analytics Users
   @SID_9
   Scenario: generate ADC report2 after edit
     Then UI "Generate" Report With Name "ADC Report1"
-      | timeOut | 60 |
+      | timeOut | 120 |
     Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.html' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
@@ -189,6 +189,7 @@ Feature: AMS and ADC Analytics Users
   Scenario: generate report
     Then UI "Generate" Report With Name "AMSReport"
       | timeOut | 120 |
+    Then Sleep "5"
     Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.zip' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
@@ -200,6 +201,7 @@ Feature: AMS and ADC Analytics Users
       | Format | Select: HTML |
     Then UI "Generate" Report With Name "AMSReport"
       | timeOut | 120 |
+    Then Sleep "5"
     Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.html' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 
@@ -211,6 +213,7 @@ Feature: AMS and ADC Analytics Users
       | Format | Select: PDF |
     Then UI "Generate" Report With Name "AMSReport"
       | timeOut | 120 |
+    Then Sleep "5"
     Then CLI Run linux Command "docker exec -it config_kvision-reporter_1 sh -c "ls /usr/local/tomcat/ | grep 'VRM_report.*.pdf' | wc -l"" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
 

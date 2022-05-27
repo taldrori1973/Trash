@@ -8,32 +8,31 @@
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>Cli-Step-Handlers</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>com.radware.vision.automation</groupId>
-            <artifactId>CLI-Infra</artifactId>
-            <version>${revision}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation.cli</groupId>
-            <artifactId>vision-infra</artifactId>
-            <version>${cli.base}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Auto-Common</artifactId>
-            <version>${revision}</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>CLI-Infra</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.radware.vision.automation.cli</groupId>
+            <artifactId>vision-infra</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Auto-Common</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>

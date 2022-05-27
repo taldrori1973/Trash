@@ -57,21 +57,21 @@ public class UpgradeSteps extends TestBase {
     @When("^Upgrade in Parallel,backup&Restore setup$")        /// backup and restore setup
     public static void UpgradeVisionToLatestBuildTwoMachines() {
         try {
-            String sourceIP = getSutManager().getpair().getPairIp();
-            String targetIP = getSutManager().getClientConfigurations().getHostIp();
+            String sourceIP = getSutManager().getClientConfigurations().getHostIp();
+            String targetIP = getSutManager().getPairConfigurations().getHostIp();
             String build = System.getenv("BUILD");//get build from portal
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
 
-            RadwareServerCli radwareSource = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
-            RootServerCli rootSource = new RootServerCli(sourceIP, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+            RadwareServerCli radwareSource = getServersManagement().getRadwareServerCli().get();
+            RootServerCli rootSource = getServersManagement().getRootServerCLI().get();
 
-            RadwareServerCli radwareTarget = new RadwareServerCli(targetIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
-            RootServerCli rootTarget = new RootServerCli(targetIP, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+            RadwareServerCli radwareTarget = new RadwareServerCli(targetIP, getSutManager().getPairCliConfigurations().getRadwareServerCliUserName(), getSutManager().getPairCliConfigurations().getRadwareServerCliPassword());
+            RootServerCli rootTarget = new RootServerCli(targetIP, getSutManager().getPairCliConfigurations().getRootServerCliUserName(), getSutManager().getPairCliConfigurations().getRootServerCliPassword());
 
             Upgrade upgradeSource = new Upgrade(radwareSource, rootSource);
             Upgrade upgradeTarget = new Upgrade(radwareTarget, rootTarget);
-            UpgradeThread sourceMachineThread = new UpgradeThread(sourceIP, null, build);
-            UpgradeThread targetMachineThread = new UpgradeThread(targetIP, null, build);
+            UpgradeThread sourceMachineThread = new UpgradeThread(sourceIP, radwareSource, rootSource, build);
+            UpgradeThread targetMachineThread = new UpgradeThread(targetIP, radwareTarget, rootTarget, build);
 
             if (upgradeSource.isSetupNeeded) {
                 sourceMachineThread.start();
@@ -165,7 +165,7 @@ public class UpgradeSteps extends TestBase {
             String changeMinorVersion = String.format("sed -i 's/buildMinorVersion: .*$/buildMinorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[1]);
             CliOperations.runCommand(rootServerCli, changeMinorVersion, CliOperations.DEFAULT_TIME_OUT, false, false, true);
             BaseTestUtils.report("Setting Server property file to version: " + String.format("%s.%s.%s", notSupportedVersion[0], notSupportedVersion[1], notSupportedVersion[2]), Reporter.PASS_NOR_FAIL);
-            VisionServer.downloadUpgradeFile(rootServerCli, upgrade.getBuildFileInfo().getDownloadUri().toString());
+            VisionServer.downloadUpgradeFile(rootServerCli, upgrade.getBuildFileInfo().getDownloadUri().toString() , upgrade.getBuildFileInfo().getChecksums().getMd5());
             String upgradePassword = "";
             radwareServerCli.setUpgradePassword(upgradePassword);
             radwareServerCli.setBeginningTheAPSoluteVisionUpgradeProcessEndsCommand(false);
@@ -248,7 +248,7 @@ public class UpgradeSteps extends TestBase {
             RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
             RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
             VisionServer.upgradeServerFile(radwareServerCli, rootServerCli
-                    , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
+                    , null, path[path.length - 1], buildFileInfo.getDownloadUri().toString(), buildFileInfo.getChecksums().getMd5());
             validateVisionServerServicesUP(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed. Changing server to OFFLINE", Reporter.FAIL);

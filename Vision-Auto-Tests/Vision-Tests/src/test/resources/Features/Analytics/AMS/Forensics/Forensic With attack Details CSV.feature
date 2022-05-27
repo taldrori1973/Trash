@@ -24,17 +24,15 @@ Feature: Forensics CSV with Attack details
   @SID_4
   Scenario: Create Forensics Report csv_detailed
     When UI "Create" Forensics With Name "TC112730"
-      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                           |
+      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123                                                                                                                               |
       | Output | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packet Type,Physical Port,Risk,Policy Name |
-      | Format | Select: CSVWithDetails                                                                                                                                                                                                                     |
+      | Format | Select: CSVWithDetails                                                                                                                                                                                                                               |
 
   @SID_5
   Scenario: Clear FTP server logs and generate the report
-    Then CLI Run remote linux Command "^C" on "GENERIC_LINUX_SERVER"
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/TC112730*.zip /home/radware/ftp/TC112730*.csv" on "GENERIC_LINUX_SERVER"
-    Then UI Click Button "My Forensics" with value "TC112730"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "TC112730"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "TC112730"
+      | timeOut | 120 |
 
   @SID_6
   Scenario: Unzip CSV file

@@ -1,0 +1,58 @@
+{
+  "simulatorSet" : [],
+  "setupId": "DF_2",
+  "defenseFlowId": "DF_172.17.154.55",
+  "tree": {
+    "sites": [
+      {
+        "parentSite": "Default",
+        "name": "RealDPs_Version_8_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "VA_DPs_Version_8_site"
+      },      {
+        "parentSite": "Default",
+        "name": "AW_site"
+      }
+    ],
+    "devices": [
+      {
+        "deviceId": "DefensePro_172.16.22.50",
+        "parentSite": "RealDPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.51",
+        "parentSite": "RealDPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.17.22.55",
+        "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.25",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "DefensePro_172.17.50.50",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "DefensePro_50.50.7.1",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "DefensePro_50.50.100.1",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId":  "Alteon_172.16.100.103",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "AppWall_172.17.164.30",
+        "parentSite": "AW_site"
+      }
+    ]
+  }
+}

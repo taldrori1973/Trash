@@ -1,5 +1,5 @@
 {
-  "simulatorSet" : "",
+  "simulatorSet" :[],
   "setupId": "AMS_1",
   "tree": {
     "sites": [
@@ -30,11 +30,19 @@
         "parentSite": "VA_DPs_Version_8_site"
       },
       {
+        "deviceId": "DefensePro_172.16.22.25",
+        "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
         "deviceId": "DefensePro_172.17.50.50",
         "parentSite": "Default"
       },
       {
         "deviceId": "DefensePro_50.50.7.1",
+        "parentSite": "Default"
+      },
+      {
+        "deviceId": "DefensePro_50.50.100.1",
         "parentSite": "Default"
       },
       {
@@ -47,5 +55,5 @@
       }
     ]
   },
-  "defenseFlowId": null
+  "defenseFlowId": "DF_172.17.154.55"
 }

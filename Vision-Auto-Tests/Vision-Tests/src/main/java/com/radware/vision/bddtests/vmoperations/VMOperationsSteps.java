@@ -3,7 +3,6 @@ package com.radware.vision.bddtests.vmoperations;
 import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.utils.AutoDBUtils;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.EnvironmentDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.Deploy.NewVmHandler;
@@ -14,8 +13,6 @@ import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.*;
-import com.radware.vision.enums.VisionDeployType;
-import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
@@ -30,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
-import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
 
 public class VMOperationsSteps extends VisionUITestBase {
@@ -79,7 +74,7 @@ public class VMOperationsSteps extends VisionUITestBase {
     }
 
     @When("^Revert DefenseFlow to snapshot$")
-    public void DfenseFlowRevertToSnapshot() {
+    public void DefenseFlowRevertToSnapshot() {
         try {
             TreeDeviceManagementDto df = sutManager.getDefenseFlow().get();
             EnvironmentDto dfEnv = sutManager.getDefenseFlowEnvironment().get();
@@ -94,7 +89,7 @@ public class VMOperationsSteps extends VisionUITestBase {
     }
 
 
-    public void deleteKvm() throws Exception {
+    public void deleteKvm() {
         NewVmHandler handler = new NewVmHandler();
         String vmPrefix = getVisionSetupAttributeFromSUT("vmPrefix");
         String vmName = String.format("%s_%s", vmPrefix, handler.visionRadwareFirstTime.getIp());
@@ -162,24 +157,6 @@ public class VMOperationsSteps extends VisionUITestBase {
         }
     }
 
-    private void afterUpgrade() {
-        resetPassword();
-        updateVersionVar();
-    }
-
-    private void revert_kvm_upgrade_InParallel(String snapshot, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
-        KVMSnapShotThread firstMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
-        firstMachine.start();
-        //kVision
-//        visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime2");
-        KVMSnapShotThread secondMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
-        secondMachine.start();
-        while (true) {
-            if (!firstMachine.isAlive() && !secondMachine.isAlive())
-                break;
-        }
-    }
-
     private void preFreshInstall() {
         NewVmSteps newVmSteps = new NewVmSteps();
         NewVmHandler handler = new NewVmHandler();
@@ -222,7 +199,6 @@ public class VMOperationsSteps extends VisionUITestBase {
                         rootServerCli = serversManagement.getRootServerCLI().get();
                     assert rootServerCli != null;
                     assert radwareServerCli != null;
-                    //Upgrade upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
                     deploy = DeployFactory.getUpgrade(radwareServerCli, rootServerCli);
                     deploy.deploy();
                     break;
@@ -259,15 +235,6 @@ public class VMOperationsSteps extends VisionUITestBase {
     }
 
     public static String getVisionSetupAttributeFromSUT(String attribute) {
-//        VisionCli visionCli = null;
-//        try {
-//            visionCli = (VisionCli) SystemManagerImpl.getInstance().getSystemObject("visionCli");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (visionCli == null) throw new NullPointerException("Can't find \"visionCli\" at SUT File");
-
         switch (attribute) {
             case "setupMode":
                 return getSutManager().getDeployConfigurations().getSetupMode();
@@ -275,10 +242,6 @@ public class VMOperationsSteps extends VisionUITestBase {
                 return getSutManager().getDeployConfigurations().getSnapshot();
             case "vmPrefix":
                 return getSutManager().getServerName();
-//            case "FileNamePrefix":
-//                return visionCli.visionServer.visionSetup.getFileNamePrefix();
-//            case "serverType":
-//                return visionCli.visionServer.visionSetup.getServerType();
         }
         return null;
     }
@@ -296,31 +259,6 @@ public class VMOperationsSteps extends VisionUITestBase {
         return properties.getProperty("vision-version");
     }
 
-    public boolean isSetupNeeded() {
-        boolean isSetupNeeded;
-        String version = readVisionVersionFromPomFile();
-//        String versionPrefix = version.substring(0, 4);//example : 4.10.00 --> 4.10
-        String build = BaseTestUtils.getRuntimeProperty("BUILD", null); //get build from portal
-//        restTestBase.getRootServerCli().getVersionNumebr();
-        if (build == null || build.equals("") || build.equals("0")) {
-            BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
-            build = new VisionDeployment(VisionDeployType.ANY, version, build).getBuild();//Latest Build
-        }
-        String currentBuild = FeatureRunner.getBuild();
-        String currentVersion = FeatureRunner.getVersion();
-
-        isSetupNeeded = !currentVersion.equals(version) || !currentBuild.equals(build);
-        if (isSetupNeeded) {
-            BaseTestUtils.report("Current Build: " + currentBuild, Reporter.PASS);
-            BaseTestUtils.report("Current Version: " + currentVersion, Reporter.PASS);
-            BaseTestUtils.report("Needed Build: " + build, Reporter.PASS);
-            BaseTestUtils.report("Needed Version: " + version, Reporter.PASS);
-        }
-        //Lock the build
-        AutoDBUtils.updateTaskBuild(build);
-        return isSetupNeeded;
-    }
-
     /**
      * Update variables for local objects and automation portal regrading the new version and build.
      * Relevant to be used after revert to snapshot and upgrade
@@ -331,7 +269,7 @@ public class VMOperationsSteps extends VisionUITestBase {
         String featureBranch = visionInfo.getVisionBranch();
         String build = visionInfo.getVisionBuild();
         //update runtime variables
-        RootServerCli rootServerCli = null;
+        RootServerCli rootServerCli;
         if (serversManagement.getRootServerCLI().isPresent()) {
             rootServerCli = serversManagement.getRootServerCLI().get();
             rootServerCli.setVersionNumebr(version);

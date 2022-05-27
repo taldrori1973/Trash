@@ -3,7 +3,6 @@ package com.radware.vision.bddtests.clioperation.scheduledtasks;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.base.TestBase;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testhandlers.scheduledtasks.DDosFeedTaskHandler;
 import cucumber.api.java.en.Then;
 
@@ -24,8 +23,9 @@ public class DDoSAttackersFeedCliTests extends TestBase {
     public void verifyRequestingFeedForDefenseProInVisionLog(String deviceSetId) {
         try {
 //            kVision add get device mac address
-//            String dpMacAddress = sutManager.getTreeDeviceManagement(deviceSetId).get().getMacAddress();
-//            DDosFeedTaskHandler.verifyRequestingFeedForDefenseProInVisionLog(dpMacAddress,restTestBase);
+            String dpMacAddress = sutManager.getTreeDeviceManagement(deviceSetId).get().getDeviceName();
+           // DevicesTree treeDevice = SetupImpl.getDeviceTree();   SetupImpl.getDeviceTree().getChildren().get(1).getChildren().get(0).getName()
+            DDosFeedTaskHandler.verifyRequestingFeedForDefenseProInVisionLog(dpMacAddress,restTestBase);
         }catch (Exception e){
             BaseTestUtils.report("Failed to verify attackers feed request: " + e.getMessage(), Reporter.FAIL);
         }

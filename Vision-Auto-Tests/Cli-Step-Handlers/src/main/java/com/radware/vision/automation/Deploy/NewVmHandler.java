@@ -67,7 +67,7 @@ public class NewVmHandler extends TestBase {
 
     }
 
-    public void firstTimeWizardQCow2(String version, String specificVisionBuild, String fileUrl) {
+    public void firstTimeWizardQCow2(String version, String specificVisionBuild, String fileUrl, String md5DevArt) {
         long timeOut = 3600000L;
         ArrayList<String> messages = new ArrayList();
         String fileNotFound = "Error 15: File not found\n";
@@ -76,6 +76,7 @@ public class NewVmHandler extends TestBase {
         String mysqlSocketProblem = "Can't connect to local MySQL server";
         messages.add(mysqlSocketProblem);
         String vmName = String.format("%s_%s", sutManager.getServerName(), sutManager.getClientConfigurations().getHostIp());
+        int downloadTimeOutInSec = 60 * 60;
 
         try {
             // ToDo - check why setConnectOnInit is true
@@ -84,7 +85,10 @@ public class NewVmHandler extends TestBase {
             this.visionRadwareFirstTime.setPassword(sutManager.getEnvironment().get().getPassword());
             runCommand(this.visionRadwareFirstTime, "rm -rf " + imagesPath + vmName + ".qcow2");
             runCommand(this.visionRadwareFirstTime, "cd " + imagesPath);
-            runCommand(this.visionRadwareFirstTime, "curl -o " + vmName + ".qcow2 " + fileUrl, 60 * 60 * 1000);
+            String curlCommand = String.format("curl -m %d -o %s.qcow2 %s", downloadTimeOutInSec, vmName, fileUrl);
+            runCommand(this.visionRadwareFirstTime, curlCommand, downloadTimeOutInSec * 1000);
+            checkMd5AfterDeploy(vmName, md5DevArt);
+
             StringJoiner installCommand = new StringJoiner(" ");
             installCommand.add("virt-install").add("--name " + vmName).add("--noautoconsole ");
             installCommand.add("--ram 24576").add("--vcpus 8").add("--import").add("--disk " + imagesPath + vmName + ".qcow2,bus=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--graphics none").add("--video cirrus").add("--serial pty");
@@ -123,8 +127,17 @@ public class NewVmHandler extends TestBase {
             runCommand(this.visionRadwareFirstTime, "rm -rf " + imagesPath + vmName + ".qcow2");
         }
     }
+    public void checkMd5AfterDeploy(String vmName, String md5DevArt){
+        runCommand(this.visionRadwareFirstTime,"md5sum " + imagesPath + vmName + ".qcow2 ", 6 * 60 * 1000);
+        String md5CLI = this.visionRadwareFirstTime.getLastRow();
+        String[] md5Output = md5CLI.split(" ");
+        String md5_from_cli = md5Output[0];
+        if(!md5_from_cli.equals(md5DevArt)){
+            BaseTestUtils.report("Md5 from cli is not match to md5 from devArt101", Reporter.FAIL);
+        }
+    }
 
-    public void firstTimeWizardKVM(boolean isAPM, String version, String specificVisionBuild, String fileUrl) throws Exception {
+    public void firstTimeWizardKVM(boolean isAPM, String version, String specificVisionBuild, String fileUrl, String Md5) throws Exception {
         long timeOut = 3600000L;
         ArrayList messages = new ArrayList();
         String fileNotFound = "Error 15: File not found\n";
@@ -268,12 +281,12 @@ public class NewVmHandler extends TestBase {
 
             try {
                 this.visionRadwareFirstTime.setHost(ip);
-                //this.visionRadwareFirstTime.connect();
-                runCommand(this.visionRadwareFirstTime, "", 1200000, true, false, false);
+                this.visionRadwareFirstTime.connect();
+                runCommand(this.visionRadwareFirstTime, getSutManager().getClientConfigurations().getHostIp(), 120000);
+                Thread.sleep(20*60*1000);
                 // ToDo kvision check what for this lines
                 //CliOperations.runCommand(this.visionRadwareFirstTime, "y", 1200000, true, false, false);
-            } catch (Exception var23) {
-            }
+            } catch (Exception ignored) {}
             ip = sutManager.getClientConfigurations().getHostIp();
             String[] networkIfcs;
             if (!isAPM) {
@@ -297,7 +310,6 @@ public class NewVmHandler extends TestBase {
             }
 
             rootServerCli.setHost(ip);
-            UvisionServer.modifyDockerNetwork(rootServerCli);
             UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().orElse(null), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
             this.initialRestLogin(900000L);
             BaseTestUtils.reporter.report("License Key updated.");

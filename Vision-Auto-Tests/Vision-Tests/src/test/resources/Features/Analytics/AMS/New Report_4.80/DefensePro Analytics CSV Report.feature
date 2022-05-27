@@ -79,7 +79,7 @@ Feature: DefensePro Analytics CSV Report
   @SID_9
   Scenario: generate report
     Then UI "Generate" Report With Name "DP Analytics csv"
-      | timeOut | 90 |
+      | timeOut | 120 |
 
 #########################todo
 #
