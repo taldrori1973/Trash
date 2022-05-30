@@ -4,7 +4,7 @@ Feature: EAAF-Ip Lookup
   Scenario: Login and navigate to EAAF dashboard and Clean system attacks
     Then Play File "empty_file.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
     * REST Delete ES index "eaaf-attack-*"
-    * REST Delete ES index "attack-*"
+#    * REST Delete ES index "attack-*"
     * CLI Clear vision logs
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -12,11 +12,10 @@ Feature: EAAF-Ip Lookup
   @SID_2
   Scenario: PLAY DP_sim_8.28 file and Navigate EAAF DashBoard
     Given Play File "DP_sim_8.28.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
-    Then Sleep "300"
+    Then Sleep "360"
     And UI Navigate to "EAAF Dashboard" page via homePage
     Then Play File "empty_file.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
-
-
+    Then CLI Run remote linux Command "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://localhost:8080/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.dp.task.eaaf.attack.data.EaafAttackDataHourlyAggregationTask'" on "ROOT_SERVER_CLI"
   @SID_3
   Scenario: click iplookup and write valide ip
     Given UI Click Button "IP Lookup"
@@ -98,11 +97,8 @@ Feature: EAAF-Ip Lookup
 #      | Packets        | 2870.0             |
 
 
-
-
     Then UI Validate Text field "count results" EQUALS "1 Results"
 
-################################ CSV section to be edited ##################################
 
   @SID_5
   Scenario: export CSV
