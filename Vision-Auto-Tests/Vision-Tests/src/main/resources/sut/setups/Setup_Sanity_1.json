@@ -1,5 +1,5 @@
 {
-  "simulatorSet" : "sim_set_3",
+  "simulatorSet" : ["sim_set_3"],
   "setupId": "fullSetup",
   "tree": {
     "sites": [

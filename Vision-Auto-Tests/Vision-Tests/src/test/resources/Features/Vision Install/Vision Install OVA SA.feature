@@ -93,7 +93,7 @@ Feature: Vision Install OVA SA
 
   @SID_13
   Scenario: Validate LLS version
-    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.7.0"
+    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.8.0"
 
   @SID_14
   Scenario: Validate LLS service is up

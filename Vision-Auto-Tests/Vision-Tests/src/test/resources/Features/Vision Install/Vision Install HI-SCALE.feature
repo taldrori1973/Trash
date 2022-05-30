@@ -123,7 +123,7 @@ Feature: Vision Install HI SCALE
 
   @SID_14
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result CONTAINS "2.7.0"
+    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.8.0"
 
   @SID_15
   Scenario: Validate IPv6 Hostname in /etc/hosts

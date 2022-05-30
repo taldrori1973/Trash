@@ -24,7 +24,7 @@ Feature: IPv6 LLS-GEL Installation
 
   @SID_5
   Scenario: Validate LLS version
-    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.7.0"
+    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.8.0"
 
   @SID_6
   Scenario: verify lls disable
