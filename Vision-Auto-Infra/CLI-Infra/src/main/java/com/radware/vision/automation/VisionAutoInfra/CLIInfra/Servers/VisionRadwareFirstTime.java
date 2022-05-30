@@ -260,7 +260,7 @@ public class VisionRadwareFirstTime extends ServerCliBase {
         prompts.add(p);
 
         p = new Prompt();
-        p.setPrompt("Starting APSolute Vision services...");
+        p.setPrompt("ssh root login was not changed.");
         p.setDontWaitForScrollEnd(true);
         p.setCommandEnd(true);
         prompts.add(p);
