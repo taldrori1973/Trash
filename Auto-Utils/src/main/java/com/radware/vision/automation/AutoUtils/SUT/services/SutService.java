@@ -42,12 +42,9 @@ public class SutService {
         this.sutDao = SutDao.get_instance();
         this.pairSutDao = SutDao.get_pairInstance();
         this.setupDao = SetupDao.get_instance(sutDao.getSetupFileName());
-        if (!(this.setupDao.getSimulators() == null) && !(this.setupDao.getSimulators().equals(""))) {
+        if (!this.setupDao.getSimulators().isEmpty()) {
             this.devicesDao.addSimulatorsBySetId(setupDao.getSimulators());
         }
-//        if (!(this.setupDao.getFNMId() == null) && !(this.setupDao.getFNMId().equals(""))) {
-//            this.devicesDao.findAllDevices()
-//        }
         serverNameDao = sutDao.getServerName();
         this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
         this.environmentsDao = EnvironmentsDao.get_instance();
