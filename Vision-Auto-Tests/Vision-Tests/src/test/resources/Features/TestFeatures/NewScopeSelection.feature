@@ -3,7 +3,7 @@ Feature: New Scope Selection Implementation
 
   Scenario: Login and Navigate to AMS REPORTS Page
     Given UI Login with user "radware" and password "radware"
-    Then UI Navigate to "AMS REPORTS" page via homepage
+#    Then UI Navigate to "AMS REPORTS" page via homepage
 
 #----------Tests------------
 
@@ -31,8 +31,7 @@ Feature: New Scope Selection Implementation
 #      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_21,policies:[EAAF,EAAF2,EAAF3] |
 #    Then UI Click Button "save"
 
-  @SID_3
-  Scenario: Validate scope policies for DefensePro Analytics Report
+#  Scenario: Validate scope policies for DefensePro Analytics Report
 #    Then UI Click Button "My Report Tab"
 #    Then UI Click Button "Edit Report" with value "DefensePro Analytics Report"
 #    Then UI "UnSelect" Scope Polices
@@ -40,11 +39,11 @@ Feature: New Scope Selection Implementation
 #    Then UI Click Button "save"
 
 
-    Then UI Click Button "My Report Tab"
-    Then UI Click Button "Edit Report" with value "DefensePro Analytics Report"
-    Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_21,policies:[EAAF2] |
-    Then UI Click Button "save"
+#    Then UI Click Button "My Report Tab"
+#    Then UI Click Button "Edit Report" with value "DefensePro Analytics Report"
+#    Then UI "Validate" Scope Polices
+#      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_21,policies:[EAAF2] |
+#    Then UI Click Button "save"
 #    Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
 #      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Inbound]}] ,devices:[{SetId:DefensePro_Set_21, devicePolicies:[EAAF]}] |
 
@@ -134,10 +133,10 @@ Feature: New Scope Selection Implementation
 #      | Share                 | Email:[sravani.varada@radware.com],Subject:myEdit subject,Body:myEdit body                                                                              |
 #      | Format                | Select: PDF                                                                                                                                             |
 
-#----------AMS REPORTS-------------
+#----------ADC REPORTS-------------
 
-#  Scenario: Create and validate ADC Report
-#    And UI Navigate to "ADC Reports" page via homePage
+  Scenario: Create and validate ADC Report
+    And UI Navigate to "ADC Reports" page via homePage
 #
 #    Given UI "Create" Report With Name "ADC Applications Report"
 #      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[hackMeBank8640:80] |
@@ -158,11 +157,11 @@ Feature: New Scope Selection Implementation
 #      | Format                | Select:  PDF                                                                                                |
 
 #    Given UI "Create" Report With Name "ADC LinkProof Report1"
-#      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Alt_90.20NG] ,WANLinks:[w1,w2] |
+#      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Alt_90.20] ,WANLinks:[wan1,wan2] |
 #      | Time Definitions.Date | Quick:1H                                                                                                                        |
 #      | Format                | Select:  CSV                                                                                                                    |
 #    Then UI "Edit" Report With Name "ADC LinkProof Report1"
-#      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Alt_90.20NG] ,WANLinks:[w1,w2] |
+#      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Alt_90.20] ,WANLinks:[wan1,wan2] |
 #      | Time Definitions.Date | Quick:1H                                                                                                                        |
 #      | Format                | Select: PDF                                                                                                                     |
 
@@ -276,10 +275,10 @@ Feature: New Scope Selection Implementation
 #      | Time Definitions.Date | Quick:1H                                                                                                   |
 #      | Format                | Select:  PDF                                                                                                |
 
-#    Then UI "Validate" Report With Name "ADC LinkProof Report1"
-#      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Alt_90.20NG] ,WANLinks:[w1,w2] |
-#      | Time Definitions.Date | Quick:1H                                                                                                                        |
-#      | Format                | Select: PDF                                                                                                                     |
+    Then UI "Validate" Report With Name "ADC LinkProof Report1"
+      | Template              | reportType:LinkProof ,Widgets:[Upload Throughput,Download Throughput,CEC] , devices:[Alt_90.20] ,WANLinks:[wan1,wan2] |
+      | Time Definitions.Date | Quick:1H                                                                                                                        |
+      | Format                | Select: PDF                                                                                                                     |
 
 #-----------Forensics Validation---------
 

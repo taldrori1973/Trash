@@ -98,7 +98,8 @@ public class WebUiTools {
         return webElementHasAttribute(checkElement, checkedNotCheckedAttribute) && checkElement.getAttribute(checkedNotCheckedAttribute).matches(".*true.*|.*checked.*")||
                 webElementHasAttribute(checkElement, ariaChecked) && checkElement.getAttribute(ariaChecked).matches(".*true.*|.*checked.*")||
                 webElementHasAttribute(checkElement, "class") && checkElement.getAttribute("class").matches(".*selected.*|.*checked.*|on")||
-                webElementHasAttribute(checkElement, "checked");
+                webElementHasAttribute(checkElement, "checked")||
+                webElementHasAttribute(checkElement, "data-debug-checked") && checkElement.getAttribute("data-debug-checked").equals("1");
     }
 
     public static void clickWebElement(WebElement webElement) {
