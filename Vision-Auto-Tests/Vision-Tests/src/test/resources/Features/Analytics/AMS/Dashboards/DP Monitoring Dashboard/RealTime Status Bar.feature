@@ -50,20 +50,20 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
-  @SID_6
+  @SID_4
   Scenario: Devices status disconnected DP by route
-    Then CLI Run remote linux Command "net route set host 172.16.22.55 172.17.3.3" on "Radware_SERVER_CLI"
+    Then CLI Run remote linux Command "net route set host 172.17.22.55 172.17.3.3" on "Radware_SERVER_CLI"
     Then Sleep "120"
     And UI Logout
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "3"
     Then UI Text of "Device Selection" equal to "DEVICES6/6"
-    Then UI Text of "Device Status Up Summary" equal to "6"
+    Then UI Text of "Device Status Up Summary" equal to "5"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "0"
+    Then UI Text of "Device Status Down Summary" equal to "1"
     Then UI Navigate to "VISION SETTINGS" page via homePage
-    Then CLI Run remote linux Command "net route delete 172.16.22.55 255.255.255.255 172.17.3.3" on "Radware_SERVER_CLI"
+    Then CLI Run remote linux Command "net route delete 172.17.22.55 255.255.255.255 172.17.3.3" on "Radware_SERVER_CLI"
     Then Sleep "120"
     And UI Logout
     Given UI Login with user "sys_admin" and password "radware"
@@ -123,5 +123,4 @@ Feature: VRM Real Time Status Bar Devices status
   @Sanity @SID_10
   Scenario: cleanup
     * UI logout and close browser
-    * CLI kill all simulator attacks on current vision
 
