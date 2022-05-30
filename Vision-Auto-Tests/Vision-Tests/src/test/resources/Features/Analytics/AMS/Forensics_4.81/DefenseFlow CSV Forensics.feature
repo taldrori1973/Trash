@@ -287,14 +287,13 @@ Feature: DefenseFlow CSV Forensics
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow_with_Schedule*.zip /home/radware/ftp/Forensics_DefenseFlow_with_Schedule*.csv" on "GENERIC_LINUX_SERVER"
-    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow_without_Schedule"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow_without_Schedule"
-    Then Sleep "35"
  
   @SID_22
   Scenario: Validate The table in  Forensics_DefenseFlow_with_Schedule
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow_with_Schedule"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow_with_Schedule"
+    Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow_with_Schedule,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
  
