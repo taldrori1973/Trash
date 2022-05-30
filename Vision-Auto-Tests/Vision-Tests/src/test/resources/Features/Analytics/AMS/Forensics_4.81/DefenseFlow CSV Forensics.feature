@@ -4,6 +4,11 @@ Feature: DefenseFlow CSV Forensics
  
   @SID_1
   Scenario: Clean system data
+  #Scenario: Change DF management IP to DefenseFlow IP
+    When CLI Run remote linux Command on "RADWARE_SERVER_CLI"
+      | "system df management-ip set " |
+      | #dfIP                          |
+    Then Wait For PO's appearance timeout 10 minutes
     * CLI kill all simulator attacks on current vision
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
@@ -32,9 +37,7 @@ Feature: DefenseFlow CSV Forensics
       | "/home/radware/curl_DF_attacks-auto_PO_300.sh " |
       | #visionIP                                       |
       | " Terminated"                                   |
-    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
-    When CLI Operations - Run Radware Session command "system df management-ip get"
-    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+
 
   @SID_4
   Scenario: VRM - Login to VRM "Wizard" Test and enable emailing
@@ -284,6 +287,9 @@ Feature: DefenseFlow CSV Forensics
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow_with_Schedule*.zip /home/radware/ftp/Forensics_DefenseFlow_with_Schedule*.csv" on "GENERIC_LINUX_SERVER"
+    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow_without_Schedule"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow_without_Schedule"
+    Then Sleep "35"
  
   @SID_22
   Scenario: Validate The table in  Forensics_DefenseFlow_with_Schedule
