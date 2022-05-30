@@ -1062,9 +1062,9 @@ public class VRMHandler {
                 String selectAllCheckBox = "Device Selection.All Devices Selection";
                 VisionDebugIdsManager.setLabel(selectAllCheckBox);
                 WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-                checkbox.check();
+//                checkbox.check();
                 if (!entries.isEmpty())
-                    checkbox.uncheck();
+                    checkbox.check();
                 entries.forEach(entry -> {
                     String deviceIp = null;
                     String deviceName = null;
@@ -1179,11 +1179,11 @@ public class VRMHandler {
                         }
                     });
                 }
-                if (saveFilter != null) {
+
                     String saveBtnLabel = "Device Selection.Save Filter";
                     VisionDebugIdsManager.setLabel(saveBtnLabel);
                     WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
-                }
+
             }
         } catch (
                 Exception e) {
