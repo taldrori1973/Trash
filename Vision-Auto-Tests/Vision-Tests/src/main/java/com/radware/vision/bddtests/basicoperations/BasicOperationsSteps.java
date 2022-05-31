@@ -829,7 +829,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
         String deviceId = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getDeviceId();
         String type = new JSONObject(map.get("devices")).get("type").toString();
 
-        BasicOperationsHandler.clickButton("Open Scope Selection", type);
+        BasicOperationsHandler.clickButton("Device Selection", type);
         BasicOperationsHandler.clickButton("SwitchToPolicies","");
 
         JSONObject deviceJSON = new JSONObject(map.get("devices"));
@@ -848,7 +848,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
         String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();
         String deviceId = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getDeviceId();
         String type = new JSONObject(map.get("devices")).get("type").toString();
-        BasicOperationsHandler.clickButton("Open Scope Selection", type);
+        BasicOperationsHandler.clickButton("Device Selection", type);
 //        if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
 //            errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
 //        BasicOperationsHandler.clickButton("DPScopeSelectionChange",deviceIP);
@@ -890,19 +890,6 @@ public class BasicOperationsSteps extends VisionUITestBase {
         clickButton("SaveDPScopeSelection", "");
         if (WebUiTools.getWebElement("close scope selection") != null)
             clickButton("close scope selection");
-    }
-
-    private void expandScopePolicies(Map<String, String> map) throws Exception {
-        try {
-            clickButton("Device Selection", "");
-        } catch (Exception e) {
-            clickButton("Open Scope Selection", new JSONObject(map.get("devices")).get("type").toString());
-        } finally {
-//            setTextField("ScopeSelectionFilter", device);
-//            clickButton("DPScopeSelectionChange", device);
-            clickButton("SwitchToPolicies");
-
-        }
     }
 
     @Then("^UI Text of \"([^\"]*)\" with extension \"([^\"]*)\" GTE to \"([^\"]*)\" with offset \"([^\"]*)\"$")
