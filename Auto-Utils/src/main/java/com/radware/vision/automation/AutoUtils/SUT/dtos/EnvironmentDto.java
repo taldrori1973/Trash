@@ -2,6 +2,8 @@ package com.radware.vision.automation.AutoUtils.SUT.dtos;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class EnvironmentDto {
     private String name;
@@ -16,4 +18,5 @@ public class EnvironmentDto {
     private String networkName;
     private String dataStores;
     private String url;
+    private List<NetworkDto> networks;
 }

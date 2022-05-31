@@ -1,28 +1,17 @@
 {
-  "serverName": "uvision_fresh_ova",
-  "setupFile": "Empty_Setup.json",
+  "setupFile": "Setup_Sanity_2.json",
+  "serverName": "uvision_auto",
+  "deployConfigurations": {
+    "snapshot": "Current-1",
+    "setupMode": "upgrade",
+    "environment": "OVA-232"
+  },
   "pair": {
     "pairIp": "172.17.164.101",
-    "environment": "OVA-220"
-  },
-  "deployConfigurations": {
-    "setupMode": "fresh install",
-    "snapshot": "",
-    "environment": "OVA-220",
-    "interfaces": [
-      {
-        "name": "G1", "network": "mgmt"
-      },
-      {
-        "name": "G2", "network": "net_50", "ip": "50.50.154.9"
-      },
-      {
-        "name": "G3", "network": "net_50"
-      }
-    ]
+    "environment": "KVM-217"
   },
   "clientConfiguration": {
-    "hostIp": "172.17.154.9",
+    "hostIp": "172.17.141.52",
     "userName": "radware",
     "password": "radware",
     "restConnection": {

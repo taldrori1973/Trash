@@ -18,6 +18,7 @@ import org.modelmapper.TypeMap;
 import org.modelmapper.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -155,6 +156,26 @@ public class SutService {
         List<TreeDeviceManagementDto> visionSetupTreeDevices = getVisionSetupTreeDevices();
         return visionSetupTreeDevices.stream().filter(treeDeviceManagementDto -> treeDeviceManagementDto.getDeviceSetId().equals(setId)).findAny();
 
+    }
+
+    public List<InterfaceDto> getInterfaces() {
+        List<InterfaceDto> interfacesList = new ArrayList<>();
+
+        List<InterfaceDto> interfacesListSUT = getDeployConfigurations().getInterfacesList();
+
+        Optional<EnvironmentDto> environmentDto = getEnviorement(getDeployConfigurations().getEnvironment());
+        if(!environmentDto.isPresent())
+            return null;
+
+        List<NetworkDto> networkList = environmentDto.get().getNetworks();
+
+        interfacesListSUT.forEach(i->
+        {
+            Optional<NetworkDto> network = networkList.parallelStream().filter(n->n.getName().equals(i.getNetwork())).findFirst();
+            interfacesList.add(new InterfaceDto(i.getName(), network.map(NetworkDto::getLabel).orElse(null),i.getIp()));
+        });
+
+        return interfacesList;
     }
 
     public Optional<TreeDeviceManagementDto> getTreeDeviceManagementBySetIdFromDevices(String deviceId) {

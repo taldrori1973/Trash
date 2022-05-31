@@ -157,7 +157,7 @@ Feature: Vision Upgrade current -1
 
   @SID_26
   Scenario: Validate LLS version
-    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.7.0"
+    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.8.0"
 
   @SID_27
   Scenario: Validate Changed MySql partitioning number
