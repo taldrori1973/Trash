@@ -3,13 +3,13 @@ Feature: Edit ADC Report tests
 
   @SID_1
   Scenario: Login and Navigate to NEW REPORTS page
-    Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "ADC REPORTS" page via homepage
-    Then UI Click Button "New Report Tab"
+    Given UI Login with user "radware" and password "radware"
+    Given REST Add device with DeviceID "Alteon_172.17.164.17" into site "Default"
+    When UI Navigate to "ADC REPORTS" page via homepage
+    When UI Click Button "New Report Tab"
 
   @SID_2
   Scenario Outline: Create and validate ADC Report
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "<ReportName>"
       | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[<ApplicationName>]               |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
@@ -135,4 +135,5 @@ Feature: Edit ADC Report tests
 
   @SID_11
   Scenario: Logout
+    Then REST Delete device with DeviceID "Alteon_172.17.164.17" from topology tree
     Then UI logout and close browser

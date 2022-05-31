@@ -124,6 +124,20 @@
       "basePath": "/mgmt/system/config/itemlist/visionlicense",
       "produces": "application/json",
       "description": "Get list of licenses"
+    },
+    {
+      "label": "visionsessionID",
+      "method": "POST",
+      "basePath": "mgmt/system/user/login",
+      "produces": "application/json",
+      "description": "Get Cookies"
+    },
+    {
+      "label": "Get bulk API",
+      "method": "GET",
+      "basePath": "/mgmt/vrm/mssp/dp/samples",
+      "produces": "application/json",
+      "description": "Get bulk API"
     }
   ]
 }

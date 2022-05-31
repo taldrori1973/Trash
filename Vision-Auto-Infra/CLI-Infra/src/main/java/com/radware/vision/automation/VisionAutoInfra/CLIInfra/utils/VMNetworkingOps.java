@@ -362,6 +362,21 @@ public class VMNetworkingOps {
      *
      */
     public void changeVMNicPortGroup(String targetURL, String vmName, String[] vmNicName, String network, String containedDVS, boolean resetVMMachine) throws IOException {
+        List<String> networks = new ArrayList<>();
+        for (int i=0;i< vmNicName.length;i++) {networks.add(network);}
+        changeVMNicPortGroup(targetURL, vmName, vmNicName, networks.toArray(new String[0]), containedDVS, resetVMMachine);
+    }
+
+    /**
+     * This method is used to change the portgroup of vmnics of a VM.
+     *
+     * @param vmName Name of the virtual machine
+     * @param vmNicName Array of VM network adapter names (label)
+     * @param networks array Names of the port group to which the vmnics are being changed to
+     * @throws IOException
+     *
+     */
+    public void changeVMNicPortGroup(String targetURL, String vmName, String[] vmNicName, String[] networks, String containedDVS, boolean resetVMMachine) throws IOException {
         ServiceInstance si = new ServiceInstance(new URL(vimHost), userName, password, true);
         VirtualMachine virtualMachine = (VirtualMachine) new InventoryNavigator(si.getRootFolder()).searchManagedEntity("VirtualMachine", vmName);
         ManagedObjectReference vmMor = virtualMachine.getMOR();
@@ -379,7 +394,7 @@ public class VMNetworkingOps {
         }
 
         if (!changeNicsList.isEmpty()) {
-            VirtualMachineConfigSpec vmcs = getVMReConfigSpecToChangePortGroup(changeNicsList.toArray(new VirtualDevice[changeNicsList.size()]), network, containedDVS);
+            VirtualMachineConfigSpec vmcs = getVMReConfigSpecToChangePortGroup(changeNicsList.toArray(new VirtualDevice[changeNicsList.size()]), networks, containedDVS);
             if (reconfigureVM(vmMor, vmcs)) {
                 System.out.println(" Successfully changed the portgroup for the vmnic adapters");
             } else {
@@ -616,13 +631,16 @@ public class VMNetworkingOps {
         return result;
     }
 
-    private VirtualMachineConfigSpec getVMReConfigSpecToChangePortGroup(VirtualDevice[] vdArr, String network, String containedDVS) throws InvalidProperty, RuntimeFault, RemoteException, MalformedURLException {
+    private VirtualMachineConfigSpec getVMReConfigSpecToChangePortGroup(VirtualDevice[] vdArr, String[] networks, String containedDVS) throws InvalidProperty, RuntimeFault, RemoteException, MalformedURLException {
         VirtualMachineConfigSpec vmcs = new VirtualMachineConfigSpec();
         VirtualDeviceConfigSpec[] vdcsArr = new VirtualDeviceConfigSpec[vdArr.length];
 
         int i = 0;
-        Network targetNetwork = getNetworkMO(network, containedDVS);
-        for (VirtualDevice vd : vdArr) {
+
+        for (int j = 0; j < vdArr.length; j++) {
+            VirtualDevice vd = vdArr[i];
+            String network = networks[i];
+            Network targetNetwork = getNetworkMO(network, containedDVS);
             if (vd instanceof VirtualEthernetCard) {
                 vd.getConnectable().setConnected(true);
                 vd.getConnectable().setStartConnected(true);

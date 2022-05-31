@@ -3,8 +3,6 @@ Feature: Migration from cVision to uVision
 
   Scenario: Prerequisites for Migration - Delete existing indices and activation license in uVision
 
-    Given Prerequisite for Setup force
-
     Given CLI Operations - Run Radware Session command "net firewall open-port set 2049 open"
     Then CLI Operations - Run Radware Session command "net firewall open-port set 9200 open"
 
@@ -68,27 +66,3 @@ Feature: Migration from cVision to uVision
   Scenario: Validate successful ES Migration
     Given CLI Operations - Run Root Session command "curl -XGET localhost:9200/_cat/indices?v | grep dp-*"
     And CLI Operations - Using "root" User to Verify that output contains regex "dp-attack-raw"
-
-  Scenario: Upgrade vision from release -1
-    Given Upgrade or Fresh Install Vision
-
-  Scenario: Check upgrade logs
-    Then CLI Check if logs contains
-      | logType | expression                                                                                   | isExpected   |
-      | UPGRADE | fatal                                                                                        | NOT_EXPECTED |
-      | UPGRADE | fail to\|failed to                                                                           | NOT_EXPECTED |
-      | UPGRADE | The upgrade of APSolute Vision server has completed successfully                             | EXPECTED     |
-      | UPGRADE | Failed to connect to localhost port 8009: Connection refused                                 | IGNORE       |
-      | UPGRADE | NOTE1: Some changes will not take effect until next login                                    | EXPECTED     |
-      | UPGRADE | [ERROR]   WARNING: The script pysemver is installed in '/usr/local/bin' which is not on PATH | IGNORE       |
-
-  Scenario: Login with activation
-    Then UI Login with user "radware" and password "radware"
-
-  Scenario: Navigate to general settings page
-    Then UI Go To Vision
-    Then UI Navigate to page "System->General Settings->Basic Parameters"
-    When UI Do Operation "select" item "Software"
-    Then REST get Basic Parameters "lastUpgradeStatus"
-    Then UI Validate Text field "Upgrade Status" EQUALS "OK"
-    And UI logout and close browser

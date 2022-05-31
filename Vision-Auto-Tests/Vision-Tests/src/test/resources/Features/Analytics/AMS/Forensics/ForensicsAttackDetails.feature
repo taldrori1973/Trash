@@ -36,6 +36,7 @@ Feature: Forensic Attack details Tests
       | Output | Action,Attack ID,Threat Category,Duration |
     Then UI "Generate" Forensics With Name "Attack Details1"
       | timeOut | 90 |
+    Then Sleep "30"
     And UI Click Button "Views.Forensic" with value "Attack Details1,0"
 
  ######################################################### Refine ########################################################################

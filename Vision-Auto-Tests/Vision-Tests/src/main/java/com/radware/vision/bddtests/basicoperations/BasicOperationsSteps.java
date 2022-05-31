@@ -258,7 +258,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
             VisionDebugIdsManager.setTab("LoginPage");
         } catch (Exception e) {
             e.printStackTrace();
-            BaseTestUtils.report("failed to logout" + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("failed to logout: " + e.getMessage(), Reporter.FAIL);
         } finally {
             BasicOperationsHandler.delay(1);
         }
@@ -892,19 +892,6 @@ public class BasicOperationsSteps extends VisionUITestBase {
         clickButton("SaveDPScopeSelection", "");
         if (WebUiTools.getWebElement("close scope selection") != null)
             clickButton("close scope selection");
-    }
-
-    private void expandScopePolicies(Map<String, String> map) throws Exception {
-        try {
-            clickButton("Device Selection", "");
-        } catch (Exception e) {
-            clickButton("Open Scope Selection", new JSONObject(map.get("devices")).get("type").toString());
-        } finally {
-//            setTextField("ScopeSelectionFilter", device);
-//            clickButton("DPScopeSelectionChange", device);
-            clickButton("SwitchToPolicies");
-
-        }
     }
 
     @Then("^UI Text of \"([^\"]*)\" with extension \"([^\"]*)\" GTE to \"([^\"]*)\" with offset \"([^\"]*)\"$")

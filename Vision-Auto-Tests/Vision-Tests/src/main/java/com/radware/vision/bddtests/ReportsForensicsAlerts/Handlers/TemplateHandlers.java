@@ -703,16 +703,10 @@ public class TemplateHandlers {
             serverDetails.add(0,getDeviceIp(deviceText));
             serverDetails.add(1,Arrays.asList(deviceText.split("-")).get(2));
             serverDetails.add(2,Arrays.asList(deviceText.split("-")).get(0));
-            serverDetails.add(3,"1.1.1.1");
-
-//            String ipAdd =  "^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
-//                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
-//                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\." +
-//                            "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$";
 
             BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", serverDetails.get(1).toString());
 //            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText), true);
-            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId("row-"+serverDetails.get(0).toString()+"_"+serverDetails.get(1).toString()+"_"+serverDetails.get(2).toString()+"_"+serverDetails.get(3).toString()));
+            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId("row-"+serverDetails.get(0).toString()+"_"+serverDetails.get(1).toString()+"_"+serverDetails.get(2).toString()));
             checkbox.click();
         }
 
@@ -724,6 +718,16 @@ public class TemplateHandlers {
             }
 
             return deviceOpt.get().getManagementIp().toString();
+        }
+
+        private String getDeviceId(String deviceText) throws Exception {
+            Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagement(Arrays.asList(deviceText.split("-")).get(1));
+
+            if (!deviceOpt.isPresent()) {
+                throw new Exception(String.format("No Device with \"%s\" Set ID was found in this setup", Arrays.asList(deviceText.split("-")).get(1)));
+            }
+
+            return deviceOpt.get().getDeviceId().toString();
         }
 
         @Override
@@ -738,7 +742,7 @@ public class TemplateHandlers {
                     String[] expectedDeviceStringArray = devicesJSON.get(0).toString().split("-");
                     if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("serverName").toString().equals(expectedDeviceStringArray[0]))
                         errorMessage.append("The ActualTemplate ServerName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("serverName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[0]);
-                    if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString().equals(expectedDeviceStringArray[1]))
+                    if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString().equals(getDeviceId(devicesJSON.toString())))
                         errorMessage.append("The ActualTemplate deviceName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[1]);
                     if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("policyName").toString().equals(expectedDeviceStringArray[2]))
                         errorMessage.append("The ActualTemplate policyName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("policyName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[2]);
