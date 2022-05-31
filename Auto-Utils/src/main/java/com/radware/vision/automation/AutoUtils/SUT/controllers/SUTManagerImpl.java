@@ -149,4 +149,9 @@ public class SUTManagerImpl implements SUTManager {
     public List<TreeDeviceManagementDto> getSimulators() {
         return sutService.getSimulators();
     }
+
+    @Override
+    public List<InterfaceDto> getInterfaces() {
+        return this.sutService.getInterfaces();
+    }
 }

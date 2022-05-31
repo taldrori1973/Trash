@@ -1,6 +1,9 @@
 package com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.environments;
 
+import com.radware.vision.automation.AutoUtils.SUT.dtos.NetworkDto;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class Environment {
@@ -16,4 +19,5 @@ public class Environment {
     private String url;
     private String networkName;
     private String dataStores;
+    private List<NetworkDto> networks;
 }
