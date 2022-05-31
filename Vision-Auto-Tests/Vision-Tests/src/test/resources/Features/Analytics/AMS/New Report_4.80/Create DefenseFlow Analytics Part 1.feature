@@ -6,13 +6,11 @@ Feature:DefenseFlow Analytics Part 1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
-#    Then UI Click Button "New Report Tab"
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
   
   @SID_2
   Scenario: Top Attacks by Duration Report 1
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 1"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration], Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                                 |
@@ -28,7 +26,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_3
   Scenario: Top Attacks by Duration Report 2
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 2"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration],Protected Objects:[All] |
       | Format                | Select: PDF                                                                                          |
@@ -47,7 +44,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_4
   Scenario: Top Attacks by Duration Report 3
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 3"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration], Protected Objects:[All] |
       | Format                | Select: HTML                                                                                          |
@@ -62,7 +58,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_5
   Scenario: Top Attacks by Duration Report 4
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 4"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Duration], Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                                 |
@@ -79,7 +74,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_6
   Scenario: Top Attacks by Count Report 1
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Count Report 1"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Count],Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                             |
@@ -96,7 +90,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_7
   Scenario: Top Attacks by Count Report 2
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Count Report 2"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Count], Protected Objects:[All] |
       | Format                | Select: PDF                                                                                        |
@@ -115,7 +108,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_8
   Scenario: Top Attacks by Count Report 3
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Count Report 3"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Count], Protected Objects:[All] |
       | Format                | Select: HTML                                                                                       |
@@ -128,7 +120,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_9
   Scenario: Top Attacks by Count Report 4
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Count Report 4"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Count], Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                              |
@@ -147,7 +138,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_10
   Scenario: Top Attacks by Rate Report 1
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Rate Report 1"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                            |
@@ -164,7 +154,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_11
   Scenario: Top Attacks by Rate Report 2
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Rate Report 2"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate], Protected Objects:[All] |
       | Format                | Select: PDF                                                                                       |
@@ -183,7 +172,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_12
   Scenario: Top Attacks by Rate Report 3
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Rate 3"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate], Protected Objects:[All] |
       | Format                | Select: HTML                                                                                      |
@@ -198,7 +186,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_13
   Scenario: Top Attacks by Rate Report 4
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Rate Report 4"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate], Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                             |
@@ -215,7 +202,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_14
   Scenario: Top Attacks by Protocol Report 1
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report 1"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Protocol],Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                                |
@@ -232,7 +218,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_15
   Scenario: Top Attacks by Protocol Report 2
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report 2"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Protocol], Protected Objects:[All] |
       | Format                | Select: PDF                                                                                           |
@@ -251,7 +236,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_16
   Scenario: Top Attacks by Protocol Report 3
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report 3"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Protocol], Protected Objects:[All] |
       | Format                | Select: HTML                                                                                          |
@@ -264,7 +248,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_17
   Scenario: Top Attacks by Protocol Report 4
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report 4"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Protocol], Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                                 |
@@ -283,7 +266,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_18
   Scenario: Top Attack Destination Report 1
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destination Report 1"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attack Destination],Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                               |
@@ -298,7 +280,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_19
   Scenario: Top Attack Destination Report 2
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destination  Report 2"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attack Destination], Protected Objects:[All] |
       | Format                | Select: PDF                                                                                          |
@@ -317,7 +298,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_20
   Scenario: Top Attack Destination Report 3
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destination Report 3"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attack Destination], Protected Objects:[All] |
       | Format                | Select: HTML                                                                                         |
@@ -332,7 +312,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_21
   Scenario: Top Attack Destination Report 4
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destination Report 4"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attack Destination], Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                                |
@@ -351,7 +330,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_22
   Scenario: Top Attack Sources Report 1
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources Report 1"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attack Sources],Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                           |
@@ -366,7 +344,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_23
   Scenario: Top Attack Sources Report 2
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources Report 2"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attack Sources], Protected Objects:[All] |
       | Format                | Select: PDF                                                                                      |
@@ -385,7 +362,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_24
   Scenario: Top Attack Sources Report 3
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources Report 3"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attack Sources], Protected Objects:[All] |
       | Format                | Select: HTML                                                                                     |
@@ -400,7 +376,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_25
   Scenario: Top Attack Sources Report 4
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources Report 4"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Top Attack Sources], Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                            |
@@ -419,7 +394,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_26
   Scenario: Traffic Bandwidth Report 1
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report 1"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[{Traffic Bandwidth:[30]}],Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                                 |
@@ -436,7 +410,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_27
   Scenario: Traffic Bandwidth Report 2
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report 2"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[{Traffic Bandwidth:[40]}], Protected Objects:[All] |
       | Format                | Select: PDF                                                                                            |
@@ -455,7 +428,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_28
   Scenario: Traffic Bandwidth Report 3
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report 3"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[{Traffic Bandwidth:[All Protected Objects]}], Protected Objects:[All] |
       | Format                | Select: HTML                                                                                                              |
@@ -468,7 +440,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_29
   Scenario: Traffic Bandwidth Report 4
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report 4"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[{Traffic Bandwidth:[All Protected Objects]}], Protected Objects:[All] |
       | Format                | Select: HTML                                                                                                    |
@@ -485,7 +456,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_30
   Scenario: Traffic Rate Report 1
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Rate Report 1"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Traffic Rate],Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                     |
@@ -500,7 +470,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_31
   Scenario: Traffic Rate Report 2
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Rate Report 2"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Traffic Rate], Protected Objects:[All] |
       | Format                | Select: PDF                                                                                |
@@ -519,7 +488,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_32
   Scenario: Traffic Rate Report 3
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Rate Report 3"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Traffic Rate], Protected Objects:[All] |
       | Format                | Select: HTML                                                                               |
@@ -534,7 +502,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_33
   Scenario: Traffic Rate Report 4
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Rate Report 4"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[Traffic Rate], Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                      |
@@ -551,7 +518,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_34
   Scenario: DDoS Peak Attack per Period Report 1
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 1"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Peak Attack per Period],Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                                    |
@@ -568,7 +534,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_35
   Scenario: DDoS Peak Attack per Period Report 2
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 2"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Peak Attack per Period], Protected Objects:[All] |
       | Format                | Select: PDF                                                                                               |
@@ -587,7 +552,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_36
   Scenario: DDoS Peak Attack per Period Report 3
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 3"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Peak Attack per Period], Protected Objects:[All] |
       | Format                | Select: HTML                                                                                              |
@@ -600,7 +564,6 @@ Feature:DefenseFlow Analytics Part 1
 
   @SID_37
   Scenario: DDoS Peak Attack per Period Report 4
-#    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 4"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Peak Attack per Period], Protected Objects:[All], showTable:true |
       | Format                | Select: CSV                                                                                                     |
