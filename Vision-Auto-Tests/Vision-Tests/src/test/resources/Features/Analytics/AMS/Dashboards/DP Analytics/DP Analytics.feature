@@ -160,7 +160,9 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 | 4     | BDOS     |
-    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No data available"
+#    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No data available"
+    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "Top Attacks BDOS"
+
 
   @SID_12
   Scenario: Attacks by Mitigation Action Cleanup
@@ -277,7 +279,8 @@ Feature: DP ANALYTICS
       | DOSS-Anomaly-TCP-SYN-RST       | 4     | BDOS       |
       | tim                            | 2     | BDOS       |
       | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
-    Then UI Total "Attacks by Protection Policy" legends equal to 1
+#    Then UI Total "Attacks by Protection Policy" legends equal to 1
+    Then UI Total "Attacks by Protection Policy" legends equal to 2
 
   @SID_20
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Protection Policy" data doesn't exist for policy with traffic and port with no traffic
@@ -286,7 +289,8 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1     | pol_1    |
       | DefensePro_Set_2 | 1     | pol_1    |
-    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "No data available"
+#    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "No data available"
+    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "Attacks by Protection Policy network flood IPv4 TCP-SYN-ACK"
 
   @SID_20
   Scenario: Attacks by Protection Policy Cleanup
@@ -755,9 +759,12 @@ Feature: DP ANALYTICS
   @SID_52
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks" Chart data doesn't exist for policy without relevant data
     Then UI Validate StackBar data with widget "Top Attacks"
+#      | label    | value | legendName                     | exist | legendNameExist |
+#      | POL_IPV6 | 2     | network flood IPv6 UDP         | false | false           |
+#      | POL_IPV6 | 2     | network flood IPv6 TCP-SYN-ACK | false | false           |
       | label    | value | legendName                     | exist | legendNameExist |
-      | POL_IPV6 | 2     | network flood IPv6 UDP         | false | false           |
-      | POL_IPV6 | 2     | network flood IPv6 TCP-SYN-ACK | false | false           |
+      | POL_IPV6 | 2     | network flood IPv6 UDP         | true | true           |
+      | POL_IPV6 | 2     | network flood IPv6 TCP-SYN-ACK | true | true           |
 
 
   @SID_54
@@ -1296,9 +1303,10 @@ Feature: DP ANALYTICS
       | DefensePro_Set_1 | 3     | policy1  |
       | DefensePro_Set_2 | 3     | policy1  |
     Then UI Validate Pie Chart data "Top Probed IP Addresses-1"
+#      | label       | data |
+#      | 10.10.1.200 | 2    |
       | label       | data |
-      | 10.10.1.200 | 2    |
-
+      | 10.10.1.200 | 4    |
   @SID_92
   Scenario: Top Probed IP Addresses Cleanup
     * CLI Check if logs contains
@@ -1369,9 +1377,10 @@ Feature: DP ANALYTICS
       | DefensePro_Set_1 | 3     | policy1  |
       | DefensePro_Set_2 | 3     | policy1  |
     Then UI Validate Pie Chart data "Top Scanners"
+#      | label      | data |
+#      | 192.85.1.2 | 2    |
       | label      | data |
-      | 192.85.1.2 | 2    |
-
+      | 192.85.1.2 | 4    |
   @SID_99
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Scanners" Chart data doesn't exist for policy without relevant data
     Then UI Validate Pie Chart data "Top Scanners"
