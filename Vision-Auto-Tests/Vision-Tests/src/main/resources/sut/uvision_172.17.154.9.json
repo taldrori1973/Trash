@@ -8,7 +8,18 @@
   "deployConfigurations": {
     "setupMode": "fresh install",
     "snapshot": "",
-    "environment": "OVA-220"
+    "environment": "OVA-220",
+    "interfaces": [
+      {
+        "name": "G1", "network": "mgmt"
+      },
+      {
+        "name": "G2", "network": "net_50", "ip": "50.50.154.9"
+      },
+      {
+        "name": "G3", "network": "net_50"
+      }
+    ]
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.9",
