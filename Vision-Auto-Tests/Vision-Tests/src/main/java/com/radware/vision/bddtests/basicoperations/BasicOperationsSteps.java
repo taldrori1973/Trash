@@ -894,19 +894,6 @@ public class BasicOperationsSteps extends VisionUITestBase {
             clickButton("close scope selection");
     }
 
-    private void expandScopePolicies(Map<String, String> map) throws Exception {
-        try {
-            clickButton("Device Selection", "");
-        } catch (Exception e) {
-            clickButton("Open Scope Selection", new JSONObject(map.get("devices")).get("type").toString());
-        } finally {
-//            setTextField("ScopeSelectionFilter", device);
-//            clickButton("DPScopeSelectionChange", device);
-            clickButton("SwitchToPolicies");
-
-        }
-    }
-
     @Then("^UI Text of \"([^\"]*)\" with extension \"([^\"]*)\" GTE to \"([^\"]*)\" with offset \"([^\"]*)\"$")
     public void uiTextOfWithExtensionGTETo(String label, String params, String value, String offset) throws Throwable {
 
