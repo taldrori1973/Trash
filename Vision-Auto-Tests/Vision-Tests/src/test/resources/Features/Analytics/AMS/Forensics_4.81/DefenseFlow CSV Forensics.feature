@@ -83,6 +83,7 @@ Feature: DefenseFlow CSV Forensics
   @SID_8
   Scenario: Validate The table in  Forensics_DefenseFlow_without_Schedule
     And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow_without_Schedule,0"
+    Then Sleep "30"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
 
   @SID_9
@@ -202,7 +203,7 @@ Feature: DefenseFlow CSV Forensics
     Then Sleep "3"
 
   @SID_14
-  Scenario: Validate the First line in Forensics_DefenseFlow_without_Schedule_*.csv File 
+  Scenario: Validate the First line in Forensics_DefenseFlow_without_Schedule_*.csv File
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "279"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_without_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
@@ -295,6 +296,7 @@ Feature: DefenseFlow CSV Forensics
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow_with_Schedule"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow_with_Schedule,0"
+    Then Sleep "25"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
  
   @SID_23
