@@ -257,7 +257,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
             VisionDebugIdsManager.setTab("LoginPage");
         } catch (Exception e) {
             e.printStackTrace();
-            BaseTestUtils.report("failed to logout" + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("failed to logout: " + e.getMessage(), Reporter.FAIL);
         } finally {
             BasicOperationsHandler.delay(1);
         }
