@@ -1,7 +1,6 @@
 @TC126827
 Feature:EAAF-Top Attacking Geolocations and MALICIOUS ip
 
-
   @SID_1
   Scenario: Login and navigate to EAAF dashboard and Clean system attacks
     Then Play File "empty_file.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
@@ -19,8 +18,13 @@ Feature:EAAF-Top Attacking Geolocations and MALICIOUS ip
     Then Play File "empty_file.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
 
 
+
   @SID_3
+
   Scenario: validate top attacking geolocations packets
+    Then UI VRM Select device from dashboard and Save Filter
+      | setId     | ports | policies |
+      | DP_Sim_Set_0 |       |          |
     Then UI Click Button "Geolocations tabs" with value "Packets"
     Then UI Validate Text field "Country Name" with params "India" EQUALS "India"
     Then UI Validate Text field "Total Events Value" with params "0" EQUALS "287"
@@ -222,13 +226,17 @@ Feature:EAAF-Top Attacking Geolocations and MALICIOUS ip
   @SID_9
   Scenario: validate that the data not change with pcap
     Then UI Navigate to "AMS Reports" page via homePage
-    Given CLI simulate 1000 attacks of type "many_attacks" on SetId "DefensePro_Set_13" with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "ERT_FEED" on SetId "DefensePro_Set_13" with loopDelay 15000 and wait 120 seconds
+
     Given CLI kill all simulator attacks on current vision
     Then UI Navigate to "EAAF Dashboard" page via homePage
 
 
   @SID_12
   Scenario: validate top attacking geolocations packets
+    Then UI VRM Select device from dashboard and Save Filter
+      | setId        | ports | policies |
+      | DP_Sim_Set_0 |       |          |
     Then UI Click Button "Geolocations tabs" with value "Packets"
 
     Then UI Validate Text field "Country Name" with params "India" EQUALS "India"
@@ -426,3 +434,63 @@ Feature:EAAF-Top Attacking Geolocations and MALICIOUS ip
 
     Then UI Validate Text field "Country Code Malicious" with params "189.203.104.55" EQUALS "189.203.104.55"
     Then UI Validate Text field "Total Events Value Malicious" with params "9" EQUALS "141K"
+
+  @SSSW
+  @SID_15
+  Scenario: verify no data available in dashboard
+    And UI Do Operation "Select" item "Device Selection"
+    Then UI VRM Select device from dashboard and Save Filter
+      | setId             | ports | policies |
+      | DefensePro_Set_13 |       |          |
+
+    Then UI Text of "EAAF charts" with extension "top attacking geolocations" equal to " !No data available"
+    Then UI Text of "EAAF charts" with extension "breakdown by malicious" equal to " !No data available"
+    Then UI Text of "EAAF charts" with extension "top malicious" equal to " !No data available"
+    Then UI Text of "EAAF charts" with extension "EAAF timeline" equal to " !No data available"
+    Then UI Text of "EAAF charts" with extension "distinct ip" equal to " !No data available"
+
+################################ breakdown malicious #########################################
+Scenario: validate breakdown packets
+
+    Then UI Click Button "Eaaf tabs" with value "Packets,Breakdown-by-Malicious-Activity"
+
+  Then UI Validate Text field "breakdown total events" with params "0" EQUALS "2K"
+
+#  Then UI Validate Text field "breakdown title" with params "App Attacker Bot" EQUALS "App Attacker Bot"
+#    Then UI Validate Text field "breakdown total events" with params "1" EQUALS "432"
+#
+#    Then UI Validate Text field "breakdown title" with params "Scanner" EQUALS "Scanner"
+#    Then UI Validate Text field "breakdown total events" with params "2" EQUALS "432"
+#
+#    Then UI Validate Text field "breakdown title" with params "Scanner (TLS/SSL)" EQUALS "Scanner (TLS/SSL)"
+#    Then UI Validate Text field "breakdown total events" with params "3" EQUALS "432"
+
+
+
+  Then UI Click Button "Eaaf tabs" with value "Attacks,Breakdown-by-Malicious-Activity"
+
+  Then UI Validate Text field "breakdown total events" with params "0" EQUALS "3"
+
+#  Then UI Validate Text field "breakdown title" with params "App Attacker Bot" EQUALS "App Attacker Bot"
+#  Then UI Validate Text field "breakdown total events" with params "1" EQUALS "1"
+#
+#  Then UI Validate Text field "breakdown title" with params "Scanner" EQUALS "Scanner"
+#  Then UI Validate Text field "breakdown total events" with params "2" EQUALS "1"
+#
+#  Then UI Validate Text field "breakdown title" with params "Scanner (TLS/SSL)" EQUALS "Scanner (TLS/SSL)"
+#  Then UI Validate Text field "breakdown total events" with params "3" EQUALS "1"
+
+
+
+  Then UI Click Button "Eaaf tabs" with value "Volume,Breakdown-by-Malicious-Activity"
+
+  Then UI Validate Text field "breakdown total events" with params "0" EQUALS "2M"
+
+#  Then UI Validate Text field "breakdown title" with params "App Attacker Bot" EQUALS "App Attacker Bot"
+#  Then UI Validate Text field "breakdown total events" with params "1" EQUALS "428K"
+#
+#  Then UI Validate Text field "breakdown title" with params "Scanner" EQUALS "Scanner"
+#  Then UI Validate Text field "breakdown total events" with params "2" EQUALS "428K"
+#
+#  Then UI Validate Text field "breakdown title" with params "Scanner (TLS/SSL)" EQUALS "Scanner (TLS/SSL)"
+#  Then UI Validate Text field "breakdown total events" with params "3" EQUALS "428K"
