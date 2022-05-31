@@ -24,7 +24,6 @@ public class FreshInstallOVA extends FreshInstall {
         if (vmName == null) {
             BaseTestUtils.report("Can't find \"vmPrefix\" at SUT File", Reporter.FAIL);
         }
-        boolean isAPM = false;//this.fileType.isContained("APM");
         String vCenterUser = getSutManager().getEnvironment().get().getUser();
         String vCenterPassword = getSutManager().getEnvironment().get().getPassword();
         String hostIp = getSutManager().getEnvironment().get().getHostIp();

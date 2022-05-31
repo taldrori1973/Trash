@@ -168,7 +168,7 @@ public class DeployOva {
     }
     //================================ Temp Method ==========================
     public static String deployOvfFromUrlAndGetIp(String targetUrl, String userName, String password, String hostip, String ovaUrl,
-                                                  File ovfDestFolder, String newVmName, String networkName, String macAddr, String containedDVS, String resourcePool, String destFolder, String dataStores, boolean isAPM)
+                                                  File ovfDestFolder, String newVmName, String networkName, String macAddr, String containedDVS, String resourcePool, String destFolder, String dataStores)
             throws Exception {
 
         ServiceInstance si = new ServiceInstance(new URL(targetUrl), userName, password, true);
@@ -295,12 +295,7 @@ public class DeployOva {
 
 
         // Wait for ip, check every 30 sec for 5 minutes.
-        String ip;
-        if (!isAPM) {
-            ip = getValidIpAddress(currentVm, "10.205");
-        } else {
-            ip = waitForValidIp(currentVm);
-        }
+        String ip = getValidIpAddress(currentVm, "10.205");
 
         BaseTestUtils.reporter.report("Final IP: " + ip);
 

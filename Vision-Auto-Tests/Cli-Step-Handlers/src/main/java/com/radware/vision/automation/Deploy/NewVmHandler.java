@@ -288,12 +288,7 @@ public class NewVmHandler extends TestBase {
             } catch (Exception ignored) {}
             Thread.sleep(20*60*1000);
             ip = sutManager.getClientConfigurations().getHostIp();
-            String[] networkIfcs;
-            if (!isAPM) {
-                networkIfcs = new String[]{"Network adapter 1", "Network adapter 2", "Network adapter 3"};
-            } else {
-                networkIfcs = new String[]{"Network adapter 1", "Network adapter 2"};
-            }
+            String[] networkIfcs = new String[]{"Network adapter 1", "Network adapter 2", "Network adapter 3"};
 
             vmNetworkingOps.changeVMNicPortGroup(vCenterURL, newVmName, networkIfcs, networkName, containedDVS, false);
             vmNetworkingOps.resetVm(newVmName);
