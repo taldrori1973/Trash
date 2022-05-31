@@ -5,9 +5,11 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.RestBasicConsts;
 import com.radware.restcore.VisionRestClient;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.InterfaceDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.DeployOva;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.ReflectionUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.utils.RegexUtils;
@@ -67,7 +69,7 @@ public class NewVmHandler extends TestBase {
 
     }
 
-    public void firstTimeWizardQCow2(String version, String specificVisionBuild, String fileUrl, String md5DevArt) {
+    public void firstTimeWizardQCow2(String version, String specificVisionBuild, String fileUrl, List<InterfaceDto> networks, String md5DevArt) {
         long timeOut = 3600000L;
         ArrayList<String> messages = new ArrayList();
         String fileNotFound = "Error 15: File not found\n";
@@ -91,7 +93,14 @@ public class NewVmHandler extends TestBase {
 
             StringJoiner installCommand = new StringJoiner(" ");
             installCommand.add("virt-install").add("--name " + vmName).add("--noautoconsole ");
-            installCommand.add("--ram 24576").add("--vcpus 8").add("--import").add("--disk " + imagesPath + vmName + ".qcow2,bus=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--graphics none").add("--video cirrus").add("--serial pty");
+            installCommand.add("--ram 24576").add("--vcpus 8").add("--import").add("--disk " + imagesPath + vmName + ".qcow2,bus=virtio");
+
+            if(networks == null || networks.size() == 0)
+                installCommand.add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio").add("--network bridge=management,model=virtio");
+            else
+                networks.forEach(i-> { if(i.getNetwork() != null && !i.getNetwork().equals("")) installCommand.add(String.format("--network bridge=%s,model=virtio",i.getNetwork()));});
+
+            installCommand.add("--graphics none").add("--video cirrus").add("--serial pty");
 
             String promptBuildName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1, fileUrl.lastIndexOf(".")).toLowerCase();
             // ToDo hardcoded - ubuntu version
@@ -120,6 +129,14 @@ public class NewVmHandler extends TestBase {
 
             UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().orElse(null), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
 
+            if(networks != null)
+            {
+                Thread.sleep(2*60*1000);
+                networks.forEach(n->{
+                    if(n.getName() != null && n.getIp() != null)
+                        runCommand(serversManagement.getRadwareServerCli().orElse(null), String.format("%s %s %s %s", Menu.net().ip().set().build(), n.getIp(), "255.255.0.0", n.getName()), 8 * 60 * 1000);
+                });
+            }
         } catch (Exception e) {
             BaseTestUtils.report("Failed to deploy server " + vmName + "with the following error:\n" +
                     e.getMessage(), Reporter.FAIL);
@@ -253,7 +270,7 @@ public class NewVmHandler extends TestBase {
         runCommand(this.visionRadwareFirstTime, "virsh vol-delete " + imagesPath + vmName + "_APM.img");
     }
 
-    public void firstTimeWizardOva(String ovaUrl, boolean isAPM, String vCenterURL, String userName, String password, String hostip, String specificVisionBuild, String newVmName, String containedDVS, String networkName, String resourcePool, String destFolder, String dataStores) {
+    public void firstTimeWizardOva(String ovaUrl, String vCenterURL, String userName, String password, String hostip, String specificVisionBuild, String newVmName, String containedDVS, List<InterfaceDto> networks, String resourcePool, String destFolder, String dataStores) {
         VMNetworkingOps vmNetworkingOps = new VMNetworkingOps(vCenterURL, hostip, userName, password);
         try {
             File outputDir = new File(System.getProperty("user.dir"));
@@ -262,7 +279,7 @@ public class NewVmHandler extends TestBase {
             newVmName = newVmName + "(" + specificVisionBuild + ")_" + DeployOva.getOVADateFormat().format(new Date());
             BaseTestUtils.reporter.report("Creating VM: " + newVmName);
 
-            String ip = DeployOva.deployOvfFromUrlAndGetIp(vCenterURL, userName, password, hostip, ovaUrl, outputDir, newVmName, networkName, null, containedDVS, resourcePool, destFolder, dataStores, isAPM);
+            String ip = DeployOva.deployOvfFromUrlAndGetIp(vCenterURL, userName, password, hostip, ovaUrl, outputDir, newVmName, networks.get(0).getNetwork(), null, containedDVS, resourcePool, destFolder, dataStores);
             if (ip == null || ip.equals("")) {
                 BaseTestUtils.report("Could not retrieve an IP address from vSphere", 1);
             }
@@ -290,7 +307,7 @@ public class NewVmHandler extends TestBase {
             ip = sutManager.getClientConfigurations().getHostIp();
             String[] networkIfcs = new String[]{"Network adapter 1", "Network adapter 2", "Network adapter 3"};
 
-            vmNetworkingOps.changeVMNicPortGroup(vCenterURL, newVmName, networkIfcs, networkName, containedDVS, false);
+            vmNetworkingOps.changeVMNicPortGroup(vCenterURL, newVmName, networkIfcs, networks.stream().map(InterfaceDto::getNetwork).toArray(String[]::new), containedDVS, false);
             vmNetworkingOps.resetVm(newVmName);
             targetVisionMacAddress = vmNetworkingOps.getMacAddress(newVmName);
             if (targetVisionMacAddress == null) {
@@ -306,6 +323,15 @@ public class NewVmHandler extends TestBase {
 
             rootServerCli.setHost(ip);
             UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().orElse(null), UvisionServer.UVISON_DEFAULT_SERVICES, 45 * 60);
+
+            if(networks != null)
+            {
+                Thread.sleep(2*60*1000);
+                networks.forEach(n->{
+                    if(n.getName() != null && n.getIp() != null)
+                        runCommand(serversManagement.getRadwareServerCli().orElse(null), String.format("%s %s %s %s", Menu.net().ip().set().build(), n.getIp(), "255.255.0.0", n.getName()), 8 * 60 * 1000);
+                });
+            }
             this.initialRestLogin(900000L);
             BaseTestUtils.reporter.report("License Key updated.");
         } catch (Exception var24) {
