@@ -99,7 +99,7 @@ Feature: CONNECTION RATE
     When UI Select device from dashboard device type "DefensePro"
       | SetId            |
       | DefensePro_Set_2 |
-    Then UI Click Button "SaveDPScopeSelection"
+#    Then UI Click Button "SaveDPScopeSelection"
     Then UI Validate Line Chart data "Connections Rate" with Label "Connections per Second"
       | value | min |
       | 6335  | 1   |
@@ -110,7 +110,7 @@ Feature: CONNECTION RATE
     When UI Select device from dashboard device type "DefensePro"
       | SetId            |
       | DefensePro_Set_1 |
-    Then UI Click Button "SaveDPScopeSelection"
+#    Then UI Click Button "SaveDPScopeSelection"
     Then UI Validate Line Chart data "Connections Rate" with Label "Connections per Second"
       | value | min |
       | 6335  | 1   |
