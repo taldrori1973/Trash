@@ -2,13 +2,16 @@ package com.radware.vision.bddtests.vmoperations;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.InterfaceDto;
 import com.radware.vision.automation.Deploy.NewVmHandler;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallOVA;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 
+import static com.radware.vision.automation.base.TestBase.getSutManager;
 import static com.radware.vision.base.VisionUITestBase.restTestBase;
 
 public class freshInstallThread extends Thread {
@@ -21,7 +24,7 @@ public class freshInstallThread extends Thread {
     String vCenterPassword;
     String hostip;
     String vCenterURL;
-    String networkName;
+    List<InterfaceDto> networks;
     String resourcePool;
     String dataStores;
     String version;
@@ -35,7 +38,7 @@ public class freshInstallThread extends Thread {
         vCenterPassword = visionVMs.getPassword();
         hostip = visionVMs.getvCenterIP();
         vCenterURL = visionVMs.getvCenterURL();
-        networkName = visionVMs.getNetworkName();
+        networks = getSutManager().getInterfaces();
         resourcePool = visionVMs.getResourcePool();
         dataStores = visionVMs.getDataStores();
         version = readVisionVersionFromPomFile();
@@ -45,8 +48,8 @@ public class freshInstallThread extends Thread {
     public void run() {
         try {
             FreshInstallOVA freshInstallOVA = new FreshInstallOVA();
-            vmHandler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(), false, vCenterURL, vCenterUser, vCenterPassword, hostip,
-                    build, vmName, null, networkName, resourcePool, null, dataStores);
+            vmHandler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(), vCenterURL, vCenterUser, vCenterPassword, hostip,
+                    build, vmName, null, networks, resourcePool, null, dataStores);
         }
         catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
