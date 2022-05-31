@@ -3,7 +3,7 @@ Feature: New EAAF Mode Reports
 
   @SID_1
   Scenario: Login and navigate to EAAF dashboard and Clean system attacks
-    Then Play File "empty_file.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
+    Then Play File "empty_file.xmf" in device "50.50.100.2" from map "Automation_Machines" and wait 20 seconds
     * REST Delete ES index "eaaf-attack-*"
     * REST Delete ES index "attack-*"
     * CLI Clear vision logs
@@ -16,9 +16,9 @@ Feature: New EAAF Mode Reports
 
   @SID_2
   Scenario: PLAY DP_sim_8.28 file and Navigate EAAF DashBoard
-    Given Play File "DP_sim_8.28.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
-    Then Sleep "300"
-    Then Play File "empty_file.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
+    Given Play File "DP_sim_8.28.xmf" in device "50.50.100.2" from map "Automation_Machines" and wait 20 seconds
+    Then Sleep "320"
+    Then Play File "empty_file.xmf" in device "50.50.100.2" from map "Automation_Machines" and wait 20 seconds
     And UI Navigate to "EAAF Dashboard" page via homePage
 
   @SID_3
@@ -29,8 +29,11 @@ Feature: New EAAF Mode Reports
 
   @SID_4
   Scenario: Navigate to AMS Reports
-    Given UI Login with user "radware" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
+    Then Sleep "3"
+    And UI Navigate to "EAAF Dashboard" page via homePage
+    And UI Navigate to "AMS Reports" page via homePage
+
 
 ################################# Charts by Total Packets #############################################
 
