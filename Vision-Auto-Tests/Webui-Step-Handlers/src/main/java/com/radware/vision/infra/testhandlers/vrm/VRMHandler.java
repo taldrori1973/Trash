@@ -1058,13 +1058,17 @@ public class VRMHandler {
                 selectDeviceTab();
                 WebUIComponent popupbutton= new WebUIComponent(ComponentLocatorFactory.getLocatorByDbgId("button_scope-confirm_button_1"));
                 popupbutton.click();
-//                WebUIComponent button= new WebUIComponent(ComponentLocatorFactory.getLocatorByDbgId("button_scope-confirm_button_1"));
                 String selectAllCheckBox = "Device Selection.All Devices Selection";
                 VisionDebugIdsManager.setLabel(selectAllCheckBox);
                 WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-//                checkbox.check();
-                if (!entries.isEmpty())
+                if (!entries.isEmpty()){
                     checkbox.check();
+                }
+                else {
+                    checkbox.check();
+                    checkbox.check();
+                }
+
                 entries.forEach(entry -> {
                     String deviceIp = null;
                     String deviceName = null;
@@ -1764,8 +1768,13 @@ public class VRMHandler {
             VisionDebugIdsManager.setLabel(selectAllCheckBox);
             WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
             selectDeviceTab();
-            if (!entries.isEmpty())
+            if (!entries.isEmpty()){
                 checkbox.check();
+            }else {
+                checkbox.check();
+                checkbox.check();
+            }
+
                 entries.forEach(entry -> {
                     String deviceIp = null;
                     try {
@@ -1787,6 +1796,7 @@ public class VRMHandler {
                     checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("row-DefensePro_" + deviceIp + "-cbox"));
                     checkbox.check();
                 });
+
             String saveBtnLabel = "Device Selection.Save Filter";
             VisionDebugIdsManager.setLabel(saveBtnLabel);
             WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
