@@ -1763,9 +1763,9 @@ public class VRMHandler {
             String selectAllCheckBox = "Device Selection.All Devices Selection";
             VisionDebugIdsManager.setLabel(selectAllCheckBox);
             WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-//            To Clear previous settings
-            checkbox.check();
+            selectDeviceTab();
             if (!entries.isEmpty())
+                checkbox.check();
                 entries.forEach(entry -> {
                     String deviceIp = null;
                     try {
