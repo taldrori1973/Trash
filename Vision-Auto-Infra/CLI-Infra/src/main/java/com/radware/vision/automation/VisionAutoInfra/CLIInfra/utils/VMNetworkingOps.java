@@ -298,6 +298,7 @@ public class VMNetworkingOps {
                 for (ObjectContent oc : oCont) {
                     DynamicProperty[] dps = oc.getPropSet();
                     if (dps != null) {
+                        System.out.println("dps Length : " + dps.length);
                         for (DynamicProperty dp : dps) {
                             System.out.println(dp.getName() + " : " + dp.getVal());
                             vmHardware = (VirtualHardware)dp.getVal();
