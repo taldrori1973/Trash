@@ -33,7 +33,7 @@ Feature: DPM Analytics Main Page
   @Sanity @SID_5
   Scenario: DPM - Validate device's amount and status
     #the space is another div that is part of css therefore we have no space
-    Then UI Text of "Application Selection" equal to "APPLICATIONS15/15"
+    Then UI Text of "Application Selection" equal to "Applications15/15"
     Then UI Text of "upDevices" equal to "5"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"
