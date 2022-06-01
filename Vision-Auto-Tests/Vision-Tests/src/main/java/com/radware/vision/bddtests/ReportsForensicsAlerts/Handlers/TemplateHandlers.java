@@ -703,7 +703,7 @@ public class TemplateHandlers {
         @Override
         protected void selectDevice(String deviceText, boolean isToCheck) throws Exception {
             List<String> serverDetails = new ArrayList<String>();
-            serverDetails.add(0,getDeviceIp(deviceText));
+            serverDetails.add(0,getDeviceIpFromDeviceID(deviceText));
             serverDetails.add(1,Arrays.asList(deviceText.split("-")).get(2));
             serverDetails.add(2,Arrays.asList(deviceText.split("-")).get(0));
 
@@ -720,7 +720,7 @@ public class TemplateHandlers {
                 throw new Exception(String.format("No Device with \"%s\" Set ID was found in this setup", Arrays.asList(deviceText.split("-")).get(1)));
             }
 
-            return deviceOpt.get().getManagementIp().toString();
+            return deviceOpt.get().getManagementIp();
         }
 
         private String getDeviceId(String deviceText) throws Exception {
@@ -730,7 +730,17 @@ public class TemplateHandlers {
                 throw new Exception(String.format("No Device with \"%s\" Set ID was found in this setup", Arrays.asList(deviceText.split("-")).get(1)));
             }
 
-            return deviceOpt.get().getDeviceId().toString();
+            return deviceOpt.get().getDeviceId();
+        }
+
+        private String getDeviceIpFromDeviceID(String deviceText) throws Exception {
+            Optional<TreeDeviceManagementDto> deviceOpt = sutManager.getTreeDeviceManagementFromDevices(Arrays.asList(deviceText.split("-")).get(1));
+
+            if (!deviceOpt.isPresent()) {
+                throw new Exception(String.format("No Device with \"%s\" Device ID was found in this setup", Arrays.asList(deviceText.split("-")).get(1)));
+            }
+
+            return deviceOpt.get().getManagementIp();
         }
 
         @Override
@@ -745,8 +755,13 @@ public class TemplateHandlers {
                     String[] expectedDeviceStringArray = devicesJSON.get(0).toString().split("-");
                     if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("serverName").toString().equals(expectedDeviceStringArray[0]))
                         errorMessage.append("The ActualTemplate ServerName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("serverName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[0]);
-                    if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString().equals(getDeviceId(devicesJSON.toString())))
-                        errorMessage.append("The ActualTemplate deviceName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[1]);
+                    if(type.equals("HTTPS Flood")){
+                        if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString().equals(devicesJSON.toString().split("-")[1]))
+                            errorMessage.append("The ActualTemplate deviceName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[1]);
+                    } else {
+                        if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString().equals(getDeviceId(devicesJSON.toString())))
+                            errorMessage.append("The ActualTemplate deviceName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[1]);
+                    }
                     if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("policyName").toString().equals(expectedDeviceStringArray[2]))
                         errorMessage.append("The ActualTemplate policyName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("policyName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[2]);
                 }

@@ -9,11 +9,9 @@ Feature: HTTPS Flood
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
-    Then UI Click Button "New Report Tab"
 
   @SID_2
   Scenario: Inbound Traffic Report 1
-    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 1"
       | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: CSV                                                                                                                  |
@@ -33,7 +31,6 @@ Feature: HTTPS Flood
 
   @SID_3
   Scenario: Inbound Traffic Report 2
-    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 2"
       | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: CSV                                                                                                                  |
@@ -49,7 +46,6 @@ Feature: HTTPS Flood
 
   @SID_4
   Scenario:  Inbound Traffic Report 3
-    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 3"
       | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: PDF                                                                                                                  |
@@ -67,7 +63,6 @@ Feature: HTTPS Flood
 
   @SID_5
   Scenario:  Inbound Traffic Report 4
-    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 4"
       | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Logo                  | reportLogoPNG.png                                                                                                           |
@@ -84,7 +79,6 @@ Feature: HTTPS Flood
 
   @SID_6
   Scenario:  Inbound Traffic Report 5
-    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 5"
       | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Logo                  | reportLogoPNG.png                                                                                                           |
