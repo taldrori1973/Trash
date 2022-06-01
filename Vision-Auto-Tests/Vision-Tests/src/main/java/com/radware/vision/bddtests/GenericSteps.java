@@ -266,10 +266,10 @@ public class GenericSteps extends VisionUITestBase {
         if (displayed) {
             try {
                 if (params == null)
-                    actualValue = BasicOperationsHandler.getItemValue(label, params).toUpperCase();
+                    actualValue = BasicOperationsHandler.getItemValue(label, params);
                 else {
                     String[] params_values = params.split(",");
-                    actualValue = BasicOperationsHandler.getItemValue(label, params_values).toUpperCase();
+                    actualValue = BasicOperationsHandler.getItemValue(label, params_values);
                 }
             } catch (TargetWebElementNotFoundException e) {
                 e.printStackTrace();
