@@ -840,7 +840,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
         WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator("DPPoliciesFilter", new String[]{deviceIP}));
         for (Object policy : policiesArray) {
             policyOrPortText.type(policy.toString().trim());
-            WebUiTools.check("DPPolicyCheck", new String[]{deviceId, policy.toString()}, true);
+            WebUiTools.check("DPPolicyCheck", new String[]{deviceId, policy.toString()}, false);
         }
         saveScopeSelection();
     }
