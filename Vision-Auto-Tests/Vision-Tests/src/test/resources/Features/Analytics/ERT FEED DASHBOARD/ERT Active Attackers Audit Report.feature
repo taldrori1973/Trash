@@ -4,8 +4,8 @@ Feature:ERT Active Attackers Audit Report
   @SID_1
   Scenario: Login and navigate to EAAF dashboard and Clean system attacks
     Then Play File "empty_file.xmf" in device "50.50.100.1" from map "Automation_Machines" and wait 20 seconds
-    * REST Delete ES index "eaaf-attack-*"
-    * REST Delete ES index "attack-*"
+#    * REST Delete ES index "eaaf-attack-data-*"
+#    * REST Delete ES index "attack-*"
     * CLI Clear vision logs
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -54,11 +54,11 @@ Feature:ERT Active Attackers Audit Report
   Scenario: create new Report With Name "EAAF CSV
     Given UI "Create" Report With Name "EAAF CSV"
       | Template              | reportType:ERT Active Attackers Audit Report , Widgets:[ERT Active Attackers Audit Report],devices:[All] |
-      | Time Definitions.Date | Quick:15m                                                                                                |
+      | Time Definitions.Date | Quick:1D                                                                                                |
       | Format                | Select: CSV                                                                                              |
     Then UI "Validate" Report With Name "EAAF CSV"
       | Template              | reportType:ERT Active Attackers Audit Report , Widgets:[ERT Active Attackers Audit Report],devices:[All] |
-      | Time Definitions.Date | Quick:15m                                                                                                |
+      | Time Definitions.Date | Quick:1D                                                                                                |
       | Format                | Select: CSV                                                                                              |
 
   @SID_7
