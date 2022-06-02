@@ -80,13 +80,13 @@ Feature: DefensePro Behavioral QDoS General Tests
   @SID_8
   Scenario: Validate Chart Settings
     And UI Click Button "Chart Settings" with value "Quantile Status"
-    Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
-    Then UI validate Checkbox by label "DPPolicycheck" if Selected "false"
+#    Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
+#    Then UI validate Checkbox by label "DPPolicycheck" if Selected "false"
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,19_Characters_19_Ch"
     Then UI Click Button "Widget Settings Save"
     And UI Click Button "Chart Settings" with value "Quantile Status"
-    Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
-    Then UI validate Checkbox by label "DPPolicycheck" if Selected "true"
+#    Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
+    Then UI validate Checkbox by label "DPPolicycheck" with extension "172.16.22.50_19_Characters_19_Ch" if Selected "true"
     Then UI Click Button "Widget Settings Cancel"
 
   @SID_9
