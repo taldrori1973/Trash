@@ -85,7 +85,7 @@ Feature: Attacks Table
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "Black_IPV6"
     Then Sleep "3"
     Then UI Click Button "Auto Refresh"
-    Then Sleep "3"
+    Then Sleep "6"
     Then UI Click Button "Sample Data Button"
     Then Sleep "3"
     Then UI Validate "SampleDataTable" Table rows count GTE to 2

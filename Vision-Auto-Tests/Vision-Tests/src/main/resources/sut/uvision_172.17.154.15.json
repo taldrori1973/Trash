@@ -4,7 +4,18 @@
   "deployConfigurations": {
     "snapshot": "Current-1",
     "setupMode": "fresh install",
-    "environment": "OVA-232"
+    "environment": "OVA-232",
+    "interfaces": [
+      {
+        "name": "G1", "network": "mgmt"
+      },
+      {
+        "name": "G2", "network": "net_50", "ip": "50.50.154.9"
+      },
+      {
+        "name": "G3", "network": "net_50"
+      }
+    ]
   },
   "pair": {
     "pairIp": "172.17.164.101",
