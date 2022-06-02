@@ -578,7 +578,7 @@ public class TemplateHandlers {
                 return deviceOpt.get().getDeviceId();
             }
 
-            private void selectPortsOrPolicies(ArrayList devicePoliciesOrPorts, String dpPolicyCheck, String portOrPolicyFileter) throws Exception {
+            private void selectPolicies(ArrayList devicePoliciesOrPorts, String dpPolicyCheck, String portOrPolicyFileter) throws Exception {
                 if (devicePoliciesOrPorts != null) {
                     WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator(portOrPolicyFileter, new String[]{getDeviceIp()}));
                     if (devicePoliciesOrPorts.get(0).toString().equalsIgnoreCase("All")) {
@@ -632,10 +632,10 @@ public class TemplateHandlers {
                         BasicOperationsHandler.clickButton(getSaveButtonText(), "");
                         openScopeSelection();
                         BasicOperationsHandler.clickButton("SwitchToPolicies", "");
-                        selectPortsOrPolicies(devicePolicies, "DPPolicyCheck", "DPPoliciesFilter");
+                        selectPolicies(devicePolicies, "DPPolicyCheck", "DPPoliciesFilter");
                     }
                 } else if (type.equals("DefensePro Behavioral Protections")) {
-                    selectPortsOrPolicies(devicePolicies, "DPPolicyCheck", "DPPoliciesFilter");
+                    selectPolicies(devicePolicies, "DPPolicyCheck", "DPPoliciesFilter");
                 }
             }
 
