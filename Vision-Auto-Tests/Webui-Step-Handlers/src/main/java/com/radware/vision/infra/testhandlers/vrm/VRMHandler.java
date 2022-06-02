@@ -1061,11 +1061,11 @@ public class VRMHandler {
                 String selectAllCheckBox = "Device Selection.All Devices Selection";
                 VisionDebugIdsManager.setLabel(selectAllCheckBox);
                 WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+                checkbox.check();
                 if (!entries.isEmpty()){
-                    checkbox.check();
+                    checkbox.uncheck();
                 }
                 else {
-                    checkbox.check();
                     checkbox.check();
                 }
 
@@ -1768,10 +1768,10 @@ public class VRMHandler {
             VisionDebugIdsManager.setLabel(selectAllCheckBox);
             WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
             selectDeviceTab();
+            checkbox.check();
             if (!entries.isEmpty()){
-                checkbox.check();
+                checkbox.uncheck();
             }else {
-                checkbox.check();
                 checkbox.check();
             }
 
