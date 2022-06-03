@@ -893,14 +893,32 @@ public class VRMHandler {
         }
     }
 
+    public void tristatecheck() {
+        VisionDebugIdsManager.setLabel("Device Selection.All Devices Selection");
+        WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+        String checkboxstate = checkbox.getAttribute("data-debug-checked");
+        if (checkboxstate.equals("0") || checkboxstate.equals("2")) {
+            checkbox.click();
+        }
+    }
+
+    public void tristateuncheck() {
+        VisionDebugIdsManager.setLabel("Device Selection.All Devices Selection");
+        WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+        String checkboxstate = checkbox.getAttribute("data-debug-checked");
+        if (checkboxstate.equals("1") || checkboxstate.equals("2")) {
+            checkbox.click();
+        }
+    }
+
     public void selectApplications(List<DpApplicationFilter> entries, String deviceType, boolean shouldSaved) throws Exception {
         VisionDebugIdsManager.setLabel("Device Selection.All Devices Selection");
         WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-        checkbox.check();
+        tristatecheck();
         if (!entries.isEmpty()) {
-            checkbox.uncheck();
+            tristateuncheck();
             if (entries.get(0).name.equalsIgnoreCase("All")) {
-                checkbox.check();
+                tristatecheck();
             } else {
                 for (DpApplicationFilter entry : entries) {
                     VisionDebugIdsManager.setLabel("Device Selection.Available Device CheckBox");
@@ -920,7 +938,7 @@ public class VRMHandler {
 //                        checkbox.check();
                         switch (deviceType.toLowerCase()) {
                             case "defenseflow":
-                                    break;
+                                break;
                             case "appwall":
                                 break;
                             case "alteon":
@@ -945,9 +963,12 @@ public class VRMHandler {
                 }
             }
         }
-        if (shouldSaved) {
-            BasicOperationsHandler.clickButton("Device Selection.Save Filter");
+        if (!BasicOperationsHandler.pageName.equalsIgnoreCase("AMS Alerts")){
+            if (shouldSaved) {
+                BasicOperationsHandler.clickButton("Device Selection.Save Filter");
+            }
         }
+
     }
 
     public void uiVRMTotalAvailableDeviceS(int totalNumOfDevices) {
@@ -1040,6 +1061,7 @@ public class VRMHandler {
 //        WebUIComponent component = new WebUIComponent(ComponentLocatorFactory.getEqualLocatorByDbgId(policyTab));
         button.click();
     }
+
     public void selectDeviceTab() {
         String deviceTab = "Device.tab";
         VisionDebugIdsManager.setLabel(deviceTab);
@@ -1056,17 +1078,16 @@ public class VRMHandler {
                 innerSelectDeviceWithPoliciesBehavioral(saveFilter, deviceType, entries, moveMouse);
             } else {
                 selectDeviceTab();
-                WebUIComponent popupbutton= new WebUIComponent(ComponentLocatorFactory.getLocatorByDbgId("button_scope-confirm_button_1"));
+                WebUIComponent popupbutton = new WebUIComponent(ComponentLocatorFactory.getLocatorByDbgId("button_scope-confirm_button_1"));
                 popupbutton.click();
                 String selectAllCheckBox = "Device Selection.All Devices Selection";
                 VisionDebugIdsManager.setLabel(selectAllCheckBox);
                 WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-                checkbox.check();
-                if (!entries.isEmpty()){
-                    checkbox.uncheck();
-                }
-                else {
-                    checkbox.check();
+                tristatecheck();
+                if (!entries.isEmpty()) {
+                    tristateuncheck();
+                } else {
+                    tristatecheck();
                 }
 
                 entries.forEach(entry -> {
@@ -1089,7 +1110,7 @@ public class VRMHandler {
                     } catch (Exception e) {
                         BaseTestUtils.report(e.getMessage(), e);
                     }
-                    checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row-"+ deviceName + "-cbox"));
+                    checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row-" + deviceName + "-cbox"));
                     checkbox.check();
                     boolean changePorts = entry.ports != null && !entry.ports.equals("");
                     List<String> portsList;
@@ -1154,7 +1175,9 @@ public class VRMHandler {
                                 VisionDebugIdsManager.setLabel(saveBtnLabel);
                                 WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
                             }
-                            ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("ScopeSelectionButton"));
+                            if (!BasicOperationsHandler.pageName.equalsIgnoreCase("AMS Alerts")) {
+                                ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("ScopeSelectionButton"));
+                            }
                             String policySearch = "scope-searchbar-input";
                             selectPolicyTab();
                             popupbutton.click();
@@ -1183,11 +1206,11 @@ public class VRMHandler {
                         }
                     });
                 }
-
+                if (!BasicOperationsHandler.pageName.equalsIgnoreCase("AMS Alerts")) {
                     String saveBtnLabel = "Device Selection.Save Filter";
                     VisionDebugIdsManager.setLabel(saveBtnLabel);
                     WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
-
+                }
             }
         } catch (
                 Exception e) {
@@ -1199,47 +1222,52 @@ public class VRMHandler {
         String selectAllCheckBox = "Device Selection.All Devices Selection";
         VisionDebugIdsManager.setLabel(selectAllCheckBox);
         WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-        if (!entries.isEmpty())
-            entries.forEach(entry -> {
-                String deviceIp = null;
-                String deviceName = null;
-                try {
-                    if (entry.setId != null || entry.deviceId != null) {
-                        SUTManager sutManager = SUTManagerImpl.getInstance();
-                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
-                                sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
-                        if (!deviceOpt.isPresent()) {
-                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId != null) ? entry.setId : entry.deviceId));
-                        }
-                        deviceIp = deviceOpt.get().getManagementIp();
-                        deviceName = deviceOpt.get().getDeviceName();
-                    } else {
-                        throw new Exception("device setId|deviceId entry is empty.");
+        tristatecheck();
+        if (!entries.isEmpty()) {
+            tristateuncheck();
+        } else {
+            tristatecheck();
+        }
+        entries.forEach(entry -> {
+            String deviceIp = null;
+            String deviceName = null;
+            try {
+                if (entry.setId != null || entry.deviceId != null) {
+                    SUTManager sutManager = SUTManagerImpl.getInstance();
+                    Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                            sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+                    if (!deviceOpt.isPresent()) {
+                        throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId != null) ? entry.setId : entry.deviceId));
                     }
-                } catch (Exception e) {
-                    BaseTestUtils.report(e.getMessage(), e);
+                    deviceIp = deviceOpt.get().getManagementIp();
+                    deviceName = deviceOpt.get().getDeviceName();
+                } else {
+                    throw new Exception("device setId|deviceId entry is empty.");
                 }
+            } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), e);
+            }
 
-                boolean changePolicies = entry.policies != null && !entry.policies.equals("");
-                List<String> policiesList;
-                if (changePolicies) {
-                    String policySearch = "scope-searchbar-input";
-                    WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
-                    if (!entry.policies.equalsIgnoreCase("ALL")) {
-                        policiesList = Arrays.asList(entry.policies.split("(,)"));
-                        for (String policy : policiesList) {
-                            String policyPrefix = "row-" + deviceName + "_" + policy.trim() + "-cbox_checkbox";
-                            policyText.type(policy.trim());
-                            checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(policyPrefix));
-                            checkbox.check();
-                        }
-                    } else {
-                        policyText.type(deviceName, true);
-                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("select-all-cbox_checkbox"));
-                        checkbox.click();
+            boolean changePolicies = entry.policies != null && !entry.policies.equals("");
+            List<String> policiesList;
+            if (changePolicies) {
+                String policySearch = "scope-searchbar-input";
+                WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
+                if (!entry.policies.equalsIgnoreCase("ALL")) {
+                    policiesList = Arrays.asList(entry.policies.split("(,)"));
+                    for (String policy : policiesList) {
+                        String policyPrefix = "row-" + deviceName + "_" + policy.trim() + "-cbox_checkbox";
+                        policyText.type(policy.trim());
+                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(policyPrefix));
+                        checkbox.check();
                     }
+                } else {
+                    policyText.type(deviceName, true);
+                    checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("select-all-cbox_checkbox"));
+                    checkbox.click();
                 }
-            });
+            }
+        });
         if (saveFilter != null) {
             String saveBtnLabel = "Device Selection.Save Filter";
             VisionDebugIdsManager.setLabel(saveBtnLabel);
@@ -1723,7 +1751,7 @@ public class VRMHandler {
                                         e.printStackTrace();
                                     }
                                 }
-                                    selectPolicyTab();
+                                selectPolicyTab();
                                 policyText.type(policy.trim());
                                 WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
                                 if (!isExist) {
@@ -1768,34 +1796,34 @@ public class VRMHandler {
             VisionDebugIdsManager.setLabel(selectAllCheckBox);
             WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
             selectDeviceTab();
-            checkbox.check();
-            if (!entries.isEmpty()){
-                checkbox.uncheck();
-            }else {
-                checkbox.check();
+            tristatecheck();
+            if (!entries.isEmpty()) {
+                tristateuncheck();
+            } else {
+                tristatecheck();
             }
 
-                entries.forEach(entry -> {
-                    String deviceIp = null;
-                    try {
+            entries.forEach(entry -> {
+                String deviceIp = null;
+                try {
 
-                        if (entry.setId != null || entry.deviceId != null) {
-                            SUTManager sutManager = SUTManagerImpl.getInstance();
-                            Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
-                                    sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
-                            if (!deviceOpt.isPresent()) {
-                                throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
-                            }
-                            deviceIp = deviceOpt.get().getManagementIp();
-                        } else {
-                            throw new Exception("device setId entry is empty.");
+                    if (entry.setId != null || entry.deviceId != null) {
+                        SUTManager sutManager = SUTManagerImpl.getInstance();
+                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                                sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+                        if (!deviceOpt.isPresent()) {
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
                         }
-                    } catch (Exception e) {
-                        BaseTestUtils.report(e.getMessage(), e);
+                        deviceIp = deviceOpt.get().getManagementIp();
+                    } else {
+                        throw new Exception("device setId entry is empty.");
                     }
-                    checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("row-DefensePro_" + deviceIp + "-cbox"));
-                    checkbox.check();
-                });
+                } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), e);
+                }
+                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("row-DefensePro_" + deviceIp + "-cbox"));
+                checkbox.check();
+            });
 
             String saveBtnLabel = "Device Selection.Save Filter";
             VisionDebugIdsManager.setLabel(saveBtnLabel);
