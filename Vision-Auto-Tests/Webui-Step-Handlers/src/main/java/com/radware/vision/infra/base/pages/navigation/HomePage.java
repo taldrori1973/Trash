@@ -31,8 +31,8 @@ public class HomePage {
             openItem(item);
         }
         VisionDebugIdsManager.setLabel(path.isEmpty() ? "" : path.get(path.size() - 1).trim());
-        if (getTitledItem(WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy())) == null) //if the element is the navigator
-            VisionDebugIdsManager.setTab(getHomePagePath(path.get(path.size() - 1).trim()));
+        //if (getTitledItem(WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy())) == null) //if the element is the navigator
+        VisionDebugIdsManager.setTab(getHomePagePath(path.get(path.size() - 1).trim()));
     }
 
     public static void expandMenu(String pathText) throws Exception {
