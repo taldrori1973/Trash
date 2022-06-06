@@ -302,6 +302,7 @@ Feature: Forensic Attack details Tests
   Scenario: VRM - open forensic "Attack details" table
     Then UI "Generate" Forensics With Name "Attack_Details"
       | timeOut | 90 |
+    Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Attack_Details,0"
 
 
