@@ -74,7 +74,7 @@ public class ElasticSearchSteps extends TestBase {
     @Given("^That Elasticsearch Index \"(.*)\"(?: with Week Slice (\\d+))? Already Exists or Create the Index by Simulating (\\d+) attacks of type \"(.*)\" on \"(.*)\" (\\d+)(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
     public void isIndexExist(String indexName, Integer weekSlice, int numOfAttacks, String fileName, SUTDeviceType deviceType, int deviceIndex, Integer ld, Integer waitTimeout, String withAttackId) {
         if (ElasticSearchHandler.getIndex(indexName, "last", weekSlice) == null) {
-            AttacksSteps attacksSteps = new AttacksSteps();
+            AttacksSteps attacksSteps = AttacksSteps.getInstance();
 //            attacksSteps.runSimulatorFromDevice(numOfAttacks, fileName, deviceType, deviceIndex, ld, waitTimeout, withAttackId);
         }
     }
