@@ -500,7 +500,7 @@ Feature: VRM DNS baselines
     Then Sleep "35"
     Then UI Validate Session Storage "DNS-A" exists "false"
     And UI Open "Configurations" Tab
-    And UI Logout
+    And UI logout and close browser
 
 
   @SID_22
