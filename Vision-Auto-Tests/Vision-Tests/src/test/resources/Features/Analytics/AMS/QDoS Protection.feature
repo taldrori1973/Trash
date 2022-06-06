@@ -516,8 +516,10 @@ Feature: QDoS Protection & Attack Category
   @SID_57
   Scenario:Navigate to DefensePro Behavioral Protections Dashboard and validate QDos chart
     And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI "Select" Scope Polices
-      | devices | type:DefensePro Behavioral Protections,index:11,policies:[p1] |
+    Then UI Click Button "Device Selection"
+    Then UI VRM Select device from dashboard and Save Filter
+      | setId            | ports | policies |
+      | DefensePro_Set_2 |       | p1       |
     Then Sleep "10"
     Then UI Validate Virtical StackBar data with widget "qdosChart"
       | label | value | legendName   |

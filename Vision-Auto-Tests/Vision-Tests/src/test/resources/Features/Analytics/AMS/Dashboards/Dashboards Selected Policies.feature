@@ -32,7 +32,7 @@ Feature: Dashboards Selected Policies
   @SID_6
   Scenario: Select one more policy and Validate that only one policy is selected in DP monitoring dashboard
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Behavioral Protections,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
     Then UI "Validate" Scope Polices
       | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
 
@@ -77,7 +77,7 @@ Feature: Dashboards Selected Policies
   @SID_13
   Scenario: Select one more policy and Validate that only one policy is selected in DefensePro Analytics Dashboard
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Behavioral Protections,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
     Then UI "Validate" Scope Polices
       | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
 
@@ -117,7 +117,7 @@ Feature: Dashboards Selected Policies
   @SID_17
   Scenario: Select one more policy and Validate that only one policy is selected in DefensePro Behavioral Protections Dashboard
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Behavioral Protections,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
     Then UI "Validate" Scope Polices
       | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
 
