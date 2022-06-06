@@ -32,8 +32,10 @@ Feature: DefensePro Behavioral QDoS General Tests
 
   @SID_4
   Scenario:Navigate to DefensePro Behavioral Protections Dashboard And Select Scope
-    Then UI "Select" Scope Polices
-     | devices | type:DefensePro Behavioral Protections,SetId:DefensePro_Set_2,policies:[p1] |
+    Then UI Click Button "Device Selection"
+    Then UI VRM Select device from dashboard and Save Filter
+      | setId            | ports | policies |
+      | DefensePro_Set_2 |       | p1    |
     Then Sleep "10"
 
   @SID_5
@@ -41,19 +43,19 @@ Feature: DefensePro Behavioral QDoS General Tests
     Then UI Click Button "Behavioral Tab" with value "BDoS"
     Then Sleep "2"
     And UI Do Operation "Select" item "Device Selection"
-    Then UI Validate the attribute of "class" are "EQUAL" to
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label                                      | param          | value   |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  |         |
+#      | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  |         |
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  | checked |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.25  |         |
+#      | DefensePro Analytics_RationScopeSelection  |  172.16.22.25  |         |
     Then UI Click Button "Device Selection.Cancel"
     Then UI Click Button "Behavioral Tab" with value "Quantile DoS"
     And UI Do Operation "Select" item "Device Selection"
-    Then UI Validate the attribute of "class" are "EQUAL" to
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label                                      | param          | value   |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  |         |
+#      | DefensePro Analytics_RationScopeSelection  |  172.16.22.50  |         |
       | DefensePro Analytics_RationScopeSelection  |  172.16.22.51  | checked |
-      | DefensePro Analytics_RationScopeSelection  |  172.16.22.25  |         |
+#      | DefensePro Analytics_RationScopeSelection  |  172.16.22.25  |         |
     Then UI Click Button "Device Selection.Cancel"
 
   @SID_6
