@@ -32,7 +32,7 @@ Feature: DefensePro Behavioral CSV report
   Scenario: Create new Report Analytics CSV Delivery
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.50"}},"script":{"source":"ctx._source.endTime='$(date +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
     Given UI "Create" Report With Name "DefensePro Behavioral E2E Test"
-      | Template              | reportType:DefensePro Behavioral Protections,Widgets:[ALL], devices:[{deviceIndex:10, devicePolicies:[pol_1]}] |
+      | Template              | reportType:DefensePro Behavioral Protections,Widgets:[ALL], devices:[{deviceSetId:DefensePro_Set_1, devicePolicies:[pol_1]}] |
       | Share                 | Email:[Test, Test2],Subject:DefensePro Behavioral E2E Test Subject                                             |
       | Format                | Select: CSV                                                                                                    |
       | Time Definitions.Date | Quick:15m                                                                                                      |

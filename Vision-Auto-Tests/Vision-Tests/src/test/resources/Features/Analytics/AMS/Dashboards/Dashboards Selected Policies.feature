@@ -11,30 +11,30 @@ Feature: Dashboards Selected Policies
   @SID_2
   Scenario: Select three policies in DP monitoring dashboard
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[pol1,BDOS,SSL] |
 
   @SID_3
   Scenario: Validate the selected policies in DP monitoring dashboard
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[pol1,BDOS,SSL] |
 
   @SID_4
   Scenario: Unselect one policy in DP monitoring dashboard
     Then UI "UnSelect" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[BDOS] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[BDOS] |
 
   @SID_5
   Scenario: Validate that the unselected policy isn't selected in DP monitoring dashboard
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,SSL] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[pol1,SSL] |
 
 
   @SID_6
   Scenario: Select one more policy and Validate that only one policy is selected in DP monitoring dashboard
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SSL2] |
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SSL2] |
 
   @SID_7
   Scenario: select and cancel with out saving in DP monitoring dashboard
@@ -46,7 +46,7 @@ Feature: Dashboards Selected Policies
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
 #    Then UI "Validate" Scope Polices
-#      | devices | type:DefensePro Analytics,index:10,policies:[] |
+#      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[] |
 
 
 ################################## DefensePro Analytics Dashboard ########################################################################
@@ -56,30 +56,30 @@ Feature: Dashboards Selected Policies
   @SID_9
   Scenario: Select three policies in DefensePro Analytics Dashboard
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[pol1,BDOS,SSL] |
 
   @SID_10
   Scenario: Validate the selected policies in DefensePro Analytics Dashboard
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[pol1,BDOS,SSL] |
 
   @SID_11
   Scenario: Unselect one policy in DefensePro Analytics Dashboard
     Then UI "UnSelect" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[BDOS] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[BDOS] |
 
   @SID_12
   Scenario: Validate that the unselected policy isn't selected in DefensePro Analytics Dashboard
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,SSL] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[pol1,SSL] |
 
 
   @SID_13
   Scenario: Select one more policy and Validate that only one policy is selected in DefensePro Analytics Dashboard
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SSL2] |
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SSL2] |
 
   @SID_14
   Scenario: select and cancel with out saving in DefensePro Analytics Dashboard
@@ -91,7 +91,7 @@ Feature: Dashboards Selected Policies
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
 #    Then UI "Validate" Scope Polices
-#      | devices | type:DefensePro Analytics,index:10,policies:[] |
+#      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[] |
 
 
 #################################### DefensePro Behavioral Protections Dashboard ########################################
@@ -100,26 +100,26 @@ Feature: Dashboards Selected Policies
    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics, index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Analytics, SetId:DefensePro_Set_1,policies:[pol1,BDOS,SSL] |
 
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics, index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Analytics, SetId:DefensePro_Set_1,policies:[pol1,BDOS,SSL] |
 
   @SID_16
   Scenario: Unselect one policy in DefensePro Behavioral Protections Dashboard
     Then UI "UnSelect" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[BDOS] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[BDOS] |
 
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[pol1,SSL] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[pol1,SSL] |
 
 
   @SID_17
   Scenario: Select one more policy and Validate that only one policy is selected in DefensePro Behavioral Protections Dashboard
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SSL2] |
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SSL2] |
 
   @SID_18
   Scenario: select and cancel with out saving in DefensePro Behavioral Protections Dashboard
@@ -131,7 +131,7 @@ Feature: Dashboards Selected Policies
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
 #    Then UI "Validate" Scope Polices
-#      | devices | type:DefensePro Analytics,index:10,policies:[] |
+#      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[] |
 
 
 
@@ -143,26 +143,26 @@ Feature: Dashboards Selected Policies
     Then UI Navigate to "DefensePro Attacks" page via homePage
     Then Sleep "1"
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Attacks, index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Attacks, SetId:DefensePro_Set_1,policies:[pol1,BDOS,SSL] |
 
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Attacks, index:10,policies:[pol1,BDOS,SSL] |
+      | devices | type:DefensePro Attacks, SetId:DefensePro_Set_1,policies:[pol1,BDOS,SSL] |
 
   @SID_20
   Scenario: Unselect one policy in DefensePro Behavioral Protections Dashboard
     Then UI "UnSelect" Scope Polices
-      | devices | type:DefensePro Attacks,index:10,policies:[BDOS] |
+      | devices | type:DefensePro Attacks,SetId:DefensePro_Set_1,policies:[BDOS] |
 
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Attacks,index:10,policies:[pol1,SSL] |
+      | devices | type:DefensePro Attacks,SetId:DefensePro_Set_1,policies:[pol1,SSL] |
 
 
   @SID_21
   Scenario: Select one more policy and Validate that only one policy is selected in DefensePro Behavioral Protections Dashboard
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Attacks,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Attacks,SetId:DefensePro_Set_1,policies:[SSL2] |
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Attacks,index:10,policies:[SSL2] |
+      | devices | type:DefensePro Attacks,SetId:DefensePro_Set_1,policies:[SSL2] |
 
   @SID_22
   Scenario: select and cancel with out saving in DefensePro Behavioral Protections Dashboard
@@ -174,7 +174,7 @@ Feature: Dashboards Selected Policies
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,T_Server"
     Then UI Click Button "Device Selection.Cancel"
 #    Then UI "Validate" Scope Polices
-#      | devices | type:DefensePro Analytics,index:10,policies:[] |
+#      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[] |
 
 
   @SID_23

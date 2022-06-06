@@ -21,7 +21,7 @@ Feature: create AMS Report New Form
     Then UI "Create" Report With Name "New Report"
       | reportType            | DefensePro Analytics Dashboard                                                                  |
       | Design                | Add:[Traffic Bandwidth,Connections Rate,Top Attack Sources,Top Scanners,Top Attack Destination] |
-      | devices               | index:10,ports:[1],policies:[BDOS]                                                              |
+      | devices               | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS]                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                             |
       | Format                | Select: HTML                                                                                    |
 
@@ -30,7 +30,7 @@ Feature: create AMS Report New Form
     Then UI "Validate" Report With Name "New Report"
       | reportType            | DefensePro Analytics Dashboard                                                                      |
       | Design                | Widgets:[Top Attack Sources,Top Scanners,Traffic Bandwidth,Top Attack Destination,Connections Rate] |
-      | devices               | index:10,ports:[1],policies:[BDOS]                                                                  |
+      | devices               | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS]                                                                  |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                 |
       | Format                | Select: HTML                                                                                        |
 
@@ -44,7 +44,7 @@ Feature: create AMS Report New Form
     Then UI "Validate" Report With Name "New Report"
       | reportType            | DefensePro Analytics Dashboard                                                                      |
       | Design                | Widgets:[Top Attack Sources,Top Scanners,Traffic Bandwidth,Top Attack Destination,Connections Rate] |
-      | devices               | index:10,ports:[1],policies:[BDOS]                                                                  |
+      | devices               | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS]                                                                  |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                 |
       | Format                | Select: PDF                                                                                         |
 
@@ -57,7 +57,7 @@ Feature: create AMS Report New Form
     Then UI "Create" Report With Name "New Report2"
       | reportType            | DefensePro Behavioral Protections Dashboard                                                                                                                    |
       | Design                | {"Add":[{"BDoS-TCP SYN":["pps","IPv6"]},"BDoS-TCP SYN ACK",{"BDoS-TCP FIN ACK":["pps","IPv6","Outbound"]},{"BDoS-UDP":["pps","IPv6","Outbound"]},"BDoS-ICMP"]} |
-      | devices               | index:10,ports:[1],policies:[BDOS]                                                                                                                             |
+      | devices               | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS]                                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                                            |
       | Format                | Select: CSV                                                                                                                                                    |
 
@@ -66,7 +66,7 @@ Feature: create AMS Report New Form
     Then UI "Validate" Report With Name "New Report2"
       | reportType            | DefensePro Behavioral Protections Dashboard                                 |
       | Design                | Widgets:[BDoS-TCP SYN,BDoS-TCP SYN ACK,BDoS-TCP FIN ACK,BDoS-UDP,BDoS-ICMP] |
-      | devices               | index:10,ports:[1],policies:[BDOS]                                          |
+      | devices               | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS]                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Format                | Select: CSV                                                                 |
 
@@ -80,7 +80,7 @@ Feature: create AMS Report New Form
     Then UI "Validate" Report With Name "New Report2"
       | reportType            | DefensePro Behavioral Protections Dashboard                                 |
       | Design                | Widgets:[BDoS-TCP SYN,BDoS-TCP SYN ACK,BDoS-TCP FIN ACK,BDoS-UDP,BDoS-ICMP] |
-      | devices               | index:10,ports:[1],policies:[BDOS]                                          |
+      | devices               | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS]                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Format                | Select: PDF                                                                 |
 
@@ -95,7 +95,7 @@ Feature: create AMS Report New Form
     Then UI "Validate" Report With Name "New Report2"
       | reportType            | DefensePro Behavioral Protections Dashboard |
       | Design                | Widgets:[BDoS-TCP SYN,BDoS-TCP SYN ACK]     |
-      | devices               | index:10,ports:[1],policies:[BDOS]          |
+      | devices               | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS]          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]         |
       | Format                | Select: PDF                                 |
 
@@ -148,10 +148,10 @@ Feature: create AMS Report New Form
   @SID_19
   Scenario: VRM Reports - Scope Selection
     Given UI "Create" Report With Name "new"
-      | devices | index:10,ports:[1],policies:[BDOS] |
+      | devices | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS] |
     When UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "new"
     Then UI "Validate" Report With Name "new"
-      | devices | index:10,ports:[1],policies:[BDOS] |
+      | devices | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS] |
 
   @SID_20
   Scenario: Validate Scope Selection Search

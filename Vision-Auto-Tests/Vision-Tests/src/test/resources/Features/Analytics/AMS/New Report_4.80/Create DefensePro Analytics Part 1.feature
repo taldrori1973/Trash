@@ -4,10 +4,10 @@ Feature: DefensePro Analytics Part 1
 
 #Scenario: Create Report of Traffic Global Kbps Inbound
 #Given UI "Create" Report With Name "Traffic Report"
-#| Template-1            | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{devicesIndex:10,devicePorts:[1],devicePolicies:[BDOS,APOL]},{SetId:DefensePro_Set_1}]                             |
-#| Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps/pps,Inbound/Outbound,All/1-100]},ALL/specific widgets],devices:[{devicesIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{SetId:DefensePro_Set_1}] |
+#| Template-1            | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{devicesSetId:DefensePro_Set_1,devicePorts:[1],devicePolicies:[BDOS,APOL]},{SetId:DefensePro_Set_1}]                             |
+#| Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps/pps,Inbound/Outbound,All/1-100]},ALL/specific widgets],devices:[{devicesSetId:DefensePro_Set_2,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{SetId:DefensePro_Set_1}] |
 #| Format                | Select: CSV                                                                                                                                                                            |
-#|Template-3             |reportType:DefensePro Analytics,Widgets:[BDoS-TCP SYN,Concurrent Connections],devices:[{devicesIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{SetId:DefensePro_Set_1}]|
+#|Template-3             |reportType:DefensePro Analytics,Widgets:[BDoS-TCP SYN,Concurrent Connections],devices:[{devicesSetId:DefensePro_Set_2,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{SetId:DefensePro_Set_1}]|
 #| Logo                  | reportLogoPNG.png                                                                                                                                                                      |
 #| Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,SEP,DEC]                                                                                                                                |
 #| Time Definitions.Date | Quick:This Month                                                                                                                                                                       |

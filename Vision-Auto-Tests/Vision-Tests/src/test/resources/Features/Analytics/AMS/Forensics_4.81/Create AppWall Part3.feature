@@ -38,7 +38,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                       |
       | Output                | Action,Threat Category                                                                                                        |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Dos]                                                                    |
-      | devices               | index:10                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                      |
       | Time Definitions.Date | Quick:This Month                                                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                |
       | Format                | Select: HTML                                                                                                                  |
@@ -46,7 +46,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                       |
       | Output                | Action,Threat Category                                                                                                        |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Dos]                                                                    |
-      | devices               | index:10                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                      |
       | Time Definitions.Date | Quick:This Month                                                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                |
       | Format                | Select: HTML                                                                                                                  |
@@ -80,7 +80,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                         |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Automation]               |
-      | devices               | index:10                                                                        |
+      | devices               | SetId:DefensePro_Set_1                                                                        |
       | Time Definitions.Date | Quick:This Month                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body  |
       | Format                | Select: HTML                                                                    |
@@ -88,7 +88,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                         |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Automation]               |
-      | devices               | index:10                                                                        |
+      | devices               | SetId:DefensePro_Set_1                                                                        |
       | Time Definitions.Date | Quick:This Month                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body  |
       | Format                | Select: HTML                                                                    |
@@ -100,7 +100,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                    |
       | Output                | Date and Time,Device IP,Source Port,Web Application Name,Action,Attack Name,Threat Category,Transaction ID |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Path Traversal]                                      |
-      | devices               | index:10                                                                                                   |
+      | devices               | SetId:DefensePro_Set_1                                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
       | Format                | Select: HTML                                                                                               |
@@ -108,7 +108,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                    |
       | Output                | Date and Time,Device IP,Source Port,Web Application Name,Action,Attack Name,Threat Category,Transaction ID |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Path Traversal]                                      |
-      | devices               | index:10                                                                                                   |
+      | devices               | SetId:DefensePro_Set_1                                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
       | Format                | Select: HTML                                                                                               |
@@ -160,7 +160,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                  |
       | Output                | Source IP                                                                                |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Cross site Request Forgery (CSRF)] |
-      | devices               | index:10                                                                                 |
+      | devices               | SetId:DefensePro_Set_1                                                                                 |
       | Time Definitions.Date | Relative:[Days,2]                                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body           |
@@ -169,7 +169,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                  |
       | Output                | Source IP                                                                                |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Cross site Request Forgery (CSRF)] |
-      | devices               | index:10                                                                                 |
+      | devices               | SetId:DefensePro_Set_1                                                                                 |
       | Time Definitions.Date | Relative:[Days,2]                                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body           |
@@ -246,14 +246,14 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                        |
       | Output                | Date and Time,Device IP,Source IP,Transaction ID,Tunnel                        |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Misconfiguration]        |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     Then UI "Validate" Forensics With Name "Threat Category12 Equal"
       | Product               | AppWall                                                                        |
       | Output                | Date and Time,Device IP,Source IP,Transaction ID,Tunnel                        |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Misconfiguration]        |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Threat Category12 Equal"
@@ -328,7 +328,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                              |
       | Output                | Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Injection]                                                                                     |
-      | devices               | index:10                                                                                                                                             |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                       |
@@ -337,7 +337,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                              |
       | Output                | Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Injection]                                                                                     |
-      | devices               | index:10                                                                                                                                             |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                       |
@@ -412,7 +412,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                    |
       | Output                | Date and Time,Device IP,Source Port,Web Application Name,Action,Attack Name,Threat Category,Transaction ID |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Brute Force]                                         |
-      | devices               | index:10                                                                                                   |
+      | devices               | SetId:DefensePro_Set_1                                                                                                   |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
       | Format                | Select: HTML                                                                                               |
@@ -420,7 +420,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                    |
       | Output                | Date and Time,Device IP,Source Port,Web Application Name,Action,Attack Name,Threat Category,Transaction ID |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Brute Force]                                         |
-      | devices               | index:10                                                                                                   |
+      | devices               | SetId:DefensePro_Set_1                                                                                                   |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
       | Format                | Select: HTML                                                                                               |
@@ -494,7 +494,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                         |
       | Output                | Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Severity,User Name |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Intrusion]                                |
-      | devices               | index:10                                                                                        |
+      | devices               | SetId:DefensePro_Set_1                                                                                        |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                 |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
@@ -503,7 +503,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                         |
       | Output                | Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Severity,User Name |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Intrusion]                                |
-      | devices               | index:10                                                                                        |
+      | devices               | SetId:DefensePro_Set_1                                                                                        |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                 |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
@@ -576,7 +576,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[Dos,Information Leakage,Automation,Path Traversal,Response Format Violation,XML & Web Services Violation,Cross site Request Forgery (CSRF)]                                         |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
@@ -585,7 +585,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[Dos,Information Leakage,Automation,Path Traversal,Response Format Violation,XML & Web Services Violation,Cross site Request Forgery (CSRF)]                                         |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
@@ -662,7 +662,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                               |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category                                                                       |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[Hot Link,Misconfiguration,Insecure Communication,Session Management,File Upload Violation]  |
-      | devices               | index:10                                                                                                                                              |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                        |
       | Format                | Select: HTML                                                                                                                                          |
@@ -670,7 +670,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                               |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category                                                                       |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[Hot Link,Misconfiguration,Insecure Communication,Session Management,File Upload Violation]  |
-      | devices               | index:10                                                                                                                                              |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                        |
       | Format                | Select: HTML                                                                                                                                          |
@@ -704,7 +704,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                           |
       | Output                | Source IP,Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Directory,Module,Severity,Tunnel,User Name |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[Logical Attacks,Brute Force]                                            |
-      | devices               | index:10                                                                                                                          |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                          |
       | Time Definitions.Date | Quick:This Month                                                                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                    |
       | Format                | Select: HTML                                                                                                                      |
@@ -712,7 +712,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                           |
       | Output                | Source IP,Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Directory,Module,Severity,Tunnel,User Name |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[Logical Attacks,Brute Force]                                            |
-      | devices               | index:10                                                                                                                          |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                          |
       | Time Definitions.Date | Quick:This Month                                                                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                    |
       | Format                | Select: HTML                                                                                                                      |
@@ -724,7 +724,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[Cross Site Scripting,Access Control,Request Format Violation]                                                                                                                       |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
       | Format                | Select: HTML                                                                                                                                                                                                                                  |
@@ -732,7 +732,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[Cross Site Scripting,Access Control,Request Format Violation]                                                                                                                       |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
       | Format                | Select: HTML                                                                                                                                                                                                                                  |
@@ -784,7 +784,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Tunnel,Operator:Not Equals,Value:Name                                                                                                                                                                                          |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
@@ -793,7 +793,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Tunnel,Operator:Not Equals,Value:Name                                                                                                                                                                                          |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
@@ -870,14 +870,14 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Web Application Name,Operator:Not Equals,Value:Name                                                                                                                                                                            |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
       | Format                | Select: HTML                                                                                                                                                                                                                                  |
     Then UI "Validate" Forensics With Name "Web Application Name Not Equal"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Web Application Name,Operator:Not Equals,Value:Name                                                                                                                                                                            |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
       | Format                | Select: HTML                                                                                                                                                                                                                                  |
     Then UI Delete Forensics With Name "Web Application Name Not Equal"
@@ -930,7 +930,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Blocked,Reported];Event Criteria:Severity,Operator:Equals,Value:[alert];Event Criteria:User Name,Operator:Equals,Value:Name,condition.Custom:1 AND 2 OR 3                               |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
@@ -939,7 +939,7 @@ Feature:Create AppWall Part3
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Blocked,Reported];Event Criteria:Severity,Operator:Equals,Value:[alert];Event Criteria:User Name,Operator:Equals,Value:Name,condition.Custom:1 AND 2 OR 3                               |
-      | devices               | index:10                                                                                                                                                                                                                                      |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |

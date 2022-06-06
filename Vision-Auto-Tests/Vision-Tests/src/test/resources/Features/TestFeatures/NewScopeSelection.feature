@@ -329,7 +329,7 @@ Feature: New Scope Selection Implementation
 #  Scenario: Select policies in DP monitoring dashboard
 #    Then UI "Select" Scope Polices
 #      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_20,policies:[EAAF2, EAAF4, PO_100] |
-##      | devices | type:DefensePro Behavioral Protections,index:10,policies:[SGNS-Global-12] |
+##      | devices | type:DefensePro Behavioral Protections,SetId:DefensePro_Set_1,policies:[SGNS-Global-12] |
 #
 #  Scenario: Unselect one policy in DP monitoring dashboard
 #    Then UI "UnSelect" Scope Polices

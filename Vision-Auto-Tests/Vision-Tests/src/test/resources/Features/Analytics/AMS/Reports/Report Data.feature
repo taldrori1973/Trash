@@ -130,7 +130,7 @@ Feature: VRM AMS Report Data Traffic
       | reportType            | DefensePro Analytics Dashboard                                                |
       | Design                | Delete:[ALL], Add:[Traffic Bandwidth,Connections Rate,Concurrent Connections] |
       | Time Definitions.Date | Relative:[Hours,1]                                                            |
-      | devices               | index:10,policies:[Policy14]                                                  |
+      | devices               | SetId:DefensePro_Set_1,policies:[Policy14]                                                  |
       | Format                | Select: CSV                                                                   |
 
   @SID_18
@@ -226,7 +226,7 @@ Feature: VRM AMS Report Data Traffic
       | reportType            | DefensePro Analytics Dashboard |
       | Design                | Delete:[ALL], Add:[Traffic Bandwidth,Connections Rate,Concurrent Connections] |
       | Time Definitions.Date | Relative:[Hours,1]                                                            |
-      | devices               | index:10,policies:[Policy15]                                                  |
+      | devices               | SetId:DefensePro_Set_1,policies:[Policy15]                                                  |
       | Format                | Select: CSV                                                                   |
     Then UI Click Button "Edit" with value "Policy15 PPS Out Report"
 #    Then UI Click Button "Delivery Step" with value "initial"
@@ -341,7 +341,7 @@ Feature: VRM AMS Report Data Traffic
     Scenario: Create Report of BDOS baselines IPv4
     Given UI "Create" Report With Name "Baselines Report"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10,policies:[pol_1]                   |
+      | devices               | SetId:DefensePro_Set_1,policies:[pol_1]                   |
       | Time Definitions.Date | Relative:[Hours,1]                          |
       | Format                | Select: CSV                                 |
 
@@ -514,7 +514,7 @@ Feature: VRM AMS Report Data Traffic
     Given UI "Create" Report With Name "Baselines Report IPv6"
       | reportType | DefensePro Behavioral Protections Dashboard |
       | Design     | {"Add":[{"BDoS-TCP SYN":["pps","IPv6","Outbound"]},{"BDoS-TCP SYN ACK":["pps","IPv6","Outbound"]},{"BDoS-UDP":["pps","IPv6","Outbound"]},{"BDoS-ICMP":["pps","IPv6","Outbound"]},{"BDoS-TCP RST":["pps","IPv6","Outbound"]},{"BDoS-TCP FIN ACK":["pps","IPv6","Outbound"]},{"BDoS-IGMP":["pps","IPv6","Outbound"]},{"BDoS-TCP Fragmented":["pps","IPv6","Outbound"]},{"BDoS-UDP Fragmented":["pps","IPv6","Outbound"]}]} |
-      | devices    | index:10,policies:[pol_1]                   |
+      | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                   |
       | Format     | Select: CSV                                 |
       | Time Definitions.Date | Relative:[Hours,1]               |
 

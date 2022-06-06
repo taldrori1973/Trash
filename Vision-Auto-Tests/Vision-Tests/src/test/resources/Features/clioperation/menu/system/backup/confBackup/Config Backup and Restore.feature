@@ -78,7 +78,7 @@ Feature: Backup and Restore
       | Basic Info | Description:description backup restore,Impact:impact backup restore, Remedy:remedy backup restore, Severity:Major |
       | Criteria   | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:100,Unit:M;                                     |
       | Schedule   | triggerThisRule:2,Within:10,selectTimeUnit:minutes,alertsPerHour:2                                                |
-      | devices    | index:10                                                                                       |
+      | devices    | SetId:DefensePro_Set_1                                                                                       |
       | Share      | Email:[nobody@alert.local],Subject:subject alert backup restore,Body:message alert backup restore                 |
 
   @SID_13
