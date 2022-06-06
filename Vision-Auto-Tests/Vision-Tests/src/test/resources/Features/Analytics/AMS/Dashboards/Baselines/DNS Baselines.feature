@@ -29,80 +29,6 @@ Feature: VRM DNS baselines
       | DefensePro_Set_1 |       | pol_1    |
     And UI Do Operation "Select" item "Max Min"
 
- # @SID_3
-#  Scenario: DNS baseline DNS-TXT IPv4 In QPS styling
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
-
   @SID_3
   Scenario: DNS baseline DNS-TXT IPv4 In QPS data
     Then UI Validate Line Chart data "DNS-TXT" with Label "Suspected Edge"
@@ -154,83 +80,6 @@ Feature: VRM DNS baselines
   # END DNS TEXT
 
 
-#  @SID_6
-#  Scenario: DNS baseline DNS-A IPv4 In QPS styling
-#    And UI Do Operation "Select" item "DNS-A IPv4"
-#    #And UI Do Operation "Select" item "DNS-A Inbound"
-#    #And UI Do Operation "Select" item "DNS-A QPS"
-#    Then UI Validate Line Chart attributes "DNS-A" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-A" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-A" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-A" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#
-#    Then UI Validate Line Chart attributes "DNS-A" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
-
   @SID_5
   Scenario: DNS baseline DNS-A IPv4 In QPS data
     Then UI Validate Line Chart data "DNS-A" with Label "Suspected Edge"
@@ -280,83 +129,6 @@ Feature: VRM DNS baselines
       | 110   | 13    | 6      |
 
   # END DNS A
-
-#  @SID_9
-#  Scenario: DNS baseline DNS-AAAA IPv4 In QPS styling
-#    And UI Do Operation "Select" item "DNS-AAAA IPv4"
-##    And UI Do Operation "Select" item "DNS-AAAA Inbound"
-##    And UI Do Operation "Select" item "DNS-AAAA QPS"
-#    Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#
-#    Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
 
   @SID_7
   Scenario: DNS baseline DNS-AAAA IPv4 In QPS data
@@ -410,83 +182,6 @@ Feature: VRM DNS baselines
   # END DNS AAAA
 
 
-#  @SID_12
-#  Scenario: DNS baseline DNS-Other IPv4 In QPS styling
-#    And UI Do Operation "Select" item "DNS-Other IPv4"
-##    And UI Do Operation "Select" item "DNS-Other Inbound"
-##    And UI Do Operation "Select" item "DNS-Other QPS"
-#    Then UI Validate Line Chart attributes "DNS-Other" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-Other" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-Other" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-Other" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#
-#    Then UI Validate Line Chart attributes "DNS-Other" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
-
   @SID_9
   Scenario: DNS baseline DNS-Other IPv4 In QPS data
     Then UI Validate Line Chart data "DNS-Other" with Label "Suspected Edge"
@@ -537,83 +232,6 @@ Feature: VRM DNS baselines
 
   # END DNS OTHER
 
-
-#  @SID_15
-#  Scenario: DNS baseline DNS-MX IPv4 In QPS styling
-#    And UI Do Operation "Select" item "DNS-MX IPv4"
-##    And UI Do Operation "Select" item "DNS-MX Inbound"
-##    And UI Do Operation "Select" item "DNS-MX QPS"
-#    Then UI Validate Line Chart attributes "DNS-MX" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-MX" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-MX" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-MX" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#
-#    Then UI Validate Line Chart attributes "DNS-MX" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
 
   @SID_11
   Scenario: DNS baseline DNS-MX IPv4 In QPS data
@@ -666,83 +284,6 @@ Feature: VRM DNS baselines
   # END DNS MX
 
 
-#  @SID_18
-#  Scenario: DNS baseline DNS-NAPTR IPv4 In QPS
-#    And UI Do Operation "Select" item "DNS-NAPTR IPv4"
-##    And UI Do Operation "Select" item "DNS-NAPTR Inbound"
-##    And UI Do Operation "Select" item "DNS-NAPTR QPS"
-#    Then UI Validate Line Chart attributes "DNS-NAPTR" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-NAPTR" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-NAPTR" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-NAPTR" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#
-#    Then UI Validate Line Chart attributes "DNS-NAPTR" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
-
   @SID_13
   Scenario: DNS baseline DNS-NAPTR IPv4 In QPS data
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Suspected Edge"
@@ -793,83 +334,6 @@ Feature: VRM DNS baselines
 
   # END DNS NAPTR
 
-
-#  @SID_21
-#  Scenario: DNS baseline DNS-PTR IPv4 In QPS styling
-#    And UI Do Operation "Select" item "DNS-PTR IPv4"
-##    And UI Do Operation "Select" item "DNS-PTR Inbound"
-##    And UI Do Operation "Select" item "DNS-PTR QPS"
-#    And UI Validate Line Chart attributes "DNS-PTR" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    And UI Validate Line Chart attributes "DNS-PTR" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-PTR" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-PTR" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#
-#    Then UI Validate Line Chart attributes "DNS-PTR" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
 
   @SID_15
   Scenario: DNS baseline DNS-PTR IPv4 In QPS data
@@ -923,83 +387,6 @@ Feature: VRM DNS baselines
   # END DNS PTR
 
 
-#  @SID_24
-#  Scenario: DNS baseline DNS-SOA IPv4 In QPS styling
-#    And UI Do Operation "Select" item "DNS-SOA IPv4"
-##    And UI Do Operation "Select" item "DNS-SOA Inbound"
-##    And UI Do Operation "Select" item "DNS-SOA QPS"
-#    Then UI Validate Line Chart attributes "DNS-SOA" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-SOA" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-SOA" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-SOA" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#
-#    Then UI Validate Line Chart attributes "DNS-SOA" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
-
   @SID_17
   Scenario: DNS baseline DNS-SOA IPv4 In QPS data
     Then UI Validate Line Chart data "DNS-SOA" with Label "Suspected Edge"
@@ -1050,83 +437,6 @@ Feature: VRM DNS baselines
       | 220   | 17    | 9      |
 
   # END DNS SOA
-
-#  @SID_27
-#  Scenario: DNS baseline DNS-SRV IPv4 In QPS styling
-#    And UI Do Operation "Select" item "DNS-SRV IPv4"
-##    And UI Do Operation "Select" item "DNS-SRV Inbound"
-##    And UI Do Operation "Select" item "DNS-SRV QPS"
-#    Then UI Validate Line Chart attributes "DNS-SRV" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-SRV" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-SRV" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#
-#    Then UI Validate Line Chart attributes "DNS-SRV" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#
-#    Then UI Validate Line Chart attributes "DNS-SRV" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
 
   @SID_19
   Scenario: DNS baseline DNS-SRV IPv4 In QPS data
@@ -1199,7 +509,6 @@ Feature: VRM DNS baselines
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
     Then UI Click Button "Behavioral Tab" with value "DNS Flood"
-   # Then UI Open "DP DNS Baseline" Sub Tab
     When UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
@@ -1223,78 +532,6 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-TXT" with Label "Total Traffic"
       | value | count | offset |
       | 4360  | 13    | 6      |
-
-  #  @SID_32
-#  Scenario: DNS baseline RBAC styling
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Suspected Edge"
-#      | attribute             | value   |
-#    # | borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ffa20d |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Normal Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #8cba46 |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Attack Edge"
-#      | attribute             | value   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0       |
-#      | fill                  | false   |
-#      | borderColor           | #ff4c4c |
-#      | lineTension           | 0.35    |
-#      | borderCapStyle        | butt    |
-#      | borderDashOffset      | 0       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | pointHoverRadius      | 4       |
-#      | pointHoverBorderWidth | 1       |
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Legitimate Traffic"
-#      | attribute             | value                   |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                       |
-#      | fill                  | true                    |
-#      | lineTension           | 0.35                    |
-#      | borderCapStyle        | butt                    |
-#      | borderDashOffset      | 0                       |
-#      | borderJoinStyle       | miter                   |
-#      | borderWidth           | 1                       |
-#      | pointHoverRadius      | 4                       |
-#      | pointHoverBorderWidth | 1                       |
-#      | backgroundColor       | rgba(115, 134, 154, 0.1)|
-#      | borderColor           | rgba(115, 134, 154, 5)  |
-#    Then UI Validate Line Chart attributes "DNS-TXT" with Label "Total Traffic"
-#      | attribute             | value                    |
-#     #| borderDash            | [4, 6]  |
-#      | pointRadius           | 0                        |
-#      | fill                  | true                     |
-#      | lineTension           | 0.35                     |
-#      | borderCapStyle        | butt                     |
-#      | borderDashOffset      | 0                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderWidth           | 1                        |
-#      | pointHoverRadius      | 4                        |
-#      | pointHoverBorderWidth | 1                        |
-#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-#      | borderColor           | rgba(141, 190, 214, 5)   |
-#
-#    * UI Open "Configurations" Tab
     Then UI logout and close browser
 
   @SID_23
@@ -1303,7 +540,6 @@ Feature: VRM DNS baselines
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
     Then UI Click Button "Behavioral Tab" with value "DNS Flood"
-   # Then UI Open "DP DNS Baseline" Sub Tab
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
@@ -1317,7 +553,6 @@ Feature: VRM DNS baselines
     Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
     Then UI Click Button "Behavioral Tab" with value "DNS Flood"
-   # Then UI Open "DP DNS Baseline" Sub Tab
     When UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
