@@ -293,7 +293,7 @@ Feature: Forensic Attack details Tests
 
   @SID_30
   Scenario: New attack and create forensics view
-    Given CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_1" and wait 60 seconds
+    Given CLI simulate 1 attacks of type "rest_traffic_filter" on SetId "DefensePro_Set_1" and wait 120 seconds
     When UI "Create" Forensics With Name "Attack_Details"
       | Output | Start Time,Action,Attack ID,Threat Category,Duration |
 
@@ -302,6 +302,7 @@ Feature: Forensic Attack details Tests
   Scenario: VRM - open forensic "Attack details" table
     Then UI "Generate" Forensics With Name "Attack_Details"
       | timeOut | 90 |
+    Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Attack_Details,0"
 
 
