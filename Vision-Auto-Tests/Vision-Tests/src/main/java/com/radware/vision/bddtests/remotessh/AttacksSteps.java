@@ -2,17 +2,24 @@ package com.radware.vision.bddtests.remotessh;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
 import com.radware.vision.automation.base.TestBase;
 import cucumber.api.java.en.Given;
 
-import java.util.Optional;
-
 public class AttacksSteps extends TestBase {
+    private static AttacksSteps attacksSteps_instance = null;
+    private LinuxFileServer linuxFileServer;
 
+    public AttacksSteps(){
+        setMyGenericLinux();
+    }
+    public static AttacksSteps getInstance(){
+        if(attacksSteps_instance == null)
+            attacksSteps_instance = new AttacksSteps();
+        return attacksSteps_instance;
+    }
 
     /**
      * Run perl script on simulator machine
@@ -25,7 +32,7 @@ public class AttacksSteps extends TestBase {
      */
     @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on (SetId|DeviceID) \"(.*)\"(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?( inSecondaryServer)?$")
     public void runSimulatorFromDevice(int numOfAttacks, String fileName, String idType, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId, String inSecondaryServer) {
-        String deviceIp = "";
+        String deviceIp;
 
         try {
             TreeDeviceManagementDto device =
@@ -44,13 +51,9 @@ public class AttacksSteps extends TestBase {
                 wait = waitTimeout;
             }
             String commandToExecute = getCommandToExecute(deviceIp, numOfAttacks, loopDelay, fileName, withAttackId != null, inSecondaryServer != null);
-            Optional<LinuxFileServer> genericLinuxServerOpt = serversManagement.getLinuxFileServer();
-            if (!genericLinuxServerOpt.isPresent()) {
-                throw new Exception("The genericLinuxServer Not found!");
-            }
-            CliOperations.runCommand(genericLinuxServerOpt.get(), commandToExecute, 30 * 1000, false, true, false);
+            CliOperations.runCommand(linuxFileServer, commandToExecute, 30 * 1000, false, true, false);
 
-            Thread.sleep(wait * 1000);
+            Thread.sleep(wait * 1000L);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to simulate attack: " + fileName, Reporter.FAIL);
         }
@@ -64,21 +67,16 @@ public class AttacksSteps extends TestBase {
     @Given("^CLI kill all simulator attacks on (current vision|Secondary Server)")
     public void killAllAttacksOnVision(String server) {
         try {
-            String visionIP = "";//clientConfigurations.getHostIp();
+            String visionIP = "";
 
-            if(server.equals("current vision"))
+            if (server.equals("current vision"))
                 visionIP = clientConfigurations.getHostIp();
             else if (server.equals("Secondary Server"))
                 visionIP = getSutManager().getpair().getPairIp();
 
-            Optional<LinuxFileServer> genericLinuxServerOpt = serversManagement.getLinuxFileServer();
-            if (!genericLinuxServerOpt.isPresent()) {
-                throw new Exception("The genericLinuxServer Not found!");
-            }
-            // fetch the last two octets
-            visionIP = visionIP.substring(visionIP.indexOf(".", visionIP.indexOf(".") + 1) + 1, visionIP.length());
+            visionIP = visionIP.substring(visionIP.indexOf(".", visionIP.indexOf(".") + 1) + 1);
             String commandToExecute = "/home/radware/run-kill_all_DP_attacks.sh stop " + visionIP;
-            CliOperations.runCommand(serversManagement.getLinuxFileServer().get(), commandToExecute);
+            CliOperations.runCommand(linuxFileServer, commandToExecute);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to kill simulators, " + e.getMessage(), Reporter.FAIL);
         }
@@ -86,60 +84,74 @@ public class AttacksSteps extends TestBase {
 
     private String getCommandToExecute(String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId, boolean inSecondaryServer) {
         String fakeIpPrefix = "50.50";
-        String visionIP = "";
-        if(!inSecondaryServer)
+        String visionIP;
+        if (!inSecondaryServer)
             visionIP = clientConfigurations.getHostIp();
         else
             visionIP = getSutManager().getpair().getPairIp();
 
         String interFace;
-        String gwMacAdress = getServersManagement().getLinuxFileServer().get().getGwMacAddress();//"00:14:69:4c:70:42"; //172.19.1.1 GW mac
         String commandToExecute = "";
-        Optional<LinuxFileServer> genericLinuxServer = TestBase.serversManagement.getLinuxFileServer();
         try {
-            commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
+            String gwMacAdress = linuxFileServer.getGwMacAddress();//"00:14:69:4c:70:42"; //172.19.1.1 GW mac
+            String deviceSubNet = deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
+            String visionSubNet = visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1));
+            String INTERFACE_SCRIPT_PATH = "/home/radware/getInterfaceByIP.sh";
+
+            commandToExecute = "sudo " + INTERFACE_SCRIPT_PATH + " " + deviceSubNet;
             if (deviceIp.startsWith(fakeIpPrefix)) {
-                visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
+                visionIP = visionIP.replace(visionSubNet, fakeIpPrefix);
             } else {
                 String isDeviceInterfaceExistInVision = "0";
-                if (isDeviceInterfaceExistInVision.equals("0"))
-                    commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1));
-                else {
-                    commandToExecute = String.format("ifconfig | grep \"inet addr:%s\" | wc -l", deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
-                    CliOperations.runCommand(genericLinuxServer.get(), commandToExecute);
-                    isDeviceInterfaceExistInVision = CliOperations.lastRow;
-                    if (!isDeviceInterfaceExistInVision.equals("0")) {
-                        visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
-                    }
-                    commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
-                }
+//                if (isDeviceInterfaceExistInVision.equals("0"))
+                    commandToExecute = "sudo  " + INTERFACE_SCRIPT_PATH + " " + visionSubNet;
+//                else {
+//                    commandToExecute = String.format("ifconfig | grep \"inet addr:%s\" | wc -l", deviceSubNet);
+//                    CliOperations.runCommand(linuxFileServer, commandToExecute);
+//                    isDeviceInterfaceExistInVision = CliOperations.lastRow;
+//                    if (!isDeviceInterfaceExistInVision.equals("0")) {
+//                        visionIP = visionIP.replace(visionSubNet, deviceSubNet);
+//                    }
+//                    commandToExecute = "sudo " + INTERFACE_SCRIPT_PATH + " " + deviceSubNet;
+//                }
             }
 
             //Reconnect to avoid disturbing another simulator attack!!!
-            genericLinuxServer.get().connect();
-            CliOperations.runCommand(genericLinuxServer.get(), commandToExecute);
+            linuxFileServer.connect();
+            CliOperations.runCommand(linuxFileServer, commandToExecute);
             interFace = CliOperations.lastRow;
 
             commandToExecute = buildCommandToExecute(interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, gwMacAdress, withAttackId);
 
             //for the next generations
-            genericLinuxServer.get().connect();
+            linuxFileServer.connect();
         } catch (Exception e) {
             BaseTestUtils.report("Failed to simulate attack: " + fileName + e.getMessage(), Reporter.FAIL);
         }
         return commandToExecute;
     }
 
-    private String buildCommandToExecute(String interFace, String visionIP, String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, String gwMacAdress, boolean withAttackId) {
-        StringBuilder buildCommand = new StringBuilder();
-        buildCommand.append("sudo perl sendfile.pl ").append("-i ").append(interFace).append(" -d ").append(visionIP)
-                .append(" -si ").append(deviceIp).append(" -s ").append(numOfAttacks)
-                .append(" -ld ").append(loopDelay)
-                .append(withAttackId ? " -ai 1 " : "")
-                .append(" -f ").append(fileName).append(".pcap")
-                .append(" -dm " + gwMacAdress)
-                .append(" &");
+    private String buildCommandToExecute(String interFace, String visionIP, String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, String gwMacAddress, boolean withAttackId) {
 
-        return buildCommand.toString();
+        return "sudo perl sendfile.pl " + "-i " + interFace + " -d " + visionIP +
+                " -si " + deviceIp + " -s " + numOfAttacks +
+                " -ld " + loopDelay +
+                (withAttackId ? " -ai 1 " : "") +
+                " -f " + fileName + ".pcap" +
+                " -dm " + gwMacAddress +
+                " &";
+    }
+
+    private void setMyGenericLinux() {
+        try {
+            if (linuxFileServer == null) {
+                if (!serversManagement.getLinuxFileServer().isPresent()) {
+                    BaseTestUtils.report("The genericLinuxServer Not found!", Reporter.FAIL);
+                }
+                linuxFileServer = serversManagement.getLinuxFileServer().get();
+            }
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 }

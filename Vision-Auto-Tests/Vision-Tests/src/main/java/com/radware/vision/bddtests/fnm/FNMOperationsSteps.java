@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class FNMOperationsSteps extends TestBase {
 
-    AttacksSteps attacksSteps = new AttacksSteps();
+    AttacksSteps attacksSteps = AttacksSteps.getInstance();
 
     /**
      * Run perl script on simulator machine
