@@ -2,7 +2,7 @@
 Feature: ScopePolicies in Forensics
 
   @SID_1
-  Scenario: Navigate to NEW REPORTS page
+  Scenario: Navigate to NEW FORENSICS page
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
 
