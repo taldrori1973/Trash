@@ -6,11 +6,10 @@ Feature: VRM DNS baselines
     Given CLI kill all simulator attacks on current vision
     Given CLI Clear vision logs
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
-    Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
+    When REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
-
-    Given CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
+    When CLI simulate 200 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_2
   Scenario: login and select device
@@ -60,25 +59,19 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-TXT" with Label "Suspected Edge"
       | value | count | offset |
       | 739   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-TXT" with Label "Normal Edge"
       | value | count | offset |
       | 720   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-TXT" with Label "Attack Edge"
       | value | count | offset |
       | 758   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-TXT" with Label "Legitimate Traffic"
       | value | count | offset |
       | 180   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-TXT" with Label "Total Traffic"
       | value | count | offset |
       | 180   | 13    | 6      |
-
   # END DNS TEXT
-
 
   @SID_5
   Scenario: DNS baseline DNS-A IPv4 In QPS data
@@ -111,23 +104,18 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-A" with Label "Suspected Edge"
       | value | count | offset |
       | 7253  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-A" with Label "Normal Edge"
       | value | count | offset |
       | 6750  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-A" with Label "Attack Edge"
       | value | count | offset |
       | 7794  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-A" with Label "Legitimate Traffic"
       | value | count | offset |
       | 100   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-A" with Label "Total Traffic"
       | value | count | offset |
       | 110   | 13    | 6      |
-
   # END DNS A
 
   @SID_7
@@ -161,26 +149,19 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-AAAA" with Label "Suspected Edge"
       | value | count | offset |
       | 1386  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-AAAA" with Label "Normal Edge"
       | value | count | offset |
       | 1350  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-AAAA" with Label "Attack Edge"
       | value | count | offset |
       | 1423  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-AAAA" with Label "Legitimate Traffic"
       | value | count | offset |
       | 160   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-AAAA" with Label "Total Traffic"
       | value  | count | offset |
       | 844403 | 13    | 6      |
-
-
   # END DNS AAAA
-
 
   @SID_9
   Scenario: DNS baseline DNS-Other IPv4 In QPS data
@@ -213,25 +194,19 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-Other" with Label "Suspected Edge"
       | value | count | offset |
       | 184   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-Other" with Label "Normal Edge"
       | value | count | offset |
       | 200   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-Other" with Label "Attack Edge"
       | value | count | offset |
       | 189   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-Other" with Label "Legitimate Traffic"
       | value | count | offset |
       | 260   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-Other" with Label "Total Traffic"
       | value | count | offset |
       | 280   | 13    | 6      |
-
   # END DNS OTHER
-
 
   @SID_11
   Scenario: DNS baseline DNS-MX IPv4 In QPS data
@@ -264,25 +239,19 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-MX" with Label "Suspected Edge"
       | value | count | offset |
       | 3806  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-MX" with Label "Normal Edge"
       | value | count | offset |
       | 3650  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-MX" with Label "Attack Edge"
       | value | count | offset |
       | 4024  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-MX" with Label "Legitimate Traffic"
       | value | count | offset |
       | 120   | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-MX" with Label "Total Traffic"
       | value | count | offset |
       | 130   | 13    | 6      |
-
   # END DNS MX
-
 
   @SID_13
   Scenario: DNS baseline DNS-NAPTR IPv4 In QPS data
@@ -315,25 +284,19 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Suspected Edge"
       | value | count | offset |
       | 184   | 16    | 9      |
-
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Normal Edge"
       | value | count | offset |
       | 185   | 16    | 9      |
-
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Attack Edge"
       | value | count | offset |
       | 189   | 16    | 9      |
-
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Legitimate Traffic"
       | value | count | offset |
       | 220   | 16    | 9      |
-
     Then UI Validate Line Chart data "DNS-NAPTR" with Label "Total Traffic"
       | value | count | offset |
       | 240   | 16    | 9      |
-
   # END DNS NAPTR
-
 
   @SID_15
   Scenario: DNS baseline DNS-PTR IPv4 In QPS data
@@ -359,7 +322,6 @@ Feature: VRM DNS baselines
       | value | count | offset |
       | 4640  | 1     | 1      |
 
-
   @SID_16
   Scenario: DNS baseline DNS-PTR IPv6 In QPS data
     And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-PTR,IPv6"
@@ -367,25 +329,19 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-PTR" with Label "Suspected Edge"
       | value | count | offset |
       | 3806  | 16    | 9      |
-
     Then UI Validate Line Chart data "DNS-PTR" with Label "Normal Edge"
       | value | count | offset |
       | 3600  | 16    | 9      |
-
     Then UI Validate Line Chart data "DNS-PTR" with Label "Attack Edge"
       | value | count | offset |
       | 4024  | 16    | 9      |
-
     Then UI Validate Line Chart data "DNS-PTR" with Label "Legitimate Traffic"
       | value | count | offset |
       | 140   | 16    | 9      |
-
     Then UI Validate Line Chart data "DNS-PTR" with Label "Total Traffic"
       | value | count | offset |
       | 150   | 16    | 9      |
-
   # END DNS PTR
-
 
   @SID_17
   Scenario: DNS baseline DNS-SOA IPv4 In QPS data
@@ -411,7 +367,6 @@ Feature: VRM DNS baselines
       | value | count | offset |
       | 4760  | 1     | 1      |
 
-
   @SID_18
   Scenario: DNS baseline DNS-SOA IPv6 In QPS data
     And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SOA,IPv6"
@@ -419,23 +374,18 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-SOA" with Label "Suspected Edge"
       | value | count | offset |
       | 184   | 17    | 9      |
-
     Then UI Validate Line Chart data "DNS-SOA" with Label "Normal Edge"
       | value | count | offset |
       | 180   | 17    | 9      |
-
     Then UI Validate Line Chart data "DNS-SOA" with Label "Attack Edge"
       | value | count | offset |
       | 189   | 17    | 9      |
-
     Then UI Validate Line Chart data "DNS-SOA" with Label "Legitimate Traffic"
       | value | count | offset |
       | 200   | 17    | 9      |
-
     Then UI Validate Line Chart data "DNS-SOA" with Label "Total Traffic"
       | value | count | offset |
       | 220   | 17    | 9      |
-
   # END DNS SOA
 
   @SID_19
@@ -462,7 +412,6 @@ Feature: VRM DNS baselines
       | value | count | offset |
       | 4840  | 1     | 1      |
 
-
   @SID_20
   Scenario: DNS baseline DNS-SRV IPv6 In QPS data
     And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-SRV,IPv6"
@@ -470,25 +419,19 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-SRV" with Label "Suspected Edge"
       | value | count | offset |
       | 184   | 13    | 10     |
-
     Then UI Validate Line Chart data "DNS-SRV" with Label "Normal Edge"
       | value | count | offset |
       | 190   | 13    | 10     |
-
     Then UI Validate Line Chart data "DNS-SRV" with Label "Attack Edge"
       | value | count | offset |
       | 189   | 13    | 10     |
-
     Then UI Validate Line Chart data "DNS-SRV" with Label "Legitimate Traffic"
       | value | count | offset |
       | 240   | 13    | 10     |
-
     And UI Validate Line Chart data "DNS-SRV" with Label "Total Traffic"
       | value | count | offset |
       | 260   | 13    | 10     |
-
   # END DNS SRV
-
 
   @SID_21
   Scenario: DNS baseline Filter
@@ -501,7 +444,6 @@ Feature: VRM DNS baselines
     Then UI Validate Session Storage "DNS-A" exists "false"
     And UI Open "Configurations" Tab
     And UI logout and close browser
-
 
   @SID_22
   Scenario: DNS baseline RBAC data
@@ -537,11 +479,11 @@ Feature: VRM DNS baselines
   @SID_23
   Scenario: DNS baseline RBAC negative
     Given UI Login with user "sec_admin_DP50_policy1" and password "radware"
-    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then Sleep "1"
-    Then UI Click Button "Behavioral Tab" with value "DNS Flood"
-    And UI Do Operation "Select" item "Device Selection"
-    And UI VRM Select device from dashboard and Save Filter
+    When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    When Sleep "1"
+    When UI Click Button "Behavioral Tab" with value "DNS Flood"
+    When UI Do Operation "Select" item "Device Selection"
+    When UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | policy1  |
     * UI Open "Configurations" Tab
@@ -568,7 +510,6 @@ Feature: VRM DNS baselines
       | DNS-A |
     Then UI VRM Select Widgets
       | DNS-A |
-
     And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-A-1,IPv6"
     Then UI Validate Line Chart data "DNS-A-2" with Label "Suspected Edge"
       | value | count | offset |
@@ -585,7 +526,6 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-A-2" with Label "Total Traffic"
       | value | count | offset |
       | 4200  | 13    | 6      |
-
     Then UI Validate Line Chart data "DNS-A-1" with Label "Suspected Edge"
       | value | count | offset |
       | 7253  | 13    | 6      |
@@ -601,7 +541,6 @@ Feature: VRM DNS baselines
     Then UI Validate Line Chart data "DNS-A-1" with Label "Total Traffic"
       | value | count | offset |
       | 110   | 13    | 6      |
-
     Then UI logout and close browser
 
   @SID_26
