@@ -132,7 +132,7 @@ Feature: VRM AMS Report Data Traffic
       | reportType            | DefensePro Analytics Dashboard                                                |
       | Design                | Delete:[ALL], Add:[Traffic Bandwidth,Connections Rate,Concurrent Connections] |
       | Time Definitions.Date | Relative:[Hours,1]                                                            |
-      | devices               | index:10,policies:[Policy14]                                                  |
+      | devices               | SetId:DefensePro_Set_1,policies:[Policy14]                                                  |
       | Format                | Select: CSV                                                                   |
 
   @SID_18
@@ -228,7 +228,7 @@ Feature: VRM AMS Report Data Traffic
 #      | reportType            | DefensePro Analytics Dashboard |
 #      | Design                | Delete:[ALL], Add:[Traffic Bandwidth,Connections Rate,Concurrent Connections] |
 #      | Time Definitions.Date | Relative:[Hours,1]                                                            |
-#      | devices               | index:10,policies:[Policy15]                                                  |
+#      | devices               | SetId:DefensePro_Set_1,policies:[Policy15]                                                  |
 #      | Format                | Select: CSV                                                                   |
 #    Then UI Click Button "Edit" with value "Policy15 PPS Out Report"
 ##    Then UI Click Button "Delivery Step" with value "initial"

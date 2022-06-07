@@ -24,25 +24,25 @@ Feature: VRM Alerts RBAC
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert All All"
 
     When UI "Create" Alerts With Name "Alert DP.10 All"
-      | devices    | index:10                                                     |
+      | devices    | SetId:DefensePro_Set_1                                                     |
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.10 All"
 
     When UI "Create" Alerts With Name "Alert DP.11 All"
-      | devices    | index:11                                                     |
+      | devices    | SetId:DefensePro_Set_2                                                     |
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.11 All"
 
     When UI "Create" Alerts With Name "Alert DP.10 Policy14 Policy15"
-      | devices    | index:10,policies:[Policy14, Policy15];                      |
+      | devices    | SetId:DefensePro_Set_1,policies:[Policy14, Policy15];                      |
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.10 Policy14 Policy15"
 
     When UI "Create" Alerts With Name "Alert_DP.10_Policy14"
-      | devices    | index:10 ,policies:[Policy14];                               |
+      | devices    | SetId:DefensePro_Set_1 ,policies:[Policy14];                               |
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_DP.10_Policy14"

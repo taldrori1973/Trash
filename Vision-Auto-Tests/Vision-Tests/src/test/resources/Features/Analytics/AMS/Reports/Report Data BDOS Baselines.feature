@@ -35,7 +35,7 @@ Feature: VRM AMS Report Data BDoS baselines
   Scenario: Create Report of BDOS baselines IPv4 bps Inbound
     Given UI "Create" Report With Name "BDOS baselines IPv4 bps Inbound"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10,policies:[pol_1]                   |
+      | devices               | SetId:DefensePro_Set_1,policies:[pol_1]                   |
       | Time Definitions.Date | Relative:[Hours,1]                          |
       | Format                | Select: CSV                                 |
 
@@ -233,7 +233,7 @@ Feature: VRM AMS Report Data BDoS baselines
     Given UI "Create" Report With Name "BDOS baselines IPv6 PPS Outbound"
       | reportType            | DefensePro Behavioral Protections Dashboard                                                                                                                                                                                                                                                                                                                                                                              |
       | Design                | {"Add":[{"BDoS-TCP SYN":["pps","IPv6","Outbound"]},{"BDoS-TCP SYN ACK":["pps","IPv6","Outbound"]},{"BDoS-UDP":["pps","IPv6","Outbound"]},{"BDoS-ICMP":["pps","IPv6","Outbound"]},{"BDoS-TCP RST":["pps","IPv6","Outbound"]},{"BDoS-TCP FIN ACK":["pps","IPv6","Outbound"]},{"BDoS-IGMP":["pps","IPv6","Outbound"]},{"BDoS-TCP Fragmented":["pps","IPv6","Outbound"]},{"BDoS-UDP Fragmented":["pps","IPv6","Outbound"]}]} |
-      | devices               | index:10,policies:[pol_1]                                                                                                                                                                                                                                                                                                                                                                                                |
+      | devices               | SetId:DefensePro_Set_1,policies:[pol_1]                                                                                                                                                                                                                                                                                                                                                                                                |
       | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,1]                                                                                                                                                                                                                                                                                                                                                                                                       |
 

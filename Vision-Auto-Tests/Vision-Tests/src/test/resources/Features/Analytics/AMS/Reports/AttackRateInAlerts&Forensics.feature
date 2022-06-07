@@ -170,35 +170,35 @@ Feature: AttackRateInAlerts&Forensics
   @SID1_8
   Scenario: Create Alerts Criteria rate bps gt Kilo
     When UI "Create" Alerts With Name "bps greater than K"
-      | devices  | index:10                                                                      |
+      | devices  | SetId:DefensePro_Set_1                                                                      |
       | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:300,Unit:K; |
       | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60          |
 
   @SID_19
   Scenario: Create Alerts Criteria rate bps gt Mega
     When UI "Create" Alerts With Name "bps greater than M"
-      | devices  | index:10                                                                      |
+      | devices  | SetId:DefensePro_Set_1                                                                      |
       | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:600,Unit:M; |
       | Schedule | triggerThisRule:4,Within:10,selectTimeUnit:minutes,alertsPerHour:60           |
 
   @SID_20
   Scenario: Create Alerts Criteria rate bps gt Giga
     When UI "Create" Alerts With Name "bps greater than G"
-      | devices  | index:10                                                                    |
+      | devices  | SetId:DefensePro_Set_1                                                                    |
       | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:G; |
       | Schedule | triggerThisRule:1,Within:10,selectTimeUnit:minutes,alertsPerHour:60         |
 
   @SID_21
   Scenario: Create Alerts Criteria rate pps gt Giga
     When UI "Create" Alerts With Name "pps greater than G"
-      | devices  | index:10                                                                    |
+      | devices  | SetId:DefensePro_Set_1                                                                    |
       | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:G; |
       | Schedule | checkBox:Trigger,alertsPerHour:60                                           |
 
   @SID_22
   Scenario: Create Alerts Criteria rate pps gt Tera
     When UI "Create" Alerts With Name "pps greater than T"
-      | devices  | index:10                                                                    |
+      | devices  | SetId:DefensePro_Set_1                                                                    |
       | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:1,Unit:T; |
       | Schedule | checkBox:Trigger,alertsPerHour:60                                           |
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out1" on "ROOT_SERVER_CLI"
@@ -264,7 +264,7 @@ Feature: AttackRateInAlerts&Forensics
   @SID_30
   Scenario: Create Alerts Criteria rate bps gt Kilo
     When UI "Create" Alerts With Name "bps greater than K_1"
-      | devices  | index:10                                                                      |
+      | devices  | SetId:DefensePro_Set_1                                                                      |
       | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:300,Unit:K; |
       | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60          |
 

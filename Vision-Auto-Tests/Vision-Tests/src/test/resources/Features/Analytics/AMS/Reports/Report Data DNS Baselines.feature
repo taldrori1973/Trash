@@ -43,7 +43,7 @@ Feature: VRM AMS Report Data DNS baselines
     Given UI "Create" Report With Name "DNS Baselines Report IPv4"
       | reportType | DefensePro Behavioral Protections Dashboard |
       | Design     | {"Add":[{"DNS-A":["IPv4"]},{"DNS-AAAA":["IPv4"]},{"DNS-MX":["IPv4"]},{"DNS-SRV":["IPv4"]},{"DNS-TXT":["IPv4"]},{"DNS-SOA":["IPv4"]},{"DNS-PTR":["IPv4"]},{"DNS-NAPTR":["IPv4"]},{"DNS-Other":["IPv4"]}]} |
-      | devices    | index:10,policies:[pol_1]                   |
+      | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                   |
       | Format     | Select: CSV                                 |
       | Time Definitions.Date | Relative:[Hours,1]               |
 
@@ -277,7 +277,7 @@ Feature: VRM AMS Report Data DNS baselines
     Given UI "Create" Report With Name "DNS Baselines Report IPv6"
       | reportType | DefensePro Behavioral Protections Dashboard |
       | Design     | {"Add":[{"DNS-A":["IPv6"]},{"DNS-AAAA":["IPv6"]},{"DNS-MX":["IPv6"]},{"DNS-SRV":["IPv6"]},{"DNS-TXT":["IPv6"]},{"DNS-SOA":["IPv6"]},{"DNS-PTR":["IPv6"]},{"DNS-NAPTR":["IPv6"]},{"DNS-Other":["IPv6"]}]} |
-      | devices    | index:10,policies:[pol_1]                   |
+      | devices    | SetId:DefensePro_Set_1,policies:[pol_1]                   |
       | Format     | Select: CSV                                 |
       | Time Definitions.Date | Relative:[Hours,1]               |
 

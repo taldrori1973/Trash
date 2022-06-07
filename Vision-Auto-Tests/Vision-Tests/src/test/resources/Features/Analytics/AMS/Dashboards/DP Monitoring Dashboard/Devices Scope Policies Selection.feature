@@ -13,7 +13,7 @@ Feature: Device Scope Policies Selection
     Given UI Click Button "Device Selection"
 
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SGNS-Global-12,SGNS-Global-30] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SGNS-Global-12,SGNS-Global-30] |
     Given UI Click Button "Device Selection"
     Given UI Click Button "Devices Policies"
     Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "DefensePro,DP_90.110,SGNS-Global-12" is "EQUALS" to "true"
@@ -28,7 +28,7 @@ Feature: Device Scope Policies Selection
     Given UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "false"
     Given UI Click Button "Device Selection.Save Filter"
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SGNS-Global-12,SGNS-Global-30] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SGNS-Global-12,SGNS-Global-30] |
     Given UI Click Button "Device Selection"
     Given UI Click Button "Devices Policies"
     Then UI Validate the attribute "data-debug-checked" Of Label "Policy Selection" With Params "DefensePro,DP_90.110,SGNS-Global-12" is "EQUALS" to "true"
@@ -44,7 +44,7 @@ Feature: Device Scope Policies Selection
     Given UI Click Button "Device Selection"
 
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:12,policies:[SGNS-Global-10] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_3,policies:[SGNS-Global-10] |
     Given UI Click Button "Device Selection"
     Given UI Click Button "Devices Policies"
     Then UI validate Checkbox by label "Device Selection.All Devices Selection" with extension "" if Selected "false"
@@ -66,10 +66,10 @@ Feature: Device Scope Policies Selection
     Given UI Click Button "Device Selection"
 
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SGNS-Global-12,SGNS-Global-30] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SGNS-Global-12,SGNS-Global-30] |
 
     Then UI "Validate" Scope Polices
-      | devices | type:DefensePro Analytics,index:12,policies:[SGNS-Global-10] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_3,policies:[SGNS-Global-10] |
 
   @SID_6
   Scenario: Unselect device , select all policies , check all selected device
@@ -112,7 +112,7 @@ Feature: Device Scope Policies Selection
     Given UI Click Button "Device Selection"
 
     Then UI "Select" Scope Polices
-      | devices | type:DefensePro Analytics,index:10,policies:[SGNS-Global-12,SGNS-Global-30] |
+      | devices | type:DefensePro Analytics,SetId:DefensePro_Set_1,policies:[SGNS-Global-12,SGNS-Global-30] |
     Given UI Click Button "Device Selection"
     Given UI Click Button "Devices Policies"
     Then UI validate Checkbox by label "Device Selection.All Devices Selection" with extension "" if Selected "false"

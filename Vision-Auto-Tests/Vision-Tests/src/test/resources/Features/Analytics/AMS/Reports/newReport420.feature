@@ -32,10 +32,10 @@ Feature: new report
 
   Scenario: VRM Reports - Scope Selection
     Given UI "Create" Report With Name "new"
-      | devices | index:10,ports:[1],policies:[BDOS] |
+      | devices | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS] |
     When UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "new"
     Then UI "Validate" Report With Name "new"
-      | devices | index:10,ports:[1],policies:[BDOS] |
+      | devices | SetId:DefensePro_Set_1,ports:[1],policies:[BDOS] |
 
   Scenario: Validate Scope Selection Search
     Then UI Validate Scope Selection Search With Element Type "DefensePro" And Device index 10
