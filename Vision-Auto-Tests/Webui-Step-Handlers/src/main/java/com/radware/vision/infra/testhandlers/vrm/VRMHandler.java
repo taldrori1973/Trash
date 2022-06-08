@@ -110,7 +110,7 @@ public class VRMHandler {
 
         //select the device
         checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
-        checkbox.check();
+        checkbox.click();
         ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
 
 
@@ -932,10 +932,10 @@ public class VRMHandler {
                         policyText.type(entry.name.trim());
                         checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(poPrefix));
                         if (checkbox.getWebElement() != null)
-                            checkbox.check();
+                            checkbox.click();
                         else
                             throw new Exception(" checkBox element not found " + entry.name + " ");
-//                        checkbox.check();
+//                        checkbox.click();
                         switch (deviceType.toLowerCase()) {
                             case "defenseflow":
                                 break;
@@ -949,7 +949,7 @@ public class VRMHandler {
                                 BasicOperationsHandler.setTextField("Filter", "");
                                 ((WebUITextField) textField).sendKeysByCharacter(entry.name);
                                 if (checkbox.getWebElement() != null)
-                                    checkbox.check();
+                                    checkbox.click();
                                 else
                                     throw new Exception(" checkBox element not found " + entry.name + " ");
 
@@ -958,7 +958,7 @@ public class VRMHandler {
                                 throw new Exception(" checkBox element not found " + entry.name + " ");
                         }
                     } else {
-                        checkbox.check();
+                        checkbox.click();
                     }
                 }
             }
@@ -1111,7 +1111,7 @@ public class VRMHandler {
                         BaseTestUtils.report(e.getMessage(), e);
                     }
                     checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row-" + deviceName + "-cbox"));
-                    checkbox.check();
+                    checkbox.click();
                     boolean changePorts = entry.ports != null && !entry.ports.equals("");
                     List<String> portsList;
                     if (changePorts) {
@@ -1121,7 +1121,7 @@ public class VRMHandler {
                             portsList = Arrays.asList(entry.ports.split("(,)"));
                             for (String port : portsList) {
                                 checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2_cbox_" + port.trim() + "_checkbox"));
-                                checkbox.check();
+                                checkbox.click();
                             }
 
                         } else {
@@ -1142,7 +1142,7 @@ public class VRMHandler {
                         for (String service : servicesList) {
                             serviceText.type(service.trim());
                             checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(servicePrefix + service.trim()));
-                            checkbox.check();
+                            checkbox.click();
                         }
                     }
                 });
@@ -1188,7 +1188,7 @@ public class VRMHandler {
                                     String policyPrefix = "row-" + deviceName + "_" + policy.trim() + "-cbox_checkbox";
                                     policyText.type(policy.trim());
                                     checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(policyPrefix));
-                                    checkbox.check();
+                                    checkbox.click();
                                 }
                             } else {
                                 policyText.type(deviceName, true);
@@ -1259,7 +1259,7 @@ public class VRMHandler {
                         String policyPrefix = "row-" + deviceName + "_" + policy.trim() + "-cbox_checkbox";
                         policyText.type(policy.trim());
                         checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(policyPrefix));
-                        checkbox.check();
+                        checkbox.click();
                     }
                 } else {
                     policyText.type(deviceName, true);
@@ -1776,7 +1776,7 @@ public class VRMHandler {
                                 String policyPrefix = "row-DefensePro_" + deviceIp + "_" + policy + "-cbox_checkbox";
                                 policyText.type(policy.trim());
                                 checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
-                                checkbox.check();
+                                checkbox.click();
                             }
                         }
                     }
@@ -1822,7 +1822,7 @@ public class VRMHandler {
                     BaseTestUtils.report(e.getMessage(), e);
                 }
                 checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("row-DefensePro_" + deviceIp + "-cbox"));
-                checkbox.check();
+                checkbox.click();
             });
 
             String saveBtnLabel = "Device Selection.Save Filter";
