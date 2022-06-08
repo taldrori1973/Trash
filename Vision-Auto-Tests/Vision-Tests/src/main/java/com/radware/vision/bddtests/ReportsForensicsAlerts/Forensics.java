@@ -387,8 +387,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                         JsonNode targetActualDevice = validateDPName(actualDevicesJson, expectedDevice, errorMessage);
                         if (targetActualDevice == null)
                             return errorMessage;
-                        validateDPPortsOrPolicies(targetActualDevice, ((JSONObject) expectedDevice), errorMessage, "Ports");
-                        validateDPPortsOrPolicies(targetActualDevice, ((JSONObject) expectedDevice), errorMessage, "Policies");
+                        validateDPPortsOrPolicies(targetActualDevice, (JSONObject) expectedDevice, errorMessage, "ports");
+                        validateDPPortsOrPolicies(targetActualDevice, (JSONObject) expectedDevice, errorMessage, "policies");
                     }
 
                 }
@@ -422,11 +422,11 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     private void validateDPPortsOrPolicies(JsonNode actualDeviceJson, JSONObject expectedDevice, StringBuilder errorMessage, String validateType) throws Exception {
         if (expectedDevice.has(validateType)) {
-            for (Object portOrPolicy : new JSONArray(new JSONObject(expectedDevice.toString()).get(validateType))) {
+            for (Object portOrPolicy : new JSONArray(new JSONObject(expectedDevice.toString()).get(validateType).toString())) {
                 AtomicBoolean contained = new AtomicBoolean(false);
-                actualDeviceJson.get("filters").get(1).get("filters").get(validateType.equalsIgnoreCase("ports") ? 0 : 1).get("filters").forEach(n ->
+                actualDeviceJson.get("filters").get(validateType.equalsIgnoreCase("ports") ? 0 : 1).get("filters").forEach(n ->
                 {
-                    if (n.get("value").toString().equalsIgnoreCase(portOrPolicy.toString()))
+                    if (n.get("value").asText().equalsIgnoreCase(portOrPolicy.toString()))
                         contained.set(true);
                 });
                 if (!contained.get())

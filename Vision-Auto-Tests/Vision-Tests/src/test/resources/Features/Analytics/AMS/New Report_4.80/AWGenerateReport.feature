@@ -86,7 +86,7 @@ Feature: AWGenerateReport
       | Logo                  | reportLogoPNG.png                                                    |
       | Time Definitions.Date | Quick:15m                                                            |
     Then UI "Generate" Report With Name "Automation AppWall Report"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
     Then UI Click Button "Log Preview" with value "Automation AppWall Report_0"
     Then UI Validate generate report with name "Automation AppWall Report" is exist
