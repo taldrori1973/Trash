@@ -4,7 +4,7 @@ Feature: AMS HTTPS System Aggregation
   @SID_1
   Scenario: Get necessary scripts
     Then CLI copy "/home/radware/Scripts/uVision_leave_two_documents_https.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI copy "/home/radware/Scripts/get_ES_key_value_https.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+    Then CLI copy "/home/radware/Scripts/uvision_get_ES_key_value_https.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI copy "/home/radware/Scripts/HTTPS_Reindex_rt_prevHour.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI Clear vision logs
 
@@ -42,10 +42,10 @@ Feature: AMS HTTPS System Aggregation
 
   @SID_4
   Scenario: validate average values of fields in index dp-hourly-https-rt
-    Then CLI Run linux Command "/get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound bandwidthLongBaseline" on "ROOT_SERVER_CLI" and validate result EQUALS "135.0"
-    Then CLI Run linux Command "/get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound bandwidthLongAttackEdge" on "ROOT_SERVER_CLI" and validate result EQUALS "145.0"
-    Then CLI Run linux Command "/get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound bandwidthShortBaseline" on "ROOT_SERVER_CLI" and validate result EQUALS "155.0"
-    Then CLI Run linux Command "/get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound bandwidthShortAttackEdge" on "ROOT_SERVER_CLI" and validate result EQUALS "165.0"
-    Then CLI Run linux Command "/get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound responseSizeBaseline" on "ROOT_SERVER_CLI" and validate result EQUALS "175.0"
-    Then CLI Run linux Command "/get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound responseSizeAttackEdge" on "ROOT_SERVER_CLI" and validate result EQUALS "185.0"
+    Then CLI Run linux Command "/uvision_get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound bandwidthLongBaseline" on "ROOT_SERVER_CLI" and validate result EQUALS "135.0"
+    Then CLI Run linux Command "/uvision_get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound bandwidthLongAttackEdge" on "ROOT_SERVER_CLI" and validate result EQUALS "145.0"
+    Then CLI Run linux Command "/uvision_get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound bandwidthShortBaseline" on "ROOT_SERVER_CLI" and validate result EQUALS "155.0"
+    Then CLI Run linux Command "/uvision_get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound bandwidthShortAttackEdge" on "ROOT_SERVER_CLI" and validate result EQUALS "165.0"
+    Then CLI Run linux Command "/uvision_get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound responseSizeBaseline" on "ROOT_SERVER_CLI" and validate result EQUALS "175.0"
+    Then CLI Run linux Command "/uvision_get_ES_key_value_https.sh dp-hourly-https-rt #getSUTValue(setID:DefensePro_Set_1); Outbound BaselineOutbound responseSizeAttackEdge" on "ROOT_SERVER_CLI" and validate result EQUALS "185.0"
 
