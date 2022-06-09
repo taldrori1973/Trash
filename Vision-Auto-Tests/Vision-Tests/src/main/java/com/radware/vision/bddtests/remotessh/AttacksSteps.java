@@ -30,8 +30,8 @@ public class AttacksSteps extends TestBase {
      * @param ld           - OPTIONAL loop delay. delay in mSec between iterations. default 1000loop delay. delay in mSec between iterations. default 1000
      * @param waitTimeout  - OPTIONAL Delay before return default 0
      */
-    @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on (SetId|DeviceID) \"(.*)\"(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?( inSecondaryServer)?$")
-    public void runSimulatorFromDevice(int numOfAttacks, String fileName, String idType, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId, String inSecondaryServer) {
+    @Given("^CLI simulate (\\d+) attacks of(?: (prefix))? type \"(.*)\" on (SetId|DeviceID) \"(.*)\"(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?( inSecondaryServer)?$")
+    public void runSimulatorFromDevice(int numOfAttacks, String prefix, String fileName, String idType, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId, String inSecondaryServer) {
         String deviceIp;
 
         try {
@@ -49,6 +49,12 @@ public class AttacksSteps extends TestBase {
             }
             if (waitTimeout != null) {
                 wait = waitTimeout;
+            }
+            if(prefix != null)
+            {
+                String[] ipDeviceS = deviceIp.split("\\.");
+                if(ipDeviceS.length == 4)
+                    fileName += String.format("_%s_%s", ipDeviceS[2], ipDeviceS[3]);
             }
             String commandToExecute = getCommandToExecute(deviceIp, numOfAttacks, loopDelay, fileName, withAttackId != null, inSecondaryServer != null);
             CliOperations.runCommand(linuxFileServer, commandToExecute, 30 * 1000, false, true, false);
