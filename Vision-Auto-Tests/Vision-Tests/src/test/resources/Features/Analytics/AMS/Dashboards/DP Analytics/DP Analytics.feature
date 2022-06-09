@@ -1436,7 +1436,7 @@ Feature: DP ANALYTICS
 
   @Sanity @SID_104
   Scenario: Cleanup
-    * REST Delete device with DeviceID "DefensePro_172.17.22.55" from topology tree
-    * REST Delete device with DeviceID "DefensePro_50.50.7.1" from topology tree
-    * REST Delete device with DeviceID "DefensePro_50.50.7.2" from topology tree
+#    * REST Delete device with DeviceID "DefensePro_172.17.22.55" from topology tree
+#    * REST Delete device with DeviceID "DefensePro_50.50.7.1" from topology tree
+#    * REST Delete device with DeviceID "DefensePro_50.50.7.2" from topology tree
     Given UI logout and close browser
