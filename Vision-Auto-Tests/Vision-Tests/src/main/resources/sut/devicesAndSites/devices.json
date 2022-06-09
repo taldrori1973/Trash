@@ -937,7 +937,7 @@
     "fnms": [
       {
         "deviceId": "FNM_172.17.88.54",
-        "deviceSetId": "FNM_172.17.88.54",
+        "deviceSetId": "FNM_Set_0",
         "configurations": {
           "name": "FNM_172.17.88.54",
           "parentOrmID": null,
