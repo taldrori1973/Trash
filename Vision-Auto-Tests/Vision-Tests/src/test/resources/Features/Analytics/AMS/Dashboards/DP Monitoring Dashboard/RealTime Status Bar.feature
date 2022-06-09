@@ -58,7 +58,7 @@ Feature: VRM Real Time Status Bar Devices status
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "3"
-    Then UI Text of "Device Selection" equal to "DEVICES6/6"
+    Then UI Text of "Device Selection" equal to "Devices6/6"
     Then UI Text of "Device Status Up Summary" equal to "5"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "1"
