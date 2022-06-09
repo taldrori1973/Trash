@@ -453,7 +453,8 @@ Feature:DF_analytics_Top Destination IP Addresses
 
 ############## validating if  5 checked and the Chart PPS #########################
 @SID_10
-    Then UI Select "pps" from Vision dropdown "Units"
+Scenario:validate line chart data
+  Then UI Select "pps" from Vision dropdown "Units"
     Then UI Select "Total" from Vision dropdown "Sort By"
     Then UI Validate Line Chart data "top source" with Label "top source"
       | value   | count | offset |
