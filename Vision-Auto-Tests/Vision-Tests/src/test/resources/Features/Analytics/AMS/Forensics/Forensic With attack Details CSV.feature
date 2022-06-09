@@ -37,7 +37,7 @@ Feature: Forensics CSV with Attack details
   @SID_6
   Scenario: Unzip CSV file
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/TC112730*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
-    Then Sleep "3"
+    Then Sleep "5"
 
   @SID_7
   Scenario: Validate Forensics.Table
