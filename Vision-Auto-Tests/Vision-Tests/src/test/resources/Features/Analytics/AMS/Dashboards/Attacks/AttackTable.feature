@@ -121,6 +121,7 @@ Feature: Attacks Table
     Given UI Click Button "Accessibility Menu"
     Then UI UnSelect Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
     Then UI Click Button "Accessibility Menu"
+    Then Sleep "30"
     And UI Click Button "Auto Refresh" with value ""
     Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "false"
     And UI Do Operation "Select" item "Global Time Filter"
