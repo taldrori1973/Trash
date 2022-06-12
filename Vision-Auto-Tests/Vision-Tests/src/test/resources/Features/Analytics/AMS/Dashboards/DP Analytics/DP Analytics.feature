@@ -161,7 +161,8 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 4     | BDOS     |
 #    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No data available"
-    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "Top Attacks BDOS"
+    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "Top Attacks"
+    Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "BDOS "
 
 
   @SID_12
