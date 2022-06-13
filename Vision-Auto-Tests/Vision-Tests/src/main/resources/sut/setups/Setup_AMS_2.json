@@ -1,5 +1,5 @@
 {
-  "simulatorSet" : [],
+  "simulatorSet" : ["sim_set_6"],
   "setupId": "AMS_2",
   "tree": {
     "sites": [
@@ -10,9 +10,14 @@
       {
         "parentSite": "Default",
         "name": "VA_DPs_Version_8_site"
-      },      {
+      },
+      {
         "parentSite": "Default",
         "name": "AW_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "DP_Fakes"
       }
     ],
     "devices": [
@@ -43,6 +48,10 @@
       {
         "deviceId": "AppWall_172.17.164.30",
         "parentSite": "AW_site"
+      },
+      {
+        "deviceId": "DP_Fake_0",
+        "parentSite": "DP_Fakes"
       }
     ]
   },
