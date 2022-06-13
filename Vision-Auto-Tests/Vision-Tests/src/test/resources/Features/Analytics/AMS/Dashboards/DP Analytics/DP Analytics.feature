@@ -291,9 +291,10 @@ Feature: DP ANALYTICS
       | DefensePro_Set_1 | 1     | pol_1    |
       | DefensePro_Set_2 | 1     | pol_1    |
 #    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "No data available"
-    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "Attacks by Protection Policy network flood IPv4 TCP-SYN-ACK"
+    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "Attacks by Protection Policy"
+    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "network flood IPv4 TCP-SYN-ACK "
 
-  @SID_20
+  @SID_21
   Scenario: Attacks by Protection Policy Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
