@@ -9,6 +9,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -55,7 +56,10 @@ public class SaproClientSteps extends TestBase {
 
 
     @Given("Play File \"([^\"]*)\" in device \"([^\"]*)\" from map \"([^\"]*)\"(?: and wait (\\d+) seconds)?$")
-    public void reloadFile(String newFile, String deviceName, String mapName, Integer secondsToWait) {
+    public void reloadFile(String newFile, String setId, String mapName, Integer secondsToWait) {
+        Optional<TreeDeviceManagementDto> deviceManagementDto = getSutManager().getTreeDeviceManagement(setId);
+        assert deviceManagementDto.isPresent() : "Didn't find device with Set ID " + setId;
+        String deviceName = deviceManagementDto.get().getManagementIp();
         sc.reloadXmlFile(mapName, deviceName, newFile);
         try {
             if (secondsToWait != null) {

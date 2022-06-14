@@ -1173,6 +1173,7 @@ public class VRMHandler {
                             if (saveFilter != null) {
                                 String saveBtnLabel = "Device Selection.Save Filter";
                                 VisionDebugIdsManager.setLabel(saveBtnLabel);
+                                BaseTestUtils.reportInfoMessage("Clicking on submit button");
                                 WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
                             }
                             if (!BasicOperationsHandler.pageName.equalsIgnoreCase("AMS Alerts")) {
@@ -1209,7 +1210,9 @@ public class VRMHandler {
                 if (!BasicOperationsHandler.pageName.equalsIgnoreCase("AMS Alerts")) {
                     String saveBtnLabel = "Device Selection.Save Filter";
                     VisionDebugIdsManager.setLabel(saveBtnLabel);
+                    BaseTestUtils.reportInfoMessage("Clicking on the submit button at the end");
                     WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
+                    BaseTestUtils.reportInfoMessage("Clicked on the submit button at the end");
                 }
             }
         } catch (

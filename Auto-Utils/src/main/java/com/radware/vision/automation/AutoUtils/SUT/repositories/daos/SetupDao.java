@@ -57,8 +57,8 @@ public class SetupDao {
     }
 
     public boolean isDeviceExistById(String deviceId) {
-        Optional<TreeDeviceNode> filtered = this.setupPojo.getTree().getDevices().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findFirst();
-        return filtered.isPresent();
+        return this.setupPojo.getTree().getDevices().stream().anyMatch(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId))
+                || (this.setupPojo.getFnmId() != null && this.setupPojo.getFnmId().equals(deviceId));
     }
 
     public String getSetupId() {

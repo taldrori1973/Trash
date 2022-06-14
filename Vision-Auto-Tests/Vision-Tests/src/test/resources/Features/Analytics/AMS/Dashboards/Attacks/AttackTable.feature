@@ -127,7 +127,7 @@ Feature: Attacks Table
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
-    Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
+#    Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
 
     And UI logout and close browser
 
