@@ -71,7 +71,7 @@ Feature:DF_analytics_Top Destination IP Addresses
     Then UI Validate Text field "totalPercent" EQUALS "0.13%"
 
 
-  @SID_4
+  @SID_5
   Scenario:validate side bar of top destination ip Last
 
     Then UI Validate Text field "source" with params "0" EQUALS "60.0.0.7"
@@ -118,7 +118,7 @@ Feature:DF_analytics_Top Destination IP Addresses
     Then UI Validate Text field "total" EQUALS "42.22 Mbps"
     Then UI Validate Text field "totalPercent" EQUALS "8.49%"
 
-  @SID_4
+  @SID_6
   Scenario:validate side bar of top destination ip Average
 
     Then UI Validate Text field "source" with params "0" EQUALS "60.0.0.6"
@@ -165,7 +165,7 @@ Feature:DF_analytics_Top Destination IP Addresses
     Then UI Validate Text field "total" EQUALS "3.87 Gb"
     Then UI Validate Text field "totalPercent" EQUALS "0.16%"
 ####************************ to be edit
-  @SID_4
+  @SID_7
   Scenario:validate side bar of top destination ip Max
 
     Then UI Validate Text field "source" with params "0" EQUALS "10.0.0.6"
@@ -213,7 +213,7 @@ Feature:DF_analytics_Top Destination IP Addresses
     Then UI Validate Text field "totalPercent" EQUALS "0.13%"
 
        ################ validate with PPS ###################
-  @SID_9
+  @SID_8
   Scenario:validate side bar of top destinations ip
 
     Then UI Select "pps" from Vision dropdown "Units"
@@ -262,7 +262,7 @@ Feature:DF_analytics_Top Destination IP Addresses
     Then UI Validate Text field "total" EQUALS "766 p"
     Then UI Validate Text field "totalPercent" EQUALS "6.98%"
 
-  @SID_4
+  @SID_9
   Scenario:validate side bar of top destination ip Last
 
     Then UI Validate Text field "source" with params "0" EQUALS "10.0.0.6"
@@ -309,7 +309,7 @@ Feature:DF_analytics_Top Destination IP Addresses
     Then UI Validate Text field "total" EQUALS "3.16 Gb"
     Then UI Validate Text field "totalPercent" EQUALS "0.13%"
 
-  @SID_4
+  @SID_10
   Scenario:validate side bar of top destination ip Average
 
     Then UI Validate Text field "source" with params "0" EQUALS "10.0.0.6"
@@ -356,7 +356,7 @@ Feature:DF_analytics_Top Destination IP Addresses
     Then UI Validate Text field "total" EQUALS "3.16 Gb"
     Then UI Validate Text field "totalPercent" EQUALS "0.13%"
 
-  @SID_4
+  @SID_11
   Scenario:validate side bar of top destination ip Max
 
     Then UI Validate Text field "source" with params "0" EQUALS "10.0.0.6"
@@ -406,10 +406,10 @@ Feature:DF_analytics_Top Destination IP Addresses
 
 
 
-#################### CHART ########################################################
+################################################ CHART ########################################################
 
-############## validating if  5 checked and the Chart bps#########################
-  @SID_5
+################## validating if 5 checked and the Chart bps #########################
+  @SID_12
   Scenario:validate line chart data first 5 are checked
     Then UI Validate the attribute "data-debug-checked" Of Label "source" With Params "0" is "EQUALS" to "true"
     Then UI Validate the attribute "data-debug-checked" Of Label "source" With Params "1" is "EQUALS" to "true"
@@ -428,14 +428,14 @@ Feature:DF_analytics_Top Destination IP Addresses
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-  @SID_6
+  @SID_13
   Scenario:validate line chart data
     Then UI Select "Last" from Vision dropdown "Sort By"
     Then UI Validate Line Chart data "top source" with Label "top source"
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-  @SID_7
+  @SID_14
   Scenario:validate line chart data
     Then UI Select "Average" from Vision dropdown "Sort By"
 
@@ -443,7 +443,7 @@ Feature:DF_analytics_Top Destination IP Addresses
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
-  @SID_8
+  @SID_15
   Scenario:validate line chart data
     Then UI Select "Max" from Vision dropdown "Sort By"
     Then UI Validate Line Chart data "top source" with Label "top source"
@@ -452,14 +452,15 @@ Feature:DF_analytics_Top Destination IP Addresses
 
 
 ############## validating if  5 checked and the Chart PPS #########################
-@SID_10
-Scenario:validate line chart data
-  Then UI Select "pps" from Vision dropdown "Units"
+  @SID_16
+  Scenario:validate line chart data
+    Then UI Select "pps" from Vision dropdown "Units"
     Then UI Select "Total" from Vision dropdown "Sort By"
     Then UI Validate Line Chart data "top source" with Label "top source"
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
-  @SID_11
+
+  @SID_17
   Scenario:validate line chart data
     Then UI Select "Last" from Vision dropdown "Sort By"
     Then UI Validate Line Chart data "top source" with Label "top source"
@@ -467,8 +468,7 @@ Scenario:validate line chart data
       | 83733.0 | 1     | 5      |
 
 
-
-  @SID_12
+  @SID_18
   Scenario:validate line chart data
     Then UI Select "Average" from Vision dropdown "Sort By"
     Then UI Validate Line Chart data "top source" with Label "top source"
@@ -476,7 +476,7 @@ Scenario:validate line chart data
       | 83733.0 | 1     | 5      |
 
 
-  @SID_13
+  @SID_19
   Scenario:validate line chart data
     Then UI Select "Max" from Vision dropdown "Sort By"
     Then UI Validate Line Chart data "top source" with Label "top source"
@@ -486,14 +486,14 @@ Scenario:validate line chart data
 
     ################## validate filtering protected object #########################
 
-  @SID_14
-    Scenario: choose OP from the scope selection
+  @SID_20
+  Scenario: choose OP from the scope selection
     When UI Do Operation "Select" item "Protected Objects"
     Then UI Select scope from dashboard and Save Filter device type "defenseflow"
       | PO_100 |
       | PO_200 |
 
-  @SID_15
+  @SID_21
   Scenario:validate side bar of top destination ip
 
     Then UI Select "bps" from Vision dropdown "Units"
@@ -543,95 +543,133 @@ Scenario:validate line chart data
     Then UI Validate Text field "totalPercent" EQUALS "78.75%"
 
 
-
-
-  @SID_16
-  Scenario:validate line chart data pps first 5 are checked
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
-
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
-
-    Then UI Validate Line Chart data "top source" with Label "top source"
-      | value   | count | offset |
-      | 83733.0 | 1     | 5      |
-
-
-
-  @SID_17
-  Scenario:validate line chart data
-    Then UI Select "Last" from Vision dropdown "Sort By"
-    Then UI Validate Line Chart data "top source" with Label "top source"
-      | value   | count | offset |
-      | 83733.0 | 1     | 5      |
-
-
-
-  @SID_18
-  Scenario:validate line chart data
-    Then UI Select "Average" from Vision dropdown "Sort By"
-    Then UI Validate Line Chart data "top source" with Label "top source"
-      | value   | count | offset |
-      | 83733.0 | 1     | 5      |
-
-
-  @SID_19
-  Scenario:validate line chart data
-    Then UI Select "Max" from Vision dropdown "Sort By"
-    Then UI Validate Line Chart data "top source" with Label "top source"
-      | value   | count | offset |
-      | 83733.0 | 1     | 5      |
-
-
-
-
-
-
-  @SID_21
-  Scenario:validate line chart data pps first 5 are checked
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
-
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
-
-    Then UI Validate Line Chart data "top source" with Label "top source"
-      | value   | count | offset |
-      | 83733.0 | 1     | 5      |
-
-
-
   @SID_22
-  Scenario:validate line chart data
-    Then UI Select "Last" from Vision dropdown "Sort By"
+  Scenario:validate line chart data pps first 5 are checked
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
+
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
+
     Then UI Validate Line Chart data "top source" with Label "top source"
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
-
 
 
   @SID_23
   Scenario:validate line chart data
-    Then UI Select "Average" from Vision dropdown "Sort By"
+    Then UI Select "Last" from Vision dropdown "Sort By"
     Then UI Validate Line Chart data "top source" with Label "top source"
       | value   | count | offset |
       | 83733.0 | 1     | 5      |
 
 
   @SID_24
+  Scenario:validate line chart data
+    Then UI Select "Average" from Vision dropdown "Sort By"
+    Then UI Validate Line Chart data "top source" with Label "top source"
+      | value   | count | offset |
+      | 83733.0 | 1     | 5      |
+
+
+  @SID_25
+  Scenario:validate line chart data
+    Then UI Select "Max" from Vision dropdown "Sort By"
+    Then UI Validate Line Chart data "top source" with Label "top source"
+      | value   | count | offset |
+      | 83733.0 | 1     | 5      |
+
+  @SID_26
+  Scenario:validate side bar pps of top destination ip
+
+    Then UI Select "pps" from Vision dropdown "Units"
+    Then UI Select "Total" from Vision dropdown "Sort By"
+    Then UI Validate Text field "source" EQUALS "192.85.1.2"
+    Then UI Validate Text field "total" EQUALS "9.83 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "78.75%"
+
+
+    Then UI Validate Text field "source" EQUALS "192.85.1.22"
+    Then UI Validate Text field "total" EQUALS "2.65 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "21.24%"
+
+    Then UI Validate Text field "source" EQUALS "192.85.1.2"
+    Then UI Validate Text field "total" EQUALS "9.83 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "78.75%"
+
+
+    Then UI Validate Text field "source" EQUALS "192.85.1.22"
+    Then UI Validate Text field "total" EQUALS "2.65 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "21.24%"
+
+    Then UI Validate Text field "source" EQUALS "192.85.1.2"
+    Then UI Validate Text field "total" EQUALS "9.83 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "78.75%"
+
+    Then UI Validate Text field "source" EQUALS "192.85.1.2"
+    Then UI Validate Text field "total" EQUALS "9.83 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "78.75%"
+
+
+    Then UI Validate Text field "source" EQUALS "192.85.1.22"
+    Then UI Validate Text field "total" EQUALS "2.65 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "21.24%"
+
+    Then UI Validate Text field "source" EQUALS "192.85.1.2"
+    Then UI Validate Text field "total" EQUALS "9.83 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "78.75%"
+
+
+    Then UI Validate Text field "source" EQUALS "192.85.1.22"
+    Then UI Validate Text field "total" EQUALS "2.65 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "21.24%"
+
+    Then UI Validate Text field "source" EQUALS "192.85.1.2"
+    Then UI Validate Text field "total" EQUALS "9.83 Gb"
+    Then UI Validate Text field "totalPercent" EQUALS "78.75%"
+
+  @SID_27
+  Scenario:validate line chart data pps first 5 are checked
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "true"
+
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 2" With Params "" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "source 1" With Params "" is "EQUALS" to "false"
+
+    Then UI Validate Line Chart data "top source" with Label "top source"
+      | value   | count | offset |
+      | 83733.0 | 1     | 5      |
+
+
+  @SID_28
+  Scenario:validate line chart data
+    Then UI Select "Last" from Vision dropdown "Sort By"
+    Then UI Validate Line Chart data "top source" with Label "top source"
+      | value   | count | offset |
+      | 83733.0 | 1     | 5      |
+
+
+  @SID_29
+  Scenario:validate line chart data
+    Then UI Select "Average" from Vision dropdown "Sort By"
+    Then UI Validate Line Chart data "top source" with Label "top source"
+      | value   | count | offset |
+      | 83733.0 | 1     | 5      |
+
+
+  @SID_30
   Scenario:validate line chart data
     Then UI Select "Max" from Vision dropdown "Sort By"
     Then UI Validate Line Chart data "top source" with Label "top source"
