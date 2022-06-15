@@ -264,7 +264,7 @@ Feature: DF Analytics Top Protocols
     Then UI Validate Line Chart data "trends-topProtocol-doughnut" with Label "TCP"
       | value              | count |
       | 57.876005652924654 | 1     |
-    Then UI Validate Line Chart data "Trends-Top-Protocols" with Label "ICMP"
+    Then UI Validate Line Chart data "trends-topProtocol-doughnut" with Label "ICMP"
       | value             | count |
       | 42.12399347487751 | 1     |
 
