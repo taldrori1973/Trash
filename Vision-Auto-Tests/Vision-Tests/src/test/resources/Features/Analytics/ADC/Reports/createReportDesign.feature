@@ -12,28 +12,24 @@ Feature: DPM - Design Report Wizard
   Scenario: Design the Report - delete all widgets and add one widget
     Given UI "Create" Report With Name "DesignADC"
       | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
-      | Format   | Select: PDF                                                                                                                 |
+      | Format   | Select: PDF                                                                                                          |
 
     Then UI "Validate" Report With Name "DesignADC"
       | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
-      | Format   | Select: PDF                                                                                                                 |
-
-    Then UI Click Button "My Report" with value "DesignADC"
-    Then UI Click Button "Generate Report Manually" with value "DesignADC"
-    Then Sleep "35"
+      | Format   | Select: PDF                                                                                                          |
+    Then UI "Generate" Report With Name "DesignADC"
+      | timeOut | 60 |
 
   @SID_3
   Scenario: Design the Report - edit and delete the top widget
     Given UI "Create" Report With Name "TopWidgetsReport"
       | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
-      | Format   | Select: CSV                                                                                             |
+      | Format   | Select: CSV                                                                                                                          |
     Then UI "Validate" Report With Name "TopWidgetsReport"
       | Template | reportType:Application , Widgets:[End-to-End Time,Requests per Second] ,Applications:[Rejith_#convertIpToHexa(Alteon_Sim_Set_1);:80] |
-      | Format   | Select: CSV                                                                                             |
-
-    Then UI Click Button "My Report" with value "TopWidgetsReport"
-    Then UI Click Button "Generate Report Manually" with value "TopWidgetsReport"
-    Then Sleep "35"
+      | Format   | Select: CSV                                                                                                                          |
+    Then UI "Generate" Report With Name "TopWidgetsReport"
+      | timeOut | 60 |
 
 ##    When UI Click Button "Expand" with value "TopWidgetsReport"
 ##    When UI Click Button "Generate Now" with value "TopWidgetsReport"
@@ -53,16 +49,13 @@ Feature: DPM - Design Report Wizard
   @SID_4
   Scenario: Design the Report - edit and delete the top widget
     Given UI "Create" Report With Name "NetworkReport"
-      | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Format   | Select: CSV                                                                                               |
+      | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[#getSUTValue(setID:Alteon_Sim_Set_0);] |
+      | Format   | Select: CSV                                                                                                                |
     Then UI "Validate" Report With Name "NetworkReport"
-      | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Format   | Select: CSV                                                                                               |
-
-
-    Then UI Click Button "My Report" with value "NetworkReport"
-    Then UI Click Button "Generate Report Manually" with value "NetworkReport"
-    Then Sleep "35"
+      | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[#getSUTValue(setID:Alteon_Sim_Set_0);] |
+      | Format   | Select: CSV                                                                                                                |
+    Then UI "Generate" Report With Name "TopWidgetsReport"
+      | timeOut | 60 |
 
 #
   @SID_5
