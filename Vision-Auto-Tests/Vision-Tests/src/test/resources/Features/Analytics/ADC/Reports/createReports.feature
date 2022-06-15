@@ -3,6 +3,9 @@ Feature: Test Reports Definition
 
   @SID_1
   Scenario: Navigate to ADC REPORTS page
+    Then REST Login with user "radware" and password "radware"
+    Given REST Add device with DeviceID "Alteon_172.17.164.17" into site "Default"
+    Then Sleep "30"
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "ADC REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
@@ -620,4 +623,5 @@ Feature: Test Reports Definition
 
   @SID_38
   Scenario: Logout
+    Then REST Delete device with DeviceID "Alteon_172.17.164.17" from topology tree
     Then UI logout and close browser
