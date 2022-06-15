@@ -3,8 +3,10 @@ Feature: Edit ADC Report tests
 
   @SID_1
   Scenario: Login and Navigate to NEW REPORTS page
-    Given UI Login with user "radware" and password "radware"
+    Then REST Login with user "radware" and password "radware"
     Given REST Add device with DeviceID "Alteon_172.17.164.17" into site "Default"
+    Then Sleep "30"
+    Given UI Login with user "radware" and password "radware"
     When UI Navigate to "ADC REPORTS" page via homepage
     When UI Click Button "New Report Tab"
 
