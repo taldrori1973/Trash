@@ -1,14 +1,14 @@
 @TC127093
 Feature: Top Source IPs Chart
   @SID_1
-#  Scenario: Clean system data before Top Source IPs Chart Test
-#    * CLI kill all simulator attacks on current vision
-#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    * REST Delete ES index "df-traffic"
-#    * REST Delete ES index "df-attack"
-#    * REST Delete ES index "traffic*"
-#    * REST Delete ES index "attacks*"
-#    * CLI Clear vision logs
+  Scenario: Clean system data before Top Source IPs Chart Test
+    * CLI kill all simulator attacks on current vision
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Delete ES index "df-traffic"
+    * REST Delete ES index "df-attack"
+    * REST Delete ES index "traffic*"
+    * REST Delete ES index "attacks*"
+    * CLI Clear vision logs
 
   @SID_2
   Scenario: Login and navigate to DF Analytics
