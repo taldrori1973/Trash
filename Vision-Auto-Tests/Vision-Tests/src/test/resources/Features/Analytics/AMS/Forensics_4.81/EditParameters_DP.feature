@@ -144,26 +144,16 @@ Feature: Edit DefensePro Parameters
       | devices | SetId:DefensePro_Set_1,policies:[BDOS] |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro                                 |
-      | devices | SetId:DefensePro_Set_1,policies:[Policy15] |
-
+      | devices | SetId:DefensePro_Set_1,policies:[BDOS] |
 
   @SID_21
-  Scenario: Edit Scope port
-    Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Product | DefensePro                             |
-      | devices | SetId:DefensePro_Set_1,policies:[Policy15],ports:[1] |
-    Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Product | DefensePro                             |
-      | devices | SetId:DefensePro_Set_1,policies:[Policy15],ports:[1] |
-
-  @SID_22
   Scenario: Edit Criteria
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:HTTP 403 Forbidden |
 
-  @SID_23
+  @SID_22
   Scenario: Edit Forensics Product
     Then UI Click Button "Edit Forensics" with value "Forensics DefensePro"
     Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
@@ -173,7 +163,7 @@ Feature: Edit DefensePro Parameters
       | Product | AppWall     | false |
     Then UI Click Button "save"
 
-  @SID_24
+  @SID_23
   Scenario: Edit Name
     Then UI Click Button "Edit Forensics" with value "Forensics DefensePro"
     Then UI Set Text Field "Forensics Name" To "Forensics DefensePro Updated"
@@ -183,7 +173,7 @@ Feature: Edit DefensePro Parameters
     Then UI Delete Forensics With Name "Forensics DefensePro Updated"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics DefensePro Updated"
 
-  @SID_25
+  @SID_24
   Scenario: Logout
     Then UI logout and close browser
 
