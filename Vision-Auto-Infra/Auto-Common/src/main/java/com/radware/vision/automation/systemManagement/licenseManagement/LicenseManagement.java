@@ -32,10 +32,15 @@ public class LicenseManagement {
             "(\\d{2}(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\d{4})-" +
             "(\\d{2}(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\d{4})-" +
             "(.*)";//matches only time based licenses : <product name>-<license name>-<from date>-<to date>-<code>
+    private static String DF_CYBER_CONTROL_TIME_BASED_LICENSE_PATTERN = "(df)-(cyber)-(control)-(.*)-(.*)" +
+            "(\\d{2}(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\d{4})-" +
+            "(\\d{2}(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\d{4})-" +
+            "(.*)";//matches only time based licenses : <product name>-<license name>-<from date>-<to date>-<code>
 
     private static String VISION_GLOBAL_LICENSE_PATTERN = "(vision)-(.*)-(.*)";//matches any thing like : <product name>-<license name>-<code>
 
     private static String VISION_LICENSE_PREFIX_PATTERN = "(vision)-(.*)";
+    private static String DF_CYBER_CONTROL_LICENSE_PREFIX_PATTERN = "(df)-(cyber)-(control)-(.*)-(.*)";
 
     private String productName;
     private String licenseName;
@@ -48,6 +53,8 @@ public class LicenseManagement {
     private Pattern visionTimeBasedLicensePattern;
     private Pattern visionGlobalLicensePattern;
     private Pattern visionLicensePrefixPattern;
+    private Pattern dfCyberControlLicensePrefixPattern;
+    private Pattern dfCyberControlTimeBasedLicensePattern;
 
     //this list contains all the licenses which installed in the database
     private List<VisionLicense> installedLicenses;
@@ -57,6 +64,9 @@ public class LicenseManagement {
         this.visionGlobalLicensePattern = Pattern.compile(VISION_GLOBAL_LICENSE_PATTERN);
         this.visionTimeBasedLicensePattern = Pattern.compile(VISION_TIME_BASED_LICENSE_PATTERN);
         this.visionLicensePrefixPattern = Pattern.compile(VISION_LICENSE_PREFIX_PATTERN);
+        this.dfCyberControlLicensePrefixPattern = Pattern.compile(DF_CYBER_CONTROL_LICENSE_PREFIX_PATTERN);
+        this.dfCyberControlTimeBasedLicensePattern = Pattern.compile(DF_CYBER_CONTROL_TIME_BASED_LICENSE_PATTERN);
+
         this.visionLicenseDao = new VisionLicenseDao();
         this.installedLicenses = this.visionLicenseDao.getAll();
     }
@@ -82,6 +92,8 @@ public class LicenseManagement {
         this();
         Matcher visionTimeBasedLicenseMatcher = visionTimeBasedLicensePattern.matcher(fullLicenseString);
         Matcher visionGlobalLicenseMatcher = visionGlobalLicensePattern.matcher(fullLicenseString);
+        Matcher dfCyberControlLicensePrefixMatcher = dfCyberControlLicensePrefixPattern.matcher(fullLicenseString);
+
 
 //        the time based should be first because the second pattern is matches both global and based time licenses
         if (visionTimeBasedLicenseMatcher.matches()) {
@@ -93,7 +105,18 @@ public class LicenseManagement {
             this.featureName = VisionLicenses.getFeatureName(productName + "-" + licenseName);
             this.timeBasedLicense = true;
 
-        } else if (visionGlobalLicenseMatcher.matches()) {
+
+        }
+        else if (dfCyberControlLicensePrefixMatcher.matches()) {
+
+            this.productName = dfCyberControlLicensePrefixMatcher.group(1);
+            this.licenseName = dfCyberControlLicensePrefixMatcher.group(2);
+            this.fromDate = null;
+            this.toDate = null;
+            this.featureName = VisionLicenses.getFeatureName(productName + "-" + licenseName);
+            this.timeBasedLicense = false;
+
+        }else if (visionGlobalLicenseMatcher.matches()) {
 
             this.productName = visionGlobalLicenseMatcher.group(1);
             this.licenseName = visionGlobalLicenseMatcher.group(2);
@@ -138,8 +161,25 @@ public class LicenseManagement {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMMyyyy");
 
         Matcher visionLicensePrefixMatcher = visionLicensePrefixPattern.matcher(licensePrefix);
+        Matcher dfCyberControlLicensePrefixMatcher = dfCyberControlLicensePrefixPattern.matcher(licensePrefix);
 
-        if (visionLicensePrefixMatcher.matches()) {
+        if (dfCyberControlLicensePrefixMatcher.matches()) {
+
+            this.productName = dfCyberControlLicensePrefixMatcher.group(1) +"-" + dfCyberControlLicensePrefixMatcher.group(2)+"-" +  dfCyberControlLicensePrefixMatcher.group(3);
+            this.licenseName = dfCyberControlLicensePrefixMatcher.group(4)+"-" +  dfCyberControlLicensePrefixMatcher.group(5);
+            this.fromDate = fromDate == null ? null : fromDate.format(dtf);
+            this.toDate = toDate == null ? null : toDate.format(dtf);
+            if (fromDate != null ^ toDate != null) {
+                throw new IllegalArgumentException(String.format("one of the dates is null when the other is not null , should be both null or not null"));
+            }
+            this.featureName = VisionLicenses.getFeatureName(productName + "-" + licenseName);
+
+            this.timeBasedLicense = fromDate != null;
+
+
+        }
+        else{
+            if (visionLicensePrefixMatcher.matches()) {
             this.productName = visionLicensePrefixMatcher.group(1);
             this.licenseName = visionLicensePrefixMatcher.group(2);
             this.fromDate = fromDate == null ? null : fromDate.format(dtf);
@@ -149,8 +189,10 @@ public class LicenseManagement {
             }
             this.featureName = VisionLicenses.getFeatureName(productName + "-" + licenseName);
             this.timeBasedLicense = fromDate != null;
-        } else {
-            throw new IllegalArgumentException(String.format("the %s argument is NOT matches \"<product name>-<feature name>\" Pattern", licensePrefix));
+        }
+        else{
+                throw new IllegalArgumentException(String.format("the %s argument is NOT matches \"<product name>-<feature name>\" Pattern", licensePrefix));
+            }
         }
 
     }

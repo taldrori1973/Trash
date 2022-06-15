@@ -17,14 +17,20 @@ public class UvisionServer {
      * The default services and their status.
      * To be used after fresh install, upgrade or restart/boot
      */
+    public static final HashMap<DockerServices, DockerServiceStatus> UVISON_DEFAULT_SERVICES_DF = new HashMap<DockerServices, DockerServiceStatus>() {{
+
+        put(DockerServices.CONFIG_POLICY_EDITOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_DFC, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_EXABGP, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+        put(DockerServices.CONFIG_POSTGRES, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+    }};
     public static final HashMap<DockerServices, DockerServiceStatus> UVISON_DEFAULT_SERVICES = new HashMap<DockerServices, DockerServiceStatus>() {{
-        put(DockerServices.CONFIG_KVISION_DC_NGINX, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_FORMATTER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_RT_ALERT, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_REPORTER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_COLLECTOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_VRM, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_KVISION_CONFIG_SYNC_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
+      //  put(DockerServices.CONFIG_KVISION_CONFIG_SYNC_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.NONE));
         put(DockerServices.CONFIG_KVISION_VDIRECT, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_SCHEDULER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
         put(DockerServices.CONFIG_KVISION_TOR_FEED, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
@@ -44,10 +50,10 @@ public class UvisionServer {
 //        put(DockerServices.CONFIG_KVISION_DATA_PERSIST_SERVICE, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
 //        put(DockerServices.CONFIG_KVISION_DATA_POLLING_SCHEDULER, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
 //        put(DockerServices.CONFIG_KVISION_INFRA_CADVISOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_POLICY_EDITOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_DFC, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_EXABGP, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
-        put(DockerServices.CONFIG_POSTGRES, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+ //       put(DockerServices.CONFIG_POLICY_EDITOR, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+//        put(DockerServices.CONFIG_DFC, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+  //      put(DockerServices.CONFIG_EXABGP, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
+ //       put(DockerServices.CONFIG_POSTGRES, new DockerServiceStatus(DockerState.UP, DockerHealthState.HEALTHY));
     }};
 
     public static final HashMap<DockerServices, DockerServiceStatus> UVISON_SERVICES_READY_FOR_UPGRADE = new HashMap<DockerServices, DockerServiceStatus>() {{

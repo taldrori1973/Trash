@@ -18,7 +18,8 @@ public enum VisionLicenses {
     RTU("RTU", "vision-RTU(\\d+))"),
     RTUVA("RTUVA", "vision-RTU(\\d+)VA"),
     RTUMAX("RTUMAX", "vision-RTUMAX"),
-    SECURITY_REPORTER("security-reporter", "vision-security-reporter");
+    SECURITY_REPORTER("security-reporter", "vision-security-reporter"),
+    DF_CYBERCONTROL("df-cyber-control","df-cyber-control-po-unlimited");
 
 
     private String licenseFeatureName;
@@ -65,6 +66,8 @@ public enum VisionLicenses {
                 return RTUMAX.getLicenseFeatureName();
             case "vision-security-reporter":
                 return SECURITY_REPORTER.getLicenseFeatureName();
+            case "df-cyber-control-po-unlimited":
+                return DF_CYBERCONTROL.getLicenseFeatureName();
             default:
                 Pattern avaAttackCapacityPattern = Pattern.compile("vision-AVA-(\\d+)-Gbps-attack-capacity");
                 if (avaAttackCapacityPattern.matcher(licensePrefix).matches())

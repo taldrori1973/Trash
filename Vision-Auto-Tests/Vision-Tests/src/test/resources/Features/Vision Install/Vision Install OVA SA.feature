@@ -6,6 +6,24 @@ Feature: Vision Install OVA SA
     Given Prerequisite for Setup force
     Then Upgrade or Fresh Install Vision
 
+
+  @SID_2
+  Scenario:  Validate after fresh install there's no DF serviers in vision server
+    Given UI Login with user "radware" and password "radware"
+    Then Validate Navigation to "DefenseFlow Dashboard" is disabled
+    Then validate vision server services are UP With DF services are Disable
+    Then UI Logout
+
+  @SID_3
+  Scenario: Add CyberControl License and validate services are up
+    Given UI Login with user "radware" and password "radware"
+    Given REST Vision Install License Request "df-cyber-control-po-unlimited" from date "-6M" to date "+6M"
+    Then Sleep "60"
+    Then UI Navigate to "Operation" page via homePage
+    Then validate vision server services are UP With DF services are Enable
+    Then UI Logout
+
+
   @SID_2
   Scenario: verify vision_install logs
     Then CLI Check if logs contains

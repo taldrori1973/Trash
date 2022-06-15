@@ -29,13 +29,24 @@ import static com.radware.vision.automation.Deploy.VisionServer.waitForVisionSer
 public class UpgradeSteps extends TestBase {
 
 
-    @When("^validate vision server services are UP$")
-    public void validateVisionServerServicesUPStep() {
+    @When("^validate vision server services are UP With DF services are Enable$")
+    public void validateVisionServerServicesUPWithDFStep() {
+        try {
+            UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(),
+                    UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
+            UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(),
+                    UvisionServer.UVISON_DEFAULT_SERVICES_DF, 30 * 60);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+    @When("^validate vision server services are UP With DF services are Disable$")
+    public void validateVisionServerServicesUP() {
         try {
             UvisionServer.waitForUvisionServerServicesStatus(serversManagement.getRadwareServerCli().get(),
                     UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
         } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL) ;
         }
     }
 
@@ -47,7 +58,7 @@ public class UpgradeSteps extends TestBase {
                     serversManagement.getRadwareServerCli().get().getUser(),
                     serversManagement.getRadwareServerCli().get().getPassword());
             radwareServerCli.connect();
-            UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES, 30 * 60);
+            UvisionServer.waitForUvisionServerServicesStatus(radwareServerCli, UvisionServer.UVISON_DEFAULT_SERVICES_DF, 30 * 60);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
