@@ -30,17 +30,17 @@ public class AttacksSteps extends TestBase {
      * @param ld           - OPTIONAL loop delay. delay in mSec between iterations. default 1000loop delay. delay in mSec between iterations. default 1000
      * @param waitTimeout  - OPTIONAL Delay before return default 0
      */
-    @Given("^CLI simulate (\\d+) attacks of(?: (prefix))? type \"(.*)\" on (SetId|DeviceID) \"(.*)\"(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?( inSecondaryServer)?$")
-    public void runSimulatorFromDevice(int numOfAttacks, String prefix, String fileName, String idType, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId, String inSecondaryServer) {
-        String deviceIp;
+    @Given("^CLI simulate (\\d+) attacks of(?: (prefix))? type \"(.*)\" on (SetId|DeviceID) \"(.*?)\"(?: as dest from src \"(.*?)\")?(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?( inSecondaryServer)?$")
+    public void runSimulatorFromDevice(int numOfAttacks, String prefix, String fileName, String idType, String deviceSetId, String attackSource, Integer ld, Integer waitTimeout, String withAttackId, String inSecondaryServer) {
+        String deviceIP, srcIP, destIP;
 
         try {
             TreeDeviceManagementDto device =
                     (idType.equals("SetId")) ? sutManager.getTreeDeviceManagement(deviceSetId).orElse(null) :
                             (idType.equals("DeviceID")) ? sutManager.getTreeDeviceManagementFromDevices(deviceSetId).orElse(null) : null;
             assert device != null;
-            deviceIp = device.getManagementIp();
-            assert deviceIp != null;
+            deviceIP = device.getManagementIp();
+            assert deviceIP != null;
 
             int loopDelay = 1000;
             int wait = 0;
@@ -52,11 +52,24 @@ public class AttacksSteps extends TestBase {
             }
             if(prefix != null)
             {
-                String[] ipDeviceS = deviceIp.split("\\.");
+                String[] ipDeviceS = deviceIP.split("\\.");
                 if(ipDeviceS.length == 4)
                     fileName += String.format("_%s_%s", ipDeviceS[2], ipDeviceS[3]);
             }
-            String commandToExecute = getCommandToExecute(deviceIp, numOfAttacks, loopDelay, fileName, withAttackId != null, inSecondaryServer != null);
+            if(attackSource != null)
+            {
+                destIP = deviceIP;
+                srcIP = attackSource;
+            }
+            else
+            {
+                if (inSecondaryServer == null)
+                    destIP = clientConfigurations.getHostIp();
+                else
+                    destIP = getSutManager().getpair().getPairIp();
+                srcIP = deviceIP;
+            }
+            String commandToExecute = getCommandToExecute(srcIP, destIP, numOfAttacks, loopDelay, fileName, withAttackId != null);
             CliOperations.runCommand(linuxFileServer, commandToExecute, 30 * 1000, false, true, false);
 
             Thread.sleep(wait * 1000L);
@@ -88,25 +101,20 @@ public class AttacksSteps extends TestBase {
         }
     }
 
-    private String getCommandToExecute(String deviceIp, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId, boolean inSecondaryServer) {
+    private String getCommandToExecute(String srcIP, String destIP, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId) {
         String fakeIpPrefix = "50.50";
-        String visionIP;
-        if (!inSecondaryServer)
-            visionIP = clientConfigurations.getHostIp();
-        else
-            visionIP = getSutManager().getpair().getPairIp();
 
         String interFace;
         String commandToExecute = "";
         try {
             String gwMacAdress = linuxFileServer.getGwMacAddress();//"00:14:69:4c:70:42"; //172.19.1.1 GW mac
-            String deviceSubNet = deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
-            String visionSubNet = visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1));
+            String deviceSubNet = srcIP.substring(0, srcIP.indexOf(".", srcIP.indexOf(".") + 1));
+            String visionSubNet = destIP.substring(0, destIP.indexOf(".", destIP.indexOf(".") + 1));
             String INTERFACE_SCRIPT_PATH = "/home/radware/getInterfaceByIP.sh";
 
             commandToExecute = "sudo " + INTERFACE_SCRIPT_PATH + " " + deviceSubNet;
-            if (deviceIp.startsWith(fakeIpPrefix)) {
-                visionIP = visionIP.replace(visionSubNet, fakeIpPrefix);
+            if (srcIP.startsWith(fakeIpPrefix)) {
+                destIP = destIP.replace(visionSubNet, fakeIpPrefix);
             } else {
                 String isDeviceInterfaceExistInVision = "0";
 //                if (isDeviceInterfaceExistInVision.equals("0"))
@@ -127,7 +135,7 @@ public class AttacksSteps extends TestBase {
             CliOperations.runCommand(linuxFileServer, commandToExecute);
             interFace = CliOperations.lastRow;
 
-            commandToExecute = buildCommandToExecute(interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, gwMacAdress, withAttackId);
+            commandToExecute = buildCommandToExecute(interFace, destIP, srcIP, numOfAttacks, loopDelay, fileName, gwMacAdress, withAttackId);
 
             //for the next generations
             linuxFileServer.connect();

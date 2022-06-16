@@ -426,7 +426,7 @@ public class TemplateHandlers {
 
                     BasicOperationsHandler.clickButton(getSaveButtonText(), "");
                 }
-            } else if (type.equals("AppWall") || type.equals("Application") || type.equals("System and Network") || type.equals("LinkProof")) {
+            } else if (type.equals("AppWall") || type.equalsIgnoreCase("APPLICATION") || type.equals("System and Network") || type.equals("LinkProof") || type.equalsIgnoreCase("APPLICATIONS")) {
                 if (!isAllAndClearScopeSelection()) {
                     for (Object deviceJSON : devicesJSON)
                         selectDevice(deviceJSON.toString(), true);
@@ -464,7 +464,7 @@ public class TemplateHandlers {
         }
 
         void selectDevice(String deviceText, boolean isToCheck) throws Exception {
-            if (type.equals("DefensePro Analytics") || type.equals("DefenseFlow Analytics") || type.equals("AppWall") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report") || type.equals("PROTECTED OBJECTS") || type.equals("Application") || type.equals("System and Network") || type.equals("LinkProof")) {
+            if (type.equals("DefensePro Analytics") || type.equals("DefenseFlow Analytics") || type.equals("AppWall") || type.equals("ERT Active Attackers Feed") || type.equals("ERT Active Attackers Audit Report") || type.equals("PROTECTED OBJECTS") || type.equalsIgnoreCase("Application") || type.equals("System and Network") || type.equals("LinkProof") || type.equalsIgnoreCase("APPLICATIONS")) {
                 BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
                 WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
             }

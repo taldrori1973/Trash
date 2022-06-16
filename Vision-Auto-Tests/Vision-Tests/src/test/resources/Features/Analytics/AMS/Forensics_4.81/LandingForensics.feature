@@ -143,7 +143,7 @@ Feature: Landing Forensics
       | Output       | Action                                                                         |
     Given UI "Validate" Forensics With Name "AppWall Forensics"
       | Product           | AppWall                                                                        |
-      | Protected Objects | A1                                                                 |
+      | Applications      | A1                                                                 |
       | Share             | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format            | Select: CSV                                                                    |
       | Output            | Action                                                                         |

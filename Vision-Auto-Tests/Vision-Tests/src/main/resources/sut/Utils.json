@@ -1,11 +1,14 @@
 {
   "setupFile": "Empty_Setup.json",
   "serverName": "",
-  "defenseFlow": "",
   "deployConfigurations": {
     "snapshot": "",
     "setupMode": "",
     "environment": "OVA-220"
+  },
+  "pair": {
+    "pairIp": "",
+    "environment": ""
   },
   "clientConfiguration": {
     "hostIp": "",

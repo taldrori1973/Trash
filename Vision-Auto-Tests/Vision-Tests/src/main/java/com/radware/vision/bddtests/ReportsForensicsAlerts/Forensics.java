@@ -111,8 +111,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
             case "appwall":
                 WebUiTools.check("Product", map.get("Product"), true);
-                if (map.containsKey("Application"))
-                    new TemplateHandlers.AWScopeSelection(new JSONArray("[" + map.get("Applications") + "]"), "", "APPLICATION").create();
+                if (map.containsKey("Applications"))
+                    new TemplateHandlers.AWScopeSelection(new JSONArray("[" + map.get("Applications") + "]"), "", "APPLICATIONS").create();
                 break;
         }
     }
