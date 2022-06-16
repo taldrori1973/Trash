@@ -128,7 +128,7 @@ Feature: AW Analytics User RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "Forensics_AW"
       | Product               | AppWall                                                                                                                    |
-      | Application           | All                                                                                                                        |
+      | Applications          | All                                                                                                                        |
       | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
       | Format                | Select: CSV                                                                                                                |
       | Time Definitions.Date | Quick:Today                                                                                                                |

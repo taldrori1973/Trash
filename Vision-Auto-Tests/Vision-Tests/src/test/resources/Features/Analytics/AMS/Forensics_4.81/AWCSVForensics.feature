@@ -57,11 +57,11 @@ Feature: AW CSV Forensics
   Scenario: create new Forensics_AW and validate1
     When UI "Create" Forensics With Name "Forensics_AW"
       | Product               | AppWall                                                                                                                    |
-      | Application           | All                                                                                                                        |
+      | Applications          | All                                                                                                                        |
       | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
       | Format                | Select: CSV                                                                                                                |
       | Time Definitions.Date | Quick:Today                                                                                                                |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123           |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123        |
 
   @SID_7
   Scenario: Clear FTP server logs and generate the report1
@@ -135,13 +135,13 @@ Feature: AW CSV Forensics
   @SID_17
   Scenario: create new Forensics_AW and validate2
     When UI "Create" Forensics With Name "Forensics_AW_Schedule"
-      | Product     | AppWall                                                                                                          |
-      | Application | All                                                                                                              |
-      | Output      | Add All                                                                                                          |
-      | Format      | Select: CSV                                                                                                      |
-      | Share       | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
-      | Criteria    | Event Criteria:Action,Operator:Not Equals,Value:Reported                                                         |
-      | Schedule    | Run Every:Daily,On Time:+2m                                                                                      |
+      | Product      | AppWall                                                                                                             |
+      | Applications | All                                                                                                                 |
+      | Output       | Add All                                                                                                             |
+      | Format       | Select: CSV                                                                                                         |
+      | Share        | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
+      | Criteria     | Event Criteria:Action,Operator:Not Equals,Value:Reported                                                            |
+      | Schedule     | Run Every:Daily,On Time:+2m                                                                                         |
 
 
   @SID_18
