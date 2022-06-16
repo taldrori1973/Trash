@@ -51,7 +51,7 @@ Feature: Forensics Output
     Then UI Click Button "My Forensics" with value "All Output Fields"
     Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "All Output Fields"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "All Output Fields"
-    Then Sleep "35"
+    Then Sleep "60"
 
     Then UI Click Button "Views.Forensic" with value "All Output Fields,0"
 
