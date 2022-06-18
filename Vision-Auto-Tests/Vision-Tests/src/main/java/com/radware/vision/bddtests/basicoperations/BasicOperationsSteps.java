@@ -920,9 +920,9 @@ public class BasicOperationsSteps extends VisionUITestBase {
             minVal2 = Float.parseFloat(number2Expected) - Integer.parseInt(offset);
 
             if (Float.parseFloat(number1Actual) > maxVal1 || Float.parseFloat(number1Actual) < minVal1)
-                BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+                BaseTestUtils.report("Exepected value is "+number1Expected+" Actual value is "+number1Actual, Reporter.FAIL);
             if (Float.parseFloat(number2Actual) > maxVal2 || Float.parseFloat(number2Actual) < minVal2)
-                BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+                BaseTestUtils.report("Exepected value is "+number2Expected+" Actual value is "+number2Actual, Reporter.FAIL);
         }
     }
 
