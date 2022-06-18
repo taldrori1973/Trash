@@ -279,7 +279,7 @@ public class GenericSteps extends VisionUITestBase {
                 BaseTestUtils.report(errorMessage, Reporter.FAIL);
                 throw new TargetWebElementNotFoundException(errorMessage);
             }
-            if (!actualValue.trim().equals(invokeMethodFromText(expectedValue))) {
+            if (!actualValue.trim().equalsIgnoreCase((String) invokeMethodFromText(expectedValue))) {
                 try {
                     VRMHandler.scroll("Table_Attack Details");
                 } catch (Exception e) {

@@ -104,7 +104,7 @@ Feature: Device Scope Policies Selection
   @SID_8
   Scenario: number of devices
     Then UI Click Button "Device Selection"
-    Then UI Text of "Device Selection.Available Devices header" with extension "" equal to "Devices2/2"
+    Then UI Text of "Device Selection" with extension "" equal to "Devices2/2"
     Given UI Click Button "Device Selection.Save Filter"
 
   @SID_9

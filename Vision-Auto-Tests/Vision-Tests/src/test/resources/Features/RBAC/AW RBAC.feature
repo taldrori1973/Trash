@@ -4,25 +4,25 @@ Feature: AW RBAC - New AW roles
   @SID_1
   Scenario: login
     Given UI Login with user "radware" and password "radware"
-
-  @SID_2
-  Scenario: run AW attacks
-    Given CLI kill all simulator attacks on current vision
-    Given REST Vision Install License Request "vision-AVA-AppWall"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    * REST Vision Install License Request "vision-reporting-module-AMS"
-    Given REST Delete ES index "appwall-v2-attack*"
-    * REST Delete ES index "forensics-*"
-    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                       |
-      | #visionIP                                                           |
-      | " 10.206.187.11  1 "/home/radware/AW_Attacks/Integrated_AW_Attack/""   |
-
+#
+#  @SID_2
+#  Scenario: run AW attacks
+#    Given CLI kill all simulator attacks on current vision
+#    Given REST Vision Install License Request "vision-AVA-AppWall"
+#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+#    * REST Vision Install License Request "vision-reporting-module-AMS"
+#    Given REST Delete ES index "appwall-v2-attack*"
+#    * REST Delete ES index "forensics-*"
+#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+#      | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                       |
+#      | #visionIP                                                           |
+#      | " 10.206.187.11  1 "/home/radware/AW_Attacks/Integrated_AW_Attack/""   |
+#
   @SID_3
   Scenario: Navigate User Management
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
-
+#
   @SID_4
   Scenario Outline: Create users and verify
     When UI Create New User With User Name "<User Name>", Role "<Role>", Scope "<Scope>", Password "<Password>"
@@ -33,94 +33,94 @@ Feature: AW RBAC - New AW roles
       | User Name             | Role                             | Scope | Password         |
       | AW_Viewer             | Integrated AppWall Viewer        | [ALL] | Radware1234!@#$5 |
       | aw-admin              | Integrated AppWall Administrator | [ALL] | Radware1234!@#$5 |
+#
+#  @SID_5
+#  Scenario: Edit User Management Settings
+#    Then UI Navigate to page "System->User Management->Authentication Mode"
+#    Then UI Select "Local" from Vision dropdown "Authentication Mode"
+#    Then UI Click Button "Submit"
+#    Then UI Logout
+#
+#  @SID_6
+#  Scenario: AppWall_Viewer RBAC Validation
+#    When UI Login with user "AW_Viewer" and password "Radware1234!@#$5"
+#    And Sleep "10"
+#    Then UI Validate user rbac
+#      | operations                                  | accesses |
+#      | DPM                                         | no       |
+#      | ANALYTICS ADC                               | yes      |
+#      | ANALYTICS AMS                               | yes      |
+#      | DefensePro Behavioral Protections Dashboard | no       |
+#      | HTTPS Flood Dashboard                       | no       |
+#      | DefensePro Analytics Dashboard              | no       |
+#      | DefensePro Monitoring Dashboard             | no       |
+#      | DefenseFlow Analytics Dashboard             | no       |
+#      | AppWall Dashboard                           | yes      |
+#      | AMS Reports                                 | yes      |
+#      | AMS Forensics                               | yes      |
+#      | AMS Alerts                                  | yes      |
+#      | vDirect                                     | no       |
+#      | GEL Dashboard                               | no       |
+#      | EAAF Dashboard                              | no       |
+#      | VISION SETTINGS                             | yes      |
+#
+#
+#  @SID_7
+#  Scenario: Create One Report Validation
+#    And UI Navigate to "AMS Reports" page via homePage
+#    Given UI "Create" Report With Name "OverAllAppWallReport"
+#      | Template              | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[All] , showTable:false|
+#
+#    Then UI "Validate" Report With Name "OverAllAppWallReport"
+#      | Template              | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[All] , showTable:false|
+#
+#    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverAllAppWallReport"
+#
+#  @SID_8
+#  Scenario: Edit Report Validation
+#    Given UI "Edit" Report With Name "OverAllAppWallReport"
+#      | Template-3 | reportType:AppWall , Widgets:[Attack Severity] , Applications:[All] , showTable:false |
+#      | Time Definitions.Date | Quick:15m          |
+#
+#    Then UI "Validate" Report With Name "OverAllAppWallReport"
+#      | Template-3 | reportType:AppWall , Widgets:[Attack Severity] , Applications:[All] , showTable:false |
+#      | Time Definitions.Date | Quick:15m          |
+#
+#  @SID_9
+#  Scenario: Validate delivery card and generate report
+#    Then UI "Generate" Report With Name "OverAllAppWallReport"
+#      | timeOut | 120 |
+#
+#  @SID_10
+#  Scenario: Delete Report Validation
+#    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverAllAppWallReport"
+#    Then UI Delete Report With Name "OverAllAppWallReport"
+#    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "OverAllAppWallReport"
 
-  @SID_5
-  Scenario: Edit User Management Settings
-    Then UI Navigate to page "System->User Management->Authentication Mode"
-    Then UI Select "Local" from Vision dropdown "Authentication Mode"
-    Then UI Click Button "Submit"
-    Then UI Logout
-
-  @SID_6
-  Scenario: AppWall_Viewer RBAC Validation
-    When UI Login with user "AW_Viewer" and password "Radware1234!@#$5"
-    And Sleep "10"
-    Then UI Validate user rbac
-      | operations                                  | accesses |
-      | DPM                                         | no       |
-      | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | yes      |
-      | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
-      | DefensePro Analytics Dashboard              | no       |
-      | DefensePro Monitoring Dashboard             | no       |
-      | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | yes      |
-      | AMS Reports                                 | yes      |
-      | AMS Forensics                               | yes      |
-      | AMS Alerts                                  | yes      |
-      | vDirect                                     | no       |
-      | GEL Dashboard                               | no       |
-      | EAAF Dashboard                              | no       |
-      | VISION SETTINGS                             | yes      |
-
-
-  @SID_7
-  Scenario: Create One Report Validation
-    And UI Navigate to "AMS Reports" page via homePage
-    Given UI "Create" Report With Name "OverAllAppWallReport"
-      | Template              | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[All] , showTable:false|
-
-    Then UI "Validate" Report With Name "OverAllAppWallReport"
-      | Template              | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[All] , showTable:false|
-
-    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverAllAppWallReport"
-
-  @SID_8
-  Scenario: Edit Report Validation
-    Given UI "Edit" Report With Name "OverAllAppWallReport"
-      | Template-3 | reportType:AppWall , Widgets:[Attack Severity] , Applications:[All] , showTable:false |
-      | Time Definitions.Date | Quick:15m          |
-
-    Then UI "Validate" Report With Name "OverAllAppWallReport"
-      | Template-3 | reportType:AppWall , Widgets:[Attack Severity] , Applications:[All] , showTable:false |
-      | Time Definitions.Date | Quick:15m          |
-
-  @SID_9
-  Scenario: Validate delivery card and generate report
-    Then UI "Generate" Report With Name "OverAllAppWallReport"
-      | timeOut | 120 |
-
-  @SID_10
-  Scenario: Delete Report Validation
-    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverAllAppWallReport"
-    Then UI Delete Report With Name "OverAllAppWallReport"
-    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "OverAllAppWallReport"
-
-  @SID_11
-  Scenario: create new Forensics_AW and validate
-    Then UI Navigate to "AMS Forensics" page via homepage
-    When UI "Create" Forensics With Name "Forensics_AW"
-      | Product               | AppWall                                                                                                                    |
-      | Applications          | All                                                                                                                        |
-      | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
-      | Format                | Select: CSV                                                                                                                |
-      | Time Definitions.Date | Quick:Today                                                                                                                |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware           |
-
-  @SID_12
-  Scenario: Validate delivery card and generate Forensics
-    Then UI Click Button "My Forensics" with value "Forensics_AW"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_AW"
-    Then Sleep "35"
-
-  @SID_13
-  Scenario: Validate Forensics.Table
-    And UI Click Button "Views.Forensic" with value "Forensics_AW,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 0
-    Then UI Delete Forensics With Name "Forensics_AW"
-    Then Sleep "10"
-    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics_AW"
+#  @SID_11
+#  Scenario: create new Forensics_AW and validate
+#    Then UI Navigate to "AMS Forensics" page via homepage
+#    When UI "Create" Forensics With Name "Forensics_AW"
+#      | Product               | AppWall                                                                                                                    |
+#      | Applications          | All                                                                                                                        |
+#      | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
+#      | Format                | Select: CSV                                                                                                                |
+#      | Time Definitions.Date | Quick:Today                                                                                                                |
+#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware           |
+#
+#  @SID_12
+#  Scenario: Validate delivery card and generate Forensics
+#    Then UI Click Button "My Forensics" with value "Forensics_AW"
+#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_AW"
+#    Then Sleep "35"
+#
+#  @SID_13
+#  Scenario: Validate Forensics.Table
+#    And UI Click Button "Views.Forensic" with value "Forensics_AW,0"
+#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 0
+#    Then UI Delete Forensics With Name "Forensics_AW"
+#    Then Sleep "10"
+#    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics_AW"
 
 
   @SID_14
