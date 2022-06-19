@@ -162,8 +162,8 @@ Feature: AMS forensic BDoS and DNS Attack State
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "51-1528993409"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "State" equal to "Collective Rate Limit"
     When UI Click Button "Forensics.Attack Details.Close"
+    Then UI Delete Forensics With Name "BDoS_DNS_State"
 
-    
   @SID_24
   Scenario: Clear ES for new attacks
     Given CLI kill all simulator attacks on current vision
@@ -207,6 +207,7 @@ Feature: AMS forensic BDoS and DNS Attack State
     And UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "36-1578309882"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "State" equal to "Real-Time Signature Analysis – Rate Limit"
     When UI Click Button "Forensics.Attack Details.Close"
+    Then UI Delete Forensics With Name "BDoS_DNS_State"
 
   @SID_28
   Scenario: Second clear ES for new attack
