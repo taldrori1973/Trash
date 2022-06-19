@@ -1,4 +1,4 @@
-@Debug
+
 Feature: Alerts
 
   Scenario: Login to VRM "Alerts" tab
