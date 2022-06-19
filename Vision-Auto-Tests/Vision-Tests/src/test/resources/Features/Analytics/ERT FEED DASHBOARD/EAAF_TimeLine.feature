@@ -14,10 +14,10 @@ Feature: EAAF TimeLine
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 #    Then Sleep "300"
-    Given Play File "DP_sim_8.28.xmf" in device "50.50.100.3" from map "Automation_Machines" and wait 20 seconds
+    Given Play File "DP_sim_8.28.xmf" in device "DP_Sim_Set_0" from map "Automation_Machines" and wait 20 seconds
     Then Sleep "300"
     And UI Navigate to "EAAF Dashboard" page via homePage
-    Given Play File "empty_file.xmf" in device "50.50.100.3" from map "Automation_Machines" and wait 20 seconds
+    Given Play File "empty_file.xmf" in device "DP_Sim_Set_0" from map "Automation_Machines" and wait 20 seconds
     Then Sleep "30"
 
 
