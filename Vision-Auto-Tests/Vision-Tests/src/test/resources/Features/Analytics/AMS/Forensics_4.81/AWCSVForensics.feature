@@ -83,6 +83,7 @@ Feature: AW CSV Forensics
   @SID_10
   Scenario: Unzip CSV file1
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
   @SID_11
