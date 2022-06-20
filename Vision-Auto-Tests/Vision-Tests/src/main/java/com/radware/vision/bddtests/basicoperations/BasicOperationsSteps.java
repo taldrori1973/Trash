@@ -706,12 +706,20 @@ public class BasicOperationsSteps extends VisionUITestBase {
                 addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
             } else {
                 String actualStatus = element.getAttribute(attribute);
+                String[] SplitActualStatus = actualStatus.split(" ");
+                String[] SplitExpectedValue=parameter.value.split(" ");
                 String errorMessage = "The EXPECTED value of : '" + parameter.label + "' with params: '" + parameter.param + "' is not equal to '" + actualStatus + "' ";
                 switch (compare) {
                     case "EQUAL":
                     case "EQUALS":
-                        if (!element.getAttribute(attribute).equalsIgnoreCase(parameter.value)) {
-                            addErrorMessage(errorMessage);
+                        if (!element.getAttribute(attribute).equals(parameter.value)) {
+                            try {
+                                float ActualValueNum = Float.parseFloat(SplitActualStatus[0]);
+                                if (!(Float.parseFloat(parameter.value.split(" ")[0])+ parameter.offset >= ActualValueNum  && Float.parseFloat(parameter.value.split(" ")[0])- parameter.offset <= ActualValueNum  && SplitExpectedValue[1].equals(SplitActualStatus[1])))
+                                    throw new Exception("The Actual Value " + actualStatus + " is not Equal to " + parameter.value);
+                            } catch (Exception ex) {
+                                addErrorMessage(errorMessage);
+                            }
                         }
                         break;
                     case "CONTAINS":
@@ -944,6 +952,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
         String label;
         String param;
         String value;
+        int offset;
     }
 
     static public class TableEntry {
