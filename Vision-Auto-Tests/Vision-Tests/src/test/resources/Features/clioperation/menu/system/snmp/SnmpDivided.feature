@@ -108,6 +108,6 @@ Feature: Snmp divided Tests
 
   @SID_20
   Scenario: CLI Add Dns Server After Validations
-    Then CLI Operations - Run Radware Session command "net dns set primary 10.221.1.47"
+    Then CLI Operations - Run Radware Session command "net dns set primary 10.220.20.7"
 
 

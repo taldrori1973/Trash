@@ -1,5 +1,7 @@
 package com.radware.vision.bddtests.vmoperations.Deploy;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.InterfaceDto;
 import com.radware.vision.automation.Deploy.NewVmHandler;
 import com.radware.vision.automation.base.TestBase;
@@ -20,7 +22,7 @@ public class FreshInstallQCow2 extends FreshInstall {
             List<InterfaceDto> interfacesList = TestBase.getSutManager().getInterfaces();
             vmHandler.firstTimeWizardQCow2(version, build, buildFileInfo.getDownloadUri().toString(), interfacesList, buildFileInfo.getChecksums().getMd5());
         } catch (Exception e) {
-            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 }

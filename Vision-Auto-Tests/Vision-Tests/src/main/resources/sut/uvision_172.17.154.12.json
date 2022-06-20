@@ -8,7 +8,19 @@
   "deployConfigurations": {
     "setupMode": "qcow2_fresh install",
     "snapshot": "",
-    "environment": "KVM-210"
+    "environment": "KVM-210",
+    "interfaces": [
+      {
+        "name": "G1", "network": "mgmt"
+      },
+      {
+        "name": "G2", "network": "mgmt", "ip": "50.50.154.12"
+      },
+      {
+        "name": "G3", "network": "mgmt"
+      }
+    ]
+
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.12",

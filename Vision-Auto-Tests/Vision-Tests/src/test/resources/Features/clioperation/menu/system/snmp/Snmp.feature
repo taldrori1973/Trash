@@ -3,7 +3,7 @@ Feature: System SNMP tests
 
   @SID_1
   Scenario: System SNMP initial Status Tests
-    Given CLI Operations - Run Radware Session command "net dns set primary 10.221.1.47"
+    Given CLI Operations - Run Radware Session command "net dns set primary 10.220.20.7"
     Then CLI System Snmp Initial Status
 
   @SID_2

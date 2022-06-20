@@ -4,7 +4,7 @@ Feature: GET device details API
 
   @SID_1
   Scenario: set TACACS login
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Then CLI Reset radware password
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 
   @SID_2

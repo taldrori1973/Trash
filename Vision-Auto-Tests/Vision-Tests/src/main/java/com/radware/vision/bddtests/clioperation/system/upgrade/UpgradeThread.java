@@ -9,6 +9,7 @@ import com.radware.vision.automation.systemManagement.serversManagement.ServersM
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
+import com.radware.vision.root.ResetRadwarePassword;
 
 import static com.radware.vision.base.VisionUITestBase.restTestBase;
 
@@ -46,7 +47,7 @@ public class UpgradeThread extends Thread {
             BaseTestUtils.report("Waiting for services on server:" + rootServerCli.getHost(), Reporter.PASS_NOR_FAIL);
             com.radware.vision.vision_handlers.system.VisionServer.waitForVisionServerServicesToStartHA(radwareServerCli, 20 * 60 * 1000);
 
-            CliOperations.runCommand(rootServerCli, "\"yes|restore_radware_user_password\"", 15 * 1000);
+            ResetRadwarePassword.resetRadwareUserPassword();
             radwareServerCli.init();
             rootServerCli.init();
             BaseTestUtils.report("Upgrading server:" + rootServerCli.getHost(), Reporter.PASS_NOR_FAIL);
