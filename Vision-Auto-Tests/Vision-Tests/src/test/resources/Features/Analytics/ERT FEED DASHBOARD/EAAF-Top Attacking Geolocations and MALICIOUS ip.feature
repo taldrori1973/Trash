@@ -3,7 +3,7 @@ Feature:EAAF-Top Attacking Geolocations and MALICIOUS ip
 
   @SID_1
   Scenario: Login and navigate to EAAF dashboard and Clean system attacks
-    Then Play File "empty_file.xmf" in device "50.50.100.3" from map "Automation_Machines" and wait 20 seconds
+    Then Play File "empty_file.xmf" in device "DP_Sim_Set_0" from map "Automation_Machines" and wait 20 seconds
     * REST Delete ES index "eaaf-attack-*"
     * REST Delete ES index "attack-*"
     * CLI Clear vision logs
@@ -12,10 +12,10 @@ Feature:EAAF-Top Attacking Geolocations and MALICIOUS ip
 
   @SID_2
   Scenario: PLAY DP_sim_8.28 file and Navigate EAAF DashBoard
-    Given Play File "DP_sim_8.28.xmf" in device "50.50.100.3" from map "Automation_Machines" and wait 20 seconds
+    Given Play File "DP_sim_8.28.xmf" in device "DP_Sim_Set_0" from map "Automation_Machines" and wait 20 seconds
     Then Sleep "300"
     And UI Navigate to "EAAF Dashboard" page via homePage
-    Then Play File "empty_file.xmf" in device "50.50.100.3" from map "Automation_Machines" and wait 20 seconds
+    Then Play File "empty_file.xmf" in device "DP_Sim_Set_0" from map "Automation_Machines" and wait 20 seconds
 
 
   @SID_3
@@ -441,19 +441,19 @@ Feature:EAAF-Top Attacking Geolocations and MALICIOUS ip
     Then UI Click Button "Eaaf tabs" with value "Packets,Breakdown-by-Malicious-Activity"
     Then UI Validate Text field "breakdown total events" with params "0" EQUALS "2K"
 
-  @SID_16
+  @SID_17
     Scenario: validate breakdown Attacks
     Then UI Click Button "Eaaf tabs" with value "Attacks,Breakdown-by-Malicious-Activity"
     Then UI Validate Text field "breakdown total events" with params "0" EQUALS "3"
 
-  @SID_17
+  @SID_18
   Scenario: validate breakdown Volume
     Then UI Click Button "Eaaf tabs" with value "Volume,Breakdown-by-Malicious-Activity"
     Then UI Validate Text field "breakdown total events" with params "0" EQUALS "2M"
 
 
   @SSSW
-  @SID_17
+  @SID_19
   Scenario: verify no data available in dashboard
     And UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
