@@ -19,6 +19,7 @@ Feature: DF Analytics Top Protocols
     Given UI Login with user "radware" and password "radware"
     And UI Navigate to "DefenseFlow Analytics" page via homePage
 
+
                   #################  Extended Charts ##################
 
 
