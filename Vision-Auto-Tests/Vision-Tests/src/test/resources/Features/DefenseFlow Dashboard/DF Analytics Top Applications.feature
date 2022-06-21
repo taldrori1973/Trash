@@ -9,7 +9,7 @@ Feature: DF Analytics Top Applications
     * REST Delete ES index "df-t*"
     * REST Delete ES index "traffic*"
     * REST Delete ES index "attacks*"
-    Then CLI simulate 1 attacks of type "FNM_test_New" on SetId "FNM_Set_0" as dest from src "192.168.31.3" and wait 200 seconds
+    Then CLI simulate 1 attacks of type "FlowDetector_test" on SetId "FNM_Set_0" as dest from src "10.18.2.19" and wait 200 seconds
     * CLI kill all simulator attacks on current vision
     Then Sleep "50"
 
