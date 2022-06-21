@@ -9,7 +9,8 @@ Feature: Top Source IPs Chart
     * REST Delete ES index "traffic*"
     * REST Delete ES index "attacks*"
     * CLI Clear vision logs
-    Then CLI simulate 1 attacks of type "FlowDetector_test" on SetId "FNM_Set_0" as dest from src "10.18.2.19" and wait 200 secondswait 200 seconds
+    Then CLI simulate 1 attacks of type "FlowDetector_test" on SetId "FNM_Set_0" as dest from src "10.18.2.19" and wait 200 seconds
+
 
   @SID_2
   Scenario: Login and navigate to DF Analytics
