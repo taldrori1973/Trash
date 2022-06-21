@@ -153,7 +153,8 @@ public class RadwareServerCli extends ServerCliBase {
 
         p = new Prompt();
         p.setPrompt("Are you sure you want to continue connecting (yes/no/[fingerprint])?");
-        p.setCommandEnd(true);
+        p.setStringToSend("yes");
+        p.setCommandEnd(false);
         prompts.add(p);
 
         p = new Prompt();
