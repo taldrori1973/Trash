@@ -13,16 +13,14 @@ import com.radware.vision.automation.invocation.InvokeMethod;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
+import com.radware.vision.root.ResetRadwarePassword;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
 import testutils.RemoteProcessExecutor;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
@@ -528,14 +526,8 @@ public class RemoteSshCommandsTests extends TestBase {
 
     @Given("^CLI Reset radware password$")
     public static void resetPassword() {
-        if (Objects.requireNonNull(serversManagement.getRootServerCLI().orElse(null)).isConnected()) {
-            FileSteps f = new FileSteps();
-            f.scp("/home/radware/Scripts/restore_radware_user_uvision.sh",
-                    ServersManagement.ServerIds.GENERIC_LINUX_SERVER, ServersManagement.ServerIds.ROOT_SERVER_CLI, "/");
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(),
-                    "yes | ./restore_radware_user_uvision.sh", CliOperations.DEFAULT_TIME_OUT);
-        }
-    }
+        ResetRadwarePassword.resetRadwareUserPassword();
+   }
 
     @Given("^CLI Wait for Vision Re-Connection(?: (\\d+) seconds)?$")
     public static void waitForVisionReConnection(Integer timeOut) {

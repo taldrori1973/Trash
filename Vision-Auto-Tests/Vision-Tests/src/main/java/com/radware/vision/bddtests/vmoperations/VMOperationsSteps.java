@@ -14,6 +14,7 @@ import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.*;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
+import com.radware.vision.root.ResetRadwarePassword;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -141,6 +142,7 @@ public class VMOperationsSteps extends VisionUITestBase {
                 case "upgrade":
                     if (revertMachines == null) revertMachines = RevertMachines.MACHINE;
                     RevertSnapshotHandler.revertSnapshot(revertMachines, 60, TimeUnit.MINUTES).afterRevert();
+                    ResetRadwarePassword.resetRadwareUserPassword();
                     return;
                 default:
                     BaseTestUtils.report("What is wrong with you man? there is no such a mode as: " + setupMode, Reporter.FAIL);
