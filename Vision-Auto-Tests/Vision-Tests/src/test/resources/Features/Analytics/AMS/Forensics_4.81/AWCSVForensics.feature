@@ -147,19 +147,20 @@ Feature: AW CSV Forensics
 
   @SID_18
   Scenario: Clear FTP server logs and generate the report2
-    Then Sleep "130"
-    And UI Navigate to "AMS Reports" page via homePage
+    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_AW_Schedule*.zip /home/radware/ftp/Forensics_AW*.csv" on "GENERIC_LINUX_SERVER"
     Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_19
   Scenario: Validate Forensics.Table2
-    Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "Forensics_AW_Schedule"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_AW_Schedule"
+    Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Forensics_AW_Schedule,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 29
 
   @SID_20
   Scenario: Unzip CSV file2
+    Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW_Schedule*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW_Schedule*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
