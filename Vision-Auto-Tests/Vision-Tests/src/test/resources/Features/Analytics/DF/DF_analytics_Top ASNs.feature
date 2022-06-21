@@ -2,16 +2,19 @@
 Feature: DF_analytics_Top ASNs
 
   @SID_1
-  Scenario:  Clean system attacks
-    * CLI kill all simulator attacks on current vision
+  Scenario: Clean system data before Top Source IPs Chart Test
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    * REST Delete ES index "df-attack*"
+    * REST Delete ES index "df-traffic"
+    * REST Delete ES index "df-attack"
+    * REST Delete ES index "traffic*"
+    * REST Delete ES index "attacks*"
     * CLI Clear vision logs
+    Then CLI simulate 1 attacks of type "FlowDetector_test" on SetId "FNM_Set_0" as dest from src "10.18.2.19" and wait 200 seconds
 
 
   @SID_2
-  Scenario:Login and Navigate df analytics  DashBoard
-    Given UI Login with user "radware" and password "radware"
+  Scenario: Login and navigate to DF Analytics
+    Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefenseFlow Analytics" page via homePage
 
 
@@ -19,7 +22,7 @@ Feature: DF_analytics_Top ASNs
   Scenario:validate all PO are selected
     When UI Do Operation "Select" item "ProtectedObjects ScopeSelection"
     Then UI validate CheckBox by ID "select all PO" if Selected "true"
-    Then UI Click Button "" with value "Cancel Scope Selection"
+    Then UI Click Button "Cancel Scope Selection"
 
     ##############validate with BPS side Bar All Protected Object###############################
   @SID_4
