@@ -50,8 +50,8 @@ Feature: DF Analytics Top Protocols
     Then Sleep "3"
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label         | param | value |
-      | Top Protocols | 0     | ICMP  |
-      | Top Protocols | 1     | TCP   |
+      | Top Protocols | 0     | TCP   |
+      | Top Protocols | 1     | ICMP  |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value   | offset |
@@ -93,8 +93,8 @@ Feature: DF Analytics Top Protocols
     Then Sleep "3"
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label         | param | value |
-      | Top Protocols | 0     | ICMP  |
-      | Top Protocols | 1     | TCP   |
+      | Top Protocols | 0     | TCP   |
+      | Top Protocols | 1     | ICMP  |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value  | offset |
@@ -136,8 +136,8 @@ Feature: DF Analytics Top Protocols
     Then Sleep "3"
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label         | param | value |
-      | Top Protocols | 0     | ICMP  |
-      | Top Protocols | 1     | TCP   |
+      | Top Protocols | 0     | TCP   |
+      | Top Protocols | 1     | ICMP  |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value  | offset |
@@ -179,8 +179,8 @@ Feature: DF Analytics Top Protocols
     Then Sleep "3"
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label         | param | value |
-      | Top Protocols | 0     | ICMP  |
-      | Top Protocols | 1     | TCP   |
+      | Top Protocols | 0     | TCP   |
+      | Top Protocols | 1     | ICMP  |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value  | offset |
