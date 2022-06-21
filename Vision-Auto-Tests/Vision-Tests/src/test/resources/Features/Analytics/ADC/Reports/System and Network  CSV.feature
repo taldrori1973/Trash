@@ -10,7 +10,7 @@ Feature: ADC System and Network Generate CSV Report
 
   @SID_2
   Scenario: old reports on file-system
-    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c \"rm /usr/local/tomcat/VRM_report*\"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "docker exec -it config_kvision-reporter_1 sh -c "rm /usr/local/tomcat/VRM_report*"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
 
