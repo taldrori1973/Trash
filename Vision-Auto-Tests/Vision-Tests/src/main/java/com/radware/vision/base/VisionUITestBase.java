@@ -153,7 +153,7 @@ public abstract class VisionUITestBase extends TestBase {
                 //send version , build and mode to FeatureRunner
                 /*
                 The code below used to send the version, build and mode to RunnerFeature class in order to create Before Feature and After Feature in cucumber
-                this code will run once , at the begin of the test .
+                this code will run once , at the beginning of the test .
                  */
 
             }
