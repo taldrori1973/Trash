@@ -305,12 +305,12 @@ public class BasicOperationsByNameIdHandler extends WebUIBasePage {
 		BasicOperationsHandler.setTextField("Filter", prefix);
 		Set<String> elementsDebugIds = new HashSet<>();
 		int i = 2;
-		WebElement prevApplicationElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, 'scopeSelection_deviceIP_')]").getBy()).get(0);
-		WebElement ApplicationElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, 'scopeSelection_deviceIP_')]").getBy()).get(1);
+		WebElement prevApplicationElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@class, 'ScopeSelectionListItemstyle')]").getBy()).get(0);
+		WebElement ApplicationElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@class, 'ScopeSelectionListItemstyle')]").getBy()).get(1);
 		while (!prevApplicationElement.equals(ApplicationElement)) {
 			prevApplicationElement = ApplicationElement;
-			ApplicationElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, 'scopeSelection_deviceIP_')]").getBy()).get(i);
-			List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, 'scopeSelection_deviceIP_')]").getBy());
+			ApplicationElement = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@class, 'ScopeSelectionListItemstyle')]").getBy()).get(i);
+			List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@class, 'ScopeSelectionListItemstyle')]").getBy());
 			elements.forEach(n -> {
 				try {
 					elementsDebugIds.add(n.getAttribute("data-debug-id"));
