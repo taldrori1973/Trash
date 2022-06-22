@@ -1,4 +1,4 @@
-@TC111619 @DebugTest
+@TC111619
 Feature: AW Scope Selection
 
   @SID_1
