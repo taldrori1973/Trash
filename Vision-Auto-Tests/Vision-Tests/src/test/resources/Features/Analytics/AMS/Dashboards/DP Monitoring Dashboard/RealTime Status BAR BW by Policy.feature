@@ -14,7 +14,7 @@ Feature: VRM Real Time Status Bar BW by Policy
     When CLI Clear vision logs
     * REST Delete ES index "dp-*"
     Given CLI simulate 2 attacks of type "rest_traffic" on SetId "DefensePro_Set_1" with loopDelay 15000
-    Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_4" with loopDelay 15000
+#    Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_4" with loopDelay 15000
     Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" with loopDelay 15000
     Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 130 seconds
     Then Sleep "30"
