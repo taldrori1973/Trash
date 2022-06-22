@@ -1,24 +1,24 @@
-@TC111619
+@TC111619 @DebugTest
 Feature: AW Scope Selection
 
   @SID_1
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "radware" and password "radware"
-    Given REST Vision Install License Request "vision-AVA-AppWall"
-    * REST Delete ES index "aw-web-application"
-    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
-    Then REST Delete Device By IP "172.17.164.30"
-    And Browser Refresh Page
-    And Sleep "60"
-    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
-    And Sleep "60"
-    Given add 200 applications with prefix name "app" to appWall ip:"172.17.164.30" with timeout 300
-    Given add 200 applications with prefix name "my_app" to appWall ip:"172.17.164.30" with timeout 300
-    Given add 200 applications with prefix name "radware_app" to appWall ip:"172.17.164.30" with timeout 300
-    Given add 150 applications with prefix name "radware_application" to appWall ip:"172.17.164.30" with timeout 300
-    Given add 50 applications with prefix name "application" to appWall ip:"172.17.164.30" with timeout 300
-    And Sleep "90"
-    And Browser Refresh Page
+#    Given REST Vision Install License Request "vision-AVA-AppWall"
+#    * REST Delete ES index "aw-web-application"
+#    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
+#    Then REST Delete Device By IP "172.17.164.30"
+#    And Browser Refresh Page
+#    And Sleep "60"
+#    Then REST Add device with SetId "AppWall_Set_1" into site "AW_site"
+#    And Sleep "60"
+#    Given add 200 applications with prefix name "app" to appWall ip:"172.17.164.30" with timeout 300
+#    Given add 200 applications with prefix name "my_app" to appWall ip:"172.17.164.30" with timeout 300
+#    Given add 200 applications with prefix name "radware_app" to appWall ip:"172.17.164.30" with timeout 300
+#    Given add 150 applications with prefix name "radware_application" to appWall ip:"172.17.164.30" with timeout 300
+#    Given add 50 applications with prefix name "application" to appWall ip:"172.17.164.30" with timeout 300
+#    And Sleep "90"
+#    And Browser Refresh Page
     And UI Navigate to "AppWall Dashboard" page via homePage
     And Sleep "5"
     And UI Do Operation "Select" item "Applications"
@@ -27,7 +27,7 @@ Feature: AW Scope Selection
   Scenario: Select All Validation
     Given UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "true"
     Then UI validate Checkbox by label "Device Selection.All Devices Selection" with extension "" if Selected "true"
-    Then UI Validate Text field "Checked Number" CONTAINS "1000 / 1000"
+    Then UI Validate Text field "Applications" CONTAINS "1000/1000"
     And UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "false"
     Then UI validate Checkbox by label "Device Selection.All Devices Selection" with extension "" if Selected "false"
 
@@ -54,6 +54,7 @@ Feature: AW Scope Selection
     Then UI Validate Count of Applications scope selection starts with "my_app-10" in AppWall dashboard equal to "11"
 
     And UI Click Button "Scope Selection Cancel"
+    And UI Click Button "Scope Selection ConfirmCancel"
 
   @SID_4
   Scenario: Validate Selected Checkbox
@@ -72,6 +73,7 @@ Feature: AW Scope Selection
     And Sleep "5"
     Then UI Validate the attribute "Class" Of Label "Device Selection.Available Device CheckBox" With Params "test2" is "CONTAINS" to "checked"
     And UI Click Button "Scope Selection Cancel"
+    And UI Click Button "Scope Selection ConfirmCancel"
 
   @SID_5
   Scenario: Select Default
