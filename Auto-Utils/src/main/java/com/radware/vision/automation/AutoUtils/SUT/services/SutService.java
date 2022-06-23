@@ -68,7 +68,7 @@ public class SutService {
         return this.pairSutDao;
     }
 
-    public PairDto getpair() {
+    public PairDto getPair() {
         return modelMapper.map(this.sutDao.getPair(), PairDto.class);
     }
 

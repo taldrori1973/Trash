@@ -46,7 +46,7 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     public PairDto getpair() {
-        return this.sutService.getpair();
+        return this.sutService.getPair();
     }
 
     @Override

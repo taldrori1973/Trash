@@ -23,8 +23,8 @@ Feature: Top Source IPs Chart
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label      | param | value     |
       | Top Source | 0     | 10.0.0.27 |
-      | Top Source | 1     | 10.0.0.24 |
-      | Top Source | 2     | 10.0.0.26 |
+      | Top Source | 1     | 10.0.0.26 |
+      | Top Source | 2     | 10.0.0.24 |
       | Top Source | 3     | 10.0.0.20 |
       | Top Source | 4     | 10.0.0.30 |
 
@@ -39,11 +39,11 @@ Feature: Top Source IPs Chart
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.47 % | 2      |
-      | Top Source Total Percentage | 1     | 10.23 % | 2      |
-      | Top Source Total Percentage | 2     | 10.21 % | 2      |
-      | Top Source Total Percentage | 3     | 10.08 % | 2      |
-      | Top Source Total Percentage | 4     | 10.02 % | 2      |
+      | Top Source Total Percentage | 0     | 10.47 % | 3      |
+      | Top Source Total Percentage | 1     | 10.20 % | 3      |
+      | Top Source Total Percentage | 2     | 10.21 % | 3      |
+      | Top Source Total Percentage | 3     | 10.08 % | 3      |
+      | Top Source Total Percentage | 4     | 10.02 % | 3      |
 
   @SID_4
   Scenario: Validate Top Source IP Extended Widgets Values Sorted by Total pps
@@ -55,8 +55,8 @@ Feature: Top Source IPs Chart
       | Top Source | 0     | 10.0.0.23 |
       | Top Source | 1     | 10.0.0.32 |
       | Top Source | 2     | 10.0.0.24 |
-      | Top Source | 3     | 10.0.0.22 |
-      | Top Source | 4     | 10.0.0.31 |
+      | Top Source | 3     | 10.0.0.25 |
+      | Top Source | 4     | 10.0.0.22 |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                  | param | value | offset |
@@ -68,11 +68,11 @@ Feature: Top Source IPs Chart
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.53 % | 2      |
-      | Top Source Total Percentage | 1     | 10.34 % | 2      |
-      | Top Source Total Percentage | 2     | 10.30 % | 2      |
-      | Top Source Total Percentage | 3     | 10.06 % | 2      |
-      | Top Source Total Percentage | 4     | 9.98 %  | 2      |
+      | Top Source Total Percentage | 0     | 10.53 % | 3      |
+      | Top Source Total Percentage | 1     | 10.34 % | 3      |
+      | Top Source Total Percentage | 2     | 10.30 % | 3      |
+      | Top Source Total Percentage | 3     | 10.06 % | 3      |
+      | Top Source Total Percentage | 4     | 9.98 %  | 3      |
 
   @SID_5
   Scenario: Validate Top Source IP Extended Widgets Values Sorted by Last bps
@@ -99,11 +99,11 @@ Feature: Top Source IPs Chart
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.80 % | 10     |
-      | Top Source Total Percentage | 1     | 10.79 % | 10     |
-      | Top Source Total Percentage | 2     | 10.62 % | 10     |
-      | Top Source Total Percentage | 3     | 10.21 % | 10     |
-      | Top Source Total Percentage | 4     | 10.04 % | 10     |
+      | Top Source Total Percentage | 0     | 10.80 % | 3      |
+      | Top Source Total Percentage | 1     | 10.79 % | 3      |
+      | Top Source Total Percentage | 2     | 10.62 % | 3      |
+      | Top Source Total Percentage | 3     | 10.21 % | 3      |
+      | Top Source Total Percentage | 4     | 10.04 % | 3      |
 
 
   @SID_6
@@ -129,11 +129,11 @@ Feature: Top Source IPs Chart
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 11.23 % | 2      |
-      | Top Source Total Percentage | 1     | 10.99 % | 2      |
-      | Top Source Total Percentage | 2     | 10.93 % | 2      |
-      | Top Source Total Percentage | 3     | 9.90 %  | 2      |
-      | Top Source Total Percentage | 4     | 9.78 %  | 2      |
+      | Top Source Total Percentage | 0     | 11.23 % | 3      |
+      | Top Source Total Percentage | 1     | 10.99 % | 3      |
+      | Top Source Total Percentage | 2     | 10.93 % | 3      |
+      | Top Source Total Percentage | 3     | 9.90 %  | 3      |
+      | Top Source Total Percentage | 4     | 9.78 %  | 3      |
 
 
   @SID_7
@@ -161,11 +161,11 @@ Feature: Top Source IPs Chart
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.34 % | 2      |
-      | Top Source Total Percentage | 1     | 10.26 % | 2      |
-      | Top Source Total Percentage | 2     | 10.20 % | 2      |
-      | Top Source Total Percentage | 3     | 10.08 % | 2      |
-      | Top Source Total Percentage | 4     | 10.07 % | 2      |
+      | Top Source Total Percentage | 0     | 10.34 % | 3      |
+      | Top Source Total Percentage | 1     | 10.26 % | 3      |
+      | Top Source Total Percentage | 2     | 10.20 % | 3      |
+      | Top Source Total Percentage | 3     | 10.08 % | 3      |
+      | Top Source Total Percentage | 4     | 10.07 % | 3      |
 
   @SID_8
   Scenario: Validate Top Source IP Extended Widgets Values Sorted by Average pps
@@ -190,11 +190,11 @@ Feature: Top Source IPs Chart
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.56 % | 2      |
-      | Top Source Total Percentage | 1     | 10.36 % | 2      |
-      | Top Source Total Percentage | 2     | 10.33 % | 2      |
-      | Top Source Total Percentage | 3     | 10.08 % | 2      |
-      | Top Source Total Percentage | 4     | 10.01 % | 2      |
+      | Top Source Total Percentage | 0     | 10.56 % | 3      |
+      | Top Source Total Percentage | 1     | 10.36 % | 3      |
+      | Top Source Total Percentage | 2     | 10.33 % | 3      |
+      | Top Source Total Percentage | 3     | 10.08 % | 3      |
+      | Top Source Total Percentage | 4     | 10.01 % | 3      |
 
 
   @SID_9
@@ -223,11 +223,11 @@ Feature: Top Source IPs Chart
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.49 % | 2      |
-      | Top Source Total Percentage | 1     | 10.28 % | 2      |
-      | Top Source Total Percentage | 2     | 10.23 % | 2      |
-      | Top Source Total Percentage | 3     | 10.06 % | 2      |
-      | Top Source Total Percentage | 4     | 9.99 %  | 2      |
+      | Top Source Total Percentage | 0     | 10.49 % | 3      |
+      | Top Source Total Percentage | 1     | 10.28 % | 3      |
+      | Top Source Total Percentage | 2     | 10.23 % | 3      |
+      | Top Source Total Percentage | 3     | 10.06 % | 3      |
+      | Top Source Total Percentage | 4     | 9.99 %  | 3      |
 
   @SID_10
   Scenario: Validate Top Source IP Extended Widgets Values Sorted by Max pps
@@ -252,11 +252,11 @@ Feature: Top Source IPs Chart
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 11.11 % | 2      |
-      | Top Source Total Percentage | 1     | 9.25 %  | 2      |
-      | Top Source Total Percentage | 2     | 9.25 %  | 2      |
-      | Top Source Total Percentage | 3     | 9.25 %  | 2      |
-      | Top Source Total Percentage | 4     | 9.25 %  | 2      |
+      | Top Source Total Percentage | 0     | 11.11 % | 3      |
+      | Top Source Total Percentage | 1     | 9.25 %  | 3      |
+      | Top Source Total Percentage | 2     | 9.25 %  | 3      |
+      | Top Source Total Percentage | 3     | 9.25 %  | 3      |
+      | Top Source Total Percentage | 4     | 9.25 %  | 3      |
 
               ################  Line Charts ##################
 
@@ -290,17 +290,17 @@ Feature: Top Source IPs Chart
       | value | offset | count |
       | 2     | 20     | 1     |
     Then UI Validate Line Chart data "Top Source IP Addresses" with Label "10.0.0.32"
-      | value | offset | count  |
-      | 2    | 20      |  1     |
+      | value | offset | count |
+      | 2     | 20     | 1     |
     Then UI Validate Line Chart data "Top Source IP Addresses" with Label "10.0.0.24"
-      | value | offset | count  |
-      | 2    | 20      |  1     |
+      | value | offset | count |
+      | 2     | 20     | 1     |
     Then UI Validate Line Chart data "Top Source IP Addresses" with Label "10.0.0.22"
-      | value | offset | count  |
-      | 2    | 20      |  1     |
+      | value | offset | count |
+      | 2     | 20     | 1     |
     Then UI Validate Line Chart data "Top Source IP Addresses" with Label "10.0.0.22"
-      | value | offset | count  |
-      | 2    | 20      |  1     |
+      | value | offset | count |
+      | 2     | 20     | 1     |
 
 
   @SID_16
