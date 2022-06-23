@@ -55,8 +55,8 @@ public abstract class TestBase {
                 // ToDo - Handle interface G2 and add device driver for simulators
 //                setDeviceSettings();
             }
-            clientConfigurations = getSutManager().getClientConfigurations();
-            cliConfigurations = getSutManager().getCliConfigurations();
+            clientConfigurations = sutManager.getClientConfigurations();
+            cliConfigurations = sutManager.getCliConfigurations();
             testStartTime = LocalDateTime.now();
             restTestBase = new RestManagement();
             restTestBase.init();
