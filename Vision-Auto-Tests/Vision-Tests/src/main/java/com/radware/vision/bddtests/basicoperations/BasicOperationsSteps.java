@@ -833,21 +833,15 @@ public class BasicOperationsSteps extends VisionUITestBase {
         String deviceId = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getDeviceId();
         String type = new JSONObject(map.get("devices")).get("type").toString();
         BasicOperationsHandler.clickButton("Device Selection", type);
-//        if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
-//            errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
-//        BasicOperationsHandler.clickButton("DPScopeSelectionChange",deviceIP);
-
-        if(type.equals("DefensePro Analytics")) {
+        if(type.equals("DefensePro Analytics") || type.equals("DEVICES")) {
             BasicOperationsHandler.clickButton("SwitchToDevices", "");
             if (!WebUiTools.isElementChecked(WebUiTools.getWebElement(type + "_RationScopeSelection", deviceId)))
                 errorMessage.append("This device DefensePro_" + deviceIP + " with SetId " + new JSONObject(map.get("devices")).get("SetId").toString() + " is not selected !!");
             BasicOperationsHandler.clickButton("SwitchToPolicies", "");
         }
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()))
-            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceId, policy.toString()})))
+            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceId, policy.toString()})) && !WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceIP, policy.toString()})))
                 errorMessage.append("This Policy " + policy.toString() + " is not selected !!");
-//        if (!isSortedPolices(deviceIP, new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length(), new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())))
-//            errorMessage.append("This Policies is not sorted !! ");
         saveScopeSelection();
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);

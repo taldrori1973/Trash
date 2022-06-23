@@ -54,6 +54,10 @@
         "parentSite": "Alteons_for_DPM-Fakes"
       },
       {
+        "deviceId": "DP_Fake_0",
+        "parentSite": "Default"
+      },
+      {
         "deviceId": "DefensePro_172.16.22.50",
         "parentSite": "RealDPs_Version_8_site"
       },

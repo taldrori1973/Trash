@@ -48,19 +48,15 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Click Button "Behavioral Tab" with value "BDoS"
     Then Sleep "2"
     And UI Do Operation "Select" item "Device Selection"
-    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label                                     | param        | value   |
-      | DefensePro Analytics_RationScopeSelection | DefensePro_172.16.22.50_pol_1 | 1 |
-#      | DefensePro Analytics_RationScopeSelection | DefensePro_172.16.22.51_pol_1 |         |
-#      | DefensePro Analytics_RationScopeSelection | DefensePro_172.16.22.25_pol_1 |         |
+    Then UI Validate the attribute of "class" are "CONTAINS" to
+      | label                                     | param              | value   |
+      | DefensePro Analytics_RationScopeSelection | 172.16.22.50,pol_1 | checked |
     Then UI Click Button "Device Selection.Cancel"
     Then UI Click Button "Behavioral Tab" with value "DNS Flood"
     And UI Do Operation "Select" item "Device Selection"
-    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label                                     | param        | value   |
-      | DefensePro Analytics_RationScopeSelection | DefensePro_172.16.22.50_pol_1 | 1 |
-#      | DefensePro Analytics_RationScopeSelection | DefensePro_172.16.22.51_pol_1 |         |
-#      | DefensePro Analytics_RationScopeSelection | DefensePro_172.16.22.25_pol_1 |         |
+    Then UI Validate the attribute of "class" are "CONTAINS" to
+      | label                                     | param              | value   |
+      | DefensePro Analytics_RationScopeSelection | 172.16.22.50,pol_1 | checked |
     Then UI Click Button "Device Selection.Cancel"
 
 
@@ -86,18 +82,16 @@ Feature: DefensePro Behavioral DNS General Tests
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-NAPTR"
     Then UI Validate Element Existence By Label "Chart" if Exists "true" with value "DNS-PTR"
 
-#  @SID_7
-#  Scenario: Settings label for DNS-A Chart
-#    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-A,IPv4"
-#    And UI Click Button "Chart Settings" with value "DNS-A"
-#    Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
-#    Then UI validate Checkbox by label "DPPolicycheck" if Selected "false"
-#    Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,19_Characters_19_Ch"
-#    Then UI Click Button "Widget Settings Save"
-#    And UI Click Button "Chart Settings" with value "DNS-A"
-#    Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
-#    Then UI validate Checkbox by label "DPPolicycheck" if Selected "true"
-#    Then UI Click Button "Widget Settings Cancel"
+  @SID_7
+  Scenario: Settings label for DNS-A Chart
+    And UI Do Operation "Select" item "Behavioral Chart" with value "DNS-A,IPv4"
+    And UI Click Button "Chart Settings" with value "DNS-A"
+    Then UI validate Checkbox by label "DPPolicycheck" with extension "172.16.22.50_19_Characters_19_Ch" if Selected "false"
+    Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,19_Characters_19_Ch"
+    Then UI Click Button "Widget Settings Save"
+    And UI Click Button "Chart Settings" with value "DNS-A"
+    Then UI validate Checkbox by label "DPPolicycheck" with extension "172.16.22.50_19_Characters_19_Ch" if Selected "true"
+    Then UI Click Button "Widget Settings Cancel"
 
   @SID_8
   Scenario: Validate DNS Widget Repository
