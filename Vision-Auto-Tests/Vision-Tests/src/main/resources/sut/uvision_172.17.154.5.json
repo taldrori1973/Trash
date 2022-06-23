@@ -2,9 +2,9 @@
   "setupFile": "Setup_AMS_3.json",
   "serverName": "uvision_auto",
   "deployConfigurations": {
-    "snapshot": "",
+    "snapshot": "Current-1",
     "setupMode": "upgrade",
-    "environment": "KVM-215"
+    "environment": "OVA-235"
   },
   "pair": {
     "pairIp": "172.17.154.16",
