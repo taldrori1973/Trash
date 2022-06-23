@@ -8,6 +8,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
+import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
@@ -35,6 +36,7 @@ import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.restBddTests.RestClientsSteps;
+import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -141,7 +143,8 @@ public class BasicOperationsSteps extends VisionUITestBase {
     /**
      * @param username - username
      * @param password - user password
-     *                 Do Log in with userName and password and if the user had loggedIn with another userName it Do logout, after that login with the userName
+     *                 Log in with userName and password.
+     *                 If the user had loggedIn with another userName will log out, then login with the userName
      */
     @Given("^UI Login with user \"(.*)\" and password \"(.*)\"( negative)?$")
     public void login(String username, String password, String negative) throws Exception {
@@ -182,49 +185,21 @@ public class BasicOperationsSteps extends VisionUITestBase {
         VisionUITestSetup webUITestSetup = new VisionUITestSetup();
         webUITestSetup.setup();
         BasicOperationsHandler.login(username, password);
-        VisionWebUIUtils.loggedinUser = username;
         RestClientsSteps.thatCurrentVisionIsLoggedIn(null, username, password, null);
-        restTestBase.getVisionRestClient().login();
+        restTestBase.getVisionRestClient().login(username, password, null, 1);
+        VisionWebUIUtils.loggedinUser = username;
     }
 
-//    /**
-//     * REST logout from server and UI validation
-//     *
-//     * @param visionRestClient - rest client
-//     *                         //     * @param sessionID - rest session ID
-//     */
-//    public static void logoutFromServer(VisionRestClient visionRestClient, String username) {
-//        int sessionID = visionRestClient.getSuitableSessionId(username);
-//        WebUIUtils.isIgnoreDisplayedPopup = true;
-//        WebUIUtils.setIsTriggerPopupSearchEvent(true);
-//        try {
-//            if (!isLoggedOut(WebUIUtils.SHORT_WAIT_TIME)) {
-//                visionRestClient.logout(sessionID);
-//            }
-//        } catch (IllegalStateException e) {
-//            //if user was already logged in we got into a inactivity timeout (most likely Configuration TO)
-//            visionRestClient.login(visionRestClient.getUsername(), visionRestClient.getPassword(), "", sessionID);
-//            visionRestClient.logout(sessionID);
-//        } catch (Exception e) {
-//            BaseTestUtils.report("Failed to logout: " + e.getMessage(), Reporter.FAIL);
-//        } finally {
-//            if (!isLoggedOut(WebUIUtils.DEFAULT_LOGIN_WAIT_TIME)) {
-//                BaseTestUtils.report("Logout Operation failed, no \"log In\" button found", Reporter.FAIL);
-//            } else {
-//                isLoggedIn = false;
-//                VisionDebugIdsManager.setTab("LoginPage");
-//            }
-//        }
-//    }
-
     public static void logoutBrowser() throws Exception {
-        Cookie jsessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID");
-        if (jsessionId == null) {
+        Cookie jSessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID");
+        if (jSessionId == null) {
             throw new Exception("can't get the JSESSIONID.");
         }
-        String browserSessionId = jsessionId.getValue();
+        String browserSessionId = jSessionId.getValue();
+        //TODO choose what to use - Eyali
         BaseTestUtils.report("Browser Session Id = " + browserSessionId, Reporter.PASS_NOR_FAIL);
-        GenericVisionRestAPI currentVisionRestAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Log Out");
+//        GenericVisionRestAPI currentVisionRestAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Log Out");
+        CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/SystemManagement.json", "Log Out");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("JSESSIONID", browserSessionId);
         currentVisionRestAPI.getRestRequestSpecification().setCookies(hash_map_param);
@@ -257,7 +232,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
             VisionDebugIdsManager.setTab("LoginPage");
         } catch (Exception e) {
             e.printStackTrace();
-            BaseTestUtils.report("failed to logout" + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("failed to logout: " + e.getMessage(), Reporter.FAIL);
         } finally {
             BasicOperationsHandler.delay(1);
         }
@@ -349,14 +324,14 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     /**
-     * @param setId   - setId
+     * @param setId        - setId
      * @param dualListSide - LEFT/RIGHT
      * @param dualListID   - dual list ID
      */
     @Then("^UI DualList Move setId \"(.*)\" DualList Items to \"(LEFT|RIGHT)\" , dual list id \"(.*)\"$")
     public void moveDualListItems(String setId, DualListSides dualListSide, String dualListID) {
         try {
-  //        DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
+            //        DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
             String itemName = sutManager.getTreeDeviceManagement(setId).get().getDeviceId();
             ClickOperationsHandler.moveScriptDualListItems(dualListSide, itemName, dualListID);
         } catch (Exception e) {
@@ -695,10 +670,9 @@ public class BasicOperationsSteps extends VisionUITestBase {
         for (ParameterSelected parameter : listParamters) { //all the parameters that selected to compare with values
             VisionDebugIdsManager.setLabel(parameter.label);
 
-            if(parameter.param != null){
+            if (parameter.param != null) {
                 VisionDebugIdsManager.setParams(parameter.param.split(","));
-            }
-            else
+            } else
                 VisionDebugIdsManager.setParams(parameter.param);
 
             WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
@@ -706,12 +680,20 @@ public class BasicOperationsSteps extends VisionUITestBase {
                 addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
             } else {
                 String actualStatus = element.getAttribute(attribute);
+                String[] SplitActualStatus = actualStatus.split(" ");
+                String[] SplitExpectedValue=parameter.value.split(" ");
                 String errorMessage = "The EXPECTED value of : '" + parameter.label + "' with params: '" + parameter.param + "' is not equal to '" + actualStatus + "' ";
                 switch (compare) {
                     case "EQUAL":
                     case "EQUALS":
-                        if (!element.getAttribute(attribute).equalsIgnoreCase(parameter.value)) {
-                            addErrorMessage(errorMessage);
+                        if (!element.getAttribute(attribute).equals(parameter.value)) {
+                            try {
+                                float ActualValueNum = Float.parseFloat(SplitActualStatus[0]);
+                                if (!(Float.parseFloat(parameter.value.split(" ")[0])+ parameter.offset >= ActualValueNum  && Float.parseFloat(parameter.value.split(" ")[0])- parameter.offset <= ActualValueNum  && SplitExpectedValue[1].equals(SplitActualStatus[1])))
+                                    throw new Exception("The Actual Value " + actualStatus + " is not Equal to " + parameter.value);
+                            } catch (Exception ex) {
+                                addErrorMessage(errorMessage);
+                            }
                         }
                         break;
                     case "CONTAINS":
@@ -775,8 +757,8 @@ public class BasicOperationsSteps extends VisionUITestBase {
     private static void selectDate(String label, String params, LocalDateTime scheduleTime) {
         String date = String.format("01 %s", WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdtSwitch']")).getText());
         String[] date_s = date.split(" ");
-        int monthNumber = Arrays.asList("january", "february", "march", "april","may", "june", "july", "august", "september", "october", "november", "december").indexOf(date_s[1].toLowerCase())+1;
-        date_s[1] = String.format("%s%s",(monthNumber<=9)?"0":"",monthNumber);
+        int monthNumber = Arrays.asList("january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december").indexOf(date_s[1].toLowerCase()) + 1;
+        date_s[1] = String.format("%s%s", (monthNumber <= 9) ? "0" : "", monthNumber);
         LocalDate actualLocalDate = LocalDate.parse(String.join(" ", date_s), DateTimeFormatter.ofPattern("dd MM yyyy"));
         int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
         while (monthsDifference != 0) {
@@ -827,28 +809,40 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     private void uiUnSelectScopePoliciesInDevice(Map<String, String> map) throws Exception {
-        String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();        expandScopePolicies(deviceIP, map);
-        for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())) {
-            WebUiTools.check("DPPolicyCheck", new String[]{deviceIP, policy.toString()}, false);
+        String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();
+        String deviceId = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getDeviceId();
+        String type = new JSONObject(map.get("devices")).get("type").toString();
+
+        BasicOperationsHandler.clickButton("Device Selection", type);
+        BasicOperationsHandler.clickButton("SwitchToPolicies","");
+
+        JSONObject deviceJSON = new JSONObject(map.get("devices"));
+        ArrayList policiesArray = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePolicies", deviceJSON.toMap().getOrDefault("policies", null)));
+
+        WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocatorgetByEqualsXpathLocator("DPPoliciesFilter", new String[]{deviceIP}));
+        for (Object policy : policiesArray) {
+            policyOrPortText.type(policy.toString().trim());
+            WebUiTools.check("DPPolicyCheck", new String[]{deviceId, policy.toString()}, false);
         }
-        saveScopeSelection(deviceIP);
+        saveScopeSelection();
     }
 
     private void uiValidateScopePoliciesInDevice(Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         String deviceIP = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getManagementIp();
-        BasicOperationsHandler.clickButton("Scope Selection");
-        if ((!(Integer.parseInt(WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro_" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[0]) == new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length())))
-            errorMessage.append("This number of the expected policies  " + new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length() + "  not equal of the actual policies number that equal to " + WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_DefensePro" + deviceIP + "_policiesCount']/div").getBy()).get(0).getText().split("/")[1]);
-        BasicOperationsHandler.clickButton("DPScopeSelectionChange",deviceIP);
-        if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPScopeSelectionChange", deviceIP)))
-            errorMessage.append("This device DefensePro_" + deviceIP + " with SetId " + new JSONObject(map.get("devices")).get("SetId").toString() + " is not selected !!");
+        String deviceId = sutManager.getTreeDeviceManagement(new JSONObject(map.get("devices")).get("SetId").toString()).get().getDeviceId();
+        String type = new JSONObject(map.get("devices")).get("type").toString();
+        BasicOperationsHandler.clickButton("Device Selection", type);
+        if(type.equals("DefensePro Analytics") || type.equals("DEVICES")) {
+            BasicOperationsHandler.clickButton("SwitchToDevices", "");
+            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement(type + "_RationScopeSelection", deviceId)))
+                errorMessage.append("This device DefensePro_" + deviceIP + " with SetId " + new JSONObject(map.get("devices")).get("SetId").toString() + " is not selected !!");
+            BasicOperationsHandler.clickButton("SwitchToPolicies", "");
+        }
         for (Object policy : new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()))
-            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceIP, policy.toString()})))
+            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceId, policy.toString()})) && !WebUiTools.isElementChecked(WebUiTools.getWebElement("DPPolicyCheck", new String[]{deviceIP, policy.toString()})))
                 errorMessage.append("This Policy " + policy.toString() + " is not selected !!");
-        if (!isSortedPolices(deviceIP, new JSONArray(new JSONObject(map.get("devices")).get("policies").toString()).length(), new JSONArray(new JSONObject(map.get("devices")).get("policies").toString())))
-            errorMessage.append("This Policies is not sorted !! ");
-        saveScopeSelection(deviceIP);
+        saveScopeSelection();
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
@@ -858,29 +852,22 @@ public class BasicOperationsSteps extends VisionUITestBase {
         policesArray.replaceAll(String::toLowerCase);
         Collections.sort(policesArray);
         List<WebElement> policyElements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//label[starts-with(@data-debug-id, 'scopeSelection_DefensePro_" + deviceIP + "_policiesLabel_')]").getBy());
-        for (int i = 0; i < policesNumber; i++) {
-            if (!policyElements.get(i).getText().toLowerCase().equals(policesArray.get(i)))
-                return false;
-        }
+        if (policyElements.size() != 0) {
+            for (int i = 0; i < policesNumber; i++) {
+                if (!policyElements.get(i).getText().toLowerCase().equals(policesArray.get(i)))
+                    return false;
+            }
+        } else
+            return false;
+
         return true;
     }
 
-    private void saveScopeSelection(String deviceIP) throws TargetWebElementNotFoundException {
-        clickButton("DPScopeSelectionChange", deviceIP);
+    private void saveScopeSelection() throws TargetWebElementNotFoundException {
+//        clickButton("DPScopeSelectionChange", deviceIP);
         clickButton("SaveDPScopeSelection", "");
         if (WebUiTools.getWebElement("close scope selection") != null)
             clickButton("close scope selection");
-    }
-
-    private void expandScopePolicies(String device, Map<String, String> map) throws Exception {
-        try {
-            clickButton("Device Selection", "");
-        } catch (Exception e) {
-            clickButton("Open Scope Selection", new JSONObject(map.get("devices")).get("type").toString());
-        } finally {
-            setTextField("ScopeSelectionFilter", device);
-            clickButton("DPScopeSelectionChange", device);
-        }
     }
 
     @Then("^UI Text of \"([^\"]*)\" with extension \"([^\"]*)\" GTE to \"([^\"]*)\" with offset \"([^\"]*)\"$")
@@ -909,14 +896,14 @@ public class BasicOperationsSteps extends VisionUITestBase {
             minVal2 = Float.parseFloat(number2Expected) - Integer.parseInt(offset);
 
             if (Float.parseFloat(number1Actual) > maxVal1 || Float.parseFloat(number1Actual) < minVal1)
-                BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+                BaseTestUtils.report("Exepected value is "+number1Expected+" Actual value is "+number1Actual, Reporter.FAIL);
             if (Float.parseFloat(number2Actual) > maxVal2 || Float.parseFloat(number2Actual) < minVal2)
-                BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
+                BaseTestUtils.report("Exepected value is "+number2Expected+" Actual value is "+number2Actual, Reporter.FAIL);
         }
     }
 
     @Then("^UI ScrollIntoView with label \"([^\"]*)\" (?:and params \"([^\"]*)\")?$")
-    public void uiScrollIntoViewWithLabelAndParams(String label, String params) throws Throwable {
+    public void uiScrollIntoViewWithLabelAndParams(String label, String params) {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(params.split(","));
         try {
@@ -933,6 +920,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
         String label;
         String param;
         String value;
+        int offset;
     }
 
     static public class TableEntry {
@@ -980,7 +968,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     @Then("^UI Unclick all the attributes \"([^\"]*)\" is \"(EQUALS|CONTAINS)\" to \"([^\"]*)\"$")
-    public void uiUnclickAllTheAttributesOf(String attribute, String compare, String value, List<ParameterSelected> listParameters) {
+    public void uiUnClickAllTheAttributesOf(String attribute, String compare, String value, List<ParameterSelected> listParameters) {
         try {
             for (ParameterSelected parameter : listParameters) {
                 VisionDebugIdsManager.setLabel(parameter.label);
@@ -989,7 +977,6 @@ public class BasicOperationsSteps extends VisionUITestBase {
                 if (element == null) {
                     addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
                 } else {
-                    String actualStatus = element.getAttribute(attribute);
                     switch (compare) {
                         case "EQUALS":
                             if (element.getAttribute(attribute).equalsIgnoreCase(value)) {
@@ -1008,10 +995,5 @@ public class BasicOperationsSteps extends VisionUITestBase {
         } catch (TargetWebElementNotFoundException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-    }
-
-    public static class ClickParameter {
-        String label;
-        String param;
     }
 }

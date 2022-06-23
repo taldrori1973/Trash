@@ -31,7 +31,7 @@ Feature: HTTPS Server Dashboard
       | Behavioral Tab | Quantile DoS | false |
       | Behavioral Tab | HTTPS Flood  | false |
     Then UI Validate Element Existence By Label "Device Selection" if Exists "true"
-    Then UI Validate Text field "Device Selection" CONTAINS "DEVICES"
+    Then UI Validate Text field "Device Selection" CONTAINS "Policies"
     Then UI Validate Element Existence By Label "Widget Selection" if Exists "true"
     Then UI Validate Element Existence By Label "Max Min" if Exists "true"
 
@@ -46,7 +46,7 @@ Feature: HTTPS Server Dashboard
       | Behavioral Tab | Quantile DoS | false |
       | Behavioral Tab | HTTPS Flood  | true  |
     Then UI Validate Element Existence By Label "Servers Button" if Exists "true"
-    Then UI Validate Text field "Servers Button" EQUALS "SERVERS"
+    Then UI Validate Text field "Servers Button" EQUALS "Servers"
     Then UI Validate Element Existence By Label "Widget Selection" if Exists "false"
     Then UI Validate Element Existence By Label "Max Min" if Exists "true"
     Then UI Validate Text field "header HTTPS" EQUALS "DefensePro Behavioral Protections"
@@ -386,10 +386,9 @@ Feature: HTTPS Server Dashboard
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     When UI Click Button "Behavioral Tab" with value "HTTPS Flood"
-    When UI Click Button "Servers Button"
-    When UI Set Text Field "Server Selection.Search" To "test"
-    Then UI Click Button "Server Selection.Server Name" with value "test,DefensePro_172.16.22.51,pol1"
-    Then UI Click Button "Server Selection.Save"
+    When UI Select Server and save
+      | name | device                  | policy |
+      | test | DefensePro_172.16.22.51 | pol1   |
 
 
   @SID_33

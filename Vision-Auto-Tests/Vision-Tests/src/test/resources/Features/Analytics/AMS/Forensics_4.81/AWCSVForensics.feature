@@ -57,11 +57,11 @@ Feature: AW CSV Forensics
   Scenario: create new Forensics_AW and validate1
     When UI "Create" Forensics With Name "Forensics_AW"
       | Product               | AppWall                                                                                                                    |
-      | Application           | All                                                                                                                        |
+      | Applications          | All                                                                                                                        |
       | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
       | Format                | Select: CSV                                                                                                                |
       | Time Definitions.Date | Quick:Today                                                                                                                |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123           |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123        |
 
   @SID_7
   Scenario: Clear FTP server logs and generate the report1
@@ -82,6 +82,7 @@ Feature: AW CSV Forensics
 
   @SID_10
   Scenario: Unzip CSV file1
+    Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
@@ -135,30 +136,31 @@ Feature: AW CSV Forensics
   @SID_17
   Scenario: create new Forensics_AW and validate2
     When UI "Create" Forensics With Name "Forensics_AW_Schedule"
-      | Product     | AppWall                                                                                                          |
-      | Application | All                                                                                                              |
-      | Output      | Add All                                                                                                          |
-      | Format      | Select: CSV                                                                                                      |
-      | Share       | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
-      | Criteria    | Event Criteria:Action,Operator:Not Equals,Value:Reported                                                         |
-      | Schedule    | Run Every:Daily,On Time:+2m                                                                                      |
+      | Product      | AppWall                                                                                                             |
+      | Applications | All                                                                                                                 |
+      | Output       | Add All                                                                                                             |
+      | Format       | Select: CSV                                                                                                         |
+      | Share        | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
+      | Criteria     | Event Criteria:Action,Operator:Not Equals,Value:Reported                                                            |
+      | Schedule     | Run Every:Daily,On Time:+2m                                                                                         |
 
 
   @SID_18
   Scenario: Clear FTP server logs and generate the report2
-    Then Sleep "130"
-    And UI Navigate to "AMS Reports" page via homePage
+    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_AW_Schedule*.zip /home/radware/ftp/Forensics_AW*.csv" on "GENERIC_LINUX_SERVER"
     Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_19
   Scenario: Validate Forensics.Table2
-    Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "Forensics_AW_Schedule"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_AW_Schedule"
+    Then Sleep "60"
     And UI Click Button "Views.Forensic" with value "Forensics_AW_Schedule,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 29
 
   @SID_20
   Scenario: Unzip CSV file2
+    Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW_Schedule*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_AW_Schedule*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 

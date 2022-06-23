@@ -16,10 +16,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.LazyView;
 import com.radware.automation.webui.widgets.api.TextField;
-import com.radware.automation.webui.widgets.impl.LazyViewImpl;
-import com.radware.automation.webui.widgets.impl.WebUICheckbox;
-import com.radware.automation.webui.widgets.impl.WebUIComponent;
-import com.radware.automation.webui.widgets.impl.WebUITextField;
+import com.radware.automation.webui.widgets.impl.*;
 import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
@@ -44,6 +41,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
+import org.springframework.cache.interceptor.BasicOperation;
 
 import java.sql.Timestamp;
 import java.time.Duration;
@@ -82,6 +80,42 @@ public class VRMHandler {
         this.localStorage = new LocalStorageImpl();
     }
 
+    public static void scroll(String chart) {
+        VisionDebugIdsManager.setLabel("Chart");
+        VisionDebugIdsManager.setParams(chart);
+        try {
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null)
+                return;
+            WebUIUtils.scrollIntoView(element, true);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    protected static void scrollAndTakeScreenshot(String chart) {
+        scroll(chart);
+        WebUIUtils.forceGenerateAndReportScreenshot();
+    }
+
+    public static void innerChangePoliciesOfSelectDevice(String deviceIp) throws Exception {
+        //ALL Button
+        String selectAllCheckBox = "Device Selection.All Devices Selection";
+        VisionDebugIdsManager.setLabel(selectAllCheckBox);
+        WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+//            To Clear previous settings
+        if (checkbox.isChecked()) {
+            checkbox.uncheck();
+        }
+
+        //select the device
+        checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
+        checkbox.click();
+        ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
+
+
+    }
+
     public Map getSessionStorage(String chart) throws SessionStorageException {
         Map jsonMap;
         String item = sessionStorage.getItem(chart);// return NO data available
@@ -100,7 +134,6 @@ public class VRMHandler {
 
         return jsonMap;
     }
-
 
     private boolean isJSONValid(String test) {
         try {
@@ -335,17 +368,15 @@ public class VRMHandler {
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, columnGraph);
-        if(foundObject == null)
-        {
-            BaseTestUtils.report((noLabel)?
-                            "Success : Label Not Found ":
+        if (foundObject == null) {
+            BaseTestUtils.report((noLabel) ?
+                            "Success : Label Not Found " :
                             "Failed to get label: " + label + " from chart: " + chart
                     , (noLabel) ? Reporter.PASS : Reporter.FAIL);
 
             return;
         }
-        if(!isJSONValid(foundObject.get(DATA).toString()))
-        {
+        if (!isJSONValid(foundObject.get(DATA).toString())) {
             entries.forEach(entry -> {
                 entry.value = (entry.value == null) ? null : entry.value;
 
@@ -358,8 +389,7 @@ public class VRMHandler {
                     addErrorMessage("The ACTUAL value in the chart " + chart + "  is " + actualResult);
 
             });
-        }
-        else {
+        } else {
 
             JSONArray data = (JSONArray) foundObject.get(DATA);
 
@@ -582,19 +612,6 @@ public class VRMHandler {
         reportErrors();
     }
 
-    public static void scroll(String chart) {
-        VisionDebugIdsManager.setLabel("Chart");
-        VisionDebugIdsManager.setParams(chart);
-        try {
-            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
-            if (element == null)
-                return;
-            WebUIUtils.scrollIntoView(element, true);
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-    }
-
     public void validatePieChartDataOfDataSetsSize(String chart, List<DataSize> entries) {
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(chart, "Chart is equal to null");
@@ -732,11 +749,6 @@ public class VRMHandler {
             BaseTestUtils.report("Failed to resize element.", e);
         }
         reportErrors();
-    }
-
-    protected static void scrollAndTakeScreenshot(String chart) {
-        scroll(chart);
-        WebUIUtils.forceGenerateAndReportScreenshot();
     }
 
     void innerSelectDeviceWithPoliciesAndPorts(String saveFilter, SUTDeviceType deviceType, List<DpDeviceFilter> entries) {
@@ -881,14 +893,32 @@ public class VRMHandler {
         }
     }
 
+    public void tristatecheck() {
+        VisionDebugIdsManager.setLabel("Device Selection.All Devices Selection");
+        WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+        String checkboxstate = checkbox.getAttribute("data-debug-checked");
+        if (checkboxstate.equals("0") || checkboxstate.equals("2")) {
+            checkbox.click();
+        }
+    }
+
+    public void tristateuncheck() {
+        VisionDebugIdsManager.setLabel("Device Selection.All Devices Selection");
+        WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+        String checkboxstate = checkbox.getAttribute("data-debug-checked");
+        if (checkboxstate.equals("1") || checkboxstate.equals("2")) {
+            checkbox.click();
+        }
+    }
+
     public void selectApplications(List<DpApplicationFilter> entries, String deviceType, boolean shouldSaved) throws Exception {
         VisionDebugIdsManager.setLabel("Device Selection.All Devices Selection");
         WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-        checkbox.check();
+        tristatecheck();
         if (!entries.isEmpty()) {
-            checkbox.uncheck();
+            tristateuncheck();
             if (entries.get(0).name.equalsIgnoreCase("All")) {
-                checkbox.check();
+                tristatecheck();
             } else {
                 for (DpApplicationFilter entry : entries) {
                     VisionDebugIdsManager.setLabel("Device Selection.Available Device CheckBox");
@@ -897,17 +927,29 @@ public class VRMHandler {
                     checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
 //                    checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + entry.name + "_Label"));
                     if (checkbox.getWebElement() == null) {
+                        String poPrefix = "row-" + entry.name.trim() + "-cbox_checkbox";
+                        WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId("scope-searchbar-input"));
+                        policyText.type(entry.name.trim());
+                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(poPrefix));
+                        if (checkbox.getWebElement() != null)
+                            checkbox.click();
+                        else
+                            throw new Exception(" checkBox element not found " + entry.name + " ");
+//                        checkbox.click();
                         switch (deviceType.toLowerCase()) {
                             case "defenseflow":
+                                break;
                             case "appwall":
+                                break;
                             case "alteon":
+                                break;
                             case "linkproof":
                                 VisionDebugIdsManager.setLabel("Filter");
                                 TextField textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(VisionDebugIdsManager.getDataDebugId());
                                 BasicOperationsHandler.setTextField("Filter", "");
                                 ((WebUITextField) textField).sendKeysByCharacter(entry.name);
                                 if (checkbox.getWebElement() != null)
-                                    checkbox.check();
+                                    checkbox.click();
                                 else
                                     throw new Exception(" checkBox element not found " + entry.name + " ");
 
@@ -916,14 +958,17 @@ public class VRMHandler {
                                 throw new Exception(" checkBox element not found " + entry.name + " ");
                         }
                     } else {
-                        checkbox.check();
+                        checkbox.click();
                     }
                 }
             }
         }
-        if (shouldSaved) {
-            BasicOperationsHandler.clickButton("Device Selection.Save Filter");
+        if (!BasicOperationsHandler.pageName.equalsIgnoreCase("AMS Alerts")){
+            if (shouldSaved) {
+                BasicOperationsHandler.clickButton("Device Selection.Save Filter");
+            }
         }
+
     }
 
     public void uiVRMTotalAvailableDeviceS(int totalNumOfDevices) {
@@ -999,7 +1044,6 @@ public class VRMHandler {
 
     }
 
-
     protected void uiVRMSelectWidgets() {
 //      Open widget selection popup
         WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
@@ -1010,122 +1054,227 @@ public class VRMHandler {
         WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
     }
 
+    public void selectPolicyTab() {
+        String policyTab = "Device Policy.tab";
+        VisionDebugIdsManager.setLabel(policyTab);
+        WebUICheckbox button = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+//        WebUIComponent component = new WebUIComponent(ComponentLocatorFactory.getEqualLocatorByDbgId(policyTab));
+        button.click();
+    }
+
+    public void selectDeviceTab() {
+        String deviceTab = "Device.tab";
+        VisionDebugIdsManager.setLabel(deviceTab);
+        WebUICheckbox button = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+//        WebUIComponent component = new WebUIComponent(ComponentLocatorFactory.getEqualLocatorByDbgId(policyTab));
+        button.click();
+    }
 
     public void innerSelectDeviceWithPoliciesAndPorts(String saveFilter, SUTDeviceType deviceType, List<DpDeviceFilter> entries, boolean moveMouse) {
         try {
-            //ALL Button
-            String selectAllCheckBox = "Device Selection.All Devices Selection";
-            VisionDebugIdsManager.setLabel(selectAllCheckBox);
-            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-//            To Clear previous settings
-            checkbox.check();
-            if (!entries.isEmpty())
-                checkbox.uncheck();
-
-            entries.forEach(entry -> {
-                String deviceIp = null;
-                String deviceName = null;
-                try {
-                    if (entry.setId != null || entry.deviceId != null) {
-                        SUTManager sutManager = SUTManagerImpl.getInstance();
-                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
-                                sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
-                        if (!deviceOpt.isPresent()) {
-                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId != null) ? entry.setId : entry.deviceId));
-                        }
-                        deviceIp = deviceOpt.get().getManagementIp();
-                        deviceName = deviceOpt.get().getDeviceName();
-                    } else {
-                        throw new Exception("device setId|deviceId entry is empty.");
-                    }
-
-                } catch (Exception e) {
-                    BaseTestUtils.report(e.getMessage(), e);
+            //Since we have a different behavior in the Behavioral protection page, I am checking the page that I am currently in
+            //and if the current page is Behavioral protection page, we will have to skip to the policies directly
+            if (BasicOperationsHandler.pageName.equalsIgnoreCase("DefensePro Behavioral Protections Dashboard")) {
+                innerSelectDeviceWithPoliciesBehavioral(saveFilter, deviceType, entries, moveMouse);
+            } else {
+                selectDeviceTab();
+                WebUIComponent popupbutton = new WebUIComponent(ComponentLocatorFactory.getLocatorByDbgId("button_scope-confirm_button_1"));
+                popupbutton.click();
+                String selectAllCheckBox = "Device Selection.All Devices Selection";
+                VisionDebugIdsManager.setLabel(selectAllCheckBox);
+                WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+                tristatecheck();
+                if (!entries.isEmpty()) {
+                    tristateuncheck();
+                } else {
+                    tristatecheck();
                 }
-                //select the device
-                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_" + deviceName + "_Label"));
-                checkbox.check();
-                boolean changePolicies = entry.policies != null && !entry.policies.equals("");
-                boolean changePorts = entry.ports != null && !entry.ports.equals("");
-                if (changePolicies || changePorts) {
-                    //click on change
-                    ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceName), false);
-                    String policyPrefix = "scopeSelection_" + deviceName + "_policiesLabel_";
-                    String portPrefix = "scopeSelection_" + deviceName + "_portsLabel_";
-                    String policySearch = "scopeSelection_[" + deviceName + "]_policy_Text";
-                    String portSearch = "scopeSelection_[" + deviceName + "]_port_Text";
-                    List<String> policiesList, portsList;
-                    if (changePolicies) {
-                        WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
-                        WebUIUtils.scrollIntoView(policyText.getWebElement(), true);
-                        if (!entry.policies.equalsIgnoreCase("ALL")) {
-                            policiesList = Arrays.asList(entry.policies.split("(,)"));
-                            for (String policy : policiesList) {
-                                policyText.type(policy.trim());
-                                if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME / 2) == null) {
-                                    policyText.type(""); //clear
-                                    scrollUntilElementDisplayed(ComponentLocatorFactory.getLocatorByXpathDbgId("scopeSelection_" + deviceName + "_policiesLabel_"), ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
-                                } else if (!WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()).isDisplayed()) {
-                                    WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()));
-                                }
-                                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
-                                checkbox.check();
+
+                entries.forEach(entry -> {
+                    String deviceIp = null;
+                    String deviceName = null;
+                    try {
+                        if (entry.setId != null || entry.deviceId != null) {
+                            SUTManager sutManager = SUTManagerImpl.getInstance();
+                            Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                                    sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+                            if (!deviceOpt.isPresent()) {
+                                throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId != null) ? entry.setId : entry.deviceId));
                             }
+                            deviceIp = deviceOpt.get().getManagementIp();
+                            deviceName = deviceOpt.get().getDeviceName();
                         } else {
-                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_" + deviceName), new ComponentLocator(How.XPATH, "//lablel"));
-                            policiesList = lazyView.getViewValues();
-                            for (String policy : policiesList) {
-                                policyText.type(policy.trim());
-                                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
-                                checkbox.check();
-                            }
+                            throw new Exception("device setId|deviceId entry is empty.");
                         }
+
+                    } catch (Exception e) {
+                        BaseTestUtils.report(e.getMessage(), e);
                     }
+                    checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row-" + deviceName + "-cbox"));
+                    checkbox.click();
+                    boolean changePorts = entry.ports != null && !entry.ports.equals("");
+                    List<String> portsList;
                     if (changePorts) {
-                        WebUITextField portText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(portSearch));
+                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2"));
+                        checkbox.click();
                         if (!entry.ports.equalsIgnoreCase("ALL")) {
                             portsList = Arrays.asList(entry.ports.split("(,)"));
                             for (String port : portsList) {
-                                portText.type(port.trim());
-                                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(portPrefix + port.trim()));
-                                checkbox.check();
+                                checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2_cbox_" + port.trim() + "_checkbox"));
+                                checkbox.click();
                             }
+
                         } else {
-                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_" + deviceName), new ComponentLocator(How.XPATH, "//lablel"));
-                            portsList = lazyView.getViewValues();
-                            for (String port : portsList) {
-                                portText.type(port.trim());
-                                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(portPrefix + port.trim()));
-                                checkbox.check();
-                            }
+                            checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2_cbox_all"));
+                            checkbox.click();
+
+                        }
+                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("row_" + deviceName + "_col2"));
+                        checkbox.click();
+                    }
+                    if (!(entry.virtualServices == null) && !entry.virtualServices.equals("")) {
+                        ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
+                        String servicePrefix = "scopeSelection_deviceIP_" + deviceIp + "_portsLabel_";
+                        String serviceSearch = "scopeSelection_deviceIP_[" + deviceIp + "]";
+                        List<String> servicesList;
+                        servicesList = Arrays.asList(entry.virtualServices.split("(,)"));
+                        WebUITextField serviceText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(serviceSearch));
+                        for (String service : servicesList) {
+                            serviceText.type(service.trim());
+                            checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(servicePrefix + service.trim()));
+                            checkbox.click();
                         }
                     }
-                }
-                if (!(entry.virtualServices == null) && !entry.virtualServices.equals("")) {
-                    ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
-                    String servicePrefix = "scopeSelection_deviceIP_" + deviceIp + "_portsLabel_";
-                    String serviceSearch = "scopeSelection_deviceIP_[" + deviceIp + "]";
-                    List<String> servicesList;
+                });
+                if (!entries.isEmpty()) {
+                    entries.forEach(entry -> {
+                        String deviceIp = null;
+                        String deviceName = null;
+                        try {
+                            if (entry.setId != null || entry.deviceId != null) {
+                                SUTManager sutManager = SUTManagerImpl.getInstance();
+                                Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                                        sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+                                if (!deviceOpt.isPresent()) {
+                                    throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId != null) ? entry.setId : entry.deviceId));
+                                }
+                                deviceIp = deviceOpt.get().getManagementIp();
+                                deviceName = deviceOpt.get().getDeviceName();
+                            } else {
+                                throw new Exception("device setId|deviceId entry is empty.");
+                            }
 
-                    servicesList = Arrays.asList(entry.virtualServices.split("(,)"));
-                    WebUITextField serviceText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(serviceSearch));
-                    for (String service : servicesList) {
-                        serviceText.type(service.trim());
-                        checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(servicePrefix + service.trim()));
-                        checkbox.check();
-                    }
+                        } catch (Exception e) {
+                            BaseTestUtils.report(e.getMessage(), e);
+                        }
+                        List<String> policiesList;
+                        boolean changePolicies = entry.policies != null && !entry.policies.equals("");
+                        if (changePolicies) {
+                            if (saveFilter != null) {
+                                String saveBtnLabel = "Device Selection.Save Filter";
+                                VisionDebugIdsManager.setLabel(saveBtnLabel);
+                                BaseTestUtils.reportInfoMessage("Clicking on submit button");
+                                WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
+                            }
+                            if (!BasicOperationsHandler.pageName.equalsIgnoreCase("AMS Alerts")) {
+                                ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("ScopeSelectionButton"));
+                            }
+                            String policySearch = "scope-searchbar-input";
+                            selectPolicyTab();
+                            popupbutton.click();
+                            WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
+                            if (!entry.policies.equalsIgnoreCase("ALL")) {
+                                policiesList = Arrays.asList(entry.policies.split("(,)"));
+                                for (String policy : policiesList) {
+                                    String policyPrefix = "row-" + deviceName + "_" + policy.trim() + "-cbox_checkbox";
+                                    policyText.type(policy.trim());
+                                    checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(policyPrefix));
+                                    checkbox.click();
+                                }
+                            } else {
+                                policyText.type(deviceName, true);
+                                checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("select-all-cbox_checkbox"));
+                                checkbox.click();
+//                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_" + deviceName), new ComponentLocator(How.XPATH, "//lablel"));
+//                                LazyView lazyView = new LazyViewImpl(new ComponentLocator(How.XPATH, "//div[contains(@data-debug-id,'list-item')]//div[contains(@data-debug-id,'cbox_checkbox')]/div"));
+//                                policiesList = lazyView.getViewValues();
+//                                for (String policy : policiesList) {
+//                                    policyText.type(policy.trim());
+//                                    checkbox.setLocator(new ComponentLocator(How.XPATH, "//div[text()='DefensePro_172.16.22.50']/..//div[contains(@data-debug-id,'all_checkbox')]/div"));
+//                                    checkbox.click();
+//                                }
+                            }
+                        }
+                    });
                 }
-            });
-            //Save Filter
-            if (saveFilter != null) {
-                String saveBtnLabel = "Device Selection.Save Filter";
-                VisionDebugIdsManager.setLabel(saveBtnLabel);
-                WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
+                if (!BasicOperationsHandler.pageName.equalsIgnoreCase("AMS Alerts")) {
+                    String saveBtnLabel = "Device Selection.Save Filter";
+                    VisionDebugIdsManager.setLabel(saveBtnLabel);
+                    BaseTestUtils.reportInfoMessage("Clicking on the submit button at the end");
+                    WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
+                    BaseTestUtils.reportInfoMessage("Clicked on the submit button at the end");
+                }
             }
-
         } catch (
                 Exception e) {
             BaseTestUtils.report(e.getMessage(), e);
+        }
+    }
+
+    public void innerSelectDeviceWithPoliciesBehavioral(String saveFilter, SUTDeviceType deviceType, List<DpDeviceFilter> entries, boolean moveMouse) {
+        String selectAllCheckBox = "Device Selection.All Devices Selection";
+        VisionDebugIdsManager.setLabel(selectAllCheckBox);
+        WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+        tristatecheck();
+        if (!entries.isEmpty()) {
+            tristateuncheck();
+        } else {
+            tristatecheck();
+        }
+        entries.forEach(entry -> {
+            String deviceIp = null;
+            String deviceName = null;
+            try {
+                if (entry.setId != null || entry.deviceId != null) {
+                    SUTManager sutManager = SUTManagerImpl.getInstance();
+                    Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                            sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+                    if (!deviceOpt.isPresent()) {
+                        throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", (entry.setId != null) ? entry.setId : entry.deviceId));
+                    }
+                    deviceIp = deviceOpt.get().getManagementIp();
+                    deviceName = deviceOpt.get().getDeviceName();
+                } else {
+                    throw new Exception("device setId|deviceId entry is empty.");
+                }
+            } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), e);
+            }
+
+            boolean changePolicies = entry.policies != null && !entry.policies.equals("");
+            List<String> policiesList;
+            if (changePolicies) {
+                String policySearch = "scope-searchbar-input";
+                WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
+                if (!entry.policies.equalsIgnoreCase("ALL")) {
+                    policiesList = Arrays.asList(entry.policies.split("(,)"));
+                    for (String policy : policiesList) {
+                        String policyPrefix = "row-" + deviceName + "_" + policy.trim() + "-cbox_checkbox";
+                        policyText.type(policy.trim());
+                        checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId(policyPrefix));
+                        checkbox.click();
+                    }
+                } else {
+                    policyText.type(deviceName, true);
+                    checkbox.setLocator(ComponentLocatorFactory.getLocatorByDbgId("select-all-cbox_checkbox"));
+                    checkbox.click();
+                }
+            }
+        });
+        if (saveFilter != null) {
+            String saveBtnLabel = "Device Selection.Save Filter";
+            VisionDebugIdsManager.setLabel(saveBtnLabel);
+            WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
         }
     }
 
@@ -1419,6 +1568,306 @@ public class VRMHandler {
         reportErrors();
     }
 
+    /**
+     * function select a range in the char.
+     *
+     * @param fromIndex - is an index of label in the session storage.
+     * @param toIndex   - is an index of label in the sesison storage
+     * @param chart     - chart name
+     * @parm timeFormat - time format for example yyyy-MM-dd'T'HH:mm:ssXXX
+     */
+    public void selectTimeFromTo(int fromIndex, int toIndex, String chart, String timeFormat) {
+        try {
+            Objects.requireNonNull(chart, "Chart is equal to null");
+            JSONArray dataArray;
+            Map jsonMap = getSessionStorage(chart);
+            jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
+            dataArray = (JSONArray) jsonMap.get(LABELS);
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(timeFormat != null ? timeFormat : "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+            if (dataArray.length() < toIndex)
+                BaseTestUtils.report("There is no Enough data in Session Storage", Reporter.FAIL);
+            LocalDateTime from = LocalDateTime.parse((CharSequence) dataArray.get(fromIndex), inputFormatter);
+            LocalDateTime to = LocalDateTime.parse((CharSequence) dataArray.get(toIndex), inputFormatter);
+            VisionDebugIdsManager.setLabel("Traffic Bandwidth FromTo");
+            VisionDebugIdsManager.setParams("from");
+            WebElement firstElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+            JavascriptExecutor executor = (JavascriptExecutor) WebUIUtils.getDriver();
+            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(from).getTime(), firstElement);
+
+            VisionDebugIdsManager.setParams("to");
+            WebElement secondElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(to).getTime(), secondElement);
+            WebElement button = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId("qa-call-attacks-dialog").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+            executor.executeScript("arguments[0].click(); ", button);
+
+        } catch (Exception e) {
+            BaseTestUtils.report("Could not select time: " + e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    /**
+     * Clears either session or local storage
+     *
+     * @param storageType - storage type - valid values: "Local"|Session"
+     */
+    public void clearStorageByType(String storageType) {
+        try {
+            switch (storageType) {
+                case "Session":
+                    this.sessionStorage.clear();
+                    break;
+                case "Local":
+                    this.localStorage.clear();
+                    break;
+                default:
+                    BaseTestUtils.report("No such storage type as: " + storageType, Reporter.FAIL);
+                    break;
+            }
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    public void validateMemoryUtilization() throws Exception {
+        ServersManagement serversManagement = TestBase.getServersManagement();
+        Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
+        RootServerCli rsc = rootServerCli.get();
+
+        CliOperations.runCommand(rsc, "yum install stress", 3 * 60 * 1000, true);
+        CliOperations.runCommand(rsc, "sudo yum install -y epel-release", 3 * 60 * 1000, true);
+        CliOperations.runCommand(rsc, "sudo yum install -y stress", 3 * 60 * 1000, true);
+
+        CliOperations.runCommand(rsc, "free");
+        int number;
+        String warningRising;
+        String warningFalling;
+        String errorRising;
+        String errorFalling;
+        try {
+            String[] a = rsc.getCmdOutput().get(1).split("\\s+");
+            double num = Double.parseDouble(a[2]) / Double.parseDouble(a[1]);
+            number = (int) (num * 100);
+            if (number >= 85)
+                number = 85;
+            warningRising = String.valueOf(number + 5);
+            warningFalling = String.valueOf(number + 2);
+            errorRising = String.valueOf(number + 10);
+            errorFalling = String.valueOf(number + 7);
+        } catch (IndexOutOfBoundsException e) {
+            throw new Exception(" the index out of bound , output of command is not correct ");
+        }
+
+        changeValuesMemoryUtilization(warningRising, errorRising, warningFalling, errorFalling);
+        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
+        Thread.sleep(60 * 1000);
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+
+        // validate rising error alert (major) and falling (info)
+        WebElement fallingWarningElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//tr[contains(@id,'gwt-debug-alerts')and //div[contains(text(),'Falling: Memory utilization is normal')] and .//div[contains(text(),'Info')]]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        WebElement risingErrorElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//tr[contains(@id,'gwt-debug-alerts')and //div[contains(text(),'Rising: Memory utilization is high')] and .//div[contains(text(),'Major')]]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        if (risingErrorElement == null || fallingWarningElement == null)
+            BaseTestUtils.report("Failed to get Rising memory error (major) or falling info", Reporter.FAIL);
+
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        changeValuesMemoryUtilization(warningRising, "99", String.valueOf(number - 10), "99");
+        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 6G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
+        Thread.sleep(60 * 1000);
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+
+        // validate rising warning alert (minor) and falling (warning)
+        WebElement risingWarningElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//tr[contains(@id,'gwt-debug-alerts')and //div[contains(text(),'Rising: Memory utilization is high')] and .//div[contains(text(),'Minor')]]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        if (risingWarningElement == null)
+            BaseTestUtils.report("Failed to get Rising memory warning (minor) ", Reporter.FAIL);
+
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        changeValuesMemoryUtilization(warningRising, errorRising, String.valueOf(number - 10), "90");
+        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
+        Thread.sleep(60 * 1000);
+
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+//       // validate falling (warning)
+        WebElement fallingErrorElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//tr[contains(@id,'gwt-debug-alerts')and //div[contains(text(),'Falling: Memory utilization is normal')] and .//div[contains(text(),'Warning')]]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        if (fallingErrorElement == null)
+            BaseTestUtils.report("Failed to get Falling memory Warning ", Reporter.FAIL);
+    }
+
+    protected void changeValuesMemoryUtilization(String warningRising, String errorRising, String warningFalling, String errorFalling) {
+        if (WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false) != null)
+            WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        WebUIUtils.fluentWaitClick(new ComponentLocator(How.XPATH, "//*[contains(@id,'CellID_parameterName')]//div[contains(text(),'MEMORY')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-WarningThresholdsEntry_EDIT")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        BasicOperationsHandler.setCheckboxById("gwt-debug-enabled_Widget-input", true);
+        ClickOperationsHandler.setTextToElement(WebElementType.Id, "gwt-debug-risingWarningThreshold_Widget", warningRising, false);
+        ClickOperationsHandler.setTextToElement(WebElementType.Id, "gwt-debug-fallingWarningThreshold_Widget", warningFalling, false);
+        ClickOperationsHandler.setTextToElement(WebElementType.Id, "gwt-debug-risingErrorThreshold_Widget", errorRising, false);
+        ClickOperationsHandler.setTextToElement(WebElementType.Id, "gwt-debug-fallingErrorThreshold_Widget", errorFalling, false);
+        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_WarningThresholdsEntry_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+
+    }
+
+    public void innerSelectDeviceWithPoliciesAndPortsTest(List<Polices> entries) {
+        try {
+            //ALL Button
+            String selectAllCheckBox = "Device Selection.All Devices Selection";
+            VisionDebugIdsManager.setLabel(selectAllCheckBox);
+            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+            entries.forEach(entry -> {
+                String deviceIp = null;
+                try {
+                    if (entry.index == null && entry.deviceId == null && entry.setId == null) {
+                        throw new Exception("Index entry is empty please enter it!");
+                    } else {
+                        SUTManager sutManager = SUTManagerImpl.getInstance();
+                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                                sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+
+//                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp() ;
+                        deviceIp = deviceOpt.get().getManagementIp();
+
+                    }
+
+                } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), e);
+                }
+                boolean changePolicies = entry.policies != null && !entry.policies.equals("");
+                boolean isExist = entry.isExist;
+                if (changePolicies) {
+//                    String policyPrefix = "scopeSelection_DefensePro_" + deviceIp + "_policiesLabel_";
+//                    String policySearch = "scopeSelection_DefensePro_[" + deviceIp + "]_policy_Text";
+
+                    String policySearch = "scope-searchbar-input";
+                    List<String> policiesList;
+                    if (changePolicies) {
+                        WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
+                        if (!entry.policies.equalsIgnoreCase("ALL")) {
+                            policiesList = Arrays.asList(entry.policies.split("(,)"));
+                            for (String policy : policiesList) {
+                                String policyPrefix = "row-DefensePro_" + deviceIp + "_" + policy.trim() + "-cbox_checkbox";
+                                if (!BasicOperationsHandler.pageName.equalsIgnoreCase("DefensePro Behavioral Protections Dashboard")) {
+                                    try {
+                                        BasicOperationsHandler.clickButton("Device Selection", "");
+                                    } catch (TargetWebElementNotFoundException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                selectPolicyTab();
+                                policyText.type(policy.trim());
+                                WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+                                if (!isExist) {
+                                    if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix).getBy()) != null) {
+                                        // addErrorMessage(String.format("device [%s] ->Expected policy [%s] does exist", deviceIp, policy));
+                                        BaseTestUtils.report("Expected policy: " + policy + " does exist", Reporter.FAIL);
+                                        WebUIUtils.generateAndReportScreenshot();
+                                    }
+                                }
+                                if (isExist) {
+                                    if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix).getBy()) == null) {
+                                        BaseTestUtils.report("Expected policy: " + policy + " does not exist", Reporter.FAIL);
+                                        WebUIUtils.generateAndReportScreenshot();
+                                    }
+                                }
+
+                            }
+                        } else {
+                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//lablel"));
+                            policiesList = lazyView.getViewValues();
+                            for (String policy : policiesList) {
+                                String policyPrefix = "row-DefensePro_" + deviceIp + "_" + policy + "-cbox_checkbox";
+                                policyText.type(policy.trim());
+                                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
+                                checkbox.click();
+                            }
+                        }
+                    }
+                }
+            });
+
+        } catch (
+                Exception e) {
+            BaseTestUtils.report(e.getMessage(), e);
+        }
+    }
+
+    public void innerSelectDeviceWithPoliciesAndPortsTestClickChange(SUTDeviceType deviceType, List<DpDeviceFilter> entries) {
+        try {
+            //ALL Button
+            String selectAllCheckBox = "Device Selection.All Devices Selection";
+            VisionDebugIdsManager.setLabel(selectAllCheckBox);
+            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+            selectDeviceTab();
+            tristatecheck();
+            if (!entries.isEmpty()) {
+                tristateuncheck();
+            } else {
+                tristatecheck();
+            }
+
+            entries.forEach(entry -> {
+                String deviceIp = null;
+                try {
+
+                    if (entry.setId != null || entry.deviceId != null) {
+                        SUTManager sutManager = SUTManagerImpl.getInstance();
+                        Optional<TreeDeviceManagementDto> deviceOpt = (entry.setId != null) ? sutManager.getTreeDeviceManagement(entry.setId) :
+                                sutManager.getTreeDeviceManagementFromDevices(entry.deviceId);
+                        if (!deviceOpt.isPresent()) {
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
+                        }
+                        deviceIp = deviceOpt.get().getManagementIp();
+                    } else {
+                        throw new Exception("device setId entry is empty.");
+                    }
+                } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), e);
+                }
+                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("row-DefensePro_" + deviceIp + "-cbox"));
+                checkbox.click();
+            });
+
+            String saveBtnLabel = "Device Selection.Save Filter";
+            VisionDebugIdsManager.setLabel(saveBtnLabel);
+            WebUIVisionBasePage.getCurrentPage().getContainer().getWidget(saveBtnLabel).click();
+
+        } catch (
+                Exception e) {
+            BaseTestUtils.report(e.getMessage(), e);
+        }
+    }
+
+    public void validateAttributeData(String attribute, String index, String chart, List<SignatureData> entries) throws SessionStorageException {
+        Objects.requireNonNull(chart, "Chart is equal to null");
+        Map jsonMap = getSessionStorage(chart);
+        JSONArray jsonArray = (JSONArray) new JSONObject(jsonMap.get("data").toString()).get(attribute);
+        boolean isExist = false;
+        switch (attribute) {
+            case "rts":
+                JSONArray rtsArray = (JSONArray) new JSONObject(new JSONObject(jsonArray.get(Integer.parseInt(index)).toString()).get("value").toString()).get("footprint");
+                for (int i = 0; i < entries.size(); i++) {
+                    isExist = false;
+                    for (int j = 0; j < rtsArray.length(); j++) {
+                        if (entries.get(i).type.equals("OUTER")) {
+                            if (entries.get(i).compareTypeOperElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString())) {
+                                isExist = true;
+                                break;
+                            }
+                        } else if (entries.get(i).type.equals("INNER")) {
+                            if (rtsArray.getJSONObject(j).has("param") && rtsArray.getJSONObject(j).has("full_values") && entries.get(i).compareFullElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString(), rtsArray.getJSONObject(j).get("param").toString(), rtsArray.getJSONObject(j).get("full_values").toString())) {
+                                isExist = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isExist)
+                        BaseTestUtils.report("The expected " + attribute + " with Value |" + entries.get(i).type + "|" + entries.get(i).oper + "|" + entries.get(i).param + "|" + entries.get(i).values + "| is not equal to actual " + attribute, Reporter.FAIL);
+                }
+                break;
+        }
+    }
+
     public static class DataTime {
         public String time;
         public double value;
@@ -1592,15 +2041,17 @@ public class VRMHandler {
     }
 
     public static class Polices {
+        public String setId;
+        public String deviceId;
         public Integer index;
         public String policies;
         public Boolean isExist;
     }
 
     public static class LabelParam {
+        public boolean exist;
         protected String param = "";
         protected String label = "";
-        public boolean exist;
 
         public String getDataDebugId() {
             VisionDebugIdsManager.setLabel(label);
@@ -1616,301 +2067,5 @@ public class VRMHandler {
             return param;
         }
 
-    }
-
-    /**
-     * function select a range in the char.
-     *
-     * @param fromIndex - is an index of label in the session storage.
-     * @param toIndex   - is an index of label in the sesison storage
-     * @param chart     - chart name
-     * @parm timeFormat - time format for example yyyy-MM-dd'T'HH:mm:ssXXX
-     */
-    public void selectTimeFromTo(int fromIndex, int toIndex, String chart, String timeFormat) {
-        try {
-            Objects.requireNonNull(chart, "Chart is equal to null");
-            JSONArray dataArray;
-            Map jsonMap = getSessionStorage(chart);
-            jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
-            dataArray = (JSONArray) jsonMap.get(LABELS);
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(timeFormat != null ? timeFormat : "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-            if (dataArray.length() < toIndex)
-                BaseTestUtils.report("There is no Enough data in Session Storage", Reporter.FAIL);
-            LocalDateTime from = LocalDateTime.parse((CharSequence) dataArray.get(fromIndex), inputFormatter);
-            LocalDateTime to = LocalDateTime.parse((CharSequence) dataArray.get(toIndex), inputFormatter);
-            VisionDebugIdsManager.setLabel("Traffic Bandwidth FromTo");
-            VisionDebugIdsManager.setParams("from");
-            WebElement firstElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            JavascriptExecutor executor = (JavascriptExecutor) WebUIUtils.getDriver();
-            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(from).getTime(), firstElement);
-
-            VisionDebugIdsManager.setParams("to");
-            WebElement secondElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(to).getTime(), secondElement);
-            WebElement button = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId("qa-call-attacks-dialog").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            executor.executeScript("arguments[0].click(); ", button);
-
-        } catch (Exception e) {
-            BaseTestUtils.report("Could not select time: " + e.getMessage(), Reporter.FAIL);
-        }
-    }
-
-    /**
-     * Clears either session or local storage
-     *
-     * @param storageType - storage type - valid values: "Local"|Session"
-     */
-    public void clearStorageByType(String storageType) {
-        try {
-            switch (storageType) {
-                case "Session":
-                    this.sessionStorage.clear();
-                    break;
-                case "Local":
-                    this.localStorage.clear();
-                    break;
-                default:
-                    BaseTestUtils.report("No such storage type as: " + storageType, Reporter.FAIL);
-                    break;
-            }
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
-    }
-
-    public void validateMemoryUtilization() throws Exception {
-        ServersManagement serversManagement = TestBase.getServersManagement();
-        Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
-        RootServerCli rsc = rootServerCli.get();
-
-        CliOperations.runCommand(rsc, "yum install stress", 3 * 60 * 1000, true);
-        CliOperations.runCommand(rsc, "sudo yum install -y epel-release", 3 * 60 * 1000, true);
-        CliOperations.runCommand(rsc, "sudo yum install -y stress", 3 * 60 * 1000, true);
-
-        CliOperations.runCommand(rsc, "free");
-        int number;
-        String warningRising;
-        String warningFalling;
-        String errorRising;
-        String errorFalling;
-        try {
-            String[] a = rsc.getCmdOutput().get(1).split("\\s+");
-            double num = Double.parseDouble(a[2]) / Double.parseDouble(a[1]);
-            number = (int) (num * 100);
-            if (number >= 85)
-                number = 85;
-            warningRising = String.valueOf(number + 5);
-            warningFalling = String.valueOf(number + 2);
-            errorRising = String.valueOf(number + 10);
-            errorFalling = String.valueOf(number + 7);
-        } catch (IndexOutOfBoundsException e) {
-            throw new Exception(" the index out of bound , output of command is not correct ");
-        }
-
-        changeValuesMemoryUtilization(warningRising, errorRising, warningFalling, errorFalling);
-        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
-        Thread.sleep(60 * 1000);
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-
-        // validate rising error alert (major) and falling (info)
-        WebElement fallingWarningElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//tr[contains(@id,'gwt-debug-alerts')and //div[contains(text(),'Falling: Memory utilization is normal')] and .//div[contains(text(),'Info')]]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        WebElement risingErrorElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//tr[contains(@id,'gwt-debug-alerts')and //div[contains(text(),'Rising: Memory utilization is high')] and .//div[contains(text(),'Major')]]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        if (risingErrorElement == null || fallingWarningElement == null)
-            BaseTestUtils.report("Failed to get Rising memory error (major) or falling info", Reporter.FAIL);
-
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        changeValuesMemoryUtilization(warningRising, "99", String.valueOf(number - 10), "99");
-        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 6G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
-        Thread.sleep(60 * 1000);
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-
-        // validate rising warning alert (minor) and falling (warning)
-        WebElement risingWarningElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//tr[contains(@id,'gwt-debug-alerts')and //div[contains(text(),'Rising: Memory utilization is high')] and .//div[contains(text(),'Minor')]]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        if (risingWarningElement == null)
-            BaseTestUtils.report("Failed to get Rising memory warning (minor) ", Reporter.FAIL);
-
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        changeValuesMemoryUtilization(warningRising, errorRising, String.valueOf(number - 10), "90");
-        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
-        Thread.sleep(60 * 1000);
-
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-//       // validate falling (warning)
-        WebElement fallingErrorElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//tr[contains(@id,'gwt-debug-alerts')and //div[contains(text(),'Falling: Memory utilization is normal')] and .//div[contains(text(),'Warning')]]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        if (fallingErrorElement == null)
-            BaseTestUtils.report("Failed to get Falling memory Warning ", Reporter.FAIL);
-    }
-
-    protected void changeValuesMemoryUtilization(String warningRising, String errorRising, String warningFalling, String errorFalling) {
-        if (WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false) != null)
-            WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        WebUIUtils.fluentWaitClick(new ComponentLocator(How.XPATH, "//*[contains(@id,'CellID_parameterName')]//div[contains(text(),'MEMORY')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-WarningThresholdsEntry_EDIT")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        BasicOperationsHandler.setCheckboxById("gwt-debug-enabled_Widget-input", true);
-        ClickOperationsHandler.setTextToElement(WebElementType.Id, "gwt-debug-risingWarningThreshold_Widget", warningRising, false);
-        ClickOperationsHandler.setTextToElement(WebElementType.Id, "gwt-debug-fallingWarningThreshold_Widget", warningFalling, false);
-        ClickOperationsHandler.setTextToElement(WebElementType.Id, "gwt-debug-risingErrorThreshold_Widget", errorRising, false);
-        ClickOperationsHandler.setTextToElement(WebElementType.Id, "gwt-debug-fallingErrorThreshold_Widget", errorFalling, false);
-        WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_WarningThresholdsEntry_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-
-    }
-
-
-    public static void innerChangePoliciesOfSelectDevice(String deviceIp) throws Exception {
-        //ALL Button
-        String selectAllCheckBox = "Device Selection.All Devices Selection";
-        VisionDebugIdsManager.setLabel(selectAllCheckBox);
-        WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-//            To Clear previous settings
-        if (checkbox.isChecked()) {
-            checkbox.uncheck();
-        }
-
-        //select the device
-        checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
-        checkbox.check();
-        ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
-
-
-    }
-
-
-    public void innerSelectDeviceWithPoliciesAndPortsTest(List<Polices> entries) {
-        try {
-            //ALL Button
-            String selectAllCheckBox = "Device Selection.All Devices Selection";
-            VisionDebugIdsManager.setLabel(selectAllCheckBox);
-            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-            entries.forEach(entry -> {
-                String deviceIp = null;
-                try {
-                    if (entry.index == null) {
-                        throw new Exception("Index entry is empty please enter it!");
-                    } else {
-                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
-                    }
-
-                } catch (Exception e) {
-                    BaseTestUtils.report(e.getMessage(), e);
-                }
-                boolean changePolicies = entry.policies != null && !entry.policies.equals("");
-                boolean isExist = entry.isExist;
-                if (changePolicies) {
-                    String policyPrefix = "scopeSelection_DefensePro_" + deviceIp + "_policiesLabel_";
-                    String policySearch = "scopeSelection_DefensePro_[" + deviceIp + "]_policy_Text";
-                    List<String> policiesList;
-                    if (changePolicies) {
-                        WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix));
-                        if (!entry.policies.equalsIgnoreCase("ALL")) {
-                            policiesList = Arrays.asList(entry.policies.split("(,)"));
-                            for (String policy : policiesList) {
-                                //     policyText.type(policy.trim());
-                                // WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-                                if (!isExist) {
-                                    if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()) != null) {
-                                        // addErrorMessage(String.format("device [%s] ->Expected policy [%s] does exist", deviceIp, policy));
-                                        BaseTestUtils.report("Expected policy: " + policy + " does exist", Reporter.FAIL);
-                                        WebUIUtils.generateAndReportScreenshot();
-                                    }
-                                }
-                                if (isExist) {
-                                    if (!WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()).isDisplayed()) {
-                                        BaseTestUtils.report("Expected policy: " + policy + " does not exist", Reporter.FAIL);
-                                        WebUIUtils.generateAndReportScreenshot();
-                                    }
-                                }
-
-                            }
-                        } else {
-                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//lablel"));
-                            policiesList = lazyView.getViewValues();
-                            for (String policy : policiesList) {
-                                policyText.type(policy.trim());
-                                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
-                                checkbox.check();
-                            }
-                        }
-                    }
-                }
-            });
-
-        } catch (
-                Exception e) {
-            BaseTestUtils.report(e.getMessage(), e);
-        }
-    }
-
-    public void innerSelectDeviceWithPoliciesAndPortsTestClickChange(SUTDeviceType deviceType, List<DpDeviceFilter> entries) {
-        try {
-            //ALL Button
-            String selectAllCheckBox = "Device Selection.All Devices Selection";
-            VisionDebugIdsManager.setLabel(selectAllCheckBox);
-            WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-//            To Clear previous settings
-            checkbox.check();
-            if (!entries.isEmpty())
-                checkbox.uncheck();
-
-            entries.forEach(entry -> {
-                String deviceIp = null;
-                try {
-
-                    if (entry.setId != null) {
-                        Optional<TreeDeviceManagementDto> deviceOpt = SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
-                        if (!deviceOpt.isPresent()) {
-                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
-                        }
-                        deviceIp = deviceOpt.get().getManagementIp();
-                    } else {
-                        throw new Exception("device setId entry is empty.");
-                    }
-                } catch (Exception e) {
-                    BaseTestUtils.report(e.getMessage(), e);
-                }
-                //select the device
-                // checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
-                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_" + deviceType + "_" + deviceIp + "_Label"));
-                checkbox.check();
-                ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceType + "_" + deviceIp), false);
-            });
-
-        } catch (
-                Exception e) {
-            BaseTestUtils.report(e.getMessage(), e);
-        }
-    }
-
-    public void validateAttributeData(String attribute, String index, String chart, List<SignatureData> entries) throws SessionStorageException {
-        Objects.requireNonNull(chart, "Chart is equal to null");
-        Map jsonMap = getSessionStorage(chart);
-        JSONArray jsonArray = (JSONArray) new JSONObject(jsonMap.get("data").toString()).get(attribute);
-        boolean isExist = false;
-        switch (attribute) {
-            case "rts":
-                JSONArray rtsArray = (JSONArray) new JSONObject(new JSONObject(jsonArray.get(Integer.parseInt(index)).toString()).get("value").toString()).get("footprint");
-                for (int i = 0; i < entries.size(); i++) {
-                    isExist = false;
-                    for (int j = 0; j < rtsArray.length(); j++) {
-                        if (entries.get(i).type.equals("OUTER")) {
-                            if (entries.get(i).compareTypeOperElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString())) {
-                                isExist = true;
-                                break;
-                            }
-                        } else if (entries.get(i).type.equals("INNER")) {
-                            if (rtsArray.getJSONObject(j).has("param") && rtsArray.getJSONObject(j).has("full_values") && entries.get(i).compareFullElement(rtsArray.getJSONObject(j).get("type").toString(), rtsArray.getJSONObject(j).get("oper").toString(), rtsArray.getJSONObject(j).get("param").toString(), rtsArray.getJSONObject(j).get("full_values").toString())) {
-                                isExist = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!isExist)
-                        BaseTestUtils.report("The expected " + attribute + " with Value |" + entries.get(i).type + "|" + entries.get(i).oper + "|" + entries.get(i).param + "|" + entries.get(i).values + "| is not equal to actual " + attribute, Reporter.FAIL);
-                }
-                break;
-        }
     }
 }

@@ -85,7 +85,7 @@ Feature: Attacks Table
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "Black_IPV6"
     Then Sleep "3"
     Then UI Click Button "Auto Refresh"
-    Then Sleep "3"
+    Then Sleep "6"
     Then UI Click Button "Sample Data Button"
     Then Sleep "3"
     Then UI Validate "SampleDataTable" Table rows count GTE to 2
@@ -121,12 +121,13 @@ Feature: Attacks Table
     Given UI Click Button "Accessibility Menu"
     Then UI UnSelect Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
     Then UI Click Button "Accessibility Menu"
+    Then Sleep "30"
     And UI Click Button "Auto Refresh" with value ""
     Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "false"
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
-    Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
+#    Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
 
     And UI logout and close browser
 

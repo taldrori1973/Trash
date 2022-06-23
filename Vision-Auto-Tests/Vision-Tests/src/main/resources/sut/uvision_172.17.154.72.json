@@ -1,0 +1,37 @@
+{
+  "setupFile": "Setup_Sanity_3.json",
+  "serverName": "uvision_auto",
+  "deployConfigurations": {
+    "snapshot": "",
+    "setupMode": "upgrade",
+    "environment": "OVA-232"
+  },
+  "pair": {
+    "pairIp": "172.17.164.101",
+    "environment": "OVA-235"
+  },
+  "clientConfiguration": {
+    "hostIp": "172.17.154.72",
+    "userName": "radware",
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 443,
+      "defaultProtocol": "https"
+    },
+    "sqlDbConnection": {
+      "defaultPort": 3306,
+      "username": "root",
+      "password": "radware"
+    }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
+      "password": "radware"
+    }
+  }
+}

@@ -119,7 +119,7 @@ Feature: Vision Install KVM SA
 
   @SID_15
   Scenario: Validate LLS version
-    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.7.0"
+    Then CLI Run linux Command "system lls version" on "RADWARE_SERVER_CLI" and validate result CONTAINS "LLS version: 2.8.0"
 
   @SID_16
   Scenario: Validate IPv6 Hostname in /etc/hosts
@@ -133,11 +133,11 @@ Feature: Vision Install KVM SA
 
   @SID_18
   Scenario: Verify number of tables in vision schema
-    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 90
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 71
 
   @SID_19
   Scenario: Verify number of tables in vision_ng schema
-    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 170
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 165
 
   @SID_20
   Scenario: Verify services are running

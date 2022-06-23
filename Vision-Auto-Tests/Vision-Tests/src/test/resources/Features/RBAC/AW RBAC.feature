@@ -22,7 +22,7 @@ Feature: AW RBAC - New AW roles
   Scenario: Navigate User Management
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
-
+#
   @SID_4
   Scenario Outline: Create users and verify
     When UI Create New User With User Name "<User Name>", Role "<Role>", Scope "<Scope>", Password "<Password>"
@@ -102,7 +102,7 @@ Feature: AW RBAC - New AW roles
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "Forensics_AW"
       | Product               | AppWall                                                                                                                    |
-      | Application           | All                                                                                                                        |
+      | Applications          | All                                                                                                                        |
       | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
       | Format                | Select: CSV                                                                                                                |
       | Time Definitions.Date | Quick:Today                                                                                                                |
@@ -234,7 +234,7 @@ Feature: AW RBAC - New AW roles
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "Forensics_AW"
       | Product               | AppWall                                                                                                                    |
-      | Application           | All                                                                                                                        |
+      | Applications          | All                                                                                                                        |
       | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
       | Format                | Select: CSV                                                                                                                |
       | Time Definitions.Date | Quick:Today                                                                                                                |

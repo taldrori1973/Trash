@@ -38,7 +38,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | End Time                                                                       |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -47,7 +47,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | End Time                                                                       |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -120,7 +120,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Attack Name                                                                    |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -129,7 +129,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Attack Name                                                                    |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -202,7 +202,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Source IP Address                                                              |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -211,7 +211,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Source IP Address                                                              |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -284,7 +284,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Direction                                                                      |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -293,7 +293,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Direction                                                                      |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -370,7 +370,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Total Packets Dropped                                                          |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -379,7 +379,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Total Packets Dropped                                                          |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -458,7 +458,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Physical Port                                                                  |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Quick:This Month                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -466,7 +466,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Physical Port                                                                  |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Quick:This Month                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -536,7 +536,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                                                                                    |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | condition.All:true                                                                                                                             |
-      | devices               | index:10                                                                                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                 |
@@ -545,7 +545,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                                                                                    |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | condition.All:true                                                                                                                             |
-      | devices               | index:10                                                                                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                 |
@@ -618,7 +618,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Destination IP Address,Destination Port,Direction                              |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -627,7 +627,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Destination IP Address,Destination Port,Direction                              |
       | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -788,7 +788,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Action                                                                         |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:Bypass                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Relative:[Days,2]                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -797,7 +797,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Action                                                                         |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:Bypass                             |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Relative:[Days,2]                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -852,7 +852,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source IP Address                                                                                                |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination                                               |
-      | devices               | index:10                                                                                                         |
+      | devices               | SetId:DefensePro_Set_1                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
@@ -861,7 +861,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source IP Address                                                                                                |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 200 OK and Reset Destination                                              |
-      | devices               | index:10                                                                                                         |
+      | devices               | SetId:DefensePro_Set_1                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware123 |
@@ -874,14 +874,14 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Source Port                                                                    |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden                 |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     When UI "Validate" Forensics With Name "Output Source Port Equals"
       | Product               | DefenseFlow                                                                    |
       | Output                | Source Port                                                                    |
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:HTTP 403 Forbidden                 |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Source Port Equals"
@@ -956,7 +956,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Protocol                                                                       |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Source and Destination Reset   |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -965,7 +965,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Protocol                                                                       |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Source and Destination Reset   |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -1040,7 +1040,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Max pps                                                                        |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK and Reset Destination         |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -1048,7 +1048,7 @@ Feature:Create DefenseFlow Part1
       | Product               | DefenseFlow                                                                    |
       | Output                | Max pps                                                                        |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:HTTP 200 OK and Reset Destination        |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |

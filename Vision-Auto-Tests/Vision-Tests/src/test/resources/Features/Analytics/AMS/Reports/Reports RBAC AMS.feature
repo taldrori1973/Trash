@@ -20,23 +20,23 @@ Feature: VRM AMS Reports RBAC
 
     Given UI "Create" Report With Name "Analytics_Dev10Policy14"
       | reportType | DefensePro Analytics Dashboard |
-      | devices    | index:10,policies:[Policy14]   |
+      | devices    | SetId:DefensePro_Set_1,policies:[Policy14]   |
     Given UI "Create" Report With Name "Baseline_Dev10Policy14"
       | reportType | DefensePro Behavioral Protections Dashboard |
-      | devices    | index:10,policies:[Policy14]                   |
+      | devices    | SetId:DefensePro_Set_1,policies:[Policy14]                   |
 
     Given UI "Create" Report With Name "Analytics_Dev10AllPol"
       | reportType | DefensePro Analytics Dashboard |
-      | devices    | index:10                       |
+      | devices    | SetId:DefensePro_Set_1                       |
     Given UI "Create" Report With Name "Baseline_Dev10AllPol"
       | reportType | DefensePro Behavioral Protections Dashboard |
-      | devices    | index:10                                    |
+      | devices    | SetId:DefensePro_Set_1                                    |
     Given UI "Create" Report With Name "Analytics_Dev10Policy14Dev11Policy14"
       | reportType | DefensePro Analytics Dashboard |
-      | devices    | index:10,policies:[Policy14]; index:11,policies:[Policy14];  |
+      | devices    | SetId:DefensePro_Set_1,policies:[Policy14]; SetId:DefensePro_Set_2,policies:[Policy14];  |
     Given UI "Create" Report With Name "Baseline_Dev10Policy14Dev11pol_1"
       | reportType | DefensePro Behavioral Protections Dashboard |
-      | devices    | index:10,policies:[Policy14]; index:11,policies:[pol1];  |
+      | devices    | SetId:DefensePro_Set_1,policies:[Policy14]; SetId:DefensePro_Set_2,policies:[pol1];  |
     And UI logout and close browser
 
 

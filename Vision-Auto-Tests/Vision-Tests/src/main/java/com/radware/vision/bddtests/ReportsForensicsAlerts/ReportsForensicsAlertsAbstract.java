@@ -9,6 +9,7 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
+import com.radware.vision.bddtests.GenericSteps;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectScheduleHandlers;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
@@ -19,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
+import org.python.modules.time;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -30,15 +32,13 @@ import static com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools.getW
 
 
 abstract public class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
+    public static final Map<String, Integer> widgets;
     public static LocalDateTime timeDefinitionLocalDateTime;
-    protected String errorMessage = "";
+    public static int maxWANLinks = 6;
+    protected static Map<String, Map<String, String>> templates = new HashMap<>();
     private static Map<String, LocalDateTime> schedulingDates = new HashMap<>();
     private static Map<String, JSONObject> timeAbsoluteDates = new HashMap<>();
-    protected static Map<String, Map<String, String>> templates = new HashMap<>();
-    public static int maxWANLinks = 6;
 
-    private String name;
-    public static final Map<String, Integer> widgets;
     static {
         Map<String, Integer> templateWidgets = new HashMap<>();
         templateWidgets.put("DefensePro Analytics", 21);
@@ -52,6 +52,37 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         templateWidgets.put("LinkProof", 3);
         templateWidgets.put("ERT Active Attackers Audit Report", 1);
         widgets = Collections.unmodifiableMap(templateWidgets);
+    }
+
+    protected String errorMessage = "";
+    private String name;
+
+    public static void fixTemplateMap(Map<String, String> map) {
+        fixNewTemplate(map);
+    }
+
+    private static void fixNewTemplate(Map<String, String> map) {
+        ArrayList templateKeys = new ArrayList();
+        map.keySet().forEach(key ->
+        {
+            if (key.contains("Template"))
+                templateKeys.add(key);
+        });
+        JSONArray newTemplateObject = new JSONArray();
+        for (Object key : templateKeys) {
+            newTemplateObject.put(new JSONObject(map.get(key)).put("templateAutomationID", key));
+            map.remove(key);
+        }
+        map.put("Template", newTemplateObject.toString());
+    }
+
+    public static void confirmDeleteReport(String label, String params) throws TargetWebElementNotFoundException {
+
+        if (WebUiTools.getWebElement(label, params) == null) {
+            throw new TargetWebElementNotFoundException("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId());
+        }
+        WebUIVisionBasePage.getCurrentPage().getContainer().getButton("//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "']//span[@data-debug-id='confirmation-box-delete-button-label']").click();
+
     }
 
     protected void createName(String name) throws Exception {
@@ -88,12 +119,10 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         }
     }
 
-
     protected void editTime(Map<String, String> map) throws Exception {
         if (map.containsKey("Time Definitions.Date"))
             selectTime(map);
     }
-
 
     public void selectScheduling(Map<String, String> map) throws Exception {
         if (map.containsKey("Schedule")) {
@@ -138,8 +167,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     }
 
     private void validateRelativeTime(JSONObject timeDefinitions, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) {
-        if (!timeDefinitions.get(getRangeTypeTextKey()).toString().contains("relative"))
-        {
+        if (!timeDefinitions.get(getRangeTypeTextKey()).toString().contains("relative")) {
             errorMessage.append("The rangeType is ").append(timeDefinitions.get(getRangeTypeTextKey())).append(" and not equal to relative").append("\n");
             return;
         }
@@ -158,16 +186,15 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     }
 
     private void validateAbsoluteTime(JSONObject timeDefinitions, StringBuilder errorMessage, JSONObject expectedTimeDefinitions, String viewName) {
-        if (!timeDefinitions.get(getRangeTypeTextKey()).toString().contains("absolute"))
-        {
+        if (!timeDefinitions.get(getRangeTypeTextKey()).toString().contains("absolute")) {
             errorMessage.append("The rangeType is ").append(timeDefinitions.get(getRangeTypeTextKey())).append(" and not equal to Absolute").append("\n");
             return;
         }
         LocalDateTime actualToDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(new Long(timeDefinitions.get("to").toString())), ZoneId.systemDefault());
         LocalDateTime actualFromDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(new Long(timeDefinitions.get("from").toString())), ZoneId.systemDefault());
         DateTimeFormatter absoluteFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-            if (!actualToDate.format(absoluteFormatter).equalsIgnoreCase(LocalDateTime.parse(timeAbsoluteDates.get(getType() + "_" + viewName).get("to").toString(), absoluteFormatter).format(absoluteFormatter)))
-                errorMessage.append("the Actual to absolute time is ").append(actualToDate).append(" but the expected is ").append(timeDefinitionLocalDateTime).append("\n");
+        if (!actualToDate.format(absoluteFormatter).equalsIgnoreCase(LocalDateTime.parse(timeAbsoluteDates.get(getType() + "_" + viewName).get("to").toString(), absoluteFormatter).format(absoluteFormatter)))
+            errorMessage.append("the Actual to absolute time is ").append(actualToDate).append(" but the expected is ").append(timeDefinitionLocalDateTime).append("\n");
         if (!actualFromDate.format(absoluteFormatter).equalsIgnoreCase(LocalDateTime.parse(timeAbsoluteDates.get(getType() + "_" + viewName).get("from").toString(), absoluteFormatter).format(absoluteFormatter)))
             errorMessage.append("the Actual from absolute time is ").append(actualFromDate).append(" but the expected is ").append(timeDefinitionLocalDateTime).append("\n");
     }
@@ -177,8 +204,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     }
 
     protected void validateQuickRangeTime(JSONObject timeDefinitionsJSON, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) throws Exception {
-        if (!timeDefinitionsJSON.get(getRangeTypeTextKey()).toString().equalsIgnoreCase("quick"))
-        {
+        if (!timeDefinitionsJSON.get(getRangeTypeTextKey()).toString().equalsIgnoreCase("quick")) {
             errorMessage.append("The rangeType is ").append(timeDefinitionsJSON.get(getRangeTypeTextKey())).append(" and not equal to quick").append("\n");
             return;
         }
@@ -198,12 +224,9 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     protected void selectShare(Map<String, String> map) throws Exception {
         if (map.containsKey("Share")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Share"));
-            if (deliveryJsonObject.has("Email"))
-            {
+            if (deliveryJsonObject.has("Email")) {
                 selectEmail(deliveryJsonObject);
-            }
-            else if (deliveryJsonObject.has("FTP"))
-            {
+            } else if (deliveryJsonObject.has("FTP")) {
                 WebUiTools.check("Share Tab Label", "ftp", true);
                 selectFTP(deliveryJsonObject);
             }
@@ -262,7 +285,6 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     }
 
     protected abstract String getType();
-
 
     public void baseOperation(vrmActions operationType, String name, String negative, Map<String, String> entry, RootServerCli rootServerCli) throws Exception {
         Map<String, String> map = null;
@@ -325,7 +347,6 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         map.put("Template", templateJSON.toString());
     }
 
-
     private void fixOldMapObject(Map<String, String> map, JSONObject templateJSON, String oldMapKey, String newJSONKey, Object newJSONValue) {
         if (map.containsKey(oldMapKey)) {
             templateJSON.put(newJSONKey, newJSONValue);
@@ -333,27 +354,8 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         }
     }
 
-    public static void fixTemplateMap(Map<String, String> map) {
-        fixNewTemplate(map);
-    }
-
-    private static void fixNewTemplate(Map<String, String> map) {
-        ArrayList templateKeys = new ArrayList();
-        map.keySet().forEach(key ->
-        {
-            if (key.contains("Template"))
-                templateKeys.add(key);
-        });
-        JSONArray newTemplateObject = new JSONArray();
-        for (Object key : templateKeys) {
-            newTemplateObject.put(new JSONObject(map.get(key)).put("templateAutomationID", key));
-            map.remove(key);
-        }
-        map.put("Template", newTemplateObject.toString());
-    }
-
     public void generate(String name, Map<String, String> map) throws Exception {
-        BasicOperationsHandler.setTextField("Search "+getType(), name);
+        BasicOperationsHandler.setTextField("Search " + getType(), name);
         BasicOperationsHandler.clickButton("My Report", name);
         String oldDate = "";
         String[] generateReportParam = {name, "0"};
@@ -378,20 +380,19 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     @Override
     public void delete(String Name) throws Exception {
         WebUiTools.check("My " + getType() + " Tab", "", true);
-        BasicOperationsHandler.setTextField("Search "+getType(), Name);
+        BasicOperationsHandler.setTextField("Search " + getType(), Name);
         BasicOperationsHandler.clickButton("Delete " + getType(), Name);
         confirmDeleteReport("confirm Delete " + getType(), Name);
         clearSavedReportInMap(Name);
         long end = System.currentTimeMillis() + 30 * 1000;
         while (!BasicOperationsHandler.isElementExists("My " + getType(), false, Name) &&
-                end > System.currentTimeMillis())
-        {
+                end > System.currentTimeMillis()) {
             WebUIUtils.sleep(1);
         }
         if (!BasicOperationsHandler.isElementExists("My " + getType(), false, Name)) {
             BaseTestUtils.report("Failed to delete " + getType() + " name: " + Name, Reporter.FAIL);
         }
-        BasicOperationsHandler.setTextField("Search "+getType(), "");
+        BasicOperationsHandler.setTextField("Search " + getType(), "");
 
     }
 
@@ -407,15 +408,6 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (element != null && element.getText().equalsIgnoreCase(TimeReport))
             BaseTestUtils.report("No" + getType() + " Generate at this time" + TimeReport, Reporter.FAIL);
-    }
-
-    public static void confirmDeleteReport(String label, String params) throws TargetWebElementNotFoundException {
-
-        if (WebUiTools.getWebElement(label, params) == null) {
-            throw new TargetWebElementNotFoundException("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId());
-        }
-        WebUIVisionBasePage.getCurrentPage().getContainer().getButton("//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "']//span[@data-debug-id='confirmation-box-delete-button-label']").click();
-
     }
 
     private void clearSavedReportInMap(String reportName) {
@@ -471,9 +463,14 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     protected void selectFormat(Map<String, String> map) throws Exception {
         if (map.containsKey("Format")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Format"));
-            if (deliveryJsonObject.has("Select"))
-                BasicOperationsHandler.clickButton("Format Type", deliveryJsonObject.getString("Select").equalsIgnoreCase("CSV With Attack Details")?"CSVWithDetails":deliveryJsonObject.getString("Select"));
-            else BasicOperationsHandler.clickButton("Format Type", "HTML");
+            if (deliveryJsonObject.has("Select")) {
+                BasicOperationsHandler.clickButton("Format Type", deliveryJsonObject.getString("Select").equalsIgnoreCase("CSV With Attack Details") ? "CSVWithDetails" : deliveryJsonObject.getString("Select"));
+                if ((deliveryJsonObject.getString("Select").toLowerCase().contains("csv") || deliveryJsonObject.getString("Select").toLowerCase().contains("html")) && deliveryJsonObject.has("Check")) {
+                    if (BasicOperationsHandler.isElementExists(deliveryJsonObject.getString("Check"), true, "")) {
+                        BasicOperationsHandler.clickButton(deliveryJsonObject.getString("Check"));
+                    }
+                }
+            }
         }
     }
 
@@ -522,12 +519,12 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         }
     }
 
-protected StringBuilder validateDefaultFormatDefinition(JSONObject exportFormat) {
-    StringBuilder errorMessage = new StringBuilder();
-    if (!exportFormat.get("type").toString().trim().toLowerCase().equalsIgnoreCase(getDefaultFormat()))
-        errorMessage.append("The actual Format is: ").append(exportFormat.get("type").toString()).append("but the Expected format is: ").append(getDefaultFormat()).append("\n");
-    return errorMessage;
-}
+    protected StringBuilder validateDefaultFormatDefinition(JSONObject exportFormat) {
+        StringBuilder errorMessage = new StringBuilder();
+        if (!exportFormat.get("type").toString().trim().toLowerCase().equalsIgnoreCase(getDefaultFormat()))
+            errorMessage.append("The actual Format is: ").append(exportFormat.get("type").toString()).append("but the Expected format is: ").append(getDefaultFormat()).append("\n");
+        return errorMessage;
+    }
 
     protected String getDefaultFormat() {
         return "pdf";

@@ -70,7 +70,7 @@ public class DevicesDao {
         for (String id : simSetId) {
             SimulatorSets simSet = simulatorPojo.getSimulators().getSimSets().stream().filter(sim -> sim.getId().equals(id)).findAny().get();
             for (String simIP : simSet.getIps()) {
-                switch (simSet.getType()) {
+                switch (simSet.getType().toLowerCase()) {
                     case "alteon": {
                         Device simulator = new Device();
                         simulator.setDeviceId("Alteon_Fake_" + alteonCounter);
@@ -84,13 +84,13 @@ public class DevicesDao {
                         alteonCounter++;
                         break;
                     }
-                    case "defensePro": {
+                    case "defensepro": {
                         Device simulator = new Device();
                         simulator.setDeviceId("DP_Fake_" + dpCounter);
                         simulator.setDeviceSetId("DP_Sim_Set_" + dpCounter);
                         DeviceConfiguration configurations = DevicesUtils.getDeviceConfigurationFromTemplate(simulatorPojo.getConfigurations());
-                        configurations.setName(simIP);
                         configurations.setType("DefensePro");
+                        configurations.setName(configurations.getType() +"_" + simIP);
                         configurations.getDeviceSetup().getDeviceAccess().setManagementIp(simIP);
                         simulator.setConfigurations(configurations);
                         allDevices.add(simulator);

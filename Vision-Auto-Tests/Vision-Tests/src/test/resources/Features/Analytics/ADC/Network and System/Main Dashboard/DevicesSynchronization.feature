@@ -48,7 +48,7 @@ Feature: DPM System And Network dashboard - Refreshing
       | Unknown     | 0    |
 
 #    Device Selection List
-    Then UI Text of "Dashboards.Network and System Dashboard.Device Selection" equal to "DEVICES 8/8"
+    Then UI Text of "Dashboards.Network and System Dashboard.Device Selection" equal to "DEVICES8/8"
 
 
 #    Devices List
@@ -110,7 +110,7 @@ Feature: DPM System And Network dashboard - Refreshing
       | Unknown     | 0    |
 
 #    Device Selection List
-    Then UI Text of "Dashboards.Network and System Dashboard.Device Selection" equal to "DEVICES 8/8"
+    Then UI Text of "Dashboards.Network and System Dashboard.Device Selection" equal to "DEVICES8/8"
 
 
 #    Devices List
@@ -171,7 +171,7 @@ Feature: DPM System And Network dashboard - Refreshing
       | Unknown     | 0    |
 
 #    Device Selection List
-    Then UI Text of "Dashboards.Network and System Dashboard.Device Selection" equal to "DEVICES 8/8"
+    Then UI Text of "Dashboards.Network and System Dashboard.Device Selection" equal to "DEVICES8/8"
 
 
 
@@ -225,7 +225,7 @@ Feature: DPM System And Network dashboard - Refreshing
       | Unknown     | 0    |
 
 #    Device Selection List - Should Not be available at the List
-    Then UI Text of "Dashboards.Network and System Dashboard.Device Selection" equal to "DEVICES 7/7"
+    Then UI Text of "Dashboards.Network and System Dashboard.Device Selection" equal to "DEVICES7/7"
 
 
 #    Devices List - Should Not be available at the List

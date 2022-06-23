@@ -140,7 +140,7 @@ Feature:System and Network Dashboard - System Summary
 
   @SID_14
   Scenario: Validate All Devices Are Available at Device Selection List
-    Then UI Text of "Device Selection" equal to "DEVICES 3/3"
+    Then UI Text of "Device Selection" equal to "DEVICES3/3"
     Then UI Click Button "Device Selection"
     Then UI Text of "Device Selection.Header" equal to "Devices3/3"
 #    Then UI Text of "Device Selection.Select Device Label" with extension "Alteon_172.17.164.17" equal to "Alteon_172.17.164.17"
@@ -166,7 +166,7 @@ Feature:System and Network Dashboard - System Summary
     Then UI Click Button "Device Selection.Select Device Label" with value "Alteon_50.50.101.21"
     Then UI Text of "Device Selection.Header" equal to "Devices1/12"
     Then UI Click Button "Device Selection.Save"
-    Then UI Text of "Device Selection" equal to "DEVICES 1/12"
+    Then UI Text of "Device Selection" equal to "DEVICES1/12"
 
 #   Validate Status Chart Data
     Then UI Validate Pie Chart data "Status"
@@ -205,7 +205,7 @@ Feature:System and Network Dashboard - System Summary
     Then UI Click Button "Device Selection.Select Device Label" with value "Alteon_50.50.101.22"
     Then UI Text of "Device Selection.Header" equal to "Devices4/12"
     Then UI Click Button "Device Selection.Save"
-    Then UI Text of "Device Selection" equal to "DEVICES 4/12"
+    Then UI Text of "Device Selection" equal to "DEVICES4/12"
 
 #   Validate Status Chart Data
     Then UI Validate Pie Chart data "Status"
@@ -246,7 +246,7 @@ Feature:System and Network Dashboard - System Summary
     Then UI Click Button "Device Selection.Select All Label"
     Then UI Text of "Device Selection.Header" equal to "Devices12/12"
     Then UI Click Button "Device Selection.Save"
-    Then UI Text of "Device Selection" equal to "DEVICES 12/12"
+    Then UI Text of "Device Selection" equal to "DEVICES12/12"
 
 #   Validate Status Chart Data
     Then UI Validate Pie Chart data "Status"

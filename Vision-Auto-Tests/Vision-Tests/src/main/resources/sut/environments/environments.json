@@ -5,7 +5,7 @@
       "hostIp": "10.205.200.215",
       "user": "root",
       "password": "radware",
-      "dnsServerIp": "10.221.1.47",
+      "dnsServerIp": "10.220.20.7",
       "netMask": "255.255.0.0",
       "gateWay": "172.17.1.1",
       "physicalManagement": "G1"
@@ -15,45 +15,75 @@
       "hostIp": "10.205.200.232",
       "user": "root",
       "password": "radware",
-      "dnsServerIp": "10.221.1.47",
+      "dnsServerIp": "10.220.20.7",
       "netMask": "255.255.0.0",
       "gateWay": "172.17.1.1",
       "physicalManagement": "G1",
       "resourcePool": "RP1",
       "url": "https://10.205.200.232/sdk",
       "networkName": "Mgmt",
-      "dataStores": "VMFS_04"
+      "dataStores": "VMFS_04",
+      "networks": [
+        {
+          "name": "mgmt",
+          "label": "Mgmt"
+        },
+        {
+          "name": "net_50",
+          "label": "Net_50"
+        }
+      ]
     },
     {
       "name": "OVA-220",
       "hostIp": "10.205.172.220",
       "user": "root",
       "password": "radware",
-      "dnsServerIp": "10.221.1.47",
+      "dnsServerIp": "10.220.20.7",
       "netMask": "255.255.0.0",
       "gateWay": "172.17.1.1",
       "physicalManagement": "G1",
       "resourcePool": "RP1",
+      "dataStores": "Automation Main Datastore",
       "url": "https://10.205.172.220/sdk",
       "networkName": "Management 172.17",
-      "dataStores": "Automation Main Datastore"
+      "networks": [
+        {
+          "name": "mgmt",
+          "label": "Management 172.17"
+        },
+        {
+          "name": "net_50",
+          "label": "Network_50"
+        }
+      ]
     },
     {
       "name": "KVM-210",
       "hostIp": "10.205.200.210",
       "user": "root",
       "password": "radware",
-      "dnsServerIp": "10.221.1.47",
+      "dnsServerIp": "10.220.20.7",
       "netMask": "255.255.0.0",
       "gateWay": "172.17.1.1",
-      "physicalManagement": "G1"
+      "physicalManagement": "G1",
+      "networks": [
+        {
+          "name": "mgmt",
+          "label": "management"
+        },
+        {
+          "name": "net_50",
+          "label": "Vision-Data"
+        }
+      ]
     },
     {
       "name": "KVM-217",
       "hostIp": "10.205.200.217",
       "user": "root",
       "password": "radware",
-      "dnsServerIp": "10.221.1.47",
+      "dnsServerIp": "10.220.20.7",
       "netMask": "255.255.0.0",
       "gateWay": "172.17.1.1",
       "physicalManagement": "G1"
@@ -63,7 +93,7 @@
       "hostIp": "10.205.200.215",
       "user": "root",
       "password": "radware",
-      "dnsServerIp": "10.221.1.47",
+      "dnsServerIp": "10.220.20.7",
       "netMask": "255.255.0.0",
       "gateWay": "172.17.1.1",
       "physicalManagement": "G1"
@@ -73,7 +103,7 @@
       "hostIp": "10.205.200.235",
       "user": "root",
       "password": "radware",
-      "dnsServerIp": "10.221.1.47",
+      "dnsServerIp": "10.220.20.7",
       "netMask": "255.255.0.0",
       "gateWay": "172.17.1.1",
       "resourcePool": "RP1",

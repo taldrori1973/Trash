@@ -1,5 +1,5 @@
 {
-  "simulatorSet" : [],
+  "simulatorSet" : ["sim_set_6"],
   "setupId": "DF_1",
   "defenseFlowId": "DF_172.17.154.50",
   "tree": {
@@ -35,14 +35,6 @@
       },
       {
         "deviceId": "DefensePro_172.17.50.50",
-        "parentSite": "Default"
-      },
-      {
-        "deviceId": "DefensePro_50.50.7.1",
-        "parentSite": "Default"
-      },
-      {
-        "deviceId": "DefensePro_50.50.100.1",
         "parentSite": "Default"
       },
       {

@@ -1,5 +1,5 @@
 {
-  "setupFile": "Setup_ADC_1.json",
+  "setupFile": "Setup_Sanity_1.json",
   "serverName": "uvision_auto",
   "deployConfigurations": {
     "snapshot": "",
@@ -7,8 +7,8 @@
     "environment": "KVM-215"
   },
   "pair": {
-    "pairIp": "172.17.164.101",
-    "environment": "KVM-217"
+    "pairIp": "",
+    "environment": ""
   },
   "clientConfiguration": {
     "hostIp": "172.17.154.4",

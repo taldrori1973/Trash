@@ -288,8 +288,8 @@ Feature: Challenged outbound
   @SID_28
   Scenario: select all devices
     Given UI Click Button "Device Selection"
-    Given UI Click Button "AllScopeSelection"
-    Given UI Click Button "Device Selection.Save Filter"
+    Then UI VRM Select device from dashboard and Save Filter
+      | setId | ports | policies |
 
   @SID_29
   Scenario: check bps with inbound Analytics

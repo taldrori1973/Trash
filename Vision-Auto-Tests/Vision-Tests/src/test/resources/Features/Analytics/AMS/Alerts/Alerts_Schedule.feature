@@ -39,7 +39,7 @@ Feature: VRM Alerts Schedule
   @SID_6
   Scenario: Create Alert schedule 3 times in 3 minutes
     When UI "Create" Alerts With Name "Alert_schedule_3_times_3_min"
-      | devices  | index:10,policies:[BDOS];                                          |
+      | devices  | SetId:DefensePro_Set_1,policies:[BDOS];                                          |
       | Criteria | Event Criteria:Attack ID,Operator:Not Equals,Value:1;              |
       | Schedule | triggerThisRule:2,Within:3,selectTimeUnit:minutes,alertsPerHour:60 |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_schedule_3_times_3_min"
@@ -47,7 +47,7 @@ Feature: VRM Alerts Schedule
   @SID_7
   Scenario: Create Alert schedule 5 times in 2 minutes
     When UI "Create" Alerts With Name "Alert_schedule_5_times_2_min"
-      | devices  | index:10,policies:[BDOS];                                          |
+      | devices  | SetId:DefensePro_Set_1,policies:[BDOS];                                          |
       | Criteria | Event Criteria:Attack ID,Operator:Not Equals,Value:1;              |
       | Schedule | triggerThisRule:4,Within:3,selectTimeUnit:minutes,alertsPerHour:60 |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_schedule_5_times_2_min"

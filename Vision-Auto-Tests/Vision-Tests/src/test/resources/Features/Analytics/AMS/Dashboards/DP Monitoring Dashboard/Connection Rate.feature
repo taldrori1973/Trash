@@ -99,7 +99,7 @@ Feature: CONNECTION RATE
     When UI Select device from dashboard device type "DefensePro"
       | SetId            |
       | DefensePro_Set_2 |
-    Then UI Click Button "SaveDPScopeSelection"
+#    Then UI Click Button "SaveDPScopeSelection"
     Then UI Validate Line Chart data "Connections Rate" with Label "Connections per Second"
       | value | min |
       | 6335  | 1   |
@@ -110,7 +110,7 @@ Feature: CONNECTION RATE
     When UI Select device from dashboard device type "DefensePro"
       | SetId            |
       | DefensePro_Set_1 |
-    Then UI Click Button "SaveDPScopeSelection"
+#    Then UI Click Button "SaveDPScopeSelection"
     Then UI Validate Line Chart data "Connections Rate" with Label "Connections per Second"
       | value | min |
       | 6335  | 1   |
@@ -128,13 +128,13 @@ Feature: CONNECTION RATE
       | borderWidth     | 1       |
       | pointHitRadius  | 3       |
       | pointRadius     | 0       |
-  @TC105991
-  @SID_10
-  Scenario: Validate Connection Rate chart in Reports
-    And UI Navigate to "AMS Reports" page via homePage
-    Then Validate Line Chart data "Connections Rate-DefensePro Analytics" with Label "Connections per Second" in report "Connection Rate Report"
-      | value   | min |
-      | 12670.0 | 1   |
+#  @TC105991
+#  @SID_10
+#  Scenario: Validate Connection Rate chart in Reports
+#    And UI Navigate to "AMS Reports" page via homePage
+#    Then Validate Line Chart data "Connections Rate-DefensePro Analytics" with Label "Connections per Second" in report "Connection Rate Report"
+#      | value   | min |
+#      | 12670.0 | 1   |
 
   @SID_11
   Scenario: Connections rate Cleanup

@@ -127,36 +127,6 @@ Feature: DPM Analytics Main Page
       | ConcurrentConnections  | 3             |
       | Groups(Up/Total)       | 0/2           |
       | Real Servers(Up/Total) | 0/13          |
-#    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:200"
-#      | columnName             | value           |
-#      | Application Name       | virtserver1:200 |
-#      | Protocol               | basic-slb       |
-#      | IP Address             | 66.66.66.66     |
-#      | Throughput(bps)        | 0               |
-#      | Connectionsper Second  | 0               |
-#      | ConcurrentConnections  | 0               |
-#      | Groups(Up/Total)       | 0/1             |
-#      | Real Servers(Up/Total) | 0/3             |
-#    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:443"
-#      | columnName             | value           |
-#      | Application Name       | virtserver1:443 |
-#      | Protocol               | https           |
-#      | IP Address             | 66.66.66.66     |
-#      | Throughput(bps)        | 0               |
-#      | Connectionsper Second  | 0               |
-#      | ConcurrentConnections  | 0               |
-#      | Groups(Up/Total)       | 0/1             |
-#      | Real Servers(Up/Total) | 0/4             |
-#    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:80"
-#      | columnName             | value          |
-#      | Application Name       | virtserver1:80 |
-#      | Protocol               | http           |
-#      | IP Address             | 66.66.66.66    |
-#      | Throughput(bps)        | 0              |
-#      | Connectionsper Second  | 0              |
-#      | ConcurrentConnections  | 0              |
-#      | Groups(Up/Total)       | 0/2            |
-#      | Real Servers(Up/Total) | 0/7            |
     Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:443"
       | columnName             | value                |
       | Application Name       | Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:443  |
@@ -184,30 +154,6 @@ Feature: DPM Analytics Main Page
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1_#convertIpToHexa(Alteon_Sim_Set_2);:80"
       | columnName       | value         |
       | Application Name | 1_#convertIpToHexa(Alteon_Sim_Set_2);:80 |
-#    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:200"
-#      | columnName       | value           |
-#      | Application Name | virtserver1:200 |
-#    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:443"
-#      | columnName       | value           |
-#      | Application Name | virtserver1:443 |
-#    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:80"
-#      | columnName       | value          |
-#      | Application Name | virtserver1:80 |
-#    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver2:443"
-#      | columnName       | value              |
-#      | Application Name | virtualserver2:443 |
-#    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver2:80"
-#      | columnName       | value             |
-#      | Application Name | virtualserver2:80 |
-#    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver3:110"
-#      | columnName       | value              |
-#      | Application Name | virtualserver3:110 |
-#    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver3:443"
-#      | columnName       | value              |
-#      | Application Name | virtualserver3:443 |
-#    Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver3:80"
-#      | columnName       | value             |
-#      | Application Name | virtualserver3:80 |
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1234_#convertIpToHexa(Alteon_Sim_Set_2);:80"
       | columnName       | value            |
       | Application Name | 1234_#convertIpToHexa(Alteon_Sim_Set_2);:80 |
@@ -265,7 +211,6 @@ Feature: DPM Analytics Main Page
 
   @SID_15
   Scenario: Validate main page after application selection - summary widgets
-#    Then UI Text of "Statistics.Summary" with extension "Throughput" equal to "4.29 M"
     Then UI Text of "Statistics.Summary" with extension "cps" equal to "525"
     Then UI Text of "Statistics.Summary" with extension "concurrenConnections" equal to "85"
   # Top Application by Throughput Chart validation
@@ -317,16 +262,6 @@ Feature: DPM Analytics Main Page
       | ConcurrentConnections  | 3             |
       | Groups(Up/Total)       | 0/2           |
       | Real Servers(Up/Total) | 0/13          |
-#    Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver3:110"
-#      | columnName             | value              |
-#      | Application Name       | virtualserver3:110 |
-#      | Protocol               | pop3               |
-#      | IP Address             | 9.9.9.10           |
-#      | Throughput(bps)        | 0                  |
-#      | Connectionsper Second  | 0                  |
-#      | ConcurrentConnections  | 0                  |
-#      | Groups(Up/Total)       | 0/1                |
-#      | Real Servers(Up/Total) | 0/3                |
     Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:88"
       | columnName             | value                |
       | Application Name       | Rejith_#convertIpToHexa(Alteon_Sim_Set_2);:88   |

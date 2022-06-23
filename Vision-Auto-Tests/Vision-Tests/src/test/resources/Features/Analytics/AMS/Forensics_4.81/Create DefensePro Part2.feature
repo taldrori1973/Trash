@@ -922,7 +922,7 @@ Feature:Create DefensePro Part2
       | Product               | DefensePro                                                                     |
       | Output                | Device IP Address                                                              |
       | Criteria              | Event Criteria:Max bps,Operator:Greater than,RateValue:500,Unit:M              |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -931,7 +931,7 @@ Feature:Create DefensePro Part2
       | Product               | DefensePro                                                                     |
       | Output                | Device IP Address                                                              |
       | Criteria              | Event Criteria:Max bps,Operator:Greater than,RateValue:500,Unit:M              |
-      | devices               | index:10                                                                       |
+      | devices               | SetId:DefensePro_Set_1                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |

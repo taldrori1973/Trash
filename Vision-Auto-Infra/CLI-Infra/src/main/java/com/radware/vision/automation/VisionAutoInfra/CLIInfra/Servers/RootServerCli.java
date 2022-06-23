@@ -346,6 +346,26 @@ public class RootServerCli extends ServerCliBase {
         p.setStringToSend("");
         prompts.add(p);
 
+        p = new Prompt();
+        p.setPrompt("Only root users can perform this action. This action will recover the radware user password. Do you wish to continue (y/n)?:");
+        p.setStringToSend("y");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Enter new password for radware user:");
+        p.setStringToSend("radware");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Confirm password:");
+        p.setStringToSend("radware");
+        prompts.add(p);
+
+        p = new Prompt();
+        p.setPrompt("Enter how long this password should be valid (1-365) days:");
+        p.setStringToSend("365");
+        prompts.add(p);
+
         return prompts.toArray(new Prompt[prompts.size()]);
     }
 

@@ -46,7 +46,7 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     public PairDto getpair() {
-        return this.sutService.getpair();
+        return this.sutService.getPair();
     }
 
     @Override
@@ -148,5 +148,10 @@ public class SUTManagerImpl implements SUTManager {
     @Override
     public List<TreeDeviceManagementDto> getSimulators() {
         return sutService.getSimulators();
+    }
+
+    @Override
+    public List<InterfaceDto> getInterfaces() {
+        return this.sutService.getInterfaces();
     }
 }

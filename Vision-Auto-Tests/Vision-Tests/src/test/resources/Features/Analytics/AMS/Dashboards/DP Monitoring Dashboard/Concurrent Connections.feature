@@ -10,8 +10,6 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
 
   @SID_2
   Scenario: Run DP simulator PCAPs
-#    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 0 seconds
-#    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000 and wait 90 seconds
     Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 0 seconds
     Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 90 seconds
 
@@ -29,8 +27,13 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
       | value  | min |
       | 852074 | 1   |
 
-
   @SID_5
+  Scenario: Validate Max and Min values with all devices selected
+    Given UI Click Button "Device Selection"
+    When UI Select device from dashboard device type "DefensePro"
+      | SetId            |
+
+  @SID_6
   Scenario: Validate Max values for each attack
     Then UI Validate Text field "Max Button" with params "label-concurrent-connections" EQUALS "Max"
     Then UI Validate Text field "Max Button" with params "value-concurrent-connections" EQUALS "426 K"
@@ -48,7 +51,7 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
     Then UI Click Button "Min Button Dialog"
 
 
-  @SID_6
+  @SID_7
   Scenario: Validate Min values for each attack
     Then UI Validate Text field "Min Button" with params "label-concurrent-connections" EQUALS "Min"
     Then UI Validate Text field "Min Button" with params "value-concurrent-connections" EQUALS "80"
@@ -64,32 +67,71 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
       | Min         | 80                      |
     Then UI Click Button "Close Button" with value "concurrent-connections"
 
+  @SID_8
+  Scenario: Validate Max and Min values with selected devices
+    Given UI Click Button "Device Selection"
+    When UI Select device from dashboard device type "DefensePro"
+      | SetId            |
+      | DefensePro_Set_1 |
+      | DefensePro_Set_2 |
 
-  @SID_7
+  @SID_9
+  Scenario: Validate Max values for each attack
+    Then UI Validate Text field "Max Button" with params "label-concurrent-connections" EQUALS "Max"
+    Then UI Validate Text field "Max Button" with params "value-concurrent-connections" EQUALS "426 K"
+    Then UI Click Button "Max Button" with value "value-concurrent-connections"
+    Then UI Validate Table record values by columns with elementLabel "Top5 Table" findBy index 0
+      | columnName  | value                   |
+      | Device Name | DefensePro_172.16.22.50 |
+      | Policy      | All                     |
+      | Max         | 425957                  |
+    Then UI Validate Table record values by columns with elementLabel "Top5 Table" findBy index 1
+      | columnName  | value                   |
+      | Device Name | DefensePro_172.16.22.51 |
+      | Policy      | All                     |
+      | Max         | 425957                  |
+    Then UI Click Button "Min Button Dialog"
+
+
+  @SID_10
+  Scenario: Validate Min values for each attack
+    Then UI Validate Text field "Min Button" with params "label-concurrent-connections" EQUALS "Min"
+    Then UI Validate Text field "Min Button" with params "value-concurrent-connections" EQUALS "80"
+    Then UI Validate Table record values by columns with elementLabel "Top5 Table" findBy index 0
+      | columnName  | value                   |
+      | Device Name | DefensePro_172.16.22.50 |
+      | Policy      | All                     |
+      | Min         | 80                      |
+    Then UI Validate Table record values by columns with elementLabel "Top5 Table" findBy index 1
+      | columnName  | value                   |
+      | Device Name | DefensePro_172.16.22.51 |
+      | Policy      | All                     |
+      | Min         | 80                      |
+    Then UI Click Button "Close Button" with value "concurrent-connections"
+
+  @SID_11
   Scenario: Validate Dashboards "Concurrent Connections" Chart data for 172.16.22.51
     Given UI Click Button "Device Selection"
     When UI Select device from dashboard device type "DefensePro"
       | SetId            |
       | DefensePro_Set_2 |
-    Then UI Click Button "SaveDPScopeSelection"
     Then UI Validate Line Chart data "Concurrent Connections" with Label "Concurrent Connections"
       | value  | min |
       | 426037 | 1   |
 
 
-  @SID_8
+  @SID_12
   Scenario: VRM - Validate Dashboards "Concurrent Connections" Chart data for 172.16.22.50
     Given UI Click Button "Device Selection"
     When UI Select device from dashboard device type "DefensePro"
       | SetId            |
       | DefensePro_Set_2 |
-    Then UI Click Button "SaveDPScopeSelection"
     Then UI Validate Line Chart data "Concurrent Connections" with Label "Concurrent Connections"
       | value  | min |
       | 426037 | 1   |
 
 
-  @SID_9
+  @SID_13
   Scenario: Validate Dashboards "Concurrent Connections" Chart widget styling attributes
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
@@ -103,16 +145,16 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
       | pointHitRadius  | 3       |
       | pointRadius     | 0       |
 
+#Left this scenario, since not sure about the purpose of it. But no report generated before validating
+#  @SID_10
+#  Scenario: Validate Connection Rate chart in Reports
+#    And UI Navigate to "AMS Reports" page via homePage
+#    Then Validate Line Chart data "Concurrent Connections-DefensePro Analytics" with Label "Concurrent Connections" in report "Concurrent Connection Report"
+#      | value  | min |
+#      | 852074 | 1   |
 
-  @SID_10
-  Scenario: Validate Connection Rate chart in Reports
-    And UI Navigate to "AMS Reports" page via homePage
-    Then Validate Line Chart data "Concurrent Connections-DefensePro Analytics" with Label "Concurrent Connections" in report "Concurrent Connection Report"
-      | value  | min |
-      | 852074 | 1   |
 
-
-  @SID_11
+  @SID_14
   Scenario: Concurrent Connections Cleanup
     Given UI logout and close browser
     * CLI kill all simulator attacks on current vision

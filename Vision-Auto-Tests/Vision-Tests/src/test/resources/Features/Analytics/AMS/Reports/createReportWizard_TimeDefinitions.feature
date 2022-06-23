@@ -45,13 +45,13 @@ Feature: Report Wizard_Time_Definitions
     # "TimeFrame 15 mim"
     Given UI "Create" Report With Name "testReport_15m"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:15m                      |
 
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_15m"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:15m                      |
 
     #ToDo verify data displayed in the report
@@ -72,13 +72,13 @@ Feature: Report Wizard_Time_Definitions
     # "TimeFrame 30 mim"
     Given UI "Create" Report With Name "testReport_30m"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:30m                      |
 
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_30m"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:30m                      |
 
 
@@ -99,13 +99,13 @@ Feature: Report Wizard_Time_Definitions
     # "TimeFrame 1 Hour"
     Given UI "Create" Report With Name "testReport_1H"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:1H                       |
 
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_1H"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:1H                       |
 
     #ToDo verify data displayed in the report
@@ -129,12 +129,12 @@ Feature: Report Wizard_Time_Definitions
 
     Given UI "Create" Report With Name "testReport_1D"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:1D                       |
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_1D"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:1D                       |
 
     #ToDo verify data displayed in the report
@@ -155,13 +155,13 @@ Feature: Report Wizard_Time_Definitions
 
     Given UI "Create" Report With Name "testReport_1W"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:1W                       |
 
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_1W"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:1W                       |
 
     #ToDo verify data displayed in the report
@@ -182,12 +182,12 @@ Feature: Report Wizard_Time_Definitions
 
     Given UI "Create" Report With Name "testReport_1M"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:1M                       |
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_1M"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:1M                       |
 
     #ToDo verify data displayed in the report
@@ -207,12 +207,12 @@ Feature: Report Wizard_Time_Definitions
 
     Given UI "Create" Report With Name "testReport_3M"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:3M                       |
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_3M"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:3M                       |
 
     #ToDo verify data displayed in the report
@@ -228,12 +228,12 @@ Feature: Report Wizard_Time_Definitions
     ## "TimeFrame Today"
     Given UI "Create" Report With Name "testReport_Today"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:Today                    |
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_Today"
       | reportType            | DefensePro Analytics Dashboard |
-      | devices               | index:10                       |
+      | devices               | SetId:DefensePro_Set_1                       |
       | Time Definitions.Date | Quick:Today                    |
 
     #ToDo verify data displayed in the report
@@ -249,12 +249,12 @@ Feature: Report Wizard_Time_Definitions
     # "TimeFrame This Week"
     Given UI "Create" Report With Name "testReport_This_Week"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Quick:This Week                             |
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_This_Week"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Quick:This Week                             |
 
     #ToDo verify data displayed in the report
@@ -269,12 +269,12 @@ Feature: Report Wizard_Time_Definitions
   Scenario: Add new Report test This month from type DefensePro BDOS Dashboard
     Given UI "Create" Report With Name "testReport_This_Month"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Quick:This Month                            |
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_This_Month"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Quick:This Month                            |
 
     #ToDo verify data displayed in the report
@@ -290,13 +290,13 @@ Feature: Report Wizard_Time_Definitions
     # "TimeFrame Quarter"
     Given UI "Create" Report With Name "testReport_This_Quarter"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10,policies:[BDOS]                    |
+      | devices               | SetId:DefensePro_Set_1,policies:[BDOS]                    |
       | Time Definitions.Date | Quick:Quarter                               |
 
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_This_Quarter"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10,policies:[BDOS]                    |
+      | devices               | SetId:DefensePro_Set_1,policies:[BDOS]                    |
       | Time Definitions.Date | Quick:Quarter                               |
 
     #ToDo verify data displayed in the report
@@ -313,12 +313,12 @@ Feature: Report Wizard_Time_Definitions
     # "TimeFrame Absolute"
     Given UI "Create" Report With Name "testReport_Absolute"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]         |
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_Absolute"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
 #    Time validation is from now, It is not stable validation.
 #      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]         |
 
@@ -332,12 +332,12 @@ Feature: Report Wizard_Time_Definitions
 
     Given UI "Create" Report With Name "Relative_2_Hour"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Relative:[Hours,2]                          |
     Then Sleep "3"
     Then UI "Validate" Report With Name "Relative_2_Hour"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Relative:[Hours,2]                          |
 
     #ToDo verify data displayed in the report
@@ -357,12 +357,12 @@ Feature: Report Wizard_Time_Definitions
 
     Given UI "Create" Report With Name "Relative_2_Days"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Relative:[Days,2]                           |
     Then Sleep "3"
     Then UI "Validate" Report With Name "Relative_2_Days"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Relative:[Days,2]                           |
 
     #ToDo verify data displayed in the report
@@ -382,12 +382,12 @@ Feature: Report Wizard_Time_Definitions
 
     Given UI "Create" Report With Name "Relative_2_Weeks"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Relative:[Weeks,2]                          |
     Then Sleep "3"
     Then UI "Validate" Report With Name "Relative_2_Weeks"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Relative:[Weeks,2]                          |
 
     #ToDo verify data displayed in the report
@@ -408,12 +408,12 @@ Feature: Report Wizard_Time_Definitions
 
     Given UI "Create" Report With Name "Relative_2_Months"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Relative:[Months,2]                         |
     Then Sleep "3"
     Then UI "Validate" Report With Name "Relative_2_Months"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Relative:[Months,2]                         |
 
     #ToDo verify data displayed in the report
@@ -434,12 +434,12 @@ Feature: Report Wizard_Time_Definitions
 
     Given UI "Create" Report With Name "Previous Month"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Quick:Previous Month                        |
     Then Sleep "3"
     Then UI "Validate" Report With Name "Previous Month"
       | reportType            | DefensePro Behavioral Protections Dashboard |
-      | devices               | index:10                                    |
+      | devices               | SetId:DefensePro_Set_1                                    |
       | Time Definitions.Date | Quick:Previous Month                        |
 
     #ToDo verify data displayed in the report

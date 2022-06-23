@@ -2,7 +2,7 @@
 Feature: ScopePolicies in Forensics
 
   @SID_1
-  Scenario: Navigate to NEW REPORTS page
+  Scenario: Navigate to NEW FORENSICS page
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
 
@@ -10,17 +10,17 @@ Feature: ScopePolicies in Forensics
   Scenario: create new DefensePro Forensics
     Given UI "Create" Forensics With Name "DefensePro Forensics"
       | Product | DefensePro                   |
-      | devices | index:10,policies:[BDOS,SSL] |
+      | devices | SetId:DefensePro_Set_1,policies:[BDOS,SSL] |
     Then UI "Validate" Forensics With Name "DefensePro Forensics"
       | Product | DefensePro                   |
-      | devices | index:10,policies:[BDOS,SSL] |
+      | devices | SetId:DefensePro_Set_1,policies:[BDOS,SSL] |
 
   @SID_3
   Scenario: Validate scope policies for DefensePro Forensics
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
     Then UI "Validate" Scope Polices
-      | devices | type:DEVICES,index:10, policies:[BDOS,SSL] |
+      | devices | type:DEVICES,SetId:DefensePro_Set_1, policies:[BDOS,SSL] |
     Then UI Click Button "save"
 
   @SID_4
@@ -28,7 +28,7 @@ Feature: ScopePolicies in Forensics
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
     Then UI "Select" Scope Polices
-      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
+      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[SSL2,BDOS,T_Server] |
     Then UI Click Button "save"
 
   @SID_5
@@ -36,7 +36,7 @@ Feature: ScopePolicies in Forensics
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
     Then UI "Validate" Scope Polices
-      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
+      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[SSL2,BDOS,T_Server] |
     Then UI Click Button "save"
 
   @SID_6
@@ -44,7 +44,7 @@ Feature: ScopePolicies in Forensics
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
     Then UI "UnSelect" Scope Polices
-      | devices | type:DEVICES,index:10,policies:[BDOS] |
+      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[BDOS] |
     Then UI Click Button "save"
 
   @SID_7
@@ -52,7 +52,7 @@ Feature: ScopePolicies in Forensics
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
     Then UI "Validate" Scope Polices
-      | devices | type:DEVICES,index:10,policies:[SSL2,T_Server] |
+      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[SSL2,T_Server] |
     Then UI Click Button "save"
 
   @SID_8
@@ -60,12 +60,12 @@ Feature: ScopePolicies in Forensics
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
     Then UI "Select" Scope Polices
-      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
+      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[SSL2,BDOS,T_Server] |
     Then UI Click Button "save"
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
     Then UI "UnSelect" Scope Polices
-      | devices | type:DEVICES,index:10,policies:[T_Server,BDOS] |
+      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[T_Server,BDOS] |
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
@@ -74,7 +74,7 @@ Feature: ScopePolicies in Forensics
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
     Then UI "Validate" Scope Polices
-      | devices | type:DEVICES,index:10,policies:[SSL2,BDOS,T_Server] |
+      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[SSL2,BDOS,T_Server] |
     Then UI Click Button "save"
     Then UI Delete Forensics With Name "DefensePro Forensics"
 

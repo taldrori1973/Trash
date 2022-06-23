@@ -9,6 +9,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.TextField;
+import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.invocation.InvokeMethod;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
@@ -34,6 +35,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -119,15 +121,18 @@ public class GenericSteps extends VisionUITestBase {
         // click button servers
         buttonClick("Servers Button", (String) null);
         // set text field
-        uiSetTextFieldTo("Server Selection.Search", null, server.name, false);
+        uiSetTextFieldTo("Server Selection.Search", null, server.policy, false);
         // lazy scrolling and click the chosen server
-        VisionDebugIdsManager.setLabel("Server Selection");
-        VisionDebugIdsManager.setParams(server.name, server.device, server.policy);
-        ComponentLocator targetElementLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
-        String valueElementsLocator = "//*[contains(@data-debug-id, 'radio-" + server.name + "') and contains(@data-debug-id, 'parent')]";
-        ComponentLocator elementsLocator = new ComponentLocator(How.XPATH, valueElementsLocator);
-        new VRMHandler().scrollUntilElementDisplayed(elementsLocator, targetElementLocator);
-        buttonClick("Server Selection.Server Name", server.toString());
+        String deviceIp = sutManager.getTreeDeviceManagementFromDevices(server.device).get().getManagementIp();
+
+        List<String> serverDetails = new ArrayList<String>();
+        serverDetails.add(0,deviceIp);
+        serverDetails.add(1,server.policy);
+        serverDetails.add(2,server.name);
+
+        WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId("row-"+serverDetails.get(0).toString()+"_"+serverDetails.get(1).toString()+"_"+serverDetails.get(2).toString()));
+        checkbox.click();
+
         if (saveServer != null) {
             buttonClick("Server Selection.Save", (String) null);
         }
@@ -279,7 +284,7 @@ public class GenericSteps extends VisionUITestBase {
                 BaseTestUtils.report(errorMessage, Reporter.FAIL);
                 throw new TargetWebElementNotFoundException(errorMessage);
             }
-            if (!actualValue.trim().equals(invokeMethodFromText(expectedValue))) {
+            if (!actualValue.trim().equalsIgnoreCase((String) invokeMethodFromText(expectedValue))) {
                 try {
                     VRMHandler.scroll("Table_Attack Details");
                 } catch (Exception e) {

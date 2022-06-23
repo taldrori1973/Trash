@@ -14,6 +14,7 @@ import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.*;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.VisionRadwareFirstTime;
+import com.radware.vision.root.ResetRadwarePassword;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -27,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
 
 public class VMOperationsSteps extends VisionUITestBase {
 
@@ -112,11 +112,9 @@ public class VMOperationsSteps extends VisionUITestBase {
     public void prerequisiteForSetup(String force) {
         String setupMode;
         String snapshot;
-        VisionRadwareFirstTime visionRadwareFirstTime;
+
         try {
             setupMode = getVisionSetupAttributeFromSUT("setupMode");
-            //kVision
-//            visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
             if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
             snapshot = getVisionSetupAttributeFromSUT("snapshot");
             if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
@@ -135,17 +133,16 @@ public class VMOperationsSteps extends VisionUITestBase {
                 case "kvm_fresh install":
                     deleteKvm();
                     return;
-//
-//                case "physical":
-//                    return;
-//                /* Upgrade section */
+
+                /* Upgrade section */
                 case "kvm_upgrade_inparallel":
                 case "upgrade_inparallel":
                     revertMachines = RevertMachines.MACHINEAndPAIR;
                 case "kvm_upgrade":
                 case "upgrade":
-                    if(revertMachines==null) revertMachines = RevertMachines.MACHINE;
+                    if (revertMachines == null) revertMachines = RevertMachines.MACHINE;
                     RevertSnapshotHandler.revertSnapshot(revertMachines, 60, TimeUnit.MINUTES).afterRevert();
+                    ResetRadwarePassword.resetRadwareUserPassword();
                     return;
                 default:
                     BaseTestUtils.report("What is wrong with you man? there is no such a mode as: " + setupMode, Reporter.FAIL);
@@ -217,18 +214,15 @@ public class VMOperationsSteps extends VisionUITestBase {
                     deploy.deploy();
                     break;
 
-//                case "fresh install_inparallel":
-//                    freshInstallInParallel();
-//                    break;
+                case "fresh install_inparallel":
+                    freshInstallInParallel();
+                    break;
                 default: {
                     BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
                 }
             }
-            if(deploy!=null)
+            if (deploy != null)
                 deploy.afterDeploy();
-            //kVision
-//        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
-//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

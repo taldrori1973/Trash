@@ -17,8 +17,8 @@ Feature: Forensic Criteria Tests
   @SID_2
   Scenario: Run DP simulator
     Given CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
-    And CLI simulate 1 attacks of type "rest_black_ip46" on DeviceID "DefensePro_50.50.7.1" with attack ID
-    And CLI simulate 1 attacks of type "vrm_bdos" on DeviceID "DefensePro_50.50.7.2" with attack ID
+#    And CLI simulate 1 attacks of type "rest_black_ip46" on DeviceID "DefensePro_50.50.7.1" with attack ID
+#    And CLI simulate 1 attacks of type "vrm_bdos" on DeviceID "DefensePro_50.50.7.2" with attack ID
     And CLI simulate 2 attacks of type "https_new2" on SetId "DefensePro_Set_2" with loopDelay 15000 and wait 230 seconds
     Given CLI simulate 1 attacks of type "pps_traps" on SetId "DefensePro_Set_1"
 
@@ -108,7 +108,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination IP Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Destination IP Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 20 with offset 4
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 20 with offset 7
     Then UI Delete Forensics With Name "Not Destination IP Criteria"
 
   @SID_10
@@ -296,7 +296,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Source IP Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Source IP Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 20 with offset 3
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 20 with offset 5
     Then UI Delete Forensics With Name "Not Source IP Criteria"
 
   @SID_24

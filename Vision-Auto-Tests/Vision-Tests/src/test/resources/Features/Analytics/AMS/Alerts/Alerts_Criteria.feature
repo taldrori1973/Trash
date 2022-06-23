@@ -227,7 +227,7 @@ Feature: VRM Alerts Criteria
   Scenario: Create Alerts Criteria non_selected DP
     When UI "Create" Alerts With Name "non_selected DP"
       | Basic Info | Description:DP 12                                       |
-      | devices    | index:12                                                |
+      | devices    | SetId:DefensePro_Set_3                                                |
       | Criteria   | Event Criteria:Attack ID,Operator:Not Equals,Value:123; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                       |
 
@@ -235,28 +235,28 @@ Feature: VRM Alerts Criteria
   Scenario: Create Alerts Criteria selected policy
     When UI "Create" Alerts With Name "selected policy"
       | Basic Info | Description:selected policy                                         |
-      | devices    | index:10,policies:[BDOS]; index:11,policies:[pol_1];                |
+      | devices    | SetId:DefensePro_Set_1,policies:[BDOS]; SetId:DefensePro_Set_2,policies:[pol_1];                |
       | Criteria   | Event Criteria:Attack ID,Operator:Not Equals,Value:123;             |
       | Schedule   | triggerThisRule:4,Within:10,selectTimeUnit:minutes,alertsPerHour:60 |
 
   @SID_33
   Scenario: Create Alerts Criteria physical port
     When UI "Create" Alerts With Name "physical port"
-      | devices  | index:10,ports:[3];                                                 |
+      | devices  | SetId:DefensePro_Set_1,ports:[3];                                                 |
       | Criteria | Event Criteria:Attack ID,Operator:Not Equals,Value:123;             |
       | Schedule | triggerThisRule:1,Within:10,selectTimeUnit:minutes,alertsPerHour:60 |
 
   @SID_34
   Scenario: Create Alerts Criteria physical port and policy
     When UI "Create" Alerts With Name "physical port and policy"
-      | devices  | index:10,policies:[BDOS],ports:[1];                                 |
+      | devices  | SetId:DefensePro_Set_1,policies:[BDOS],ports:[1];                                 |
       | Criteria | Event Criteria:Attack ID,Operator:Not Equals,Value:123;             |
       | Schedule | triggerThisRule:3,Within:10,selectTimeUnit:minutes,alertsPerHour:60 |
 
   @SID_35
   Scenario: Create Alerts Criteria physical port and policy Negative
     When UI "Create" Alerts With Name "physical port and policy Negative"
-      | devices  | index:10,policies:[BDOS],ports:[4];                     |
+      | devices  | SetId:DefensePro_Set_1,policies:[BDOS],ports:[4];                     |
       | Criteria | Event Criteria:Attack ID,Operator:Not Equals,Value:123; |
       | Schedule | checkBox:Trigger,alertsPerHour:60                       |
 
@@ -307,50 +307,50 @@ Feature: VRM Alerts Criteria
   @SID_41
   Scenario: Create Alerts Criteria rate bps gt Kilo
     When UI "Create" Alerts With Name "bps greater than K"
-      | devices  | index:10                                                                      |
+      | devices  | SetId:DefensePro_Set_1                                                                      |
       | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:300,Unit:K; |
       | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60          |
   @SID_42
   Scenario: Create Alerts Criteria rate bps gt Mega
     When UI "Create" Alerts With Name "bps greater than M"
-      | devices  | index:10                                                                      |
+      | devices  | SetId:DefensePro_Set_1                                                                      |
       | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:600,Unit:M; |
       | Schedule | triggerThisRule:4,Within:10,selectTimeUnit:minutes,alertsPerHour:60           |
   @SID_43
   Scenario: Create Alerts Criteria rate bps gt Giga
     When UI "Create" Alerts With Name "bps greater than G"
-      | devices  | index:10                                                                    |
+      | devices  | SetId:DefensePro_Set_1                                                                    |
       | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:G; |
       | Schedule | triggerThisRule:1,Within:10,selectTimeUnit:minutes,alertsPerHour:60         |
   @SID_44
   Scenario: Create Alerts Criteria rate bps gt Tera
     When UI "Create" Alerts With Name "bps greater than T"
-      | devices  | index:10                                                                    |
+      | devices  | SetId:DefensePro_Set_1                                                                    |
       | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:1,Unit:T; |
       | Schedule | checkBox:Trigger,alertsPerHour:60                                           |
   @SID_45
   Scenario: Create Alerts Criteria rate pps gt Kilo
     When UI "Create" Alerts With Name "pps greater than K"
-      | devices  | index:10                                                                       |
+      | devices  | SetId:DefensePro_Set_1                                                                       |
       | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2000,Unit:K; |
       | Schedule | triggerThisRule:1,Within:10,selectTimeUnit:minutes,alertsPerHour:60            |
 
   @SID_46
   Scenario: Create Alerts Criteria rate pps gt Mega
     When UI "Create" Alerts With Name "pps greater than M"
-      | devices  | index:10                                                                    |
+      | devices  | SetId:DefensePro_Set_1                                                                    |
       | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:M; |
       | Schedule | triggerThisRule:1,Within:10,selectTimeUnit:minutes,alertsPerHour:60         |
   @SID_47
   Scenario: Create Alerts Criteria rate pps gt Giga
     When UI "Create" Alerts With Name "pps greater than G"
-      | devices  | index:10                                                                    |
+      | devices  | SetId:DefensePro_Set_1                                                                    |
       | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:G; |
       | Schedule | checkBox:Trigger,alertsPerHour:60                                           |
   @SID_48
   Scenario: Create Alerts Criteria rate pps gt Tera
     When UI "Create" Alerts With Name "pps greater than T"
-      | devices  | index:10                                                                    |
+      | devices  | SetId:DefensePro_Set_1                                                                    |
       | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:1,Unit:T; |
       | Schedule | checkBox:Trigger,alertsPerHour:60                                           |
     Then CLI Run remote linux Command "rm -f /opt/radware/storage/maintenance/catalina.out*" on "ROOT_SERVER_CLI"

@@ -258,18 +258,18 @@ Feature: BDoS General Behavioral Tests
 #  @SID_21
 #  Scenario: Scope selection need to be kept between tabs
 #    Then UI "Validate" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[pol_1] |
+#      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[pol_1] |
 #    Then UI Click Button "Behavioral Tab" with value "DNS"
 #    Then UI "Validate" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[pol_1] |
+#      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[pol_1] |
 #    Then Sleep "2"
 #    Then UI Click Button "Behavioral Tab" with value "QDoS"
 #    Then UI "Validate" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[pol_1] |
+#      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[pol_1] |
 #    Then Sleep "2"
 #    Then UI Click Button "Behavioral Tab" with value "BDoS"
 #    Then UI "Validate" Scope Polices
-#      | devices | type:DEVICES,index:10,policies:[pol_1] |
+#      | devices | type:DEVICES,SetId:DefensePro_Set_1,policies:[pol_1] |
 
 
   @SID_22

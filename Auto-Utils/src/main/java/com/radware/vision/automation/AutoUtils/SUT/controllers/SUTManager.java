@@ -50,6 +50,7 @@ public interface SUTManager {
 
     List<TreeDeviceManagementDto> getSimulators();
 
+    List<InterfaceDto> getInterfaces();
 
     Optional<EnvironmentDto> getEnvironment();
 

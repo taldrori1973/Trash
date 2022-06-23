@@ -202,7 +202,7 @@ Feature: Challenged inbound
 
   @SID_22
   Scenario: VRM report validate CSV file Traffic Bandwidth number of lines
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "61"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Traffic\ Bandwidth-DefensePro\ Analytics.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "60"
 
 #
 #  @SID_11
@@ -309,8 +309,11 @@ Feature: Challenged inbound
   @SID_30
   Scenario: select all devices
     Given UI Click Button "Device Selection"
-    Given UI Click Button "AllScopeSelection"
-    Given UI Click Button "Device Selection.Save Filter"
+#    Given UI Click Button "AllScopeSelection"
+#    Given UI Click Button "Device Selection.Save Filter"
+    Then UI VRM Select device from dashboard and Save Filter
+      | setId | ports | policies |
+
 
   @SID_31
   Scenario: check bps with inbound Analytics

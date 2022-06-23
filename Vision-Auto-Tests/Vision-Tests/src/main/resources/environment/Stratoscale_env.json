@@ -13,7 +13,7 @@
       "networkName": "Vision_net_18",
       "netMask": "255.255.0.0",
       "gateway": "10.188.1.1",
-      "primaryDNS": "10.221.1.47",
+      "primaryDNS": "10.220.20.7",
       "physicalManagement": "G1",
       "radwareUser": "radware",
       "radwarePassword": "radware",

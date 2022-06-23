@@ -43,9 +43,6 @@ Feature: UDP widgets
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "Policy_4993@00000e-00005-0"
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Behavioral DoS"
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack Status" findBy cellValue "Ongoing"
-    Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
-      | value | min | valueOffset |
-      | 0     | 5   | 3           |
     Then UI Validate Line Chart data "BDoS-UDP" with Label "Total Traffic"
       | value  | min | valueOffset |
       | 332500 | 5   | 1500        |

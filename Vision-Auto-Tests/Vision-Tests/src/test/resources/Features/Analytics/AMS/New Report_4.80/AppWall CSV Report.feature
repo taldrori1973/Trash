@@ -75,11 +75,11 @@ Feature: AppWall CSV Report
   @SID_8
   Scenario: generate report
     Then UI "Generate" Report With Name "Automation AppWall CSV Report"
-      | timeOut | 60 |
+      | timeOut | 90 |
 
   @SID_7
   Scenario: VRM report unzip local CSV file
-    Then CLI Copy files contains name "VRM_report_*.zip" from container "config_kvision-reporter_1" from path "/usr/local/tomcat" to path "/opt/radware/mgt-server/third-party/tomcat/bin/"
+    Then CLI Copy files contains name "VRM_report_[0-9]+.zip" from container "config_kvision-reporter_1" from path "/usr/local/tomcat" to path "/opt/radware/mgt-server/third-party/tomcat/bin/"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI" and halt 185 seconds
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then Sleep "10"
