@@ -36,6 +36,7 @@ import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.restBddTests.RestClientsSteps;
+import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -142,7 +143,8 @@ public class BasicOperationsSteps extends VisionUITestBase {
     /**
      * @param username - username
      * @param password - user password
-     *                 Do Log in with userName and password and if the user had loggedIn with another userName it Do logout, after that login with the userName
+     *                 Log in with userName and password.
+     *                 If the user had loggedIn with another userName will log out, then login with the userName
      */
     @Given("^UI Login with user \"(.*)\" and password \"(.*)\"( negative)?$")
     public void login(String username, String password, String negative) throws Exception {
@@ -183,49 +185,21 @@ public class BasicOperationsSteps extends VisionUITestBase {
         VisionUITestSetup webUITestSetup = new VisionUITestSetup();
         webUITestSetup.setup();
         BasicOperationsHandler.login(username, password);
-        VisionWebUIUtils.loggedinUser = username;
         RestClientsSteps.thatCurrentVisionIsLoggedIn(null, username, password, null);
-        restTestBase.getVisionRestClient().login();
+        restTestBase.getVisionRestClient().login(username, password, null, 1);
+        VisionWebUIUtils.loggedinUser = username;
     }
 
-//    /**
-//     * REST logout from server and UI validation
-//     *
-//     * @param visionRestClient - rest client
-//     *                         //     * @param sessionID - rest session ID
-//     */
-//    public static void logoutFromServer(VisionRestClient visionRestClient, String username) {
-//        int sessionID = visionRestClient.getSuitableSessionId(username);
-//        WebUIUtils.isIgnoreDisplayedPopup = true;
-//        WebUIUtils.setIsTriggerPopupSearchEvent(true);
-//        try {
-//            if (!isLoggedOut(WebUIUtils.SHORT_WAIT_TIME)) {
-//                visionRestClient.logout(sessionID);
-//            }
-//        } catch (IllegalStateException e) {
-//            //if user was already logged in we got into a inactivity timeout (most likely Configuration TO)
-//            visionRestClient.login(visionRestClient.getUsername(), visionRestClient.getPassword(), "", sessionID);
-//            visionRestClient.logout(sessionID);
-//        } catch (Exception e) {
-//            BaseTestUtils.report("Failed to logout: " + e.getMessage(), Reporter.FAIL);
-//        } finally {
-//            if (!isLoggedOut(WebUIUtils.DEFAULT_LOGIN_WAIT_TIME)) {
-//                BaseTestUtils.report("Logout Operation failed, no \"log In\" button found", Reporter.FAIL);
-//            } else {
-//                isLoggedIn = false;
-//                VisionDebugIdsManager.setTab("LoginPage");
-//            }
-//        }
-//    }
-
     public static void logoutBrowser() throws Exception {
-        Cookie jsessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID");
-        if (jsessionId == null) {
+        Cookie jSessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID");
+        if (jSessionId == null) {
             throw new Exception("can't get the JSESSIONID.");
         }
-        String browserSessionId = jsessionId.getValue();
+        String browserSessionId = jSessionId.getValue();
+        //TODO choose what to use - Eyali
         BaseTestUtils.report("Browser Session Id = " + browserSessionId, Reporter.PASS_NOR_FAIL);
-        GenericVisionRestAPI currentVisionRestAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Log Out");
+//        GenericVisionRestAPI currentVisionRestAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Log Out");
+        CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/SystemManagement.json", "Log Out");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("JSESSIONID", browserSessionId);
         currentVisionRestAPI.getRestRequestSpecification().setCookies(hash_map_param);
@@ -935,7 +909,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     @Then("^UI ScrollIntoView with label \"([^\"]*)\" (?:and params \"([^\"]*)\")?$")
-    public void uiScrollIntoViewWithLabelAndParams(String label, String params) throws Throwable {
+    public void uiScrollIntoViewWithLabelAndParams(String label, String params) {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(params.split(","));
         try {
@@ -1000,7 +974,7 @@ public class BasicOperationsSteps extends VisionUITestBase {
     }
 
     @Then("^UI Unclick all the attributes \"([^\"]*)\" is \"(EQUALS|CONTAINS)\" to \"([^\"]*)\"$")
-    public void uiUnclickAllTheAttributesOf(String attribute, String compare, String value, List<ParameterSelected> listParameters) {
+    public void uiUnClickAllTheAttributesOf(String attribute, String compare, String value, List<ParameterSelected> listParameters) {
         try {
             for (ParameterSelected parameter : listParameters) {
                 VisionDebugIdsManager.setLabel(parameter.label);
@@ -1009,7 +983,6 @@ public class BasicOperationsSteps extends VisionUITestBase {
                 if (element == null) {
                     addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
                 } else {
-                    String actualStatus = element.getAttribute(attribute);
                     switch (compare) {
                         case "EQUALS":
                             if (element.getAttribute(attribute).equalsIgnoreCase(value)) {
@@ -1028,10 +1001,5 @@ public class BasicOperationsSteps extends VisionUITestBase {
         } catch (TargetWebElementNotFoundException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-    }
-
-    public static class ClickParameter {
-        String label;
-        String param;
     }
 }
