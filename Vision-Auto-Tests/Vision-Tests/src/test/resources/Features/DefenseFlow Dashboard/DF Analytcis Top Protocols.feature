@@ -40,8 +40,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
-      | Top Protocols Total Percentage | 0     | 69.44 % | 2      |
-      | Top Protocols Total Percentage | 1     | 30.55 % | 2      |
+      | Top Protocols Total Percentage | 0     | 69.44 % | 4      |
+      | Top Protocols Total Percentage | 1     | 30.55 % | 4      |
 
   @SID_4
   Scenario: Validate Top Protocols Extended Widgets Values Sorted by Total pps
@@ -55,13 +55,13 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value   | offset |
-      | Top Protocols Total Value | 0     | 7.22 Kp | 3      |
-      | Top Protocols Total Value | 1     | 3.23 Kp | 3      |
+      | Top Protocols Total Value | 0     | 7.22 Kp | 20     |
+      | Top Protocols Total Value | 1     | 3.23 Kp | 20     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
-      | Top Protocols Total Percentage | 0     | 69.07 % | 2      |
-      | Top Protocols Total Percentage | 1     | 30.92 % | 2      |
+      | Top Protocols Total Percentage | 0     | 69.07 % | 4      |
+      | Top Protocols Total Percentage | 1     | 30.92 % | 4      |
 
   @SID_5
   Scenario: Validate Top Protocols Extended Widgets Values Sorted by Last bps
@@ -82,8 +82,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
-      | Top Protocols Total Percentage | 0     | 70.02 % | 2      |
-      | Top Protocols Total Percentage | 1     | 29.97 % | 2      |
+      | Top Protocols Total Percentage | 0     | 70.02 % | 4      |
+      | Top Protocols Total Percentage | 1     | 29.97 % | 4      |
 
 
   @SID_6
@@ -103,8 +103,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
-      | Top Protocols Total Percentage | 0     | 69.57 % | 2      |
-      | Top Protocols Total Percentage | 1     | 30.42 % | 2      |
+      | Top Protocols Total Percentage | 0     | 69.57 % | 4      |
+      | Top Protocols Total Percentage | 1     | 30.42 % | 4      |
 
 
   @SID_7
@@ -146,8 +146,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
-      | Top Protocols Total Percentage | 0     | 69.14 % | 2      |
-      | Top Protocols Total Percentage | 1     | 30.95 % | 2      |
+      | Top Protocols Total Percentage | 0     | 69.14 % | 4      |
+      | Top Protocols Total Percentage | 1     | 30.95 % | 4      |
 
 
   @SID_9
@@ -169,8 +169,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
-      | Top Protocols Total Percentage | 0     | 69.28 % | 5      |
-      | Top Protocols Total Percentage | 1     | 30.71 % | 5      |
+      | Top Protocols Total Percentage | 0     | 69.28 % | 4      |
+      | Top Protocols Total Percentage | 1     | 30.71 % | 4      |
 
   @SID_10
   Scenario: Validate Top Protocols Extended Widgets Values Sorted by Max pps
@@ -189,8 +189,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
-      | Top Protocols Total Percentage | 0     | 67.16 % | 2      |
-      | Top Protocols Total Percentage | 1     | 31.34 % | 2      |
+      | Top Protocols Total Percentage | 0     | 67.16 % | 4      |
+      | Top Protocols Total Percentage | 1     | 31.34 % | 4      |
 
               ################  Line Charts ##################
 
