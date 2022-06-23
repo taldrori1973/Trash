@@ -35,8 +35,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value   | offset |
-      | Top Protocols Total Value | 0     | 5.77 Gb | 4      |
-      | Top Protocols Total Value | 1     | 2.54 Gb | 4      |
+      | Top Protocols Total Value | 0     | 5.77 Gb | 20     |
+      | Top Protocols Total Value | 1     | 2.54 Gb | 20     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
@@ -55,8 +55,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value   | offset |
-      | Top Protocols Total Value | 0     | 7.22 Kp | 4      |
-      | Top Protocols Total Value | 1     | 3.23 Kp | 4      |
+      | Top Protocols Total Value | 0     | 7.22 Kp | 20     |
+      | Top Protocols Total Value | 1     | 3.23 Kp | 20     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
@@ -77,8 +77,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value     | offset |
-      | Top Protocols Total Value | 0     | 18.1 Mbps | 5     |
-      | Top Protocols Total Value | 1     | 7.75 Mbps | 5     |
+      | Top Protocols Total Value | 0     | 18.1 Mbps | 20     |
+      | Top Protocols Total Value | 1     | 7.75 Mbps | 20     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
@@ -98,8 +98,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value  | offset |
-      | Top Protocols Total Value | 0     | 24 pps | 5     |
-      | Top Protocols Total Value | 1     | 10 pps | 5     |
+      | Top Protocols Total Value | 0     | 24 pps | 20     |
+      | Top Protocols Total Value | 1     | 10 pps | 20     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
@@ -141,8 +141,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value  | offset |
-      | Top Protocols Total Value | 0     | 30 pps | 5     |
-      | Top Protocols Total Value | 1     | 13 pps | 5     |
+      | Top Protocols Total Value | 0     | 30 pps | 20     |
+      | Top Protocols Total Value | 1     | 13 pps | 20     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
@@ -164,8 +164,8 @@ Feature: DF Analytics Top Protocols
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                     | param | value      | offset |
-      | Top Protocols Total Value | 0     | 37.14 Mbps | 5     |
-      | Top Protocols Total Value | 1     | 16.46 Mbps | 5     |
+      | Top Protocols Total Value | 0     | 37.14 Mbps | 20     |
+      | Top Protocols Total Value | 1     | 16.46 Mbps | 20     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                          | param | value   | offset |
