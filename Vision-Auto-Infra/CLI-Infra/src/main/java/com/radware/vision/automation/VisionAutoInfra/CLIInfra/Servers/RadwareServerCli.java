@@ -82,48 +82,6 @@ public class RadwareServerCli extends ServerCliBase {
         p.setRegularExpression(true);
         prompts.add(p);
 
-        // For User Password Change Radware
-        p = new Prompt();
-        p.setPrompt("Current radware password:");
-        p.setCommandEnd(true);
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Password:");
-        p.setCommandEnd(true);
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Current root password:");
-        p.setCommandEnd(true);
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Current radware password:");
-        p.setCommandEnd(true);
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("New UNIX password: ");
-        p.setCommandEnd(true);
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Retype new UNIX password: ");
-        p.setCommandEnd(true);
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("New password:\\s*");
-        p.setRegularExpression(true);
-        p.setCommandEnd(true);
-        prompts.add(p);
-
-        p = new Prompt();
-        p.setPrompt("Re-type new password:");
-        p.setCommandEnd(true);
-        prompts.add(p);
-
         p = new Prompt();
         p.setPrompt("Continue with the restore operation? (Y/N)");
         p.setCommandEnd(true);
