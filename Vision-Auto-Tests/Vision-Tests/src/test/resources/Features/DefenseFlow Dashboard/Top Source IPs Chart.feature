@@ -4,13 +4,13 @@ Feature: Top Source IPs Chart
   @SID_1
   Scenario: Clean system data before Top Source IPs Chart Test
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    * REST Delete ES index "df-traffic"
-    * REST Delete ES index "df-attack"
+    * REST Delete ES index "df-a*"
+    * REST Delete ES index "df-t*"
     * REST Delete ES index "traffic*"
-    * REST Delete ES index "attacks*"
+    * REST Delete ES index "attack*"
     * CLI Clear vision logs
     Then CLI simulate 1 attacks of type "FlowDetector_test" on SetId "FNM_Set_0" as dest from src "10.18.2.19" and wait 200 seconds
-    Then Sleep "100"
+    Then Sleep "50"
 
   @SID_2
   Scenario: Login and navigate to DF Analytics
@@ -19,34 +19,36 @@ Feature: Top Source IPs Chart
 
 
   @SID_3
-  Scenario: Validate Top Source IP Extended Widgets Values Sorted by Total bps
+  Scenario: Validate Top Source IP Extended Widgets Values Sorted by Average bps
+    Then UI Click Button "Dropdown Units" with value "Top Source IP Addresses"
+    Then UI Click Button "bps Units" with value "Top Source IP Addresses"
+    Then Sleep "3"
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label      | param | value     |
       | Top Source | 0     | 10.0.0.27 |
-      | Top Source | 1     | 10.0.0.26 |
-      | Top Source | 2     | 10.0.0.24 |
+      | Top Source | 1     | 10.0.0.24 |
+      | Top Source | 2     | 10.0.0.26 |
       | Top Source | 3     | 10.0.0.20 |
       | Top Source | 4     | 10.0.0.30 |
 
-
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                  | param | value     | offset |
-      | Top Source Total Value | 0     | 678.49 Mb | 20     |
-      | Top Source Total Value | 1     | 662.97 Mb | 20     |
-      | Top Source Total Value | 2     | 661.17 Mb | 20     |
-      | Top Source Total Value | 3     | 652.86 Mb | 20     |
-      | Top Source Total Value | 4     | 649.11 Mb | 20     |
+      | Top Source Total Value | 0     | 2.83 Mbps | 10     |
+      | Top Source Total Value | 1     | 2.76 Mbps | 10     |
+      | Top Source Total Value | 2     | 2.75 Mbps | 10     |
+      | Top Source Total Value | 3     | 2.72 Mbps | 10     |
+      | Top Source Total Value | 4     | 2.7 Mbps  | 10     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.47 % | 3      |
-      | Top Source Total Percentage | 1     | 10.20 % | 3      |
-      | Top Source Total Percentage | 2     | 10.21 % | 3      |
+      | Top Source Total Percentage | 0     | 10.34 % | 3      |
+      | Top Source Total Percentage | 1     | 10.26 % | 3      |
+      | Top Source Total Percentage | 2     | 10.20 % | 3      |
       | Top Source Total Percentage | 3     | 10.08 % | 3      |
-      | Top Source Total Percentage | 4     | 10.02 % | 3      |
+      | Top Source Total Percentage | 4     | 10.07 % | 3      |
 
   @SID_4
-  Scenario: Validate Top Source IP Extended Widgets Values Sorted by Total pps
+  Scenario: Validate Top Source IP Extended Widgets Values Sorted by Average pps
     Then UI Click Button "Dropdown Units" with value "Top Source IP Addresses"
     Then UI Click Button "pps Units" with value "Top Source IP Addresses"
     Then Sleep "3"
@@ -55,24 +57,24 @@ Feature: Top Source IPs Chart
       | Top Source | 0     | 10.0.0.23 |
       | Top Source | 1     | 10.0.0.32 |
       | Top Source | 2     | 10.0.0.24 |
-      | Top Source | 3     | 10.0.0.25 |
-      | Top Source | 4     | 10.0.0.22 |
+      | Top Source | 3     | 10.0.0.22 |
+      | Top Source | 4     | 10.0.0.31 |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                  | param | value | offset |
-      | Top Source Total Value | 0     | 862 p | 20     |
-      | Top Source Total Value | 1     | 846 p | 20     |
-      | Top Source Total Value | 2     | 843 p | 20     |
-      | Top Source Total Value | 3     | 823 p | 20     |
-      | Top Source Total Value | 4     | 817 p | 20     |
+      | Top Source Total Value | 0     | 3 pps | 10     |
+      | Top Source Total Value | 1     | 3 pps | 10     |
+      | Top Source Total Value | 2     | 3 pps | 10     |
+      | Top Source Total Value | 3     | 3 pps | 10     |
+      | Top Source Total Value | 4     | 3 pps | 10     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.53 % | 3      |
-      | Top Source Total Percentage | 1     | 10.34 % | 3      |
-      | Top Source Total Percentage | 2     | 10.30 % | 3      |
-      | Top Source Total Percentage | 3     | 10.06 % | 3      |
-      | Top Source Total Percentage | 4     | 9.98 %  | 3      |
+      | Top Source Total Percentage | 0     | 10.56 % | 3      |
+      | Top Source Total Percentage | 1     | 10.36 % | 3      |
+      | Top Source Total Percentage | 2     | 10.33 % | 3      |
+      | Top Source Total Percentage | 3     | 10.08 % | 3      |
+      | Top Source Total Percentage | 4     | 10.01 % | 3      |
 
   @SID_5
   Scenario: Validate Top Source IP Extended Widgets Values Sorted by Last bps
@@ -137,38 +139,38 @@ Feature: Top Source IPs Chart
 
 
   @SID_7
-  Scenario: Validate Top Source IP Extended Widgets Values Sorted by Average bps
+  Scenario: Validate Top Source IP Extended Widgets Values Sorted by Total bps
     Then UI Click Button "Dropdown Sort By" with value "Top Source IP Addresses"
-    Then UI Click Button "Sort By Average" with value "Top Source IP Addresses"
+    Then UI Click Button "Sort By Total" with value "Top Source IP Addresses"
     Then UI Click Button "Dropdown Units" with value "Top Source IP Addresses"
     Then UI Click Button "bps Units" with value "Top Source IP Addresses"
-    Then Sleep "3"
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label      | param | value     |
       | Top Source | 0     | 10.0.0.27 |
-      | Top Source | 1     | 10.0.0.24 |
-      | Top Source | 2     | 10.0.0.26 |
+      | Top Source | 1     | 10.0.0.26 |
+      | Top Source | 2     | 10.0.0.24 |
       | Top Source | 3     | 10.0.0.20 |
       | Top Source | 4     | 10.0.0.30 |
 
+
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                  | param | value     | offset |
-      | Top Source Total Value | 0     | 2.83 Mbps | 10     |
-      | Top Source Total Value | 1     | 2.76 Mbps | 10     |
-      | Top Source Total Value | 2     | 2.75 Mbps | 10     |
-      | Top Source Total Value | 3     | 2.72 Mbps | 10     |
-      | Top Source Total Value | 4     | 2.7 Mbps  | 10     |
+      | Top Source Total Value | 0     | 678.49 Mb | 20     |
+      | Top Source Total Value | 1     | 662.97 Mb | 20     |
+      | Top Source Total Value | 2     | 661.17 Mb | 20     |
+      | Top Source Total Value | 3     | 652.86 Mb | 20     |
+      | Top Source Total Value | 4     | 649.11 Mb | 20     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.34 % | 3      |
-      | Top Source Total Percentage | 1     | 10.26 % | 3      |
-      | Top Source Total Percentage | 2     | 10.20 % | 3      |
+      | Top Source Total Percentage | 0     | 10.47 % | 3      |
+      | Top Source Total Percentage | 1     | 10.20 % | 3      |
+      | Top Source Total Percentage | 2     | 10.21 % | 3      |
       | Top Source Total Percentage | 3     | 10.08 % | 3      |
-      | Top Source Total Percentage | 4     | 10.07 % | 3      |
+      | Top Source Total Percentage | 4     | 10.02 % | 3      |
 
   @SID_8
-  Scenario: Validate Top Source IP Extended Widgets Values Sorted by Average pps
+  Scenario: Validate Top Source IP Extended Widgets Values Sorted by Total pps
     Then UI Click Button "Dropdown Units" with value "Top Source IP Addresses"
     Then UI Click Button "pps Units" with value "Top Source IP Addresses"
     Then Sleep "3"
@@ -177,24 +179,24 @@ Feature: Top Source IPs Chart
       | Top Source | 0     | 10.0.0.23 |
       | Top Source | 1     | 10.0.0.32 |
       | Top Source | 2     | 10.0.0.24 |
-      | Top Source | 3     | 10.0.0.22 |
-      | Top Source | 4     | 10.0.0.31 |
+      | Top Source | 3     | 10.0.0.25 |
+      | Top Source | 4     | 10.0.0.22 |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                  | param | value | offset |
-      | Top Source Total Value | 0     | 3 pps | 10     |
-      | Top Source Total Value | 1     | 3 pps | 10     |
-      | Top Source Total Value | 2     | 3 pps | 10     |
-      | Top Source Total Value | 3     | 3 pps | 10     |
-      | Top Source Total Value | 4     | 3 pps | 10     |
+      | Top Source Total Value | 0     | 862 p | 20     |
+      | Top Source Total Value | 1     | 846 p | 20     |
+      | Top Source Total Value | 2     | 843 p | 20     |
+      | Top Source Total Value | 3     | 823 p | 20     |
+      | Top Source Total Value | 4     | 817 p | 20     |
 
     Then UI Validate the attribute of "data-debug-value" are "EQUAL" to
       | label                       | param | value   | offset |
-      | Top Source Total Percentage | 0     | 10.56 % | 3      |
-      | Top Source Total Percentage | 1     | 10.36 % | 3      |
-      | Top Source Total Percentage | 2     | 10.33 % | 3      |
-      | Top Source Total Percentage | 3     | 10.08 % | 3      |
-      | Top Source Total Percentage | 4     | 10.01 % | 3      |
+      | Top Source Total Percentage | 0     | 10.53 % | 3      |
+      | Top Source Total Percentage | 1     | 10.34 % | 3      |
+      | Top Source Total Percentage | 2     | 10.30 % | 3      |
+      | Top Source Total Percentage | 3     | 10.06 % | 3      |
+      | Top Source Total Percentage | 4     | 9.98 %  | 3      |
 
 
   @SID_9
