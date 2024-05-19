@@ -1,2 +1,0 @@
-classes modify network create SG2 1 -s 0 -f 66.151.0.0 -t 69.255.255.254 -m ipRange
-dp policies-config table create dns2 -sn SG2

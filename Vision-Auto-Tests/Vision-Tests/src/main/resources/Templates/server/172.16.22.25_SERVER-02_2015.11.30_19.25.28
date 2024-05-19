@@ -1,3 +1,0 @@
-classes modify network create SG3 1 -s 0 -f 70.0.0.0 -t 74.255.255.255 -m ipRange
-classes modify network create SG3 2 -s 0 -f 130.0.0.0 -t 144.255.255.255 -m ipRange
-dp server-protection protected-servers create SERVER-02 -dst SG3

@@ -1,7 +1,0 @@
-scenarios\WebUIAuto_Scenario.xml
-scenarios\localization_main.xml
-scenarios\Scheduler.xml
-scenarios\ExportDpPolicyAndTemplates_StasScenario.xml
-scenarios\Alerts.xml
-scenarios\Vision Settings\System\General Settings\GeneralSettings_Main.xml
-scenarios\Guy - DP\DP Operations parent.xml

@@ -1,2 +1,0 @@
-classes modify network create SG4 1 -a 146.0.0.0 -s 7 -f 146.0.0.0 -t 147.255.255.254 -m ipMask
-dp server-protection protected-servers create SERVER-04 -dst SG4

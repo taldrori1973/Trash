@@ -1,5 +1,0 @@
-classes modify network create SG1 1 -a 8.0.0.0 -s 8 -f 8.0.0.0 -t 8.255.255.255 -m ipMask
-classes modify network create SG1 2 -a 12.0.0.0 -s 8 -f 12.0.0.0 -t 12.255.255.255 -m ipMask
-classes modify network create SG1 3 -a 38.0.0.0 -s 8 -f 38.0.0.0 -t 38.255.255.255 -m ipMask
-classes modify network create SG1 4 -s 0 -f 63.0.0.0 -t 66.150.255.254 -m ipRange
-dp policies-config table create dns1 -sn SG1
